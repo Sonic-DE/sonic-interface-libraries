@@ -29,6 +29,8 @@
 #include <QScreen>
 #include "plasma/pluginloader.h"
 
+#include <KWindowSystem>
+
 
 View::View(Plasma::Corona *corona, QWindow *parent)
     : QQuickView(parent),
@@ -43,6 +45,10 @@ View::View(Plasma::Corona *corona, QWindow *parent)
     connect(screen(), &QScreen::virtualGeometryChanged,
             this, &View::screenGeometryChanged);
 
+    //if (parser.isSet("desktop")) {
+        setGeometry(screen()->geometry());
+        KWindowSystem::setType(winId(), NET::Desktop);
+    //}
     if (!m_corona->package().isValid()) {
         qWarning() << "Invalid home screen package";
     }
@@ -157,6 +163,7 @@ Plasma::Types::FormFactor View::formFactor() const
 
 QRectF View::screenGeometry()
 {
+    qDebug() << "DD screengeometrychanged";
     return screen()->geometry();
 }
 

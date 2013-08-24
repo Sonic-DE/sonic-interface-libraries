@@ -31,6 +31,7 @@ class PanelView;
 class View;
 class WidgetExplorerView;
 
+
 namespace Plasma
 {
     class Applet;

@@ -211,18 +211,22 @@ PanelView *DesktopCorona::panelView(Plasma::Containment *containment) const
 
 void DesktopCorona::screenCountChanged(int newCount)
 {
-    qDebug() << "New screen count" << newCount;
+    qDebug() << "DD New screen count" << newCount;
+    foreach (const View *v, m_views) {
+        qDebug() << "DD screen " << v->screen()->geometry();
+
+    }
     checkViews();
 }
 
 void DesktopCorona::screenResized(int screen)
 {
-    qDebug() << "Screen resized" << screen;
+    qDebug() << "DD Screen resized" << screen;
 }
 
 void DesktopCorona::workAreaResized(int screen)
 {
-    qDebug() << "Work area resized" << screen;
+    qDebug() << "DD Work area resized" << screen;
 }
 
 void DesktopCorona::checkViews()
@@ -232,6 +236,7 @@ void DesktopCorona::checkViews()
     } else if (m_views.count() < m_desktopWidget->screenCount()) {
         for (int i = m_views.count(); i < m_desktopWidget->screenCount(); ++i) {
             View *view = new View(this);
+            qDebug() << "DD new View on screen " << i;
             QSurfaceFormat format;
             view->show();
             
@@ -245,6 +250,10 @@ void DesktopCorona::checkViews()
         }
     }
 
+    foreach (const View *v, m_views) {
+        qDebug() << "DD screen " << v->screen()->geometry();
+
+    }
     //check every containment is in proper view
     for (int i = 0; i < m_desktopWidget->screenCount(); ++i) {
         qDebug() << "TODO: Implement loading containments into the views";

@@ -22,12 +22,12 @@
 #include <klocalizedstring.h>
 #include "desktopcorona.h"
 #include "shellpluginloader.h"
+#include "view.h"
 
 #include <QtQml/QQmlDebuggingEnabler>
 
 static const char description[] = "Plasma Shell";
 static const char version[] = "2.0";
-static QCommandLineParser parser;
 
 int main(int argc, char** argv)
 {
@@ -35,12 +35,17 @@ int main(int argc, char** argv)
     QApplication app(argc, argv);
     app.setApplicationVersion(version);
 
-    QCommandLineOption dbg = QCommandLineOption(QStringList() << QStringLiteral("d") << QStringLiteral("qmljsdebugger"),
-                                        QStringLiteral("Enable QML Javascript debugger"));
+    QCommandLineOption dbg = QCommandLineOption(QStringList() << QStringLiteral("dbg") <<
+                                 QStringLiteral("qmljsdebugger"),
+                                 QStringLiteral("Enable QML Javascript debugger"));
+    QCommandLineOption dsk = QCommandLineOption(QStringList() << QStringLiteral("d") <<
+                                 QStringLiteral("desktop"),
+                                 QStringLiteral("Run as desktop"));
 
     parser.addVersionOption();
     parser.addHelpOption(description);
     parser.addOption(dbg);
+    parser.addOption(dsk);
     parser.process(app);
 
     //enable the QML debugger only if --qmljsdebugger (or -d) is passed as a command line arg

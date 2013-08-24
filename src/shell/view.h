@@ -27,6 +27,10 @@
 
 #include "configview.h"
 
+#include <qcommandlineparser.h>
+static QCommandLineParser parser;
+
+
 class View : public QQuickView
 {
     Q_OBJECT
