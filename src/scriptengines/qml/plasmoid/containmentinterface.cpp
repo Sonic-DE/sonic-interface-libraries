@@ -23,8 +23,10 @@
 #include "wallpaperinterface.h"
 #include <kdeclarative/qmlobject.h>
 
+#include <QClipboard>
 #include <QQmlExpression>
 #include <QQmlProperty>
+#include <QMimeData>
 
 #include <KActionCollection>
 #include <KAuthorized>
@@ -43,8 +45,8 @@ ContainmentInterface::ContainmentInterface(DeclarativeAppletScript *parent)
     : AppletInterface(parent),
       m_wallpaperInterface(0)
 {
-    //TODO: will accept all events specified as registered with containment actions
-    setAcceptedMouseButtons(Qt::RightButton);
+    setAcceptedMouseButtons(Qt::AllButtons);
+    setFlag(QQuickItem::ItemAcceptsDrops);
 
     qmlRegisterType<ContainmentInterface>();
 
@@ -151,6 +153,45 @@ QVariantList ContainmentInterface::availableScreenRegion(int id) const
     return regVal;
 }
 
+void ContainmentInterface::processMimeData(QMimeData *data, int x, int y)
+{
+    const QMimeData *mimeData = data;
+
+    if (!mimeData) {
+        QClipboard *clipboard = QGuiApplication::clipboard();
+        mimeData = clipboard->mimeData(QClipboard::Selection);
+        //TODO if that's not supported (ie non-linux) should we try clipboard instead of selection?
+    }
+
+    qDebug() << "Arrived mimeData" << mimeData->urls() << mimeData->formats() << "at" << x << ", " << y;
+
+    if (mimeData->hasFormat("text/x-plasmoidservicename")) {
+        QString data = mimeData->data("text/x-plasmoidservicename");
+        const QStringList appletNames = data.split('\n', QString::SkipEmptyParts);
+        foreach (const QString &appletName, appletNames) {
+            qDebug() << "adding" << appletName;
+            QRectF geom(QPoint(x, y), QSize(0, 0));
+            //HACK
+            //This is necessary to delay the appletAdded signal (of containmentInterface) AFTER the applet graphics object has been created
+            blockSignals(true);
+            Plasma::Applet *applet = containment()->createApplet(appletName);
+
+            QObject *appletGraphicObject;
+            if (applet) {
+                appletGraphicObject = applet->property("graphicObject").value<QObject *>();
+                if (appletGraphicObject) {
+                    appletGraphicObject->setProperty("x", x);
+                    appletGraphicObject->setProperty("y", y);
+                }
+            }
+
+            blockSignals(false);
+            emit appletAdded(appletGraphicObject);
+            emit appletsChanged();
+        }
+    }
+}
+
 void ContainmentInterface::appletAddedForward(Plasma::Applet *applet)
 {
     if (!applet) {
@@ -229,11 +270,16 @@ QString ContainmentInterface::activity() const
 
 void ContainmentInterface::mousePressEvent(QMouseEvent *event)
 {
-    event->accept();
+    event->setAccepted(containment()->containmentActions().contains(Plasma::ContainmentActions::eventToString(event)));
 }
 
 void ContainmentInterface::mouseReleaseEvent(QMouseEvent *event)
 {
+    if (!containment()->containmentActions().contains(Plasma::ContainmentActions::eventToString(event))) {
+        event->setAccepted(false);
+        return;
+    }
+
     QMenu desktopMenu;
 
     //FIXME: very inefficient appletAt() implementation
@@ -257,6 +303,22 @@ void ContainmentInterface::mouseReleaseEvent(QMouseEvent *event)
     }
     desktopMenu.exec(event->globalPos());
     event->accept();
+}
+
+void ContainmentInterface::wheelEvent(QWheelEvent *event)
+{
+    const QString trigger = Plasma::ContainmentActions::eventToString(event);
+    Plasma::ContainmentActions *plugin = containment()->containmentActions().value(trigger);
+
+    if (plugin) {
+        if (event->delta() < 0) {
+            plugin->performNextAction();
+        } else {
+            plugin->performPreviousAction();
+        }
+    } else {
+        event->setAccepted(false);
+    }
 }
 
 
@@ -345,7 +407,8 @@ void ContainmentInterface::addContainmentActions(QMenu &desktopMenu, QEvent *eve
         plugin->setContainment(containment());
 
         // now configure it
-        KConfigGroup cfg = plugin->config();
+        KConfigGroup cfg(containment()->corona()->config(), "ActionPlugins");
+        cfg = KConfigGroup(&cfg, QString::number(containment()->containmentType()));
         KConfigGroup pluginConfig = KConfigGroup(&cfg, trigger);
         plugin->restore(pluginConfig);
     }

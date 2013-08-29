@@ -60,11 +60,13 @@ public:
     Q_INVOKABLE void lockWidgets(bool locked);
     Q_INVOKABLE QRectF screenGeometry(int id) const;
     Q_INVOKABLE QVariantList availableScreenRegion(int id) const;
+    Q_INVOKABLE void processMimeData(QMimeData *data, int x, int y);
 
 protected:
     void init();
     void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
+    void wheelEvent(QWheelEvent *event);
 
     void addAppletActions(QMenu &desktopMenu, Plasma::Applet *applet, QEvent *event);
     void addContainmentActions(QMenu &desktopMenu, QEvent *event);

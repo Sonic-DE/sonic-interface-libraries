@@ -20,12 +20,29 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0 as QtControls
 import QtQuick.Layouts 1.0
 
-
 Item {
     id: root
 
     implicitWidth: childrenRect.width
     implicitHeight: childrenRect.height
+
+    property var prettyStrings: {
+        "LeftButton": i18n("Left-Button"),
+        "RightButton": i18n("Right-Button"),
+        "MidButton": i18n("Middle-Button"),
+
+        "wheel:Vertical": i18n("Vertical-Scroll"),
+        "wheel:Horizontal": i18n("Horizontal-Scroll"),
+
+        "ShiftModifier": i18n("Shift"),
+        "ControlModifier": i18n("Ctrl"),
+        "AltModifier": i18n("Alt"),
+        "MetaModifier": i18n("Meta")
+    }
+
+    function saveConfig() {
+        configDialog.currentContainmentActionsModel.save();
+    }
 
     Column {
         anchors {
@@ -37,38 +54,66 @@ Item {
         Repeater {
             model: configDialog.currentContainmentActionsModel
             delegate: RowLayout {
-                width: root.width * 0.8
-                QtControls.Button {
-                    text: "Middle Button"
+                width: root.width
+                MouseEventInputButton {
+                    defaultText: prettyStrings ? (prettyStrings[model.action.split(';')[1]] ? prettyStrings[model.action.split(';')[1]] + "+" : "") + prettyStrings[model.action.split(';')[0]] : ""
+                    eventString: model.action
+                    onEventStringChanged: {
+                        configDialog.currentContainmentActionsModel.update(index, eventString, model.pluginName);
+                    }
                 }
+
                 QtControls.ComboBox {
+                    id: pluginsCombo
                     Layout.fillWidth: true
                     model: configDialog.containmentActionConfigModel
                     textRole: "name"
+                    property bool initialized: false
+                    Component.onCompleted: {
+                        for (var i = 0; i < configDialog.containmentActionConfigModel.count; ++i) {
+                            if (configDialog.containmentActionConfigModel.get(i).pluginName == pluginName) {
+                                pluginsCombo.currentIndex = i;
+                                break;
+                            }
+                        }
+                        pluginsCombo.initialized = true;
+                    }
+                    onCurrentIndexChanged: {
+                        if (initialized && configDialog.containmentActionConfigModel.get(currentIndex).pluginName != pluginName) {
+                            configDialog.currentContainmentActionsModel.update(index, action, configDialog.containmentActionConfigModel.get(currentIndex).pluginName);
+                        }
+                    }
                 }
                 QtControls.Button {
                     iconName: "configure"
                     width: height
+                    enabled: model.hasConfigurationInterface
+                    onClicked: {
+                        configDialog.currentContainmentActionsModel.showConfiguration(index);
+                    }
                 }
                 QtControls.Button {
                     iconName: "dialog-information"
                     width: height
+                    onClicked: {
+                        configDialog.currentContainmentActionsModel.showAbout(index);
+                    }
                 }
                 QtControls.Button {
                     iconName: "list-remove"
                     width: height
                     onClicked: {
-                        configDialog.currentContainmentActionsModel.remove(index)
+                        configDialog.currentContainmentActionsModel.remove(index);
                     }
                 }
             }
         }
-        QtControls.Button {
-            text: "Add Action"
-            onClicked: {
-                configDialog.currentContainmentActionsModel.append("RightButton;NoModifier", "org.kde.contextmenu");
+        MouseEventInputButton {
+            defaultText: i18n("Add Action");
+            onEventStringChanged: {
+                configDialog.currentContainmentActionsModel.append(eventString, "org.kde.contextmenu");
             }
         }
     }
-            
+
 }

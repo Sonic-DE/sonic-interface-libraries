@@ -43,7 +43,7 @@ int main(int argc, char** argv)
                                  QStringLiteral("Run as desktop"));
 
     parser.addVersionOption();
-    parser.addHelpOption(description);
+    parser.setApplicationDescription(description);
     parser.addOption(dbg);
     parser.addOption(dsk);
     parser.process(app);
