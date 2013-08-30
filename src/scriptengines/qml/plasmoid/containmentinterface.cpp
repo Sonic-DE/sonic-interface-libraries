@@ -78,7 +78,7 @@ void ContainmentInterface::init()
                 applet->init();
             }
             m_appletInterfaces << applet;
-            emit appletAdded(applet);
+            emit appletAdded(applet, 0, 0);
         }
     }
 
@@ -153,15 +153,13 @@ QVariantList ContainmentInterface::availableScreenRegion(int id) const
     return regVal;
 }
 
-void ContainmentInterface::processMimeData(QMimeData *data, int x, int y)
+void ContainmentInterface::processMimeData(QMimeData *mimeData, int x, int y)
 {
-    const QMimeData *mimeData = data;
-
     if (!mimeData) {
-        QClipboard *clipboard = QGuiApplication::clipboard();
-        mimeData = clipboard->mimeData(QClipboard::Selection);
-        //TODO if that's not supported (ie non-linux) should we try clipboard instead of selection?
+        return;
     }
+
+    //const QMimeData *mimeData = data;
 
     qDebug() << "Arrived mimeData" << mimeData->urls() << mimeData->formats() << "at" << x << ", " << y;
 
@@ -179,14 +177,11 @@ void ContainmentInterface::processMimeData(QMimeData *data, int x, int y)
             QObject *appletGraphicObject;
             if (applet) {
                 appletGraphicObject = applet->property("graphicObject").value<QObject *>();
-                if (appletGraphicObject) {
-                    appletGraphicObject->setProperty("x", x);
-                    appletGraphicObject->setProperty("y", y);
-                }
             }
 
             blockSignals(false);
-            emit appletAdded(appletGraphicObject);
+
+            emit appletAdded(appletGraphicObject, x, y);
             emit appletsChanged();
         }
     }
@@ -221,7 +216,7 @@ void ContainmentInterface::appletAddedForward(Plasma::Applet *applet)
     }
 
     m_appletInterfaces << appletGraphicObject;
-    emit appletAdded(appletGraphicObject);
+    emit appletAdded(appletGraphicObject, 0, 0);
     emit appletsChanged();
 }
 
@@ -275,12 +270,25 @@ void ContainmentInterface::mousePressEvent(QMouseEvent *event)
 
 void ContainmentInterface::mouseReleaseEvent(QMouseEvent *event)
 {
-    if (!containment()->containmentActions().contains(Plasma::ContainmentActions::eventToString(event))) {
+    const QString trigger = Plasma::ContainmentActions::eventToString(event);
+    Plasma::ContainmentActions *plugin = containment()->containmentActions().value(trigger);
+
+    if (!plugin || plugin->contextualActions().isEmpty()) {
         event->setAccepted(false);
         return;
     }
 
-    QMenu desktopMenu;
+
+    //the plugin can be a single action or a context menu
+    //Don't have an action list? execute as single action
+    //and set the event position as action data
+    if (plugin->contextualActions().length() == 1) {
+        QAction *action = plugin->contextualActions().first();
+        action->setData(event->pos());
+        action->trigger();
+        event->accept();
+        return;
+    }
 
     //FIXME: very inefficient appletAt() implementation
     Plasma::Applet *applet = 0;
@@ -295,6 +303,8 @@ void ContainmentInterface::mouseReleaseEvent(QMouseEvent *event)
         }
     }
     qDebug() << "Invoking menu for applet" << applet;
+
+    QMenu desktopMenu;
 
     if (applet) {
         addAppletActions(desktopMenu, applet, event);
@@ -398,8 +408,6 @@ void ContainmentInterface::addContainmentActions(QMenu &desktopMenu, QEvent *eve
     Plasma::ContainmentActions *plugin = containment()->containmentActions().value(trigger);
 
     if (!plugin) {
-        //FIXME: this action is here only for testing purposes, remove it when plugins work
-        desktopMenu.addAction(containment()->actions()->action("configure"));
         return;
     }
 
