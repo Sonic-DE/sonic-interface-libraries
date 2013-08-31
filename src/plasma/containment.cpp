@@ -199,7 +199,7 @@ void Containment::restore(KConfigGroup &group)
     if (cfg.exists()) {
         foreach (const QString &key, cfg.keyList()) {
             //qDebug() << "loading" << key;
-            setContainmentActions(key, cfg.readEntry(key, QString()));
+            addContainmentActions(key, cfg.readEntry(key, QString()));
         }
     } else { //shell defaults
         KConfigGroup defaultActionsCfg;
@@ -212,7 +212,7 @@ void Containment::restore(KConfigGroup &group)
         defaultActionsCfg = KConfigGroup(&defaultActionsCfg, "ContainmentActions");
 
         foreach (const QString &key, defaultActionsCfg.keyList()) {
-            setContainmentActions(key, defaultActionsCfg.readEntry(key, QString()));
+            addContainmentActions(key, defaultActionsCfg.readEntry(key, QString()));
         }
     }
 
@@ -478,7 +478,7 @@ QString Containment::wallpaper() const
     return d->wallpaper;
 }
 
-void Containment::setContainmentActions(const QString &trigger, const QString &pluginName)
+void Containment::addContainmentActions(const QString &trigger, const QString &pluginName)
 {
     KConfigGroup cfg = d->containmentActionsConfig();
     ContainmentActions *plugin = 0;
@@ -495,12 +495,8 @@ void Containment::setContainmentActions(const QString &trigger, const QString &p
     if (pluginName.isEmpty()) {
         cfg.deleteEntry(trigger);
     } else if (plugin) {
-        //it already existed, just reload config
-        plugin->setContainment(this); //to be safe
-        //FIXME make a truly unique config group
-        KConfigGroup pluginConfig = KConfigGroup(&cfg, trigger);
-        plugin->restore(pluginConfig);
-
+        // it already existed, reset the containment so it wil reload config on next show
+        plugin->setContainment(0);
     } else {
         plugin = PluginLoader::self()->loadContainmentActions(this, pluginName);
 
@@ -508,8 +504,6 @@ void Containment::setContainmentActions(const QString &trigger, const QString &p
             cfg.writeEntry(trigger, pluginName);
             containmentActions().insert(trigger, plugin);
             plugin->setContainment(this);
-            KConfigGroup pluginConfig = KConfigGroup(&cfg, trigger);
-            plugin->restore(pluginConfig);
         } else {
             //bad plugin... gets removed. is this a feature or a bug?
             cfg.deleteEntry(trigger);

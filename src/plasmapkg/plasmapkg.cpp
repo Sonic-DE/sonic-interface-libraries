@@ -46,7 +46,6 @@
 #include <iostream>
 #include <iomanip>
 
-static QTextStream cout(stdout);
 
 namespace Plasma
 {
@@ -366,7 +365,7 @@ void PlasmaPkg::runMain()
 
 void PlasmaPkgPrivate::coutput(const QString &msg)
 {
-    cout << msg.toLocal8Bit().constData() << endl;
+    std::cout << msg.toLocal8Bit().constData() << std::endl;
 }
 
 void PlasmaPkgPrivate::runKbuildsycoca()

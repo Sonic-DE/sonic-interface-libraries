@@ -30,9 +30,8 @@
 
 //********** Theme *************
 
-ThemeProxy::ThemeProxy(QQmlEngine *parent)
-    : Plasma::Theme(parent),
-      m_engine(parent)
+ThemeProxy::ThemeProxy(QObject *parent)
+    : Plasma::Theme(parent)
 {
     m_defaultIconSize = KIconLoader::global()->currentSize(KIconLoader::Desktop);
 

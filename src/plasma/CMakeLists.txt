@@ -142,13 +142,10 @@ target_link_libraries(plasma
     ${QT_QTNETWORK_LIBRARY}
     ${QT_QTSQL_LIBRARY}
     ${Qt5Quick_LIBRARIES}
-    Qt5::Svg
     ${ThreadWeaver_LIBRARIES}
     ${KAuth_LIBRARIES}
     ${KWindowSystem_LIBRARIES}
     ${PLASMA_EXTRA_LIBS}
-    KF5::KGuiAddons
-    KF5::KIconThemes
     KF5::KI18n
     KF5::KDE4Attic
     ${KDE4Attic_LIBRARIES}
@@ -158,7 +155,7 @@ target_link_libraries(plasma
 target_link_libraries(plasma kdeclarative ${KArchive_LIBRARIES})
 
 if(X11_FOUND)
-   target_link_libraries(plasma Qt5::X11Extras ${X11_LIBRARIES})
+   target_link_libraries(plasma ${X11_LIBRARIES})
 endif(X11_FOUND)
 
 if(DL_LIBRARY)
@@ -187,7 +184,6 @@ set(plasma_LIB_INCLUDES
     corona.h
     datacontainer.h
     dataengine.h
-    dataengineconsumer.h
     pluginloader.h
     framesvg.h
     package.h

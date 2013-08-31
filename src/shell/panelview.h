@@ -63,7 +63,6 @@ public:
 
 protected:
     void resizeEvent(QResizeEvent *ev);
-    void showEvent(QShowEvent *event);
 
 Q_SIGNALS:
     void alignmentChanged();

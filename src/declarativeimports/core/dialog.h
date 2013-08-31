@@ -148,7 +148,6 @@ protected:
     void resizeEvent(QResizeEvent *re);
     void focusInEvent(QFocusEvent *ev);
     void focusOutEvent(QFocusEvent *ev);
-    void showEvent(QShowEvent *event);
 
     QTimer *m_syncTimer;
     Plasma::Types::Location m_location;

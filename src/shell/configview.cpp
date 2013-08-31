@@ -32,7 +32,6 @@
 
 #include <KGlobal>
 #include <KLocalizedString>
-#include <kdeclarative/kdeclarative.h>
 
 #include <Plasma/Corona>
 #include <Plasma/PluginLoader>
@@ -266,10 +265,6 @@ ConfigView::ConfigView(Plasma::Applet *applet, QWindow *parent)
     : QQuickView(parent),
       m_applet(applet)
 {
-    applet->setUserConfiguring(true);
-    KDeclarative kdeclarative;
-    kdeclarative.setDeclarativeEngine(engine());
-    kdeclarative.setupBindings();
     qmlRegisterType<ConfigModel>("org.kde.plasma.configuration", 2, 0, "ConfigModel");
     qmlRegisterType<ConfigCategory>("org.kde.plasma.configuration", 2, 0, "ConfigCategory");
 
@@ -305,7 +300,6 @@ ConfigView::ConfigView(Plasma::Applet *applet, QWindow *parent)
 
 ConfigView::~ConfigView()
 {
-    m_applet->setUserConfiguring(false);
 }
 
 void ConfigView::init()
