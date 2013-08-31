@@ -48,6 +48,8 @@ Item {
     property Item getWidgetsButton
     property Item categoryButton
 
+    function i18n(inp) { return inp; }
+
     PlasmaComponents.ContextMenu {
         id: categoriesDialog
         visualParent: main.categoryButton

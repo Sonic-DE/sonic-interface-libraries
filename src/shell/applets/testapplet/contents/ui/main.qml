@@ -44,10 +44,10 @@ Rectangle {
         id: column
         anchors.centerIn: parent
         Text {
-            text: i18n("I'm an applet")
+            text: "I'm an applet"
         }
         PlasmaComponents.Button {  
-            text: i18n("Background")
+            text: "Background"
             checked: plasmoid.backgroundHints == 1
             onClicked: {
                 print("Background hints: " + plasmoid.backgroundHints)
@@ -61,7 +61,7 @@ Rectangle {
             }
         }
         PlasmaComponents.Button {  
-            text: i18n("Busy")
+            text: "Busy"
             checked: plasmoid.busy
             onClicked: {
                 plasmoid.busy = !plasmoid.busy

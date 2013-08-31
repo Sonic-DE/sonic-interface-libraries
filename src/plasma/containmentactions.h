@@ -71,6 +71,12 @@ class PLASMA_EXPORT ContainmentActions : public QObject
         KPluginInfo pluginInfo() const;
 
         /**
+         * Returns the configurations of this containmentactions
+         * @since 5.0
+         */
+        KConfigGroup config() const;
+
+        /**
          * This method should be called once the plugin is loaded or settings are changed.
          * @param config Config group to load settings
          * @see init
@@ -88,11 +94,6 @@ class PLASMA_EXPORT ContainmentActions : public QObject
          * Add the configuration interface of the containmentactions to this widget.
          */
         virtual QWidget *createConfigurationInterface(QWidget *parent);
-
-        /**
-         * This method is called when the user's configuration changes are accepted
-         */
-        virtual void configurationAccepted();
 
         /**
          * Called when a "next" action is triggered (e.g. by mouse wheel scroll). This
