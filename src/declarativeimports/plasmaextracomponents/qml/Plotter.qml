@@ -16,29 +16,56 @@
  *****************************************************************************/
 
 import QtQuick 2.0
-import "private" as Private
 
-/**
- * Allows one to construct a Plotter component which
- * can have different types of display.
- * e.g. Line Graph, (TODO more?).
- *
- * This is the main graph-like display normally seen.
- *
- * No text is included, that is up to a wrapping component
- */
+import "private/plotterpainter.js" as PlotterPainter
+
 Item {
     width: 600
     height: 400
 
-    PlotterCanvas {
-        id: plotterCanvas
+    //milliseconds
+    property int sampleInterval: 500
+    Canvas {
+        id: canvas
         anchors.fill: parent
 
-        property int sampleInterval: 800
+        //FIXME: SEGFAULT UPSTREAM? smooth: true
+        // enable most rendering to a separate background thread
+        renderInThread: true
+
+        //TODO: PERFORMANCE: find a good tileSize to help enable caching
+        //TODO: PERFORMANCE: use Canvas::markDirty to mark the effected rect as dirty
 
         Component.onCompleted: {
-           // PlotterPainter.init(width, height);
+            PlotterPainter.init(width, height);
+        }
+
+        onPaint: {
+            var context = getContext("2d");
+    //        PlotterPainter.sceneWidth = 400;
+    //       PlotterPainter.sceneHeight = 400;
+    //        PlotterPainter.canvas = this
+            PlotterPainter.paint(canvas, context)
+        }
+    }
+
+    MouseArea {
+        anchors.fill: canvas
+        hoverEnabled: true
+
+        onPositionChanged: {
+            PlotterPainter.mouseMoved(mouse.x, mouse.y);
+        }
+    }
+
+    Timer {
+        id: plotterTick
+        interval: sampleInterval
+        running: true
+        repeat: true
+        onTriggered: {
+            PlotterPainter.advancePlotter();
+            canvas.requestPaint();
         }
     }
 }
