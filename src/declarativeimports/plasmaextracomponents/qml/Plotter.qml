@@ -16,6 +16,7 @@
  *****************************************************************************/
 
 import QtQuick 2.0
+import "private" as Private
 
 /**
  * Allows one to construct a Plotter component which
