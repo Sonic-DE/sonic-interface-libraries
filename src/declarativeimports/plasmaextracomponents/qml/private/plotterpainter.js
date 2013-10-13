@@ -23,6 +23,7 @@ var width;
 var graphPadding;
 var horizSpace;
 var vertSpace;
+var theme;
 
 /* actually a multidimensional array
 * array of arrays
@@ -58,7 +59,7 @@ var graphType = GraphTypeEnum.FilledLineGraph;
 // the scalar that gets multiplied to scale it up or down.
 //  if it is 1 then it is not scaled at all
 // all members in points[][] are scaled accordingly well, only y values
-var scalar = 0;
+var scalar = 2;
 
 var pointMousedOver = false;
 
@@ -69,7 +70,7 @@ var hoverText = {visible: false, x: 0, y: 0, clearNeeded: false}
 /*
  * @p sampleSet corresponds to the subscript in points[subscript]
  */
-function addSample(y, sampleSet, fillColor)
+function addData(y, sampleSet, fillColor)
 {
     var pointsIndex = sampleSet;
 
@@ -194,24 +195,25 @@ function init(width, height)
  */
 function advancePlotter()
 {
-    debug("");
-    var yPercent = Math.floor(Math.random() * 100);
-    var yPercent2 = Math.floor(Math.random() * 100);
+    debug("We are in hell!");
+    /*var yPercent = Math.floor(Math.random() * 100);
+    //var yPercent2 = Math.floor(Math.random() * 100);
     debug("randomly generated number: " + yPercent);
     debug("$$$$$$$ vertSspace: " + vertSpace);
     debug("$$$$$$$ yPercent: " + yPercent);
     debug("$$$$$$$ graphPadding: " + graphPadding);
     var yPos = (height * (yPercent / 100) + graphPadding * 2);
-    var yPos2 = (height * (yPercent2 / 100) + graphPadding * 2);
+    //var yPos2 = (height * (yPercent2 / 100) + graphPadding * 2);
     debug("randomly generated y pos: " + yPos);
-    addSample(height - yPos, 0, "rgba(0, 150, 255, .5)");
-    addSample(height - yPos2, 1, "rgba(0, 255, 0, .6)");
+    addSample(height - yPos, 0, theme.highlightColor);
+    //addSample(height - yPos2, 1, "rgba(0, 255, 0, .6)");
 
     var index = points.length - 1;
     if ((points[index][points[index].length - 1].x) >= width - graphPadding) {
         print("SHIFT LEFT ATTEMPT ********************!!!");
         shiftLeft();
     }
+    */
 }
 
 function paint(canvas, context)
@@ -246,7 +248,8 @@ function paint(canvas, context)
     gridPainted = false;
 
     context.beginPath();
-    context.fillStyle = "rgba(70, 0, 0, 1)";
+    context.fillStyle = theme.buttonBackgroundColor;
+    context.opacity = 1;
     context.fillRect(0, 0, width, height);
     context.closePath();
 
@@ -382,9 +385,9 @@ function drawGrid(context)
     debug("painting on height: " + height);
 
     // Draw Axis
-    context.lineWidth = 1;
+    context.lineWidth = 0.5;
     //NOTE: set to .5 alpha or so to get paint regions easily
-    context.strokeStyle = "rgba(0, 0, 0, 1)"
+    context.strokeStyle = "rgba(0, 0, 0, 0.5)"
 
     for (var y = 0; y < height - graphPadding; y += height/20) {
         context.moveTo(graphPadding, y);

@@ -16,12 +16,12 @@
  *****************************************************************************/
 
 import QtQuick 2.0
-
+import org.kde.plasma.core 2.0 as PlasmaCore
 import "private/plotterpainter.js" as PlotterPainter
 
 Item {
-    width: 600
-    height: 400
+    width: 300
+    height: 200
 
     //milliseconds
     property int sampleInterval: 500
@@ -33,6 +33,7 @@ Item {
         //TODO: PERFORMANCE: use Canvas::markDirty to mark the effected rect as dirty
 
         Component.onCompleted: {
+            PlotterPainter.theme = theme;
             PlotterPainter.init(width, height);
         }
 
@@ -62,6 +63,27 @@ Item {
         onTriggered: {
             PlotterPainter.advancePlotter();
             canvas.requestPaint();
+        }
+    }
+
+    ListModel {
+        id: plots
+    }
+
+    function addPlot(Color color) {
+        var data = {'color' : color};
+        plots.add(data);
+    }
+
+    function addSample(var sample) {
+        if (sample.count != plots.count) {
+            return false;
+        }
+        else {
+            for(var i = 0; i < sample.count; i++) {
+                PlotterPainter.addData(height - sample[i], i, plots[i]);
+            }
+            return true;
         }
     }
 }
