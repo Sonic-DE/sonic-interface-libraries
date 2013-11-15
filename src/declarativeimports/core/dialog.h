@@ -26,6 +26,7 @@
 #include <QPoint>
 
 #include <Plasma/Plasma>
+#include <Plasma/Theme>
 
 #include <netwm_def.h>
 
@@ -170,6 +171,7 @@ private:
     Qt::WindowFlags m_flags;
     bool m_activeWindow;
     QRect m_cachedGeometry;
+    Plasma::Theme m_theme;
     WindowType m_type;
 };
 
