@@ -353,6 +353,7 @@ void DialogProxy::syncMainItemToSize()
     m_frameSvgItem->setWidth(width());
     m_frameSvgItem->setHeight(height());
     KWindowEffects::enableBlurBehind(winId(), true, m_frameSvgItem->frameSvg()->mask());
+    KWindowEffects::enableBackgroundContrast(winId(), true, 1.8, m_frameSvgItem->frameSvg()->mask());
 
     if (m_mainItem) {
         m_mainItem.data()->setX(m_frameSvgItem->margins()->left());
