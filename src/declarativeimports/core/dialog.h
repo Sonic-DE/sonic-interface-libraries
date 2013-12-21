@@ -26,6 +26,7 @@
 #include <QPoint>
 
 #include <Plasma/Plasma>
+#include <Plasma/Theme>
 
 #include <netwm_def.h>
 
@@ -148,6 +149,7 @@ private Q_SLOTS:
 
 private:
     QRect m_cachedGeometry;
+    Plasma::Theme m_theme;
     WindowType m_type;
     bool m_hideOnWindowDeactivate;
 };
