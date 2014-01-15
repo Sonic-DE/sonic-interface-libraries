@@ -353,6 +353,7 @@ private:
 //UI-specific members ------------------
     KDeclarative::QmlObject *m_qmlObject;
     QWeakPointer<QObject> m_compactUiObject;
+    QWeakPointer<QObject> m_fullRepresentationObject;
 
     QTimer *m_collapseTimer;
 

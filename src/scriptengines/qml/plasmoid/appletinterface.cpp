@@ -138,7 +138,6 @@ void AppletInterface::init()
         m_appletScriptEngine->setLaunchErrorMessage(reason);
     }
 
-
     m_qmlObject->engine()->rootContext()->setContextProperty("plasmoid", this);
 
     //initialize size, so an useless resize less
@@ -146,6 +145,12 @@ void AppletInterface::init()
     initialProperties["width"] = width();
     initialProperties["height"] = height();
     m_qmlObject->completeInitialization(initialProperties);
+
+    QQmlComponent *fullComponent = m_qmlObject->rootObject()->property("fullRepresentation").value<QQmlComponent *>();
+
+    if (fullComponent) {
+        m_fullRepresentationObject = fullComponent->create(fullComponent->creationContext());
+    }
 
     qDebug() << "Graphic object created:" << applet() << applet()->property("graphicObject");
 
@@ -454,7 +459,7 @@ int AppletInterface::apiVersion() const
 
 bool AppletInterface::fillWidth() const
 {
-    if (!m_qmlObject->rootObject()) {
+    if (!m_fullRepresentationObject.data()) {
         return false;
     }
 
@@ -464,7 +469,7 @@ bool AppletInterface::fillWidth() const
     if (m_compactUiObject) {
         prop = m_compactUiObject.data()->property("fillWidth");
     } else {
-        prop = m_qmlObject->rootObject()->property("fillWidth");
+        prop = m_fullRepresentationObject.data()->property("fillWidth");
     }
 
     if (prop.isValid() && prop.canConvert<bool>()) {
@@ -476,7 +481,7 @@ bool AppletInterface::fillWidth() const
 
 bool AppletInterface::fillHeight() const
 {
-    if (!m_qmlObject->rootObject()) {
+    if (!m_fullRepresentationObject.data()) {
         return false;
     }
 
@@ -486,7 +491,7 @@ bool AppletInterface::fillHeight() const
     if (m_compactUiObject) {
         prop = m_compactUiObject.data()->property("fillHeight");
     } else {
-        prop = m_qmlObject->rootObject()->property("fillHeight");
+        prop = m_fullRepresentationObject.data()->property("fillHeight");
     }
 
     if (prop.isValid() && prop.canConvert<bool>()) {
@@ -509,7 +514,7 @@ qreal AppletInterface::readGraphicsObjectSizeHint(const char *hint) const
     if (m_compactUiObject) {
         prop = m_compactUiObject.data()->property(hint);
     } else {
-        prop = m_qmlObject->rootObject()->property(hint);
+        prop = m_fullRepresentationObject.data()->property(hint);
     }
 
     if (prop.isValid() && prop.canConvert<qreal>()) {
@@ -618,13 +623,15 @@ void AppletInterface::compactRepresentationCheck()
 
     //Read the minimum width of the full representation, not our own, since we could be in collapsed mode
     QSizeF minHint(-1, -1);
-    if (m_qmlObject->rootObject()->property("minimumWidth").canConvert<qreal>()) {
-        minHint.setWidth(m_qmlObject->rootObject()->property("minimumWidth").toReal());
+    if (m_fullRepresentationObject.data()->property("minimumWidth").canConvert<qreal>()) {
+        minHint.setWidth(m_fullRepresentationObject.data()->property("minimumWidth").toReal());
     }
 
-    if (m_qmlObject->rootObject()->property("minimumHeight").canConvert<qreal>()) {
-        minHint.setHeight(m_qmlObject->rootObject()->property("minimumHeight").toReal());
+    if (m_fullRepresentationObject.data()->property("minimumHeight").canConvert<qreal>()) {
+        minHint.setHeight(m_fullRepresentationObject.data()->property("minimumHeight").toReal());
     }
+    //TODO: this has to be taken from attached properties of the full representation
+    minHint = QSize(100,100);
 
     //Make it an icon
     if (width() < minHint.width() || height() < minHint.height()) {
@@ -672,12 +679,12 @@ void AppletInterface::compactRepresentationCheck()
                 prop.write(expr.evaluate());
             }
 
-            m_qmlObject->rootObject()->setProperty("parent", QVariant::fromValue(m_compactUiObject.data()));
+            m_fullRepresentationObject.data()->setProperty("parent", QVariant::fromValue(m_compactUiObject.data()));
 
 
             {
                 //reset all the anchors
-                QQmlExpression expr(m_qmlObject->engine()->rootContext(), m_qmlObject->rootObject(), "anchors.fill=undefined;anchors.left=undefined;anchors.right=undefined;anchors.top=undefined;anchors.bottom=undefined;");
+                QQmlExpression expr(m_qmlObject->engine()->rootContext(), m_fullRepresentationObject.data(), "anchors.fill=undefined;anchors.left=undefined;anchors.right=undefined;anchors.top=undefined;anchors.bottom=undefined;");
                 expr.evaluate();
             }
 
@@ -686,21 +693,21 @@ void AppletInterface::compactRepresentationCheck()
             int width = cg.readEntry("DialogWidth", 0);
             int height = cg.readEntry("DialogHeight", 0);
 
-            m_qmlObject->rootObject()->setProperty("width", width);
-            m_qmlObject->rootObject()->setProperty("height", height);
+            m_fullRepresentationObject.data()->setProperty("width", width);
+            m_fullRepresentationObject.data()->setProperty("height", height);
 
-            m_compactUiObject.data()->setProperty("applet", QVariant::fromValue(m_qmlObject->rootObject()));
+            m_compactUiObject.data()->setProperty("applet", QVariant::fromValue(m_fullRepresentationObject.data()));
 
             //hook m_compactUiObject size hints to this size hint
             //Here we have to use the old connect syntax, because we don't have access to the class type
-            if (m_qmlObject->rootObject()) {
-                disconnect(m_qmlObject->rootObject(), 0, this, 0);
+            if (m_fullRepresentationObject.data()) {
+                disconnect(m_fullRepresentationObject.data(), 0, this, 0);
             }
 
             //resize of the root object means popup resize when iconified
-            connect(m_qmlObject->rootObject(), SIGNAL(widthChanged()),
+            connect(m_fullRepresentationObject.data(), SIGNAL(widthChanged()),
                     this, SLOT(updatePopupSize()));
-            connect(m_qmlObject->rootObject(), SIGNAL(heightChanged()),
+            connect(m_fullRepresentationObject.data(), SIGNAL(heightChanged()),
                     this, SLOT(updatePopupSize()));
 
             if (m_compactUiObject.data()->property("minimumWidth").isValid()) {
@@ -755,36 +762,36 @@ void AppletInterface::compactRepresentationCheck()
             disconnect(m_compactUiObject.data(), 0, this, 0);
         }
 
-        disconnect(m_qmlObject->rootObject(), SIGNAL(widthChanged()),
+        disconnect(m_fullRepresentationObject.data(), SIGNAL(widthChanged()),
                     this, SLOT(updatePopupSize()));
-        disconnect(m_qmlObject->rootObject(), SIGNAL(heightChanged()),
+        disconnect(m_fullRepresentationObject.data(), SIGNAL(heightChanged()),
                 this, SLOT(updatePopupSize()));
 
         //Here we have to use the old connect syntax, because we don't have access to the class type
-        if (m_qmlObject->rootObject()->property("minimumWidth").isValid()) {
-            connect(m_qmlObject->rootObject(), SIGNAL(minimumWidthChanged()),
+        if (m_fullRepresentationObject.data()->property("minimumWidth").isValid()) {
+            connect(m_fullRepresentationObject.data(), SIGNAL(minimumWidthChanged()),
                     this, SIGNAL(minimumWidthChanged()));
         }
-        if (m_qmlObject->rootObject()->property("minimumHeight").isValid()) {
-            connect(m_qmlObject->rootObject(), SIGNAL(minimumHeightChanged()),
+        if (m_fullRepresentationObject.data()->property("minimumHeight").isValid()) {
+            connect(m_fullRepresentationObject.data(), SIGNAL(minimumHeightChanged()),
                     this, SIGNAL(minimumHeightChanged()));
         }
 
-        if (m_qmlObject->rootObject()->property("maximumWidth").isValid()) {
-            connect(m_qmlObject->rootObject(), SIGNAL(maximumWidthChanged()),
+        if (m_fullRepresentationObject.data()->property("maximumWidth").isValid()) {
+            connect(m_fullRepresentationObject.data(), SIGNAL(maximumWidthChanged()),
                     this, SIGNAL(maximumWidthChanged()));
         }
-        if (m_qmlObject->rootObject()->property("maximumHeight").isValid()) {
-            connect(m_qmlObject->rootObject(), SIGNAL(maximumHeightChanged()),
+        if (m_fullRepresentationObject.data()->property("maximumHeight").isValid()) {
+            connect(m_fullRepresentationObject.data(), SIGNAL(maximumHeightChanged()),
                     this, SIGNAL(maximumHeightChanged()));
         }
 
-        if (m_qmlObject->rootObject()->property("implicitWidth").isValid()) {
-            connect(m_qmlObject->rootObject(), SIGNAL(implicitWidthChanged()),
+        if (m_fullRepresentationObject.data()->property("implicitWidth").isValid()) {
+            connect(m_fullRepresentationObject.data(), SIGNAL(implicitWidthChanged()),
                     this, SLOT(updateImplicitWidth()));
         }
-        if (m_qmlObject->rootObject()->property("implicitHeight").isValid()) {
-            connect(m_qmlObject->rootObject(), SIGNAL(implicitHeightChanged()),
+        if (m_fullRepresentationObject.data()->property("implicitHeight").isValid()) {
+            connect(m_fullRepresentationObject.data(), SIGNAL(implicitHeightChanged()),
                     this, SLOT(updateImplicitHeight()));
         }
 
@@ -795,14 +802,14 @@ void AppletInterface::compactRepresentationCheck()
         emit maximumWidthChanged();
         emit maximumHeightChanged();
 
-        m_qmlObject->rootObject()->setProperty("parent", QVariant::fromValue(this));
+        m_fullRepresentationObject.data()->setProperty("parent", QVariant::fromValue(this));
         if (m_compactUiObject) {
             m_compactUiObject.data()->deleteLater();
         }
 
         //set anchors
-        QQmlExpression expr(m_qmlObject->engine()->rootContext(), m_qmlObject->rootObject(), "parent");
-        QQmlProperty prop(m_qmlObject->rootObject(), "anchors.fill");
+        QQmlExpression expr(m_qmlObject->engine()->rootContext(), m_fullRepresentationObject.data(), "parent");
+        QQmlProperty prop(m_fullRepresentationObject.data(), "anchors.fill");
         prop.write(expr.evaluate());
     }
 }
@@ -822,8 +829,8 @@ void AppletInterface::updatePopupSize()
 {
     KConfigGroup cg = applet()->config();
     cg = KConfigGroup(&cg, "PopupApplet");
-    cg.writeEntry("DialogWidth", m_qmlObject->rootObject()->property("width").toInt());
-    cg.writeEntry("DialogHeight", m_qmlObject->rootObject()->property("height").toInt());
+    cg.writeEntry("DialogWidth", m_fullRepresentationObject.data()->property("width").toInt());
+    cg.writeEntry("DialogHeight", m_fullRepresentationObject.data()->property("height").toInt());
 }
 
 void AppletInterface::itemChange(ItemChange change, const ItemChangeData &value)

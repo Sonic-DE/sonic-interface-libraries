@@ -35,6 +35,8 @@ PlasmaCore.Applet {
 
     fullRepresentation: Component {
         PlasmaComponents.Label {
+            property int minimumWidth: 200
+            property int minimumHeight: 300
             text: i18n("Hello world")
         }
     }
