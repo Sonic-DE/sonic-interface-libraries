@@ -30,14 +30,14 @@ class Applet : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(int minimumWidth READ minimumWidth NOTIFY minimumWidthChanged)
-    Q_PROPERTY(int minimumHeight READ minimumHeight NOTIFY minimumHeightChanged)
-    Q_PROPERTY(int implicitWidth READ implicitWidth NOTIFY implicitWidthChanged)
-    Q_PROPERTY(int implicitHeight READ implicitHeight NOTIFY implicitHeightChanged)
-    Q_PROPERTY(int maximumWidth READ maximumWidth NOTIFY maximumWidthChanged)
-    Q_PROPERTY(int maximumHeight READ maximumHeight NOTIFY maximumHeightChanged)
-    Q_PROPERTY(QQmlComponent *compactRepresentation READ compactRepresentation NOTIFY compactRepresentationChanged)
-    Q_PROPERTY(QQmlComponent *fullRepresentation READ fullRepresentation NOTIFY fullRepresentationChanged)
+    Q_PROPERTY(int minimumWidth READ minimumWidth WRITE setMaximumWidth NOTIFY minimumWidthChanged)
+    Q_PROPERTY(int minimumHeight READ minimumHeight WRITE setMinimumHeight NOTIFY minimumHeightChanged)
+    Q_PROPERTY(int implicitWidth READ implicitWidth WRITE setImplicitWidth NOTIFY implicitWidthChanged)
+    Q_PROPERTY(int implicitHeight READ implicitHeight WRITE setImplicitHeight NOTIFY implicitHeightChanged)
+    Q_PROPERTY(int maximumWidth READ maximumWidth WRITE setMaximumWidth NOTIFY maximumWidthChanged)
+    Q_PROPERTY(int maximumHeight READ maximumHeight WRITE setMaximumHeight NOTIFY maximumHeightChanged)
+    Q_PROPERTY(QQmlComponent *compactRepresentation READ compactRepresentation WRITE setCompactRepresentation NOTIFY compactRepresentationChanged)
+    Q_PROPERTY(QQmlComponent *fullRepresentation READ fullRepresentation WRITE setFullRepresentation NOTIFY fullRepresentationChanged)
 
 
 public:
