@@ -22,26 +22,17 @@
 #include <QQmlComponent>
 
 #include <QDebug>
-*
 
-Applet::Applet(QQmlEngine *parent)
-    : Plasma::Theme(parent),
-      m_engine(parent)
+
+Applet::Applet(QObject *parent)
+    : QObject(parent),
+      m_minimumWidth(-1),
+      m_minimumHeight(-1),
+      m_implicitWidth(-1),
+      m_implicitHeight(-1),
+      m_maximumWidth(-1),
+      m_maximumHeight(-1)
 {
-    m_defaultIconSize = KIconLoader::global()->currentSize(KIconLoader::Desktop);
-
-    m_iconSizes = new QQmlPropertyMap(this);
-    m_iconSizes->insert("desktop", QVariant(KIconLoader::global()->currentSize(KIconLoader::Desktop)));
-    m_iconSizes->insert("panel", QVariant(KIconLoader::global()->currentSize(KIconLoader::Panel)));
-    m_iconSizes->insert("toolbar", KIconLoader::global()->currentSize(KIconLoader::Toolbar));
-    m_iconSizes->insert("small", KIconLoader::global()->currentSize(KIconLoader::Small));
-    m_iconSizes->insert("dialog", KIconLoader::global()->currentSize(KIconLoader::Dialog));
-
-    connect(this, &Plasma::Theme::themeChanged, this, &Applet::themeChanged);
-    connect(KIconLoader::global(), SIGNAL(iconLoaderSettingsChanged()), this, SLOT(iconLoaderSettingsChanged()));
-
-    updateSpacing();
-    installEventFilter(qApp);
 }
 
 Applet::~Applet()
@@ -60,7 +51,7 @@ void Applet::setMinimumWidth(int width)
     }
 
     m_minimumWidth = width;
-    emit minimumWidthChanged();
+    emit minimumWidthChanged(width);
 }
 
 int Applet::minimumHeight() const
@@ -68,14 +59,14 @@ int Applet::minimumHeight() const
     return m_minimumHeight;
 }
 
-void Applet::setMinimumHeight(int width)
+void Applet::setMinimumHeight(int height)
 {
-    if (m_minimumHeight == width) {
+    if (m_minimumHeight == height) {
         return;
     }
 
-    m_minimumHeight = width;
-    emit minimumHeightChanged();
+    m_minimumHeight = height;
+    emit minimumHeightChanged(height);
 }
 
 int Applet::implicitWidth() const
@@ -90,7 +81,7 @@ void Applet::setImplicitWidth(int width)
     }
 
     m_implicitWidth = width;
-    emit implicitWidthChanged();
+    emit implicitWidthChanged(width);
 }
 
 int Applet::implicitHeight() const
@@ -98,14 +89,14 @@ int Applet::implicitHeight() const
     return m_implicitHeight;
 }
 
-void Applet::setImplicitHeight(int width)
+void Applet::setImplicitHeight(int height)
 {
-    if (m_implicitHeight == width) {
+    if (m_implicitHeight == height) {
         return;
     }
 
-    m_implicitHeight = width;
-    emit implicitHeightChanged();
+    m_implicitHeight = height;
+    emit implicitHeightChanged(height);
 }
 
 int Applet::maximumWidth() const
@@ -120,7 +111,7 @@ void Applet::setMaximumWidth(int width)
     }
 
     m_maximumWidth = width;
-    emit maximumWidthChanged();
+    emit maximumWidthChanged(width);
 }
 
 int Applet::maximumHeight() const
@@ -128,14 +119,14 @@ int Applet::maximumHeight() const
     return m_maximumHeight;
 }
 
-void Applet::setMaximumHeight(int width)
+void Applet::setMaximumHeight(int height)
 {
-    if (m_maximumHeight == width) {
+    if (m_maximumHeight == height) {
         return;
     }
 
-    m_maximumHeight = width;
-    emit maximumHeightChanged();
+    m_maximumHeight = height;
+    emit maximumHeightChanged(height);
 }
 
 QQmlComponent *Applet::compactRepresentation()
@@ -150,7 +141,7 @@ void Applet::setCompactRepresentation(QQmlComponent *component)
     }
 
     m_compactRepresentation = component;
-    emit compactRepresentationChanged();
+    emit compactRepresentationChanged(component);
 }
 
 
@@ -166,7 +157,7 @@ void Applet::setFullRepresentation(QQmlComponent *component)
     }
 
     m_fullRepresentation = component;
-    emit fullRepresentationChanged();
+    emit fullRepresentationChanged(component);
 }
 
 #include "moc_applet.cpp"

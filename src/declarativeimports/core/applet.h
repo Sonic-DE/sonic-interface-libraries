@@ -21,12 +21,11 @@
 #define APPLET_P
 
 #include <QObject>
+#include <QWeakPointer>
+#include <QQmlComponent>
 
-/**
- * QML wrapper for kdelibs Plasma::Theme
- *
- * Exposed as `Theme` in QML.
- */
+class QQmlComponent;
+
 class Applet : public QObject
 {
     Q_OBJECT
@@ -37,12 +36,12 @@ class Applet : public QObject
     Q_PROPERTY(int implicitHeight READ implicitHeight NOTIFY implicitHeightChanged)
     Q_PROPERTY(int maximumWidth READ maximumWidth NOTIFY maximumWidthChanged)
     Q_PROPERTY(int maximumHeight READ maximumHeight NOTIFY maximumHeightChanged)
-    Q_PROPERTY(int compactRepresentation READ compactRepresentation NOTIFY compactRepresentationChanged)
-    Q_PROPERTY(int fullRepresentation READ fullRepresentation NOTIFY fullRepresentationChanged)
+    Q_PROPERTY(QQmlComponent *compactRepresentation READ compactRepresentation NOTIFY compactRepresentationChanged)
+    Q_PROPERTY(QQmlComponent *fullRepresentation READ fullRepresentation NOTIFY fullRepresentationChanged)
 
 
 public:
-    Applet(QQmlEngine *parent = 0);
+    Applet(QObject *parent = 0);
     ~Applet();
 
 
@@ -50,7 +49,7 @@ public:
     void setMinimumWidth(int width);
 
     int minimumHeight() const;
-    void setMinimumHeight(int width);
+    void setMinimumHeight(int height);
 
 
 
@@ -58,15 +57,15 @@ public:
     void setImplicitWidth(int width);
 
     int implicitHeight() const;
-    void setImplicitHeight(int width);
+    void setImplicitHeight(int height);
 
 
 
     int maximumWidth() const;
     void setMaximumWidth(int width);
 
-    int maximumWidth() const;
-    void setMaximumWidth(int width);
+    int maximumHeight() const;
+    void setMaximumHeight(int height);
 
 
 
@@ -81,24 +80,24 @@ Q_SIGNALS:
     void minimumHeightChanged(int height);
 
     void maximumWidthChanged(int width);
-    void maximumWidthChanged(int height);
+    void maximumHeightChanged(int height);
 
     void implicitWidthChanged(int width);
     void implicitHeightChanged(int height);
 
     void compactRepresentationChanged(QQmlComponent *compactRepresentation);
-    void fullRepresentation(QQmlComponent *fullRepresentation);
+    void fullRepresentationChanged(QQmlComponent *fullRepresentation);
 
 private:
     int m_minimumWidth;
     int m_minimumHeight;
-    int m_maximumWidth;
-    int m_maximumHeight;
     int m_implicitWidth;
     int m_implicitHeight;
+    int m_maximumWidth;
+    int m_maximumHeight;
 
-    QWeakPointer<QQmlComponent *> m_compactRepresentation;
-    QWeakPointer<QQmlComponent *> m_fullRepresentation;
+    QWeakPointer<QQmlComponent> m_compactRepresentation;
+    QWeakPointer<QQmlComponent> m_fullRepresentation;
 };
 
 #endif
