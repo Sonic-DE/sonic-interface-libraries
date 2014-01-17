@@ -26,43 +26,6 @@
 
 class QQmlComponent;
 
-class SizeHintAttachedType : public QObject
-{
-    Q_OBJECT
-    Q_PROPERTY(int minimumWidth READ minimumWidth WRITE setMinimumWidth NOTIFY minimumWidthChanged)
-    Q_PROPERTY(int minimumHeight READ minimumHeight WRITE setMinimumHeight NOTIFY minimumHeightChanged)
-
-public:
-    SizeHintAttachedType(QObject *parent);
-    ~SizeHintAttachedType();
-
-    int minimumWidth() const;
-    void setMinimumWidth(int width);
-
-    int minimumHeight() const;
-    void setMinimumHeight(int height);
-
-    static SizeHintAttachedType *qmlAttachedProperties(QObject *object)
-    {
-        return new SizeHintAttachedType(object);
-    }
-
-Q_SIGNALS:
-    void minimumWidthChanged(int width);
-    void minimumHeightChanged(int height);
-
-
-private:
-    int m_minimumWidth;
-    int m_minimumHeight;
-    int m_implicitWidth;
-    int m_implicitHeight;
-    int m_maximumWidth;
-    int m_maximumHeight;
-};
-QML_DECLARE_TYPE(SizeHintAttachedType)
-QML_DECLARE_TYPEINFO(SizeHintAttachedType, QML_HAS_ATTACHED_PROPERTIES)
-
 /**
  * CompactRepresentation and FullRepresentation will have a SizeHint attached object
  * example:
@@ -75,35 +38,19 @@ QML_DECLARE_TYPEINFO(SizeHintAttachedType, QML_HAS_ATTACHED_PROPERTIES)
  *     }
  * }
  */
-class SizeHint : public QObject
+class SizeHintAttachedType : public QObject
 {
     Q_OBJECT
-public:
-    static SizeHintAttachedType *qmlAttachedProperties(QObject *object)
-    {
-        return new SizeHintAttachedType(object);
-    }
-};
-
-
-class Applet : public QObject
-{
-    Q_OBJECT
-
     Q_PROPERTY(int minimumWidth READ minimumWidth WRITE setMaximumWidth NOTIFY minimumWidthChanged)
     Q_PROPERTY(int minimumHeight READ minimumHeight WRITE setMinimumHeight NOTIFY minimumHeightChanged)
     Q_PROPERTY(int implicitWidth READ implicitWidth WRITE setImplicitWidth NOTIFY implicitWidthChanged)
     Q_PROPERTY(int implicitHeight READ implicitHeight WRITE setImplicitHeight NOTIFY implicitHeightChanged)
     Q_PROPERTY(int maximumWidth READ maximumWidth WRITE setMaximumWidth NOTIFY maximumWidthChanged)
     Q_PROPERTY(int maximumHeight READ maximumHeight WRITE setMaximumHeight NOTIFY maximumHeightChanged)
-    Q_PROPERTY(QQmlComponent *compactRepresentation READ compactRepresentation WRITE setCompactRepresentation NOTIFY compactRepresentationChanged)
-    Q_PROPERTY(QQmlComponent *fullRepresentation READ fullRepresentation WRITE setFullRepresentation NOTIFY fullRepresentationChanged)
-
 
 public:
-    Applet(QObject *parent = 0);
-    ~Applet();
-
+    SizeHintAttachedType(QObject *parent);
+    ~SizeHintAttachedType();
 
     int minimumWidth() const;
     void setMinimumWidth(int width);
@@ -128,12 +75,10 @@ public:
     void setMaximumHeight(int height);
 
 
-
-    QQmlComponent *compactRepresentation();
-    void setCompactRepresentation(QQmlComponent *component);
-
-    QQmlComponent *fullRepresentation();
-    void setFullRepresentation(QQmlComponent *component);
+    static SizeHintAttachedType *qmlAttachedProperties(QObject *object)
+    {
+        return new SizeHintAttachedType(object);
+    }
 
 Q_SIGNALS:
     void minimumWidthChanged(int width);
@@ -145,8 +90,6 @@ Q_SIGNALS:
     void implicitWidthChanged(int width);
     void implicitHeightChanged(int height);
 
-    void compactRepresentationChanged(QQmlComponent *compactRepresentation);
-    void fullRepresentationChanged(QQmlComponent *fullRepresentation);
 
 private:
     int m_minimumWidth;
@@ -155,7 +98,35 @@ private:
     int m_implicitHeight;
     int m_maximumWidth;
     int m_maximumHeight;
+};
+QML_DECLARE_TYPE(SizeHintAttachedType)
+QML_DECLARE_TYPEINFO(SizeHintAttachedType, QML_HAS_ATTACHED_PROPERTIES)
 
+
+
+class Applet : public QObject
+{
+    Q_OBJECT
+
+    Q_PROPERTY(QQmlComponent *compactRepresentation READ compactRepresentation WRITE setCompactRepresentation NOTIFY compactRepresentationChanged)
+    Q_PROPERTY(QQmlComponent *fullRepresentation READ fullRepresentation WRITE setFullRepresentation NOTIFY fullRepresentationChanged)
+
+
+public:
+    Applet(QObject *parent = 0);
+    ~Applet();
+
+    QQmlComponent *compactRepresentation();
+    void setCompactRepresentation(QQmlComponent *component);
+
+    QQmlComponent *fullRepresentation();
+    void setFullRepresentation(QQmlComponent *component);
+
+Q_SIGNALS:
+    void compactRepresentationChanged(QQmlComponent *compactRepresentation);
+    void fullRepresentationChanged(QQmlComponent *fullRepresentation);
+
+private:
     QWeakPointer<QQmlComponent> m_compactRepresentation;
     QWeakPointer<QQmlComponent> m_fullRepresentation;
 };

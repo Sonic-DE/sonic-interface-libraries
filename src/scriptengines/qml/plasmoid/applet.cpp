@@ -70,59 +70,12 @@ void SizeHintAttachedType::setMinimumHeight(int height)
     emit minimumHeightChanged(height);
 }
 
-
-
-Applet::Applet(QObject *parent)
-    : QObject(parent),
-      m_minimumWidth(-1),
-      m_minimumHeight(-1),
-      m_implicitWidth(-1),
-      m_implicitHeight(-1),
-      m_maximumWidth(-1),
-      m_maximumHeight(-1)
-{
-}
-
-Applet::~Applet()
-{
-}
-
-int Applet::minimumWidth() const
-{
-    return m_minimumWidth;
-}
-
-void Applet::setMinimumWidth(int width)
-{
-    if (m_minimumWidth == width) {
-        return;
-    }
-
-    m_minimumWidth = width;
-    emit minimumWidthChanged(width);
-}
-
-int Applet::minimumHeight() const
-{
-    return m_minimumHeight;
-}
-
-void Applet::setMinimumHeight(int height)
-{
-    if (m_minimumHeight == height) {
-        return;
-    }
-
-    m_minimumHeight = height;
-    emit minimumHeightChanged(height);
-}
-
-int Applet::implicitWidth() const
+int SizeHintAttachedType::implicitWidth() const
 {
     return m_implicitWidth;
 }
 
-void Applet::setImplicitWidth(int width)
+void SizeHintAttachedType::setImplicitWidth(int width)
 {
     if (m_implicitWidth == width) {
         return;
@@ -132,12 +85,12 @@ void Applet::setImplicitWidth(int width)
     emit implicitWidthChanged(width);
 }
 
-int Applet::implicitHeight() const
+int SizeHintAttachedType::implicitHeight() const
 {
     return m_implicitHeight;
 }
 
-void Applet::setImplicitHeight(int height)
+void SizeHintAttachedType::setImplicitHeight(int height)
 {
     if (m_implicitHeight == height) {
         return;
@@ -147,12 +100,12 @@ void Applet::setImplicitHeight(int height)
     emit implicitHeightChanged(height);
 }
 
-int Applet::maximumWidth() const
+int SizeHintAttachedType::maximumWidth() const
 {
     return m_maximumWidth;
 }
 
-void Applet::setMaximumWidth(int width)
+void SizeHintAttachedType::setMaximumWidth(int width)
 {
     if (m_maximumWidth == width) {
         return;
@@ -162,12 +115,12 @@ void Applet::setMaximumWidth(int width)
     emit maximumWidthChanged(width);
 }
 
-int Applet::maximumHeight() const
+int SizeHintAttachedType::maximumHeight() const
 {
     return m_maximumHeight;
 }
 
-void Applet::setMaximumHeight(int height)
+void SizeHintAttachedType::setMaximumHeight(int height)
 {
     if (m_maximumHeight == height) {
         return;
@@ -175,6 +128,17 @@ void Applet::setMaximumHeight(int height)
 
     m_maximumHeight = height;
     emit maximumHeightChanged(height);
+}
+
+
+
+Applet::Applet(QObject *parent)
+    : QObject(parent)
+{
+}
+
+Applet::~Applet()
+{
 }
 
 QQmlComponent *Applet::compactRepresentation()

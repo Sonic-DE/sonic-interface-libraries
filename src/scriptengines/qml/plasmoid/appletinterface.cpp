@@ -152,12 +152,6 @@ void AppletInterface::init()
     initialProperties["height"] = height();
     m_qmlObject->completeInitialization(initialProperties);
 
-    QQmlComponent *fullComponent = m_qmlObject->rootObject()->property("fullRepresentation").value<QQmlComponent *>();
-
-    if (fullComponent) {
-        m_fullRepresentationObject = fullComponent->create(fullComponent->creationContext());
-    }
-
     qDebug() << "Graphic object created:" << applet() << applet()->property("graphicObject");
 
     geometryChanged(QRectF(), QRectF(x(), y(), width(), height()));
@@ -518,9 +512,12 @@ qreal AppletInterface::readGraphicsObjectSizeHint(const char *hint) const
     QVariant prop;
 
     if (m_compactUiObject) {
+        
         prop = m_compactUiObject.data()->property(hint);
     } else {
-        prop = m_fullRepresentationObject.data()->property(hint);
+        SizeHintAttachedType *fullRepresentationSizeHint = qobject_cast<SizeHintAttachedType *>( qmlAttachedPropertiesObject<SizeHintAttachedType>(m_fullRepresentationObject.data(), true));
+        Q_ASSERT(fullRepresentationSizeHint);
+        prop = fullRepresentationSizeHint->property(hint);
     }
 
     if (prop.isValid() && prop.canConvert<qreal>()) {
@@ -627,13 +624,11 @@ void AppletInterface::compactRepresentationCheck()
         return;
     }
 
-    SizeHintAttachedType *hint = qobject_cast<SizeHintAttachedType *>( qmlAttachedPropertiesObject<SizeHintAttachedType>(m_fullRepresentationObject.data(), true));
+    SizeHintAttachedType *fullRepresentationSizeHint = qobject_cast<SizeHintAttachedType *>( qmlAttachedPropertiesObject<SizeHintAttachedType>(m_fullRepresentationObject.data(), true));
+    Q_ASSERT(fullRepresentationSizeHint);
 
     //Read the minimum width of the full representation, not our own, since we could be in collapsed mode
-    QSizeF minHint(hint->minimumWidth(), hint->minimumHeight());
-
-    //TODO: this has to be taken from attached properties of the full representation
-    minHint = QSize(100,100);
+    QSizeF minHint(300,300);//(fullRepresentationSizeHint->minimumWidth(), fullRepresentationSizeHint->minimumHeight());
 
     //Make it an icon
     if (width() < minHint.width() || height() < minHint.height()) {
@@ -666,6 +661,10 @@ void AppletInterface::compactRepresentationCheck()
         }
 
         if (m_compactUiObject && compactRepresentation) {
+            //fetch size hints of the compact representation
+            SizeHintAttachedType *compactRepresentationSizeHint = qobject_cast<SizeHintAttachedType *>( qmlAttachedPropertiesObject<SizeHintAttachedType>(compactRepresentation, true));
+            Q_ASSERT(compactRepresentationSizeHint);
+
             //put compactRepresentation in the icon place
             compactRepresentation->setProperty("parent", QVariant::fromValue(m_compactUiObject.data()));
             m_compactUiObject.data()->setProperty("compactRepresentation", QVariant::fromValue(compactRepresentation));
@@ -702,42 +701,33 @@ void AppletInterface::compactRepresentationCheck()
 
             //hook m_compactUiObject size hints to this size hint
             //Here we have to use the old connect syntax, because we don't have access to the class type
-            if (m_fullRepresentationObject.data()) {
-                disconnect(m_fullRepresentationObject.data(), 0, this, 0);
+            if (compactRepresentationSizeHint) {
+                disconnect(compactRepresentationSizeHint, 0, this, 0);
             }
 
-            //resize of the root object means popup resize when iconified
+            //resize of m_fullRepresentationObject means popup resize when iconified
             connect(m_fullRepresentationObject.data(), SIGNAL(widthChanged()),
                     this, SLOT(updatePopupSize()));
             connect(m_fullRepresentationObject.data(), SIGNAL(heightChanged()),
                     this, SLOT(updatePopupSize()));
 
-            if (m_compactUiObject.data()->property("minimumWidth").isValid()) {
-                connect(m_compactUiObject.data(), SIGNAL(minimumWidthChanged()),
+            connect(compactRepresentationSizeHint, SIGNAL(minimumWidthChanged()),
                         this, SIGNAL(minimumWidthChanged()));
-            }
-            if (m_compactUiObject.data()->property("minimumHeight").isValid()) {
-                connect(m_compactUiObject.data(), SIGNAL(minimumHeightChanged()),
-                        this, SIGNAL(minimumHeightChanged()));
-            }
+            connect(compactRepresentationSizeHint, SIGNAL(minimumHeightChanged()),
+                    this, SIGNAL(minimumHeightChanged()));
+        
 
-            if (m_compactUiObject.data()->property("maximumWidth").isValid()) {
-                connect(m_compactUiObject.data(), SIGNAL(maximumWidthChanged()),
-                        this, SIGNAL(maximumWidthChanged()));
-            }
-            if (m_compactUiObject.data()->property("maximumHeight").isValid()) {
-                connect(m_compactUiObject.data(), SIGNAL(maximumHeightChanged()),
-                        this, SIGNAL(maximumHeightChanged()));
-            }
+            connect(compactRepresentationSizeHint, SIGNAL(maximumWidthChanged()),
+                    this, SIGNAL(maximumWidthChanged()));
+            connect(compactRepresentationSizeHint, SIGNAL(maximumHeightChanged()),
+                    this, SIGNAL(maximumHeightChanged()));
+        
 
-            if (m_compactUiObject.data()->property("implicitWidth").isValid()) {
-                connect(m_compactUiObject.data(), SIGNAL(implicitWidthChanged()),
-                        this, SIGNAL(implicitWidthChanged()));
-            }
-            if (m_compactUiObject.data()->property("implicitHeight").isValid()) {
-                connect(m_compactUiObject.data(), SIGNAL(implicitHeightChanged()),
-                        this, SIGNAL(implicitHeightChanged()));
-            }
+            connect(compactRepresentationSizeHint, SIGNAL(implicitWidthChanged()),
+                    this, SIGNAL(implicitWidthChanged()));
+            connect(compactRepresentationSizeHint, SIGNAL(implicitHeightChanged()),
+                    this, SIGNAL(implicitHeightChanged()));
+        
 
             emit fillWidthChanged();
             emit fillHeightChanged();
@@ -759,6 +749,14 @@ void AppletInterface::compactRepresentationCheck()
         m_expanded = true;
         emit expandedChanged();
 
+        if (!m_fullRepresentationObject) {
+            QQmlComponent *fullComponent = m_qmlObject->rootObject()->property("fullRepresentation").value<QQmlComponent *>();
+
+            if (fullComponent) {
+                m_fullRepresentationObject = fullComponent->create(fullComponent->creationContext());
+            }
+        }
+
         //we are already expanded: nothing to do
         if (m_compactUiObject) {
             disconnect(m_compactUiObject.data(), 0, this, 0);
@@ -771,32 +769,23 @@ void AppletInterface::compactRepresentationCheck()
 
         
         //Here we have to use the old connect syntax, because we don't have access to the class type
-        if (m_fullRepresentationObject.data()->property("minimumWidth").isValid()) {
-            connect(m_fullRepresentationObject.data(), SIGNAL(minimumWidthChanged()),
-                    this, SIGNAL(minimumWidthChanged()));
-        }
-        if (m_fullRepresentationObject.data()->property("minimumHeight").isValid()) {
-            connect(m_fullRepresentationObject.data(), SIGNAL(minimumHeightChanged()),
-                    this, SIGNAL(minimumHeightChanged()));
-        }
+        connect(fullRepresentationSizeHint, SIGNAL(minimumWidthChanged()),
+                this, SIGNAL(minimumWidthChanged()));
+        connect(fullRepresentationSizeHint, SIGNAL(minimumHeightChanged()),
+                this, SIGNAL(minimumHeightChanged()));
+    
 
-        if (m_fullRepresentationObject.data()->property("maximumWidth").isValid()) {
-            connect(m_fullRepresentationObject.data(), SIGNAL(maximumWidthChanged()),
-                    this, SIGNAL(maximumWidthChanged()));
-        }
-        if (m_fullRepresentationObject.data()->property("maximumHeight").isValid()) {
-            connect(m_fullRepresentationObject.data(), SIGNAL(maximumHeightChanged()),
-                    this, SIGNAL(maximumHeightChanged()));
-        }
+        connect(fullRepresentationSizeHint, SIGNAL(maximumWidthChanged()),
+                this, SIGNAL(maximumWidthChanged()));
+        connect(fullRepresentationSizeHint, SIGNAL(maximumHeightChanged()),
+                this, SIGNAL(maximumHeightChanged()));
+    
 
-        if (m_fullRepresentationObject.data()->property("implicitWidth").isValid()) {
-            connect(m_fullRepresentationObject.data(), SIGNAL(implicitWidthChanged()),
-                    this, SLOT(updateImplicitWidth()));
-        }
-        if (m_fullRepresentationObject.data()->property("implicitHeight").isValid()) {
-            connect(m_fullRepresentationObject.data(), SIGNAL(implicitHeightChanged()),
-                    this, SLOT(updateImplicitHeight()));
-        }
+        connect(fullRepresentationSizeHint, SIGNAL(implicitWidthChanged()),
+                this, SLOT(updateImplicitWidth()));
+        connect(fullRepresentationSizeHint, SIGNAL(implicitHeightChanged()),
+                this, SLOT(updateImplicitHeight()));
+    
 
         emit fillWidthChanged();
         emit fillHeightChanged();
