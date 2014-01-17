@@ -41,7 +41,7 @@ class QQmlComponent;
 class SizeHintAttachedType : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(int minimumWidth READ minimumWidth WRITE setMaximumWidth NOTIFY minimumWidthChanged)
+    Q_PROPERTY(int minimumWidth READ minimumWidth WRITE setMinimumWidth NOTIFY minimumWidthChanged)
     Q_PROPERTY(int minimumHeight READ minimumHeight WRITE setMinimumHeight NOTIFY minimumHeightChanged)
     Q_PROPERTY(int implicitWidth READ implicitWidth WRITE setImplicitWidth NOTIFY implicitWidthChanged)
     Q_PROPERTY(int implicitHeight READ implicitHeight WRITE setImplicitHeight NOTIFY implicitHeightChanged)
@@ -108,6 +108,9 @@ class Applet : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(int switchWidth READ switchWidth WRITE setSwitchWidth NOTIFY switchWidthChanged)
+    Q_PROPERTY(int switchHeight READ switchHeight WRITE setSwitchHeight NOTIFY switchHeightChanged)
+
     Q_PROPERTY(QQmlComponent *compactRepresentation READ compactRepresentation WRITE setCompactRepresentation NOTIFY compactRepresentationChanged)
     Q_PROPERTY(QQmlComponent *fullRepresentation READ fullRepresentation WRITE setFullRepresentation NOTIFY fullRepresentationChanged)
 
@@ -116,6 +119,13 @@ public:
     Applet(QObject *parent = 0);
     ~Applet();
 
+    int switchWidth() const;
+    void setSwitchWidth(int width);
+
+    int switchHeight() const;
+    void setSwitchHeight(int width);
+
+
     QQmlComponent *compactRepresentation();
     void setCompactRepresentation(QQmlComponent *component);
 
@@ -123,10 +133,15 @@ public:
     void setFullRepresentation(QQmlComponent *component);
 
 Q_SIGNALS:
+    void switchWidthChanged(int width);
+    void switchHeightChanged(int height);
+
     void compactRepresentationChanged(QQmlComponent *compactRepresentation);
     void fullRepresentationChanged(QQmlComponent *fullRepresentation);
 
 private:
+    int m_switchWidth;
+    int m_switchHeight;
     QWeakPointer<QQmlComponent> m_compactRepresentation;
     QWeakPointer<QQmlComponent> m_fullRepresentation;
 };

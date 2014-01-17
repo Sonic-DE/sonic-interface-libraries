@@ -24,6 +24,8 @@ import org.kde.plasma.shell 2.0
 import org.kde.plasma.components 2.0 as PlasmaComponents
 
 Applet {
+    switchWidth: 200
+    switchHeight: 300
 
     compactRepresentation: Component {
         PlasmaComponents.Button {

@@ -133,12 +133,44 @@ void SizeHintAttachedType::setMaximumHeight(int height)
 
 
 Applet::Applet(QObject *parent)
-    : QObject(parent)
+    : QObject(parent),
+      m_switchWidth(-1),
+      m_switchHeight(-1)
 {
 }
 
 Applet::~Applet()
 {
+}
+
+int Applet::switchWidth() const
+{
+    return m_switchWidth;
+}
+
+void Applet::setSwitchWidth(int width)
+{
+    if (m_switchWidth == width) {
+        return;
+    }
+
+    m_switchWidth = width;
+    emit switchWidthChanged(width);
+}
+
+int Applet::switchHeight() const
+{
+    return m_switchHeight;
+}
+
+void Applet::setSwitchHeight(int width)
+{
+    if (m_switchHeight == width) {
+        return;
+    }
+
+    m_switchHeight = width;
+    emit switchHeightChanged(width);
 }
 
 QQmlComponent *Applet::compactRepresentation()

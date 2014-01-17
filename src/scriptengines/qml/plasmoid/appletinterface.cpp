@@ -628,7 +628,14 @@ void AppletInterface::compactRepresentationCheck()
     Q_ASSERT(fullRepresentationSizeHint);
 
     //Read the minimum width of the full representation, not our own, since we could be in collapsed mode
-    QSizeF minHint(300,300);//(fullRepresentationSizeHint->minimumWidth(), fullRepresentationSizeHint->minimumHeight());
+    QSizeF minHint(-1,-1);//(fullRepresentationSizeHint->minimumWidth(), fullRepresentationSizeHint->minimumHeight());
+
+    if (m_qmlObject->rootObject()->property("switchWidth").canConvert<qreal>()) {
+        minHint.setWidth(m_qmlObject->rootObject()->property("switchWidth").toReal());
+    }
+    if (m_qmlObject->rootObject()->property("switchHeight").canConvert<qreal>()) {
+        minHint.setHeight(m_qmlObject->rootObject()->property("switchHeight").toReal());
+    }
 
     //Make it an icon
     if (width() < minHint.width() || height() < minHint.height()) {
