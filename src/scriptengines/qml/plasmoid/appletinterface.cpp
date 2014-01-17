@@ -680,54 +680,55 @@ void AppletInterface::compactRepresentationCheck()
                 prop.write(expr.evaluate());
             }
 
-            m_fullRepresentationObject.data()->setProperty("parent", QVariant::fromValue(m_compactUiObject.data()));
+            if (m_fullRepresentationObject) {
+                m_fullRepresentationObject.data()->setProperty("parent", QVariant::fromValue(m_compactUiObject.data()));
 
 
-            {
-                //reset all the anchors
-                QQmlExpression expr(m_qmlObject->engine()->rootContext(), m_fullRepresentationObject.data(), "anchors.fill=undefined;anchors.left=undefined;anchors.right=undefined;anchors.top=undefined;anchors.bottom=undefined;");
-                expr.evaluate();
+                {
+                    //reset all the anchors
+                    QQmlExpression expr(m_qmlObject->engine()->rootContext(), m_fullRepresentationObject.data(), "anchors.fill=undefined;anchors.left=undefined;anchors.right=undefined;anchors.top=undefined;anchors.bottom=undefined;");
+                    expr.evaluate();
+                }
+
+                KConfigGroup cg = applet()->config();
+                cg = KConfigGroup(&cg, "PopupApplet");
+                int width = cg.readEntry("DialogWidth", 0);
+                int height = cg.readEntry("DialogHeight", 0);
+
+                m_fullRepresentationObject.data()->setProperty("width", width);
+                m_fullRepresentationObject.data()->setProperty("height", height);
+
+                m_compactUiObject.data()->setProperty("applet", QVariant::fromValue(m_fullRepresentationObject.data()));
+
+                //hook m_compactUiObject size hints to this size hint
+                //Here we have to use the old connect syntax, because we don't have access to the class type
+                if (compactRepresentationSizeHint) {
+                    disconnect(compactRepresentationSizeHint, 0, this, 0);
+                }
+
+                //resize of m_fullRepresentationObject means popup resize when iconified
+                connect(m_fullRepresentationObject.data(), SIGNAL(widthChanged()),
+                        this, SLOT(updatePopupSize()));
+                connect(m_fullRepresentationObject.data(), SIGNAL(heightChanged()),
+                        this, SLOT(updatePopupSize()));
             }
-
-            KConfigGroup cg = applet()->config();
-            cg = KConfigGroup(&cg, "PopupApplet");
-            int width = cg.readEntry("DialogWidth", 0);
-            int height = cg.readEntry("DialogHeight", 0);
-
-            m_fullRepresentationObject.data()->setProperty("width", width);
-            m_fullRepresentationObject.data()->setProperty("height", height);
-
-            m_compactUiObject.data()->setProperty("applet", QVariant::fromValue(m_fullRepresentationObject.data()));
-
-            //hook m_compactUiObject size hints to this size hint
-            //Here we have to use the old connect syntax, because we don't have access to the class type
-            if (compactRepresentationSizeHint) {
-                disconnect(compactRepresentationSizeHint, 0, this, 0);
-            }
-
-            //resize of m_fullRepresentationObject means popup resize when iconified
-            connect(m_fullRepresentationObject.data(), SIGNAL(widthChanged()),
-                    this, SLOT(updatePopupSize()));
-            connect(m_fullRepresentationObject.data(), SIGNAL(heightChanged()),
-                    this, SLOT(updatePopupSize()));
 
             connect(compactRepresentationSizeHint, SIGNAL(minimumWidthChanged()),
                         this, SIGNAL(minimumWidthChanged()));
             connect(compactRepresentationSizeHint, SIGNAL(minimumHeightChanged()),
                     this, SIGNAL(minimumHeightChanged()));
-        
+
 
             connect(compactRepresentationSizeHint, SIGNAL(maximumWidthChanged()),
                     this, SIGNAL(maximumWidthChanged()));
             connect(compactRepresentationSizeHint, SIGNAL(maximumHeightChanged()),
                     this, SIGNAL(maximumHeightChanged()));
-        
+
 
             connect(compactRepresentationSizeHint, SIGNAL(implicitWidthChanged()),
                     this, SIGNAL(implicitWidthChanged()));
             connect(compactRepresentationSizeHint, SIGNAL(implicitHeightChanged()),
                     this, SIGNAL(implicitHeightChanged()));
-        
 
             emit fillWidthChanged();
             emit fillHeightChanged();
