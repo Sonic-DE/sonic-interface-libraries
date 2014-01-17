@@ -12,6 +12,8 @@ set(declarative_appletscript_SRCS
     plasmoid/containmentinterface.cpp
     plasmoid/declarativeappletscript.cpp
     plasmoid/wallpaperinterface.cpp
+#HACK
+    plasmoid/applet.cpp
     )
 
 add_library(plasma_appletscript_declarative MODULE ${declarative_appletscript_SRCS} )

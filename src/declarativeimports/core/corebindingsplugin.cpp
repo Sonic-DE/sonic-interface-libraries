@@ -32,7 +32,6 @@
 #include <Plasma/QueryMatch>
 #include <Plasma/ServiceJob>
 
-#include "applet.h"
 #include "datasource.h"
 #include "datamodel.h"
 #include "framesvgitem.h"
@@ -73,7 +72,6 @@ void CoreBindingsPlugin::registerTypes(const char *uri)
 
     qmlRegisterUncreatableType<Plasma::Types>(uri, 2, 0, "Types", "");
 
-    qmlRegisterType<Applet>(uri, 2, 0, "Applet");
     qmlRegisterType<Plasma::Svg>(uri, 2, 0, "Svg");
     qmlRegisterType<Plasma::FrameSvg>(uri, 2, 0, "FrameSvg");
     qmlRegisterType<Plasma::SvgItem>(uri, 2, 0, "SvgItem");

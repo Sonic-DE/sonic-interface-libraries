@@ -10,7 +10,6 @@ if(XCB_XCB_FOUND AND XCB_COMPOSITE_FOUND AND XCB_DAMAGE_FOUND)
 endif()
 
 set(corebindings_SRCS
-    applet.cpp
     corebindingsplugin.cpp
     theme.cpp
     datamodel.cpp

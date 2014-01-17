@@ -24,6 +24,54 @@
 #include <QDebug>
 
 
+
+SizeHintAttachedType::SizeHintAttachedType(QObject *parent)
+    : QObject(parent),
+      m_minimumWidth(-1),
+      m_minimumHeight(-1),
+      m_implicitWidth(-1),
+      m_implicitHeight(-1),
+      m_maximumWidth(-1),
+      m_maximumHeight(-1)
+{
+}
+
+SizeHintAttachedType::~SizeHintAttachedType()
+{
+}
+
+int SizeHintAttachedType::minimumWidth() const
+{
+    return m_minimumWidth;
+}
+
+void SizeHintAttachedType::setMinimumWidth(int width)
+{
+    if (m_minimumWidth == width) {
+        return;
+    }
+
+    m_minimumWidth = width;
+    emit minimumWidthChanged(width);
+}
+
+int SizeHintAttachedType::minimumHeight() const
+{
+    return m_minimumHeight;
+}
+
+void SizeHintAttachedType::setMinimumHeight(int height)
+{
+    if (m_minimumHeight == height) {
+        return;
+    }
+
+    m_minimumHeight = height;
+    emit minimumHeightChanged(height);
+}
+
+
+
 Applet::Applet(QObject *parent)
     : QObject(parent),
       m_minimumWidth(-1),

@@ -26,6 +26,66 @@
 
 class QQmlComponent;
 
+class SizeHintAttachedType : public QObject
+{
+    Q_OBJECT
+    Q_PROPERTY(int minimumWidth READ minimumWidth WRITE setMinimumWidth NOTIFY minimumWidthChanged)
+    Q_PROPERTY(int minimumHeight READ minimumHeight WRITE setMinimumHeight NOTIFY minimumHeightChanged)
+
+public:
+    SizeHintAttachedType(QObject *parent);
+    ~SizeHintAttachedType();
+
+    int minimumWidth() const;
+    void setMinimumWidth(int width);
+
+    int minimumHeight() const;
+    void setMinimumHeight(int height);
+
+    static SizeHintAttachedType *qmlAttachedProperties(QObject *object)
+    {
+        return new SizeHintAttachedType(object);
+    }
+
+Q_SIGNALS:
+    void minimumWidthChanged(int width);
+    void minimumHeightChanged(int height);
+
+
+private:
+    int m_minimumWidth;
+    int m_minimumHeight;
+    int m_implicitWidth;
+    int m_implicitHeight;
+    int m_maximumWidth;
+    int m_maximumHeight;
+};
+QML_DECLARE_TYPE(SizeHintAttachedType)
+QML_DECLARE_TYPEINFO(SizeHintAttachedType, QML_HAS_ATTACHED_PROPERTIES)
+
+/**
+ * CompactRepresentation and FullRepresentation will have a SizeHint attached object
+ * example:
+ * Applet {
+ *     compactRepresentation: Component {
+ *         Item {
+ *             SizeHint.minimumWidth: 200
+ *             ...
+ *         }
+ *     }
+ * }
+ */
+class SizeHint : public QObject
+{
+    Q_OBJECT
+public:
+    static SizeHintAttachedType *qmlAttachedProperties(QObject *object)
+    {
+        return new SizeHintAttachedType(object);
+    }
+};
+
+
 class Applet : public QObject
 {
     Q_OBJECT
@@ -99,5 +159,6 @@ private:
     QWeakPointer<QQmlComponent> m_compactRepresentation;
     QWeakPointer<QQmlComponent> m_fullRepresentation;
 };
+
 
 #endif

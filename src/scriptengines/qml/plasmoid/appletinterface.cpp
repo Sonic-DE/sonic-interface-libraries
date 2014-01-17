@@ -50,6 +50,9 @@
 
 #include <packageurlinterceptor.h>
 
+//HACK?
+#include "applet.h"
+
 Q_DECLARE_METATYPE(AppletInterface*)
 
 AppletInterface::AppletInterface(DeclarativeAppletScript *script, QQuickItem *parent)
@@ -63,6 +66,9 @@ AppletInterface::AppletInterface(DeclarativeAppletScript *script, QQuickItem *pa
 {
     qmlRegisterType<AppletInterface>();
     qmlRegisterType<QAction>();
+    qmlRegisterUncreatableType<SizeHintAttachedType>("org.kde.plasma.shell", 2, 0, "SizeHint",
+                                             QLatin1String("Do not create objects of type SizeHint"));
+    qmlRegisterType<Applet>("org.kde.plasma.shell", 2, 0, "Applet");
 
     connect(this, &AppletInterface::configNeedsSaving,
             applet(), &Plasma::Applet::configNeedsSaving);
@@ -621,15 +627,11 @@ void AppletInterface::compactRepresentationCheck()
         return;
     }
 
-    //Read the minimum width of the full representation, not our own, since we could be in collapsed mode
-    QSizeF minHint(-1, -1);
-    if (m_fullRepresentationObject.data()->property("minimumWidth").canConvert<qreal>()) {
-        minHint.setWidth(m_fullRepresentationObject.data()->property("minimumWidth").toReal());
-    }
+    SizeHintAttachedType *hint = qobject_cast<SizeHintAttachedType *>( qmlAttachedPropertiesObject<SizeHintAttachedType>(m_fullRepresentationObject.data(), true));
 
-    if (m_fullRepresentationObject.data()->property("minimumHeight").canConvert<qreal>()) {
-        minHint.setHeight(m_fullRepresentationObject.data()->property("minimumHeight").toReal());
-    }
+    //Read the minimum width of the full representation, not our own, since we could be in collapsed mode
+    QSizeF minHint(hint->minimumWidth(), hint->minimumHeight());
+
     //TODO: this has to be taken from attached properties of the full representation
     minHint = QSize(100,100);
 
@@ -767,6 +769,7 @@ void AppletInterface::compactRepresentationCheck()
         disconnect(m_fullRepresentationObject.data(), SIGNAL(heightChanged()),
                 this, SLOT(updatePopupSize()));
 
+        
         //Here we have to use the old connect syntax, because we don't have access to the class type
         if (m_fullRepresentationObject.data()->property("minimumWidth").isValid()) {
             connect(m_fullRepresentationObject.data(), SIGNAL(minimumWidthChanged()),

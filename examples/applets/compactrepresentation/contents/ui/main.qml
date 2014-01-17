@@ -20,11 +20,13 @@
 
 import QtQuick 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.shell 2.0
 import org.kde.plasma.components 2.0 as PlasmaComponents
 
-PlasmaCore.Applet {
+Applet {
     minimumWidth: 200
     minimumHeight: 300
+    //PlasmaCore.SizeHint.minimumWidth: 200
 
     compactRepresentation: Component {
         PlasmaComponents.Button {
@@ -37,6 +39,8 @@ PlasmaCore.Applet {
         PlasmaComponents.Label {
             property int minimumWidth: 200
             property int minimumHeight: 300
+            SizeHint.minimumWidth: 200
+            //PlasmaCore.SizeHint.minimumHeight: 300
             text: i18n("Hello world")
         }
     }
