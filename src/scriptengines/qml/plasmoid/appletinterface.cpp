@@ -64,11 +64,6 @@ AppletInterface::AppletInterface(DeclarativeAppletScript *script, QQuickItem *pa
       m_expanded(false),
       m_hideOnDeactivate(true)
 {
-    qmlRegisterType<AppletInterface>();
-    qmlRegisterType<QAction>();
-    qmlRegisterUncreatableType<SizeHintAttachedType>("org.kde.plasma.shell", 2, 0, "SizeHint",
-                                             QLatin1String("Do not create objects of type SizeHint"));
-    qmlRegisterType<Applet>("org.kde.plasma.shell", 2, 0, "Applet");
 
     connect(this, &AppletInterface::configNeedsSaving,
             applet(), &Plasma::Applet::configNeedsSaving);

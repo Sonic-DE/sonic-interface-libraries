@@ -46,6 +46,9 @@
 #include <kdeclarative/qmlobject.h>
 #include <kdeclarative/configpropertymap.h>
 
+//HACK?
+#include "applet.h"
+
 
 K_EXPORT_PLASMA_APPLETSCRIPTENGINE(declarativeappletscript, DeclarativeAppletScript)
 
@@ -56,6 +59,12 @@ DeclarativeAppletScript::DeclarativeAppletScript(QObject *parent, const QVariant
 {
     qmlRegisterType<AppletInterface>();
     qmlRegisterType<KDeclarative::ConfigPropertyMap>();
+    qmlRegisterType<AppletInterface>();
+    qmlRegisterType<QAction>();
+    qmlRegisterUncreatableType<SizeHintAttachedType>("org.kde.plasma.shell", 2, 0, "SizeHint",
+                                             QLatin1String("Do not create objects of type SizeHint"));
+    qmlRegisterType<Applet>("org.kde.plasma.shell", 2, 0, "Applet");
+
     Q_UNUSED(args);
 }
 
@@ -75,14 +84,20 @@ bool DeclarativeAppletScript::init()
     if (pc) {
         m_interface = new ContainmentInterface(this);
 
+        m_interface->setParent(this);
+        // set the graphicObject dynamic property on applet
+        a->setProperty("graphicObject", QVariant::fromValue(m_interface));
+
     //fail? so it's a normal Applet
     } else {
-        m_interface = new AppletInterface(this);
+       // m_interface = new AppletInterface(this);
+        KDeclarative::QmlObject *qmlObject = new KDeclarative::QmlObject(this);
+        QVariantHash initialProperties;
+        initialProperties["_plasma_applet"] = QVariant::fromValue(applet());
+        QObject *graphicObject = qmlObject->createObjectFromSource(QUrl::fromLocalFile(mainScript()), initialProperties);
+        a->setProperty("graphicObject", QVariant::fromValue(graphicObject));
     }
 
-    m_interface->setParent(this);
-    // set the graphicObject dynamic property on applet
-    a->setProperty("graphicObject", QVariant::fromValue(m_interface));
 
     return true;
 }

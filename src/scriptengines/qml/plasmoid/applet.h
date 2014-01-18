@@ -17,14 +17,23 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef APPLET_P
-#define APPLET_P
+#ifndef APPLETCOMPONENT_P
+#define APPLETCOMPONENT_P
 
-#include <QObject>
+#include <QQuickItem>
 #include <QWeakPointer>
 #include <QQmlComponent>
+#include <QTimer>
 
 class QQmlComponent;
+
+namespace Plasma {
+    class Applet;
+}
+
+namespace KDeclarative {
+    class QmlObject;
+}
 
 /**
  * CompactRepresentation and FullRepresentation will have a SizeHint attached object
@@ -104,7 +113,7 @@ QML_DECLARE_TYPEINFO(SizeHintAttachedType, QML_HAS_ATTACHED_PROPERTIES)
 
 
 
-class Applet : public QObject
+class Applet : public QQuickItem
 {
     Q_OBJECT
 
@@ -114,9 +123,23 @@ class Applet : public QObject
     Q_PROPERTY(QQmlComponent *compactRepresentation READ compactRepresentation WRITE setCompactRepresentation NOTIFY compactRepresentationChanged)
     Q_PROPERTY(QQmlComponent *fullRepresentation READ fullRepresentation WRITE setFullRepresentation NOTIFY fullRepresentationChanged)
 
+    /**
+     * this is supposed to be either one between compactRepresentation or fullRepresentation
+     */
+    Q_PROPERTY(QQmlComponent *preferredRepresentation READ preferredRepresentation WRITE setPreferredRepresentation NOTIFY preferredRepresentationChanged)
+
+    //FIXME: is it wise to expose this?
+    Q_PROPERTY(QQmlComponent *compactRepresentation READ compactRepresentation WRITE setCompactRepresentation NOTIFY compactRepresentationChanged)
+
+    ///////////////Wrapping main plasmoid api
+    /**
+     * True when the applet is showing its full representation. either as the main only view, or in a popup.
+     * Setting it will open or close the popup if the plasmoid is iconified, however it won't have effect if the applet is open
+     */
+    Q_PROPERTY(bool expanded WRITE setExpanded READ isExpanded NOTIFY expandedChanged)
 
 public:
-    Applet(QObject *parent = 0);
+    Applet(QQuickItem *parent = 0);
     ~Applet();
 
     int switchWidth() const;
@@ -132,18 +155,64 @@ public:
     QQmlComponent *fullRepresentation();
     void setFullRepresentation(QQmlComponent *component);
 
+    QQmlComponent *preferredRepresentation();
+    void setPreferredRepresentation(QQmlComponent *component);
+
+
+    QQmlComponent *compactRepresentationExpander();
+    void setCompactRepresentationExpander(QQmlComponent *component);
+
+    //////////////////Wrapping main plasmoid API
+    bool isExpanded() const;
+    void setExpanded(bool expanded);
+
+    //Reimplemented
+    virtual void classBegin();
+    virtual void componentComplete();
+
 Q_SIGNALS:
     void switchWidthChanged(int width);
     void switchHeightChanged(int height);
 
     void compactRepresentationChanged(QQmlComponent *compactRepresentation);
     void fullRepresentationChanged(QQmlComponent *fullRepresentation);
+    void preferredRepresentationChanged(QQmlComponent *preferredRepresentation);
+
+    void compactRepresentationExpanderChanged(QQmlComponent *compactRepresentationExpander);
+
+    void expandedChanged(bool expanded);
+
+protected:
+    void geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry);
+
+    QObject *compactRepresentationItem();
+    QObject *fullRepresentationItem();
+    QObject *compactRepresentationExpanderItem();
+
+protected Q_SLOTS:
+    void compactRepresentationCheck();
 
 private:
     int m_switchWidth;
     int m_switchHeight;
+
     QWeakPointer<QQmlComponent> m_compactRepresentation;
     QWeakPointer<QQmlComponent> m_fullRepresentation;
+    QWeakPointer<QQmlComponent> m_preferredRepresentation;
+    QWeakPointer<QQmlComponent> m_compactRepresentationExpander;
+
+    QWeakPointer<QObject> m_compactRepresentationItem;
+    QWeakPointer<QObject> m_fullRepresentationItem;
+    QWeakPointer<QObject> m_compactRepresentationExpanderItem;
+    QWeakPointer<QObject> m_currentRepresentationItem;
+
+    QTimer m_compactRepresentationCheckTimer;
+
+    QQmlEngine *m_engine;
+    Plasma::Applet *m_applet;
+    KDeclarative::QmlObject *m_qmlObject;
+
+    bool m_expanded : 1;
 };
 
 
