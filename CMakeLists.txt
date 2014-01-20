@@ -1,26 +1,20 @@
-
 cmake_minimum_required(VERSION 2.8.11)
 
-project(plasma)
-
-################# Disallow in-source build #################
-
-if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
-   message(FATAL_ERROR "plasma requires an out of source build. Please create a separate build directory and run 'cmake path_to_plasma [options]' there.")
-endif()
-
+project(Plasma)
 
 # Make CPack available to easy generate binary packages
 include(CPack)
-
 include(FeatureSummary)
+include(GenerateExportHeader)
 
 ################# set KDE specific information #################
 
 find_package(ECM 0.0.8 REQUIRED NO_MODULE)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
-# where to look first for cmake modules, before ${CMAKE_ROOT}/Modules/ is checked
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH})
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDECompilerSettings)
 
 add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0)
 
@@ -47,36 +41,26 @@ endif()
 
 set (QT_MIN_VERSION "5.2.0")
 
-# Load CMake, Compiler and InstallDirs settings from KF5 and the following are already somewhat "done" tier1/tier2 libs from kdelibs:
-find_package(KF5 MODULE REQUIRED COMPONENTS CMake Compiler InstallDirs
-                                            KIdleTime ItemModels KWidgetsAddons KWindowSystem KCodecs KArchive KCoreAddons Solid ThreadWeaver
-                                            KConfig KAuth KJS KWallet KDBusAddons KI18n KGuiAddons KConfigWidgets
-                                            KService ItemViews KNotifications KIconThemes KCompletion KJobWidgets KConfigWidgets Sonnet KTextWidgets XmlGui KCrash
-                                            KBookmarks KUnitConversion KDE4Attic Kross)
-#find_package(KF5Transitional REQUIRED)
+find_package(Qt5 REQUIRED NO_MODULE COMPONENTS Quick X11Extras Sql UiTools Qml Widgets Svg Declarative Script Test PrintSupport)
 
-# those are not "done" yet:
-find_package(KIO REQUIRED NO_MODULE)
-find_package(KDeclarative REQUIRED NO_MODULE)
+find_package(KF5 CONFIG REQUIRED IdleTime ItemModels WidgetsAddons WindowSystem Codecs Archive CoreAddons Solid ThreadWeaver GlobalAccel
+                                            Config Auth JS Wallet DBusAddons I18n GuiAddons ConfigWidgets
+                                            Service ItemViews Notifications IconThemes Completion JobWidgets Sonnet TextWidgets XmlGui Crash
+                                            Bookmarks Declarative UnitConversion Parts Kross KIO DNSSD)
 
-# Needed for some includes from KDE/ (KMimeType, etc.)
-# FIXME: remove when kdeui is fully split up
-find_package(KDELibs4 REQUIRED NO_MODULE)
 
-# must be after KDELibs4, since it links against imported targets coming from KDELibs4Config.cmake:
-find_package(KDE4Support REQUIRED NO_MODULE)
-
-find_package(Qt5Transitional MODULE REQUIRED)
-
-find_package(Qt5Quick REQUIRED NO_MODULE)
-find_package(Qt5X11Extras REQUIRED NO_MODULE)
+find_package(KActivities 5.0.0 CONFIG REQUIRED)
+set_package_properties(KActivities PROPERTIES DESCRIPTION "The KActivities library"
+                       URL "https://projects.kde.org/kactivities"
+                       TYPE REQUIRED
+                      )
 
 #optional features
 find_package(X11 MODULE)
 find_package(XCB MODULE COMPONENTS XCB COMPOSITE DAMAGE)
 set_package_properties(XCB PROPERTIES DESCRIPTION "X protocol C-language Binding"
                        URL "http://xcb.freedesktop.org"
-                       TYPE RECOMMENDED
+                       TYPE REQUIRED
                       )
 if(X11_FOUND AND XCB_XCB_FOUND)
   set(HAVE_X11 1)
@@ -103,15 +87,8 @@ set_package_properties(OpenSSL PROPERTIES DESCRIPTION "Support for secure networ
                        PURPOSE "KDE uses OpenSSL for the bulk of secure communications, including secure web browsing via HTTPS"
                       )
 
-find_package(Libintl MODULE)
-set_package_properties(Libintl PROPERTIES DESCRIPTION "Support for multiple languages"
-                       URL "http://www.gnu.org/software/gettext"
-                       TYPE RECOMMENDED
-                       PURPOSE "Enables KDE to be available in many different languages"
-                      )
-
 #FIXME: when we have a qca for qt5, reenable
-find_package(QCA2 2.0.0 MODULE)
+# find_package(QCA2 2.0.0 MODULE)
 set_package_properties(QCA2 PROPERTIES DESCRIPTION "Support for remote plasma widgets"
                        URL "http://delta.affinix.com/qca"
                        TYPE OPTIONAL
@@ -123,12 +100,7 @@ set_package_properties(QCA2 PROPERTIES DESCRIPTION "Support for remote plasma wi
 #TYPE REQUIRED
 #)
 
-# TODO remove it in future
-find_package(LibAttica NO_MODULE)
-set_package_properties(LibAttica PROPERTIES DESCRIPTION "Support for Get Hot New Stuff related stuff"
-                       URL "https://projects.kde.org/attica"
-                       TYPE REQUIRED
-                      )
+
 
 find_package(OpenGL)
 set_package_properties(OpenGL PROPERTIES DESCRIPTION "The OpenGL libraries"
@@ -136,36 +108,19 @@ set_package_properties(OpenGL PROPERTIES DESCRIPTION "The OpenGL libraries"
                        TYPE OPTIONAL
                       )
 if(OPENGL_FOUND)
-    set(HAVE_GLX HAVE_X11)
+    set(HAVE_GLX ${HAVE_X11})
 else()
     set(HAVE_GLX 0)
 endif()
 
 #########################################################################
 
-#add_definitions(${KDE4_DEFINITIONS})
 add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 add_definitions(-DQT_NO_URL_CAST_FROM_STRING)
 
-remove_definitions(-DQT3_SUPPORT_WARNINGS -DQT3_SUPPORT)
 remove_definitions(-DQT_NO_CAST_FROM_ASCII -DQT_STRICT_ITERATORS -DQT_NO_CAST_FROM_BYTEARRAY -DQT_NO_KEYWORDS)
 
-
-################# setup the include directories #################
-include_directories( ${KDE4_INCLUDES}
-                     ${KF5_INCLUDE_DIRS}  # since e-c-m 0.0.7
-                   )
-
-# for including config.h and for includes like <kparts/foo.h>
-include_directories( ${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR} ${CMAKE_BINARY_DIR}/src ${CMAKE_SOURCE_DIR}/interfaces ${CMAKE_SOURCE_DIR}/src/plasma/includes)
-
-if(QCA2_FOUND)
-    include_directories(
-        ${QCA2_INCLUDE_DIR}
-    )
-endif()
-
-include(PlasmaMacros.cmake)
+include(KF5PlasmaMacros.cmake)
 
 ################# configure checks and create the configured files #################
 
@@ -177,18 +132,18 @@ configure_file(config-compiler.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-compil
 
 
 # create a Config.cmake and a ConfigVersion.cmake file and install them
-set(CMAKECONFIG_INSTALL_DIR "${CMAKECONFIG_INSTALL_PREFIX}/Plasma")
+set(CMAKECONFIG_INSTALL_DIR "${CMAKECONFIG_INSTALL_PREFIX}/KF5Plasma")
 
 include(CMakePackageConfigHelpers)
 
 include(ECMSetupVersion)
 ecm_setup_version(2.0.0 VARIABLE_PREFIX PLASMA
                         VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/plasma_version.h"
-                        PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/PlasmaConfigVersion.cmake")
+                        PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5PlasmaConfigVersion.cmake")
 
 configure_package_config_file(
-  "${CMAKE_CURRENT_SOURCE_DIR}/PlasmaConfig.cmake.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/PlasmaConfig.cmake"
+  "${CMAKE_CURRENT_SOURCE_DIR}/KF5PlasmaConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF5PlasmaConfig.cmake"
   INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
   PATH_VARS  INCLUDE_INSTALL_DIR CMAKE_INSTALL_PREFIX
 )
@@ -197,9 +152,9 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/plasma_version.h
         DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel )
 
 install(FILES
-  "${CMAKE_CURRENT_BINARY_DIR}/PlasmaConfig.cmake"
-  "${CMAKE_CURRENT_BINARY_DIR}/PlasmaConfigVersion.cmake"
-  "${CMAKE_CURRENT_SOURCE_DIR}/PlasmaMacros.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF5PlasmaConfig.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF5PlasmaConfigVersion.cmake"
+  "${CMAKE_CURRENT_SOURCE_DIR}/KF5PlasmaMacros.cmake"
   DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
   COMPONENT Devel
 )
@@ -209,5 +164,5 @@ add_subdirectory(src)
 add_subdirectory(desktoptheme)
 add_subdirectory(examples)
 
-install(EXPORT PlasmaTargets DESTINATION "${CMAKECONFIG_INSTALL_DIR}" FILE PlasmaTargets.cmake NAMESPACE KF5:: COMPONENT Devel)
+install(EXPORT KF5PlasmaTargets DESTINATION "${CMAKECONFIG_INSTALL_DIR}" FILE KF5PlasmaTargets.cmake NAMESPACE KF5:: COMPONENT Devel)
 feature_summary(WHAT ALL   FATAL_ON_MISSING_REQUIRED_PACKAGES)

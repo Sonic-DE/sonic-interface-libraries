@@ -27,6 +27,8 @@
 
 #include <Plasma/Plasma>
 
+#include <netwm_def.h>
+
 class QQuickItem;
 
 namespace Plasma
@@ -55,37 +57,39 @@ class DialogProxy : public QQuickWindow
     Q_PROPERTY(QQuickItem *visualParent READ visualParent WRITE setVisualParent NOTIFY visualParentChanged)
 
     /**
-     * Visibility of the Dialog window. Doesn't have anything to do with the visibility of the mainItem.
-     */
-    Q_PROPERTY(bool visible READ isVisible WRITE setVisible NOTIFY visibleChanged)
-
-    /**
-     * Window flags of the Dialog window
-     */
-    Q_PROPERTY(int windowFlags READ windowFlags WRITE setWindowFlags)
-
-    /**
      * Margins of the dialog around the mainItem.
      * @see DialogMargins
      */
     Q_PROPERTY(QObject *margins READ margins CONSTANT)
 
     /**
-     * True if the dialog window is the active one in the window manager.
+     * Plasma Location of the dialog window. Useful if this dialog is a popup for a panel
      */
-    Q_PROPERTY(bool activeWindow READ isActiveWindow NOTIFY activeWindowChanged)
+    Q_PROPERTY(Plasma::Types::Location location READ location WRITE setLocation NOTIFY locationChanged)
 
     /**
-     * Plasma Location of the dialog window. Useful if this dialog is apopup for a panel
+     * Type of the window
      */
-    Q_PROPERTY(int location READ location WRITE setLocation NOTIFY locationChanged)
+    Q_PROPERTY(WindowType type READ type WRITE setType NOTIFY typeChanged)
+
+    /**
+     * Whether the dialog should be hidden when the dialog loses focus.
+     *
+     * The default value is @c false.
+     **/
+    Q_PROPERTY(bool hideOnWindowDeactivate READ hideOnWindowDeactivate WRITE setHideOnWindowDeactivate NOTIFY hideOnWindowDeactivateChanged)
 
     Q_CLASSINFO("DefaultProperty", "mainItem")
 
 public:
-    enum WidgetAttribute {
-        WA_X11NetWmWindowTypeDock = Qt::WA_X11NetWmWindowTypeDock
+    enum WindowType {
+        Normal = NET::Normal,
+        Dock = NET::Dock,
+        Dialog = NET::Dialog,
+        PopupMenu = NET::PopupMenu,
+        Tooltip = NET::Tooltip
     };
+    Q_ENUMS(WindowType)
 
     DialogProxy(QQuickItem *parent = 0);
     ~DialogProxy();
@@ -96,48 +100,34 @@ public:
     QQuickItem *visualParent() const;
     void setVisualParent(QQuickItem *visualParent);
 
-    bool isVisible() const;
-    void setVisible(const bool visible);
-
-    bool isActiveWindow() const;
-
-    /**
-     * Ask the window manager to activate the window.
-     * The window manager may or may not accept the activation request
-     */
-    Q_INVOKABLE void activateWindow();
-
-    //FIXME: passing an int is ugly
-    int windowFlags() const;
-    void setWindowFlags(const int);
-
-    int location() const;
-    void setLocation(int location);
+    Plasma::Types::Location location() const;
+    void setLocation(Plasma::Types::Location location);
 
     QObject *margins() const;
+
+    /*
+     * set the dialog position. subclasses may change it. ToolTipDialog adjusts the position in an animated way
+     */
+    virtual void adjustGeometry(const QRect &geom);
 
     /**
      * @returns The suggested screen position for the popup
      * @arg item the item the popup has to be positioned relatively to. if null, the popup will be positioned in the center of the window
      * @arg alignment alignment of the popup compared to the item
      */
-    QPoint popupPosition(QQuickItem *item, Qt::AlignmentFlag alignment=Qt::AlignCenter) ;
+    QPoint popupPosition(QQuickItem *item, const QSize &size, Qt::AlignmentFlag alignment=Qt::AlignCenter) ;
 
-    /**
-     * Set a Qt.WidgetAttribute to the dialog window
-     *
-     * @arg int attribute see Qt.WidgetAttribute
-     * @arg bool on activate or deactivate the atrtibute
-     */
-    //FIXME:: Qt::WidgetAttribute should be already 
-    Q_INVOKABLE void setAttribute(int attribute, bool on);
+    void setType(WindowType type);
+    WindowType type() const;
+    bool hideOnWindowDeactivate() const;
+    void setHideOnWindowDeactivate(bool hide);
 
 Q_SIGNALS:
     void mainItemChanged();
-    void visibleChanged();
-    void activeWindowChanged();
     void locationChanged();
     void visualParentChanged();
+    void typeChanged();
+    void hideOnWindowDeactivateChanged();
 
 public Q_SLOTS:
     void syncMainItemToSize();
@@ -149,6 +139,8 @@ protected:
     void focusInEvent(QFocusEvent *ev);
     void focusOutEvent(QFocusEvent *ev);
     void showEvent(QShowEvent *event);
+    void hideEvent(QHideEvent *event);
+    bool event(QEvent *event);
 
     QTimer *m_syncTimer;
     Plasma::Types::Location m_location;
@@ -156,10 +148,15 @@ protected:
     QWeakPointer<QQuickItem> m_mainItem;
     QWeakPointer<QQuickItem> m_visualParent;
 
+private Q_SLOTS:
+    void syncBorders();
+
+    void updateVisibility(bool visible);
+
 private:
-    Qt::WindowFlags m_flags;
-    bool m_activeWindow;
     QRect m_cachedGeometry;
+    WindowType m_type;
+    bool m_hideOnWindowDeactivate;
 };
 
 #endif

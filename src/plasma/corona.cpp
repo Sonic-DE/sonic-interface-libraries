@@ -198,6 +198,12 @@ Containment *Corona::createContainment(const QString &name, const QVariantList &
     return 0;
 }
 
+int Corona::screenForContainment(const Containment* containment) const
+{
+    return -1;
+}
+
+
 int Corona::numScreens() const
 {
     return 1;
@@ -387,7 +393,7 @@ Containment *CoronaPrivate::addContainment(const QString &name, const QVariantLi
 
     if (pluginName.isEmpty() || pluginName == "default") {
         // default to the desktop containment
-        pluginName = desktopDefaultsConfig.readEntry("Containment", "org.kde.desktop");
+        pluginName = desktopDefaultsConfig.readEntry("Containment", "org.kde.desktopcontainment");
     }
 
     bool loadingNull = pluginName == "null";
@@ -432,16 +438,14 @@ Containment *CoronaPrivate::addContainment(const QString &name, const QVariantLi
         conf.deleteGroup();
     }
 
-    applet->d->isContainment = true;
-    applet->d->setIsContainment(true, true);
     containments.append(containment);
 
     QObject::connect(containment, SIGNAL(destroyed(QObject*)),
             q, SLOT(containmentDestroyed(QObject*)));
     QObject::connect(containment, SIGNAL(configNeedsSaving()),
             q, SLOT(requestConfigSync()));
-    QObject::connect(containment, SIGNAL(screenChanged(int,int,Plasma::Containment*)),
-            q, SIGNAL(screenOwnerChanged(int,int,Plasma::Containment*)));
+    QObject::connect(containment, SIGNAL(screenChanged(int)),
+            q, SIGNAL(screenOwnerChanged(int)));
 
     containment->init();
     KConfigGroup cg = containment->config();
@@ -506,13 +510,6 @@ QList<Plasma::Containment *> CoronaPrivate::importLayout(const KConfigGroup &con
 
 #ifndef NDEBUG
 //         qDebug() << "!!{} STARTUP TIME" << QTime().msecsTo(QTime::currentTime()) << "Restored Containment" << c->pluginName();
-#endif
-    }
-
-    foreach (Containment *containment, newContainments) {
-        emit q->containmentAdded(containment);
-#ifndef NDEBUG
-//         qDebug() << "!!{} STARTUP TIME" << QTime().msecsTo(QTime::currentTime()) << "Containment" << containment->name();
 #endif
     }
 

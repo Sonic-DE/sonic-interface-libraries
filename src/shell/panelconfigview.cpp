@@ -27,7 +27,6 @@
 #include <QQmlContext>
 #include <QScreen>
 
-#include <kglobal.h>
 #include <klocalizedstring.h>
 #include <kwindoweffects.h>
 
@@ -41,6 +40,8 @@ PanelConfigView::PanelConfigView(Plasma::Containment *containment, PanelView *pa
       m_containment(containment),
       m_panelView(panelView)
 {
+    setScreen(panelView->screen());
+    connect(panelView, &PanelView::screenChanged, [=](QScreen *screen){setScreen(screen); syncGeometry();});
 
     setFlags(Qt::FramelessWindowHint);
 

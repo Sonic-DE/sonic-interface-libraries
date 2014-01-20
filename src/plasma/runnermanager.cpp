@@ -37,16 +37,15 @@
 #include <solid/deviceinterface.h>
 #endif
 
-#include <threadweaver/DebuggingAids.h>
-#include <threadweaver/State.h>
-#include <threadweaver/Thread.h>
-#include <threadweaver/ThreadWeaver.h>
+#include <ThreadWeaver/DebuggingAids>
+#include <ThreadWeaver/Queue>
+#include <ThreadWeaver/Thread>
 
 #include "private/runnerjobs_p.h"
 #include "pluginloader.h"
 #include "querymatch.h"
 
-using ThreadWeaver::Weaver;
+using ThreadWeaver::Queue;
 using ThreadWeaver::Job;
 
 //#define MEASURE_PREPTIME
@@ -112,8 +111,8 @@ public:
         const int maxThreads = config.readEntry("maxThreads", 16);
         const int numThreads = qMin(maxThreads, 2 + ((numProcs - 1) * 2));
         //qDebug() << "setting up" << numThreads << "threads for" << numProcs << "processors";
-        if (numThreads > Weaver::instance()->maximumNumberOfThreads()) {
-            Weaver::instance()->setMaximumNumberOfThreads(numThreads);
+        if (numThreads > Queue::instance()->maximumNumberOfThreads()) {
+            Queue::instance()->setMaximumNumberOfThreads(numThreads);
         }
         // Limit the number of instances of a single normal speed runner and all of the slow runners
         // to half the number of threads
@@ -236,7 +235,7 @@ public:
                 while (it != searchJobs.end()) {
                     auto &job = (*it);
                     if (deadRunners.contains(job->runner())) {
-                        QObject::disconnect(job.data(), SIGNAL(done(ThreadWeaver::JobPointer)), q, SLOT(jobDone(ThreadWeaver::JobPointer)));
+                        QObject::disconnect(job->decorator(), SIGNAL(done(ThreadWeaver::JobPointer)), q, SLOT(jobDone(ThreadWeaver::JobPointer)));
                         it = searchJobs.erase(it);
                         deadJobs.insert(job);
                     } else {
@@ -334,7 +333,6 @@ public:
 
         searchJobs.remove(runJob);
         oldSearchJobs.remove(runJob);
-        runJob->deleteLater();
 
         if (searchJobs.isEmpty() && context.matches().isEmpty()) {
             // we finished our run, and there are no valid matches, and so no
@@ -354,7 +352,7 @@ public:
             return;
         }
 
-        if (Weaver::instance()->isIdle()) {
+        if (Queue::instance()->isIdle()) {
             searchJobs.clear();
             oldSearchJobs.clear();
         }
@@ -385,16 +383,13 @@ public:
 
     void unblockJobs()
     {
-        // WORKAROUND: Queue an empty job to force ThreadWeaver to awaken threads
-        if (searchJobs.isEmpty() && Weaver::instance()->isIdle()) {
+        if (searchJobs.isEmpty() && Queue::instance()->isIdle()) {
             oldSearchJobs.clear();
             checkTearDown();
             return;
         }
 
-        DummyJob *dummy = new DummyJob(q);
-        Weaver::instance()->enqueueRaw(dummy);
-        QObject::connect(dummy, SIGNAL(done(ThreadWeaver::Job*)), dummy, SLOT(deleteLater()));
+        Queue::instance()->reschedule();
     }
 
     void runnerMatchingSuspended(bool suspended)
@@ -413,12 +408,12 @@ public:
     void startJob(AbstractRunner *runner)
     {
         if ((runner->ignoredTypes() & context.type()) == 0) {
-            QSharedPointer<FindMatchesJob> job(new FindMatchesJob(runner, &context, Weaver::instance()));
-            QObject::connect(job.data(), SIGNAL(done(ThreadWeaver::JobPointer)), q, SLOT(jobDone(ThreadWeaver::JobPointer)));
+            QSharedPointer<FindMatchesJob> job(new FindMatchesJob(runner, &context, Queue::instance()));
+            QObject::connect(job->decorator(), SIGNAL(done(ThreadWeaver::JobPointer)), q, SLOT(jobDone(ThreadWeaver::JobPointer)));
             if (runner->speed() == AbstractRunner::SlowSpeed) {
                 job->setDelayTimer(&delayTimer);
             }
-            Weaver::instance()->enqueue(job);
+            Queue::instance()->enqueue(job);
             searchJobs.insert(job);
         }
     }
@@ -779,11 +774,11 @@ QString RunnerManager::query() const
 void RunnerManager::reset()
 {
     // If ThreadWeaver is idle, it is safe to clear previous jobs
-    if (Weaver::instance()->isIdle()) {
+    if (Queue::instance()->isIdle()) {
         d->oldSearchJobs.clear();
     } else {
         for (auto it = d->searchJobs.constBegin(); it != d->searchJobs.constEnd(); ++it) {
-            Weaver::instance()->dequeue((*it));
+            Queue::instance()->dequeue((*it));
         }
         d->oldSearchJobs += d->searchJobs;
     }

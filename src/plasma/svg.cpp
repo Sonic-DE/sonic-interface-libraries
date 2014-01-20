@@ -36,7 +36,6 @@
 #include <QDebug>
 #include <kfilterdev.h>
 #include <kiconeffect.h>
-#include <ksharedptr.h>
 
 #include "applet.h"
 #include "package.h"
@@ -455,7 +454,7 @@ void SvgPrivate::createRenderer()
 
 void SvgPrivate::eraseRenderer()
 {
-    if (renderer && renderer.count() == 2) {
+    if (renderer && renderer->ref.load() == 2) {
         // this and the cache reference it
         s_renderers.erase(s_renderers.find(styleCrc + path));
 

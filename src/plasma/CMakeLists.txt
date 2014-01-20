@@ -1,4 +1,3 @@
-
 # This option should be removed, or moved down as far as possible.
 # That means porting the existing frameworks to the CMake automoc
 # feature. Porting is mostly removing explicit moc includes, and
@@ -7,18 +6,15 @@
 set(CMAKE_AUTOMOC_RELAXED_MODE ON)
 
 if(KDE_PLATFORM_FEATURE_BINARY_COMPATIBLE_FEATURE_REDUCTION)
-    set(PLASMA_NO_KNEWSTUFF TRUE)
     set(PLASMA_NO_SOLID TRUE)
     set(PLASMA_NO_KIO TRUE)
     set(PLASMA_NO_PACKAGEKIT TRUE)
     set(PLASMA_NO_PACKAGE_EXTRADATA TRUE)
-    set(PLASMA_NO_KUTILS TRUE)
-    set(PLASMA_NO_GLOBAL_SHORTCUTS TRUE)
-endif(KDE_PLATFORM_FEATURE_BINARY_COMPATIBLE_FEATURE_REDUCTION)
+endif()
 
 if(NOT X11_FOUND)
     set(PLASMA_NO_PACKAGEKIT TRUE)
-endif(NOT X11_FOUND)
+endif()
 
 #find_package(KdepimLibs 4.5.60)
 #find_package(Gpgme)
@@ -26,33 +22,14 @@ endif(NOT X11_FOUND)
 #                       URL "http://www.kde.org" TYPE OPTIONAL
 #                       PURPOSE "Needed for building several Plasma DataEngines")
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}
-                    ${CMAKE_CURRENT_BINARY_DIR}
-                    ${KDE4_INCLUDE_DIR}
-                    ${KDE4_INCLUDE_DIR}/KDE
-                    ${KDE4_INCLUDE_DIR}/kio
-                    )
-
-
-
-if(NOT PLASMA_NO_KIO)
-   include_directories(${KDE4_KIO_INCLUDES})
-   set(PLASMA_EXTRA_LIBS ${PLASMA_EXTRA_LIBS})
-endif(NOT PLASMA_NO_KIO)
-
 if(NOT PLASMA_NO_SOLID)
     set(PLASMA_EXTRA_LIBS ${PLASMA_EXTRA_LIBS} KF5::Solid)
-endif(NOT PLASMA_NO_SOLID)
+endif()
 
 if(NOT PLASMA_NO_PACKAGEKIT)
     add_definitions(-DPLASMA_ENABLE_PACKAGEKIT_SUPPORT=1)
-    set(PLASMA_EXTRA_LIBS ${PLASMA_EXTRA_LIBS} ${QT_QTDBUS_LIBRARY})
-endif(NOT PLASMA_NO_PACKAGEKIT)
-
-if (NOT PLASMA_NO_KUTILS)
-   #FIXME: for kcmodule classes; should not be in libplasma if possible
-    set(PLASMA_EXTRA_LIBS ${PLASMA_EXTRA_LIBS} ${KCMUTILS_LIBS})
-endif(NOT PLASMA_NO_KUTILS)
+    set(PLASMA_EXTRA_LIBS ${PLASMA_EXTRA_LIBS} Qt5::DBus)
+endif()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config-plasma.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-plasma.h)
 
@@ -65,7 +42,7 @@ add_definitions(-DKDE_DEFAULT_DEBUG_AREA=1209)
 
 ########### next target ###############
 
-set(plasma_LIB_SRCS
+set(Plasma_LIB_SRCS
 #global
     plasma.cpp
     pluginloader.cpp
@@ -73,12 +50,12 @@ set(plasma_LIB_SRCS
     private/componentinstaller.cpp
 
 #runners
-#    abstractrunner.cpp
-#    querymatch.cpp
-#    runnercontext.cpp
-#    runnermanager.cpp
-#    runnersyntax.cpp
-#    private/runnerjobs.cpp
+    abstractrunner.cpp
+    querymatch.cpp
+    runnercontext.cpp
+    runnermanager.cpp
+    runnersyntax.cpp
+    private/runnerjobs.cpp
 
 #applets,containments,corona
     applet.cpp
@@ -117,13 +94,13 @@ set(plasma_LIB_SRCS
 #scripting
     scripting/appletscript.cpp
     scripting/dataenginescript.cpp
-    #    scripting/runnerscript.cpp
+    scripting/runnerscript.cpp
     scripting/scriptengine.cpp
 )
 
-set(plasma_LIB_SRCS ${plasma_LIB_SRCS} private/effectwatcher.cpp)
+set(Plasma_LIB_SRCS ${Plasma_LIB_SRCS} private/effectwatcher.cpp)
 
-kconfig_add_kcfg_files(plasma_LIB_SRCS data/kconfigxt/libplasma-theme-global.kcfgc)
+kconfig_add_kcfg_files(Plasma_LIB_SRCS data/kconfigxt/libplasma-theme-global.kcfgc)
 
 #NEPOMUK_GENERATE_FROM_ONTOLOGY(
 #   nwc.nrl
@@ -134,54 +111,65 @@ kconfig_add_kcfg_files(plasma_LIB_SRCS data/kconfigxt/libplasma-theme-global.kcf
 #)
 
 
-add_library(plasma SHARED ${plasma_LIB_SRCS})
-
-target_link_libraries(plasma
-    ${QT_QTNETWORK_LIBRARY}
-    ${QT_QTSQL_LIBRARY}
-    ${Qt5Quick_LIBRARIES}
-    Qt5::Svg
-    Qt5::DBus
-    ${ThreadWeaver_LIBRARIES}
-    ${KAuth_LIBRARIES}
-    ${KWindowSystem_LIBRARIES}
-    ${PLASMA_EXTRA_LIBS}
-    KF5::KGuiAddons
-    KF5::KIconThemes
-    KF5::KI18n
-    KF5::KService
-    KF5::KIOCore
-    KF5::KIOWidgets
-    KF5::KDE4Attic
-    Qt5::UiTools
-    ${KDE4Attic_LIBRARIES}
-    #${KDE4Support_LIBRARIES} # needed for KStandardDirs and KGlobal
-)
-#FIXME gpgme++ is in kdepimlibs, needs to be elsewhere
-target_link_libraries(plasma KF5::KDeclarative KF5::KArchive)
+add_library(KF5Plasma ${Plasma_LIB_SRCS})
+add_library(KF5::Plasma ALIAS KF5Plasma)
 
 if(X11_FOUND)
-   target_link_libraries(plasma Qt5::X11Extras ${X11_LIBRARIES})
-endif(X11_FOUND)
+    set(PLASMA_EXTRA_LIBS ${PLASMA_EXTRA_LIBS} Qt5::X11Extras ${X11_LIBRARIES} ${XCB_XCB_LIBRARY})
+endif()
 
 if(DL_LIBRARY)
-    target_link_libraries(plasma ${DL_LIBRARY})
-endif(DL_LIBRARY)
+    set(PLASMA_EXTRA_LIBS ${PLASMA_EXTRA_LIBS} ${DL_LIBRARY})
+endif()
 
-target_link_libraries(plasma LINK_INTERFACE_LIBRARIES Qt5::Widgets KF5::KConfigWidgets)
-target_include_directories(plasma INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}>" )
+target_link_libraries(KF5Plasma
+PUBLIC
+    Qt5::Widgets
+    KF5::ConfigWidgets
+    KF5::Service # For kplugininfo.h and kservice.h
+PRIVATE
+    Qt5::Network
+    Qt5::Sql
+    Qt5::Quick # needed in service.cpp, remove?
+    Qt5::Svg
+    Qt5::DBus
+    Qt5::UiTools
+    Qt5::Xml
+    KF5::Archive
+    KF5::GuiAddons
+    KF5::IconThemes
+    KF5::I18n
+    KF5::KIOCore
+    KF5::KIOWidgets
+    KF5::ThreadWeaver
+    KF5::WindowSystem
+    KF5::Auth
+    KF5::Declarative
+    KF5::XmlGui
+    KF5::GlobalAccel
+    KF5::DNSSD
+    ${PLASMA_EXTRA_LIBS}
+)
 
-#do NOT use GENERIC versioning -- the plasma team will take care of versioning
-set_target_properties(plasma PROPERTIES
-                             VERSION 5.0.0
-                             SOVERSION 5
+target_include_directories(KF5Plasma PUBLIC
+  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..;${CMAKE_CURRENT_BINARY_DIR}/..;${CMAKE_CURRENT_SOURCE_DIR}/includes>"
+)
+target_include_directories(KF5Plasma INTERFACE
+  "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR};${INCLUDE_INSTALL_DIR}/KDE>"
+)
+
+#do NOT use GENERIC versioning -- the Plasma team will take care of versioning
+set_target_properties(KF5Plasma PROPERTIES
+                                VERSION 5.0.0
+                                SOVERSION 5
+                                EXPORT_NAME Plasma
                       )
 
 ########### install files ###############
-generate_export_header(plasma)
+generate_export_header(KF5Plasma BASE_NAME Plasma)
 
-set(plasma_LIB_INCLUDES
-	#abstractrunner.h
+set(Plasma_LIB_INCLUDES
+    abstractrunner.h
     applet.h
     configloader.h
     containment.h
@@ -196,10 +184,10 @@ set(plasma_LIB_INCLUDES
     packagestructure.h
     plasma.h
     ${CMAKE_CURRENT_BINARY_DIR}/plasma_export.h
-    #querymatch.h
-    #runnercontext.h
-    #runnermanager.h
-    #runnersyntax.h
+    querymatch.h
+    runnercontext.h
+    runnermanager.h
+    runnersyntax.h
     service.h
     servicejob.h
     svg.h
@@ -208,7 +196,7 @@ set(plasma_LIB_INCLUDES
 
 
 install(FILES
-        ${plasma_LIB_INCLUDES}
+        ${Plasma_LIB_INCLUDES}
         DESTINATION ${INCLUDE_INSTALL_DIR}/plasma COMPONENT Devel)
 
 install(DIRECTORY
@@ -241,5 +229,5 @@ install(FILES data/operations/dataengineservice.operations DESTINATION ${DATA_IN
 install(FILES data/operations/plasmoidservice.operations DESTINATION ${DATA_INSTALL_DIR}/plasma/services)
 install(FILES data/operations/storage.operations DESTINATION ${DATA_INSTALL_DIR}/plasma/services)
 
-install(TARGETS plasma EXPORT PlasmaTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS KF5Plasma EXPORT KF5PlasmaTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
 

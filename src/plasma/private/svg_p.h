@@ -23,8 +23,7 @@
 #include <QHash>
 #include <QSharedData>
 #include <QSvgRenderer>
-
-#include "ksharedptr.h"
+#include <QExplicitlySharedDataPointer>
 
 namespace Plasma
 {
@@ -34,7 +33,7 @@ class Svg;
 class SharedSvgRenderer : public QSvgRenderer, public QSharedData
 {
     public:
-        typedef KSharedPtr<SharedSvgRenderer> Ptr;
+        typedef QExplicitlySharedDataPointer<SharedSvgRenderer> Ptr;
 
         SharedSvgRenderer(QObject *parent = 0);
         SharedSvgRenderer(

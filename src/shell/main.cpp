@@ -1,5 +1,6 @@
 /*
  *  Copyright 2012 Marco Martin <mart@kde.org>
+ *  Copyright 2013 Sebastian Kügler <sebas@kde.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -18,53 +19,67 @@
 
 #include <QApplication>
 #include <qcommandlineparser.h>
-
-#include <klocalizedstring.h>
-#include "shellpluginloader.h"
-#include "shellmanager.h"
-
 #include <QtQml/QQmlDebuggingEnabler>
 #include <QDebug>
+
+#include <kdbusservice.h>
+#include <klocalizedstring.h>
+
+#include "shellpluginloader.h"
+#include "shellmanager.h"
 
 static const char description[] = "Plasma Shell";
 static const char version[] = "2.0";
 static QCommandLineParser parser;
 
+void noMessageOutput(QtMsgType type, const char *msg)
+{
+     Q_UNUSED(type);
+     Q_UNUSED(msg);
+}
 int main(int argc, char** argv)
 {
+    QQmlDebuggingEnabler debugEnabler;
 
     QApplication app(argc, argv);
+    app.setApplicationName("plasma_shell");
+    app.setOrganizationDomain("kde.org");
     app.setApplicationVersion(version);
+    app.setQuitOnLastWindowClosed(false);
+    parser.setApplicationDescription(description);
+    KDBusService service(KDBusService::Unique);
 
-    QCommandLineOption dbg = QCommandLineOption(QStringList() << QStringLiteral("d") << QStringLiteral("qmljsdebugger"),
-                                        QStringLiteral("Enable QML Javascript debugger"));
+    QCommandLineOption dbg(QStringList() << QStringLiteral("d") <<
+                           QStringLiteral("qmljsdebugger"),
+                           QStringLiteral("Enable QML Javascript debugger"));
 
-    QCommandLineOption windowed = QCommandLineOption(QStringList() << QStringLiteral("w") << QStringLiteral("windowed"),
-                                        QStringLiteral("force a windowed view for desktop purposes"));
+    QCommandLineOption win(QStringList() << QStringLiteral("w") <<
+                           QStringLiteral("windowed"),
+                           QStringLiteral("Force a windowed view for testing purposes"));
+
+    QCommandLineOption crash(QStringList() << QStringLiteral("c") << QStringLiteral("crashes"),
+                                     QStringLiteral("Recent number of crashes"),
+                                     QStringLiteral("n"));
+
+    QCommandLineOption shutup(QStringList() << QStringLiteral("s") << QStringLiteral("shut-up"),
+                                     QStringLiteral("Shuts up the output"));
 
     parser.addVersionOption();
-    parser.setApplicationDescription(description);
+    parser.addHelpOption();
     parser.addOption(dbg);
-    parser.addOption(windowed);
+    parser.addOption(win);
+    parser.addOption(crash);
+    parser.addOption(shutup);
+
     parser.process(app);
 
-    //enable the QML debugger only if --qmljsdebugger (or -d) is passed as a command line arg
-    //this must be called before the QApplication constructor
-    if (parser.isSet(dbg)) {
-        QQmlDebuggingEnabler enabler;
+    if (parser.isSet(shutup)) {
+        qInstallMsgHandler(noMessageOutput);
     }
-
     Plasma::PluginLoader::setPluginLoader(new ShellPluginLoader);
-    // DesktopCorona *corona = new DesktopCorona();
-    // corona->loadLayout();
-    // if (corona->containments().isEmpty()) {
-    //     corona->loadDefaultLayout();
-    // }
-    // corona->processUpdateScripts();
-    // corona->checkScreens();
 
-    ShellManager::s_forceWindowed = parser.isSet(windowed);
-
+    ShellManager::setCrashCount(parser.value(crash).toInt());
+    ShellManager::s_forceWindowed = parser.isSet(win);
     ShellManager::instance();
 
     return app.exec();

@@ -1,15 +1,21 @@
 [Desktop Entry]
 Name=Example window thumbnails list
+Name[de]=Beispiel einer Liste mit Fenstervorschaubilden
+Name[fr]=Exemple de liste de vignettes de fenêtres
 Name[nl]=Voorbeeld van lijst met miniaturen van vensters
 Name[pt]=Lista de miniaturas das janelas de exemplo
 Name[pt_BR]=Lista de miniaturas das janelas de exemplo
+Name[sk]=Ukážkové okno so zoznamom miniatúr
 Name[sv]=Exempel på miniatyrbilder av fönster
 Name[uk]=Приклад списку мініатюр вікон
 Name[x-test]=xxExample window thumbnails listxx
 Comment=Example showing how to display window thumbnails
+Comment[de]=Beispiel zur Anzeige einer Liste mit Fenstervorschaubilden
+Comment[fr]=Exemple montrant comment afficher des vignettes de fenêtres
 Comment[nl]=Voorbeeld van hoe miniaturen van vensters te tonen
 Comment[pt]=Exemplo que demonstra como apresentar miniaturas das janelas
 Comment[pt_BR]=Exemplo que demostra como apresentar as miniaturas das janelas
+Comment[sk]=Ukážka zobrazujúca ako zobraziť miniatúry okna
 Comment[sv]=Exempel som visar hur miniatyrbilder av fönster visas
 Comment[uk]=Приклад, який демонструє показ мініатюр вікон
 Comment[x-test]=xxExample showing how to display window thumbnailsxx
@@ -27,6 +33,6 @@ X-KDE-PluginInfo-Version=
 X-KDE-PluginInfo-Website=
 X-KDE-ServiceTypes=Plasma/Applet
 X-Plasma-API=declarativeappletscript
-X-Plasma-DefaultSize=180,240
+
 X-Plasma-MainScript=ui/main.qml
 X-Plasma-RemoteLocation=

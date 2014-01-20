@@ -60,7 +60,7 @@ void CoreBindingsPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
     context->setContextProperty("theme", theme);
 
     if (!engine->rootContext()->contextObject()) {
-        KDeclarative kdeclarative;
+        KDeclarative::KDeclarative kdeclarative;
         kdeclarative.setDeclarativeEngine(engine);
         kdeclarative.setupBindings();
     }
@@ -85,7 +85,7 @@ void CoreBindingsPlugin::registerTypes(const char *uri)
     qmlRegisterType<Plasma::SortFilterModel>(uri, 2, 0, "SortFilterModel");
 
     qmlRegisterType<DialogProxy>(uri, 2, 0, "Dialog");
-    qmlRegisterType<ToolTip>(uri, 2, 0, "ToolTipProxy");
+    qmlRegisterType<ToolTip>(uri, 2, 0, "ToolTipArea");
 
     qmlRegisterInterface<Plasma::Service>("Service");
     qRegisterMetaType<Plasma::Service*>("Service");

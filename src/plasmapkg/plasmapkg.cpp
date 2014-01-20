@@ -30,8 +30,6 @@
 #include <plasma/packagestructure.h>
 #include <plasma/package.h>
 #include <plasma/pluginloader.h>
-#include <kglobal.h>
-#include <klocale.h>
 #include <kjob.h>
 
 #include <qcommandlineparser.h>
@@ -373,7 +371,7 @@ void PlasmaPkgPrivate::runKbuildsycoca()
 {
     return;
     if (KSycoca::isAvailable()) {
-        QDBusInterface dbus("org.kde.kded", "/kbuildsycoca", "org.kde.kbuildsycoca");
+        QDBusInterface dbus("org.kde.kded5", "/kbuildsycoca", "org.kde.kbuildsycoca");
         dbus.call(QDBus::NoBlock, "recreate");
     }
 }

@@ -29,6 +29,12 @@
 
 class QQuickItem;
 class QGraphicsWidget;
+class QPropertyAnimation;
+
+namespace KDeclarative
+{
+    class QmlObject;
+}
 
 /**
  * QML wrapper for kdelibs Plasma::ToolTipDialog
@@ -43,11 +49,35 @@ public:
     ToolTipDialog(QQuickItem *parent = 0);
     ~ToolTipDialog();
 
+    QQuickItem *loadDefaultItem();
+
+    Plasma::Types::Direction direction() const;
+    void setDirection(Plasma::Types::Direction loc);
+
+    /**
+     * animate the position change if visible
+     */
+    virtual void adjustGeometry(const QRect &geom);
+
     static ToolTipDialog* instance();
 
-Q_SIGNALS:
+    void dismiss();
+    void keepalive();
+
+protected:
+    void showEvent(QShowEvent *event);
+    void hideEvent(QHideEvent *event);
+    void resizeEvent(QResizeEvent *re);
+
+private Q_SLOTS:
+    void valueChanged(const QVariant &value);
 
 private:
+    KDeclarative::QmlObject *m_qmlObject;
+    QTimer *m_showTimer;
+    QPropertyAnimation *m_animation;
+    int m_hideTimeout;
+    Plasma::Types::Direction m_direction;
 };
 
 #endif

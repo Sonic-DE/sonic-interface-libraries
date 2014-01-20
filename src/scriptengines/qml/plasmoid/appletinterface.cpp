@@ -47,8 +47,8 @@
 #include "containmentinterface.h"
 #include <kdeclarative/configpropertymap.h>
 #include <kdeclarative/qmlobject.h>
-#include "declarative/packageaccessmanagerfactory.h"
-#include "declarative/packageurlinterceptor.h"
+
+#include <packageurlinterceptor.h>
 
 Q_DECLARE_METATYPE(AppletInterface*)
 
@@ -58,7 +58,8 @@ AppletInterface::AppletInterface(DeclarativeAppletScript *script, QQuickItem *pa
       m_actionSignals(0),
       m_backgroundHints(Plasma::Types::StandardBackground),
       m_busy(false),
-      m_expanded(false)
+      m_expanded(false),
+      m_hideOnDeactivate(true)
 {
     qmlRegisterType<AppletInterface>();
     qmlRegisterType<QAction>();
@@ -85,7 +86,7 @@ AppletInterface::AppletInterface(DeclarativeAppletScript *script, QQuickItem *pa
                 this, &ContainmentInterface::screenChanged);
     }
 
-    m_qmlObject = new QmlObject(this);
+    m_qmlObject = new KDeclarative::QmlObject(this);
     m_qmlObject->setInitializationDelayed(true);
 
     m_collapseTimer = new QTimer(this);
@@ -103,18 +104,16 @@ void AppletInterface::init()
         return;
     }
 
-    m_configuration = new ConfigPropertyMap(applet()->configScheme(), this);
+    m_configuration = new KDeclarative::ConfigPropertyMap(applet()->configScheme(), this);
 
     //use our own custom network access manager that will access Plasma packages and to manage security (i.e. deny access to remote stuff when the proper extension isn't enabled
     QQmlEngine *engine = m_qmlObject->engine();
-    QQmlNetworkAccessManagerFactory *factory = engine->networkAccessManagerFactory();
-    engine->setNetworkAccessManagerFactory(0);
-    delete factory;
-    engine->setNetworkAccessManagerFactory(new PackageAccessManagerFactory(m_appletScriptEngine->package()));
 
     //Hook generic url resolution to the applet package as well
     //TODO: same thing will have to be done for every qqmlengine: PackageUrlInterceptor is material for plasmaquick?
-    engine->setUrlInterceptor(new PackageUrlInterceptor(engine, m_appletScriptEngine->package()));
+    PackageUrlInterceptor *interceptor = new PackageUrlInterceptor(engine, m_appletScriptEngine->package());
+    interceptor->addAllowedPath(applet()->containment()->corona()->package().path());
+    engine->setUrlInterceptor(interceptor);
 
     m_qmlObject->setSource(QUrl::fromLocalFile(m_appletScriptEngine->mainScript()));
 
@@ -150,50 +149,6 @@ void AppletInterface::init()
 
     qDebug() << "Graphic object created:" << applet() << applet()->property("graphicObject");
 
-    //Create the ToolBox
-    Plasma::Containment *pc = qobject_cast<Plasma::Containment *>(applet());
-    if (pc && !qobject_cast<Plasma::Applet *>(pc->parent())) {
-        KConfigGroup defaults;
-        if (pc->containmentType() == Plasma::Types::DesktopContainment) {
-            defaults = KConfigGroup(KSharedConfig::openConfig(pc->corona()->package().filePath("defaults")), "Desktop");
-        } else if (pc->containmentType() == Plasma::Types::PanelContainment) {
-            defaults = KConfigGroup(KSharedConfig::openConfig(pc->corona()->package().filePath("defaults")), "Panel");
-        }
-
-        Plasma::Package pkg = Plasma::PluginLoader::self()->loadPackage("Plasma/Generic");
-        if (defaults.isValid()) {
-            pkg.setPath(defaults.readEntry("ToolBox", "org.kde.desktoptoolbox"));
-        } else {
-            pkg.setPath("org.kde.desktoptoolbox");
-        }
-
-        if (pkg.isValid()) {
-            QObject *toolBoxObject = m_qmlObject->createObjectFromSource(QUrl::fromLocalFile(pkg.filePath("mainscript")));
-
-            QObject *containmentGraphicObject = m_qmlObject->rootObject();
-
-            if (containmentGraphicObject && toolBoxObject) {
-                toolBoxObject->setProperty("parent", QVariant::fromValue(containmentGraphicObject));
-
-                containmentGraphicObject->setProperty("toolBox", QVariant::fromValue(toolBoxObject));
-            } else {
-                delete toolBoxObject;
-            }
-            qDebug() << "Loaded toolbox package" << pkg.path();
-        } else {
-            qWarning() << "Could not load toolbox package." << pkg.path();
-        }
-    }
-
-    //set parent, both as object hyerarchy and visually
-    if (m_qmlObject->rootObject()) {
-        m_qmlObject->rootObject()->setProperty("parent", QVariant::fromValue(this));
-
-        //set anchors
-        QQmlExpression expr(m_qmlObject->engine()->rootContext(), m_qmlObject->rootObject(), "parent");
-        QQmlProperty prop(m_qmlObject->rootObject(), "anchors.fill");
-        prop.write(expr.evaluate());
-    }
     geometryChanged(QRectF(), QRectF(x(), y(), width(), height()));
     emit busyChanged();
 
@@ -584,16 +539,6 @@ qreal AppletInterface::maximumHeight() const
     return readGraphicsObjectSizeHint("maximumHeight");
 }
 
-qreal AppletInterface::implicitWidth() const
-{
-    return readGraphicsObjectSizeHint("implicitWidth");
-}
-
-qreal AppletInterface::implicitHeight() const
-{
-    return readGraphicsObjectSizeHint("implicitHeight");
-}
-
 void AppletInterface::setAssociatedApplication(const QString &string)
 {
     applet()->setAssociatedApplication(string);
@@ -622,6 +567,20 @@ int AppletInterface::screen() const
 
     return -1;
 }
+
+void AppletInterface::setHideOnWindowDeactivate(bool hide)
+{
+    if (m_hideOnDeactivate != hide) {
+        m_hideOnDeactivate = hide;
+        emit hideOnWindowDeactivateChanged();
+    }
+}
+
+bool AppletInterface::hideOnWindowDeactivate() const
+{
+    return m_hideOnDeactivate;
+}
+
 
 QString AppletInterface::downloadPath(const QString &file)
 {
@@ -822,19 +781,17 @@ void AppletInterface::compactRepresentationCheck()
 
         if (m_qmlObject->rootObject()->property("implicitWidth").isValid()) {
             connect(m_qmlObject->rootObject(), SIGNAL(implicitWidthChanged()),
-                    this, SIGNAL(implicitWidthChanged()));
+                    this, SLOT(updateImplicitWidth()));
         }
         if (m_qmlObject->rootObject()->property("implicitHeight").isValid()) {
             connect(m_qmlObject->rootObject(), SIGNAL(implicitHeightChanged()),
-                    this, SIGNAL(implicitHeightChanged()));
+                    this, SLOT(updateImplicitHeight()));
         }
 
         emit fillWidthChanged();
         emit fillHeightChanged();
         emit minimumWidthChanged();
         emit minimumHeightChanged();
-        emit implicitWidthChanged();
-        emit implicitHeightChanged();
         emit maximumWidthChanged();
         emit maximumHeightChanged();
 
@@ -849,6 +806,17 @@ void AppletInterface::compactRepresentationCheck()
         prop.write(expr.evaluate());
     }
 }
+
+void AppletInterface::updateImplicitWidth()
+{
+    setImplicitWidth(readGraphicsObjectSizeHint("implicitWidth"));
+}
+
+void AppletInterface::updateImplicitHeight()
+{
+    setImplicitHeight(readGraphicsObjectSizeHint("implicitHeight"));
+}
+
 
 void AppletInterface::updatePopupSize()
 {
@@ -869,7 +837,7 @@ void AppletInterface::itemChange(ItemChange change, const ItemChangeData &value)
     QQuickItem::itemChange(change, value);
 }
 
-QmlObject *AppletInterface::qmlObject()
+KDeclarative::QmlObject *AppletInterface::qmlObject()
 {
     return m_qmlObject;
 }

@@ -14,17 +14,14 @@ set(plasmaextracomponents_SRCS
     fallbackcomponent.cpp
     )
 
-include_directories(
-        ${KACTIVITIES_INCLUDE_DIRS}
-)
-
 add_library(plasmaextracomponentsplugin SHARED ${plasmaextracomponents_SRCS})
 
 target_link_libraries(plasmaextracomponentsplugin
-        ${Qt5Quick_LIBRARIES}
-        ${Qt5Qml_LIBRARIES}
+        Qt5::Quick
+        Qt5::Qml
         ${KACTIVITIES_LIBRARY}
-        plasma)
+        KF5::Service
+        KF5::Plasma)
 
 
 install(TARGETS plasmaextracomponentsplugin DESTINATION ${QML_INSTALL_DIR}/org/kde/plasma/extras)

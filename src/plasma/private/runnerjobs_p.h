@@ -24,9 +24,10 @@
 #include <QMutex>
 #include <QSet>
 
-#include <threadweaver/Job.h>
-#include <threadweaver/QueuePolicy.h>
-#include <threadweaver/ThreadWeaver.h>
+#include <ThreadWeaver/Job>
+#include <ThreadWeaver/QueuePolicy>
+#include <ThreadWeaver/Queue>
+#include <ThreadWeaver/QObjectDecorator>
 
 #include "abstractrunner.h"
 
@@ -46,10 +47,11 @@ public:
 
     static DelayedRunnerPolicy &instance();
 
-    bool canRun(Job *job);
-    void free(Job *job);
-    void release(Job *job);
-    void destructed(Job *job);
+    bool canRun(ThreadWeaver::JobPointer job);
+    void free(ThreadWeaver::JobPointer job);
+    void release(ThreadWeaver::JobPointer job);
+    virtual void destructed(ThreadWeaver::JobInterface* job);
+
 private:
     DelayedRunnerPolicy();
     QMutex m_mutex;
@@ -72,30 +74,16 @@ public:
         return m_cap;
     }
 
-    bool canRun(Job *job);
-    void free(Job *job);
-    void release(Job *job);
-    void destructed(Job *job);
+    bool canRun(ThreadWeaver::JobPointer job);
+    void free(ThreadWeaver::JobPointer job);
+    void release(ThreadWeaver::JobPointer job);
+    void destructed(ThreadWeaver::JobInterface* job);
 private:
     DefaultRunnerPolicy();
 
     int m_cap;
     QHash<QString, int> m_runCounts;
     QMutex m_mutex;
-};
-
-/* ThreadWeaver work around:
- * There is no method exposed that allows us to inform
- * ThreadWeaver that a previously unavailable job is now
- * available; thus, we use an empty job to wake up the threads
- */
-class DummyJob : public ThreadWeaver::Job
-{
-    public:
-        DummyJob(QObject *parent) : Job(parent) {}
-        ~DummyJob() {}
-    private:
-        void run() {}
 };
 
 /*
@@ -114,14 +102,16 @@ public:
 
     QTimer* delayTimer() const;
     void setDelayTimer(QTimer *timer);
+    ThreadWeaver::QObjectDecorator* decorator() const { return m_decorator; }
 
 protected:
-    void run();
+    virtual void run(ThreadWeaver::JobPointer self, ThreadWeaver::Thread* thread);
 
 private:
     Plasma::RunnerContext m_context;
     Plasma::AbstractRunner *m_runner;
     QTimer *m_timer;
+    ThreadWeaver::QObjectDecorator* m_decorator;
 };
 
 class DelayedJobCleaner : public QObject
@@ -135,7 +125,7 @@ private Q_SLOTS:
     void checkIfFinished();
 
 private:
-    ThreadWeaver::Weaver *m_weaver;
+    ThreadWeaver::Queue *m_weaver;
     QSet<QSharedPointer<FindMatchesJob> > m_jobs;
     QSet<AbstractRunner *> m_runners;
 };

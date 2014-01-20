@@ -30,8 +30,6 @@
 
 #include <kconfiggroup.h>
 #include <QDebug>
-#include <kglobal.h>
-#include <klocale.h>
 #include <klocalizedstring.h>
 
 #include <Plasma/Applet>
@@ -46,7 +44,6 @@
 #include "plasmoid/containmentinterface.h"
 
 #include <kdeclarative/qmlobject.h>
-#include "declarative/packageaccessmanagerfactory.h"
 #include <kdeclarative/configpropertymap.h>
 
 
@@ -58,7 +55,7 @@ DeclarativeAppletScript::DeclarativeAppletScript(QObject *parent, const QVariant
       m_interface(0)
 {
     qmlRegisterType<AppletInterface>();
-    qmlRegisterType<ConfigPropertyMap>();
+    qmlRegisterType<KDeclarative::ConfigPropertyMap>();
     Q_UNUSED(args);
 }
 
@@ -87,9 +84,6 @@ bool DeclarativeAppletScript::init()
     // set the graphicObject dynamic property on applet
     a->setProperty("graphicObject", QVariant::fromValue(m_interface));
 
-    connect(applet(), &Plasma::Applet::activate,
-            this, &DeclarativeAppletScript::activate);
-
     return true;
 }
 
@@ -111,18 +105,6 @@ void DeclarativeAppletScript::constraintsEvent(Plasma::Types::Constraints constr
     if (constraints & Plasma::Types::ContextConstraint) {
         emit contextChanged();
     }
-}
-
-void DeclarativeAppletScript::activate()
-{
-#if 0
-TODO: callEventListeners is broken without qscriptengine
-    if (!m_env) {
-        return;
-    }
-
-    m_env->callEventListeners("activate");
-#endif
 }
 
 void DeclarativeAppletScript::executeAction(const QString &name)

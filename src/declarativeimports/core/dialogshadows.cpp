@@ -18,6 +18,7 @@
 
 #include "dialogshadows_p.h"
 
+#include <QGlobalStatic>
 #include <QWindow>
 #include <QPainter>
 
@@ -30,7 +31,6 @@
 #endif
 
 #include <qdebug.h>
-#include <kglobal.h>
 
 class DialogShadows::Private
 {
@@ -94,7 +94,7 @@ public:
    DialogShadows self;
 };
 
-K_GLOBAL_STATIC(DialogShadowsSingleton, privateDialogShadowsSelf)
+Q_GLOBAL_STATIC(DialogShadowsSingleton, privateDialogShadowsSelf)
 
 DialogShadows::DialogShadows(QObject *parent, const QString &prefix)
     : Plasma::Svg(parent),
@@ -454,7 +454,7 @@ void DialogShadows::Private::updateShadow(const QWindow *window, Plasma::FrameSv
     Display *dpy = QX11Info::display();
     Atom atom = XInternAtom(dpy, "_KDE_NET_WM_SHADOW", False);
 
-    qDebug() << "going to set the shadow of" << window->winId() << "to" << data;
+    //qDebug() << "going to set the shadow of" << window->winId() << "to" << data;
     XChangeProperty(dpy, window->winId(), atom, XA_CARDINAL, 32, PropModeReplace,
                     reinterpret_cast<const unsigned char *>(data[enabledBorders].constData()), data[enabledBorders].size());
 #endif

@@ -21,6 +21,11 @@
 
 #include "widgetexplorer.h"
 
+#include <QQmlEngine>
+#include <QQmlContext>
+#include <QQmlExpression>
+#include <QQmlProperty>
+
 #include <klocalizedstring.h>
 #include <kservicetypetrader.h>
 
@@ -31,6 +36,7 @@
 #include <Plasma/PackageStructure>
 #include <qstandardpaths.h>
 
+#include "plasmaquickview.h"
 #include "kcategorizeditemsviewmodels_p.h"
 #include "plasmaappletitemmodel_p.h"
 
@@ -40,7 +46,6 @@ using namespace Plasma;
 WidgetAction::WidgetAction(QObject *parent)
     : QAction(parent)
 {
-    qDebug() << "There we go.";
 }
 
 WidgetAction::WidgetAction(const QIcon &icon, const QString &text, QObject *parent)
@@ -56,16 +61,14 @@ public:
         : q(w),
           containment(0),
           itemModel(w),
-          filterModel(w)
+          filterModel(w),
+          view(0)
     {
     }
 
     void initFilters();
-    void init(Plasma::Types::Location loc);
     void initRunningApplets();
     void containmentDestroyed();
-    void setLocation(Plasma::Types::Location loc);
-    void finished();
 
     /**
      * Tracks a new running applet
@@ -77,9 +80,6 @@ public:
      */
     void appletRemoved(Plasma::Applet *applet);
 
-    //this orientation is just for convenience, is the location that is important
-    Qt::Orientation orientation;
-    Plasma::Types::Location location;
     WidgetExplorer *q;
     QString application;
     Plasma::Containment *containment;
@@ -93,10 +93,7 @@ public:
     PlasmaAppletItemModel itemModel;
     KCategorizedItemsViewModels::DefaultFilterModel filterModel;
     DefaultItemFilterProxyModel filterItemModel;
-
-//     Plasma::DeclarativeWidget *declarativeWidget;
-
-//     QGraphicsLinearLayout *mainLayout;
+    PlasmaQuickView *view;
 };
 
 void WidgetExplorerPrivate::initFilters()
@@ -147,92 +144,6 @@ void WidgetExplorerPrivate::initFilters()
 
 }
 
-void WidgetExplorerPrivate::init(Plasma::Types::Location loc)
-{
-//     q->setFocusPolicy(Qt::StrongFocus);
-
-    //init widgets
-    location = loc;
-    orientation = ((location == Plasma::Types::LeftEdge || location == Plasma::Types::RightEdge)?Qt::Vertical:Qt::Horizontal);
-//     mainLayout = new QGraphicsLinearLayout(Qt::Vertical);
-//     mainLayout->setContentsMargins(0, 0, 0, 0);
-//     mainLayout->setSpacing(0);
-
-    //connect
- //QObject::connect(filteringWidget, SIGNAL(closeClicked()), q, SIGNAL(closeClicked()));
-
-    initRunningApplets();
-
-    filterItemModel.setSortCaseSensitivity(Qt::CaseInsensitive);
-    filterItemModel.setDynamicSortFilter(true);
-    filterItemModel.setSourceModel(&itemModel);
-    filterItemModel.sort(0);
-//     Plasma::PackageStructure::Ptr structure = Plasma::PackageStructure::load("Plasma/Generic");
-//     package = new Plasma::Package(QString(), "org.kde.desktop.widgetexplorer", structure);
-//
-//     declarativeWidget = new Plasma::DeclarativeWidget(q);
-//     declarativeWidget->setInitializationDelayed(true);
-//     declarativeWidget->setQmlPath(package->filePath("mainscript"));
-//     mainLayout->addItem(declarativeWidget);
-//
-//     if (declarativeWidget->engine()) {
-//         QDeclarativeContext *ctxt = declarativeWidget->engine()->rootContext();
-//         if (ctxt) {
-//             filterItemModel.setSortCaseSensitivity(Qt::CaseInsensitive);
-//             filterItemModel.setDynamicSortFilter(true);
-//             filterItemModel.setSourceModel(&itemModel);
-//             filterItemModel.sort(0);
-//             ctxt->setContextProperty("widgetExplorer", q);
-//         }
-//     }
-//
-//     q->setLayout(mainLayout);
-}
-
-void WidgetExplorerPrivate::finished()
-{
-//     if (declarativeWidget->mainComponent()->isError()) {
-//         return;
-//     }
-
-    emit q->widgetsMenuActionsChanged();
-    emit q->extraActionsChanged();
-
-    return;
-//     QObject::connect(declarativeWidget->rootObject(), SIGNAL(addAppletRequested(const QString &)),
-//                      q, SLOT(addApplet(const QString &)));
-//     QObject::connect(declarativeWidget->rootObject(), SIGNAL(closeRequested()),
-//                      q, SIGNAL(closeClicked()));
-/*
-
-    QList<QObject *> actionList;
-    foreach (QAction *action, q->actions()) {
-        actionList << action;
-    }
-    declarativeWidget->rootObject()->setProperty("extraActions", QVariant::fromValue(actionList));*/
-}
-
-void WidgetExplorerPrivate::setLocation(const Plasma::Types::Location loc)
-{
-    Qt::Orientation orient;
-    if (loc == Plasma::Types::LeftEdge || loc == Plasma::Types::RightEdge) {
-        orient = Qt::Vertical;
-    } else {
-        orient = Qt::Horizontal;
-    }
-
-    if (location == loc) {
-        return;
-    }
-
-    location = loc;
-
-    if (orientation == orient) {
-        return;
-    }
-
-    emit q->orientationChanged();
-}
 
 QObject *WidgetExplorer::widgetsModel() const
 {
@@ -316,10 +227,6 @@ void WidgetExplorerPrivate::initRunningApplets()
         QObject::connect(containment, SIGNAL(appletAdded(Plasma::Applet*)), q, SLOT(appletAdded(Plasma::Applet*)));
         QObject::connect(containment, SIGNAL(appletRemoved(Plasma::Applet*)), q, SLOT(appletRemoved(Plasma::Applet*)));
 
-        // FIXME: this doesn't work with private slots
-        // QObject::connect(containment, &Containment::appletAdded, q, &WidgetExplorerPrivate::appletAdded);
-        // QObject::connect(containment, &Containment::appletRemoved, q, &WidgetExplorerPrivate::appletRemoved);
-
         foreach (Applet *applet, containment->applets()) {
             if (applet->pluginInfo().isValid()) {
                 runningApplets[applet->pluginInfo().pluginName()]++;
@@ -369,18 +276,18 @@ void WidgetExplorerPrivate::appletRemoved(Plasma::Applet *applet)
 
 //WidgetExplorer
 
-WidgetExplorer::WidgetExplorer(Plasma::Types::Location loc, QObject *parent)
-        :QObject(parent),
-        d(new WidgetExplorerPrivate(this))
-{
-    d->init(loc);
-}
-
 WidgetExplorer::WidgetExplorer(QObject *parent)
-        :QObject(parent),
-        d(new WidgetExplorerPrivate(this))
+        : QObject(parent),
+          d(new WidgetExplorerPrivate(this))
 {
-    d->init(Plasma::Types::LeftEdge);
+    //FIXME: delay
+    setApplication();
+    d->initRunningApplets();
+    
+    d->filterItemModel.setSortCaseSensitivity(Qt::CaseInsensitive);
+    d->filterItemModel.setDynamicSortFilter(true);
+    d->filterItemModel.setSourceModel(&d->itemModel);
+    d->filterItemModel.sort(0);
 }
 
 WidgetExplorer::~WidgetExplorer()
@@ -388,30 +295,19 @@ WidgetExplorer::~WidgetExplorer()
      delete d;
 }
 
-void WidgetExplorer::setLocation(Plasma::Types::Location loc)
-{
-    d->setLocation(loc);
-    emit(locationChanged(loc));
-}
 
-WidgetExplorer::Location WidgetExplorer::location()
+void WidgetExplorer::setApplication(const QString &app)
 {
-    return (WidgetExplorer::Location)d->location;
-}
+    if (d->application == app && !app.isEmpty()) {
+        return;
+    }
 
-Qt::Orientation WidgetExplorer::orientation() const
-{
-    return d->orientation;
-}
-
-void WidgetExplorer::populateWidgetList(const QString &app)
-{
     d->application = app;
     d->itemModel.setApplication(app);
     d->initFilters();
 
     d->itemModel.setRunningApplets(d->runningApplets);
-
+    emit applicationChanged();
 }
 
 QString WidgetExplorer::application()
@@ -432,10 +328,10 @@ void WidgetExplorer::setContainment(Plasma::Containment *containment)
             connect(d->containment, SIGNAL(destroyed(QObject*)), this, SLOT(containmentDestroyed()));
             connect(d->containment, SIGNAL(immutabilityChanged(Plasma::Types::ImmutabilityType)), this, SLOT(immutabilityChanged(Plasma::Types::ImmutabilityType)));
 
-            setLocation(containment->location());
         }
 
         d->initRunningApplets();
+        emit containmentChanged();
     }
 }
 
@@ -481,41 +377,11 @@ void WidgetExplorer::addApplet(const QString &pluginName)
 void WidgetExplorer::immutabilityChanged(Plasma::Types::ImmutabilityType type)
 {
     if (type != Plasma::Types::Mutable) {
-        emit closeClicked();
+        emit shouldClose();
     }
 }
 
-// void WidgetExplorer::keyPressEvent(QKeyEvent *event)
-// {
-//     if (event->key() == Qt::Key_Escape) {
-//         // have to treat escape specially, as it makes text() return " "
-//         QObject::keyPressEvent(event);
-//         return;
-//     }
-//
-// }
 
-bool WidgetExplorer::event(QEvent *event)
-{
-    switch (event->type()) {
-        case QEvent::ActionAdded:
-        case QEvent::ActionChanged:
-        case QEvent::ActionRemoved:
-            //if (d->declarativeWidget->rootObject()) {
-                emit widgetsMenuActionsChanged();
-            //}
-            break;
-        default:
-            break;
-    }
-
-    return QObject::event(event);
-}
-
-void WidgetExplorer::focusInEvent(QFocusEvent* event)
-{
-    Q_UNUSED(event);
-}
 
 void WidgetExplorer::downloadWidgets(const QString &type)
 {
@@ -543,7 +409,6 @@ void WidgetExplorer::downloadWidgets(const QString &type)
         }
     }
 
-    emit closeClicked();
     if (installer) {
         //installer->createNewWidgetBrowser();
     } else {
@@ -563,11 +428,11 @@ void WidgetExplorer::downloadWidgets(const QString &type)
           knsDialog->raise();
          */
     }
+    emit shouldClose();
 }
 
 void WidgetExplorer::openWidgetFile()
 {
-    emit closeClicked();
 /*
     Plasma::OpenWidgetAssistant *assistant = d->openAssistant.data();
     if (!assistant) {
@@ -581,14 +446,16 @@ void WidgetExplorer::openWidgetFile()
     assistant->raise();
     assistant->setFocus();
 */
+    emit shouldClose();
 }
 
 void WidgetExplorer::uninstall(const QString &pluginName)
 {
-    Plasma::PackageStructure installer;
-    qWarning() << "FIXME: uninstall needs reimplementation";
-    //installer.uninstallPackage(pluginName,
-    //                           QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1Char('/') + "plasma/plasmoids/");
+    const QString packageRoot = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + "/plasma/plasmoids/";
+
+    Plasma::Package pkg;
+    pkg.setPath(packageRoot);
+    pkg.uninstall(pluginName, packageRoot);
 
     //FIXME: moreefficient way rather a linear scan?
     for (int i = 0; i < d->itemModel.rowCount(); ++i) {
@@ -600,78 +467,5 @@ void WidgetExplorer::uninstall(const QString &pluginName)
     }
 }
 
-/*
-QPoint WidgetExplorer::tooltipPosition(QGraphicsObject *item, int tipWidth, int tipHeight)
-{
-    if (!item) {
-        return QPoint();
-    }
-
-    // Find view
-    if (!item->scene()) {
-        return QPoint();
-    }
-
-    QList<QGraphicsView*> views = item->scene()->views();
-    if (views.isEmpty()) {
-        return QPoint();
-    }
-
-    QGraphicsView *view = 0;
-    if (views.size() == 1) {
-        view = views[0];
-    } else {
-        QGraphicsView *found = 0;
-        QGraphicsView *possibleFind = 0;
-
-        foreach (QGraphicsView *v, views) {
-            if (v->sceneRect().intersects(item->sceneBoundingRect()) ||
-                v->sceneRect().contains(item->scenePos())) {
-                if (v->isActiveWindow()) {
-                    found = v;
-                } else {
-                    possibleFind = v;
-                }
-            }
-        }
-        view = found ? found : possibleFind;
-    }
-
-    if (!view) {
-        return QPoint();
-    }
-
-    // Compute tip pos
-    QRect itemRect(
-        view->mapToGlobal(view->mapFromScene(item->scenePos())),
-        item->boundingRect().size().toSize());
-    QPoint pos;
-    switch (d->location) {
-    case Plasma::Types::LeftEdge:
-        pos.setX(itemRect.right());
-        pos.setY(itemRect.top() + (itemRect.height() - tipHeight) / 2);
-        break;
-    case Plasma::TopEdge:
-        pos.setX(itemRect.left() + (itemRect.width() - tipWidth) / 2);
-        pos.setY(itemRect.bottom());
-        break;
-    case Plasma::Types::RightEdge:
-        pos.setX(itemRect.left() - tipWidth);
-        pos.setY(itemRect.top() + (itemRect.height() - tipHeight) / 2);
-        break;
-    case Plasma::BottomEdge:
-    default:
-        pos.setX(itemRect.left() + (itemRect.width() - tipWidth) / 2);
-        pos.setY(itemRect.top() - tipHeight);
-        break;
-    }
-
-    // Ensure tip stays within screen boundaries
-    const QRect avail = QApplication::desktop()->availableGeometry(view);
-    pos.setX(qBound(avail.left(), pos.x(), avail.right() - tipWidth));
-    pos.setY(qBound(avail.top(), pos.y(), avail.bottom() - tipHeight));
-    return pos;
-}
-*/
 
 #include "moc_widgetexplorer.cpp"

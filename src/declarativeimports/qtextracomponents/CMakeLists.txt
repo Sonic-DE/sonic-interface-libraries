@@ -9,23 +9,19 @@ set(qtextracomponents_SRCS
     qiconitem.cpp
     mouseeventlistener.cpp
     columnproxymodel.cpp
-    )
-
-INCLUDE_DIRECTORIES(
-        ${CMAKE_SOURCE_DIR}
-        ${CMAKE_BINARY_DIR}
+    clipboard.cpp
 )
 
 add_library(qtextracomponentsplugin SHARED ${qtextracomponents_SRCS})
 
 target_link_libraries(qtextracomponentsplugin
-        ${QT_QTCORE_LIBRARY}
-        ${Qt5Quick_LIBRARIES}
-        ${Qt5Qml_LIBRARIES}
-        ${QT_QTGUI_LIBRARY}
-        ${KDeclarative_LIBRARIES}
-        KF5::KIconThemes
-        plasma)
+        Qt5::Core
+        Qt5::Quick
+        Qt5::Qml
+        Qt5::Gui
+        KF5::Declarative
+        KF5::IconThemes
+        KF5::Plasma)
 
 install(TARGETS qtextracomponentsplugin DESTINATION ${QML_INSTALL_DIR}/org/kde/qtextracomponents)
 

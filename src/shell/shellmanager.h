@@ -22,7 +22,15 @@
 
 #include <QObject>
 
-
+/**
+ * ShellManager creates a ShellCorona instance and manages it.
+ *
+ * Shell manager loads "handlers" from QML files which suggests which shell
+ * corona should currently be active.
+ * For example switching between tablet and desktop shells on hardware changes.
+ *
+ * This class also provides crash handling.
+ */
 
 class ShellManager: public QObject {
     Q_OBJECT
@@ -33,6 +41,8 @@ public:
     void loadHandlers();
 
     static bool s_forceWindowed;
+
+    static void setCrashCount(int count);
 
 protected Q_SLOTS:
     void registerHandler(QObject * handler);
@@ -45,11 +55,17 @@ public Q_SLOTS:
 Q_SIGNALS:
     void shellChanged(const QString & shell);
 
+private Q_SLOTS:
+    void resetCrashCount();
+
 private:
     ShellManager();
 
     class Private;
     const QScopedPointer<Private> d;
+
+    static int crashes;
+    static void crashHandler(int signal);
 };
 
 #endif /* SHELLMANAGER_H */

@@ -69,9 +69,12 @@ void PlasmaQuickViewPrivate::setContainment(Plasma::Containment *cont)
         QObject::disconnect(containment.data(), 0, q, 0);
         QObject *oldGraphicObject = containment.data()->property("graphicObject").value<QObject *>();
         if (oldGraphicObject) {
+            qDebug() << "Old graphics Object:" << oldGraphicObject << "Old containment" << containment.data();
             //make sure the graphic object won't die with us
-            oldGraphicObject->setParent(cont);
+            //FIXME:we need a way to reparent to *NO* graphics item, but this makes Qt crash
+            oldGraphicObject->setParent(containment.data());
         }
+        containment.data()->reactToScreenChange();
     }
 
     containment = cont;
@@ -86,6 +89,7 @@ void PlasmaQuickViewPrivate::setContainment(Plasma::Containment *cont)
     emit q->containmentChanged();
 
     if (cont) {
+        cont->reactToScreenChange();
         QObject::connect(cont, &Plasma::Containment::locationChanged,
                 q, &PlasmaQuickView::locationChanged);
         QObject::connect(cont, &Plasma::Containment::formFactorChanged,
@@ -96,7 +100,7 @@ void PlasmaQuickViewPrivate::setContainment(Plasma::Containment *cont)
         return;
     }
 
-    QObject *graphicObject = containment.data()->property("graphicObject").value<QObject *>();
+    QQuickItem *graphicObject = qobject_cast<QQuickItem *>(containment.data()->property("graphicObject").value<QObject *>());
 
 
     if (graphicObject) {
@@ -108,8 +112,12 @@ void PlasmaQuickViewPrivate::setContainment(Plasma::Containment *cont)
         graphicObject->setProperty("drawWallpaper",
                                    (cont->containmentType() == Plasma::Types::DesktopContainment ||
                                     cont->containmentType() == Plasma::Types::CustomContainment));
-        graphicObject->setProperty("parent", QVariant::fromValue(q->rootObject()));
-        q->rootObject()->setProperty("containment", QVariant::fromValue(graphicObject));
+        graphicObject->setParentItem(q->rootObject());
+        if (q->rootObject()) {
+            q->rootObject()->setProperty("containment", QVariant::fromValue(graphicObject));
+        } else {
+            qWarning() << "Could not set containment property on rootObject";
+        }
     } else {
         qWarning() << "Containment graphic object not valid";
     }
@@ -162,7 +170,7 @@ PlasmaQuickView::PlasmaQuickView(Plasma::Corona *corona, QWindow *parent)
     setColor(Qt::transparent);
 
 
-    QObject::connect(screen(), &QScreen::virtualGeometryChanged,
+    QObject::connect(screen(), &QScreen::geometryChanged,
             this, &PlasmaQuickView::screenGeometryChanged);
 
     if (!corona->package().isValid()) {

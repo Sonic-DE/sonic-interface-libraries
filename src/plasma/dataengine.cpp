@@ -21,6 +21,7 @@
 #include "private/dataengine_p.h"
 #include "private/datacontainer_p.h"
 
+#include <QAbstractItemModel>
 #include <QQueue>
 #include <QTimer>
 #include <QTime>
@@ -29,10 +30,8 @@
 
 #include <QDebug>
 #include <kplugininfo.h>
-#include <kglobal.h>
 #include <kservice.h>
 #include <kservicetypetrader.h>
-#include <kstandarddirs.h>
 #include <klocalizedstring.h>
 
 #include "datacontainer.h"
@@ -226,6 +225,32 @@ void DataEngine::removeData(const QString &source, const QString &key)
     if (s) {
         s->setData(key, QVariant());
         d->scheduleSourcesUpdated();
+    }
+}
+
+void DataEngine::setModel(const QString &source, QAbstractItemModel *model)
+{
+    if (model) {
+        setData(source, "HasModel", true);
+    } else {
+        removeData(source, "HasModel");
+    }
+
+    Plasma::DataContainer *s = containerForSource(source);
+
+    if (s) {
+        s->setModel(model);
+    }
+}
+
+QAbstractItemModel *DataEngine::modelForSource(const QString &source)
+{
+    Plasma::DataContainer *s = containerForSource(source);
+
+    if (s) {
+        return s->model();
+    } else {
+        return 0;
     }
 }
 
@@ -523,6 +548,11 @@ void DataEnginePrivate::connectSource(DataContainer *s, QObject *visualization,
         QMetaObject::invokeMethod(visualization, "dataUpdated",
                                   Q_ARG(QString, s->objectName()),
                                   Q_ARG(Plasma::DataEngine::Data, s->data()));
+        if (s->d->model) {
+            QMetaObject::invokeMethod(visualization, "modelChanged",
+                                    Q_ARG(QString, s->objectName()),
+                                    Q_ARG(QAbstractItemModel *, s->d->model.data()));
+        }
         s->d->dirty = false;
     }
 }

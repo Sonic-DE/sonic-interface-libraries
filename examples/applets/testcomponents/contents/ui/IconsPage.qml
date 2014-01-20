@@ -91,54 +91,67 @@ PlasmaComponents.Page {
 
         Row {
             spacing: _s
-            PlasmaCore.IconItem {
-                id: akonadiIcon
-                objectName: "akonadiIcon"
-                source: "akonadi"
-                width: height
-                height: _h*2
-                //anchors.horizontalCenter: parent.horizontalCenter
-                Rectangle { color: "orange"; opacity: 0.3; anchors.fill: parent; }
-                PlasmaCore.ToolTip {
-                    anchors.fill: parent
-                    target: akonadiIcon
-                    iconSource: "klipper"
-                    mainText: "Fish sighted in the wild, in the wild, a fish was seen."
-                    subText: "A mean-looking grouper swam by."
+            PlasmaCore.ToolTipArea {
+                width: childrenRect.width
+                height: childrenRect.height
+                icon: "klipper"
+                mainText: "Fish sighted in the wild, in the wild, a fish was seen."
+                subText: "A mean-looking grouper swam by."
+                PlasmaCore.IconItem {
+                    id: akonadiIcon
+                    objectName: "akonadiIcon"
+                    source: "akonadi"
+                    width: height
+                    height: _h
+                    //anchors.horizontalCenter: parent.horizontalCenter
+                    Rectangle { color: "orange"; opacity: 0.3; anchors.fill: parent; }
                 }
             }
-            Image {
-                objectName: "bridgeimage"
-                height: _h*2
+            PlasmaCore.ToolTipArea {
+                height: _h
                 width: height
-                fillMode: Image.PreserveAspectFit
-                source: "../images/bridge.jpg"
-                PlasmaCore.ToolTip {
-                    anchors.fill: parent
-                    image: parent.source
-                    mainText: "Bridge"
-                    subText: "Waalbrug."
+                image: bridgeimage.source
+                mainText: "Bridge"
+                subText: "Waalbrug."
+                Image {
+                    id: bridgeimage
+                    objectName: "bridgeimage"
+                    height: _h
+                    width: height
+                    fillMode: Image.PreserveAspectFit
+                    source: "../images/bridge.jpg"
                 }
             }
-            Image {
-                objectName: "surfboardimage"
-                height: _h*2
-                width: height
-                fillMode: Image.PreserveAspectFit
-                source: "../images/surfboard.jpg"
-                PlasmaCore.ToolTip {
-                    anchors.fill: parent
-                    image: parent.source
-                    mainComponent: Component {
-                        PlasmaComponents.Label {
-                            text: "Nijmegen North Beach"
-                            anchors.centerIn: parent
-                        }
-                    }
+            PlasmaCore.ToolTipArea {
+                width: childrenRect.width
+                height: childrenRect.height
+                mainItem: PlasmaComponents.Label {
+                    text: "Nijmegen North Beach"
+                    anchors.centerIn: parent
+                }
+                Image {
+                    objectName: "surfboardimage"
+                    height: _h
+                    width: height
+                    fillMode: Image.PreserveAspectFit
+                    source: "../images/surfboard.jpg"
+
                     //subText: "A surfboard on the beach. <br />The photo shows the Waal river's north beach, \
                     //across the water from Nijmegen, Netherlands. It was taken during the summer festivals a few years back."
                 }
             }
+            PlasmaCore.ToolTipArea {
+                width: childrenRect.width
+                height: childrenRect.height
+                mainText: "Tooltip on button"
+                PlasmaComponents.Button {
+                    id: button
+                    text: "Button"
+                    iconSource: "call-start"
+                }
+            }
+
+
         }
     }
 }

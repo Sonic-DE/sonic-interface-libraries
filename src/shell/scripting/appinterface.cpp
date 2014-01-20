@@ -22,9 +22,6 @@
 #include <QEventLoop>
 #include <QTimer>
 
-#include <kcomponentdata.h>
-#include <k4aboutdata.h>
-
 #include <solid/device.h>
 
 #include <Plasma/Containment>
@@ -98,7 +95,7 @@ QList<int> AppInterface::panelIds() const
 
 QString AppInterface::applicationVersion() const
 {
-    return KComponentData::mainComponent().aboutData()->version();
+    return qApp->applicationVersion();
 }
 
 QString AppInterface::platformVersion() const

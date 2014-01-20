@@ -1,6 +1,6 @@
 project(plasmacomponents)
 
-#find_package(KDeclarative REQUIRED NO_MODULE)
+#find_package(KF5Declarative REQUIRED NO_MODULE)
 
 set(plasmacomponents_SRCS
     #fullscreensheet.cpp
@@ -14,20 +14,16 @@ set(plasmacomponents_SRCS
     #../core/declarativeitemcontainer.cpp
     )
 
-INCLUDE_DIRECTORIES(
-        ${CMAKE_SOURCE_DIR}
-        ${CMAKE_BINARY_DIR}
-        ${KDeclarative_INCLUDE_DIR}
-)
-
 add_library(plasmacomponentsplugin SHARED ${plasmacomponents_SRCS})
 target_link_libraries(plasmacomponentsplugin
-        ${QT_QTCORE_LIBRARY}
-        ${Qt5Quick_LIBRARIES}
-        ${Qt5Qml_LIBRARIES}
-        ${QT_QTGUI_LIBRARY}
-        ${KDeclarative_LIBRARIES}
-        plasma)
+        Qt5::Core
+        Qt5::Quick
+        Qt5::Qml
+        Qt5::Gui
+        KF5::Declarative
+        KF5::Plasma
+        KF5::Service #for kplugininfo.h
+)
 
 
 install(TARGETS plasmacomponentsplugin DESTINATION ${QML_INSTALL_DIR}/org/kde/plasma/components)

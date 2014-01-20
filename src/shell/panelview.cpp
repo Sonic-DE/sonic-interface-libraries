@@ -21,10 +21,13 @@
 #include "panelshadows_p.h"
 
 #include <QAction>
+#include <QApplication>
 #include <QDebug>
+#include <QDesktopWidget>
 #include <QScreen>
 #include <QQmlEngine>
 #include <QQmlContext>
+#include <QTimer>
 
 #include <kactioncollection.h>
 #include <kwindowsystem.h>
@@ -39,7 +42,9 @@ PanelView::PanelView(ShellCorona *corona, QWindow *parent)
        m_maxLength(0),
        m_minLength(0),
        m_alignment(Qt::AlignLeft),
-       m_corona(corona)
+       m_corona(corona),
+       m_strutsTimer(new QTimer(this)),
+       m_visibilityMode(NormalPanel)
 {
     QSurfaceFormat format;
     format.setAlphaBufferSize(8);
@@ -54,22 +59,29 @@ PanelView::PanelView(ShellCorona *corona, QWindow *parent)
     KWindowEffects::enableBlurBehind(winId(), true);
 
     //Screen management
-    connect(screen(), &QScreen::virtualGeometryChanged,
+    connect(this, &QWindow::screenChanged,
+            this, &PanelView::positionPanel);
+    connect(screen(), &QScreen::geometryChanged,
             this, &PanelView::positionPanel);
     connect(this, &PlasmaQuickView::locationChanged,
             this, &PanelView::positionPanel);
     connect(this, &PlasmaQuickView::containmentChanged,
-            this, &PanelView::restore);
+            this, &PanelView::positionPanel);
 
     if (!m_corona->package().isValid()) {
         qWarning() << "Invalid home screen package";
     }
 
+    m_strutsTimer->setSingleShot(true);
+    connect(m_strutsTimer, &QTimer::timeout,
+            this, &PanelView::updateStruts);
+    connect(QApplication::desktop(), &QDesktopWidget::screenCountChanged,
+            this, &PanelView::updateStruts);
+
     setResizeMode(PlasmaQuickView::SizeRootObjectToView);
     qmlRegisterType<QScreen>();
     engine()->rootContext()->setContextProperty("panel", this);
     setSource(QUrl::fromLocalFile(m_corona->package().filePath("views", "Panel.qml")));
-    positionPanel();
     PanelShadows::self()->addWindow(this);
 }
 
@@ -142,6 +154,7 @@ void PanelView::setOffset(int offset)
     positionPanel();
     emit offsetChanged();
     m_corona->requestApplicationConfigSync();
+    m_strutsTimer->start(STRUTSTIMERDELAY);
 }
 
 int PanelView::thickness() const
@@ -155,14 +168,9 @@ void PanelView::setThickness(int value)
         return;
     }
 
-    if (formFactor() == Plasma::Types::Vertical) {
-        setWidth(value);
-    } else {
-        setHeight(value);
-    }
     config().writeEntry("thickness", value);
-    emit thicknessChanged();
     m_corona->requestApplicationConfigSync();
+    positionPanel();
 }
 
 int PanelView::length() const
@@ -180,14 +188,9 @@ void PanelView::setLength(int value)
         return;
     }
 
-    if (formFactor() == Plasma::Types::Vertical) {
-        setHeight(value);
-    } else {
-        setWidth(value);
-    }
     config().writeEntry("length", value);
-    emit lengthChanged();
     m_corona->requestApplicationConfigSync();
+    positionPanel();
 }
 
 int PanelView::maximumLength() const
@@ -244,6 +247,36 @@ void PanelView::setMinimumLength(int length)
     m_corona->requestApplicationConfigSync();
 }
 
+void PanelView::setVisibilityMode(PanelView::VisibilityMode mode)
+{
+    m_visibilityMode = mode;
+
+    if (mode == LetWindowsCover) {
+        KWindowSystem::setState(winId(), NET::KeepBelow);
+    } else {
+        KWindowSystem::clearState(winId(), NET::KeepBelow);
+    }
+    //life is vastly simpler if we ensure we're visible now
+    show();
+
+    disconnect(containment(), SIGNAL(activate()), this, SLOT(unhide()));
+    if (!(mode == NormalPanel && mode == WindowsGoBelow)) {
+        connect(containment(), SIGNAL(activate()), this, SLOT(unhide()));
+    }
+
+    config().writeEntry("panelVisibility", (int)mode);
+
+
+    updateStruts();
+
+    KWindowSystem::setOnAllDesktops(winId(), true);
+}
+
+PanelView::VisibilityMode PanelView::visibilityMode() const
+{
+    return m_visibilityMode;
+}
+
 void PanelView::positionPanel()
 {
     if (!containment()) {
@@ -252,6 +285,7 @@ void PanelView::positionPanel()
 
     QScreen *s = screen();
     const int oldThickness = thickness();
+    const int oldLength = length();
 
     switch (containment()->location()) {
     case Plasma::Types::TopEdge:
@@ -260,14 +294,14 @@ void PanelView::positionPanel()
 
         switch (m_alignment) {
         case Qt::AlignCenter:
-            setPosition(QPoint(s->virtualGeometry().center().x(), s->virtualGeometry().top()) + QPoint(m_offset - size().width()/2, 0));
+            setPosition(QPoint(s->geometry().center().x(), s->geometry().top()) + QPoint(m_offset - size().width()/2, 0));
             break;
         case Qt::AlignRight:
-            setPosition(s->virtualGeometry().topRight() - QPoint(m_offset + size().width(), 0));
+            setPosition(s->geometry().topRight() - QPoint(m_offset + size().width(), 0));
             break;
         case Qt::AlignLeft:
         default:
-            setPosition(s->virtualGeometry().topLeft() + QPoint(m_offset, 0));
+            setPosition(s->geometry().topLeft() + QPoint(m_offset, 0));
         }
         break;
 
@@ -276,14 +310,14 @@ void PanelView::positionPanel()
         restore();
         switch (m_alignment) {
         case Qt::AlignCenter:
-            setPosition(QPoint(s->virtualGeometry().left(), s->virtualGeometry().center().y()) + QPoint(0, m_offset));
+            setPosition(QPoint(s->geometry().left(), s->geometry().center().y()) + QPoint(0, m_offset));
             break;
         case Qt::AlignRight:
-            setPosition(s->virtualGeometry().bottomLeft() - QPoint(0, m_offset + size().height()));
+            setPosition(s->geometry().bottomLeft() - QPoint(0, m_offset + size().height()));
             break;
         case Qt::AlignLeft:
         default:
-            setPosition(s->virtualGeometry().topLeft() + QPoint(0, m_offset));
+            setPosition(s->geometry().topLeft() + QPoint(0, m_offset));
         }
         break;
 
@@ -292,14 +326,14 @@ void PanelView::positionPanel()
         restore();
         switch (m_alignment) {
         case Qt::AlignCenter:
-            setPosition(QPoint(s->virtualGeometry().right(), s->virtualGeometry().center().y()) - QPoint(width(), 0) + QPoint(0, m_offset - size().height()/2));
+            setPosition(QPoint(s->geometry().right(), s->geometry().center().y()) - QPoint(width(), 0) + QPoint(0, m_offset - size().height()/2));
             break;
         case Qt::AlignRight:
-            setPosition(s->virtualGeometry().bottomRight() - QPoint(width(), 0) - QPoint(0, m_offset + size().height()));
+            setPosition(s->geometry().bottomRight() - QPoint(width(), 0) - QPoint(0, m_offset + size().height()));
             break;
         case Qt::AlignLeft:
         default:
-            setPosition(s->virtualGeometry().topRight() - QPoint(width(), 0) + QPoint(0, m_offset));
+            setPosition(s->geometry().topRight() - QPoint(width(), 0) + QPoint(0, m_offset));
         }
         break;
 
@@ -309,18 +343,34 @@ void PanelView::positionPanel()
         restore();
         switch (m_alignment) {
         case Qt::AlignCenter:
-            setPosition(QPoint(s->virtualGeometry().center().x(), s->virtualGeometry().bottom()) + QPoint(m_offset - size().width()/2, 0));
+            setPosition(QPoint(s->geometry().center().x(), s->geometry().bottom()) + QPoint(m_offset - size().width()/2, 1));
             break;
         case Qt::AlignRight:
-            setPosition(s->virtualGeometry().bottomRight() - QPoint(0, height()) - QPoint(m_offset + size().width(), 0));
+            setPosition(s->geometry().bottomRight() - QPoint(0, height()) - QPoint(m_offset + size().width(), 1));
             break;
         case Qt::AlignLeft:
         default:
-            setPosition(s->virtualGeometry().bottomLeft() - QPoint(0, height()) + QPoint(m_offset, 0));
+            setPosition(s->geometry().bottomLeft() - QPoint(0, height()) + QPoint(m_offset, 1));
         }
     }
+    m_strutsTimer->stop();
+    m_strutsTimer->start(STRUTSTIMERDELAY);
+
     if (thickness() != oldThickness) {
+        if (formFactor() == Plasma::Types::Vertical) {
+            setWidth(thickness());
+        } else {
+            setHeight(thickness());
+        }
         emit thicknessChanged();
+    }
+    if (length() != oldLength) {
+        if (formFactor() == Plasma::Types::Vertical) {
+            setHeight(length());
+        } else {
+            setWidth(length());
+        }
+        emit length();
     }
 }
 
@@ -333,6 +383,9 @@ void PanelView::restore()
     setVisible(containment()->isUiReady());
     connect(containment(), &Plasma::Containment::uiReadyChanged,
             this, &PanelView::setVisible);
+
+    connect(containment(), SIGNAL(destroyed(QObject *)),
+            this, SLOT(deleteLater()));
 
     static const int MINSIZE = 10;
 
@@ -350,13 +403,12 @@ void PanelView::restore()
     if (containment()->formFactor() == Plasma::Types::Vertical) {
         m_maxLength = config().readEntry<int>("maxLength", screen()->size().height());
         m_minLength = config().readEntry<int>("minLength", screen()->size().height());
-   
+
         const int maxSize = screen()->size().height() - m_offset;
         m_maxLength = qBound<int>(MINSIZE, m_maxLength, maxSize);
         m_minLength = qBound<int>(MINSIZE, m_minLength, maxSize);
 
-        resize(config().readEntry<int>("thickness", 32),
-               qBound<int>(MINSIZE, config().readEntry<int>("length", screen()->size().height()), maxSize));
+        resize(thickness(), qBound<int>(MINSIZE, length(), maxSize));
 
         setMinimumHeight(m_minLength);
         setMaximumHeight(m_maxLength);
@@ -370,8 +422,7 @@ void PanelView::restore()
         m_maxLength = qBound<int>(MINSIZE, m_maxLength, maxSize);
         m_minLength = qBound<int>(MINSIZE, m_minLength, maxSize);
 
-        resize(qBound<int>(MINSIZE, config().readEntry<int>("length", screen()->size().width()), maxSize),
-               config().readEntry<int>("thickness", 32));
+        resize(qBound<int>(MINSIZE, length(), maxSize), thickness());
 
         setMinimumWidth(m_minLength);
         setMaximumWidth(m_maxLength);
@@ -388,6 +439,7 @@ void PanelView::showConfigurationInterface(Plasma::Applet *applet)
     if (m_panelConfigView) {
         m_panelConfigView.data()->hide();
         m_panelConfigView.data()->deleteLater();
+        return;
     }
 
     if (!applet || !applet->containment()) {
@@ -403,6 +455,7 @@ void PanelView::showConfigurationInterface(Plasma::Applet *applet)
     }
     m_panelConfigView.data()->init();
     m_panelConfigView.data()->show();
+    KWindowSystem::setState(m_panelConfigView.data()->winId(), NET::SkipTaskbar | NET::SkipPager);
 }
 
 void PanelView::resizeEvent(QResizeEvent *ev)
@@ -434,6 +487,116 @@ void PanelView::showEvent(QShowEvent *event)
 {
     PanelShadows::self()->addWindow(this);
     PlasmaQuickView::showEvent(event);
+    KWindowSystem::setOnAllDesktops(winId(), true);
+}
+
+void PanelView::updateStruts()
+{
+    if (!containment() || !screen()) {
+        return;
+    }
+
+    NETExtendedStrut strut;
+
+    if (m_visibilityMode == NormalPanel) {
+        const QRect thisScreen = corona()->screenGeometry(containment()->screen());
+        const QRect wholeScreen = screen()->availableGeometry();
+
+        //Extended struts against a screen edge near to another screen are really harmful, so windows maximized under the panel is a lesser pain
+        //TODO: force "windows can cover" in those cases?
+        const int numScreens = corona()->numScreens();
+        for (int i = 0; i < numScreens; ++i) {
+            if (i == containment()->screen()) {
+                continue;
+            }
+
+            const QRect otherScreen = corona()->screenGeometry(i);
+
+            switch (location())
+            {
+                case Plasma::Types::TopEdge:
+                if (otherScreen.bottom() <= thisScreen.top()) {
+                    KWindowSystem::setExtendedStrut(winId(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+                    return;
+                }
+                break;
+            case Plasma::Types::BottomEdge:
+                if (otherScreen.top() >= thisScreen.bottom()) {
+                    KWindowSystem::setExtendedStrut(winId(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+                    return;
+                }
+                break;
+            case Plasma::Types::RightEdge:
+                if (otherScreen.left() >= thisScreen.right()) {
+                    KWindowSystem::setExtendedStrut(winId(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+                    return;
+                }
+                break;
+            case Plasma::Types::LeftEdge:
+                if (otherScreen.right() <= thisScreen.left()) {
+                    KWindowSystem::setExtendedStrut(winId(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+                    return;
+                }
+                break;
+            default:
+                return;
+            }
+        }
+        // extended struts are to the combined screen geoms, not the single screen
+        int leftOffset = wholeScreen.x() - thisScreen.x();
+        int rightOffset = wholeScreen.right() - thisScreen.right();
+        int bottomOffset = wholeScreen.bottom() - thisScreen.bottom();
+        int topOffset = wholeScreen.top() - thisScreen.top();
+        qDebug() << "screen l/r/b/t offsets are:" << leftOffset << rightOffset << bottomOffset << topOffset << location();
+
+        switch (location())
+        {
+            case Plasma::Types::TopEdge:
+                strut.top_width = height() + topOffset;
+                strut.top_start = x();
+                strut.top_end = x() + width() - 1;
+                break;
+
+            case Plasma::Types::BottomEdge:
+                strut.bottom_width = height() + bottomOffset;
+                strut.bottom_start = x();
+                strut.bottom_end = x() + width() - 1;
+                //qDebug() << "setting bottom edge to" << strut.bottom_width
+                //         << strut.bottom_start << strut.bottom_end;
+                break;
+
+            case Plasma::Types::RightEdge:
+                strut.right_width = width() + rightOffset;
+                strut.right_start = y();
+                strut.right_end = y() + height() - 1;
+                break;
+
+            case Plasma::Types::LeftEdge:
+                strut.left_width = width() + leftOffset;
+                strut.left_start = y();
+                strut.left_end = y() + height() - 1;
+                break;
+
+            default:
+                //qDebug() << "where are we?";
+                break;
+        }
+    }
+
+    KWindowSystem::setExtendedStrut(winId(), strut.left_width,
+                                             strut.left_start,
+                                             strut.left_end,
+                                             strut.right_width,
+                                             strut.right_start,
+                                             strut.right_end,
+                                             strut.top_width,
+                                             strut.top_start,
+                                             strut.top_end,
+                                             strut.bottom_width,
+                                             strut.bottom_start,
+                                             strut.bottom_end);
+
+    //recreateUnhideTrigger();
 }
 
 #include "moc_panelview.cpp"

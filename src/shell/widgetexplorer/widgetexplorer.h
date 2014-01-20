@@ -34,6 +34,7 @@ namespace Plasma {
     class Applet;
 }
 class WidgetExplorerPrivate;
+class PlasmaQuickView;
 
 //We need to access the separator property that is not exported by QAction
 class WidgetAction : public QAction
@@ -75,34 +76,13 @@ class WidgetExplorer : public QObject
     Q_PROPERTY(QList<QObject *> extraActions READ extraActions NOTIFY extraActionsChanged)
 
     /**
-     * Plasma location of the panel containment the controller is associated to
+     * The application that owns the widget list. different application may show different lists
      */
-    Q_PROPERTY(Location location READ location NOTIFY locationChanged)
-    Q_ENUMS(Location)
+    Q_PROPERTY(QString application READ application WRITE setApplication NOTIFY applicationChanged)
 
-    /**
-     * Orientation the controller will be disaplayed, depends from location
-     */
-    Q_PROPERTY(Qt::Orientation orientation READ orientation NOTIFY orientationChanged)
+    Q_PROPERTY(Plasma::Containment *containment READ containment WRITE setContainment NOTIFY containmentChanged)
 
 public:
-    /**
-    * The Location enumeration describes where on screen an element, such as an
-    * Applet or its managing container, is positioned on the screen.
-    **/
-    enum Location {
-        Floating = 0, /**< Free floating. Neither geometry or z-ordering
-                        is described precisely by this value. */
-        Desktop,      /**< On the planar desktop layer, extending across
-                        the full screen from edge to edge */
-        FullScreen,   /**< Full screen */
-        TopEdge,      /**< Along the top of the screen*/
-        BottomEdge,   /**< Along the bottom of the screen*/
-        LeftEdge,     /**< Along the left side of the screen */
-        RightEdge     /**< Along the right side of the screen */
-    };
-
-    explicit WidgetExplorer(Plasma::Types::Location loc, QObject *parent = 0);
     explicit WidgetExplorer(QObject *parent = 0);
     ~WidgetExplorer();
 
@@ -115,7 +95,7 @@ public:
      *
      * @arg application the application which the widgets should be loaded for.
      */
-    void populateWidgetList(const QString &application = QString());
+    void setApplication(const QString &application = QString());
 
     /**
      * Changes the current default containment to add applets to
@@ -133,30 +113,24 @@ public:
      */
     Plasma::Corona *corona() const;
 
-
-    void setLocation(const Plasma::Types::Location loc);
-     //FIXME: it's asymmetric due to the problems of QML of exporting enums
-    WidgetExplorer::Location location();
-
-    Qt::Orientation orientation() const;
-
-
     QObject *widgetsModel() const;
     QObject *filterModel() const;
 
     QList <QObject *>  widgetsMenuActions();
     QList <QObject *>  extraActions() const;
 
+    /**
+     * Uninstall a plasmoid with a given plugin name. only user-installed ones are uninstallable
+     */
     Q_INVOKABLE void uninstall(const QString &pluginName);
 
-    //Q_INVOKABLE QPoint tooltipPosition(QGraphicsObject *item, int tipWidth, int tipHeight);
-
 Q_SIGNALS:
-    void locationChanged(Plasma::Types::Location loc);
-    void orientationChanged();
-    void closeClicked();
     void widgetsMenuActionsChanged();
     void extraActionsChanged();
+    void shouldClose();
+    void viewChanged();
+    void applicationChanged();
+    void containmentChanged();
 
 public Q_SLOTS:
     /**
@@ -169,16 +143,10 @@ public Q_SLOTS:
 protected Q_SLOTS:
     void immutabilityChanged(Plasma::Types::ImmutabilityType);
 
-protected:
-    void keyPressEvent(QKeyEvent *e);
-    bool event(QEvent *e);
-    void focusInEvent(QFocusEvent * event);
-
 private:
     Q_PRIVATE_SLOT(d, void appletAdded(Plasma::Applet*))
     Q_PRIVATE_SLOT(d, void appletRemoved(Plasma::Applet*))
     Q_PRIVATE_SLOT(d, void containmentDestroyed())
-    Q_PRIVATE_SLOT(d, void finished())
 
     WidgetExplorerPrivate * const d;
     friend class WidgetExplorerPrivate;

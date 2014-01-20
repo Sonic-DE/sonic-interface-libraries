@@ -21,16 +21,12 @@
 #ifndef DECLARATIVE_APPLETSCRIPT_H
 #define DECLARATIVE_APPLETSCRIPT_H
 
-#include <kdemacros.h>
-
 #include <QQmlEngine>
 #include <QSet>
 
 #include <Plasma/AppletScript>
 
 class AppletInterface;
-
-class QmlObject;
 
 class DeclarativeAppletScript : public Plasma::AppletScript
 {
@@ -48,7 +44,6 @@ public:
 
 public Q_SLOTS:
     void executeAction(const QString &name);
-    void activate();
 
 protected:
     bool init();

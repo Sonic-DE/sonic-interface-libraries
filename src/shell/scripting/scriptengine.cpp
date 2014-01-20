@@ -29,12 +29,10 @@
 #include <QStandardPaths>
 
 #include <QDebug>
-#include <kglobal.h>
 #include <klocalizedstring.h>
 #include <kmimetypetrader.h>
 #include <kservicetypetrader.h>
 #include <kshell.h>
-#include <kcomponentdata.h>
 
 // KIO
 //#include <kemailsettings.h> // no camelcase include
@@ -142,7 +140,6 @@ QScriptValue ScriptEngine::createContainment(const QString &type, const QString 
             // some defaults
             c->setFormFactor(Plasma::Types::Horizontal);
             c->setLocation(Plasma::Types::TopEdge);
-            c->setScreen(env->defaultPanelScreen());
         }
         c->updateConstraints(Plasma::Types::AllConstraints | Plasma::Types::StartupCompletedConstraint);
         c->flushPendingConstraintsEvents();
@@ -264,7 +261,7 @@ QScriptValue ScriptEngine::loadTemplate(QScriptContext *context, QScriptEngine *
     }
 
     const QString constraint = QString("[X-Plasma-Shell] == '%1' and [X-KDE-PluginInfo-Name] == '%2'")
-                                      .arg(KComponentData::mainComponent().componentName(),layout);
+                                      .arg(qApp->applicationName(),layout);
     KService::List offers = KServiceTypeTrader::self()->query("Plasma/LayoutTemplate", constraint);
 
     if (offers.isEmpty()) {
@@ -384,7 +381,7 @@ QScriptValue ScriptEngine::defaultApplication(QScriptContext *context, QScriptEn
 
         // in KToolInvocation, the default is kmail; but let's be friendlier :)
 //        QString command = settings.getSetting(KEMailSettings::ClientProgram);
-	QString command;
+        QString command;
         if (command.isEmpty()) {
             if (KService::Ptr kontact = KService::serviceByStorageId("kontact")) {
                 return storageId ? kontact->storageId() : onlyExec(kontact->exec());
@@ -395,7 +392,7 @@ QScriptValue ScriptEngine::defaultApplication(QScriptContext *context, QScriptEn
 
         if (!command.isEmpty()) {
             //if (settings.getSetting(KEMailSettings::ClientTerminal) == "true") {
-	    if (false) {
+        if (false) {
                 KConfigGroup confGroup(KSharedConfig::openConfig(), "General");
                 const QString preferredTerminal = confGroup.readPathEntry("TerminalApplication", QString::fromLatin1("konsole"));
                 command = preferredTerminal + QString::fromLatin1(" -e ") + command;
@@ -527,7 +524,7 @@ QScriptValue ScriptEngine::userDataPath(QScriptContext *context, QScriptEngine *
     } else if (type.compare("pictures", Qt::CaseInsensitive) == 0) {
         location = QStandardPaths::PicturesLocation;
     } else if (type.compare("config", Qt::CaseInsensitive) == 0) {
-        location = QStandardPaths::ConfigLocation;
+        location = QStandardPaths::GenericConfigLocation;
     }
     if (context->argumentCount() > 1) {
         QString loc = QStandardPaths::writableLocation(location);
@@ -686,6 +683,11 @@ void ScriptEngine::exception(const QScriptValue &value)
 
 QStringList ScriptEngine::pendingUpdateScripts(Plasma::Corona *corona)
 {
+    if (!corona->package().metadata().isValid()) {
+        qWarning() << "Warning: corona package invalid";
+        return QStringList();
+    }
+
     const QString appName = corona->package().metadata().pluginName();
     QStringList scripts;
 

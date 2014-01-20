@@ -23,7 +23,6 @@
 #include <QTextStream>
 
 #include <QDebug>
-#include <klocale.h>
 
 #include <kservicetypetrader.h>
 #include <qstandardpaths.h>
@@ -170,7 +169,7 @@ void DataEngineManager::timerEvent(QTimerEvent *)
     QTextStream out(&f);
 
     QHashIterator<QString, DataEngine*> it(d->engines);
-    out << "================================== " << KLocale::global()->formatDateTime(QDateTime::currentDateTime()) << endl;
+    out << "================================== " << QLocale().toString(QDateTime::currentDateTime()) << endl;
     while (it.hasNext()) {
         it.next();
         DataEngine *engine = it.value();

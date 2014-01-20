@@ -2,10 +2,9 @@
 
 if(KDE_PLATFORM_FEATURE_BINARY_COMPATIBLE_FEATURE_REDUCTION)
     set(PLASMA_NO_KDEWEBKIT TRUE)
-    set(PLASMA_NO_KNEWSTUFF TRUE)
     set(PLASMA_NO_SOLID TRUE)
     set(PLASMA_NO_KIO TRUE)
-endif(KDE_PLATFORM_FEATURE_BINARY_COMPATIBLE_FEATURE_REDUCTION)
+endif()
 
 set(simple_javascript_engine_SRCS
     common/extension_launchapp.cpp
@@ -47,18 +46,15 @@ set(simple_javascript_engine_SRCS
     simplebindings/url.cpp
 )
 
-include_directories(${PHONON_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/common)
+include_directories(${PHONON_INCLUDES})
 
-plasma_add_plugin(plasma_appletscript_simple_javascript ${simple_javascript_engine_SRCS})
+add_library(plasma_appletscript_simple_javascript MODULE ${simple_javascript_engine_SRCS})
 
 target_link_libraries(plasma_appletscript_simple_javascript
-                       ${KCore_LIBRARIES}
-                       ${KDE4_KIO_LIBS}
-                       ${Plasma_LIBRARIES}
-                       ${QT_QTDECLARATIVE_LIBRARY}
-                       ${QT_QTSCRIPT_LIBRARY}
-                       ${QT_QTUITOOLS_LIBRARY}
-                       ${QT_QTXML_LIBRARY}
+                       KF5::KIOCore KF5::KIOWidgets
+                       KF5::Plasma
+                       Qt5::Declarative
+                       Qt5::Xml
                        )
 
 install(TARGETS plasma_appletscript_simple_javascript DESTINATION ${PLUGIN_INSTALL_DIR})
@@ -75,13 +71,13 @@ set(javascript_runner_engine_SRCS
     simplebindings/i18n.cpp
 )
 
-plasma_add_plugin(plasma_runnerscript_javascript ${javascript_runner_engine_SRCS})
+add_library(plasma_runnerscript_javascript MODULE ${javascript_runner_engine_SRCS})
 
 target_link_libraries(plasma_runnerscript_javascript
-                      ${KCore_LIBRARIES}
-                      ${KDE4_KIO_LIBS}
-                      ${Plasma_LIBRARIES}
-                      ${QT_QTSCRIPT_LIBRARY})
+                      KF5::CoreAddons
+                      KF5::KIOWidgets
+                      KF5::Plasma
+                      Qt5::Script)
 
 install(TARGETS plasma_runnerscript_javascript DESTINATION ${PLUGIN_INSTALL_DIR})
 install(FILES data/plasma-scriptengine-runner-javascript.desktop DESTINATION ${SERVICES_INSTALL_DIR})
@@ -100,13 +96,13 @@ set(javascript_dataengine_engine_SRCS
     simplebindings/i18n.cpp
     simplebindings/qscriptnonguibookkeeping.cpp
 )
-plasma_add_plugin(plasma_dataenginescript_javascript ${javascript_dataengine_engine_SRCS})
+add_library(plasma_dataenginescript_javascript MODULE ${javascript_dataengine_engine_SRCS})
 
 target_link_libraries(plasma_dataenginescript_javascript
-                      ${KCore_LIBRARIES}
-                      ${KDE4_KIO_LIBS}
-                      ${Plasma_LIBRARIES}
-                      ${QT_QTSCRIPT_LIBRARY})
+                      KF5::CoreAddons
+                      KF5::KIOWidgets
+                      KF5::Plasma
+                      Qt5::Script)
 
 install(TARGETS plasma_dataenginescript_javascript DESTINATION ${PLUGIN_INSTALL_DIR})
 install(FILES data/plasma-scriptengine-dataengine-javascript.desktop DESTINATION ${SERVICES_INSTALL_DIR})
@@ -118,8 +114,8 @@ set(javascript_addon_packagestructure_SRCS
     common/javascriptaddonpackagestructure.cpp
 )
 
-plasma_add_plugin(plasma_packagestructure_javascriptaddon ${javascript_addon_packagestructure_SRCS})
-target_link_libraries(plasma_packagestructure_javascriptaddon ${Plasma_LIBRARIES})
+add_library(plasma_packagestructure_javascriptaddon MODULE ${javascript_addon_packagestructure_SRCS})
+target_link_libraries(plasma_packagestructure_javascriptaddon KF5::Plasma)
 
 install(TARGETS plasma_packagestructure_javascriptaddon DESTINATION ${PLUGIN_INSTALL_DIR})
 install(FILES data/plasma-packagestructure-javascript-addon.desktop DESTINATION ${SERVICES_INSTALL_DIR})

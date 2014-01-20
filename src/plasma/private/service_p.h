@@ -99,7 +99,7 @@ public:
     QString resourcename;
     QMap<QString, QVariantMap> operationsMap;
     KConfig *dummyConfig;
-    DNSSD::PublicService *publicService;
+    KDNSSD::PublicService *publicService;
     QSet<QString> disabledOperations;
 };
 

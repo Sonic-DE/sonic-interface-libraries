@@ -11,14 +11,12 @@ add_executable(sortfiltermodeltest
     ${corebindings_SOURCE_DIR}/datasource.cpp
     )
 
-qt4_automoc(sortfiltermodeltest.cpp)
-
 target_link_libraries(sortfiltermodeltest
-    plasma
-    ${QT_QTGUI_LIBRARY}
-    ${QT_QTTEST_LIBRARY}
-    ${KDE4Support_LIBRARIES}
-    KF5::KI18n
+    KF5::Plasma
+    Qt5::Gui
+    Qt5::Test
+    KF5::I18n
+    KF5::Service
     Qt5::Qml
     )
 
@@ -33,7 +31,6 @@ ecm_mark_as_test(sortfiltermodeltest)
 #    ../runnermodel.cpp
 #    )
 
-#qt4_automoc(${runnermodeltest_SRCS})
 #add_executable(runnermodeltest ${runnermodeltest_SRCS})
-#target_link_libraries(runnermodeltest ${QT_QTTEST_LIBRARY} ${plasma_LIBRARIES} plasma)
+#target_link_libraries(runnermodeltest Qt5::Test ${plasma_LIBRARIES} plasma)
 #ecm_mark_as_test(runnermodeltest)

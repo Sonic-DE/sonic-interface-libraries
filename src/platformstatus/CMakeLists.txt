@@ -3,28 +3,24 @@ set(
    platformstatus.cpp
    )
 
-include_directories("../utils")
-
-qt4_add_dbus_adaptor (
+qt5_add_dbus_adaptor (
    kded_platformstatus_SRCS
    org.kde.platformstatus.xml
    platformstatus.h PlatformStatus
    )
 
-plasma_add_plugin(kded_platformstatus ${kded_platformstatus_SRCS} )
+add_library(kded_platformstatus MODULE ${kded_platformstatus_SRCS} )
 
 target_link_libraries(
    kded_platformstatus
-   ${KCore_LIBRARIES}
-   KF5::KService
-   KF5::KCoreAddons
-   ${KDBusAddons_LIBRARIES}
-   KF5::KI18n
+   KF5::Service
+   KF5::CoreAddons
+   KF5::DBusAddons
+   KF5::I18n
    KF5::KIOCore KF5::KIOWidgets
    Qt5::DBus
    Qt5::Quick
-   #${KDE4_KIO_LIBS}
-   )
+)
 
 install( TARGETS kded_platformstatus        DESTINATION ${PLUGIN_INSTALL_DIR} )
 install( FILES kded_platformstatus.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/kded )

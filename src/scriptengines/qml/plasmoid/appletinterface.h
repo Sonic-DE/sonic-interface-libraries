@@ -36,10 +36,12 @@ class QmlAppletScript;
 class QSignalMapper;
 class QSizeF;
 
-class ConfigPropertyMap;
 class ConfigView;
 
-class QmlObject;
+namespace KDeclarative {
+    class ConfigPropertyMap;
+    class QmlObject;
+}
 
 namespace Plasma
 {
@@ -148,9 +150,6 @@ class AppletInterface : public QQuickItem
     Q_PROPERTY(qreal minimumHeight READ minimumHeight NOTIFY minimumHeightChanged)
     Q_PROPERTY(qreal maximumWidth READ maximumWidth NOTIFY maximumWidthChanged)
     Q_PROPERTY(qreal maximumHeight READ maximumHeight NOTIFY maximumHeightChanged)
-    //FIXME?implicitWidth/height is already there
-    Q_PROPERTY(qreal implicitWidth READ implicitWidth NOTIFY implicitWidthChanged)
-    Q_PROPERTY(qreal implicitHeight READ implicitHeight NOTIFY implicitHeightChanged)
 
     /**
      * If the plasmoid is in a linear layout, such as a panel, it indicates to take as much horizontal space as possible
@@ -162,12 +161,20 @@ class AppletInterface : public QQuickItem
      */
     Q_PROPERTY(bool fillHeight READ fillHeight NOTIFY fillHeightChanged)
 
+    /**
+     * Whether the dialog should be hidden when the dialog loses focus.
+     *
+     * The default value is @c false.
+     **/
+    Q_PROPERTY(bool hideOnWindowDeactivate READ hideOnWindowDeactivate WRITE setHideOnWindowDeactivate NOTIFY hideOnWindowDeactivateChanged)
+
+
 public:
     AppletInterface(DeclarativeAppletScript *script, QQuickItem *parent = 0);
     ~AppletInterface();
 
 //API not intended for the QML part
-    QmlObject *qmlObject();
+    KDeclarative::QmlObject *qmlObject();
 
     QList<QAction*> contextualActions() const;
 
@@ -273,14 +280,15 @@ public:
     bool userConfiguring() const;
     int apiVersion() const;
 
+    bool hideOnWindowDeactivate() const;
+    void setHideOnWindowDeactivate(bool hide);
+
     bool fillWidth() const;
     bool fillHeight() const;
     qreal minimumWidth() const;
     qreal minimumHeight() const;
     qreal maximumWidth() const;
     qreal maximumHeight() const;
-    qreal implicitWidth() const;
-    qreal implicitHeight() const;
 
 Q_SIGNALS:
     /**
@@ -305,13 +313,12 @@ Q_SIGNALS:
     void busyChanged();
     void expandedChanged();
     void screenChanged();
+    void hideOnWindowDeactivateChanged();
 
     void minimumWidthChanged();
     void minimumHeightChanged();
     void maximumWidthChanged();
     void maximumHeightChanged();
-    void implicitWidthChanged();
-    void implicitHeightChanged();
     void fillWidthChanged();
     void fillHeightChanged();
     void userConfiguringChanged();
@@ -328,6 +335,8 @@ protected Q_SLOTS:
 private Q_SLOTS:
     void compactRepresentationCheck();
     void updatePopupSize();
+    void updateImplicitWidth();
+    void updateImplicitHeight();
 
 private:
     //Helper for minimumWidth etc.
@@ -339,10 +348,10 @@ private:
     QMap<QString, Plasma::ConfigLoader*> m_configs;
 
 
-    ConfigPropertyMap *m_configuration;
+    KDeclarative::ConfigPropertyMap *m_configuration;
 
 //UI-specific members ------------------
-    QmlObject *m_qmlObject;
+    KDeclarative::QmlObject *m_qmlObject;
     QWeakPointer<QObject> m_compactUiObject;
 
     QTimer *m_collapseTimer;
@@ -350,6 +359,7 @@ private:
     Plasma::Types::BackgroundHints m_backgroundHints;
     bool m_busy : 1;
     bool m_expanded : 1;
+    bool m_hideOnDeactivate : 1;
     friend class ContainmentInterface;
 };
 

@@ -23,6 +23,7 @@
 
 #include <QApplication>
 #include <QDebug>
+#include <QMenu>
 #include <QDesktopWidget>
 #include <QQmlContext>
 #include <QTimer>
@@ -31,35 +32,54 @@
 #include <klocalizedstring.h>
 #include <Plasma/Package>
 #include <Plasma/PluginLoader>
+#include <kactivities/controller.h>
+#include <kactivities/consumer.h>
+#include <ksycoca.h>
+#include <kservicetypetrader.h>
 
+
+#include "activity.h"
 #include "desktopview.h"
 #include "panelview.h"
 #include "scripting/desktopscriptengine.h"
-#include "widgetexplorer/widgetexplorerview.h"
+#include "widgetexplorer/widgetexplorer.h"
 #include "configview.h"
+
+static const int s_configSyncDelay = 10000; // 10 seconds
 
 class ShellCorona::Private {
 public:
-    Private()
-        : desktopWidget(QApplication::desktop()),
-          widgetExplorerView(nullptr)
+    Private(ShellCorona *corona)
+        : q(corona),
+          activityController(new KActivities::Controller(q)),
+          activityConsumer(new KActivities::Consumer(q)),
+          addPanelAction(nullptr),
+          addPanelsMenu(nullptr)
     {
         appConfigSyncTimer.setSingleShot(true);
-        // constant controlling how long between requesting a configuration sync
-        // and one happening should occur. currently 10 seconds
-        appConfigSyncTimer.setInterval(10000);
+        appConfigSyncTimer.setInterval(s_configSyncDelay);
+        connect(&appConfigSyncTimer, &QTimer::timeout, q, &ShellCorona::syncAppConfig);
+
+        waitingPanelsTimer.setSingleShot(true);
+        waitingPanelsTimer.setInterval(250);
+        connect(&waitingPanelsTimer, &QTimer::timeout, q, &ShellCorona::createWaitingPanels);
     }
 
+    ShellCorona *q;
     QString shell;
-    QDesktopWidget * desktopWidget;
-    QList <DesktopView *> views;
-    WidgetExplorerView * widgetExplorerView;
-    QHash <Plasma::Containment *, PanelView *> panelViews;
+    QList<DesktopView *> views;
+    KActivities::Controller *activityController;
+    KActivities::Consumer *activityConsumer;
+    QHash<const Plasma::Containment *, PanelView *> panelViews;
     KConfigGroup desktopDefaultsConfig;
-    WorkspaceScripting::DesktopScriptEngine * scriptEngine;
+    WorkspaceScripting::DesktopScriptEngine *scriptEngine;
     QList<Plasma::Containment *> waitingPanels;
-    QSet<Plasma::Containment *> loadingDesktops;
+    QHash<QString, Activity *> activities;
+    QHash<QString, QHash<int, Plasma::Containment *> > desktopContainments;
+    QAction *addPanelAction;
+    QMenu *addPanelsMenu;
 
+    QTimer waitingPanelsTimer;
     QTimer appConfigSyncTimer;
 };
 
@@ -70,31 +90,24 @@ WorkspaceScripting::DesktopScriptEngine * ShellCorona::scriptEngine() const
 
 
 ShellCorona::ShellCorona(QObject *parent)
-    : Plasma::Corona(parent), d(new Private())
+    : Plasma::Corona(parent),
+      d(new Private(this))
 {
     d->desktopDefaultsConfig = KConfigGroup(KSharedConfig::openConfig(package().filePath("defaults")), "Desktop");
 
-    connect(&d->appConfigSyncTimer, &QTimer::timeout,
-            this, &ShellCorona::syncAppConfig);
-
-    connect(d->desktopWidget, &QDesktopWidget::resized,
-            this, &ShellCorona::screenResized );
-    connect(d->desktopWidget, &QDesktopWidget::screenCountChanged,
-            this, &ShellCorona::screenCountChanged);
-    connect(d->desktopWidget, &QDesktopWidget::workAreaResized,
-            this, &ShellCorona::workAreaResized);
-
     connect(this, &ShellCorona::containmentAdded,
             this, &ShellCorona::handleContainmentAdded);
-    connect(this, &ShellCorona::screenOwnerChanged,
-            this, &ShellCorona::updateScreenOwner);
 
     d->scriptEngine = new WorkspaceScripting::DesktopScriptEngine(this, true);
 
     connect(d->scriptEngine, &WorkspaceScripting::ScriptEngine::printError,
-            this, &ShellCorona::printScriptError);
+            [=](const QString &msg) {
+                qWarning() << msg;
+            });
     connect(d->scriptEngine, &WorkspaceScripting::ScriptEngine::print,
-            this, &ShellCorona::printScriptMessage);
+            [=](const QString &msg) {
+                qDebug() << msg;
+            });
 
     QAction *dashboardAction = actions()->add<QAction>("show dashboard");
     QObject::connect(dashboardAction, &QAction::triggered,
@@ -107,26 +120,49 @@ ShellCorona::ShellCorona(QObject *parent)
     dashboardAction->setShortcut(QKeySequence("ctrl+f12"));
     dashboardAction->setShortcutContext(Qt::ApplicationShortcut);
 
+
+    checkAddPanelAction();
+    connect(KSycoca::self(), SIGNAL(databaseChanged(QStringList)), this, SLOT(checkAddPanelAction(QStringList)));
+
+
+    //Activity stuff
+    QAction *activityAction = actions()->addAction("manage activities");
+    connect(activityAction, &QAction::triggered,
+            this, &ShellCorona::toggleActivityManager);
+    activityAction->setText(i18n("Activities..."));
+    activityAction->setIcon(QIcon::fromTheme("preferences-activities"));
+    activityAction->setData(Plasma::Types::ConfigureAction);
+    activityAction->setShortcut(QKeySequence("alt+d, alt+a"));
+    activityAction->setShortcutContext(Qt::ApplicationShortcut);
+
+    connect(d->activityConsumer, SIGNAL(currentActivityChanged(QString)), this, SLOT(currentActivityChanged(QString)));
+    connect(d->activityConsumer, SIGNAL(activityAdded(QString)), this, SLOT(activityAdded(QString)));
+    connect(d->activityConsumer, SIGNAL(activityRemoved(QString)), this, SLOT(activityRemoved(QString)));
 }
 
 ShellCorona::~ShellCorona()
 {
+    qDeleteAll(d->views);
 }
 
 void ShellCorona::setShell(const QString &shell)
 {
-    if (d->shell == shell) return;
+    if (d->shell == shell) {
+        return;
+    }
 
     unload();
 
     d->shell = shell;
-    KConfigGroup config(KSharedConfig::openConfig(), "General");
     Plasma::Package package = Plasma::PluginLoader::self()->loadPackage("Plasma/Shell");
     package.setPath(shell);
     setPackage(package);
 
-    load();
-    //TODO: panel views should be synced here: either creating views for panels without, or deleting views for panels that don't have one anymore
+    if (d->activityConsumer->serviceStatus() == KActivities::Consumer::Unknown) {
+        connect(d->activityConsumer, SIGNAL(serviceStatusChanged(Consumer::ServiceStatus)), SLOT(load()), Qt::UniqueConnection);
+    } else {
+        load();
+    }
 }
 
 QString ShellCorona::shell() const
@@ -136,22 +172,56 @@ QString ShellCorona::shell() const
 
 void ShellCorona::load()
 {
-    if (d->shell.isEmpty()) return;
+    if (d->shell.isEmpty() ||
+        d->activityConsumer->serviceStatus() == KActivities::Consumer::Unknown) {
+        return;
+    }
 
-    checkViews();
+    disconnect(d->activityConsumer, SIGNAL(serviceStatusChanged(Consumer::ServiceStatus)), this, SLOT(load()));
+
     loadLayout("plasma-" + d->shell + "-appletsrc");
 
+    checkActivities();
     if (containments().isEmpty()) {
         loadDefaultLayout();
+        foreach(Plasma::Containment* containment, containments()) {
+            containment->setActivity(d->activityConsumer->currentActivity());
+        }
     }
 
     processUpdateScripts();
-    checkScreens();
+    foreach(Plasma::Containment* containment, containments()) {
+        if (containment->formFactor() == Plasma::Types::Horizontal ||
+            containment->formFactor() == Plasma::Types::Vertical) {
+            if (!d->waitingPanels.contains(containment)) {
+                d->waitingPanels << containment;
+            }
+        } else {
+            //FIXME ideally fix this, or at least document the crap out of it
+            int screen = containment->lastScreen();
+            if (screen < 0) {
+                screen = d->desktopContainments[containment->activity()].count();
+            }
+            insertContainment(containment->activity(), screen, containment);
+        }
+    }
+
+    for (QScreen *screen : QGuiApplication::screens()) {
+        screenAdded(screen);
+    }
+    connect(qApp, &QGuiApplication::screenAdded,
+            this, &ShellCorona::screenAdded);
+
+    if (!d->waitingPanels.isEmpty()) {
+        d->waitingPanelsTimer.start();
+    }
 }
 
 void ShellCorona::unload()
 {
-    if (d->shell.isEmpty()) return;
+    if (d->shell.isEmpty()) {
+        return;
+    }
 
     qDeleteAll(containments());
 }
@@ -168,9 +238,7 @@ void ShellCorona::requestApplicationConfigSync()
 
 void ShellCorona::loadDefaultLayout()
 {
-    QString script = package().filePath("defaultlayout");
-    qDebug() << "This is the default layout we are using:";
-
+    const QString script = package().filePath("defaultlayout");
     QFile file(script);
     if (file.open(QIODevice::ReadOnly | QIODevice::Text) ) {
         QString code = file.readAll();
@@ -186,99 +254,29 @@ void ShellCorona::processUpdateScripts()
     }
 }
 
-void ShellCorona::checkScreens(bool signalWhenExists)
+KActivities::Controller *ShellCorona::activityController()
 {
-
-    checkViews();
-
-    // quick sanity check to ensure we have containments for each screen
-    int num = numScreens();
-    for (int i = 0; i < num; ++i) {
-        checkScreen(i, signalWhenExists);
-    }
-}
-
-void ShellCorona::checkScreen(int screen, bool signalWhenExists)
-{
-    // signalWhenExists is there to allow PlasmaApp to know when to create views
-    // it does this only on containment addition, but in the case of a screen being
-    // added and the containment already existing for that screen, no signal is emitted
-    // and so PlasmaApp does not know that it needs to create a view for it. to avoid
-    // taking care of that case in PlasmaApp (which would duplicate some of the code below,
-    // ShellCorona will, when signalWhenExists is true, emit a containmentAdded signal
-    // even if the containment actually existed prior to this method being called.
-    //
-    //note: hte signal actually triggers view creation only for panels, atm.
-    //desktop views are created in response to containment's screenChanged signal instead, which is
-    //buggy (sometimes the containment thinks it's already on the screen, so no view is created)
-
-    //TODO: restore activities
-    //Activity *currentActivity = activity(d->activityController->currentActivity());
-    //ensure the desktop(s) have a containment and view
-    checkDesktop(/*currentActivity,*/ signalWhenExists, screen);
-
-
-    //ensure the panels get views too
-    if (signalWhenExists) {
-        foreach (Plasma::Containment * c, containments()) {
-            if (c->screen() != screen) {
-                continue;
-            }
-
-            Plasma::Types::ContainmentType t = c->containmentType();
-            if (t == Plasma::Types::PanelContainment ||
-                t == Plasma::Types::CustomPanelContainment) {
-                emit containmentAdded(c);
-            }
-        }
-    }
-}
-
-void ShellCorona::checkDesktop(/*Activity *activity,*/ bool signalWhenExists, int screen)
-{
-    Plasma::Containment *c = /*activity->*/containmentForScreen(screen);
-
-    //TODO: remove following when activities are restored
-    if (!c) {
-        c = createContainment(d->desktopDefaultsConfig.readEntry("Containment", "org.kde.desktopcontainment"));
-    }
-
-    if (!c) {
-        return;
-    }
-
-    c->setScreen(screen);
-    if (screen >= 0 || d->views.count() >= screen + 1) {
-        d->views[screen]->setContainment(c);
-    } else {
-        qWarning() << "Invalid screen";
-    }
-    c->flushPendingConstraintsEvents();
-    requestApplicationConfigSync();
-
-    if (signalWhenExists) {
-        emit containmentAdded(c);
-    }
+    return d->activityController;
 }
 
 int ShellCorona::numScreens() const
 {
-    return d->desktopWidget->screenCount();
+    return QApplication::desktop()->screenCount();
 }
 
 QRect ShellCorona::screenGeometry(int id) const
 {
-    return d->desktopWidget->screenGeometry(id);
+    return QApplication::desktop()->screenGeometry(id);
 }
 
 QRegion ShellCorona::availableScreenRegion(int id) const
 {
-    return d->desktopWidget->availableGeometry(id);
+    return QApplication::desktop()->availableGeometry(id);
 }
 
 QRect ShellCorona::availableScreenRect(int id) const
 {
-    return d->desktopWidget->availableGeometry(id);
+    return QApplication::desktop()->availableGeometry(id);
 }
 
 PanelView *ShellCorona::panelView(Plasma::Containment *containment) const
@@ -289,138 +287,114 @@ PanelView *ShellCorona::panelView(Plasma::Containment *containment) const
 
 ///// SLOTS
 
-void ShellCorona::screenCountChanged(int newCount)
+void ShellCorona::screenAdded(QScreen *screen)
 {
-    qDebug() << "New screen count" << newCount;
-    checkViews();
-}
+    DesktopView *view = new DesktopView(this, screen);
+    const QString currentActivity = d->activityController->currentActivity();
 
-void ShellCorona::screenResized(int screen)
-{
-    qDebug() << "Screen resized" << screen;
-}
+    if (!d->views.isEmpty() && screen == QGuiApplication::primaryScreen()) {
+        DesktopView* oldPrimaryView = d->views.first();
+        QScreen* oldPrimaryScreen = oldPrimaryView->screen();
 
-void ShellCorona::workAreaResized(int screen)
-{
-    qDebug() << "Work area resized" << screen;
-}
-
-void ShellCorona::checkViews()
-{
-    if (d->shell.isEmpty()) {
-        return;
-    }
-
-    if (d->views.count() == d->desktopWidget->screenCount()) {
-        return;
-    } else if (d->views.count() < d->desktopWidget->screenCount()) {
-        for (int i = d->views.count(); i < d->desktopWidget->screenCount(); ++i) {
-
-            DesktopView *view = new DesktopView(this);
-            QSurfaceFormat format;
-            view->show();
-
-            d->views << view;
+        //move any panels that were preivously on the old primary screen to the new primary screen
+        foreach (PanelView *panelView, d->panelViews) {
+            if (oldPrimaryScreen==panelView->screen())
+                panelView->setScreen(screen);
         }
+
+        Plasma::Containment* primaryContainment = oldPrimaryView->containment();
+        oldPrimaryView->setContainment(0);
+        view->setContainment(primaryContainment);
+
+        d->views.prepend(view);
+        view = oldPrimaryView;
     } else {
-        for (int i = d->desktopWidget->screenCount(); i < d->views.count(); ++i) {
-            DesktopView *view = d->views.last();
-            view->deleteLater();
-            d->views.pop_back();
+        d->views.append(view);
+    }
+
+    int screenNum = d->views.count()-1;
+    Plasma::Containment *containment = d->desktopContainments[currentActivity][screenNum];
+    if (!containment) {
+        containment = createContainmentForActivity(currentActivity, screenNum);
+    }
+    view->setContainment(containment);
+
+    connect(screen, SIGNAL(destroyed(QObject*)), SLOT(screenRemoved(QObject*)));
+    view->show();
+}
+
+
+Plasma::Containment* ShellCorona::createContainmentForActivity(const QString& activity, int screenNum)
+{
+    Plasma::Containment* containment = createContainment(d->desktopDefaultsConfig.readEntry("Containment", "org.kde.desktopcontainment"));
+    containment->setActivity(activity);
+    insertContainment(activity, screenNum, containment);
+    return containment;
+}
+
+void ShellCorona::screenRemoved(QObject *screen)
+{
+    //desktop containments
+    for (auto i = d->views.begin(); i != d->views.end(); i++) {
+        if ((*i)->screen() == screen) {
+            d->views.erase(i);
+            (*i)->containment()->reactToScreenChange();
+            (*i)->deleteLater();
+            break;
         }
     }
 
-    //check every containment is in proper view
-    for (int i = 0; i < d->desktopWidget->screenCount(); ++i) {
-        qDebug() << "TODO: Implement loading containments into the views";
+    //move all panels on a deleted screen to the primary screen
+    //FIXME: this will break when a second screen is added again
+    //as in plasma1, panel should be hidden, panelView deleted.
+    //possibly similar to exportLayout/importLayout of Activities
+    foreach (PanelView *view, d->panelViews) {
+        view->setScreen(QGuiApplication::primaryScreen());
     }
 }
 
-void ShellCorona::checkLoadingDesktopsComplete()
+void ShellCorona::createWaitingPanels()
 {
-    Plasma::Containment *c = qobject_cast<Plasma::Containment *>(sender());
-    if (c) {
-        disconnect(c, &Plasma::Containment::uiReadyChanged,
-                   this, &ShellCorona::checkLoadingDesktopsComplete);
-        d->loadingDesktops.remove(c);
+    foreach (Plasma::Containment *cont, d->waitingPanels) {
+        d->panelViews[cont] = new PanelView(this);
+
+        //keep screen suggestions within bounds of screens we actually have
+        int screen = qBound(0, cont->lastScreen(), QGuiApplication::screens().size() -1);
+
+        d->panelViews[cont]->setScreen(QGuiApplication::screens()[screen]);
+        d->panelViews[cont]->setContainment(cont);
     }
-
-    if (d->loadingDesktops.isEmpty()) {
-        foreach (Plasma::Containment *cont, d->waitingPanels) {
-            d->panelViews[cont] = new PanelView(this);
-            d->panelViews[cont]->setContainment(cont);
-        }
-        d->waitingPanels.clear();
-    }
-}
-
-void ShellCorona::updateScreenOwner(int wasScreen, int isScreen, Plasma::Containment *containment)
-{
-    qDebug() << "Was screen" << wasScreen << "Is screen" << isScreen <<"Containment" << containment << containment->title();
-
-    if (containment->formFactor() == Plasma::Types::Horizontal ||
-        containment->formFactor() == Plasma::Types::Vertical) {
-
-        if (isScreen >= 0) {
-            d->waitingPanels << containment;
-        } else {
-            if (d->panelViews.contains(containment)) {
-                d->panelViews[containment]->setContainment(0);
-                d->panelViews[containment]->deleteLater();
-                d->panelViews.remove(containment);
-            }
-        }
-        checkLoadingDesktopsComplete();
-
-    //Desktop view
-    } else {
-
-        if (containment->isUiReady()) {
-            d->loadingDesktops.remove(containment);
-            checkLoadingDesktopsComplete();
-        } else {
-            d->loadingDesktops.insert(containment);
-            connect(containment, &Plasma::Containment::uiReadyChanged,
-                    this, &ShellCorona::checkLoadingDesktopsComplete);
-        }
-
-        if (isScreen < 0 || d->views.count() < isScreen + 1) {
-            qWarning() << "Invalid screen";
-            return;
-        }
-
-        d->views[isScreen]->setContainment(containment);
-    }
+    d->waitingPanels.clear();
 }
 
 void ShellCorona::handleContainmentAdded(Plasma::Containment* c)
 {
     connect(c, &Plasma::Containment::showAddWidgetsInterface,
-            this, &ShellCorona::showWidgetExplorer);
-    connect(c, &QObject::destroyed, [=] (QObject *o) {
-        d->loadingDesktops.remove(static_cast<Plasma::Containment *>(o));
-    });
+            this, &ShellCorona::toggleWidgetExplorer);
 }
 
-void ShellCorona::showWidgetExplorer()
+void ShellCorona::toggleWidgetExplorer()
 {
-    if (!d->widgetExplorerView) {
+    const QPoint cursorPos = QCursor::pos();
+    foreach (DesktopView *view, d->views) {
+        if (view->screen()->geometry().contains(cursorPos)) {
+            //The view QML has to provide something to display the activity explorer
+            view->rootObject()->metaObject()->invokeMethod(view->rootObject(), "toggleWidgetExplorer", Q_ARG(QVariant, QVariant::fromValue(sender())));
+            return;
+        }
+    }
+}
 
-        QString expqml = package().filePath("widgetexplorer");
-        qDebug() << "Script to load for WidgetExplorer: " << expqml;
-        d->widgetExplorerView = new WidgetExplorerView(expqml);
-        d->widgetExplorerView->init();
+void ShellCorona::toggleActivityManager()
+{
+    const QPoint cursorPos = QCursor::pos();
+    foreach (DesktopView *view, d->views) {
+        if (view->screen()->geometry().contains(cursorPos)) {
+            //The view QML has to provide something to display the activity explorer
+            view->rootObject()->metaObject()->invokeMethod(view->rootObject(), "toggleActivityManager");
+            return;
+        }
     }
-    Plasma::Containment *c = 0;
-    c = dynamic_cast<Plasma::Containment*>(sender());
-    if (c) {
-        qDebug() << "Found containment.";
-        d->widgetExplorerView->setContainment(c);
-    } else {
-        // FIXME: try harder to find a suitable containment?
-        qWarning() << "containment not set, don't know where to add the applet.";
-    }
-    d->widgetExplorerView->show();
 }
 
 void ShellCorona::syncAppConfig()
@@ -438,20 +412,240 @@ void ShellCorona::setDashboardShown(bool show)
     if (dashboardAction) {
         dashboardAction->setText(show ? i18n("Hide Dashboard") : i18n("Show Dashboard"));
     }
+
     foreach (DesktopView *view, d->views) {
         view->setDashboardShown(show);
     }
 }
 
-void ShellCorona::printScriptError(const QString &error)
+void ShellCorona::checkActivities()
 {
-    qWarning() << error;
+    KActivities::Consumer::ServiceStatus status = d->activityController->serviceStatus();
+    //qDebug() << "$%$%$#%$%$%Status:" << status;
+    if (status != KActivities::Consumer::Running) {
+        //panic and give up - better than causing a mess
+        qDebug() << "ShellCorona::checkActivities is called whilst activity daemon is still connecting";
+        return;
+    }
+
+    QStringList existingActivities = d->activityConsumer->activities();
+    foreach (const QString &id, existingActivities) {
+        activityAdded(id);
+    }
+
+    // Checking whether the result we got is valid. Just in case.
+    Q_ASSERT_X(!existingActivities.isEmpty(), "isEmpty", "There are no activities, and the service is running");
+    Q_ASSERT_X(existingActivities[0] != QStringLiteral("00000000-0000-0000-0000-000000000000"),
+            "null uuid", "There is a nulluuid activity present");
+
+    // Killing the unassigned containments
+    foreach (Plasma::Containment * cont, containments()) {
+        if ((cont->containmentType() == Plasma::Types::DesktopContainment ||
+             cont->containmentType() == Plasma::Types::CustomContainment) &&
+            !existingActivities.contains(cont->activity())) {
+            cont->destroy();
+        }
+    }
 }
 
-void ShellCorona::printScriptMessage(const QString &message)
+void ShellCorona::currentActivityChanged(const QString &newActivity)
 {
-    qDebug() << message;
+    qDebug() << "Activity changed:" << newActivity;
+
+    for (int i = 0; i < d->views.count(); ++i) {
+        Plasma::Containment* c = d->desktopContainments[newActivity][i];
+        if (!c) {
+            c = createContainmentForActivity(newActivity, i);
+        }
+        d->views[i]->setContainment(c);
+    }
 }
+
+void ShellCorona::activityAdded(const QString &id)
+{
+    //TODO more sanity checks
+    if (d->activities.contains(id)) {
+        qDebug() << "you're late." << id;
+        return;
+    }
+
+    Activity *a = new Activity(id, this);
+    d->activities.insert(id, a);
+}
+
+void ShellCorona::activityRemoved(const QString &id)
+{
+    Activity *a = d->activities.take(id);
+    a->deleteLater();
+}
+
+void ShellCorona::checkAddPanelAction(const QStringList &sycocaChanges)
+{
+    if (!sycocaChanges.isEmpty() && !sycocaChanges.contains("services")) {
+        return;
+    }
+
+    delete d->addPanelAction;
+    d->addPanelAction = 0;
+
+    delete d->addPanelsMenu;
+    d->addPanelsMenu = 0;
+
+    KPluginInfo::List panelContainmentPlugins = Plasma::PluginLoader::listContainmentsOfType("Panel");
+    const QString constraint = QString("[X-Plasma-Shell] == '%1' and 'panel' ~in [X-Plasma-ContainmentCategories]")
+                                      .arg(qApp->applicationName());
+    KService::List templates = KServiceTypeTrader::self()->query("Plasma/LayoutTemplate", constraint);
+
+    if (panelContainmentPlugins.count() + templates.count() == 1) {
+        d->addPanelAction = new QAction(i18n("Add Panel"), this);
+        d->addPanelAction->setData(Plasma::Types::AddAction);
+        connect(d->addPanelAction, SIGNAL(triggered(bool)), this, SLOT(addPanel()));
+    } else if (!panelContainmentPlugins.isEmpty()) {
+        d->addPanelsMenu = new QMenu;
+        d->addPanelAction = d->addPanelsMenu->menuAction();
+        d->addPanelAction->setText(i18n("Add Panel"));
+        d->addPanelAction->setData(Plasma::Types::AddAction);
+        qDebug() << "populateAddPanelsMenu" << panelContainmentPlugins.count();
+        connect(d->addPanelsMenu, SIGNAL(aboutToShow()), this, SLOT(populateAddPanelsMenu()));
+        connect(d->addPanelsMenu, SIGNAL(triggered(QAction*)), this, SLOT(addPanel(QAction*)));
+    }
+
+    if (d->addPanelAction) {
+        d->addPanelAction->setIcon(QIcon::fromTheme("list-add"));
+        actions()->addAction("add panel", d->addPanelAction);
+    }
+}
+
+void ShellCorona::addPanel()
+{
+    KPluginInfo::List panelPlugins = Plasma::PluginLoader::listContainmentsOfType("Panel");
+
+    if (!panelPlugins.isEmpty()) {
+        addPanel(panelPlugins.first().pluginName());
+    }
+}
+
+void ShellCorona::addPanel(QAction *action)
+{
+    const QString plugin = action->data().toString();
+    if (plugin.startsWith("plasma-desktop-template:")) {
+        d->scriptEngine->evaluateScript(plugin.right(plugin.length() - qstrlen("plasma-desktop-template:")));
+    } else if (!plugin.isEmpty()) {
+        addPanel(plugin);
+    }
+}
+
+void ShellCorona::addPanel(const QString &plugin)
+{
+    Plasma::Containment *panel = createContainment(plugin);
+    if (!panel) {
+        return;
+    }
+
+    QList<Plasma::Types::Location> availableLocations;
+    availableLocations << Plasma::Types::LeftEdge << Plasma::Types::TopEdge << Plasma::Types::RightEdge << Plasma::Types::BottomEdge;
+
+    foreach (const Plasma::Containment *cont, d->panelViews.keys()) {
+        availableLocations.removeAll(cont->location());
+    }
+
+    Plasma::Types::Location loc;
+    if (availableLocations.isEmpty()) {
+        loc = Plasma::Types::TopEdge;
+    } else {
+        loc = availableLocations.first();
+    }
+
+    panel->setLocation(loc);
+    switch (loc) {
+    case Plasma::Types::LeftEdge:
+    case Plasma::Types::RightEdge:
+        panel->setFormFactor(Plasma::Types::Vertical);
+        break;
+    default:
+        panel->setFormFactor(Plasma::Types::Horizontal);
+        break;
+    }
+
+    d->waitingPanels << panel;
+    d->waitingPanelsTimer.start();
+}
+
+int ShellCorona::screenForContainment(const Plasma::Containment *containment) const
+{
+    QScreen *screen = nullptr;
+    for (int i = 0; i < d->views.size(); i++) {
+        if (d->views[i]->containment() == containment) {
+            screen = d->views[i]->screen();
+        }
+    }
+
+    if (!screen) {
+        PanelView *view = d->panelViews[containment];
+        if (view) {
+            screen = view->screen();
+        }
+    }
+
+    return screen ? qApp->screens().indexOf(screen) : -1;
+}
+
+void ShellCorona::activityOpened()
+{
+    Activity *activity = qobject_cast<Activity *>(sender());
+    if (activity) {
+        QList<Plasma::Containment*> cs = importLayout(activity->config());
+        for (Plasma::Containment *containment : cs) {
+            insertContainment(activity->name(), containment->lastScreen(), containment);
+        }
+    }
+}
+
+void ShellCorona::activityClosed()
+{
+    Activity *activity = qobject_cast<Activity *>(sender());
+    if (activity) {
+        KConfigGroup cg = activity->config();
+        exportLayout(cg, d->desktopContainments.value(activity->name()).values());
+    }
+}
+
+void ShellCorona::activityRemoved()
+{
+    //when an activity is removed delete all associated desktop containments
+    Activity *activity = qobject_cast<Activity *>(sender());
+    if (activity) {
+        QHash< int, Plasma::Containment* > containmentHash = d->desktopContainments.take(activity->name());
+        for (auto a : containmentHash) {
+            a->destroy();
+        }
+    }
+}
+
+void ShellCorona::insertContainment(const QString &activity, int screenNum, Plasma::Containment* containment)
+{
+    d->desktopContainments[activity][screenNum] = containment;
+
+    //when a containment gets deleted update our map of containments
+    connect(containment, &QObject::destroyed, [=](QObject *obj) {
+        // when QObject::destroyed arrives, ~Plasma::Containment has run,
+        // members of Containment are not accessible anymore,
+        // so keep ugly bookeeping by hand
+        auto containment = static_cast<Plasma::Containment*>(obj);
+        for (auto a : d->desktopContainments) {
+            QMutableHashIterator<int, Plasma::Containment *> it(a);
+            while (it.hasNext()) {
+                it.next();
+                if (it.value() == containment) {
+                    it.remove();
+                    return;
+                }
+            }
+        }
+    });
+}
+
+
 
 // Desktop corona handler
 

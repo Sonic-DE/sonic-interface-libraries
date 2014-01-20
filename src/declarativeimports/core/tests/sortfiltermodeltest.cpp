@@ -21,16 +21,16 @@
 #include <datamodel.h>
 
 // KDE
-#include <qtest_kde.h>
 
 // Qt
 #include <QStandardItemModel>
 #include <QStringListModel>
 #include <QSignalSpy>
+#include <QtTest>
 
 using namespace Plasma;
 
-QTEST_KDEMAIN(SortFilterModelTest, GUI)
+QTEST_MAIN(SortFilterModelTest)
 
 void SortFilterModelTest::setModel()
 {

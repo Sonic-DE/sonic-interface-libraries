@@ -30,11 +30,8 @@
 
 #include <QDebug>
 #include <kiconloader.h>
-#include <klocale.h>
 #include <klocalizedstring.h>
 #include <kkeysequencewidget.h>
-#include <kstandarddirs.h>
-#include <kglobal.h>
 #include <kglobalaccel.h>
 
 #include "containment.h"
@@ -63,7 +60,6 @@ AppletPrivate::AppletPrivate(KService::Ptr service, const KPluginInfo *info, int
           itemStatus(Types::UnknownStatus),
           modificationsTimer(0),
           hasConfigurationInterface(false),
-          isContainment(false),
           failed(false),
           transient(false),
           needsConfig(false),
@@ -168,7 +164,7 @@ void AppletPrivate::cleanUpAndDelete()
 
     resetConfigurationObject();
 
-    if (isContainment) {
+    if (q->isContainment()) {
         // prematurely emit our destruction if we are a Containment,
         // giving Corona a chance to remove this Containment from its collection
         emit q->QObject::destroyed(q);
@@ -236,7 +232,7 @@ void AppletPrivate::requestConfiguration()
 
 void AppletPrivate::updateShortcuts()
 {
-    if (isContainment) {
+    if (q->isContainment()) {
         //a horrible hack to avoid clobbering corona settings
         //we pull them out, then read, then put them back
         QList<QString> names;
@@ -253,7 +249,7 @@ void AppletPrivate::updateShortcuts()
         for (int i = 0; i < names.size(); ++i) {
             QAction *a = qactions.at(i);
             if (a) {
-                actions->add<QAction>(names.at(i), a);
+                actions->addAction(names.at(i), a);
             }
         }
     } else {
@@ -263,13 +259,10 @@ void AppletPrivate::updateShortcuts()
 
 void AppletPrivate::propagateConfigChanged()
 {
-    if (isContainment) {
-        Containment *c = qobject_cast<Containment *>(q);
-        if (c) {
-            c->d->configChanged();
-        }
+    Containment *c = qobject_cast<Containment *>(q);
+    if (c) {
+        c->d->configChanged();
     }
-
     q->configChanged();
 }
 
@@ -296,21 +289,6 @@ void AppletPrivate::setUiReady()
     }
 
     uiReady = true;
-}
-
-void AppletPrivate::setIsContainment(bool nowIsContainment, bool forceUpdate)
-{
-    if (isContainment == nowIsContainment && !forceUpdate) {
-        return;
-    }
-
-    isContainment = nowIsContainment;
-    //FIXME I do not like this function.
-    //currently it's only called before ctmt/applet init, with (true,true), and I'm going to assume it stays that way.
-    //if someone calls it at some other time it'll cause headaches. :P
-
-    delete mainConfig;
-    mainConfig = 0;
 }
 
 // put all setup routines for script here. at this point we can assume that
@@ -380,7 +358,7 @@ KConfigGroup *AppletPrivate::mainConfigGroup()
         return mainConfig;
     }
 
-    if (isContainment) {
+    if (q->isContainment()) {
         Corona *corona = static_cast<Containment*>(q)->corona();
         KConfigGroup containmentConfig;
         //qDebug() << "got a corona, baby?" << (QObject*)corona << (QObject*)q;

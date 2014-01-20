@@ -85,8 +85,8 @@ public:
      *
      * @return a pointer to the containment on success, or 0 on failure. Failure can be
      * caused by too restrictive of an Immutability type, as containments cannot be added
-     * when widgets are locked, or if the requested containment plugin can not be located
-     * or successfully loaded.
+     * when widgets are locked.
+     * If the requested containment plugin can not be located or successfully loaded, the Containment will have an invalid pluginInfo().
      */
     Containment *createContainment(const QString &name, const QVariantList &args = QVariantList());
 
@@ -157,6 +157,12 @@ public:
      */
     void exportLayout(KConfigGroup &config, QList<Containment*> containments);
 
+    /**
+     * @returns the id of the screen which is showing @p containment
+     * -1 is returned if the containment is not associated with a screen.
+     */
+    virtual int screenForContainment(const Containment *containment) const;
+
 public Q_SLOTS:
     /**
      * Load applet layout from a config file. The results will be added to the
@@ -211,11 +217,9 @@ Q_SIGNALS:
      * This signal indicates that a containment has been newly
      * associated (or dissociated) with a physical screen.
      *
-     * @param wasScreen the screen it was associated with
      * @param isScreen the screen it is now associated with
-     * @param containment the containment switching screens
      */
-    void screenOwnerChanged(int wasScreen, int isScreen, Plasma::Containment *containment);
+    void screenOwnerChanged(int isScreen);
 
     /**
      * This signal indicates that the configuration file was flushed to disk.

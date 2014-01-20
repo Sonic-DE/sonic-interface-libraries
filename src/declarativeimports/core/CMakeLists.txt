@@ -1,14 +1,4 @@
 project(corebindings)
-
-INCLUDE_DIRECTORIES(
-        ${CMAKE_SOURCE_DIR}
-        ${CMAKE_SOURCE_DIR}/src/plasma/includes
-        ${CMAKE_BINARY_DIR}
-        ${KDE4_INCLUDES}
-        ${KDE4_INCLUDE_DIR}
-        ${KDeclarative_INCLUDE_DIR}
-)
-
 add_definitions(-DHAVE_X11=${HAVE_X11})
 if(XCB_XCB_FOUND AND XCB_COMPOSITE_FOUND AND XCB_DAMAGE_FOUND)
     add_definitions(-DHAVE_XCB_COMPOSITE=1)
@@ -39,14 +29,15 @@ set(corebindings_SRCS
 
 add_library(corebindingsplugin SHARED ${corebindings_SRCS})
 target_link_libraries(corebindingsplugin
-        ${QT_QTSCRIPT_LIBRARY}
-        ${Qt5Quick_LIBRARIES}
-        ${Qt5Qml_LIBRARIES}
-        ${KDeclarative_LIBRARIES}
-        ${KCore_LIBRARIES}
-        KF5::KIconThemes
-        KF5::KWindowSystem
-        plasma)
+        Qt5::Script
+        Qt5::Quick
+        Qt5::Qml
+        KF5::Declarative
+        KF5::CoreAddons
+        KF5::IconThemes
+        KF5::Service #for kplugininfo.h
+        KF5::WindowSystem
+        KF5::Plasma)
 
 if(X11_FOUND)
   target_link_libraries(corebindingsplugin ${X11_LIBRARIES} ${XCB_XCB_LIBRARY} )
@@ -62,9 +53,11 @@ if(X11_FOUND)
   if(OPENGL_FOUND)
     target_link_libraries(corebindingsplugin ${OPENGL_gl_LIBRARY})
   endif()
-endif(X11_FOUND)
+endif()
 
 install(TARGETS corebindingsplugin DESTINATION ${QML_INSTALL_DIR}/org/kde/plasma/core)
-install(FILES qmldir ToolTip.qml DESTINATION ${QML_INSTALL_DIR}/org/kde/plasma/core)
+install(FILES qmldir DESTINATION ${QML_INSTALL_DIR}/org/kde/plasma/core)
+
+install(FILES private/DefaultToolTip.qml DESTINATION ${QML_INSTALL_DIR}/org/kde/plasma/core/private)
 
 add_subdirectory(tests)

@@ -25,16 +25,43 @@
 #include <QQuickItem>
 #include <QWeakPointer>
 #include <QtCore/QVariant>
+#include <Plasma/Plasma>
 
 class QQuickItem;
 class QGraphicsWidget;
 
 /**
- * Exposed as `ToolTipProxy` in QML. This is used only internally for WIndow handling
+ * An Item managing a Plasma-themed tooltip. It is rendered in its own window.
+ * You can either specify iconSource, mainText and subText, or a custom Component
+ * that will be put inside the tooltip. By specifying the target property, you
+ * "attach" the ToolTip to an item in your code, by default the tooltip will be
+ * rendered when hovering over the parent item.
  *
- * DO NOT USE THIS API, PlasmaCore.ToolTip is what you should use.
+ * The item inside the ToolTip is loaded on demand and will be destroyed when the
+ * tooltip is being hidden.
+ *
+ * Example usage:
+ * @code
+ * import org.kde.plasma.core 2.0 as PlasmaCore
+ *
+ * [...]
+ * PlasmaComponents.IconItem {
+ *     ...
+ *     PlasmaCore.ToolTipArea {
+ *         mainText: "Tooltip Title"
+ *         subText: "Some explanation."
+ *         iconSource: "plasma"
+ *         // alternatively, you can specify your own component
+ *         // to be loaded when the tooltip shows
+ *         mainComponent: Component {
+ *              YourCustomItem { ...  }
+ *         }
+ * ... }
+ * }
+ * @endcode
+ *
  */
-class ToolTip : public QObject
+class ToolTip : public QQuickItem
 {
     Q_OBJECT
 
@@ -44,37 +71,87 @@ class ToolTip : public QObject
     Q_PROPERTY(QQuickItem *mainItem READ mainItem WRITE setMainItem NOTIFY mainItemChanged)
 
     /**
-     * The main QML item that will be displayed in the Dialog
+     * The main text of this tooltip
      */
-    Q_PROPERTY(QQuickItem *visualParent READ visualParent WRITE setVisualParent NOTIFY visualParentChanged)
+    Q_PROPERTY(QString mainText READ mainText WRITE setMainText NOTIFY mainTextChanged)
 
     /**
-     * Visibility of the Dialog window. Doesn't have anything to do with the visibility of the mainItem.
+     * The description of this tooltip
      */
-    Q_PROPERTY(bool visible READ isVisible WRITE setVisible NOTIFY visibleChanged)
+    Q_PROPERTY(QString subText READ subText WRITE setSubText NOTIFY subTextChanged)
 
+    /**
+     * An icon for this tooltip, accepted values are an icon name, a QIcon, QImage or QPixmap
+     */
+    Q_PROPERTY(QVariant icon READ icon WRITE setIcon NOTIFY iconChanged)
+
+    /**
+     * An icon for this tooltip, accepted values are an icon name, a QIcon, QImage or QPixmap
+     */
+    Q_PROPERTY(bool m_containsMouse READ containsMouse NOTIFY containsMouseChanged)
+
+    /**
+     * Plasma Location of the dialog window. Useful if this dialog is a popup for a panel
+     */
+    Q_PROPERTY(Plasma::Types::Location location READ location WRITE setLocation NOTIFY locationChanged)
+
+    /**
+     * TODO: single property for images?
+     * An image for this tooltip, accepted values are an icon name, a QIcon, QImage or QPixmap
+     */
+    Q_PROPERTY(QVariant image READ image WRITE setImage NOTIFY imageChanged)
 
 public:
-    ToolTip(QObject *parent = 0);
+    ToolTip(QQuickItem *parent = 0);
     ~ToolTip();
 
     QQuickItem *mainItem() const;
     void setMainItem(QQuickItem *mainItem);
 
-    QQuickItem *visualParent() const;
-    void setVisualParent(QQuickItem *visualParent);
+    void showToolTip();
 
-    bool isVisible() const;
-    void setVisible(const bool visible);
+    QString mainText() const;
+    void setMainText(const QString &mainText);
+
+    QString subText() const;
+    void setSubText(const QString &subText);
+
+    QVariant icon() const;
+    void setIcon(const QVariant &icon);
+
+    QVariant image() const;
+    void setImage(const QVariant &image);
+
+    Plasma::Types::Location location() const;
+    void setLocation(Plasma::Types::Location location);
+
+    bool containsMouse() const;
+    void setContainsMouse(bool contains);
+
+protected:
+    bool childMouseEventFilter(QQuickItem *item, QEvent *event);
+    void hoverEnterEvent(QHoverEvent *event);
+    void hoverLeaveEvent(QHoverEvent *event);
 
 Q_SIGNALS:
     void mainItemChanged();
-    void visualParentChanged();
     void visibleChanged();
+    void mainTextChanged();
+    void subTextChanged();
+    void iconChanged();
+    void imageChanged();
+    void containsMouseChanged();
+    void locationChanged();
 
 private:
+    bool m_containsMouse;
+    Plasma::Types::Location m_location;
     QWeakPointer<QQuickItem> m_mainItem;
-    QWeakPointer<QQuickItem> m_visualParent;
+    QTimer *m_showTimer;
+    QString m_mainText;
+    QString m_subText;
+    QVariant m_image;
+    QVariant m_icon;
 };
 
 #endif
