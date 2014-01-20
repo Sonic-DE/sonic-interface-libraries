@@ -121,7 +121,11 @@ class Applet : public QQuickItem
     Q_PROPERTY(int switchHeight READ switchHeight WRITE setSwitchHeight NOTIFY switchHeightChanged)
 
     Q_PROPERTY(QQmlComponent *compactRepresentation READ compactRepresentation WRITE setCompactRepresentation NOTIFY compactRepresentationChanged)
+    Q_PROPERTY(QObject *compactRepresentationItem READ compactRepresentationItem NOTIFY compactRepresentationItemChanged)
+
     Q_PROPERTY(QQmlComponent *fullRepresentation READ fullRepresentation WRITE setFullRepresentation NOTIFY fullRepresentationChanged)
+    Q_PROPERTY(QObject *fullRepresentationItem READ fullRepresentationItem NOTIFY fullRepresentationItemChanged)
+
 
     /**
      * this is supposed to be either one between compactRepresentation or fullRepresentation
@@ -162,6 +166,11 @@ public:
     QQmlComponent *compactRepresentationExpander();
     void setCompactRepresentationExpander(QQmlComponent *component);
 
+    QObject *compactRepresentationItem();
+    QObject *fullRepresentationItem();
+    QObject *compactRepresentationExpanderItem();
+
+
     //////////////////Wrapping main plasmoid API
     bool isExpanded() const;
     void setExpanded(bool expanded);
@@ -180,17 +189,36 @@ Q_SIGNALS:
 
     void compactRepresentationExpanderChanged(QQmlComponent *compactRepresentationExpander);
 
+    void compactRepresentationItemChanged(QObject *compactRepresentationItem);
+    void fullRepresentationItemChanged(QObject *fullRepresentationItem);
+    void compactRepresentationExpanderItemChanged(QObject *compactRepresentationExpanderItem);
+
+    //Plasmoid api
     void expandedChanged(bool expanded);
 
 protected:
     void geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry);
 
-    QObject *compactRepresentationItem();
-    QObject *fullRepresentationItem();
-    QObject *compactRepresentationExpanderItem();
+    QObject *createCompactRepresentationItem();
+    QObject *createFullRepresentationItem();
+    QObject *createCompactRepresentationExpanderItem();
 
-protected Q_SLOTS:
+    //look into item, and return the Layout attached property, if found
+    void connectLayoutAttached(QObject *item);
+    void propagateSizeHint(const QByteArray &layoutProperty);
+
+private Q_SLOTS:
     void compactRepresentationCheck();
+
+    //handlers of Layout signals
+    void minimumWidthChanged();
+    void minimumHeightChanged();
+    void preferredWidthChanged();
+    void preferredHeightChanged();
+    void maximumWidthChanged();
+    void maximumHeightChanged();
+    void fillWidthChanged();
+    void fillHeightChanged();
 
 private:
     int m_switchWidth;
@@ -205,6 +233,10 @@ private:
     QWeakPointer<QObject> m_fullRepresentationItem;
     QWeakPointer<QObject> m_compactRepresentationExpanderItem;
     QWeakPointer<QObject> m_currentRepresentationItem;
+
+    //Attached layout objects: own and the representation's one
+    QWeakPointer<QObject> m_representationLayout;
+    QWeakPointer<QObject> m_ownLayout;
 
     QTimer m_compactRepresentationCheckTimer;
 

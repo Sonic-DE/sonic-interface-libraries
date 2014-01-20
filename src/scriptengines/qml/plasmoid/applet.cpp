@@ -144,7 +144,8 @@ Applet::Applet(QQuickItem *parent)
     : QQuickItem(parent),
       m_switchWidth(-1),
       m_switchHeight(-1),
-      m_engine(0)
+      m_engine(0),
+      m_expanded(false)
 {
     m_compactRepresentationCheckTimer.setSingleShot(true);
     m_compactRepresentationCheckTimer.setInterval(250);
@@ -287,8 +288,24 @@ void Applet::componentComplete()
     }
 }
 
-
 QObject *Applet::compactRepresentationItem()
+{
+    return m_compactRepresentationItem.data();
+}
+
+QObject *Applet::fullRepresentationItem()
+{
+    return m_fullRepresentationItem.data();
+}
+
+QObject *Applet::compactRepresentationExpanderItem()
+{
+    return m_compactRepresentationExpanderItem.data();
+}
+
+
+
+QObject *Applet::createCompactRepresentationItem()
 {
     if (!m_compactRepresentation) {
         return 0;
@@ -300,10 +317,12 @@ QObject *Applet::compactRepresentationItem()
 
     m_compactRepresentationItem = m_qmlObject->createObjectFromComponent(m_compactRepresentation.data());
 
+    emit compactRepresentationItemChanged(m_compactRepresentationItem.data());
+
     return m_compactRepresentationItem.data();
 }
 
-QObject *Applet::fullRepresentationItem()
+QObject *Applet::createFullRepresentationItem()
 {
     if (!m_fullRepresentation) {
         return 0;
@@ -315,10 +334,12 @@ QObject *Applet::fullRepresentationItem()
 
     m_fullRepresentationItem = m_qmlObject->createObjectFromComponent(m_fullRepresentation.data());
 
+    emit fullRepresentationItemChanged(m_fullRepresentationItem.data());
+
     return m_fullRepresentationItem.data();
 }
 
-QObject *Applet::compactRepresentationExpanderItem()
+QObject *Applet::createCompactRepresentationExpanderItem()
 {
     if (!m_compactRepresentationExpander) {
         return 0;
@@ -330,7 +351,99 @@ QObject *Applet::compactRepresentationExpanderItem()
 
     m_compactRepresentationExpanderItem = m_qmlObject->createObjectFromComponent(m_compactRepresentationExpander.data());
 
+    emit compactRepresentationExpanderItemChanged(m_compactRepresentationExpanderItem.data());
+
     return m_compactRepresentationExpanderItem.data();
+}
+
+void Applet::connectLayoutAttached(QObject *item)
+{
+    QObject *layout = 0;
+
+    //Extract the representation's Layout, if any
+    //No Item?
+    if (!item) {
+        return;
+    }
+
+    //Search a child that has the needed Layout properties
+    //HACK: here we are not type safe, but is the only way to access to a pointer of Layout
+    foreach (QObject *child, item->children()) {
+        //find for the needed property of Layout: minimum/maximum/preferred sizes and fillWidth/fillHeight
+        if (child->property("minimumWidth").isValid() && child->property("minimumHeight").isValid() &&
+            child->property("preferredWidth").isValid() && child->property("preferredHeight").isValid() &&
+            child->property("maximumWidth").isValid() && child->property("maximumHeight").isValid() &&
+            child->property("fillWidth").isValid() && child->property("fillHeight").isValid()
+        ) {
+            layout = child;
+        }
+    }
+
+    if (!layout) {
+        return;
+    }
+
+    //propagate all the size hints
+    propagateSizeHint("minimumWidth");
+    propagateSizeHint("minimumHeight");
+    propagateSizeHint("preferredWidth");
+    propagateSizeHint("preferredHeight");
+    propagateSizeHint("maximumWidth");
+    propagateSizeHint("maximumHeight");
+    propagateSizeHint("fillWidth");
+    propagateSizeHint("fillHeight");
+
+    //HACK: check the Layout properties we wrote
+    QQmlProperty p(this, "Layout.minimumWidth", QtQml::qmlContext(this));
+    QObject *ownLayout = p.object();
+
+    //this should never happen, since we ask to create it if doesn't exists
+    if (!ownLayout) {
+        return;
+    }
+
+    //if the representation didn't change, don't do anything
+    if (m_representationLayout.data() == layout ||
+        m_ownLayout.data() == ownLayout) {
+        return;
+    }
+
+    disconnect(layout, 0, this, 0);
+
+    //Here we can't use the new connect syntax because we can't link against QtQuick layouts
+    connect(layout, SIGNAL(minimumWidthChanged()),
+            this, SLOT(minimumWidthChanged()));
+    connect(layout, SIGNAL(minimumHeightChanged()),
+            this, SLOT(minimumHeightChanged()));
+
+    connect(layout, SIGNAL(preferredWidthChanged()),
+            this, SLOT(preferredWidthChanged()));
+    connect(layout, SIGNAL(preferredHeightChanged()),
+            this, SLOT(preferredHeightChanged()));
+
+    connect(layout, SIGNAL(maximumWidthChanged()),
+            this, SLOT(maximumWidthChanged()));
+    connect(layout, SIGNAL(maximumHeightChanged()),
+            this, SLOT(maximumHeightChanged()));
+
+    connect(layout, SIGNAL(fillWidthChanged()),
+            this, SLOT(fillWidthChanged()));
+    connect(layout, SIGNAL(fillHeightChanged()),
+            this, SLOT(fillHeightChanged()));
+
+    m_representationLayout = layout;
+    m_ownLayout = ownLayout;
+}
+
+void Applet::propagateSizeHint(const QByteArray &layoutProperty)
+{
+    if (!m_currentRepresentationItem) {
+        return;
+    }
+
+    QQmlExpression *expr = new QQmlExpression(QtQml::qmlContext(m_currentRepresentationItem.data()), m_currentRepresentationItem.data(), "Layout."+layoutProperty);
+    QQmlProperty prop(this, "Layout."+layoutProperty, QtQml::qmlContext(m_currentRepresentationItem.data()));
+    prop.write(expr->evaluate());
 }
 
 void Applet::geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry)
@@ -351,8 +464,15 @@ void Applet::compactRepresentationCheck()
 
     if (m_switchWidth > 0 && m_switchHeight > 0) {
         full = width() > m_switchWidth && height() > m_switchHeight;
+    //if a size to switch wasn't set, determine what representation to always chose
     } else {
-        full = m_preferredRepresentation.data() == m_fullRepresentation.data();
+        //preferred representation set?
+        if (m_preferredRepresentation) {
+            full = m_preferredRepresentation.data() == m_fullRepresentation.data();
+        //Otherwise, base on FormFactor
+        } else {
+            full = (m_applet->formFactor() != Plasma::Types::Horizontal && m_applet->formFactor() != Plasma::Types::Vertical);
+        }
     }
 
     if ((full && m_fullRepresentationItem && m_fullRepresentationItem.data() == m_currentRepresentationItem.data()) ||
@@ -363,7 +483,7 @@ void Applet::compactRepresentationCheck()
 
     //Expanded
     if (full) {
-        QQuickItem *item = qobject_cast<QQuickItem *>(fullRepresentationItem());
+        QQuickItem *item = qobject_cast<QQuickItem *>(createFullRepresentationItem());
 
         if (item) {
             item->setParentItem(this);
@@ -380,14 +500,22 @@ void Applet::compactRepresentationCheck()
                 m_compactRepresentationExpanderItem.data()->setProperty("compactRepresentation", QVariant());
                 m_compactRepresentationExpanderItem.data()->setProperty("fullRepresentation", QVariant());
             }
+
+            {
+                //bind the minimum width
+                QQmlExpression expr(QtQml::qmlContext(item), item, "Layout.minimumWidth");
+                QQmlProperty prop(this, "Layout.minimumWidth", QtQml::qmlContext(item));
+                prop.write(expr.evaluate());
+            }
             m_currentRepresentationItem = item;
+            connectLayoutAttached(item);
         }
 
     //Icon
     } else {
-        QQuickItem *fullItem = qobject_cast<QQuickItem *>(fullRepresentationItem());
-        QQuickItem *compactItem = qobject_cast<QQuickItem *>(compactRepresentationItem());
-        QObject *compactExpanderItem = compactRepresentationExpanderItem();
+        QQuickItem *fullItem = qobject_cast<QQuickItem *>(createFullRepresentationItem());
+        QQuickItem *compactItem = qobject_cast<QQuickItem *>(createCompactRepresentationItem());
+        QObject *compactExpanderItem = createCompactRepresentationExpanderItem();
 
         if (fullItem && compactItem && compactExpanderItem) {
             //set the root item as the main visible item
@@ -403,8 +531,49 @@ void Applet::compactRepresentationCheck()
             compactExpanderItem->setProperty("compactRepresentation", QVariant::fromValue(compactItem));
             compactExpanderItem->setProperty("fullRepresentation", QVariant::fromValue(fullItem));
             m_currentRepresentationItem = compactItem;
+            connectLayoutAttached(compactItem);
         }
     }
+}
+
+void Applet::minimumWidthChanged()
+{
+    propagateSizeHint("minimumWidth");
+}
+
+void Applet::minimumHeightChanged()
+{
+    propagateSizeHint("minimumHeight");
+}
+
+void Applet::preferredWidthChanged()
+{
+    propagateSizeHint("preferredWidth");
+}
+
+void Applet::preferredHeightChanged()
+{
+    propagateSizeHint("preferredHeight");
+}
+
+void Applet::maximumWidthChanged()
+{
+    propagateSizeHint("maximumWidth");
+}
+
+void Applet::maximumHeightChanged()
+{
+    propagateSizeHint("maximumHeight");
+}
+
+void Applet::fillWidthChanged()
+{
+    propagateSizeHint("fillWidth");
+}
+
+void Applet::fillHeightChanged()
+{
+    propagateSizeHint("fillHeight");
 }
 
 

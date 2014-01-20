@@ -19,11 +19,13 @@
  */
 
 import QtQuick 2.0
+import QtQuick.Layouts 1.1
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.shell 2.0
 import org.kde.plasma.components 2.0 as PlasmaComponents
 
 Applet {
+    id: root
     switchWidth: 200
     switchHeight: 300
 
@@ -36,9 +38,9 @@ Applet {
 
     fullRepresentation: Component {
         PlasmaComponents.Label {
-            SizeHint.minimumHeight: 300
-            SizeHint.minimumWidth: 200
-            //PlasmaCore.SizeHint.minimumHeight: 300
+            id: bah
+            Layout.minimumHeight: 300
+            Layout.minimumWidth: 200
             text: i18n("Hello world")
         }
     }
