@@ -10,23 +10,3 @@ o App.qml (WIP)
 o docs
 - subtitle for Title (take from active-settings)
 
-TODO for Plotter
-=========
-
-void addBeam(color)
-void addSample(QList<QReal>)
-void reorderBeams(QList<int>)
-void removeBeams(int index)
-QColor beamColor(index)
-void setBeamColor(int index, Qcolor new)
-int numbeams()
-void setUnit(KLocalizedString unit)
-KLocalizedString unit()
-void setScaleDownBy( qreal value )
-qreal scaleDownBy()
-bool useAutoRange()
-int fillOpacity()
-bool stackGraph()
-int lastValue()
-svgBackround()
-minimum and maximum value.
