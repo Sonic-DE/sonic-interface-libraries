@@ -355,11 +355,11 @@ void Applet::compactRepresentationCheck()
         full = m_preferredRepresentation.data() == m_fullRepresentation.data();
     }
 
-   /* if ((full && m_fullRepresentationItem && m_fullRepresentationItem.data() == m_currentRepresentationItem.data()) ||
+    if ((full && m_fullRepresentationItem && m_fullRepresentationItem.data() == m_currentRepresentationItem.data()) ||
         (!full && m_compactRepresentationItem && m_compactRepresentationItem.data() == m_currentRepresentationItem.data())
     ) {
         return;
-    }*/
+    }
 
     //Expanded
     if (full) {
