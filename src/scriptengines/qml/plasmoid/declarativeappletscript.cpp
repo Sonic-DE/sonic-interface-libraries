@@ -94,7 +94,7 @@ bool DeclarativeAppletScript::init()
         KDeclarative::QmlObject *qmlObject = new KDeclarative::QmlObject(this);
         QVariantHash initialProperties;
         initialProperties["_plasma_applet"] = QVariant::fromValue(applet());
-        QObject *graphicObject = qmlObject->createObjectFromSource(QUrl::fromLocalFile(mainScript()), initialProperties);
+        QObject *graphicObject = qmlObject->createObjectFromSource(QUrl::fromLocalFile(mainScript()), 0, initialProperties);
         a->setProperty("graphicObject", QVariant::fromValue(graphicObject));
     }
 

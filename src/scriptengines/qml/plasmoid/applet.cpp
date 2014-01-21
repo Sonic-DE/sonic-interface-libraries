@@ -315,7 +315,7 @@ QObject *Applet::createCompactRepresentationItem()
         return m_compactRepresentationItem.data();
     }
 
-    m_compactRepresentationItem = m_qmlObject->createObjectFromComponent(m_compactRepresentation.data());
+    m_compactRepresentationItem = m_qmlObject->createObjectFromComponent(m_compactRepresentation.data(), QtQml::qmlContext(this));
 
     emit compactRepresentationItemChanged(m_compactRepresentationItem.data());
 
@@ -332,7 +332,7 @@ QObject *Applet::createFullRepresentationItem()
         return m_fullRepresentationItem.data();
     }
 
-    m_fullRepresentationItem = m_qmlObject->createObjectFromComponent(m_fullRepresentation.data());
+    m_fullRepresentationItem = m_qmlObject->createObjectFromComponent(m_fullRepresentation.data(), QtQml::qmlContext(this));
 
     emit fullRepresentationItemChanged(m_fullRepresentationItem.data());
 
@@ -349,7 +349,7 @@ QObject *Applet::createCompactRepresentationExpanderItem()
         return m_compactRepresentationExpanderItem.data();
     }
 
-    m_compactRepresentationExpanderItem = m_qmlObject->createObjectFromComponent(m_compactRepresentationExpander.data());
+    m_compactRepresentationExpanderItem = m_qmlObject->createObjectFromComponent(m_compactRepresentationExpander.data(), QtQml::qmlContext(this));
 
     emit compactRepresentationExpanderItemChanged(m_compactRepresentationExpanderItem.data());
 
