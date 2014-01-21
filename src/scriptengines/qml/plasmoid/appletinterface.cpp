@@ -50,14 +50,11 @@
 
 #include <packageurlinterceptor.h>
 
-//HACK?
-#include "applet.h"
 
 Q_DECLARE_METATYPE(AppletInterface*)
 
-AppletInterface::AppletInterface(DeclarativeAppletScript *script, QQuickItem *parent)
-    : QQuickItem(parent),
-      m_appletScriptEngine(script),
+AppletInterface::AppletInterface(QQuickItem *parent)
+    : Applet(parent),
       m_actionSignals(0),
       m_backgroundHints(Plasma::Types::StandardBackground),
       m_busy(false),
@@ -65,34 +62,10 @@ AppletInterface::AppletInterface(DeclarativeAppletScript *script, QQuickItem *pa
       m_hideOnDeactivate(true)
 {
 
-    connect(this, &AppletInterface::configNeedsSaving,
-            applet(), &Plasma::Applet::configNeedsSaving);
-    connect(applet(), &Plasma::Applet::immutabilityChanged,
-            this, &AppletInterface::immutableChanged);
-    connect(applet(), &Plasma::Applet::userConfiguringChanged,
-            this, &AppletInterface::userConfiguringChanged);
-
-    connect(applet(), &Plasma::Applet::statusChanged,
-            this, &AppletInterface::statusChanged);
-
-    connect(m_appletScriptEngine, &DeclarativeAppletScript::formFactorChanged,
-            this, &AppletInterface::formFactorChanged);
-    connect(m_appletScriptEngine, &DeclarativeAppletScript::locationChanged,
-            this, &AppletInterface::locationChanged);
-    connect(m_appletScriptEngine, &DeclarativeAppletScript::contextChanged,
-            this, &AppletInterface::contextChanged);
-
-    if (applet()->containment()) {
-        connect(applet()->containment(), &Plasma::Containment::screenChanged,
-                this, &ContainmentInterface::screenChanged);
-    }
-
     m_qmlObject = new KDeclarative::QmlObject(this);
     m_qmlObject->setInitializationDelayed(true);
 
-    m_collapseTimer = new QTimer(this);
-    m_collapseTimer->setSingleShot(true);
-    connect(m_collapseTimer, &QTimer::timeout, this, &AppletInterface::compactRepresentationCheck);
+
 }
 
 AppletInterface::~AppletInterface()
@@ -112,11 +85,11 @@ void AppletInterface::init()
 
     //Hook generic url resolution to the applet package as well
     //TODO: same thing will have to be done for every qqmlengine: PackageUrlInterceptor is material for plasmaquick?
-    PackageUrlInterceptor *interceptor = new PackageUrlInterceptor(engine, m_appletScriptEngine->package());
+    PackageUrlInterceptor *interceptor = new PackageUrlInterceptor(engine, applet()->package());
     interceptor->addAllowedPath(applet()->containment()->corona()->package().path());
     engine->setUrlInterceptor(interceptor);
 
-    m_qmlObject->setSource(QUrl::fromLocalFile(m_appletScriptEngine->mainScript()));
+    m_qmlObject->setSource(QUrl::fromLocalFile(appletScript()->mainScript()));
 
     if (!m_qmlObject->engine() || !m_qmlObject->engine()->rootContext() || !m_qmlObject->engine()->rootContext()->isValid() || m_qmlObject->mainComponent()->isError()) {
         QString reason;
@@ -136,7 +109,7 @@ void AppletInterface::init()
             m_qmlObject->rootObject()->setProperty("reason", reason);
         }
 
-        m_appletScriptEngine->setLaunchErrorMessage(reason);
+        appletScript()->setLaunchErrorMessage(reason);
     }
 
     m_qmlObject->engine()->rootContext()->setContextProperty("plasmoid", this);
@@ -153,6 +126,31 @@ void AppletInterface::init()
     emit busyChanged();
 
     applet()->updateConstraints(Plasma::Types::UiReadyConstraint);
+}
+
+void AppletInterface::componentComplete()
+{
+    Applet::componentComplete();
+
+    connect(this, &AppletInterface::configNeedsSaving,
+            applet(), &Plasma::Applet::configNeedsSaving);
+    connect(applet(), &Plasma::Applet::immutabilityChanged,
+            this, &AppletInterface::immutableChanged);
+    connect(applet(), &Plasma::Applet::userConfiguringChanged,
+            this, &AppletInterface::userConfiguringChanged);
+
+    connect(applet(), &Plasma::Applet::statusChanged,
+            this, &AppletInterface::statusChanged);
+
+    connect(applet(), &Plasma::Applet::formFactorChanged,
+            this, &AppletInterface::formFactorChanged);
+    connect(applet(), &Plasma::Applet::locationChanged,
+            this, &AppletInterface::locationChanged);
+
+    if (applet()->containment()) {
+        connect(applet()->containment(), &Plasma::Containment::screenChanged,
+                this, &ContainmentInterface::screenChanged);
+    }
 }
 
 Plasma::Types::FormFactor AppletInterface::formFactor() const
@@ -259,7 +257,7 @@ void AppletInterface::setBackgroundHints(Plasma::Types::BackgroundHints hint)
 
 void AppletInterface::setConfigurationRequired(bool needsConfiguring, const QString &reason)
 {
-    m_appletScriptEngine->setConfigurationRequired(needsConfiguring, reason);
+    appletScript()->setConfigurationRequired(needsConfiguring, reason);
 }
 
 QString AppletInterface::activeConfig() const
@@ -277,7 +275,7 @@ void AppletInterface::setActiveConfig(const QString &name)
     Plasma::ConfigLoader *loader = m_configs.value(name, 0);
 
     if (!loader) {
-        QString path = m_appletScriptEngine->filePath("config", name + ".xml");
+        QString path = appletScript()->package().filePath("config", name + ".xml");
         if (path.isEmpty()) {
             return;
         }
@@ -307,7 +305,7 @@ void AppletInterface::writeConfig(const QString &entry, const QVariant &value)
             config->blockSignals(true);
             config->writeConfig();
             config->blockSignals(false);
-            m_appletScriptEngine->configNeedsSaving();
+            appletScript()->configNeedsSaving();
         }
     } else
         qWarning() << "Couldn't find a configuration entry";
@@ -333,12 +331,12 @@ QVariant AppletInterface::readConfig(const QString &entry) const
 
 QString AppletInterface::file(const QString &fileType)
 {
-    return m_appletScriptEngine->filePath(fileType, QString());
+    return appletScript()->package().filePath(fileType.toLocal8Bit().constData(), QString());
 }
 
 QString AppletInterface::file(const QString &fileType, const QString &filePath)
 {
-    return m_appletScriptEngine->filePath(fileType, filePath);
+    return appletScript()->package().filePath(fileType.toLocal8Bit().constData(), filePath);
 }
 
 QList<QAction*> AppletInterface::contextualActions() const
@@ -392,7 +390,7 @@ void AppletInterface::setAction(const QString &name, const QString &text, const 
         if (!m_actionSignals) {
             m_actionSignals = new QSignalMapper(this);
             connect(m_actionSignals, SIGNAL(mapped(QString)),
-                    m_appletScriptEngine, SLOT(executeAction(QString)));
+                    this, SLOT(executeAction(QString)));
         }
 
         connect(action, SIGNAL(triggered()), m_actionSignals, SLOT(map()));
@@ -431,6 +429,12 @@ QAction *AppletInterface::action(QString name) const
     return applet()->actions()->action(name);
 }
 
+void AppletInterface::executeAction(const QString &name)
+{
+    QMetaObject::invokeMethod(this, QString("action_" + name).toLatin1(), Qt::DirectConnection);
+}
+
+
 bool AppletInterface::immutable() const
 {
     return applet()->immutability() != Plasma::Types::Mutable;
@@ -450,96 +454,6 @@ int AppletInterface::apiVersion() const
     }
 
     return offers.first()->property("X-KDE-PluginInfo-Version", QVariant::Int).toInt();
-}
-
-bool AppletInterface::fillWidth() const
-{
-    if (!m_fullRepresentationObject.data()) {
-        return false;
-    }
-
-
-    QVariant prop;
-
-    if (m_compactUiObject) {
-        prop = m_compactUiObject.data()->property("fillWidth");
-    } else {
-        prop = m_fullRepresentationObject.data()->property("fillWidth");
-    }
-
-    if (prop.isValid() && prop.canConvert<bool>()) {
-        return prop.toBool();
-    } else {
-        return false;
-    }
-}
-
-bool AppletInterface::fillHeight() const
-{
-    if (!m_fullRepresentationObject.data()) {
-        return false;
-    }
-
-
-    QVariant prop;
-
-    if (m_compactUiObject) {
-        prop = m_compactUiObject.data()->property("fillHeight");
-    } else {
-        prop = m_fullRepresentationObject.data()->property("fillHeight");
-    }
-
-    if (prop.isValid() && prop.canConvert<bool>()) {
-        return prop.toBool();
-    } else {
-        return false;
-    }
-}
-
-//private api, just an helper
-qreal AppletInterface::readGraphicsObjectSizeHint(const char *hint) const
-{
-    if (!m_qmlObject->rootObject()) {
-        return -1;
-    }
-
-
-    QVariant prop;
-
-    if (m_compactUiObject) {
-        
-        prop = m_compactUiObject.data()->property(hint);
-    } else {
-        SizeHintAttachedType *fullRepresentationSizeHint = qobject_cast<SizeHintAttachedType *>( qmlAttachedPropertiesObject<SizeHintAttachedType>(m_fullRepresentationObject.data(), true));
-        Q_ASSERT(fullRepresentationSizeHint);
-        prop = fullRepresentationSizeHint->property(hint);
-    }
-
-    if (prop.isValid() && prop.canConvert<qreal>()) {
-        return prop.toReal();
-    } else {
-        return -1;
-    }
-}
-
-qreal AppletInterface::minimumWidth() const
-{
-    return readGraphicsObjectSizeHint("minimumWidth");
-}
-
-qreal AppletInterface::minimumHeight() const
-{
-    return readGraphicsObjectSizeHint("minimumHeight");
-}
-
-qreal AppletInterface::maximumWidth() const
-{
-    return readGraphicsObjectSizeHint("maximumWidth");
-}
-
-qreal AppletInterface::maximumHeight() const
-{
-    return readGraphicsObjectSizeHint("maximumHeight");
 }
 
 void AppletInterface::setAssociatedApplication(const QString &string)
@@ -606,219 +520,8 @@ QStringList AppletInterface::downloadedFiles() const
 
 void AppletInterface::geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry)
 {
-    Q_UNUSED(oldGeometry)
-
-    QQuickItem::geometryChanged(newGeometry, oldGeometry);
-    m_collapseTimer->start(100);
+    Applet::geometryChanged(newGeometry, oldGeometry);
 }
-
-void AppletInterface::compactRepresentationCheck()
-{
-    if (width() <= 0 || height() <= 0 || !m_qmlObject->rootObject() ||
-        qobject_cast<ContainmentInterface *>(this)) {
-        return;
-    }
-
-    SizeHintAttachedType *fullRepresentationSizeHint = qobject_cast<SizeHintAttachedType *>( qmlAttachedPropertiesObject<SizeHintAttachedType>(m_fullRepresentationObject.data(), true));
-    Q_ASSERT(fullRepresentationSizeHint);
-
-    //Read the minimum width of the full representation, not our own, since we could be in collapsed mode
-    QSizeF minHint(-1,-1);//(fullRepresentationSizeHint->minimumWidth(), fullRepresentationSizeHint->minimumHeight());
-
-    if (m_qmlObject->rootObject()->property("switchWidth").canConvert<qreal>()) {
-        minHint.setWidth(m_qmlObject->rootObject()->property("switchWidth").toReal());
-    }
-    if (m_qmlObject->rootObject()->property("switchHeight").canConvert<qreal>()) {
-        minHint.setHeight(m_qmlObject->rootObject()->property("switchHeight").toReal());
-    }
-
-    //Make it an icon
-    if (width() < minHint.width() || height() < minHint.height()) {
-        m_expanded = false;
-
-        //we are already an icon: nothing to do
-        if (m_compactUiObject) {
-            return;
-        }
-
-        m_compactUiObject = m_qmlObject->createObjectFromSource(QUrl::fromLocalFile(applet()->containment()->corona()->package().filePath("compactapplet")));
-
-        QObject *compactRepresentation = 0;
-
-        //build the icon representation
-        if (m_compactUiObject) {
-            QQmlComponent *compactComponent = m_qmlObject->rootObject()->property("compactRepresentation").value<QQmlComponent *>();
-
-            if (compactComponent) {
-                compactRepresentation = compactComponent->create(compactComponent->creationContext());
-            } else {
-                compactRepresentation = m_qmlObject->createObjectFromSource(QUrl::fromLocalFile(applet()->containment()->corona()->package().filePath("defaultcompactrepresentation")));
-            }
-
-            if (compactRepresentation && compactComponent) {
-                compactComponent->setParent(compactRepresentation);
-            } else {
-                delete compactComponent;
-            }
-        }
-
-        if (m_compactUiObject && compactRepresentation) {
-            //fetch size hints of the compact representation
-            SizeHintAttachedType *compactRepresentationSizeHint = qobject_cast<SizeHintAttachedType *>( qmlAttachedPropertiesObject<SizeHintAttachedType>(compactRepresentation, true));
-            Q_ASSERT(compactRepresentationSizeHint);
-
-            //put compactRepresentation in the icon place
-            compactRepresentation->setProperty("parent", QVariant::fromValue(m_compactUiObject.data()));
-            m_compactUiObject.data()->setProperty("compactRepresentation", QVariant::fromValue(compactRepresentation));
-
-            //replace the full applet with the collapsed view
-            m_compactUiObject.data()->setProperty("visible", true);
-            m_compactUiObject.data()->setProperty("parent", QVariant::fromValue(this));
-
-            {
-                //set anchors
-                QQmlExpression expr(m_qmlObject->engine()->rootContext(), m_compactUiObject.data(), "parent");
-                QQmlProperty prop(m_compactUiObject.data(), "anchors.fill");
-                prop.write(expr.evaluate());
-            }
-
-            if (m_fullRepresentationObject) {
-                m_fullRepresentationObject.data()->setProperty("parent", QVariant::fromValue(m_compactUiObject.data()));
-
-
-                {
-                    //reset all the anchors
-                    QQmlExpression expr(m_qmlObject->engine()->rootContext(), m_fullRepresentationObject.data(), "anchors.fill=undefined;anchors.left=undefined;anchors.right=undefined;anchors.top=undefined;anchors.bottom=undefined;");
-                    expr.evaluate();
-                }
-
-                KConfigGroup cg = applet()->config();
-                cg = KConfigGroup(&cg, "PopupApplet");
-                int width = cg.readEntry("DialogWidth", 0);
-                int height = cg.readEntry("DialogHeight", 0);
-
-                m_fullRepresentationObject.data()->setProperty("width", width);
-                m_fullRepresentationObject.data()->setProperty("height", height);
-
-                m_compactUiObject.data()->setProperty("applet", QVariant::fromValue(m_fullRepresentationObject.data()));
-
-                //hook m_compactUiObject size hints to this size hint
-                //Here we have to use the old connect syntax, because we don't have access to the class type
-                if (compactRepresentationSizeHint) {
-                    disconnect(compactRepresentationSizeHint, 0, this, 0);
-                }
-
-                //resize of m_fullRepresentationObject means popup resize when iconified
-                connect(m_fullRepresentationObject.data(), SIGNAL(widthChanged()),
-                        this, SLOT(updatePopupSize()));
-                connect(m_fullRepresentationObject.data(), SIGNAL(heightChanged()),
-                        this, SLOT(updatePopupSize()));
-            }
-
-            connect(compactRepresentationSizeHint, SIGNAL(minimumWidthChanged()),
-                        this, SIGNAL(minimumWidthChanged()));
-            connect(compactRepresentationSizeHint, SIGNAL(minimumHeightChanged()),
-                    this, SIGNAL(minimumHeightChanged()));
-
-
-            connect(compactRepresentationSizeHint, SIGNAL(maximumWidthChanged()),
-                    this, SIGNAL(maximumWidthChanged()));
-            connect(compactRepresentationSizeHint, SIGNAL(maximumHeightChanged()),
-                    this, SIGNAL(maximumHeightChanged()));
-
-
-            connect(compactRepresentationSizeHint, SIGNAL(implicitWidthChanged()),
-                    this, SIGNAL(implicitWidthChanged()));
-            connect(compactRepresentationSizeHint, SIGNAL(implicitHeightChanged()),
-                    this, SIGNAL(implicitHeightChanged()));
-
-            emit fillWidthChanged();
-            emit fillHeightChanged();
-            emit minimumWidthChanged();
-            emit minimumHeightChanged();
-            emit implicitWidthChanged();
-            emit implicitHeightChanged();
-            emit maximumWidthChanged();
-            emit maximumHeightChanged();
-        //failed to create UI, don't do anything, return in expanded status
-        } else {
-            m_expanded = true;
-        }
-
-        emit expandedChanged();
-
-    //show the full UI
-    } else {
-        m_expanded = true;
-        emit expandedChanged();
-
-        if (!m_fullRepresentationObject) {
-            QQmlComponent *fullComponent = m_qmlObject->rootObject()->property("fullRepresentation").value<QQmlComponent *>();
-
-            if (fullComponent) {
-                m_fullRepresentationObject = fullComponent->create(fullComponent->creationContext());
-            }
-        }
-
-        //we are already expanded: nothing to do
-        if (m_compactUiObject) {
-            disconnect(m_compactUiObject.data(), 0, this, 0);
-        }
-
-        disconnect(m_fullRepresentationObject.data(), SIGNAL(widthChanged()),
-                    this, SLOT(updatePopupSize()));
-        disconnect(m_fullRepresentationObject.data(), SIGNAL(heightChanged()),
-                this, SLOT(updatePopupSize()));
-
-        
-        //Here we have to use the old connect syntax, because we don't have access to the class type
-        connect(fullRepresentationSizeHint, SIGNAL(minimumWidthChanged()),
-                this, SIGNAL(minimumWidthChanged()));
-        connect(fullRepresentationSizeHint, SIGNAL(minimumHeightChanged()),
-                this, SIGNAL(minimumHeightChanged()));
-    
-
-        connect(fullRepresentationSizeHint, SIGNAL(maximumWidthChanged()),
-                this, SIGNAL(maximumWidthChanged()));
-        connect(fullRepresentationSizeHint, SIGNAL(maximumHeightChanged()),
-                this, SIGNAL(maximumHeightChanged()));
-    
-
-        connect(fullRepresentationSizeHint, SIGNAL(implicitWidthChanged()),
-                this, SLOT(updateImplicitWidth()));
-        connect(fullRepresentationSizeHint, SIGNAL(implicitHeightChanged()),
-                this, SLOT(updateImplicitHeight()));
-    
-
-        emit fillWidthChanged();
-        emit fillHeightChanged();
-        emit minimumWidthChanged();
-        emit minimumHeightChanged();
-        emit maximumWidthChanged();
-        emit maximumHeightChanged();
-
-        m_fullRepresentationObject.data()->setProperty("parent", QVariant::fromValue(this));
-        if (m_compactUiObject) {
-            m_compactUiObject.data()->deleteLater();
-        }
-
-        //set anchors
-        QQmlExpression expr(m_qmlObject->engine()->rootContext(), m_fullRepresentationObject.data(), "parent");
-        QQmlProperty prop(m_fullRepresentationObject.data(), "anchors.fill");
-        prop.write(expr.evaluate());
-    }
-}
-
-void AppletInterface::updateImplicitWidth()
-{
-    setImplicitWidth(readGraphicsObjectSizeHint("implicitWidth"));
-}
-
-void AppletInterface::updateImplicitHeight()
-{
-    setImplicitHeight(readGraphicsObjectSizeHint("implicitHeight"));
-}
-
 
 void AppletInterface::updatePopupSize()
 {
@@ -833,7 +536,7 @@ void AppletInterface::itemChange(ItemChange change, const ItemChangeData &value)
     if (change == QQuickItem::ItemSceneChange) {
         //we have a window: create the 
         if (value.window && !m_qmlObject->rootObject()) {
-            init();
+            //init();
         }
     }
     QQuickItem::itemChange(change, value);

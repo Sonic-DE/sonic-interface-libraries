@@ -29,6 +29,7 @@
 #include <Plasma/Applet>
 #include <Plasma/Theme>
 
+#include "applet.h"
 #include "declarativeappletscript.h"
 
 class QAction;
@@ -48,7 +49,7 @@ namespace Plasma
     class ConfigLoader;
 } // namespace Plasma
 
-class AppletInterface : public QQuickItem
+class AppletInterface : public Applet
 {
     Q_OBJECT
 
@@ -145,22 +146,6 @@ class AppletInterface : public QQuickItem
     // would be preferrable if found.
     Q_PROPERTY(int screen READ screen NOTIFY screenChanged)
 
-    //Size hints. Note that the containments may chose to not respect them.
-    Q_PROPERTY(qreal minimumWidth READ minimumWidth NOTIFY minimumWidthChanged)
-    Q_PROPERTY(qreal minimumHeight READ minimumHeight NOTIFY minimumHeightChanged)
-    Q_PROPERTY(qreal maximumWidth READ maximumWidth NOTIFY maximumWidthChanged)
-    Q_PROPERTY(qreal maximumHeight READ maximumHeight NOTIFY maximumHeightChanged)
-
-    /**
-     * If the plasmoid is in a linear layout, such as a panel, it indicates to take as much horizontal space as possible
-     */
-    Q_PROPERTY(bool fillWidth READ fillWidth NOTIFY fillWidthChanged)
-
-    /**
-     * If the plasmoid is in a linear layout, such as a panel, it indicates to take as much vertical space as possible
-     */
-    Q_PROPERTY(bool fillHeight READ fillHeight NOTIFY fillHeightChanged)
-
     /**
      * Whether the dialog should be hidden when the dialog loses focus.
      *
@@ -170,7 +155,7 @@ class AppletInterface : public QQuickItem
 
 
 public:
-    AppletInterface(DeclarativeAppletScript *script, QQuickItem *parent = 0);
+    AppletInterface(QQuickItem *parent = 0);
     ~AppletInterface();
 
 //API not intended for the QML part
@@ -178,7 +163,7 @@ public:
 
     QList<QAction*> contextualActions() const;
 
-    inline Plasma::Applet *applet() const { return m_appletScriptEngine->applet(); }
+    virtual void componentComplete();
 
 //QML API-------------------------------------------------------------------
 
@@ -283,13 +268,6 @@ public:
     bool hideOnWindowDeactivate() const;
     void setHideOnWindowDeactivate(bool hide);
 
-    bool fillWidth() const;
-    bool fillHeight() const;
-    qreal minimumWidth() const;
-    qreal minimumHeight() const;
-    qreal maximumWidth() const;
-    qreal maximumHeight() const;
-
 Q_SIGNALS:
     /**
      * somebody else, usually the containment sent some data to the applet
@@ -315,12 +293,6 @@ Q_SIGNALS:
     void screenChanged();
     void hideOnWindowDeactivateChanged();
 
-    void minimumWidthChanged();
-    void minimumHeightChanged();
-    void maximumWidthChanged();
-    void maximumHeightChanged();
-    void fillWidthChanged();
-    void fillHeightChanged();
     void userConfiguringChanged();
 
 protected:
@@ -333,15 +305,10 @@ protected Q_SLOTS:
     virtual void init();
 
 private Q_SLOTS:
-    void compactRepresentationCheck();
     void updatePopupSize();
-    void updateImplicitWidth();
-    void updateImplicitHeight();
+    void executeAction(const QString &name);
 
 private:
-    //Helper for minimumWidth etc.
-    qreal readGraphicsObjectSizeHint(const char *hint) const;
-
     QStringList m_actions;
     QSignalMapper *m_actionSignals;
     QString m_currentConfig;

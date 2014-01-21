@@ -309,6 +309,9 @@ void Containment::setFormFactor(Types::FormFactor formFactor)
     c.writeEntry("formfactor", (int)formFactor);
     emit configNeedsSaving();
     emit formFactorChanged(formFactor);
+    foreach (Applet *applet, d->applets) {
+        emit applet->formFactorChanged(formFactor);
+    }
 }
 
 void Containment::setLocation(Types::Location location)
@@ -321,6 +324,7 @@ void Containment::setLocation(Types::Location location)
 
     foreach (Applet *applet, d->applets) {
         applet->updateConstraints(Plasma::Types::LocationConstraint);
+        emit applet->locationChanged(location);
     }
 
     updateConstraints(Plasma::Types::LocationConstraint);

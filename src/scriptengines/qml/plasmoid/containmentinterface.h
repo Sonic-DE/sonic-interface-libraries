@@ -73,12 +73,13 @@ class ContainmentInterface : public AppletInterface
     Q_PROPERTY(QList<QObject*> actions READ actions NOTIFY actionsChanged)
 
 public:
-    ContainmentInterface(DeclarativeAppletScript *parent);
+    ContainmentInterface(QQuickItem *parent = 0);
 //Not for QML
-    inline Plasma::Containment *containment() const { return static_cast<Plasma::Containment *>(m_appletScriptEngine->applet()->containment()); }
+    inline Plasma::Containment *containment() const { return static_cast<Plasma::Containment *>(applet()->containment()); }
 
     inline WallpaperInterface *wallpaperInterface() const { return m_wallpaperInterface;}
 
+    virtual void componentComplete();
 //For QML use
     QList<QObject *> applets();
 

@@ -32,6 +32,7 @@
 #include <Plasma/Corona>
 #include <Plasma/Package>
 #include <kdeclarative/qmlobject.h>
+#include <plasma/scripting/appletscript.h>
 
 SizeHintAttachedType::SizeHintAttachedType(QObject *parent)
     : QObject(parent),
@@ -170,6 +171,16 @@ Applet::~Applet()
 {
 }
 
+Plasma::Applet *Applet::applet() const
+{
+    return m_applet;
+}
+
+Plasma::AppletScript *Applet::appletScript()
+{
+    return m_appletScript.data();
+}
+
 int Applet::switchWidth() const
 {
     return m_switchWidth;
@@ -272,11 +283,16 @@ void Applet::classBegin()
     m_engine = QtQml::qmlEngine(this);
     Q_ASSERT(m_engine);
     m_engine->rootContext()->setContextProperty("plasmoid", this);
+
+    m_appletScript = property("_plasma_appletscript").value<Plasma::AppletScript *>();
 }
 
 void Applet::componentComplete()
 {
-    m_applet = property("_plasma_applet").value<Plasma::Applet *>();
+    m_appletScript = property("_plasma_appletscript").value<Plasma::AppletScript *>();
+
+    Q_ASSERT(m_appletScript);
+    m_applet = m_appletScript.data()->applet();
     Q_ASSERT(m_applet);
 
     m_qmlObject = new KDeclarative::QmlObject(m_engine, this);
@@ -298,6 +314,7 @@ void Applet::componentComplete()
         m_compactRepresentationExpander = new QQmlComponent(m_engine, this);
         m_compactRepresentationExpander.data()->loadUrl(QUrl::fromLocalFile(m_applet->containment()->corona()->package().filePath("compactapplet")));
     }
+
 }
 
 QObject *Applet::compactRepresentationItem()

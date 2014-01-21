@@ -63,7 +63,8 @@ DeclarativeAppletScript::DeclarativeAppletScript(QObject *parent, const QVariant
     qmlRegisterType<QAction>();
     qmlRegisterUncreatableType<SizeHintAttachedType>("org.kde.plasma.shell", 2, 0, "SizeHint",
                                              QLatin1String("Do not create objects of type SizeHint"));
-    qmlRegisterType<Applet>("org.kde.plasma.shell", 2, 0, "Applet");
+    qmlRegisterType<AppletInterface>("org.kde.plasma.shell", 2, 0, "Applet");
+    qmlRegisterType<ContainmentInterface>("org.kde.plasma.shell", 2, 0, "Containment");
 
     Q_UNUSED(args);
 }
@@ -81,21 +82,40 @@ bool DeclarativeAppletScript::init()
     Plasma::Applet *a = applet();
     Plasma::Containment *pc = qobject_cast<Plasma::Containment *>(a);
 
-    if (pc) {
-        m_interface = new ContainmentInterface(this);
-
-        m_interface->setParent(this);
-        // set the graphicObject dynamic property on applet
-        a->setProperty("graphicObject", QVariant::fromValue(m_interface));
-
-    //fail? so it's a normal Applet
-    } else {
+     {
        // m_interface = new AppletInterface(this);
         KDeclarative::QmlObject *qmlObject = new KDeclarative::QmlObject(this);
         QVariantHash initialProperties;
-        initialProperties["_plasma_applet"] = QVariant::fromValue(applet());
-        QObject *graphicObject = qmlObject->createObjectFromSource(QUrl::fromLocalFile(mainScript()), 0, initialProperties);
-        a->setProperty("graphicObject", QVariant::fromValue(graphicObject));
+        initialProperties["_plasma_appletscript"] = QVariant::fromValue(this);
+
+        qmlObject->setInitializationDelayed(true);
+        qmlObject->setSource(QUrl::fromLocalFile(mainScript()));
+        qmlObject->completeInitialization(initialProperties);
+qWarning()<<"AAA"<<qmlObject->mainComponent()->errors()<<qmlObject->rootObject()<<qmlObject->mainComponent()->isError()<<qmlObject->engine()->rootContext()->isValid();
+        //error?
+        if (!qmlObject->engine() || !qmlObject->engine()->rootContext() || !qmlObject->engine()->rootContext()->isValid() || qmlObject->mainComponent()->isError()) {
+            QString reason;
+            foreach (QQmlError error, qmlObject->mainComponent()->errors()) {
+                reason += error.toString()+'\n';
+            }
+            reason = i18n("Error loading QML file: %1", reason);
+            qWarning() << reason;
+
+            qmlObject->setSource(QUrl::fromLocalFile(applet()->containment()->corona()->package().filePath("appleterror")));
+            qmlObject->completeInitialization();
+
+
+            //even the error message QML may fail
+            if (qmlObject->mainComponent()->isError()) {
+                return false;
+            } else {
+                qmlObject->rootObject()->setProperty("reason", reason);
+            }
+
+            setLaunchErrorMessage(reason);
+        }
+
+        a->setProperty("graphicObject", QVariant::fromValue(qmlObject->rootObject()));
     }
 
 

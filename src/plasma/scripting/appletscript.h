@@ -138,6 +138,18 @@ public:
       */
      void setContainmentType(Plasma::Types::ContainmentType type);
 
+    /**
+     * @return absolute path to the main script file for this plasmoid
+     */
+    QString mainScript() const;
+
+    /**
+     * @return the Package associated with this plasmoid which can
+     *         be used to request resources, such as images and
+     *         interface files.
+     */
+    Package package() const;
+
 Q_SIGNALS:
     /**
      * @see Applet
@@ -162,17 +174,6 @@ public Q_SLOTS:
     virtual void configChanged();
 
 protected:
-    /**
-     * @return absolute path to the main script file for this plasmoid
-     */
-    QString mainScript() const;
-
-    /**
-     * @return the Package associated with this plasmoid which can
-     *         be used to request resources, such as images and
-     *         interface files.
-     */
-    Package package() const;
 
     /**
      * @return the KPluginInfo associated with this plasmoid

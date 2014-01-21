@@ -52,7 +52,7 @@
 #include "kdeclarative/configpropertymap.h"
 #include <packageurlinterceptor.h>
 
-ContainmentInterface::ContainmentInterface(DeclarativeAppletScript *parent)
+ContainmentInterface::ContainmentInterface(QQuickItem *parent)
     : AppletInterface(parent),
       m_wallpaperInterface(0),
       m_activityInfo(0)
@@ -60,6 +60,14 @@ ContainmentInterface::ContainmentInterface(DeclarativeAppletScript *parent)
     setAcceptedMouseButtons(Qt::AllButtons);
 
     qmlRegisterType<ContainmentInterface>();
+
+    
+}
+
+void ContainmentInterface::componentComplete()
+{
+    AppletInterface::componentComplete();
+    m_appletScriptEngine = static_cast<DeclarativeAppletScript*>(appletScript());
 
     connect(containment(), &Plasma::Containment::appletRemoved,
             this, &ContainmentInterface::appletRemovedForward);
@@ -91,6 +99,7 @@ ContainmentInterface::ContainmentInterface(DeclarativeAppletScript *parent)
         emit appletsChanged();
     }
 }
+
 
 void ContainmentInterface::init()
 {
@@ -142,52 +151,7 @@ void ContainmentInterface::init()
         }
     }
 
-    //set parent, both as object hyerarchy and visually
-    //do this only for containments, applets will do it in compactrepresentationcheck
-    if (m_qmlObject->rootObject()) {
-        m_qmlObject->rootObject()->setProperty("parent", QVariant::fromValue(this));
 
-        //set anchors
-        QQmlExpression expr(m_qmlObject->engine()->rootContext(), m_qmlObject->rootObject(), "parent");
-        QQmlProperty prop(m_qmlObject->rootObject(), "anchors.fill");
-        prop.write(expr.evaluate());
-    }
-
-    if (m_qmlObject->rootObject()->property("minimumWidth").isValid()) {
-        connect(m_qmlObject->rootObject(), SIGNAL(minimumWidthChanged()),
-                this, SIGNAL(minimumWidthChanged()));
-    }
-    if (m_qmlObject->rootObject()->property("minimumHeight").isValid()) {
-        connect(m_qmlObject->rootObject(), SIGNAL(minimumHeightChanged()),
-                this, SIGNAL(minimumHeightChanged()));
-    }
-
-    if (m_qmlObject->rootObject()->property("maximumWidth").isValid()) {
-        connect(m_qmlObject->rootObject(), SIGNAL(maximumWidthChanged()),
-                this, SIGNAL(maximumWidthChanged()));
-    }
-    if (m_qmlObject->rootObject()->property("maximumHeight").isValid()) {
-        connect(m_qmlObject->rootObject(), SIGNAL(maximumHeightChanged()),
-                this, SIGNAL(maximumHeightChanged()));
-    }
-
-    if (m_qmlObject->rootObject()->property("implicitWidth").isValid()) {
-        connect(m_qmlObject->rootObject(), SIGNAL(implicitWidthChanged()),
-                this, SIGNAL(implicitWidthChanged()));
-    }
-    if (m_qmlObject->rootObject()->property("implicitHeight").isValid()) {
-        connect(m_qmlObject->rootObject(), SIGNAL(implicitHeightChanged()),
-                this, SIGNAL(implicitHeightChanged()));
-    }
-
-    emit fillWidthChanged();
-    emit fillHeightChanged();
-    emit minimumWidthChanged();
-    emit minimumHeightChanged();
-    emit implicitWidthChanged();
-    emit implicitHeightChanged();
-    emit maximumWidthChanged();
-    emit maximumHeightChanged();
 }
 
 QList <QObject *> ContainmentInterface::applets()

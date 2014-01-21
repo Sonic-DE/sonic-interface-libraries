@@ -383,6 +383,18 @@ class PLASMA_EXPORT Applet : public QObject
          */
         void statusChanged(Plasma::Types::ItemStatus status);
 
+        /**
+         * Emitted when the location has changed
+         * @since 5.0
+         */
+        void locationChanged(Plasma::Types::Location location);
+
+        /**
+         * Emitted when the formFactor has changed
+         * @since 5.0
+         */
+        void formFactorChanged(Plasma::Types::FormFactor formFactor);
+
 //CONFIGURATION
         /**
          * Emitted when an applet has changed values in its configuration

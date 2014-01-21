@@ -29,6 +29,7 @@ class QQmlComponent;
 
 namespace Plasma {
     class Applet;
+    class AppletScript;
 }
 
 namespace KDeclarative {
@@ -144,6 +145,9 @@ public:
     Applet(QQuickItem *parent = 0);
     ~Applet();
 
+    Plasma::Applet *applet() const;
+    Plasma::AppletScript *appletScript();
+
     int switchWidth() const;
     void setSwitchWidth(int width);
 
@@ -239,6 +243,7 @@ private:
 
     QQmlEngine *m_engine;
     Plasma::Applet *m_applet;
+    QWeakPointer<Plasma::AppletScript> m_appletScript;
     KDeclarative::QmlObject *m_qmlObject;
 
     bool m_expanded : 1;
