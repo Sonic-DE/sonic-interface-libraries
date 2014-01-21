@@ -272,7 +272,7 @@ void Applet::componentComplete()
     //default m_compactRepresentation is a simple icon provided by the shell package
     if (!m_compactRepresentation) {
         m_compactRepresentation = new QQmlComponent(m_engine, this);
-        m_compactRepresentationExpander.data()->loadUrl(QUrl::fromLocalFile(m_applet->containment()->corona()->package().filePath("defaultcompactrepresentation")));
+        m_compactRepresentation.data()->loadUrl(QUrl::fromLocalFile(m_applet->containment()->corona()->package().filePath("defaultcompactrepresentation")));
     }
 
     //we really want a full representation, default m_fullRepresentation is an error message
@@ -489,7 +489,7 @@ void Applet::compactRepresentationCheck()
             item->setParentItem(this);
             {
                 //set anchors
-                QQmlExpression expr(m_qmlObject->engine()->rootContext(), item, "parent");
+                QQmlExpression expr(QtQml::qmlContext(this), item, "parent");
                 QQmlProperty prop(item, "anchors.fill");
                 prop.write(expr.evaluate());
             }
@@ -501,12 +501,6 @@ void Applet::compactRepresentationCheck()
                 m_compactRepresentationExpanderItem.data()->setProperty("fullRepresentation", QVariant());
             }
 
-            {
-                //bind the minimum width
-                QQmlExpression expr(QtQml::qmlContext(item), item, "Layout.minimumWidth");
-                QQmlProperty prop(this, "Layout.minimumWidth", QtQml::qmlContext(item));
-                prop.write(expr.evaluate());
-            }
             m_currentRepresentationItem = item;
             connectLayoutAttached(item);
         }
@@ -523,7 +517,7 @@ void Applet::compactRepresentationCheck()
             compactItem->setVisible(true);
             {
                 //set anchors
-                QQmlExpression expr(m_qmlObject->engine()->rootContext(), compactItem, "parent");
+                QQmlExpression expr(QtQml::qmlContext(this), compactItem, "parent");
                 QQmlProperty prop(compactItem, "anchors.fill");
                 prop.write(expr.evaluate());
             }
