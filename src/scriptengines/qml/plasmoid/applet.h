@@ -83,12 +83,10 @@ public:
     int maximumHeight() const;
     void setMaximumHeight(int height);
 
-
     static SizeHintAttachedType *qmlAttachedProperties(QObject *object)
     {
         return new SizeHintAttachedType(object);
     }
-
 Q_SIGNALS:
     void minimumWidthChanged(int width);
     void minimumHeightChanged(int height);
@@ -170,7 +168,6 @@ public:
     QObject *fullRepresentationItem();
     QObject *compactRepresentationExpanderItem();
 
-
     //////////////////Wrapping main plasmoid API
     bool isExpanded() const;
     void setExpanded(bool expanded);
@@ -178,7 +175,7 @@ public:
     //Reimplemented
     virtual void classBegin();
     virtual void componentComplete();
-
+    
 Q_SIGNALS:
     void switchWidthChanged(int width);
     void switchHeightChanged(int height);

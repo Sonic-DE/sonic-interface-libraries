@@ -152,6 +152,18 @@ Applet::Applet(QQuickItem *parent)
     connect(&m_compactRepresentationCheckTimer, SIGNAL(timeout()),
             this, SLOT(compactRepresentationCheck()));
     m_compactRepresentationCheckTimer.start();
+
+    //hide all the children that aren't the known ones.
+    //all the UI is supposed to happen in the representations
+    connect(this, &QQuickItem::childrenChanged, [=]() {
+        foreach (QQuickItem *child, childItems()) {
+            if (child != m_compactRepresentationItem.data() &&
+                child != m_fullRepresentationItem.data() &&
+                child != m_compactRepresentationExpanderItem.data()) {
+                child->setVisible(false);
+            }
+        }
+    });
 }
 
 Applet::~Applet()
@@ -453,7 +465,6 @@ void Applet::geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometr
     QQuickItem::geometryChanged(newGeometry, oldGeometry);
     m_compactRepresentationCheckTimer.start();
 }
-
 
 
 //// Slots
