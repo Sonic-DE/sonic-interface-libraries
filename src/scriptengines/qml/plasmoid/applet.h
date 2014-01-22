@@ -184,7 +184,9 @@ Q_SIGNALS:
     void compactRepresentationExpanderItemChanged(QObject *compactRepresentationExpanderItem);
 
 protected:
+    KDeclarative::QmlObject *qmlObject();
     void geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry);
+    void itemChange(ItemChange change, const ItemChangeData &value);
 
     QObject *createCompactRepresentationItem();
     QObject *createFullRepresentationItem();
@@ -226,6 +228,7 @@ private:
     QWeakPointer<QObject> m_ownLayout;
 
     QTimer m_compactRepresentationCheckTimer;
+    QTimer m_fullRepresentationResizeTimer;
 
     QQmlEngine *m_engine;
     Plasma::Applet *m_applet;

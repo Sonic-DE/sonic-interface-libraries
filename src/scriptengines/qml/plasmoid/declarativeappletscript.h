@@ -42,9 +42,6 @@ public:
 
     void constraintsEvent(Plasma::Types::Constraints constraints);
 
-public Q_SLOTS:
-    void executeAction(const QString &name);
-
 protected:
     bool init();
 

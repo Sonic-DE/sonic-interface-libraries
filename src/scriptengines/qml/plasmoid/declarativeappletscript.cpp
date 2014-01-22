@@ -149,13 +149,6 @@ void DeclarativeAppletScript::constraintsEvent(Plasma::Types::Constraints constr
     }
 }
 
-void DeclarativeAppletScript::executeAction(const QString &name)
-{
-    if (m_interface->qmlObject()->rootObject()) {
-         QMetaObject::invokeMethod(m_interface->qmlObject()->rootObject(), QString("action_" + name).toLatin1(), Qt::DirectConnection);
-    }
-}
-
 QList<QAction*> DeclarativeAppletScript::contextualActions()
 {
     if (!m_interface) {

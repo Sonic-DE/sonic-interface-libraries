@@ -114,7 +114,6 @@ public:
     Q_INVOKABLE void processMimeData(QMimeData *data, int x, int y);
 
 protected:
-    void init();
     void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     void wheelEvent(QWheelEvent *event);

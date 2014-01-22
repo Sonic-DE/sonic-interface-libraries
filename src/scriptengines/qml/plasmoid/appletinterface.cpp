@@ -61,76 +61,17 @@ AppletInterface::AppletInterface(QQuickItem *parent)
       m_expanded(false),
       m_hideOnDeactivate(true)
 {
-
-    m_qmlObject = new KDeclarative::QmlObject(this);
-    m_qmlObject->setInitializationDelayed(true);
-
-
 }
 
 AppletInterface::~AppletInterface()
 {
 }
 
-void AppletInterface::init()
-{
-    if (m_qmlObject->rootObject()) {
-        return;
-    }
-
-    m_configuration = new KDeclarative::ConfigPropertyMap(applet()->configScheme(), this);
-
-    //use our own custom network access manager that will access Plasma packages and to manage security (i.e. deny access to remote stuff when the proper extension isn't enabled
-    QQmlEngine *engine = m_qmlObject->engine();
-
-    //Hook generic url resolution to the applet package as well
-    //TODO: same thing will have to be done for every qqmlengine: PackageUrlInterceptor is material for plasmaquick?
-    PackageUrlInterceptor *interceptor = new PackageUrlInterceptor(engine, applet()->package());
-    interceptor->addAllowedPath(applet()->containment()->corona()->package().path());
-    engine->setUrlInterceptor(interceptor);
-
-    m_qmlObject->setSource(QUrl::fromLocalFile(appletScript()->mainScript()));
-
-    if (!m_qmlObject->engine() || !m_qmlObject->engine()->rootContext() || !m_qmlObject->engine()->rootContext()->isValid() || m_qmlObject->mainComponent()->isError()) {
-        QString reason;
-        foreach (QQmlError error, m_qmlObject->mainComponent()->errors()) {
-            reason += error.toString()+'\n';
-        }
-        reason = i18n("Error loading QML file: %1", reason);
-
-        m_qmlObject->setSource(QUrl::fromLocalFile(applet()->containment()->corona()->package().filePath("appleterror")));
-        m_qmlObject->completeInitialization();
-
-
-        //even the error message QML may fail
-        if (m_qmlObject->mainComponent()->isError()) {
-            return;
-        } else {
-            m_qmlObject->rootObject()->setProperty("reason", reason);
-        }
-
-        appletScript()->setLaunchErrorMessage(reason);
-    }
-
-    m_qmlObject->engine()->rootContext()->setContextProperty("plasmoid", this);
-
-    //initialize size, so an useless resize less
-    QVariantHash initialProperties;
-    initialProperties["width"] = width();
-    initialProperties["height"] = height();
-    m_qmlObject->completeInitialization(initialProperties);
-
-    qDebug() << "Graphic object created:" << applet() << applet()->property("graphicObject");
-
-    geometryChanged(QRectF(), QRectF(x(), y(), width(), height()));
-    emit busyChanged();
-
-    applet()->updateConstraints(Plasma::Types::UiReadyConstraint);
-}
-
 void AppletInterface::componentComplete()
 {
     Applet::componentComplete();
+
+    m_configuration = new KDeclarative::ConfigPropertyMap(applet()->configScheme(), this);
 
     connect(this, &AppletInterface::configNeedsSaving,
             applet(), &Plasma::Applet::configNeedsSaving);
@@ -151,6 +92,9 @@ void AppletInterface::componentComplete()
         connect(applet()->containment(), &Plasma::Containment::screenChanged,
                 this, &ContainmentInterface::screenChanged);
     }
+
+    emit busyChanged();
+    applet()->updateConstraints(Plasma::Types::UiReadyConstraint);
 }
 
 Plasma::Types::FormFactor AppletInterface::formFactor() const
@@ -210,7 +154,7 @@ void AppletInterface::setTitle(const QString &title)
 
 bool AppletInterface::isBusy() const
 {
-    return !m_qmlObject->rootObject() || m_busy;
+    return m_busy;
 }
 
 void AppletInterface::setBusy(bool busy)
@@ -518,33 +462,5 @@ QStringList AppletInterface::downloadedFiles() const
     return dir.entryList(QDir::Files | QDir::NoSymLinks | QDir::Readable);
 }
 
-void AppletInterface::geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry)
-{
-    Applet::geometryChanged(newGeometry, oldGeometry);
-}
-
-void AppletInterface::updatePopupSize()
-{
-    KConfigGroup cg = applet()->config();
-    cg = KConfigGroup(&cg, "PopupApplet");
-    cg.writeEntry("DialogWidth", m_fullRepresentationObject.data()->property("width").toInt());
-    cg.writeEntry("DialogHeight", m_fullRepresentationObject.data()->property("height").toInt());
-}
-
-void AppletInterface::itemChange(ItemChange change, const ItemChangeData &value)
-{
-    if (change == QQuickItem::ItemSceneChange) {
-        //we have a window: create the 
-        if (value.window && !m_qmlObject->rootObject()) {
-            //init();
-        }
-    }
-    QQuickItem::itemChange(change, value);
-}
-
-KDeclarative::QmlObject *AppletInterface::qmlObject()
-{
-    return m_qmlObject;
-}
 
 #include "moc_appletinterface.cpp"

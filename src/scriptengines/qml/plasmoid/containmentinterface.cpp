@@ -98,17 +98,13 @@ void ContainmentInterface::componentComplete()
     if (!m_appletInterfaces.isEmpty()) {
         emit appletsChanged();
     }
-}
 
 
-void ContainmentInterface::init()
-{
+
     m_activityInfo = new KActivities::Info(containment()->activity(), this);
     connect(m_activityInfo, &KActivities::Info::nameChanged,
             this, &ContainmentInterface::activityNameChanged);
     emit activityNameChanged();
-
-    AppletInterface::init();
 
     //Create the ToolBox
     Plasma::Containment *pc = containment();
@@ -128,15 +124,15 @@ void ContainmentInterface::init()
             pkg.setPath("org.kde.desktoptoolbox");
         }
 
-        PackageUrlInterceptor *interceptor = dynamic_cast<PackageUrlInterceptor *>(m_qmlObject->engine()->urlInterceptor());
+        PackageUrlInterceptor *interceptor = dynamic_cast<PackageUrlInterceptor *>(qmlObject()->engine()->urlInterceptor());
         if (interceptor) {
             interceptor->addAllowedPath(pkg.path());
         }
 
         if (pkg.isValid()) {
-            QObject *toolBoxObject = m_qmlObject->createObjectFromSource(QUrl::fromLocalFile(pkg.filePath("mainscript")));
+            QObject *toolBoxObject = qmlObject()->createObjectFromSource(QUrl::fromLocalFile(pkg.filePath("mainscript")));
 
-            QObject *containmentGraphicObject = m_qmlObject->rootObject();
+            QObject *containmentGraphicObject = qmlObject()->rootObject();
 
             if (containmentGraphicObject && toolBoxObject) {
                 toolBoxObject->setProperty("parent", QVariant::fromValue(containmentGraphicObject));
@@ -150,7 +146,6 @@ void ContainmentInterface::init()
             qWarning() << "Could not load toolbox package." << pkg.path();
         }
     }
-
 
 }
 

@@ -159,7 +159,6 @@ public:
     ~AppletInterface();
 
 //API not intended for the QML part
-    KDeclarative::QmlObject *qmlObject();
 
     QList<QAction*> contextualActions() const;
 
@@ -296,16 +295,10 @@ Q_SIGNALS:
     void userConfiguringChanged();
 
 protected:
-    void geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry);
-    void itemChange(ItemChange change, const ItemChangeData &value);
 
     DeclarativeAppletScript *m_appletScriptEngine;
 
-protected Q_SLOTS:
-    virtual void init();
-
 private Q_SLOTS:
-    void updatePopupSize();
     void executeAction(const QString &name);
 
 private:
@@ -316,13 +309,6 @@ private:
 
 
     KDeclarative::ConfigPropertyMap *m_configuration;
-
-//UI-specific members ------------------
-    KDeclarative::QmlObject *m_qmlObject;
-    QWeakPointer<QObject> m_compactUiObject;
-    QWeakPointer<QObject> m_fullRepresentationObject;
-
-    QTimer *m_collapseTimer;
 
     Plasma::Types::BackgroundHints m_backgroundHints;
     bool m_busy : 1;

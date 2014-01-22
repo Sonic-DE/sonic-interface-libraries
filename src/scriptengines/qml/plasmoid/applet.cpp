@@ -149,13 +149,24 @@ Applet::Applet(QQuickItem *parent)
 {
     m_compactRepresentationCheckTimer.setSingleShot(true);
     m_compactRepresentationCheckTimer.setInterval(250);
-    connect(&m_compactRepresentationCheckTimer, SIGNAL(timeout()),
-            this, SLOT(compactRepresentationCheck()));
+    connect (&m_compactRepresentationCheckTimer, SIGNAL(timeout()),
+             this, SLOT(compactRepresentationCheck()));
     m_compactRepresentationCheckTimer.start();
+
+    m_fullRepresentationResizeTimer.setSingleShot(true);
+    m_fullRepresentationResizeTimer.setInterval(250);
+    connect (&m_fullRepresentationResizeTimer, &QTimer::timeout,
+             [=]() {
+                KConfigGroup cg = applet()->config();
+                cg = KConfigGroup(&cg, "PopupApplet");
+                cg.writeEntry("DialogWidth", m_fullRepresentationItem.data()->property("width").toInt());
+                cg.writeEntry("DialogHeight", m_fullRepresentationItem.data()->property("height").toInt());
+            }
+    );
 
     //hide all the children that aren't the known ones.
     //all the UI is supposed to happen in the representations
-    connect(this, &QQuickItem::childrenChanged, [=]() {
+    connect (this, &QQuickItem::childrenChanged, [=]() {
         foreach (QQuickItem *child, childItems()) {
             if (child != m_compactRepresentationItem.data() &&
                 child != m_fullRepresentationItem.data() &&
@@ -298,6 +309,13 @@ void Applet::componentComplete()
 
 }
 
+
+
+KDeclarative::QmlObject *Applet::qmlObject()
+{
+    return m_qmlObject;
+}
+
 QObject *Applet::compactRepresentationItem()
 {
     return m_compactRepresentationItem.data();
@@ -343,6 +361,19 @@ QObject *Applet::createFullRepresentationItem()
     }
 
     m_fullRepresentationItem = m_qmlObject->createObjectFromComponent(m_fullRepresentation.data(), QtQml::qmlContext(this));
+
+    //TODO: error message if fails
+    if (!m_fullRepresentationItem) {
+        return 0;
+    }
+
+    QQuickItem *graphicsObj = qobject_cast<QQuickItem *>(m_fullRepresentationItem.data());
+    connect (graphicsObj, &QQuickItem::widthChanged, [=]() {
+        m_fullRepresentationResizeTimer.start();
+    });
+    connect (graphicsObj, &QQuickItem::heightChanged, [=]() {
+        m_fullRepresentationResizeTimer.start();
+    });
 
     emit fullRepresentationItemChanged(m_fullRepresentationItem.data());
 
@@ -462,6 +493,18 @@ void Applet::geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometr
 
     QQuickItem::geometryChanged(newGeometry, oldGeometry);
     m_compactRepresentationCheckTimer.start();
+}
+
+void Applet::itemChange(ItemChange change, const ItemChangeData &value)
+{
+    if (change == QQuickItem::ItemSceneChange) {
+        //we have a window: create the representations if needed
+        if (value.window) {
+            m_compactRepresentationCheckTimer.start();
+        }
+    }
+
+    QQuickItem::itemChange(change, value);
 }
 
 
