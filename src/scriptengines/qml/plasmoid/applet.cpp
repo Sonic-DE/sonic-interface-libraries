@@ -145,8 +145,7 @@ Applet::Applet(QQuickItem *parent)
     : QQuickItem(parent),
       m_switchWidth(-1),
       m_switchHeight(-1),
-      m_engine(0),
-      m_expanded(false)
+      m_engine(0)
 {
     m_compactRepresentationCheckTimer.setSingleShot(true);
     m_compactRepresentationCheckTimer.setInterval(250);
@@ -256,24 +255,6 @@ void Applet::setPreferredRepresentation(QQmlComponent *component)
     m_preferredRepresentation = component;
     emit preferredRepresentationChanged(component);
 }
-
-bool Applet::isExpanded() const
-{
-    return m_expanded;
-}
-
-void Applet::setExpanded(bool expanded)
-{
-    //if there is no compact representation it means it's always expanded
-    //Containnments are always expanded
-    if (!m_compactRepresentationItem || /*qobject_cast<ContainmentInterface *>(this) ||*/ m_expanded == expanded) {
-        return;
-    }
-
-    m_expanded = expanded;
-    emit expandedChanged(expanded);
-}
-
 
 
 ////////////Internals
@@ -488,25 +469,35 @@ void Applet::geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometr
 
 void Applet::compactRepresentationCheck()
 {
-    bool full = false;
-
-    if (m_switchWidth > 0 && m_switchHeight > 0) {
-        full = width() > m_switchWidth && height() > m_switchHeight;
-    //if a size to switch wasn't set, determine what representation to always chose
-    } else {
-        //preferred representation set?
-        if (m_preferredRepresentation) {
-            full = m_preferredRepresentation.data() == m_fullRepresentation.data();
-        //Otherwise, base on FormFactor
-        } else {
-            full = (m_applet->formFactor() != Plasma::Types::Horizontal && m_applet->formFactor() != Plasma::Types::Vertical);
-        }
+    //ignore 0,0 sizes;
+    if (width() <= 0 && height() <= 0) {
+        return;
     }
 
-    if ((full && m_fullRepresentationItem && m_fullRepresentationItem.data() == m_currentRepresentationItem.data()) ||
-        (!full && m_compactRepresentationItem && m_compactRepresentationItem.data() == m_currentRepresentationItem.data())
-    ) {
-        return;
+    bool full = false;
+
+    if (applet()->isContainment()) {
+        full = true;
+
+    } else {
+        if (m_switchWidth > 0 && m_switchHeight > 0) {
+            full = width() > m_switchWidth && height() > m_switchHeight;
+        //if a size to switch wasn't set, determine what representation to always chose
+        } else {
+            //preferred representation set?
+            if (m_preferredRepresentation) {
+                full = m_preferredRepresentation.data() == m_fullRepresentation.data();
+            //Otherwise, base on FormFactor
+            } else {
+                full = (m_applet->formFactor() != Plasma::Types::Horizontal && m_applet->formFactor() != Plasma::Types::Vertical);
+            }
+        }
+
+        if ((full && m_fullRepresentationItem && m_fullRepresentationItem.data() == m_currentRepresentationItem.data()) ||
+            (!full && m_compactRepresentationItem && m_compactRepresentationItem.data() == m_currentRepresentationItem.data())
+        ) {
+            return;
+        }
     }
 
     //Expanded

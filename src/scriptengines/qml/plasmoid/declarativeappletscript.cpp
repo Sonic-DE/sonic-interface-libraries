@@ -49,6 +49,7 @@
 //HACK?
 #include "applet.h"
 
+#include <packageurlinterceptor.h>
 
 K_EXPORT_PLASMA_APPLETSCRIPTENGINE(declarativeappletscript, DeclarativeAppletScript)
 
@@ -88,10 +89,16 @@ bool DeclarativeAppletScript::init()
         QVariantHash initialProperties;
         initialProperties["_plasma_appletscript"] = QVariant::fromValue(this);
 
+        //Hook generic url resolution to the applet package as well
+        //TODO: same thing will have to be done for every qqmlengine: PackageUrlInterceptor is material for plasmaquick?
+        PackageUrlInterceptor *interceptor = new PackageUrlInterceptor(qmlObject->engine(), a->package());
+        interceptor->addAllowedPath(a->containment()->corona()->package().path());
+        qmlObject->engine()->setUrlInterceptor(interceptor);
+
         qmlObject->setInitializationDelayed(true);
         qmlObject->setSource(QUrl::fromLocalFile(mainScript()));
         qmlObject->completeInitialization(initialProperties);
-qWarning()<<"AAA"<<qmlObject->mainComponent()->errors()<<qmlObject->rootObject()<<qmlObject->mainComponent()->isError()<<qmlObject->engine()->rootContext()->isValid();
+
         //error?
         if (!qmlObject->engine() || !qmlObject->engine()->rootContext() || !qmlObject->engine()->rootContext()->isValid() || qmlObject->mainComponent()->isError()) {
             QString reason;

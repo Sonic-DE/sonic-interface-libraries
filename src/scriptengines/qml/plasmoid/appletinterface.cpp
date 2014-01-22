@@ -232,7 +232,7 @@ void AppletInterface::setExpanded(bool expanded)
 {
     //if there is no compact representation it means it's always expanded
     //Containnments are always expanded
-    if (!m_compactUiObject || qobject_cast<ContainmentInterface *>(this) || m_expanded == expanded) {
+    if (qobject_cast<ContainmentInterface *>(this) || m_expanded == expanded) {
         return;
     }
 

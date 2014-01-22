@@ -134,13 +134,6 @@ class Applet : public QQuickItem
     //FIXME: is it wise to expose this?
     Q_PROPERTY(QQmlComponent *compactRepresentation READ compactRepresentation WRITE setCompactRepresentation NOTIFY compactRepresentationChanged)
 
-    ///////////////Wrapping main plasmoid api
-    /**
-     * True when the applet is showing its full representation. either as the main only view, or in a popup.
-     * Setting it will open or close the popup if the plasmoid is iconified, however it won't have effect if the applet is open
-     */
-    Q_PROPERTY(bool expanded WRITE setExpanded READ isExpanded NOTIFY expandedChanged)
-
 public:
     Applet(QQuickItem *parent = 0);
     ~Applet();
@@ -172,10 +165,6 @@ public:
     QObject *fullRepresentationItem();
     QObject *compactRepresentationExpanderItem();
 
-    //////////////////Wrapping main plasmoid API
-    bool isExpanded() const;
-    void setExpanded(bool expanded);
-
     //Reimplemented
     virtual void classBegin();
     virtual void componentComplete();
@@ -193,9 +182,6 @@ Q_SIGNALS:
     void compactRepresentationItemChanged(QObject *compactRepresentationItem);
     void fullRepresentationItemChanged(QObject *fullRepresentationItem);
     void compactRepresentationExpanderItemChanged(QObject *compactRepresentationExpanderItem);
-
-    //Plasmoid api
-    void expandedChanged(bool expanded);
 
 protected:
     void geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry);
@@ -245,8 +231,6 @@ private:
     Plasma::Applet *m_applet;
     QWeakPointer<Plasma::AppletScript> m_appletScript;
     KDeclarative::QmlObject *m_qmlObject;
-
-    bool m_expanded : 1;
 };
 
 
