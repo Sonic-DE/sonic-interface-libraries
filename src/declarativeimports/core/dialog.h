@@ -153,10 +153,17 @@ private Q_SLOTS:
 
     void updateVisibility(bool visible);
 
+    void updateMinimumWidth();
+    void updateMinimumHeight();
+    void updateMaximumWidth();
+    void updateMaximumHeight();
+
 private:
     QRect m_cachedGeometry;
     WindowType m_type;
     bool m_hideOnWindowDeactivate;
+
+    QWeakPointer <QObject> m_mainItemLayout;
 };
 
 #endif

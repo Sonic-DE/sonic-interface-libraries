@@ -102,6 +102,40 @@ void DialogProxy::setMainItem(QQuickItem *mainItem)
                 m_syncTimer->stop();
                 syncToMainItemSize();
             }
+
+            if (m_mainItemLayout) {
+                disconnect(m_mainItemLayout.data(), 0, this, 0);
+            }
+
+
+            //Extract the representation's Layout, if any
+            QObject *layout = 0;
+
+            //Search a child that has the needed Layout properties
+            //HACK: here we are not type safe, but is the only way to access to a pointer of Layout
+            foreach (QObject *child, mainItem->children()) {
+                //find for the needed property of Layout: minimum/maximum/preferred sizes and fillWidth/fillHeight
+                if (child->property("minimumWidth").isValid() && child->property("minimumHeight").isValid() &&
+                    child->property("preferredWidth").isValid() && child->property("preferredHeight").isValid() &&
+                    child->property("maximumWidth").isValid() && child->property("maximumHeight").isValid() &&
+                    child->property("fillWidth").isValid() && child->property("fillHeight").isValid()
+                ) {
+                    layout = child;
+                }
+            }
+            m_mainItemLayout = layout;
+
+            if (layout) {
+                connect(layout, SIGNAL(minimumWidthChanged()), this, SLOT(updateMinimumWidth()));
+                connect(layout, SIGNAL(minimumHeightChanged()), this, SLOT(updateMinimumHeight()));
+                connect(layout, SIGNAL(maximumWidthChanged()), this, SLOT(updatemaximumWidth()));
+                connect(layout, SIGNAL(maximumHeightChanged()), this, SLOT(updatemaximumHeight()));
+
+                updateMinimumWidth();
+                updateMinimumHeight();
+                updateMaximumWidth();
+                updateMaximumHeight();
+            }
         }
 
         //if this is called in Component.onCompleted we have to wait a loop the item is added to a scene
@@ -484,6 +518,43 @@ void DialogProxy::setHideOnWindowDeactivate(bool hide)
     m_hideOnWindowDeactivate = hide;
     emit hideOnWindowDeactivateChanged();
 }
+
+void DialogProxy::updateMinimumWidth()
+{
+    if (m_mainItemLayout) {
+        setMinimumWidth(m_mainItemLayout.data()->property("minimumWidth").toInt());
+    } else {
+        setMinimumWidth(-1);
+    }
+}
+
+void DialogProxy::updateMinimumHeight()
+{
+    if (m_mainItemLayout) {
+        setMinimumHeight(m_mainItemLayout.data()->property("minimumHeight").toInt());
+    } else {
+        setMinimumHeight(-1);
+    }
+}
+
+void DialogProxy::updateMaximumWidth()
+{
+    if (m_mainItemLayout) {
+        setMaximumWidth(m_mainItemLayout.data()->property("maximumWidth").toInt());
+    } else {
+        setMaximumWidth(-1);
+    }
+}
+
+void DialogProxy::updateMaximumHeight()
+{
+    if (m_mainItemLayout) {
+        setMaximumHeight(m_mainItemLayout.data()->property("maximumWidth").toInt());
+    } else {
+        setMaximumHeight(-1);
+    }
+}
+
 
 #include "dialog.moc"
 
