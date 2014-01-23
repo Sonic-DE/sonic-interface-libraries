@@ -62,8 +62,6 @@ DeclarativeAppletScript::DeclarativeAppletScript(QObject *parent, const QVariant
     qmlRegisterType<KDeclarative::ConfigPropertyMap>();
     qmlRegisterType<AppletInterface>();
     qmlRegisterType<QAction>();
-    qmlRegisterUncreatableType<SizeHintAttachedType>("org.kde.plasma.shell", 2, 0, "SizeHint",
-                                             QLatin1String("Do not create objects of type SizeHint"));
     qmlRegisterType<AppletInterface>("org.kde.plasma.shell", 2, 0, "Applet");
     qmlRegisterType<ContainmentInterface>("org.kde.plasma.shell", 2, 0, "Containment");
 
