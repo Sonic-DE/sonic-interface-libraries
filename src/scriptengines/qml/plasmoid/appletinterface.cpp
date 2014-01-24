@@ -54,7 +54,7 @@
 Q_DECLARE_METATYPE(AppletInterface*)
 
 AppletInterface::AppletInterface(QQuickItem *parent)
-    : Applet(parent),
+    : AppletLoader(parent),
       m_actionSignals(0),
       m_backgroundHints(Plasma::Types::StandardBackground),
       m_busy(false),
@@ -69,7 +69,7 @@ AppletInterface::~AppletInterface()
 
 void AppletInterface::componentComplete()
 {
-    Applet::componentComplete();
+    AppletLoader::componentComplete();
 
     m_configuration = new KDeclarative::ConfigPropertyMap(applet()->configScheme(), this);
 

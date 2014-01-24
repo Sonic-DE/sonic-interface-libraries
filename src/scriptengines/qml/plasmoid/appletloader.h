@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef APPLETCOMPONENT_P
-#define APPLETCOMPONENT_P
+#ifndef APPLETLOADER_P
+#define APPLETLOADER_P
 
 #include <QQuickItem>
 #include <QWeakPointer>
@@ -37,7 +37,7 @@ namespace KDeclarative {
 }
 
 
-class Applet : public QQuickItem
+class AppletLoader : public QQuickItem
 {
     Q_OBJECT
 
@@ -60,8 +60,8 @@ class Applet : public QQuickItem
     Q_PROPERTY(QQmlComponent *compactRepresentation READ compactRepresentation WRITE setCompactRepresentation NOTIFY compactRepresentationChanged)
 
 public:
-    Applet(QQuickItem *parent = 0);
-    ~Applet();
+    AppletLoader(QQuickItem *parent = 0);
+    ~AppletLoader();
 
     Plasma::Applet *applet() const;
     Plasma::AppletScript *appletScript();

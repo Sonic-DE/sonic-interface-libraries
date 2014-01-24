@@ -29,7 +29,7 @@
 #include <Plasma/Applet>
 #include <Plasma/Theme>
 
-#include "applet.h"
+#include "appletloader.h"
 #include "declarativeappletscript.h"
 
 class QAction;
@@ -49,7 +49,7 @@ namespace Plasma
     class ConfigLoader;
 } // namespace Plasma
 
-class AppletInterface : public Applet
+class AppletInterface : public AppletLoader
 {
     Q_OBJECT
 

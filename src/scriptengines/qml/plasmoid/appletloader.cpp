@@ -17,7 +17,7 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "applet.h"
+#include "appletloader.h"
 
 #include <QQmlComponent>
 #include <QQmlExpression>
@@ -36,7 +36,7 @@
 
 
 
-Applet::Applet(QQuickItem *parent)
+AppletLoader::AppletLoader(QQuickItem *parent)
     : QQuickItem(parent),
       m_switchWidth(-1),
       m_switchHeight(-1),
@@ -72,26 +72,26 @@ Applet::Applet(QQuickItem *parent)
     });
 }
 
-Applet::~Applet()
+AppletLoader::~AppletLoader()
 {
 }
 
-Plasma::Applet *Applet::applet() const
+Plasma::Applet *AppletLoader::applet() const
 {
     return m_applet;
 }
 
-Plasma::AppletScript *Applet::appletScript()
+Plasma::AppletScript *AppletLoader::appletScript()
 {
     return m_appletScript.data();
 }
 
-int Applet::switchWidth() const
+int AppletLoader::switchWidth() const
 {
     return m_switchWidth;
 }
 
-void Applet::setSwitchWidth(int width)
+void AppletLoader::setSwitchWidth(int width)
 {
     if (m_switchWidth == width) {
         return;
@@ -101,12 +101,12 @@ void Applet::setSwitchWidth(int width)
     emit switchWidthChanged(width);
 }
 
-int Applet::switchHeight() const
+int AppletLoader::switchHeight() const
 {
     return m_switchHeight;
 }
 
-void Applet::setSwitchHeight(int width)
+void AppletLoader::setSwitchHeight(int width)
 {
     if (m_switchHeight == width) {
         return;
@@ -116,12 +116,12 @@ void Applet::setSwitchHeight(int width)
     emit switchHeightChanged(width);
 }
 
-QQmlComponent *Applet::compactRepresentation()
+QQmlComponent *AppletLoader::compactRepresentation()
 {
     return m_compactRepresentation.data();
 }
 
-void Applet::setCompactRepresentation(QQmlComponent *component)
+void AppletLoader::setCompactRepresentation(QQmlComponent *component)
 {
     if (m_compactRepresentation.data() == component) {
         return;
@@ -132,12 +132,12 @@ void Applet::setCompactRepresentation(QQmlComponent *component)
 }
 
 
-QQmlComponent *Applet::fullRepresentation()
+QQmlComponent *AppletLoader::fullRepresentation()
 {
     return m_fullRepresentation.data();
 }
 
-void Applet::setFullRepresentation(QQmlComponent *component)
+void AppletLoader::setFullRepresentation(QQmlComponent *component)
 {
     if (m_fullRepresentation.data() == component) {
         return;
@@ -147,12 +147,12 @@ void Applet::setFullRepresentation(QQmlComponent *component)
     emit fullRepresentationChanged(component);
 }
 
-QQmlComponent *Applet::preferredRepresentation()
+QQmlComponent *AppletLoader::preferredRepresentation()
 {
     return m_preferredRepresentation.data();
 }
 
-void Applet::setPreferredRepresentation(QQmlComponent *component)
+void AppletLoader::setPreferredRepresentation(QQmlComponent *component)
 {
     if (m_preferredRepresentation.data() == component) {
         return;
@@ -165,7 +165,7 @@ void Applet::setPreferredRepresentation(QQmlComponent *component)
 
 ////////////Internals
 
-void Applet::classBegin()
+void AppletLoader::classBegin()
 {
     m_engine = QtQml::qmlEngine(this);
     Q_ASSERT(m_engine);
@@ -174,7 +174,7 @@ void Applet::classBegin()
     m_appletScript = property("_plasma_appletscript").value<Plasma::AppletScript *>();
 }
 
-void Applet::componentComplete()
+void AppletLoader::componentComplete()
 {
     m_appletScript = property("_plasma_appletscript").value<Plasma::AppletScript *>();
 
@@ -206,29 +206,29 @@ void Applet::componentComplete()
 
 
 
-KDeclarative::QmlObject *Applet::qmlObject()
+KDeclarative::QmlObject *AppletLoader::qmlObject()
 {
     return m_qmlObject;
 }
 
-QObject *Applet::compactRepresentationItem()
+QObject *AppletLoader::compactRepresentationItem()
 {
     return m_compactRepresentationItem.data();
 }
 
-QObject *Applet::fullRepresentationItem()
+QObject *AppletLoader::fullRepresentationItem()
 {
     return m_fullRepresentationItem.data();
 }
 
-QObject *Applet::compactRepresentationExpanderItem()
+QObject *AppletLoader::compactRepresentationExpanderItem()
 {
     return m_compactRepresentationExpanderItem.data();
 }
 
 
 
-QObject *Applet::createCompactRepresentationItem()
+QObject *AppletLoader::createCompactRepresentationItem()
 {
     if (!m_compactRepresentation) {
         return 0;
@@ -245,7 +245,7 @@ QObject *Applet::createCompactRepresentationItem()
     return m_compactRepresentationItem.data();
 }
 
-QObject *Applet::createFullRepresentationItem()
+QObject *AppletLoader::createFullRepresentationItem()
 {
     if (!m_fullRepresentation) {
         return 0;
@@ -275,7 +275,7 @@ QObject *Applet::createFullRepresentationItem()
     return m_fullRepresentationItem.data();
 }
 
-QObject *Applet::createCompactRepresentationExpanderItem()
+QObject *AppletLoader::createCompactRepresentationExpanderItem()
 {
     if (!m_compactRepresentationExpander) {
         return 0;
@@ -292,7 +292,7 @@ QObject *Applet::createCompactRepresentationExpanderItem()
     return m_compactRepresentationExpanderItem.data();
 }
 
-void Applet::connectLayoutAttached(QObject *item)
+void AppletLoader::connectLayoutAttached(QObject *item)
 {
     QObject *layout = 0;
 
@@ -371,7 +371,7 @@ void Applet::connectLayoutAttached(QObject *item)
     m_ownLayout = ownLayout;
 }
 
-void Applet::propagateSizeHint(const QByteArray &layoutProperty)
+void AppletLoader::propagateSizeHint(const QByteArray &layoutProperty)
 {
     if (!m_currentRepresentationItem) {
         return;
@@ -382,7 +382,7 @@ void Applet::propagateSizeHint(const QByteArray &layoutProperty)
     prop.write(expr->evaluate());
 }
 
-void Applet::geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry)
+void AppletLoader::geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry)
 {
     Q_UNUSED(oldGeometry)
 
@@ -390,7 +390,7 @@ void Applet::geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometr
     m_compactRepresentationCheckTimer.start();
 }
 
-void Applet::itemChange(ItemChange change, const ItemChangeData &value)
+void AppletLoader::itemChange(ItemChange change, const ItemChangeData &value)
 {
     if (change == QQuickItem::ItemSceneChange) {
         //we have a window: create the representations if needed
@@ -405,7 +405,7 @@ void Applet::itemChange(ItemChange change, const ItemChangeData &value)
 
 //// Slots
 
-void Applet::compactRepresentationCheck()
+void AppletLoader::compactRepresentationCheck()
 {
     //ignore 0,0 sizes;
     if (width() <= 0 && height() <= 0) {
@@ -487,47 +487,47 @@ void Applet::compactRepresentationCheck()
     }
 }
 
-void Applet::minimumWidthChanged()
+void AppletLoader::minimumWidthChanged()
 {
     propagateSizeHint("minimumWidth");
 }
 
-void Applet::minimumHeightChanged()
+void AppletLoader::minimumHeightChanged()
 {
     propagateSizeHint("minimumHeight");
 }
 
-void Applet::preferredWidthChanged()
+void AppletLoader::preferredWidthChanged()
 {
     propagateSizeHint("preferredWidth");
 }
 
-void Applet::preferredHeightChanged()
+void AppletLoader::preferredHeightChanged()
 {
     propagateSizeHint("preferredHeight");
 }
 
-void Applet::maximumWidthChanged()
+void AppletLoader::maximumWidthChanged()
 {
     propagateSizeHint("maximumWidth");
 }
 
-void Applet::maximumHeightChanged()
+void AppletLoader::maximumHeightChanged()
 {
     propagateSizeHint("maximumHeight");
 }
 
-void Applet::fillWidthChanged()
+void AppletLoader::fillWidthChanged()
 {
     propagateSizeHint("fillWidth");
 }
 
-void Applet::fillHeightChanged()
+void AppletLoader::fillHeightChanged()
 {
     propagateSizeHint("fillHeight");
 }
 
 
 
-#include "moc_applet.cpp"
+#include "moc_appletloader.cpp"
 

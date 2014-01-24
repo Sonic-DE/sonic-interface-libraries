@@ -13,7 +13,7 @@ set(declarative_appletscript_SRCS
     plasmoid/declarativeappletscript.cpp
     plasmoid/wallpaperinterface.cpp
 #HACK
-    plasmoid/applet.cpp
+    plasmoid/appletloader.cpp
     )
 
 add_library(plasma_appletscript_declarative MODULE ${declarative_appletscript_SRCS} )
