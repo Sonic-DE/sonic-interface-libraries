@@ -25,6 +25,11 @@ set(corebindings_SRCS
     dataenginebindings.cpp
     iconitem.cpp
     windowthumbnail.cpp
+
+    applet/appletinterface.cpp
+    applet/containmentinterface.cpp
+    applet/wallpaperinterface.cpp
+    applet/appletloader.cpp
     )
 
 add_library(corebindingsplugin SHARED ${corebindings_SRCS})
@@ -36,8 +41,12 @@ target_link_libraries(corebindingsplugin
         KF5::CoreAddons
         KF5::IconThemes
         KF5::Service #for kplugininfo.h
+        KF5::XmlGui # KActionCollection
+        KF5::I18n
         KF5::WindowSystem
-        KF5::Plasma)
+        KF5::Plasma
+        KF5::PlasmaQuick
+        KF5::KActivities)
 
 if(X11_FOUND)
   target_link_libraries(corebindingsplugin ${X11_LIBRARIES} ${XCB_XCB_LIBRARY} )

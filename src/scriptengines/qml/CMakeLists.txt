@@ -8,12 +8,7 @@ endif()
 
 #DECLARATIVE APPLET
 set(declarative_appletscript_SRCS
-    plasmoid/appletinterface.cpp
-    plasmoid/containmentinterface.cpp
     plasmoid/declarativeappletscript.cpp
-    plasmoid/wallpaperinterface.cpp
-#HACK
-    plasmoid/appletloader.cpp
     )
 
 add_library(plasma_appletscript_declarative MODULE ${declarative_appletscript_SRCS} )

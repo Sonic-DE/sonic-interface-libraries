@@ -25,6 +25,7 @@
 
 #include <QClipboard>
 #include <QQmlExpression>
+#include <QQmlEngine>
 #include <QQmlProperty>
 #include <QMimeData>
 
@@ -67,7 +68,7 @@ ContainmentInterface::ContainmentInterface(QQuickItem *parent)
 void ContainmentInterface::componentComplete()
 {
     AppletInterface::componentComplete();
-    m_appletScriptEngine = static_cast<DeclarativeAppletScript*>(appletScript());
+    m_appletScriptEngine = static_cast<Plasma::AppletScript*>(appletScript());
 
     connect(containment(), &Plasma::Containment::appletRemoved,
             this, &ContainmentInterface::appletRemovedForward);

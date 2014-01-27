@@ -27,10 +27,10 @@
 #include <QQuickView>
 
 #include <Plasma/Applet>
+#include <Plasma/AppletScript>
 #include <Plasma/Theme>
 
 #include "appletloader.h"
-#include "declarativeappletscript.h"
 
 class QAction;
 class QmlAppletScript;
@@ -296,7 +296,7 @@ Q_SIGNALS:
 
 protected:
 
-    DeclarativeAppletScript *m_appletScriptEngine;
+    Plasma::AppletScript *m_appletScriptEngine;
 
 private Q_SLOTS:
     void executeAction(const QString &name);

@@ -26,7 +26,6 @@
 
 #include <Plasma/AppletScript>
 
-class AppletInterface;
 
 class DeclarativeAppletScript : public Plasma::AppletScript
 {
@@ -52,7 +51,7 @@ Q_SIGNALS:
     void uiReadyChanged(bool ready);
 
 private:
-    AppletInterface *m_interface;
+    QObject *m_interface;
     friend class AppletInterface;
     friend class ContainmentInterface;
 };

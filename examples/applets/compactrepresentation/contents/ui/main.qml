@@ -21,10 +21,9 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.shell 2.0
 import org.kde.plasma.components 2.0 as PlasmaComponents
 
-Applet {
+PlasmaCore.Applet {
     id: root
     switchWidth: 200
     switchHeight: 300

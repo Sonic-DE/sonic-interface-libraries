@@ -45,6 +45,12 @@
 #include "tooltip.h"
 #include "windowthumbnail.h"
 
+#include "applet/appletinterface.h"
+#include "applet/containmentinterface.h"
+#include "applet/wallpaperinterface.h"
+
+#include <kdeclarative/configpropertymap.h>
+
 // #include "dataenginebindings_p.h"
 
 
@@ -69,6 +75,12 @@ void CoreBindingsPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
 void CoreBindingsPlugin::registerTypes(const char *uri)
 {
     Q_ASSERT(uri == QLatin1String("org.kde.plasma.core"));
+
+    //Applet stuff
+    qmlRegisterType<KDeclarative::ConfigPropertyMap>();
+    qmlRegisterType<QAction>();
+    qmlRegisterType<AppletInterface>("org.kde.plasma.core", 2, 0, "Applet");
+    qmlRegisterType<ContainmentInterface>("org.kde.plasma.core", 2, 0, "Containment");
 
     qmlRegisterUncreatableType<Plasma::Types>(uri, 2, 0, "Types", "");
 

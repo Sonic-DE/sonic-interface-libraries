@@ -30,6 +30,7 @@
 #include <QDebug>
 #include <QQmlExpression>
 #include <QQmlContext>
+#include <QQmlEngine>
 #include <QQmlProperty>
 #include <QSignalMapper>
 

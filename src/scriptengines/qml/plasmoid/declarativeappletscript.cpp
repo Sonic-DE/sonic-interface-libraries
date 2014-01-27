@@ -40,14 +40,11 @@
 
 #include "plasmoid/declarativeappletscript.h"
 
-#include "plasmoid/appletinterface.h"
-#include "plasmoid/containmentinterface.h"
+//#include "plasmoid/appletinterface.h"
+//#include "plasmoid/containmentinterface.h"
 
 #include <kdeclarative/qmlobject.h>
 #include <kdeclarative/configpropertymap.h>
-
-//HACK?
-#include "applet.h"
 
 #include <packageurlinterceptor.h>
 
@@ -58,12 +55,12 @@ DeclarativeAppletScript::DeclarativeAppletScript(QObject *parent, const QVariant
     : Plasma::AppletScript(parent),
       m_interface(0)
 {
-    qmlRegisterType<AppletInterface>();
-    qmlRegisterType<KDeclarative::ConfigPropertyMap>();
-    qmlRegisterType<AppletInterface>();
-    qmlRegisterType<QAction>();
-    qmlRegisterType<AppletInterface>("org.kde.plasma.shell", 2, 0, "Applet");
-    qmlRegisterType<ContainmentInterface>("org.kde.plasma.shell", 2, 0, "Containment");
+//     qmlRegisterType<AppletInterface>();
+//     qmlRegisterType<KDeclarative::ConfigPropertyMap>();
+//     qmlRegisterType<AppletInterface>();
+//     qmlRegisterType<QAction>();
+//     qmlRegisterType<AppletInterface>("org.kde.plasma.shell", 2, 0, "Applet");
+//     qmlRegisterType<ContainmentInterface>("org.kde.plasma.shell", 2, 0, "Containment");
 
     Q_UNUSED(args);
 }
@@ -153,7 +150,7 @@ QList<QAction*> DeclarativeAppletScript::contextualActions()
         return QList<QAction *>();
     }
 
-    return m_interface->contextualActions();
+    return QList<QAction *>();//m_interface->contextualActions();
 }
 
 
