@@ -23,6 +23,8 @@
 
 #include <Plasma/FrameSvg>
 
+#include "units.h"
+
 namespace Plasma {
 
     class FrameSvg;
@@ -152,11 +154,13 @@ Q_SIGNALS:
 
 private Q_SLOTS:
     void doUpdate();
+    void updateDevicePixelRatio();
 
 private:
     Plasma::FrameSvg *m_frameSvg;
     FrameSvgItemMargins *m_margins;
     QString m_prefix;
+    Units m_units;
 };
 
 }
