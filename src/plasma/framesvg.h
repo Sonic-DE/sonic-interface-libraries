@@ -287,7 +287,7 @@ public:
      */
     Q_INVOKABLE void paintFrame(QPainter *painter, const QPointF &pos = QPointF(0, 0));
 
-protected:
+public:
     FrameSvgPrivate *const d;
     friend class FrameData;
     friend class FrameSvgItem;
