@@ -477,7 +477,18 @@ Containment *CoronaPrivate::addContainment(const QString &name, const QVariantLi
         conf.deleteGroup();
     }
 
-    containments.append(containment);
+    //make sure the containments are sorted by id
+    //Insertion is linear but with the average number of containments shouldn't be a problem
+    QList<Containment *>::iterator i;
+    for (i = containments.begin(); i != containments.end(); ++i) {
+        if ((*i)->id() > containment->id()) {
+            containments.insert(i, containment);
+            break;
+        }
+    }
+    if (i == containments.end()) {
+        containments.append(containment);
+    }
 
     QObject::connect(containment, SIGNAL(destroyed(QObject*)),
                      q, SLOT(containmentDestroyed(QObject*)));
@@ -514,8 +525,10 @@ QList<Plasma::Containment *> CoronaPrivate::importLayout(const KConfigGroup &con
     }
 
     KConfigGroup containmentsGroup(&conf, "Containments");
+    QStringList groups = containmentsGroup.groupList();
+    qSort(groups.begin(), groups.end());
 
-    foreach (const QString &group, containmentsGroup.groupList()) {
+    foreach (const QString &group, groups) {
         KConfigGroup containmentConfig(&containmentsGroup, group);
 
         if (containmentConfig.entryMap().isEmpty()) {
@@ -541,6 +554,7 @@ QList<Plasma::Containment *> CoronaPrivate::importLayout(const KConfigGroup &con
 #ifndef NDEBUG
         // qDebug() << "!!{} STARTUP TIME" << QTime().msecsTo(QTime::currentTime()) << "Adding Containment" << containmentConfig.readEntry("plugin", QString());
 #endif
+
         Containment *c = addContainment(containmentConfig.readEntry("plugin", QString()), QVariantList(), cid);
         if (!c) {
             continue;
