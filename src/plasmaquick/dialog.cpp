@@ -303,9 +303,6 @@ void DialogPrivate::updateMinimumWidth()
     q->setMinimumWidth(minimumWidth + margin->left() + margin->right());
     q->setWidth(qMax(q->width(), q->minimumWidth()));
 
-    mainItem->setWidth(q->width() - margin->left() - margin->right());
-    frameSvgItem->setWidth(q->width());
-
     if (location == Plasma::Types::RightEdge) {
         q->setX(q->x() + (oldWidth - q->size().width()));
     }
@@ -341,9 +338,6 @@ void DialogPrivate::updateMinimumHeight()
     q->setMinimumHeight(minimumHeight + margin->top() + margin->bottom());
     q->setHeight(qMax(q->height(), q->minimumHeight()));
 
-    mainItem->setHeight(q->height() - margin->top() - margin->bottom());
-    frameSvgItem->setHeight(q->height());
-
     if (location == Plasma::Types::BottomEdge) {
         q->setY(q->y() + (oldHeight - q->size().height()));
     }
@@ -377,8 +371,6 @@ void DialogPrivate::updateMaximumWidth()
 
     q->setMaximumWidth(maximumWidth + margin->left() + margin->right());
     q->setWidth(qBound(q->minimumWidth(), q->width(), q->maximumWidth()));
-    mainItem->setWidth(q->width() - margin->left() - margin->right());
-    frameSvgItem->setWidth(q->width());
 
     repositionIfOffScreen();
     if (visualParent) {
@@ -410,9 +402,6 @@ void DialogPrivate::updateMaximumHeight()
 
     q->setMaximumHeight(maximumHeight + margin->top() + margin->bottom());
     q->setHeight(qBound(q->minimumHeight(), q->height(), q->maximumHeight()));
-
-    mainItem->setHeight(q->height() - margin->top() - margin->bottom());
-    frameSvgItem->setHeight(q->height());
 
     repositionIfOffScreen();
     if (visualParent) {
@@ -548,9 +537,8 @@ void DialogPrivate::syncToMainItemSize()
     }
 
     if (visualParent) {
-        // Get the full size with ALL the borders
-        frameSvgItem->setEnabledBorders(Plasma::FrameSvg::AllBorders);
-        auto margins = frameSvgItem->margins();
+        // fixedMargins will get all the borders, no matter if they are enabled
+        auto margins = frameSvgItem->fixedMargins();
 
         const QSize fullSize = QSize(mainItem->width(), mainItem->height()) +
                                QSize(margins->left() + margins->right(),
