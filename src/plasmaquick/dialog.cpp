@@ -142,7 +142,10 @@ QRect DialogPrivate::availableScreenGeometryForPosition(const QPoint& pos) const
     //        says it's at.
     QRect avail;
     Q_FOREACH (QScreen *screen, q->screen()->virtualSiblings()) {
-        if (screen->availableGeometry().contains(pos)) {
+        //we check geometry() but then take availableGeometry()
+        //to reliably check in what screen a position is, we need the full
+        //geometry, included areas for panels
+        if (screen->geometry().contains(pos)) {
             avail = screen->availableGeometry();
             break;
         }
