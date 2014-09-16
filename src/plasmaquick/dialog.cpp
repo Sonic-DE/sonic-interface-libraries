@@ -540,14 +540,15 @@ void DialogPrivate::updateInputShape()
 
 void DialogPrivate::syncToMainItemSize()
 {
-    if (!componentComplete || !mainItem || !q->isVisible()) {
+    //we need to sync the size even if the dialog is hidden: QML client code
+    //can set a different size on the mainItem at any moment
+    if (resizeOrigin == Window || !componentComplete || !mainItem) {
         return;
     }
 
     if (visualParent) {
-        // Get the full size with ALL the borders
-        frameSvgItem->setEnabledBorders(Plasma::FrameSvg::AllBorders);
-        auto margins = frameSvgItem->margins();
+        // fixedMargins will get all the borders, no matter if they are enabled
+        auto margins = frameSvgItem->fixedMargins();
 
         const QSize fullSize = QSize(mainItem->width(), mainItem->height()) +
                                QSize(margins->left() + margins->right(),
