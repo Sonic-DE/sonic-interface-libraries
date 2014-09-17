@@ -136,7 +136,7 @@ int Units::devicePixelIconSize(const int size) const
 }
 
 qreal Units::devicePixelRatio() const
-{
+{return 2;
     return m_devicePixelRatio;
 }
 

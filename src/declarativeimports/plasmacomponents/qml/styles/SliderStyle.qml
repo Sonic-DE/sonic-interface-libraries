@@ -62,6 +62,7 @@ QtQuickControlStyle.SliderStyle {
         id: groove
         imagePath: "widgets/slider"
         prefix: "groove"
+
         PlasmaCore.FrameSvgItem {
             id: highlight
             imagePath: "widgets/slider"
