@@ -319,7 +319,7 @@ void DialogPrivate::updateMinimumWidth()
     repositionIfOffScreen();
     if (visualParent) {
         const QRect geom(q->popupPosition(visualParent, q->size()), q->size());
-        q->setGeometry(geom);
+        q->adjustGeometry(geom);
     }
 
     updateTheme();
@@ -358,7 +358,7 @@ void DialogPrivate::updateMinimumHeight()
     repositionIfOffScreen();
     if (visualParent) {
         const QRect geom(q->popupPosition(visualParent, q->size()), q->size());
-        q->setGeometry(geom);
+        q->adjustGeometry(geom);
     }
 
     updateTheme();
@@ -392,7 +392,7 @@ void DialogPrivate::updateMaximumWidth()
     repositionIfOffScreen();
     if (visualParent) {
         const QRect geom(q->popupPosition(visualParent, q->size()), q->size());
-        q->setGeometry(geom);
+        q->adjustGeometry(geom);
     }
 
     updateTheme();
@@ -427,7 +427,7 @@ void DialogPrivate::updateMaximumHeight()
     repositionIfOffScreen();
     if (visualParent) {
         const QRect geom(q->popupPosition(visualParent, q->size()), q->size());
-        q->setGeometry(geom);
+        q->adjustGeometry(geom);
     }
 
     updateTheme();
