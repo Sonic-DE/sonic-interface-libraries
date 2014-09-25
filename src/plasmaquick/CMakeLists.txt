@@ -17,6 +17,7 @@ endif()
 
 set(plasmaquick_LIB_SRC
     appletquickitem.cpp
+    declarativewindow.cpp
     dialog.cpp
     dialogshadows.cpp
     view.cpp

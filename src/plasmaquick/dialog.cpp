@@ -62,7 +62,6 @@ public:
           type(Dialog::Normal),
           hideOnWindowDeactivate(false),
           outputOnly(false),
-          componentComplete(dialog->parent() == 0),
           backgroundHints(Dialog::StandardBackground)
     {
     }
@@ -124,7 +123,6 @@ public:
     bool hideOnWindowDeactivate;
     bool outputOnly;
     Plasma::Theme theme;
-    bool componentComplete;
     Dialog::BackgroundHints backgroundHints;
 
     //Attached Layout property of mainItem, if any
@@ -294,7 +292,7 @@ void DialogPrivate::updateMinimumWidth()
     Q_ASSERT(mainItem);
     Q_ASSERT(mainItemLayout);
 
-    if (!componentComplete || !q->isVisible()) {
+    if (!q->isComponentComplete() || !q->isVisible()) {
         return;
     }
 
@@ -333,7 +331,7 @@ void DialogPrivate::updateMinimumHeight()
     Q_ASSERT(mainItem);
     Q_ASSERT(mainItemLayout);
 
-    if (!componentComplete || !q->isVisible()) {
+    if (!q->isComponentComplete() || !q->isVisible()) {
         return;
     }
 
@@ -372,7 +370,7 @@ void DialogPrivate::updateMaximumWidth()
     Q_ASSERT(mainItem);
     Q_ASSERT(mainItemLayout);
 
-    if (!componentComplete || !q->isVisible()) {
+    if (!q->isComponentComplete() || !q->isVisible()) {
         return;
     }
 
@@ -406,7 +404,7 @@ void DialogPrivate::updateMaximumHeight()
     Q_ASSERT(mainItem);
     Q_ASSERT(mainItemLayout);
 
-    if (!componentComplete || !q->isVisible()) {
+    if (!q->isComponentComplete() || !q->isVisible()) {
         return;
     }
 
@@ -438,7 +436,7 @@ void DialogPrivate::updateMaximumHeight()
 
 void DialogPrivate::updateLayoutParameters()
 {
-    if (!componentComplete || !mainItem || !q->isVisible()) {
+    if (!q->isComponentComplete() || !mainItem || !q->isVisible()) {
         return;
     }
     Q_ASSERT(mainItem);
@@ -481,7 +479,7 @@ void DialogPrivate::updateLayoutParameters()
 
 void DialogPrivate::repositionIfOffScreen()
 {
-    if (!componentComplete) {
+    if (!q->isComponentComplete()) {
         return;
     }
     const QRect avail = availableScreenGeometryForPosition(q->position());
@@ -553,7 +551,7 @@ void DialogPrivate::syncToMainItemSize()
 {
     Q_ASSERT(mainItem);
 
-    if (!componentComplete || !q->isVisible()) {
+    if (!q->isComponentComplete() || !q->isVisible()) {
         return;
     }
 
@@ -629,7 +627,7 @@ void DialogPrivate::slotWindowPositionChanged()
 }
 
 Dialog::Dialog(QQuickItem *parent)
-    : QQuickWindow(parent ? parent->window() : 0),
+    : DeclarativeWindow(parent),
       d(new DialogPrivate(this))
 {
     setClearBeforeRendering(true);
@@ -1034,15 +1032,9 @@ void Dialog::hideEvent(QHideEvent *event)
     QQuickWindow::hideEvent(event);
 }
 
-void Dialog::classBegin()
-{
-    d->componentComplete = false;
-}
 
 void Dialog::componentComplete()
 {
-    d->componentComplete = true;
-
     d->updateTheme();
 
     if (d->mainItem) {
@@ -1052,6 +1044,8 @@ void Dialog::componentComplete()
     if (d->mainItemLayout) {
         d->updateLayoutParameters();
     }
+
+    DeclarativeWindow::componentComplete();
 }
 
 bool Dialog::hideOnWindowDeactivate() const
