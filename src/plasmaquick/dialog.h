@@ -30,6 +30,8 @@
 
 #include <netwm_def.h>
 
+#include "declarativewindow.h"
+
 #include <plasmaquick_export.h>
 
 //
@@ -80,10 +82,9 @@ class DialogPrivate;
  * @endcode
  *
  */
-class PLASMAQUICK_EXPORT Dialog : public QQuickWindow, public QQmlParserStatus
+class PLASMAQUICK_EXPORT Dialog : public DeclarativeWindow
 {
     Q_OBJECT
-    Q_INTERFACES(QQmlParserStatus)
 
     /**
      * The main QML item that will be displayed in the Dialog
@@ -144,6 +145,7 @@ class PLASMAQUICK_EXPORT Dialog : public QQuickWindow, public QQmlParserStatus
      * Note that in case of NoBackground it loses kwin side shadows and blur
      */
     Q_PROPERTY(BackgroundHints backgroundHints READ backgroundHints WRITE setBackgroundHints NOTIFY backgroundHintsChanged)
+
 
     Q_CLASSINFO("DefaultProperty", "mainItem")
 
@@ -222,8 +224,7 @@ protected:
     virtual void adjustGeometry(const QRect &geom);
 
     //Reimplementations
-    virtual void classBegin();
-    virtual void componentComplete();
+    virtual void componentComplete() Q_DECL_OVERRIDE;
     virtual void resizeEvent(QResizeEvent *re);
     virtual void focusInEvent(QFocusEvent *ev);
     virtual void focusOutEvent(QFocusEvent *ev);
