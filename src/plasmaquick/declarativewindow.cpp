@@ -1,0 +1,91 @@
+/*
+ * <one line to give the library's name and an idea of what it does.>
+ * Copyright (C) 2014  David Edmundson <david@davidedmundson.co.uk>
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ */
+
+#include "declarativewindow.h"
+
+#include <QQuickItem>
+
+namespace PlasmaQuick
+{
+
+class DeclarativeWindowPrivate {
+public:
+    bool componentComplete = false;
+    bool pendingVisibility = false;
+};
+
+DeclarativeWindow::DeclarativeWindow(QQuickItem *parent):
+    QQuickWindow(parent ? parent->window() : 0),
+    d(new DeclarativeWindowPrivate)
+{
+    if (parent != 0) {
+        d->componentComplete = true;
+    }
+    connect(this, SIGNAL(visibleChanged(bool)),
+            this, SIGNAL(visibleChangedProxy()));
+}
+
+DeclarativeWindow::~DeclarativeWindow()
+{
+    delete d;
+}
+
+bool DeclarativeWindow::isComponentComplete() const
+{
+    return d->componentComplete;
+}
+
+void DeclarativeWindow::classBegin()
+{
+    d->componentComplete = false;
+}
+
+void DeclarativeWindow::componentComplete()
+{
+    d->componentComplete = true;
+    QQuickWindow::setVisible(d->pendingVisibility);
+}
+
+void DeclarativeWindow::setVisible(bool visible)
+{
+    //only update real visibility when we have finished component completion
+    //and all flags have been set
+
+    if (d->componentComplete) {
+        QQuickWindow::setVisible(visible);
+        //signal will be emitted and proxied from the QQuickWindow code
+    } else {
+        d->pendingVisibility = visible;
+        emit visibleChangedProxy();
+    }
+}
+
+bool DeclarativeWindow::isVisible() const
+{
+    if (d->componentComplete) {
+        return QQuickWindow::isVisible();
+    }
+    return d->pendingVisibility;
+}
+
+}
+
+
+#include "declarativewindow.moc"
