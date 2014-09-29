@@ -321,6 +321,8 @@ void DialogPrivate::updateMinimumWidth()
     repositionIfOffScreen();
     if (visualParent) {
         const QRect geom(q->popupPosition(visualParent, q->size()), q->size());
+        //FIXME: why resize here? sometimes setGeometry does *not* send resize events
+        q->resize(geom.size());
         q->adjustGeometry(geom);
     }
 
@@ -360,6 +362,8 @@ void DialogPrivate::updateMinimumHeight()
     repositionIfOffScreen();
     if (visualParent) {
         const QRect geom(q->popupPosition(visualParent, q->size()), q->size());
+        //FIXME: why resize here? sometimes setGeometry does *not* send resize events
+        q->resize(geom.size());
         q->adjustGeometry(geom);
     }
 
@@ -382,18 +386,21 @@ void DialogPrivate::updateMaximumWidth()
 
     syncBorders(q->geometry());
 
+    int minimumWidth = mainItemLayout->property("minimumWidth").toInt();
     int maximumWidth = mainItemLayout->property("maximumWidth").toInt();
     maximumWidth = maximumWidth ? maximumWidth : DIALOGSIZE_MAX;
     auto margin = frameSvgItem->margins();
 
     q->setMaximumWidth(maximumWidth + margin->left() + margin->right());
-    q->setWidth(qBound(q->minimumWidth(), q->width(), q->maximumWidth()));
+    q->setWidth(qBound((int)(minimumWidth + margin->top() + margin->bottom()), q->width(), q->maximumWidth()));
     mainItem->setWidth(q->width() - margin->left() - margin->right());
     frameSvgItem->setWidth(q->width());
 
     repositionIfOffScreen();
     if (visualParent) {
         const QRect geom(q->popupPosition(visualParent, q->size()), q->size());
+        //FIXME: why resize here? sometimes setGeometry does *not* send resize events
+        q->resize(geom.size());
         q->adjustGeometry(geom);
     }
 
@@ -416,12 +423,13 @@ void DialogPrivate::updateMaximumHeight()
 
     syncBorders(q->geometry());
 
+    int minimumHeight = mainItemLayout->property("minimumHeight").toInt();
     int maximumHeight = mainItemLayout->property("maximumHeight").toInt();
     maximumHeight = maximumHeight ? maximumHeight : DIALOGSIZE_MAX;
     auto margin = frameSvgItem->margins();
 
     q->setMaximumHeight(maximumHeight + margin->top() + margin->bottom());
-    q->setHeight(qBound(q->minimumHeight(), q->height(), q->maximumHeight()));
+    q->setHeight(qBound((int)(minimumHeight + margin->top() + margin->bottom()), q->height(), q->maximumHeight()));
 
     mainItem->setHeight(q->height() - margin->top() - margin->bottom());
     frameSvgItem->setHeight(q->height());
@@ -429,6 +437,8 @@ void DialogPrivate::updateMaximumHeight()
     repositionIfOffScreen();
     if (visualParent) {
         const QRect geom(q->popupPosition(visualParent, q->size()), q->size());
+        //FIXME: why resize here? sometimes setGeometry does *not* send resize events
+        q->resize(geom.size());
         q->adjustGeometry(geom);
     }
 
@@ -712,10 +722,13 @@ void Dialog::setMainItem(QQuickItem *mainItem)
             d->mainItemLayout = layout;
 
             if (layout) {
-                connect(layout, SIGNAL(minimumWidthChanged()), this, SLOT(updateMinimumWidth()));
-                connect(layout, SIGNAL(minimumHeightChanged()), this, SLOT(updateMinimumHeight()));
-                connect(layout, SIGNAL(maximumWidthChanged()), this, SLOT(updateMaximumWidth()));
-                connect(layout, SIGNAL(maximumHeightChanged()), this, SLOT(updateMaximumHeight()));
+                //Why queued connections?
+                //we need to be sure that the properties are
+                //already *all* updated when we call the management code
+                connect(layout, SIGNAL(minimumWidthChanged()), this, SLOT(updateMinimumWidth()), Qt::QueuedConnection);
+                connect(layout, SIGNAL(minimumHeightChanged()), this, SLOT(updateMinimumHeight()), Qt::QueuedConnection);
+                connect(layout, SIGNAL(maximumWidthChanged()), this, SLOT(updateMaximumWidth()), Qt::QueuedConnection);
+                connect(layout, SIGNAL(maximumHeightChanged()), this, SLOT(updateMaximumHeight()), Qt::QueuedConnection);
 
                 d->updateLayoutParameters();
             }
