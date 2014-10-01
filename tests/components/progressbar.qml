@@ -48,7 +48,7 @@ Rectangle {
 
         Column {
             Text {
-                text: "these main bars should look the same width"
+                text: "these main bars should look the same size"
             }
             PlasmaComponents.ProgressBar {
                 width:100
