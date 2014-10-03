@@ -634,15 +634,18 @@ void Dialog::setMainItem(QQuickItem *mainItem)
     if (d->mainItem != mainItem) {
         d->hintsCommitTimer.stop();
         if (d->mainItem) {
-            d->mainItem->setParentItem(0);
-            d->mainItem->setParent(parent());
+            if (d->mainItem->property("_plasma_oldParentItem").canConvert<QQuickItem *>()) {
+                d->mainItem->setParentItem(d->mainItem->property("_plasma_oldParentItem").value<QQuickItem *>());
+            } else {
+                d->mainItem->setParentItem(0);
+            }
         }
 
         d->mainItem = mainItem;
 
         if (mainItem) {
+            mainItem->setProperty("_plasma_oldParentItem", QVariant::fromValue(mainItem->parentItem()));
             mainItem->setParentItem(contentItem());
-            mainItem->setProperty("parent", QVariant::fromValue(contentItem()));
 
             connect(mainItem, SIGNAL(widthChanged()), this, SLOT(slotMainItemSizeChanged()));
             connect(mainItem, SIGNAL(heightChanged()), this, SLOT(slotMainItemSizeChanged()));
