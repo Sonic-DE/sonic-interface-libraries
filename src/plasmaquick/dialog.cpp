@@ -704,6 +704,10 @@ void Dialog::setVisualParent(QQuickItem *visualParent)
         return;
     }
 
+    if (d->visualParent) {
+        d->visualParent->removeEventFilter(this);
+    }
+
     d->visualParent = visualParent;
     emit visualParentChanged();
     if (visualParent) {
@@ -713,6 +717,8 @@ void Dialog::setVisualParent(QQuickItem *visualParent)
         if (d->mainItem) {
             d->syncToMainItemSize();
         }
+
+        visualParent->installEventFilter(this);
     }
 }
 
@@ -997,6 +1003,17 @@ bool Dialog::event(QEvent *event)
         KWindowSystem::setState(winId(), NET::SkipTaskbar | NET::SkipPager);
     }
     return retval;
+}
+
+bool Dialog::eventFilter(QObject *watched, QEvent *event)
+{
+    if (event->type() == QEvent::Resize || event->type() == QEvent::Move) {
+        if (isVisible()) {
+            d->syncToMainItemSize();
+        }
+    }
+
+    return QQuickWindow::eventFilter(watched, event);
 }
 
 void Dialog::hideEvent(QHideEvent *event)

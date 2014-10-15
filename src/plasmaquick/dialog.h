@@ -236,6 +236,7 @@ protected:
     virtual void showEvent(QShowEvent *event);
     virtual void hideEvent(QHideEvent *event);
     virtual bool event(QEvent *event);
+    virtual bool eventFilter(QObject *watched, QEvent *event);
 
 private:
     friend class DialogPrivate;
