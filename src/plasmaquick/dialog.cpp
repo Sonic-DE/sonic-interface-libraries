@@ -159,6 +159,10 @@ QRect DialogPrivate::availableScreenGeometryForPosition(const QPoint& pos) const
         }
     }
 
+    if (avail.isEmpty()) {
+        avail = q->screen()->availableGeometry();
+    }
+
     return avail;
 }
 
