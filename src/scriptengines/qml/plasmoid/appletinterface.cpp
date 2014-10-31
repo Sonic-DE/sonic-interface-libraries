@@ -77,6 +77,13 @@ AppletInterface::AppletInterface(DeclarativeAppletScript *script, const QVariant
     connect(applet(), &Plasma::Applet::destroyedChanged,
             this, [=] () {
                 setVisible(!applet()->destroyed());
+                //HACK: This is a workaround for making the panel containment
+                //of 5.1 work: if the applet is inside a container that has itself as applet
+                //property, unset it
+                // this hack has to be removed asap
+                if (parentItem() && parentItem()->property("applet").value<AppletInterface *>() == this) {
+                    parentItem()->setProperty("applet", 0);
+                }
             });
 
     connect(applet(), &Plasma::Applet::activated,
@@ -134,6 +141,13 @@ AppletInterface::AppletInterface(Plasma::Applet *a, const QVariantList &args, QQ
     connect(applet(), &Plasma::Applet::destroyedChanged,
             [=] () {
                 setVisible(!applet()->destroyed());
+                //HACK: This is a workaround for making the panel containment
+                //of 5.1 work: if the applet is inside a container that has itself as applet
+                //property, unset it
+                // this hack has to be removed asap
+                if (parentItem() && parentItem()->property("applet").value<AppletInterface *>() == this) {
+                    parentItem()->setProperty("applet", 0);
+                }
             });
 
     connect(appletScript(), &DeclarativeAppletScript::formFactorChanged,
