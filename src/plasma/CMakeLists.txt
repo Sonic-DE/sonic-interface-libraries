@@ -66,8 +66,6 @@ set(Plasma_LIB_SRCS
 #packages
     package.cpp
     packagestructure.cpp
-    private/packagejob.cpp
-    private/packagejobthread.cpp
     private/packages.cpp
 
 #graphics
@@ -126,6 +124,7 @@ PRIVATE
     KF5::XmlGui   #KActionCollection
     KF5::GlobalAccel #Applet::setGlobalShortcut
     KF5::Notifications
+    KF5::Package
     ${PLASMA_EXTRA_LIBS}
 )
 
