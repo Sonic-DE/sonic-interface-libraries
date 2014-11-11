@@ -19,47 +19,118 @@
 
 #include "packagestructure.h"
 #include <QDebug>
-#include <private/packagejob_p.h>
 #include "private/package_p.h"
+#include "private/packagestructure_p.h"
+
+#include <kpackage/packageloader.h>
+#include <kpackage/packagestructure.h>
+
+#include <QVariantMap>
 
 namespace Plasma
 {
 
+QHash<KPackage::Package *, Plasma::Package *> PackageStructureWrapper::s_packagesMap;
+
+PackageStructureWrapper::PackageStructureWrapper(Plasma::PackageStructure *structure, QObject *parent, const QVariantList &args)
+    : KPackage::PackageStructure(parent, args),
+      m_struct(structure)
+{
+}
+
+PackageStructureWrapper::~PackageStructureWrapper()
+{
+}
+
+void PackageStructureWrapper::initPackage(KPackage::Package *package)
+{
+
+    if (!m_struct || !s_packagesMap.contains(package)) {
+        return;
+    }
+
+    m_struct->initPackage(s_packagesMap.value(package));
+}
+
+void PackageStructureWrapper::pathChanged(KPackage::Package *package)
+{
+    if (!m_struct || !s_packagesMap.contains(package)) {
+        return;
+    }
+
+    m_struct->pathChanged(s_packagesMap.value(package));
+}
+
+KJob *PackageStructureWrapper::install(KPackage::Package *package, const QString &archivePath, const QString &packageRoot)
+{
+    if (!m_struct || !s_packagesMap.contains(package)) {
+        return 0;
+    }
+
+    return m_struct->install(s_packagesMap.value(package), archivePath, packageRoot);
+}
+
+KJob *PackageStructureWrapper::uninstall(KPackage::Package *package, const QString &packageRoot)
+{
+    if (!m_struct || !s_packagesMap.contains(package)) {
+        return 0;
+    }
+
+    return m_struct->uninstall(s_packagesMap.value(package), packageRoot);
+}
+
+
+
+
 PackageStructure::PackageStructure(QObject *parent, const QVariantList &args)
     : QObject(parent),
-      d(0)
+      d(new PackageStructurePrivate)
 {
+    if (!args.isEmpty() && args.first().canConvert<QString>()) {
+        d->internalStructure = KPackage::PackageLoader::self()->loadPackageStructure(args.first().toString());
+    }
+
     Q_UNUSED(args)
 }
 
 PackageStructure::~PackageStructure()
 {
+    delete d;
 }
 
 void PackageStructure::initPackage(Package *package)
 {
-    Q_UNUSED(package)
+    if (d->internalStructure && !qobject_cast<PackageStructureWrapper *>(d->internalStructure)) {
+        d->internalStructure->initPackage(package->d->internalPackage);
+    }
 }
 
 void PackageStructure::pathChanged(Package *package)
 {
-    Q_UNUSED(package)
+   if (d->internalStructure && !qobject_cast<PackageStructureWrapper *>(d->internalStructure)) {
+       d->internalStructure->pathChanged(package->d->internalPackage);
+    }
 }
 
 KJob *PackageStructure::install(Package *package, const QString &archivePath, const QString &packageRoot)
 {
-    PackageJob *j = new PackageJob(package->servicePrefix(), this);
-    j->install(archivePath, packageRoot);
-    return j;
+    if (d->internalStructure && !qobject_cast<PackageStructureWrapper *>(d->internalStructure)) {
+        return d->internalStructure->install(package->d->internalPackage, archivePath, packageRoot);
+    }
+
+    return 0;
 }
 
 KJob *PackageStructure::uninstall(Package *package, const QString &packageRoot)
 {
-    PackageJob *j = new PackageJob(package->servicePrefix(), this);
-    j->uninstall(packageRoot + package->metadata().pluginName());
-    return j;
+    if (d->internalStructure && !qobject_cast<PackageStructureWrapper *>(d->internalStructure)) {
+        return d->internalStructure->uninstall(package->d->internalPackage, packageRoot);
+    }
+
+    return 0;
 }
 
 }
 
 #include "moc_packagestructure.cpp"
+#include "private/moc_packagestructure_p.cpp"
