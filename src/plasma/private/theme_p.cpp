@@ -66,7 +66,10 @@ ThemePrivate::ThemePrivate(QObject *parent)
       useGlobal(true),
       hasWallpapers(false),
       fixedName(false),
-      backgroundContrastEnabled(true)
+      backgroundContrastEnabled(true),
+      apiMajor(1),
+      apiMinor(0),
+      apiRevision(0)
 {
     ThemeConfig config;
     cacheTheme = config.cacheTheme();
@@ -532,6 +535,13 @@ QColor ThemePrivate::color(Theme::ColorRole role, Theme::ColorGroup group) const
 {
     const KColorScheme *scheme = 0;
 
+    //Before 5.0 Plasma theme really only used Normal and Button
+    //many old themes are built on this assumption and will break
+    //otherwise
+    if (apiMajor < 5 && group != Theme::NormalColorGroup) {
+        group = Theme::ButtonColorGroup;
+    }
+
     switch (group) {
     case Theme::ButtonColorGroup: {
         scheme = &buttonColorScheme;
@@ -795,6 +805,22 @@ void ThemePrivate::setThemeName(const QString &tempThemeName, bool writeSettings
             QString metadataPath(QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1Literal(PLASMA_RELATIVE_DATA_INSTALL_DIR "/desktoptheme/") % theme % QLatin1Literal("/metadata.desktop")));
             KConfig metadata(metadataPath);
             processWallpaperSettings(&metadata);
+        }
+
+        //Check for what Plasma version the theme has been done
+        //There are some behavioral differences between KDE4 Plasma and Plasma 5
+        cg = KConfigGroup(&metadata, "Desktop Entry");
+        const QString apiVersion = cg.readEntry("X-Plasma-API", QString());
+        if (apiVersion.isEmpty()) {
+            apiMajor = 1;
+            apiMinor = 0;
+            apiRevision = 0;
+        } else {
+            QRegExp exp("(\\d+)\\.{0,1}(\\d*)\\.{0,1}(\\d*)");
+            exp.indexIn(apiVersion);
+            apiMajor = exp.cap(1).toInt();
+            apiMinor = exp.cap(2).toInt();
+            apiRevision = exp.cap(3).toInt();
         }
     }
 
