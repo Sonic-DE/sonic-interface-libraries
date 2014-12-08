@@ -116,6 +116,11 @@ class ToolTip : public QQuickItem
      */
     Q_PROPERTY(bool interactive MEMBER m_interactive WRITE setInteractive NOTIFY interactiveChanged)
 
+    /**
+     * this property contains if tooltip is globally enabled or not
+     */
+    Q_PROPERTY(bool tooltipsEnabledGlobally MEMBER m_tooltipsEnabledGlobally NOTIFY tooltipsEnabledGloballyChanged)
+
 public:
 /// @cond INTERNAL_DOCS
     ToolTip(QQuickItem *parent = 0);
@@ -175,6 +180,7 @@ Q_SIGNALS:
     void locationChanged();
     void activeChanged();
     void interactiveChanged();
+    void tooltipsEnabledGloballyChanged();
 
 private Q_SLOTS:
     void settingsChanged();
