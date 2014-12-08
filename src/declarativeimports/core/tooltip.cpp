@@ -75,7 +75,12 @@ void ToolTip::settingsChanged()
     KConfigGroup cg(&config, "PlasmaToolTips");
 
     m_interval = cg.readEntry("Delay", 700);
-    m_tooltipsEnabledGlobally = (m_interval > 0);
+    bool enabled = (m_interval > 0);
+
+    if (m_tooltipsEnabledGlobally != enabled) {
+        m_tooltipsEnabledGlobally = enabled;
+        emit tooltipsEnabledGloballyChanged();
+    }
 }
 
 QQuickItem *ToolTip::mainItem() const
