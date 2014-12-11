@@ -1,0 +1,8 @@
+Verified+1: KDE Zuul CI
+Code-Review+1: Bhushan Shah <bhush94@gmail.com>
+Code-Review+2: Marco Martin <notmart@gmail.com>
+Submitted-by: David Edmundson <david@davidedmundson.co.uk>
+Submitted-at: Thu, 11 Dec 2014 12:16:51 +0100
+Reviewed-on: https://gerrit.vesnicky.cesnet.cz/r/217
+Project: plasma-framework
+Branch: refs/heads/master
