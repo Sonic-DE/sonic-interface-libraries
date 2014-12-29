@@ -1,0 +1,7 @@
+Verified+1: KDE Zuul CI
+Code-Review+2: David Edmundson <david@davidedmundson.co.uk>
+Submitted-by: Marco Martin <notmart@gmail.com>
+Submitted-at: Mon, 29 Dec 2014 14:20:43 +0100
+Reviewed-on: https://gerrit.vesnicky.cesnet.cz/r/260
+Project: plasma-framework
+Branch: refs/heads/master
