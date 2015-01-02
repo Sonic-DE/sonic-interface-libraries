@@ -113,6 +113,7 @@ public:
         ControlAction = 200,  /** Generic control, similar to ConfigureAction TODO: better doc */
         MiscAction = 300,  /** A type of action that doesn't fit in the oher categories */
         DestructiveAction = 400,  /** A dangerous action, such as deletion of objects, plasmoids and files. They are intended to be shown separed from other actions */
+        HiddenAction = 500, /** This can be used to have hidden from view but enabled action */
         UserAction = DestructiveAction + 1000 /** If new types are needed in a C++ implementation, define them as ids more than  UserAction*/
     };
     Q_ENUMS(ActionType)
