@@ -1,0 +1,7 @@
+Code-Review+2: Aleix Pol Gonzalez <aleixpol@kde.org>
+Verified+1: KDE Zuul CI
+Submitted-by: Jan Kundrát <jkt@kde.org>
+Submitted-at: Thu, 15 Jan 2015 13:47:16 +0100
+Reviewed-on: https://gerrit.vesnicky.cesnet.cz/r/318
+Project: plasma-framework
+Branch: refs/heads/master
