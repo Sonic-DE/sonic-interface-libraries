@@ -251,20 +251,16 @@ QSGNode* IconItem::updatePaintNode(QSGNode *oldNode, UpdatePaintNodeData *update
             QSGTexture *source = window()->createTextureFromImage(m_iconPixmap.toImage());
             QSGTexture *target = window()->createTextureFromImage(m_oldIconPixmap.toImage());
             animatingNode = new FadingNode(source, target);
-            m_sizeChanged = true;
             m_textureChanged = false;
         }
 
         animatingNode->setProgress(m_animValue);
 
-        if (m_sizeChanged) {
-            const int iconSize = Units::roundToIconSize(qMin(boundingRect().size().width(), boundingRect().size().height()));
-            const QRect destRect(QPointF(boundingRect().center() - QPointF(iconSize/2, iconSize/2)).toPoint(),
-                                 QSize(iconSize, iconSize));
+        const int iconSize = Units::roundToIconSize(qMin(boundingRect().size().width(), boundingRect().size().height()));
+        const QRect destRect(QPointF(boundingRect().center() - QPointF(iconSize/2, iconSize/2)).toPoint(),
+                                QSize(iconSize, iconSize));
 
-            animatingNode->setRect(destRect);
-            m_sizeChanged = false;
-        }
+        animatingNode->setRect(destRect);
 
         return animatingNode;
     } else {
@@ -274,18 +270,15 @@ QSGNode* IconItem::updatePaintNode(QSGNode *oldNode, UpdatePaintNodeData *update
             delete oldNode;
             textureNode = new ManagedTextureNode;
             textureNode->setTexture(QSharedPointer<QSGTexture>(window()->createTextureFromImage(m_iconPixmap.toImage())));
-            m_sizeChanged = true;
             m_textureChanged = false;
         }
 
-        if (m_sizeChanged) {
-            const int iconSize = Units::roundToIconSize(qMin(boundingRect().size().width(), boundingRect().size().height()));
-            const QRect destRect(QPointF(boundingRect().center() - QPointF(iconSize/2, iconSize/2)).toPoint(),
-                                 QSize(iconSize, iconSize));
+        const int iconSize = Units::roundToIconSize(qMin(boundingRect().size().width(), boundingRect().size().height()));
+        const QRect destRect(QPointF(boundingRect().center() - QPointF(iconSize/2, iconSize/2)).toPoint(),
+                                QSize(iconSize, iconSize));
 
-            textureNode->setRect(destRect);
-            m_sizeChanged = false;
-        }
+        textureNode->setRect(destRect);
+
         return textureNode;
     }
 }
@@ -354,6 +347,7 @@ void IconItem::loadPixmap()
         m_animation->stop();
     }
     update();
+    m_sizeChanged = false;
 }
 
 void IconItem::geometryChanged(const QRectF &newGeometry,
