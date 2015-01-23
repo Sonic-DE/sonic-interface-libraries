@@ -60,6 +60,7 @@ AppletInterface::AppletInterface(DeclarativeAppletScript *script, const QVariant
       m_backgroundHints(Plasma::Types::StandardBackground),
       m_busy(false),
       m_hideOnDeactivate(true),
+      m_oldKeyboardShortcut(0),
       m_positionBeforeRemoval(QPointF(-1, -1))
 {
     qmlRegisterType<QAction>();
@@ -597,6 +598,49 @@ void AppletInterface::executeAction(const QString &name)
             QMetaObject::invokeMethod(qmlObject()->rootObject(), "actionTriggered", Qt::DirectConnection, Q_ARG(QVariant, name));
         }
     }
+}
+
+bool AppletInterface::event(QEvent *event)
+{
+    // QAction keyboard shortcuts cannot work with QML2 (and probably newver will
+    // since in Qt qtquick and qwidgets cannot depend from each other in any way)
+    // so do a simple keyboard shortcut matching here
+    if (event->type() == QEvent::KeyPress) {
+        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+        QKeySequence seq(ke->key()|ke->modifiers());
+
+        for (auto a : applet()->actions()->actions()) {
+
+            if (a->shortcut().isEmpty()) {
+                continue;
+            }
+
+            //this will happen on a normal, non emacs shortcut
+            if (seq.matches(a->shortcut()) == QKeySequence::ExactMatch) {
+                event->accept();
+                a->trigger();
+                m_oldKeyboardShortcut = 0;
+                return true;
+
+            //first part of an emacs style shortcut?
+            } else if (seq.matches(a->shortcut()) == QKeySequence::PartialMatch) {
+                m_oldKeyboardShortcut = ke->key()|ke->modifiers();
+
+            //no match at all, but it can be the second part of an emacs style shortcut
+            } else {
+                QKeySequence seq(m_oldKeyboardShortcut, ke->key()|ke->modifiers());
+
+                if (seq.matches(a->shortcut()) == QKeySequence::ExactMatch) {
+                    event->accept();
+                    a->trigger();
+                    m_oldKeyboardShortcut = 0;
+                    return true;
+                }
+            }
+        }
+    }
+
+    return AppletQuickItem::event(event);
 }
 
 bool AppletInterface::eventFilter(QObject *watched, QEvent *event)
