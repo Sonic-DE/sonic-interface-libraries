@@ -83,6 +83,15 @@ class ToolTip : public QQuickItem
     Q_PROPERTY(QString subText READ subText WRITE setSubText NOTIFY subTextChanged)
 
     /**
+     * how to handle the text format of the tooltip:
+     * * Text.AutoText (default)
+     * * Text.PlainText
+     * * Text.StyledText
+     * * Text.RichText
+     */
+    Q_PROPERTY(int textFormat READ textFormat WRITE setTextFormat NOTIFY textFormatChanged)
+
+    /**
      * An icon for this tooltip, accepted values are an icon name, a QIcon, QImage or QPixmap
      */
     Q_PROPERTY(QVariant icon READ icon WRITE setIcon NOTIFY iconChanged)
@@ -131,6 +140,9 @@ public:
     QString subText() const;
     void setSubText(const QString &subText);
 
+    int textFormat() const;
+    void setTextFormat(int format);
+
     QVariant icon() const;
     void setIcon(const QVariant &icon);
 
@@ -168,6 +180,7 @@ Q_SIGNALS:
     void visibleChanged();
     void mainTextChanged();
     void subTextChanged();
+    void textFormatChanged();
     void iconChanged();
     void imageChanged();
     void containsMouseChanged();
@@ -187,6 +200,7 @@ private:
     QTimer *m_showTimer;
     QString m_mainText;
     QString m_subText;
+    int m_textFormat;
     QVariant m_image;
     QVariant m_icon;
     bool m_active;

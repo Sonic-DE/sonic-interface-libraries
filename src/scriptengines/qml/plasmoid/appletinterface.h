@@ -91,6 +91,15 @@ class AppletInterface : public PlasmaQuick::AppletQuickItem
     Q_PROPERTY(QString toolTipSubText READ toolTipSubText WRITE setToolTipSubText NOTIFY toolTipSubTextChanged)
 
     /**
+     * how to handle the text format of the tooltip:
+     * * Text.AutoText (default)
+     * * Text.PlainText
+     * * Text.StyledText
+     * * Text.RichText
+     */
+    Q_PROPERTY(int toolTipTextFormat READ toolTipTextFormat WRITE setToolTipTextFormat NOTIFY toolTipTextFormatChanged)
+
+    /**
      * Icon to represent the plasmoid
      */
     Q_PROPERTY(QString icon READ icon WRITE setIcon NOTIFY iconChanged)
@@ -267,6 +276,9 @@ public:
     QString toolTipSubText() const;
     void setToolTipSubText(const QString &text);
 
+    int toolTipTextFormat() const;
+    void setToolTipTextFormat(int format);
+
     uint id() const;
 
     Plasma::Types::FormFactor formFactor() const;
@@ -332,6 +344,7 @@ Q_SIGNALS:
     void titleChanged();
     void toolTipMainTextChanged();
     void toolTipSubTextChanged();
+    void toolTipTextFormatChanged();
     void formFactorChanged();
     void locationChanged();
     void contextChanged();
@@ -369,6 +382,7 @@ private:
 
     QString m_toolTipMainText;
     QString m_toolTipSubText;
+    int m_toolTipTextFormat;
     QVariantList m_args;
     Plasma::Types::BackgroundHints m_backgroundHints;
     bool m_busy : 1;
