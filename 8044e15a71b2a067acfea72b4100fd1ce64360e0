@@ -1,0 +1,7 @@
+Verified+1: KDE Zuul CI
+Code-Review+2: Martin Gräßlin <mgraesslin@kde.org>
+Submitted-by: Marco Martin <notmart@gmail.com>
+Submitted-at: Wed, 28 Jan 2015 10:40:39 +0100
+Reviewed-on: https://gerrit.vesnicky.cesnet.cz/r/345
+Project: plasma-framework
+Branch: refs/heads/master
