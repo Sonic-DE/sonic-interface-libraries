@@ -88,6 +88,9 @@ bool EffectWatcher::isEffectActive() const
         return false;
     }
     xcb_connection_t *c = QX11Info::connection();
+    if (!c) {
+        return false;
+    }
     xcb_list_properties_cookie_t propsCookie = xcb_list_properties_unchecked(c, QX11Info::appRootWindow());
     QScopedPointer<xcb_list_properties_reply_t, QScopedPointerPodDeleter> props(xcb_list_properties_reply(c, propsCookie, nullptr));
     if (props.isNull()) {
