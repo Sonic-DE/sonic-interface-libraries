@@ -693,6 +693,9 @@ QQuickItem *Dialog::mainItem() const
 void Dialog::setMainItem(QQuickItem *mainItem)
 {
     if (d->mainItem != mainItem) {
+        disconnect(d->mainItem, 0, this, 0);
+        disconnect(d->mainItemLayout, 0, this, 0);
+
         d->hintsCommitTimer.stop();
         if (d->mainItem) {
             d->mainItem->setVisible(false);
