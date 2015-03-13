@@ -692,64 +692,66 @@ QQuickItem *Dialog::mainItem() const
 
 void Dialog::setMainItem(QQuickItem *mainItem)
 {
-    if (d->mainItem != mainItem) {
-        disconnect(d->mainItem, 0, this, 0);
-        disconnect(d->mainItemLayout, 0, this, 0);
-
-        d->hintsCommitTimer.stop();
-        if (d->mainItem) {
-            d->mainItem->setVisible(false);
-        }
-
-        d->mainItem = mainItem;
-
-        if (mainItem) {
-            d->mainItem->setVisible(isVisible());
-            mainItem->setParentItem(contentItem());
-
-            connect(mainItem, SIGNAL(widthChanged()), this, SLOT(slotMainItemSizeChanged()));
-            connect(mainItem, SIGNAL(heightChanged()), this, SLOT(slotMainItemSizeChanged()));
-            d->slotMainItemSizeChanged();
-
-            //Extract the representation's Layout, if any
-            QObject *layout = 0;
-            setMinimumSize(QSize(0, 0));
-            setMaximumSize(QSize(DIALOGSIZE_MAX, DIALOGSIZE_MAX));
-
-            //Search a child that has the needed Layout properties
-            //HACK: here we are not type safe, but is the only way to access to a pointer of Layout
-            foreach (QObject *child, mainItem->children()) {
-                //find for the needed property of Layout: minimum/maximum/preferred sizes and fillWidth/fillHeight
-                if (child->property("minimumWidth").isValid() && child->property("minimumHeight").isValid() &&
-                        child->property("preferredWidth").isValid() && child->property("preferredHeight").isValid() &&
-                        child->property("maximumWidth").isValid() && child->property("maximumHeight").isValid() &&
-                        child->property("fillWidth").isValid() && child->property("fillHeight").isValid()
-                   ) {
-                    layout = child;
-                }
-            }
-            if (d->mainItemLayout) {
-                disconnect(d->mainItemLayout, 0, this, 0);
-            }
-            d->mainItemLayout = layout;
-
-            if (layout) {
-                //Why queued connections?
-                //we need to be sure that the properties are
-                //already *all* updated when we call the management code
-                connect(layout, SIGNAL(minimumWidthChanged()), this, SLOT(updateMinimumWidth()));
-                connect(layout, SIGNAL(minimumHeightChanged()), this, SLOT(updateMinimumHeight()));
-                connect(layout, SIGNAL(maximumWidthChanged()), this, SLOT(updateMaximumWidth()));
-                connect(layout, SIGNAL(maximumHeightChanged()), this, SLOT(updateMaximumHeight()));
-
-                d->updateLayoutParameters();
-            }
-
-        }
-
-        //if this is called in Component.onCompleted we have to wait a loop the item is added to a scene
-        emit mainItemChanged();
+    if (d->mainItem == mainItem) {
+        return;
     }
+    
+    disconnect(d->mainItem, 0, this, 0);
+    disconnect(d->mainItemLayout, 0, this, 0);
+
+    d->hintsCommitTimer.stop();
+    if (d->mainItem) {
+        d->mainItem->setVisible(false);
+    }
+
+    d->mainItem = mainItem;
+
+    if (mainItem) {
+        d->mainItem->setVisible(isVisible());
+        mainItem->setParentItem(contentItem());
+
+        connect(mainItem, SIGNAL(widthChanged()), this, SLOT(slotMainItemSizeChanged()));
+        connect(mainItem, SIGNAL(heightChanged()), this, SLOT(slotMainItemSizeChanged()));
+        d->slotMainItemSizeChanged();
+
+        //Extract the representation's Layout, if any
+        QObject *layout = 0;
+        setMinimumSize(QSize(0, 0));
+        setMaximumSize(QSize(DIALOGSIZE_MAX, DIALOGSIZE_MAX));
+
+        //Search a child that has the needed Layout properties
+        //HACK: here we are not type safe, but is the only way to access to a pointer of Layout
+        foreach (QObject *child, mainItem->children()) {
+            //find for the needed property of Layout: minimum/maximum/preferred sizes and fillWidth/fillHeight
+            if (child->property("minimumWidth").isValid() && child->property("minimumHeight").isValid() &&
+                    child->property("preferredWidth").isValid() && child->property("preferredHeight").isValid() &&
+                    child->property("maximumWidth").isValid() && child->property("maximumHeight").isValid() &&
+                    child->property("fillWidth").isValid() && child->property("fillHeight").isValid()
+                ) {
+                layout = child;
+            }
+        }
+        if (d->mainItemLayout) {
+            disconnect(d->mainItemLayout, 0, this, 0);
+        }
+        d->mainItemLayout = layout;
+
+        if (layout) {
+            //Why queued connections?
+            //we need to be sure that the properties are
+            //already *all* updated when we call the management code
+            connect(layout, SIGNAL(minimumWidthChanged()), this, SLOT(updateMinimumWidth()));
+            connect(layout, SIGNAL(minimumHeightChanged()), this, SLOT(updateMinimumHeight()));
+            connect(layout, SIGNAL(maximumWidthChanged()), this, SLOT(updateMaximumWidth()));
+            connect(layout, SIGNAL(maximumHeightChanged()), this, SLOT(updateMaximumHeight()));
+
+            d->updateLayoutParameters();
+        }
+
+    }
+
+    //if this is called in Component.onCompleted we have to wait a loop the item is added to a scene
+    emit mainItemChanged();
 }
 
 void DialogPrivate::slotMainItemSizeChanged()
