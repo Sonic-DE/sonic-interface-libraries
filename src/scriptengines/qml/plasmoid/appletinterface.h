@@ -148,6 +148,11 @@ class AppletInterface : public PlasmaQuick::AppletQuickItem
     Q_PROPERTY(Plasma::Types::BackgroundHints backgroundHints WRITE setBackgroundHints READ backgroundHints NOTIFY backgroundHintsChanged)
 
     /**
+     * How the applet wants its background to be drawn. The containment may chose to ignore this hint.
+     */
+    Q_PROPERTY(Plasma::Types::BackgroundHints effectiveBackgroundHints WRITE setEffectiveBackgroundHints READ effectiveBackgroundHints NOTIFY effectiveBackgroundHintsChanged)
+
+    /**
      * Whether the Corona is immutable. The plasmoid implementation should avoid allowing "dangerous" modifications from the user when in an immutable mode
      *
      * This is true when immutability is not Mutable
@@ -368,6 +373,9 @@ public:
     Plasma::Types::BackgroundHints backgroundHints() const;
     void setBackgroundHints(Plasma::Types::BackgroundHints hint);
 
+    Plasma::Types::BackgroundHints effectiveBackgroundHints() const;
+    void setEffectiveBackgroundHints(Plasma::Types::BackgroundHints hint);
+
     void setAssociatedApplication(const QString &string);
     QString associatedApplication() const;
 
@@ -436,6 +444,7 @@ Q_SIGNALS:
     void immutabilityChanged();
     void statusChanged();
     void backgroundHintsChanged();
+    void effectiveBackgroundHintsChanged();
     void busyChanged();
     void screenChanged();
     void screenGeometryChanged();
@@ -486,6 +495,8 @@ private:
     QPointer<QQuickItem> m_toolTipItem;
     QVariantList m_args;
     Plasma::Types::BackgroundHints m_backgroundHints;
+    Plasma::Types::BackgroundHints m_effectiveBackgroundHints;
+    bool m_effectiveBackgroundHintsInitialized = false;
     bool m_hideOnDeactivate : 1;
     bool m_loading = false;
     //this is used to build an emacs style shortcut

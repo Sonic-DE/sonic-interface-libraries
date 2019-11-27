@@ -54,6 +54,7 @@ AppletInterface::AppletInterface(DeclarativeAppletScript *script, const QVariant
       m_toolTipItem(nullptr),
       m_args(args),
       m_backgroundHints(Plasma::Types::StandardBackground),
+      m_effectiveBackgroundHints(Plasma::Types::StandardBackground),
       m_hideOnDeactivate(true),
       m_oldKeyboardShortcut(0),
       m_dummyNativeInterface(nullptr),
@@ -192,6 +193,15 @@ void AppletInterface::init()
         emit externalData(QString(), m_args.first());
     } else if (!m_args.isEmpty()) {
         emit externalData(QString(), m_args);
+    }
+
+    QByteArray hintsString = applet()->config().readEntry("EffectiveBackgroundHints", QString()).toUtf8();
+    QMetaEnum hintEnum = QMetaEnum::fromType<Plasma::Types::BackgroundHints>();
+    int value = hintEnum.keyToValue(hintsString.constData());
+    if (value > 0) {
+        m_effectiveBackgroundHints = Plasma::Types::BackgroundHints(value);
+        m_effectiveBackgroundHintsInitialized = true;
+        emit effectiveBackgroundHintsChanged();
     }
 }
 
@@ -397,6 +407,27 @@ void AppletInterface::setBackgroundHints(Plasma::Types::BackgroundHints hint)
 
     m_backgroundHints = hint;
     emit backgroundHintsChanged();
+}
+
+Plasma::Types::BackgroundHints AppletInterface::effectiveBackgroundHints() const
+{
+    return m_effectiveBackgroundHintsInitialized ? m_effectiveBackgroundHints : m_backgroundHints;
+}
+
+void AppletInterface::setEffectiveBackgroundHints(Plasma::Types::BackgroundHints hint)
+{
+    if (m_effectiveBackgroundHints == hint && m_effectiveBackgroundHintsInitialized) {
+        return;
+    }
+
+    m_effectiveBackgroundHints = hint;
+    m_effectiveBackgroundHintsInitialized = true;
+    QMetaEnum hintEnum = QMetaEnum::fromType<Plasma::Types::BackgroundHints>();
+    applet()->config().writeEntry("EffectiveBackgroundHints", hintEnum.valueToKey(m_effectiveBackgroundHints));
+    if (applet()->containment() && applet()->containment()->corona()) {
+        applet()->containment()->corona()->requestConfigSync();
+    }
+    emit effectiveBackgroundHintsChanged();
 }
 
 void AppletInterface::setConfigurationRequired(bool needsConfiguring, const QString &reason)
