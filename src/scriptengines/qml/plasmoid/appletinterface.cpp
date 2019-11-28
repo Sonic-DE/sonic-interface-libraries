@@ -407,16 +407,25 @@ void AppletInterface::setBackgroundHints(Plasma::Types::BackgroundHints hint)
 
     m_backgroundHints = hint;
     emit backgroundHintsChanged();
+    if (!m_effectiveBackgroundHintsInitialized || (m_backgroundHints & Plasma::Types::ImmutableBackground)) {
+        emit effectiveBackgroundHintsChanged();
+    }
 }
 
 Plasma::Types::BackgroundHints AppletInterface::effectiveBackgroundHints() const
 {
-    return m_effectiveBackgroundHintsInitialized ? m_effectiveBackgroundHints : m_backgroundHints;
+    if (m_effectiveBackgroundHintsInitialized
+        && !(m_backgroundHints & Plasma::Types::ImmutableBackground)) {
+        return m_effectiveBackgroundHints;
+    } else {
+        return m_backgroundHints;
+    }
 }
 
 void AppletInterface::setEffectiveBackgroundHints(Plasma::Types::BackgroundHints hint)
 {
-    if (m_effectiveBackgroundHints == hint && m_effectiveBackgroundHintsInitialized) {
+    if ((m_effectiveBackgroundHints == hint && m_effectiveBackgroundHintsInitialized)
+        || (m_backgroundHints & Plasma::Types::ImmutableBackground)) {
         return;
     }
 
