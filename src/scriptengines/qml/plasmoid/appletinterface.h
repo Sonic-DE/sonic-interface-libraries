@@ -148,7 +148,7 @@ class AppletInterface : public PlasmaQuick::AppletQuickItem
     Q_PROPERTY(Plasma::Types::BackgroundHints backgroundHints WRITE setBackgroundHints READ backgroundHints NOTIFY backgroundHintsChanged)
 
     /**
-     * How the applet wants its background to be drawn. The containment may chose to ignore this hint.
+     * The containment (and/or the user) may decide to use another kind of background instead (if supported by the applet)
      */
     Q_PROPERTY(Plasma::Types::BackgroundHints effectiveBackgroundHints WRITE setEffectiveBackgroundHints READ effectiveBackgroundHints NOTIFY effectiveBackgroundHintsChanged)
 
