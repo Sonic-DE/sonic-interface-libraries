@@ -113,11 +113,12 @@ QUrl PackageUrlInterceptor::intercept(const QUrl &path, QQmlAbstractUrlIntercept
     }
     const QString prefix = QString::fromUtf8(prefixForType(type, urlPath));
     // TODO KF6: Kill this hack
+    const QLatin1String marker("/ui/");
     QString plainPath = path.toString();
-    const int index = plainPath.indexOf(QLatin1String("/ui/"));
+    const int index = plainPath.indexOf(marker);
     if (index != -1) {
-        plainPath = plainPath.midRef(0, index)
-                    + QLatin1Char('/') + prefix + QLatin1Char('/') + plainPath.midRef(index + 4);
+        plainPath = plainPath.leftRef(index)
+                    + QLatin1Char('/') + prefix + QLatin1Char('/') + plainPath.midRef(index + marker.size());
         //search it in a resource or as a file on disk
         if (!(plainPath.contains(QLatin1String("qrc")) && QFile::exists(QLatin1Char(':') + plainPath))
             && !QFile::exists(plainPath)) {
