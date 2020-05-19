@@ -119,15 +119,18 @@ QUrl PackageUrlInterceptor::intercept(const QUrl &path, QQmlAbstractUrlIntercept
     if (index != -1) {
         plainPath = plainPath.leftRef(index)
                     + QLatin1Char('/') + prefix + QLatin1Char('/') + plainPath.midRef(index + marker.size());
+
+        const QUrl url = QUrl(plainPath);
+        const QString newPath = url.path();
         //search it in a resource or as a file on disk
-        if (!(plainPath.contains(QLatin1String("qrc")) && QFile::exists(QLatin1Char(':') + plainPath))
-            && !QFile::exists(plainPath)) {
+        if (!(plainPath.contains(QLatin1String("qrc")) && QFile::exists(QLatin1Char(':') + newPath))
+            && !QFile::exists(newPath)) {
             return d->selector->select(path);
         }
         qWarning() <<"Warning: all files used by qml by the plasmoid should be in ui/. The file in the path"
                    << plainPath << "was expected at" << path;
         // This deprecated code path doesn't support selectors
-        return QUrl(plainPath);
+        return url;
     }
     return d->selector->select(path);
 }
