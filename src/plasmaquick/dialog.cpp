@@ -760,7 +760,7 @@ void DialogPrivate::applyType()
             KWindowSystem::setType(q->winId(), static_cast<NET::WindowType>(type));
         }
     } else {
-        q->setFlags(Qt::FramelessWindowHint | q->flags());
+        q->setFlags(Qt::FramelessWindowHint | Qt::Dialog | q->flags());
     }
 
     //an OSD can't be a Dialog, as qt xcb would attempt to set a transient parent for it
