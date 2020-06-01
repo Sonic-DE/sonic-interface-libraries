@@ -760,7 +760,7 @@ void DialogPrivate::applyType()
             KWindowSystem::setType(q->winId(), static_cast<NET::WindowType>(type));
         }
     } else {
-        q->setFlags(Qt::FramelessWindowHint | Qt::Dialog | q->flags());
+        q->setFlags(Qt::FramelessWindowHint | q->flags());
     }
 
     //an OSD can't be a Dialog, as qt xcb would attempt to set a transient parent for it
@@ -1095,7 +1095,10 @@ QObject *Dialog::margins() const
 
 void Dialog::setFramelessFlags(Qt::WindowFlags flags)
 {
-    setFlags(Qt::FramelessWindowHint | flags);
+    flags |= Qt::FramelessWindowHint;
+    if (d->type == Dialog::Normal)
+        flags |= Qt::Dialog;
+    setFlags(flags);
     d->applyType();
     emit flagsChanged();
 }
