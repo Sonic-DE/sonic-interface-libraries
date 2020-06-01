@@ -1095,10 +1095,9 @@ QObject *Dialog::margins() const
 
 void Dialog::setFramelessFlags(Qt::WindowFlags flags)
 {
-    flags |= Qt::FramelessWindowHint;
     if (d->type == Dialog::Normal)
         flags |= Qt::Dialog;
-    setFlags(flags);
+    setFlags(Qt::FramelessWindowHint | flags);
     d->applyType();
     emit flagsChanged();
 }
