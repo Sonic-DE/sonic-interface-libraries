@@ -133,9 +133,8 @@ PluginLoader::PluginLoader()
 
 PluginLoader::~PluginLoader()
 {
-    typedef QPointer<PackageStructure> pswp;
-    for (pswp wp : qAsConst(d->structures)) {
-        delete wp.data();
+    for (const auto &wp : qAsConst(d->structures)) {
+        delete wp;
     }
     delete d;
 }
