@@ -98,16 +98,18 @@ void CoreBindingsPlugin::registerTypes(const char *uri)
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
     qmlRegisterInterface<Plasma::Service>(uri, 1);
+    // backward compatibility: register also unnamespaced name of pointer to class as alias
+    qRegisterMetaType<Plasma::Service *>("Service*");
 #else
     qmlRegisterInterface<Plasma::Service>("Service");
 #endif
-    qRegisterMetaType<Plasma::Service *>("Service");
 #if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
     qmlRegisterInterface<Plasma::ServiceJob>(uri, 1);
+    // backward compatibility: register also unnamespaced name of pointer to class as alias
+    qRegisterMetaType<Plasma::ServiceJob*>("ServiceJob*");
 #else
     qmlRegisterInterface<Plasma::ServiceJob>("ServiceJob");
 #endif
-    qRegisterMetaType<Plasma::ServiceJob *>("ServiceJob");
     qmlRegisterType<ServiceOperationStatus>(uri, 2, 0, "ServiceOperationStatus");
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
     qmlRegisterAnonymousType<QAbstractItemModel>(uri, 1);
@@ -124,10 +126,11 @@ void CoreBindingsPlugin::registerTypes(const char *uri)
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
     qmlRegisterInterface<Plasma::DataSource>(uri, 1);
+    // backward compatibility: register also unnamespaced name of pointer to class as alias
+    qRegisterMetaType<Plasma::DataSource*>("DataSource*");
 #else
     qmlRegisterInterface<Plasma::DataSource>("DataSource");
 #endif
-    qRegisterMetaType<Plasma::DataSource *>("DataSource");
 
     qmlRegisterType<Plasma::WindowThumbnail>(uri, 2, 0, "WindowThumbnail");
 }
