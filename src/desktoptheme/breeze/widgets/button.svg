@@ -1,2502 +1,437 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   id="svg2"
-   sodipodi:version="0.32"
-   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
-   width="220"
-   height="212"
-   sodipodi:docname="button.svg"
-   inkscape:output_extension="org.inkscape.output.svgz.inkscape"
-   inkscape:export-filename="/home/diau/svn/playground-plasma/desktoptheme/air/widgets/button.png"
-   inkscape:export-xdpi="90"
-   inkscape:export-ydpi="90"
-   version="1.0">
-  <sodipodi:namedview
-     inkscape:window-height="1015"
-     inkscape:window-width="1920"
-     inkscape:pageshadow="2"
-     inkscape:pageopacity="1"
-     guidetolerance="10.0"
-     gridtolerance="10.0"
-     objecttolerance="10.0"
-     borderopacity="1"
-     bordercolor="#cc0000"
-     pagecolor="#eff0f1"
-     id="base"
-     inkscape:zoom="4.0000001"
-     inkscape:cx="87.520446"
-     inkscape:cy="134.44093"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:current-layer="svg2"
-     showgrid="true"
-     showguides="true"
-     inkscape:guide-bbox="true"
-     width="97px"
-     height="27px"
-     inkscape:snap-bbox="true"
-     inkscape:object-nodes="false"
-     inkscape:window-maximized="1"
-     inkscape:showpageshadow="false"
-     showborder="true"
-     borderlayer="true"
-     fit-margin-top="0"
-     fit-margin-left="0"
-     fit-margin-right="0"
-     fit-margin-bottom="0">
-    <inkscape:grid
-       snapvisiblegridlinesonly="true"
-       empspacing="2"
-       type="xygrid"
-       id="grid5592"
-       visible="true"
-       enabled="true"
-       color="#0000ff"
-       opacity="0.01960784"
-       empcolor="#0000ff"
-       empopacity="0.03921569"
-       originx="0"
-       originy="64" />
-  </sodipodi:namedview>
-  <metadata
-     id="metadata7">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
-      </cc:Work>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-      </cc:Work>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <defs
-     id="defs5">
-    <linearGradient
-       id="linearGradient2965">
-      <stop
-         style="stop-color:#000000;stop-opacity:0.09803922"
-         offset="0"
-         id="stop2961" />
-      <stop
-         style="stop-color:#f6f6f6;stop-opacity:0.114"
-         offset="1"
-         id="stop2963" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient4455">
-      <stop
-         style="stop-color:#000000;stop-opacity:0.02745098;"
-         offset="0"
-         id="stop2956" />
-      <stop
-         style="stop-color:#000000;stop-opacity:0;"
-         offset="1"
-         id="stop2958" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6476"
-       osb:paint="solid">
-      <stop
-         style="stop-color:#ffffff;stop-opacity:1;"
-         offset="0"
-         id="stop6478" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6476-4"
-       osb:paint="solid">
-      <stop
-         style="stop-color:#ffffff;stop-opacity:1;"
-         offset="0"
-         id="stop6478-8" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient4134-0">
-      <stop
-         style="stop-color:#fafafa;stop-opacity:1;"
-         offset="0"
-         id="stop4136-9" />
-      <stop
-         id="stop5116"
-         offset="1"
-         style="stop-color:#fafafa;stop-opacity:1;" />
-      <stop
-         style="stop-color:#afb4b9;stop-opacity:0.3137255;"
-         offset="1"
-         id="stop4138-5" />
-    </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient4134-0"
-       id="linearGradient3424"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(-879.80709,948.58403)"
-       x1="160"
-       y1="-159"
-       x2="160"
-       y2="-138" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient4134-0"
-       id="linearGradient3426"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(-823.80709,948.58403)"
-       x1="160"
-       y1="-159"
-       x2="160"
-       y2="-138" />
-    <linearGradient
-       id="linearGradient5627-9">
-      <stop
-         style="stop-color:#0c6395;stop-opacity:1;"
-         offset="0"
-         id="stop5629-4" />
-      <stop
-         style="stop-color:#3daeef;stop-opacity:1;"
-         offset="1"
-         id="stop5631-1" />
-    </linearGradient>
-    <style
-       type="text/css"
-       id="current-color-scheme">
-      .ColorScheme-Text {
-        color:#31363b;
-        stop-color:#31363b;
-      }
-      .ColorScheme-Background {
-        color:#eff0f1;
-        stop-color:#eff0f1;
-      }
-      .ColorScheme-Highlight {
-        color:#3daee9;
-        stop-color:#3daee9;
-      }
-      .ColorScheme-ViewText {
-        color:#31363b;
-        stop-color:#31363b;
-      }
-      .ColorScheme-ViewBackground {
-        color:#fcfcfc;
-        stop-color:#fcfcfc;
-      }
-      .ColorScheme-ViewHover {
-        color:#93cee9;
-        stop-color:#93cee9;
-      }
-      .ColorScheme-ViewFocus{
-        color:#3daee9;
-        stop-color:#3daee9;
-      }
-      .ColorScheme-ButtonText {
-        color:#31363b;
-        stop-color:#31363b;
-      }
-      .ColorScheme-ButtonBackground {
-        color:#eff0f1;
-        stop-color:#eff0f1;
-      }
-      .ColorScheme-ButtonHover {
-        color:#93cee9;
-        stop-color:#93cee9;
-      }
-      .ColorScheme-ButtonFocus{
-        color:#3daee9;
-        stop-color:#3daee9;
-      }
-</style>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient5627-9"
-       id="linearGradient4381"
-       x1="216"
-       y1="107"
-       x2="216"
-       y2="110"
-       gradientUnits="userSpaceOnUse" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient5627-9"
-       id="linearGradient4389"
-       x1="216"
-       y1="107"
-       x2="216"
-       y2="110"
-       gradientUnits="userSpaceOnUse" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient4455-3"
-       id="linearGradient3941"
-       x1="162"
-       y1="-13"
-       x2="162"
-       y2="-48"
-       gradientUnits="userSpaceOnUse" />
-    <linearGradient
-       id="linearGradient4455-3">
-      <stop
-         id="stop4908"
-         offset="0"
-         style="stop-color:#000000;stop-opacity:0.02745098;" />
-      <stop
-         id="stop4910"
-         offset="1"
-         style="stop-color:#000000;stop-opacity:0;" />
-    </linearGradient>
-    <linearGradient
-       y2="-138"
-       x2="160"
-       y1="-159"
-       x1="160"
-       gradientTransform="translate(-879.80709,948.58403)"
-       gradientUnits="userSpaceOnUse"
-       id="linearGradient6298"
-       xlink:href="#linearGradient4134-0"
-       inkscape:collect="always" />
-    <linearGradient
-       y2="-138"
-       x2="160"
-       y1="-159"
-       x1="160"
-       gradientTransform="translate(-823.80709,948.58403)"
-       gradientUnits="userSpaceOnUse"
-       id="linearGradient6300"
-       xlink:href="#linearGradient4134-0"
-       inkscape:collect="always" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient2965"
-       id="linearGradient1139"
-       gradientUnits="userSpaceOnUse"
-       x1="162"
-       y1="-13"
-       x2="162"
-       y2="-48" />
-  </defs>
-  <g
-     id="pressed-left"
-     transform="matrix(-1,0,0,1,325,58)">
-    <rect
-       transform="scale(1,-1)"
-       style="color:#3daee9;opacity:0.01000001;fill:#93cee9;fill-opacity:1;stroke:none"
-       id="rect4176"
-       width="1"
-       height="34.999943"
-       x="216"
-       y="-144.99994"
-       class="ColorScheme-ButtonFocus" />
-    <rect
-       class="ColorScheme-ButtonHover"
-       y="-144.9998"
-       x="215"
-       height="34.999943"
-       width="1"
-       id="rect4178"
-       style="fill:currentColor;fill-opacity:1;stroke:none"
-       transform="scale(1,-1)" />
-    <rect
-       transform="scale(-1,1)"
-       style="fill:currentColor;fill-opacity:1;stroke:none"
-       id="rect4180"
-       width="1"
-       height="34.999943"
-       x="-217"
-       y="110"
-       class="ColorScheme-ButtonHover" />
-  </g>
-  <g
-     id="pressed-topleft"
-     transform="matrix(-1,0,0,1,325,58)">
-    <path
-       style="color:#3daee9;fill:#93cee9;fill-opacity:1"
-       d="m 215,107 0,1 0,2 1,0 0,-2 c 0,-0.55228 -0.44772,-1 -1,-1 z"
-       id="path4184"
-       inkscape:connector-curvature="0"
-       class="ColorScheme-ButtonFocus" />
-    <g
-       id="g4186">
-      <path
-         inkscape:connector-curvature="0"
-         style="color:#3daee9;opacity:0.01000001;fill:url(#linearGradient4389);fill-opacity:1;stroke:none"
-         d="m 215,106 c 1.10457,0 2,0.89543 2,2 l 0,2 -1,0 0,-2 c 0,-0.55228 -0.44772,-1 -1,-1 z"
-         id="path4188"
-         class="ColorScheme-ButtonFocus"
-         sodipodi:nodetypes="ccccccc" />
-      <path
-         sodipodi:nodetypes="ccccccc"
-         class="ColorScheme-ButtonHover"
-         id="path4190"
-         d="m 215,106 c 1.10457,0 2,0.89543 2,2 l 0,2 -1,0 0,-2 c 0,-0.55228 -0.44772,-1 -1,-1 z"
-         style="fill:currentColor;fill-opacity:1;stroke:none"
-         inkscape:connector-curvature="0" />
+<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" inkscape:version="1.1-dev (d80adc983d, 2020-06-15)" sodipodi:docname="button.svg" version="1.1" viewBox="0 0 288 224" id="svg2">
+    <defs id="defs319">
+        <linearGradient id="normal-gradient" inkscape:collect="always">
+            <stop id="stop1138" offset="0" style="stop-color:#000000;stop-opacity:0.02745098" />
+            <stop id="stop1140" offset="1" style="stop-color:#ffffff;stop-opacity:0.03" />
+        </linearGradient>
+        <linearGradient inkscape:collect="always" id="focus-background-gradient">
+            <stop style="stop-color:#000000;stop-opacity:0.09803922" offset="0" id="stop1127" />
+            <stop style="stop-color:#ffffff;stop-opacity:0.09803922" offset="1" id="stop1129" />
+        </linearGradient>
+        <linearGradient inkscape:collect="always" xlink:href="#focus-background-gradient" id="linearGradient1133" x1="129" y1="168" x2="129" y2="142" gradientUnits="userSpaceOnUse" />
+        <linearGradient gradientUnits="userSpaceOnUse" y2="142" x2="129" y1="168" x1="129" id="linearGradient1133-3" xlink:href="#normal-gradient" inkscape:collect="always" gradientTransform="translate(62,-76)" />
+        <linearGradient gradientTransform="translate(-176,-94)" gradientUnits="userSpaceOnUse" y2="64" x2="191" y1="90" x1="191" id="linearGradient1148" xlink:href="#normal-gradient" inkscape:collect="always" />
+        <linearGradient gradientTransform="matrix(0.09090909,0,0,11,11.63636,-700)" inkscape:collect="always" xlink:href="#normal-gradient" id="linearGradient1148-3" x1="191.00005" y1="66.181816" x2="191.00005" y2="63.81818" gradientUnits="userSpaceOnUse" />
+        <linearGradient gradientTransform="translate(-176,-36)" inkscape:collect="always" xlink:href="#normal-gradient" id="linearGradient1148-9" x1="191" y1="66" x2="191" y2="40.000019" gradientUnits="userSpaceOnUse" />
+        <linearGradient gradientUnits="userSpaceOnUse" y2="90" x2="177" y1="64" x1="177" id="linearGradient1233-6-8" xlink:href="#normal-gradient" inkscape:collect="always" gradientTransform="matrix(1,0,0,-1,-176,94)" />
+        <linearGradient gradientTransform="matrix(1,0,0,-1,-176,94)" inkscape:collect="always" xlink:href="#normal-gradient" id="linearGradient1233-6" x1="177" y1="64" x2="177" y2="90" gradientUnits="userSpaceOnUse" />
+        <linearGradient gradientUnits="userSpaceOnUse" y2="63.81818" x2="191.00005" y1="66.181816" x1="191.00005" id="linearGradient1148-3-3" xlink:href="#normal-gradient" inkscape:collect="always" gradientTransform="matrix(0.09090909,0,0,11,-46.36364,-700)" />
+        <linearGradient gradientTransform="rotate(-90,71,135)" inkscape:collect="always" xlink:href="#normal-gradient" id="linearGradient1233-9" x1="177" y1="90" x2="177" y2="64" gradientUnits="userSpaceOnUse" />
+        <linearGradient gradientTransform="matrix(1,0,0,-1,-176,94)" gradientUnits="userSpaceOnUse" y2="64" x2="177" y1="90" x1="177" id="linearGradient1233" xlink:href="#normal-gradient" inkscape:collect="always" />
+        <linearGradient gradientTransform="matrix(0.09090909,0,0,1,17.27273,-140)" inkscape:collect="always" xlink:href="#focus-background-gradient" id="linearGradient1133-0" x1="129" y1="168" x2="129" y2="142" gradientUnits="userSpaceOnUse" />
+        <linearGradient gradientUnits="userSpaceOnUse" y2="64" x2="177" y1="90" x1="177" id="linearGradient1233-9-7" xlink:href="#focus-background-gradient" inkscape:collect="always" gradientTransform="rotate(-90,71,135)" />
+        <linearGradient gradientTransform="translate(-114,-170)" gradientUnits="userSpaceOnUse" y2="140" x2="129" y1="166" x1="129" id="linearGradient1356" xlink:href="#focus-background-gradient" inkscape:collect="always" />
+        <linearGradient gradientTransform="matrix(1,0,0,-1,-176,94)" inkscape:collect="always" xlink:href="#focus-background-gradient" id="linearGradient1233-8" x1="177" y1="90" x2="177" y2="64" gradientUnits="userSpaceOnUse" />
+        <linearGradient gradientUnits="userSpaceOnUse" y2="142" x2="129" y1="168" x1="129" id="linearGradient1133-0-5" xlink:href="#focus-background-gradient" inkscape:collect="always" gradientTransform="matrix(0.09090909,0,0,1,-40.72727,-140)" />
+        <linearGradient gradientUnits="userSpaceOnUse" y2="90" x2="177" y1="64" x1="177" id="linearGradient1233-6-3" xlink:href="#focus-background-gradient" inkscape:collect="always" gradientTransform="matrix(1,0,0,-1,-176,94)" />
+        <linearGradient gradientTransform="translate(-114,-112)" inkscape:collect="always" xlink:href="#focus-background-gradient" id="linearGradient1356-6" x1="129" y1="141.99997" x2="129" y2="116" gradientUnits="userSpaceOnUse" />
+        <linearGradient gradientTransform="matrix(1,0,0,-1,-176,94)" inkscape:collect="always" xlink:href="#focus-background-gradient" id="linearGradient1233-6-8-4" x1="177" y1="64" x2="177" y2="90" gradientUnits="userSpaceOnUse" />
+    </defs>
+    <sodipodi:namedview inkscape:current-layer="svg2" showgrid="true" id="namedview317" inkscape:window-height="480" inkscape:window-width="640" inkscape:pageshadow="2" inkscape:pageopacity="0" guidetolerance="10" gridtolerance="10" objecttolerance="10" borderopacity="1" bordercolor="#666666" pagecolor="#ffffff" inkscape:snap-text-baseline="true" inkscape:snap-smooth-nodes="true">
+        <inkscape:grid id="grid1136" type="xygrid" />
+    </sodipodi:namedview>
+    <style id="current-color-scheme" type="text/css">
+        .ColorScheme-Highlight {
+            color:#3daee9;
+            stop-color:#3daee9;
+        }
+        .ColorScheme-ButtonText {
+            color:#232629;
+            stop-color:#232629;
+        }
+        .ColorScheme-ButtonBackground {
+            color:#eff0f1;
+            stop-color:#eff0f1;
+        }
+        .ColorScheme-ButtonHover {
+            color:#93cee9;
+            stop-color:#93cee9;
+        }
+        .ColorScheme-ButtonFocus{
+            color:#3daee9;
+            stop-color:#3daee9;
+        }
+    </style>
+    <rect style="fill:#ffff00;fill-rule:evenodd;fill-opacity:1" id="rect1206" width="30" height="30" x="176" y="26" ry="2" />
+    <g fill-rule="evenodd" transform="translate(177,64)" id="shadow-right">
+        <path sodipodi:nodetypes="ccccc" opacity="0.00100002" fill-opacity="0.00392199" d="m 27,-12 h 3 v -22 h -3 z" id="path1565-7-8" />
+        <path opacity="0.15" d="m 29,-34 v 22 h 1 v -22 z" id="path1559" />
     </g>
-    <path
-       inkscape:connector-curvature="0"
-       id="path4397"
-       d="m 215,107 0,1 0,2 1,0 0,-2 c 0,-0.55228 -0.44772,-1 -1,-1 z"
-       style="fill:currentColor;fill-opacity:1;stroke:none"
-       class="ColorScheme-ButtonHover" />
-  </g>
-  <g
-     id="pressed-bottomleft"
-     transform="matrix(-1,0,0,1,325,58)">
-    <path
-       inkscape:connector-curvature="0"
-       style="color:#3daee9;opacity:0.01000001;fill:#93cee9;fill-opacity:1;stroke:none"
-       d="m 215,147 c 1.10457,0 2,-0.89543 2,-2 l -1,0 c 0,0.55228 -0.44772,1 -1,1 z"
-       id="path4194"
-       class="ColorScheme-ButtonFocus"
-       sodipodi:nodetypes="ccccc" />
-    <path
-       style="fill:currentColor;fill-opacity:1;stroke:none"
-       d="m 215,145 0,1 c 0.55228,0 1,-0.44772 1,-1 l -1,0 z"
-       id="path4196"
-       class="ColorScheme-ButtonHover"
-       inkscape:connector-curvature="0" />
-    <path
-       sodipodi:nodetypes="ccccc"
-       class="ColorScheme-ButtonHover"
-       id="path4198"
-       d="m 215,147 c 1.10457,0 2,-0.89543 2,-2 l -1,0 c 0,0.55228 -0.44772,1 -1,1 z"
-       style="fill:currentColor;fill-opacity:1;stroke:none"
-       inkscape:connector-curvature="0" />
-  </g>
-  <g
-     id="pressed-bottom"
-     transform="translate(0,58)">
-    <rect
-       transform="scale(1,-1)"
-       y="-146"
-       x="110.00005"
-       height="1"
-       width="105"
-       id="rect5410"
-       style="fill:currentColor;fill-opacity:1;stroke:none"
-       class="ColorScheme-ButtonHover" />
-    <rect
-       class="ColorScheme-ButtonFocus"
-       style="color:#3daee9;opacity:0.01000001;fill:#93cee9;fill-opacity:1;stroke:none"
-       id="rect4086"
-       width="105"
-       height="1"
-       x="110.00005"
-       y="-147"
-       transform="scale(1,-1)" />
-    <rect
-       transform="scale(1,-1)"
-       y="-147"
-       x="110.00005"
-       height="1"
-       width="105"
-       id="rect4088"
-       style="fill:currentColor;fill-opacity:1;stroke:none"
-       class="ColorScheme-ButtonHover" />
-  </g>
-  <g
-     id="pressed-right"
-     transform="translate(0,58)">
-    <rect
-       class="ColorScheme-ButtonFocus"
-       y="-144.99994"
-       x="216"
-       height="35"
-       width="1"
-       id="rect3144"
-       style="color:#3daee9;opacity:0.01000001;fill:#93cee9;fill-opacity:1;stroke:none"
-       transform="scale(1,-1)" />
-    <rect
-       transform="scale(1,-1)"
-       style="fill:currentColor;fill-opacity:1;stroke:none"
-       id="rect5434"
-       width="1"
-       height="35"
-       x="215"
-       y="-144.9998"
-       class="ColorScheme-ButtonHover" />
-    <rect
-       class="ColorScheme-ButtonHover"
-       y="110"
-       x="-217"
-       height="35"
-       width="1"
-       id="rect3135"
-       style="fill:currentColor;fill-opacity:1;stroke:none"
-       transform="scale(-1,1)" />
-  </g>
-  <g
-     id="pressed-top"
-     transform="translate(0,58)">
-    <rect
-       y="106"
-       x="110"
-       height="1"
-       width="105"
-       id="rect3921"
-       style="color:#3daee9;opacity:0.01000001;fill:#0c6395;fill-opacity:1"
-       class="ColorScheme-ButtonFocus" />
-    <g
-       inkscape:label="#g5412"
-       id="g4202"
-       transform="matrix(1.9090909,0,0,-1.5,1484.1774,1324.376)">
-      <rect
-         y="809.58398"
-         x="-719.80719"
-         height="2"
-         width="55"
-         id="rect5416"
-         style="fill:currentColor;fill-opacity:1"
-         class="ColorScheme-ButtonHover" />
+    <g fill-rule="evenodd" transform="translate(176,65)" id="shadow-bottom">
+        <path sodipodi:nodetypes="ccccc" opacity="0.00100002" fill-opacity="0.00392199" d="m 4,-11 v 3 h 22 v -3 z" id="path1565-7" />
+        <path opacity="0.15" d="m 4,-9 v 1 h 22 v -1 z" id="path1565" />
     </g>
-    <rect
-       class="ColorScheme-ButtonHover"
-       style="fill:currentColor;fill-opacity:1;stroke:none"
-       id="rect3123"
-       width="105"
-       height="1"
-       x="110"
-       y="106" />
-  </g>
-  <g
-     id="normal-topleft"
-     transform="translate(829.80716,-769.58398)"
-     inkscape:label="#g5038">
-    <path
-       id="path4101"
-       d="m -719.80709,777.58403 c -1.10457,0 -2,0.89543 -2,2 l 1,0 c 0,-0.55228 0.44772,-1 1,-1 l 0,-1 z"
-       style="opacity:0.3;fill:currentColor;fill-opacity:1;stroke:none"
-       inkscape:connector-curvature="0"
-       class="ColorScheme-ButtonText" />
-    <path
-       class="ColorScheme-ButtonBackground"
-       sodipodi:type="arc"
-       style="color:#eff0f1;fill:#000000;fill-opacity:0.50196078000000000;stroke:none;opacity:0"
-       id="path3967"
-       sodipodi:cx="160"
-       sodipodi:cy="-159"
-       sodipodi:rx="2"
-       sodipodi:ry="2"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:start="0"
-       sodipodi:end="1.5707963"
-       transform="matrix(-0.5,0,0,-0.5,-639.80709,700.08403)" />
-  </g>
-  <g
-     transform="translate(829.80716,-765.58399)"
-     id="normal-bottomleft"
-     inkscape:label="#g5026">
-    <path
-       inkscape:connector-curvature="0"
-       style="opacity:0.3;fill:currentColor;fill-opacity:1;stroke:none"
-       d="m -719.80709,812.58403 c -1.10457,0 -2,-0.89543 -2,-2 l 1,0 c 0,0.55228 0.44772,1 1,1 l 0,1 z"
-       id="path4111"
-       class="ColorScheme-ButtonText" />
-    <path
-       transform="matrix(-0.5,0,0,0.5,-639.80709,890.08403)"
-       sodipodi:end="1.5707963"
-       sodipodi:start="0"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:ry="2"
-       sodipodi:rx="2"
-       sodipodi:cy="-159"
-       sodipodi:cx="160"
-       id="path3919"
-       style="color:#eff0f1;fill:#000000;fill-opacity:0.50196078000000000;stroke:none;opacity:0"
-       sodipodi:type="arc" />
-  </g>
-  <g
-     id="normal-left"
-     transform="matrix(1,0,0,1.666664,829.80716,-1305.9712)"
-     inkscape:label="#g5042">
-    <rect
-       y="789.58398"
-       x="-721.80719"
-       height="21"
-       width="1"
-       id="rect4108"
-       style="opacity:0.3;fill:currentColor;fill-opacity:1;stroke:none"
-       class="ColorScheme-ButtonText" />
-    <rect
-       class="ColorScheme-ButtonBackground"
-       y="789.58398"
-       x="-720.80719"
-       height="21"
-       width="1"
-       id="rect3943"
-       style="color:#eff0f1;fill:#000000;fill-opacity:0.50196078000000000;stroke:none;opacity:0" />
-  </g>
-  <g
-     id="normal-top"
-     transform="matrix(1.9090909,0,0,1,1484.1774,-769.58398)"
-     inkscape:label="#g5054">
-    <rect
-       y="777.58398"
-       x="-719.80719"
-       height="1"
-       width="55"
-       id="rect3329"
-       style="opacity:0.3;fill:currentColor;fill-opacity:1;stroke:none"
-       class="ColorScheme-ButtonText" />
-    <rect
-       class="ColorScheme-ButtonBackground"
-       y="778.58398"
-       x="-719.80719"
-       height="1"
-       width="55"
-       id="rect3965"
-       style="color:#eff0f1;fill:#000000;fill-opacity:0.50196078000000000;stroke:none;opacity:0" />
-  </g>
-  <g
-     id="normal-bottom"
-     transform="matrix(1.9090909,0,0,1,1484.1774,-765.58399)"
-     inkscape:label="#g5050">
-    <rect
-       style="opacity:0.3;fill:currentColor;fill-opacity:1;stroke:none"
-       id="rect4099"
-       width="55"
-       height="1"
-       x="-719.80719"
-       y="811.58398"
-       class="ColorScheme-ButtonText" />
-    <rect
-       style="color:#eff0f1;fill:#000000;fill-opacity:0.50196078000000000;stroke:none;opacity:0"
-       id="rect3149"
-       width="55"
-       height="1"
-       x="-719.80719"
-       y="810.58398" />
-  </g>
-  <g
-     id="normal-topright"
-     transform="translate(879.80713,-769.58398)"
-     inkscape:label="#g5034">
-    <path
-       inkscape:connector-curvature="0"
-       style="opacity:0.3;fill:currentColor;fill-opacity:1;stroke:none"
-       d="m -664.80709,777.58403 c 1.10457,0 2,0.89543 2,2 l -1,0 c 0,-0.55228 -0.44772,-1 -1,-1 l 0,-1 z"
-       id="path4121"
-       class="ColorScheme-ButtonText" />
-    <path
-       class="ColorScheme-ButtonBackground"
-       transform="matrix(0.5,0,0,-0.5,-744.80709,700.08403)"
-       sodipodi:end="1.5707963"
-       sodipodi:start="0"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:ry="2"
-       sodipodi:rx="2"
-       sodipodi:cy="-159"
-       sodipodi:cx="160"
-       id="path3963"
-       style="color:#eff0f1;fill:#000000;fill-opacity:0.50196078000000000;stroke:none;opacity:0"
-       sodipodi:type="arc" />
-  </g>
-  <g
-     id="normal-bottomright"
-     transform="translate(879.80713,-765.58399)"
-     inkscape:label="#g5030">
-    <path
-       class="ColorScheme-ButtonBackground"
-       sodipodi:type="arc"
-       style="color:#eff0f1;fill:#000000;fill-opacity:0.50196078000000000;stroke:none;opacity:0"
-       id="path3921"
-       sodipodi:cx="160"
-       sodipodi:cy="-159"
-       sodipodi:rx="2"
-       sodipodi:ry="2"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:start="0"
-       sodipodi:end="1.5707963"
-       transform="matrix(0.5,0,0,0.5,-744.80709,890.08403)" />
-    <path
-       class="ColorScheme-ButtonText"
-       inkscape:connector-curvature="0"
-       style="opacity:0.3;fill:currentColor;fill-opacity:1;stroke:none"
-       d="m -664.80709,812.58403 c 1.10457,0 2,-0.89543 2,-2 l -1,0 c 0,0.55228 -0.44772,1 -1,1 l 0,1 z"
-       id="path4114" />
-  </g>
-  <g
-     id="normal-right"
-     transform="matrix(1,0,0,1.666664,879.80713,-1305.9712)"
-     inkscape:label="#g5046">
-    <rect
-       class="ColorScheme-ButtonBackground"
-       style="color:#eff0f1;fill:#000000;fill-opacity:0.50196078000000000;stroke:none;opacity:0"
-       id="rect3953"
-       width="1"
-       height="21"
-       x="-664.80713"
-       y="789.58398" />
-    <rect
-       class="ColorScheme-ButtonText"
-       y="789.58398"
-       x="662.80713"
-       height="21"
-       width="1"
-       id="rect4112"
-       style="opacity:0.3;fill:currentColor;fill-opacity:1;stroke:none"
-       transform="scale(-1,1)" />
-  </g>
-  <g
-     id="normal-center"
-     transform="translate(0,58)">
-    <rect
-       class="ColorScheme-ButtonBackground"
-       inkscape:label="#rect4146"
-       y="-47.999954"
-       x="109.99997"
-       height="34.999943"
-       width="105"
-       id="rect3935"
-       style="fill:currentColor;fill-opacity:1;stroke:none" />
-    <rect
-       style="color:#eff0f1;fill:url(#linearGradient3941);fill-opacity:1;stroke:none"
-       id="rect3933"
-       width="105"
-       height="34.999943"
-       x="109.99997"
-       y="-47.999954"
-       inkscape:label="#rect4146" />
-  </g>
-  <rect
-     y="-202.99998"
-     x="109.99997"
-     height="34.999943"
-     width="105"
-     id="pressed-center"
-     style="fill:currentColor;fill-opacity:1;stroke:none"
-     transform="scale(1,-1)"
-     inkscape:label="#rect5436"
-     class="ColorScheme-ButtonHover" />
-  <g
-     inkscape:label="#g5038"
-     transform="translate(829.80716,-713.58398)"
-     id="hover-topleft">
-    <path
-       class="ColorScheme-ButtonHover"
-       inkscape:connector-curvature="0"
-       style="fill:currentColor;fill-opacity:1;stroke:none"
-       d="m -719.80709,777.58403 c -1.10457,0 -2,0.89543 -2,2 l 1,0 c 0,-0.55228 0.44772,-1 1,-1 l 0,-1 z"
-       id="path3376" />
-    <path
-       sodipodi:type="arc"
-       style="opacity:0.01000001;fill:#fafafa;fill-opacity:1;stroke:none"
-       id="path3378"
-       sodipodi:cx="160"
-       sodipodi:cy="-159"
-       sodipodi:rx="2"
-       sodipodi:ry="2"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:start="0"
-       sodipodi:end="1.5707963"
-       transform="matrix(-0.5,0,0,-0.5,-639.80709,700.08403)" />
-  </g>
-  <g
-     inkscape:label="#g5026"
-     id="hover-bottomleft"
-     transform="translate(829.80716,-709.58399)">
-    <path
-       class="ColorScheme-ButtonHover"
-       id="path3382"
-       d="m -719.80709,812.58403 c -1.10457,0 -2,-0.89543 -2,-2 l 1,0 c 0,0.55228 0.44772,1 1,1 l 0,1 z"
-       style="fill:currentColor;fill-opacity:1;stroke:none"
-       inkscape:connector-curvature="0" />
-    <path
-       transform="matrix(-0.5,0,0,0.5,-639.80709,890.08403)"
-       sodipodi:end="1.5707963"
-       sodipodi:start="0"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:ry="2"
-       sodipodi:rx="2"
-       sodipodi:cy="-159"
-       sodipodi:cx="160"
-       id="path3384"
-       style="opacity:0.01000001;fill:#afb4b9;fill-opacity:0.39215686;stroke:none"
-       sodipodi:type="arc" />
-  </g>
-  <g
-     inkscape:label="#g5042"
-     transform="matrix(1,0,0,1.666664,829.80716,-1249.9712)"
-     id="hover-left">
-    <rect
-       class="ColorScheme-ButtonHover"
-       style="fill:currentColor;fill-opacity:1;stroke:none"
-       id="rect3388"
-       width="1"
-       height="21"
-       x="-721.80719"
-       y="789.58398" />
-    <rect
-       y="789.58398"
-       x="-720.80719"
-       height="21"
-       width="1"
-       id="rect3390"
-       style="opacity:0.01000001;fill:url(#linearGradient3424);fill-opacity:1;stroke:none" />
-  </g>
-  <g
-     inkscape:label="#g5054"
-     transform="matrix(1.9090909,0,0,1,1484.1774,-713.58398)"
-     id="hover-top">
-    <rect
-       class="ColorScheme-ButtonHover"
-       style="fill:currentColor;fill-opacity:1;stroke:none"
-       id="rect3394"
-       width="55"
-       height="1"
-       x="-719.80719"
-       y="777.58398" />
-    <rect
-       y="778.58398"
-       x="-719.80719"
-       height="1"
-       width="55"
-       id="rect3396"
-       style="opacity:0.01000001;fill:#fafafa;fill-opacity:1;stroke:none" />
-  </g>
-  <g
-     inkscape:label="#g5050"
-     transform="matrix(1.9090909,0,0,1,1484.1774,-709.58399)"
-     id="hover-bottom">
-    <rect
-       class="ColorScheme-ButtonHover"
-       y="811.58398"
-       x="-719.80719"
-       height="1"
-       width="55"
-       id="rect3400"
-       style="fill:currentColor;fill-opacity:1;stroke:none" />
-    <rect
-       style="opacity:0.01000001;fill:#afb4b9;fill-opacity:0.39215686;stroke:none"
-       id="rect3402"
-       width="55"
-       height="1"
-       x="-719.80719"
-       y="810.58398" />
-  </g>
-  <g
-     inkscape:label="#g5034"
-     transform="translate(879.80713,-713.58398)"
-     id="hover-topright">
-    <path
-       class="ColorScheme-ButtonHover"
-       id="path3406"
-       d="m -664.80709,777.58403 c 1.10457,0 2,0.89543 2,2 l -1,0 c 0,-0.55228 -0.44772,-1 -1,-1 l 0,-1 z"
-       style="fill:currentColor;fill-opacity:1;stroke:none"
-       inkscape:connector-curvature="0" />
-    <path
-       transform="matrix(0.5,0,0,-0.5,-744.80709,700.08403)"
-       sodipodi:end="1.5707963"
-       sodipodi:start="0"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:ry="2"
-       sodipodi:rx="2"
-       sodipodi:cy="-159"
-       sodipodi:cx="160"
-       id="path3408"
-       style="opacity:0.01000001;fill:#fafafa;fill-opacity:1;stroke:none"
-       sodipodi:type="arc" />
-  </g>
-  <g
-     inkscape:label="#g5030"
-     transform="translate(879.80713,-709.58399)"
-     id="hover-bottomright">
-    <path
-       class="ColorScheme-ButtonHover"
-       inkscape:connector-curvature="0"
-       style="fill:currentColor;fill-opacity:1;stroke:none"
-       d="m -664.80709,812.58403 c 1.10457,0 2,-0.89543 2,-2 l -1,0 c 0,0.55228 -0.44772,1 -1,1 l 0,1 z"
-       id="path3412" />
-    <path
-       sodipodi:type="arc"
-       style="opacity:0.01000001;fill:#afb4b9;fill-opacity:0.39215686;stroke:none"
-       id="path3414"
-       sodipodi:cx="160"
-       sodipodi:cy="-159"
-       sodipodi:rx="2"
-       sodipodi:ry="2"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:start="0"
-       sodipodi:end="1.5707963"
-       transform="matrix(0.5,0,0,0.5,-744.80709,890.08403)" />
-  </g>
-  <g
-     inkscape:label="#g5046"
-     transform="matrix(1,0,0,1.666664,879.80713,-1249.9712)"
-     id="hover-right">
-    <rect
-       class="ColorScheme-ButtonHover"
-       y="789.58398"
-       x="662.80713"
-       height="21"
-       width="1"
-       id="rect3418"
-       style="fill:currentColor;fill-opacity:1;stroke:none"
-       transform="scale(-1,1)" />
-    <rect
-       style="opacity:0.01000001;fill:url(#linearGradient3426);fill-opacity:1;stroke:none"
-       id="rect3420"
-       width="1"
-       height="21"
-       x="-664.80713"
-       y="789.58398" />
-  </g>
-  <rect
-     class="ColorScheme-Background"
-     inkscape:label="#rect4146"
-     y="66.000046"
-     x="109.99997"
-     height="34.999943"
-     width="105"
-     id="hover-center"
-     style="fill:currentColor;fill-opacity:0.01000001;stroke:none" />
-  <g
-     id="focus-topleft"
-     transform="translate(829.80716,-665.58398)"
-     inkscape:label="#g5038">
-    <path
-       class="ColorScheme-ButtonFocus"
-       inkscape:connector-curvature="0"
-       style="opacity:0.2;fill:currentColor;stroke:none"
-       d="m -719.80716,776.58403 c -1.65685,0 -3,1.34314 -3,3 l 1,0 c 0,-1.07842 0.88252,-2.00005 2,-2.00005 z"
-       id="path3936"
-       sodipodi:nodetypes="ccccc" />
-    <path
-       id="path3432"
-       d="m -719.80709,777.58403 c -1.10457,0 -2,0.89543 -2,2 l 1,0 c 0,-0.55228 0.44772,-1 1,-1 l 0,-1 z"
-       style="opacity:0.5;fill:currentColor;stroke:none"
-       inkscape:connector-curvature="0"
-       class="ColorScheme-ButtonFocus" />
-    <path
-       transform="matrix(-0.5,0,0,-0.5,-639.80709,700.08403)"
-       sodipodi:end="1.5707963"
-       sodipodi:start="0"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:ry="2"
-       sodipodi:rx="2"
-       sodipodi:cy="-159"
-       sodipodi:cx="160"
-       id="path3434"
-       style="opacity:0.01000001;fill:none;fill-opacity:1;stroke:none"
-       sodipodi:type="arc" />
-  </g>
-  <g
-     transform="translate(829.80716,-661.58399)"
-     id="focus-bottomleft"
-     inkscape:label="#g5026">
-    <path
-       class="ColorScheme-ButtonFocus"
-       id="path3940"
-       d="m -719.80716,813.58399 c -1.65685,0 -3,-1.34314 -3,-3 l 1,0 c 0,1.17217 0.95283,2 2,2 z"
-       style="opacity:0.2;fill:currentColor;stroke:none"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccc" />
-    <path
-       inkscape:connector-curvature="0"
-       style="opacity:0.5;fill:currentColor;stroke:none"
-       d="m -719.80709,812.58403 c -1.10457,0 -2,-0.89543 -2,-2 l 1,0 c 0,0.55228 0.44772,1 1,1 l 0,1 z"
-       id="path3438"
-       class="ColorScheme-ButtonFocus" />
-    <path
-       sodipodi:type="arc"
-       style="opacity:0.01000001;fill:none;fill-opacity:0.39215686;stroke:none"
-       id="path3440"
-       sodipodi:cx="160"
-       sodipodi:cy="-159"
-       sodipodi:rx="2"
-       sodipodi:ry="2"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:start="0"
-       sodipodi:end="1.5707963"
-       transform="matrix(-0.5,0,0,0.5,-639.80709,890.08403)" />
-  </g>
-  <g
-     id="focus-left"
-     transform="matrix(1,0,0,1.666664,829.80716,-1201.9712)"
-     inkscape:label="#g5042">
-    <rect
-       y="789.58398"
-       x="-721.80719"
-       height="21"
-       width="1"
-       id="rect3444"
-       style="opacity:0.5;fill:currentColor;stroke:none"
-       class="ColorScheme-ButtonFocus" />
-    <rect
-       style="opacity:0.01000001;fill:none;fill-opacity:1;stroke:none"
-       id="rect3446"
-       width="1"
-       height="21"
-       x="-720.80719"
-       y="789.58398" />
-    <rect
-       class="ColorScheme-ButtonFocus"
-       style="opacity:0.2;fill:currentColor;stroke:none"
-       id="rect3938"
-       width="1"
-       height="21"
-       x="-722.80719"
-       y="789.58398" />
-  </g>
-  <g
-     id="focus-top"
-     transform="matrix(1.9090909,0,0,1,1484.1774,-665.58398)"
-     inkscape:label="#g5054">
-    <rect
-       y="777.58398"
-       x="-719.80719"
-       height="1"
-       width="55"
-       id="rect3450"
-       style="opacity:0.5;fill:currentColor;stroke:none"
-       class="ColorScheme-ButtonFocus" />
-    <rect
-       style="opacity:0.01000001;fill:none;fill-opacity:1;stroke:none"
-       id="rect3452"
-       width="55"
-       height="1"
-       x="-719.80719"
-       y="778.58398" />
-    <rect
-       class="ColorScheme-ButtonFocus"
-       style="opacity:0.2;fill:currentColor;fill-opacity:1;stroke:none"
-       id="rect3934"
-       width="55"
-       height="1"
-       x="-719.80719"
-       y="776.58398" />
-  </g>
-  <g
-     id="focus-bottom"
-     transform="matrix(1.9090909,0,0,1,1484.1774,-661.58399)"
-     inkscape:label="#g5050">
-    <rect
-       style="opacity:0.5;fill:currentColor;stroke:none"
-       id="rect3456"
-       width="55"
-       height="1"
-       x="-719.80719"
-       y="811.58398"
-       class="ColorScheme-ButtonFocus" />
-    <rect
-       y="810.58398"
-       x="-719.80719"
-       height="1"
-       width="55"
-       id="rect3458"
-       style="opacity:0.01000001;fill:none;fill-opacity:0.39215686;stroke:none" />
-    <rect
-       class="ColorScheme-ButtonFocus"
-       y="812.58398"
-       x="-719.80719"
-       height="1"
-       width="55"
-       id="rect3926"
-       style="opacity:0.2;fill:currentColor;fill-opacity:1;stroke:none" />
-  </g>
-  <g
-     id="focus-topright"
-     transform="translate(879.80713,-665.58398)"
-     inkscape:label="#g5034">
-    <path
-       class="ColorScheme-ButtonFocus"
-       id="path3932"
-       d="m -664.80709,776.58403 c 1.65685,0 3,1.34314 3,3 l -1.00004,0 c 0,-1.17217 -1.01529,-2.00005 -1.99996,-2.00005 z"
-       style="opacity:0.2;fill:currentColor;fill-opacity:1;stroke:none"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccc" />
-    <path
-       inkscape:connector-curvature="0"
-       style="opacity:0.5;fill:currentColor;stroke:none"
-       d="m -664.80709,777.58403 c 1.10457,0 2,0.89543 2,2 l -1,0 c 0,-0.55228 -0.44772,-1 -1,-1 l 0,-1 z"
-       id="path3462"
-       class="ColorScheme-ButtonFocus" />
-    <path
-       sodipodi:type="arc"
-       style="opacity:0.01000001;fill:none;fill-opacity:1;stroke:none"
-       id="path3464"
-       sodipodi:cx="160"
-       sodipodi:cy="-159"
-       sodipodi:rx="2"
-       sodipodi:ry="2"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:start="0"
-       sodipodi:end="1.5707963"
-       transform="matrix(0.5,0,0,-0.5,-744.80709,700.08403)" />
-  </g>
-  <g
-     id="focus-bottomright"
-     transform="translate(879.80713,-661.58399)"
-     inkscape:label="#g5030">
-    <path
-       class="ColorScheme-ButtonFocus"
-       inkscape:connector-curvature="0"
-       style="opacity:0.2;fill:currentColor;fill-opacity:1;stroke:none"
-       d="m -664.80709,813.58399 c 1.65685,0 3,-1.34314 3,-3 l -1.00004,0 c 0,1.13778 -0.93952,2 -1.99996,2 z"
-       id="path3928"
-       sodipodi:nodetypes="ccccc" />
-    <path
-       id="path3468"
-       d="m -664.80709,812.58403 c 1.10457,0 2,-0.89543 2,-2 l -1,0 c 0,0.55228 -0.44772,1 -1,1 l 0,1 z"
-       style="opacity:0.5;fill:currentColor;stroke:none"
-       inkscape:connector-curvature="0"
-       class="ColorScheme-ButtonFocus" />
-    <path
-       transform="matrix(0.5,0,0,0.5,-744.80709,890.08403)"
-       sodipodi:end="1.5707963"
-       sodipodi:start="0"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:ry="2"
-       sodipodi:rx="2"
-       sodipodi:cy="-159"
-       sodipodi:cx="160"
-       id="path3470"
-       style="opacity:0.01000001;fill:none;fill-opacity:0.39215686;stroke:none"
-       sodipodi:type="arc" />
-  </g>
-  <g
-     id="focus-right"
-     transform="matrix(1,0,0,1.666664,879.80713,-1201.9712)"
-     inkscape:label="#g5046">
-    <rect
-       transform="scale(-1,1)"
-       style="fill:currentColor;fill-opacity:0.5;stroke:none"
-       id="rect3474"
-       width="1"
-       height="21"
-       x="662.80713"
-       y="789.58398"
-       class="ColorScheme-ButtonFocus" />
-    <rect
-       y="789.58398"
-       x="-664.80713"
-       height="21"
-       width="1"
-       id="rect3476"
-       style="opacity:0.01000001;fill:none;fill-opacity:1;stroke:none" />
-    <rect
-       class="ColorScheme-ButtonFocus"
-       y="789.58398"
-       x="661.80713"
-       height="21"
-       width="1"
-       id="rect3930"
-       style="opacity:0.2;fill:currentColor;stroke:none"
-       transform="scale(-1,1)" />
-  </g>
-  <rect
-     style="fill:none;fill-opacity:0.01000001;stroke:none"
-     id="focus-center"
-     width="105"
-     height="34.999943"
-     x="109.99997"
-     y="114.00005"
-     inkscape:label="#rect4146"
-     class="ColorScheme-Background" />
-  <rect
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     id="focus-hint-top-margin"
-     width="2"
-     height="0.001"
-     x="51"
-     y="121.99905" />
-  <rect
-     y="146.99899"
-     x="51"
-     height="0.001"
-     width="2"
-     id="focus-hint-bottom-margin"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-  <rect
-     y="133"
-     x="39"
-     height="1.9999999"
-     width="0.001"
-     id="focus-hint-left-margin"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-  <rect
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     id="focus-hint-right-margin"
-     width="0.001"
-     height="1.9999999"
-     x="64"
-     y="132.00005" />
-  <rect
-     y="71"
-     x="51"
-     height="0.0099999998"
-     width="2"
-     id="rect3166"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-  <rect
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     id="rect3164"
-     width="2"
-     height="0.0099999998"
-     x="51"
-     y="96.990005" />
-  <rect
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     id="rect3170"
-     width="0.0099999998"
-     height="1.9999999"
-     x="39"
-     y="83" />
-  <rect
-     y="83"
-     x="64.989998"
-     height="1.9999999"
-     width="0.0099999998"
-     id="rect3168"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-  <rect
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     id="normal-hint-bottom-margin"
-     width="2"
-     height="6"
-     x="161.49997"
-     y="41.000046" />
-  <rect
-     y="8.0000458"
-     x="161.49997"
-     height="6"
-     width="2"
-     id="normal-hint-top-margin"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-  <rect
-     transform="matrix(0,-1,1,0,0,0)"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     id="normal-hint-left-margin"
-     width="2"
-     height="6"
-     x="-28.000015"
-     y="108" />
-  <rect
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     id="pressed-hint-top-margin"
-     width="2"
-     height="6"
-     x="161.49997"
-     y="165.00006" />
-  <rect
-     transform="matrix(0,-1,1,0,0,0)"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     id="pressed-hint-right-margin"
-     width="2"
-     height="6"
-     x="-186"
-     y="211" />
-  <rect
-     ry="0"
-     y="25"
-     x="91"
-     height="3"
-     width="3"
-     id="normal-hint-compose-over-border"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-  <rect
-     y="211"
-     x="-28.000015"
-     height="6"
-     width="2"
-     id="normal-hint-right-margin"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     transform="matrix(0,-1,1,0,0,0)" />
-  <rect
-     y="108"
-     x="-186"
-     height="6"
-     width="2"
-     id="pressed-hint-left-margin"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     transform="matrix(0,-1,1,0,0,0)" />
-  <rect
-     y="199.00005"
-     x="161.49997"
-     height="6"
-     width="2"
-     id="pressed-hint-bottom-margin"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-  <g
-     id="pressed-topright"
-     transform="translate(0,58)">
-    <path
-       inkscape:connector-curvature="0"
-       id="path4204"
-       d="m 215,107 0,1 0,2 1,0 0,-2 c 0,-0.55228 -0.44772,-1 -1,-1 z"
-       style="color:#3daee9;fill:#93cee9;fill-opacity:1"
-       class="ColorScheme-ButtonFocus" />
-    <g
-       id="g4097">
-      <path
-         sodipodi:nodetypes="ccccccc"
-         class="ColorScheme-ButtonFocus"
-         id="path3917"
-         d="m 215,106 c 1.10457,0 2,0.89543 2,2 l 0,2 -1,0 0,-2 c 0,-0.55228 -0.44772,-1 -1,-1 z"
-         style="color:#3daee9;opacity:0.01000001;fill:url(#linearGradient4381);fill-opacity:1;stroke:none"
-         inkscape:connector-curvature="0" />
-      <path
-         inkscape:connector-curvature="0"
-         style="fill:currentColor;fill-opacity:1;stroke:none"
-         d="m 215,106 c 1.10457,0 2,0.89543 2,2 l 0,2 -1,0 0,-2 c 0,-0.55228 -0.44772,-1 -1,-1 z"
-         id="path3129"
-         class="ColorScheme-ButtonHover"
-         sodipodi:nodetypes="ccccccc" />
+    <g fill-rule="evenodd" transform="translate(176,65)" id="shadow-bottomleft">
+        <path sodipodi:nodetypes="cccc" opacity="0.00100002" fill-opacity="0.00392199" d="m 0,-11 c 0,1.662 1.338,3 3,3 v -3 z" id="rect1509-7-9-6-1" />
+        <path sodipodi:nodetypes="cccsc" opacity="0.15" d="M 0.04102,-10.595703 C 0.23928,-9.128502 1.47674,-8 3,-8 V -9 H 2 C 1.0305,-9 0.2269,-9.682695 0.04102,-10.595703 Z" id="path1563" />
     </g>
-    <path
-       style="fill:currentColor;stroke:none"
-       d="m 215,107 0,1 0,2 1,0 0,-2 c 0,-0.55228 -0.44772,-1 -1,-1 z"
-       id="path4395"
-       inkscape:connector-curvature="0"
-       class="ColorScheme-ButtonHover" />
-  </g>
-  <g
-     id="pressed-bottomright"
-     transform="translate(0,58)">
-    <path
-       sodipodi:nodetypes="ccccc"
-       class="ColorScheme-ButtonFocus"
-       id="path4083"
-       d="m 215,147 c 1.10457,0 2,-0.89543 2,-2 l -1,0 c 0,0.55228 -0.44772,1 -1,1 z"
-       style="color:#3daee9;opacity:0.01000001;fill:#93cee9;fill-opacity:1;stroke:none"
-       inkscape:connector-curvature="0" />
-    <path
-       inkscape:connector-curvature="0"
-       class="ColorScheme-ButtonHover"
-       id="path4206"
-       d="m 215,145 0,1 c 0.55228,0 1,-0.44772 1,-1 l -1,0 z"
-       style="fill:currentColor;fill-opacity:1;stroke:none" />
-    <path
-       inkscape:connector-curvature="0"
-       style="fill:currentColor;fill-opacity:1;stroke:none"
-       d="m 215,147 c 1.10457,0 2,-0.89543 2,-2 l -1,0 c 0,0.55228 -0.44772,1 -1,1 z"
-       id="path3925"
-       class="ColorScheme-ButtonHover"
-       sodipodi:nodetypes="ccccc" />
-  </g>
-  <rect
-     y="72.999001"
-     x="58"
-     height="0.001"
-     width="2"
-     id="hover-hint-top-margin"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-  <rect
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     id="hover-hint-bottom-margin"
-     width="2"
-     height="0.001"
-     x="58"
-     y="97.998947" />
-  <rect
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     id="hover-hint-left-margin"
-     width="0.001"
-     height="1.9999999"
-     x="46"
-     y="83.999947" />
-  <rect
-     y="82.999992"
-     x="71"
-     height="1.9999999"
-     width="0.001"
-     id="hover-hint-right-margin"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-  <path
-     inkscape:connector-curvature="0"
-     style="fill:none;stroke:none"
-     d="m 239,21 0,13 33,0 0,-13 -33,0 z"
-     id="shadow-center" />
-  <rect
-     y="21"
-     x="233"
-     height="13"
-     width="3"
-     id="shadow-left"
-     style="opacity:0;fill:#000000;fill-opacity:0.31372549;stroke:none" />
-  <rect
-     y="14"
-     x="254"
-     height="1"
-     width="2"
-     id="shadow-hint-top-margin"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-  <rect
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     id="shadow-hint-bottom-margin"
-     width="2"
-     height="1"
-     x="258"
-     y="44.596195" />
-  <rect
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     id="shadow-hint-left-margin"
-     width="1"
-     height="1.9999999"
-     x="232"
-     y="27" />
-  <rect
-     y="26"
-     x="279"
-     height="1.9999999"
-     width="1"
-     id="shadow-hint-right-margin"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-  <g
-     transform="translate(148,8.9999993)"
-     id="shadow-bottom">
-    <path
-       sodipodi:nodetypes="ccccc"
-       style="color:#31363b;fill:#31363b;fill-opacity:0.15;fill-rule:nonzero;stroke:none"
-       d="m 90,29 0,0.500001 33.9959,0 0,-0.500001 z"
-       id="path4274"
-       inkscape:connector-curvature="0" />
-    <rect
-       style="opacity:0;fill:#000000;fill-opacity:0.31372549;stroke:none"
-       id="rect4276"
-       width="1"
-       height="3"
-       x="94"
-       y="27" />
-  </g>
-  <path
-     id="shadow-topleft"
-     d="m 233,19 0,-3 3,0 0,3 z"
-     style="opacity:0;fill:#000000;fill-opacity:0.31372549;fill-rule:nonzero;stroke:none"
-     inkscape:connector-curvature="0"
-     sodipodi:nodetypes="ccccc" />
-  <g
-     style="opacity:0"
-     transform="matrix(1,0,0,-1,149,46)"
-     id="shadow-top">
-    <path
-       inkscape:connector-curvature="0"
-       id="path4319"
-       d="m 90,29 0,1 33,0 0,-1 z"
-       style="fill:#000000;fill-opacity:0.31372549;fill-rule:nonzero;stroke:none"
-       sodipodi:nodetypes="ccccc" />
-    <rect
-       y="27"
-       x="94"
-       height="3"
-       width="1"
-       id="rect4321"
-       style="opacity:0;fill:#000000;fill-opacity:0.31372549;stroke:none" />
-  </g>
-  <g
-     id="shadow-bottomleft"
-     transform="translate(127,-13)">
-    <path
-       id="path4329"
-       d="m 107.00014,49 0,0.46875 c 0,1.382077 0.88168,2.03125 2,2.03125 l 0,-0.5 c -0.97585,0 -1.7848,-0.700443 -1.96094,-1.625 -0.0256,-0.119003 -0.0406,-0.244101 -0.0391,-0.375 z"
-       style="fill:currentColor;fill-opacity:0.15;fill-rule:nonzero;stroke:none"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="csccccc" />
-    <rect
-       style="opacity:0;fill:#000000;fill-opacity:0.31372549;stroke:none"
-       id="rect4323"
-       width="3"
-       height="3"
-       x="106"
-       y="49" />
-  </g>
-  <path
-     sodipodi:type="arc"
-     style="fill:currentColor;fill-opacity:1;stroke:none"
-     id="path5054"
-     sodipodi:cx="-102.81852"
-     sodipodi:cy="45.817631"
-     sodipodi:rx="1"
-     sodipodi:ry="1"
-     d="m -101.81852,45.817631 a 1,1 0 0 1 -1,1 l 0,-1 z"
-     sodipodi:start="0"
-     sodipodi:end="1.5707963"
-     transform="scale(-1,1)"
-     class="ColorScheme-ButtonBackground" />
-  <g
-     id="shadow-right">
-    <rect
-       y="21"
-       x="274"
-       height="13"
-       width="3"
-       id="rect4556"
-       style="opacity:0;fill:#000000;fill-opacity:0.31372549;stroke:none" />
-    <path
-       style="fill:currentColor;fill-opacity:0.15;fill-rule:nonzero;stroke:none"
-       d="m 276,21 0.5,0 0,13 -0.5,0 z"
-       id="rect4542"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccc" />
-  </g>
-  <g
-     transform="matrix(0,1,1,0,225,-90.00014)"
-     id="shadow-topright">
-    <path
-       inkscape:connector-curvature="0"
-       style="fill:currentColor;fill-opacity:0.15;fill-rule:nonzero;stroke:none"
-       d="m 107.00014,49 0,0.46875 c 0,1.382077 0.88168,2.03125 2,2.03125 l 0,-0.5 c -0.97585,0 -1.7848,-0.700443 -1.96094,-1.625 -0.0256,-0.119003 -0.0406,-0.244101 -0.0391,-0.375 z"
-       id="path4546"
-       sodipodi:nodetypes="csccccc" />
-    <rect
-       y="49"
-       x="106"
-       height="3"
-       width="3"
-       id="rect4548"
-       style="opacity:0;fill:#000000;fill-opacity:0.31372549;stroke:none" />
-  </g>
-  <path
-     inkscape:connector-curvature="0"
-     id="mask-normal-center"
-     d="m 36.0041,22 0,13.94383 33.9959,0 L 70,22 36.0041,22 z"
-     style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-  <g
-     transform="translate(-27.9883,63.999954)"
-     id="mask-normal-left">
-    <path
-       id="path8311"
-       d="m 62,-41.999954 0,14 1,0 -0.0117,-14 z"
-       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccc" />
-    <path
-       style="fill:#000000;fill-opacity:0;fill-rule:nonzero;stroke:none"
-       d="M 61,-41.999984 61,-28 l 1,0 0,-13.999984 -1,0 z"
-       id="path8313"
-       inkscape:connector-curvature="0" />
-  </g>
-  <g
-     transform="matrix(0.25951067,0,0,1,18.876395,65.984214)"
-     id="mask-normal-top">
-    <path
-       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       d="m 66.00001,-45.984214 2e-6,1 130.999998,0 0,-1 z"
-       id="path8332"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccc" />
-    <path
-       id="path8334"
-       d="m 66,-46.984214 0,1 131,0 0,-1 -131,0 z"
-       style="fill:#000000;fill-opacity:0;fill-rule:nonzero;stroke:none"
-       inkscape:connector-curvature="0" />
-  </g>
-  <g
-     transform="translate(-128.98829,64.044974)"
-     id="mask-normal-right">
-    <path
-       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       d="m 200.9883,-42.044974 0.0117,14.01377 -1.01171,-0.01377 0,-14 z"
-       id="path8352"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccc" />
-    <path
-       id="path8354"
-       d="m 202.00001,-41.984204 0,13.984204 -1,0 0,-13.984204 1,0 z"
-       style="fill:#000000;fill-opacity:0;fill-rule:nonzero;stroke:none"
-       inkscape:connector-curvature="0" />
-    <path
-       inkscape:connector-curvature="0"
-       style="fill:#ffffff;fill-opacity:0;fill-rule:nonzero;stroke:none"
-       d="m 201,-41.986174 0,13.95497 -1,0 0,-13.95497 1,0 z"
-       id="path8356" />
-  </g>
-  <g
-     transform="matrix(0.25951067,0,0,1,18.879896,62.044974)"
-     id="mask-normal-bottom">
-    <path
-       inkscape:connector-curvature="0"
-       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       d="m 65.970715,-25.044974 0.01349,1.04498 130.984195,-0.0625 -0.0135,-0.98248 z"
-       id="path8386"
-       sodipodi:nodetypes="ccccc" />
-    <rect
-       y="-23.999954"
-       x="66"
-       height="1.0000023"
-       width="131"
-       id="rect8394"
-       style="fill:#000000;fill-opacity:0;stroke:none" />
-  </g>
-  <g
-     id="mask-normal-topleft">
-    <path
-       transform="matrix(-0.5,0,0,-0.5,115,-58.5)"
-       sodipodi:end="1.5707963"
-       sodipodi:start="0"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:ry="2"
-       sodipodi:rx="2"
-       sodipodi:cy="-159"
-       sodipodi:cx="160"
-       id="path4044"
-       style="color:#eff0f1;fill:#000000;fill-opacity:1;stroke:none"
-       sodipodi:type="arc"
-       class="ColorScheme-ButtonBackground" />
-    <rect
-       y="19"
-       x="33"
-       height="1"
-       width="1"
-       id="rect4048"
-       style="opacity:0;fill:#000000;fill-opacity:1;stroke:none" />
-  </g>
-  <g
-     id="mask-normal-topright"
-     transform="matrix(0,1,-1,0,92,-14)">
-    <path
-       class="ColorScheme-ButtonBackground"
-       sodipodi:type="arc"
-       style="color:#eff0f1;fill:#000000;fill-opacity:1;stroke:none"
-       id="path4056"
-       sodipodi:cx="160"
-       sodipodi:cy="-159"
-       sodipodi:rx="2"
-       sodipodi:ry="2"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:start="0"
-       sodipodi:end="1.5707963"
-       transform="matrix(-0.5,0,0,-0.5,115,-58.5)" />
-    <rect
-       style="opacity:0;fill:#000000;fill-opacity:1;stroke:none"
-       id="rect4058"
-       width="1"
-       height="1"
-       x="33"
-       y="19" />
-    <path
-       transform="matrix(-0.5,0,0,-0.5,115,-58.5)"
-       sodipodi:end="1.5707963"
-       sodipodi:start="0"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:ry="2"
-       sodipodi:rx="2"
-       sodipodi:cy="-159"
-       sodipodi:cx="160"
-       id="path4060"
-       style="color:#eff0f1;fill:#000000;fill-opacity:1;stroke:none"
-       sodipodi:type="arc"
-       class="ColorScheme-ButtonBackground" />
-  </g>
-  <g
-     id="mask-normal-bottomleft"
-     transform="matrix(1,0,0,-1,0,58)">
-    <path
-       class="ColorScheme-ButtonBackground"
-       sodipodi:type="arc"
-       style="color:#eff0f1;fill:#000000;fill-opacity:1;stroke:none"
-       id="path4064"
-       sodipodi:cx="160"
-       sodipodi:cy="-159"
-       sodipodi:rx="2"
-       sodipodi:ry="2"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:start="0"
-       sodipodi:end="1.5707963"
-       transform="matrix(-0.5,0,0,-0.5,115,-58.5)" />
-    <rect
-       style="opacity:0;fill:#000000;fill-opacity:1;stroke:none"
-       id="rect4066"
-       width="1"
-       height="1"
-       x="33"
-       y="19" />
-  </g>
-  <g
-     transform="matrix(0,-1,-1,0,92,72)"
-     id="mask-normal-bottomright">
-    <path
-       transform="matrix(-0.5,0,0,-0.5,115,-58.5)"
-       sodipodi:end="1.5707963"
-       sodipodi:start="0"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:ry="2"
-       sodipodi:rx="2"
-       sodipodi:cy="-159"
-       sodipodi:cx="160"
-       id="path4070"
-       style="color:#eff0f1;fill:#000000;fill-opacity:1;stroke:none"
-       sodipodi:type="arc"
-       class="ColorScheme-ButtonBackground" />
-    <rect
-       y="19"
-       x="33"
-       height="1"
-       width="1"
-       id="rect4072"
-       style="opacity:0;fill:#000000;fill-opacity:1;stroke:none" />
-    <path
-       class="ColorScheme-ButtonBackground"
-       sodipodi:type="arc"
-       style="color:#eff0f1;fill:#000000;fill-opacity:1;stroke:none"
-       id="path4074"
-       sodipodi:cx="160"
-       sodipodi:cy="-159"
-       sodipodi:rx="2"
-       sodipodi:ry="2"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:start="0"
-       sodipodi:end="1.5707963"
-       transform="matrix(-0.5,0,0,-0.5,115,-58.5)" />
-  </g>
-  <rect
-     ry="0"
-     y="183"
-     x="92"
-     height="3"
-     width="3"
-     id="pressed-hint-compose-over-border"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-  <g
-     id="shadow-bottomright">
-    <path
-       sodipodi:nodetypes="cccsccc"
-       inkscape:connector-curvature="0"
-       id="path4102"
-       d="m 276,36 c 0,1.10457 -0.89543,2 -2,2 l 0,0.5 0.002,0 c 1.65016,0 2.48724,-0.832861 2.49805,-2.480469 L 276.5,36 z"
-       style="fill:#31363b;fill-opacity:0.14901961;fill-rule:nonzero;stroke:none" />
-    <rect
-       y="38"
-       x="276"
-       height="1"
-       width="1"
-       id="rect4095"
-       style="opacity:0;fill:#000000;fill-opacity:1;stroke:none" />
-  </g>
-  <rect
-     transform="scale(-1,1)"
-     class="ColorScheme-ButtonHover"
-     y="168"
-     x="-339"
-     height="35"
-     width="3"
-     id="toolbutton-pressed-right"
-     style="fill:currentColor;fill-opacity:1;stroke:none" />
-  <rect
-     class="ColorScheme-ButtonHover"
-     style="fill:currentColor;fill-opacity:1;stroke:none"
-     id="toolbutton-pressed-top"
-     width="105"
-     height="3"
-     x="231.00002"
-     y="165" />
-  <rect
-     class="ColorScheme-ButtonHover"
-     inkscape:label="#rect5436"
-     transform="scale(1,-1)"
-     style="fill:currentColor;fill-opacity:1;stroke:none"
-     id="toolbutton-pressed-center"
-     width="105"
-     height="34.999943"
-     x="230.99997"
-     y="-202.99998" />
-  <rect
-     y="165.00006"
-     x="282.5"
-     height="6"
-     width="2"
-     id="toolbutton-pressed-hint-top-margin"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-  <rect
-     y="332"
-     x="-186"
-     height="6"
-     width="2"
-     id="toolbutton-pressed-hint-right-margin"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     transform="matrix(0,-1,1,0,0,0)" />
-  <g
-     inkscape:label="#g5038"
-     transform="translate(947.80719,-713.58398)"
-     id="toolbutton-hover-topleft">
-    <path
-       sodipodi:nodetypes="ccccc"
-       id="path6234"
-       d="m -719.80716,776.58403 c -1.65685,0 -3,1.34314 -3,3 l 1,0 c 0,-1.07842 0.88252,-2.00005 2,-2.00005 z"
-       style="opacity:0.5;fill:currentColor;stroke:none"
-       inkscape:connector-curvature="0"
-       class="ColorScheme-ButtonFocus" />
-    <path
-       sodipodi:type="arc"
-       style="opacity:0.01000001;fill:#fafafa;fill-opacity:1;stroke:none"
-       id="path6238"
-       sodipodi:cx="160"
-       sodipodi:cy="-159"
-       sodipodi:rx="2"
-       sodipodi:ry="2"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:start="0"
-       sodipodi:end="1.5707963"
-       transform="matrix(-0.5,0,0,-0.5,-639.80709,700.08403)" />
-  </g>
-  <g
-     inkscape:label="#g5026"
-     id="toolbutton-hover-bottomleft"
-     transform="translate(947.80719,-709.58399)">
-    <path
-       sodipodi:nodetypes="ccccc"
-       inkscape:connector-curvature="0"
-       style="opacity:0.5;fill:currentColor;stroke:none"
-       d="m -719.80716,813.58399 c -1.65685,0 -3,-1.34314 -3,-3 l 1,0 c 0,1.17217 0.95283,2 2,2 z"
-       id="path6242"
-       class="ColorScheme-ButtonFocus" />
-    <path
-       transform="matrix(-0.5,0,0,0.5,-639.80709,890.08403)"
-       sodipodi:end="1.5707963"
-       sodipodi:start="0"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:ry="2"
-       sodipodi:rx="2"
-       sodipodi:cy="-159"
-       sodipodi:cx="160"
-       id="path6246"
-       style="opacity:0.01000001;fill:#afb4b9;fill-opacity:0.39215686;stroke:none"
-       sodipodi:type="arc" />
-  </g>
-  <g
-     inkscape:label="#g5042"
-     transform="matrix(1,0,0,1.666664,947.80719,-1249.9712)"
-     id="toolbutton-hover-left">
-    <rect
-       y="789.58398"
-       x="-720.80719"
-       height="21"
-       width="1"
-       id="rect6252"
-       style="opacity:0.01000001;fill:url(#linearGradient6298);fill-opacity:1;stroke:none" />
-    <rect
-       y="789.58398"
-       x="-722.80719"
-       height="21"
-       width="1"
-       id="rect6254"
-       style="opacity:0.5;fill:currentColor;stroke:none"
-       class="ColorScheme-ButtonFocus" />
-  </g>
-  <g
-     inkscape:label="#g5054"
-     transform="matrix(1.9090909,0,0,1,1602.1774,-713.58398)"
-     id="toolbutton-hover-top">
-    <rect
-       y="778.58398"
-       x="-719.80719"
-       height="1"
-       width="55"
-       id="rect6260"
-       style="opacity:0.01000001;fill:#fafafa;fill-opacity:1;stroke:none" />
-    <rect
-       y="776.58398"
-       x="-719.80719"
-       height="1"
-       width="55"
-       id="rect6262"
-       style="opacity:0.5;fill:currentColor;fill-opacity:1;stroke:none"
-       class="ColorScheme-ButtonFocus" />
-  </g>
-  <g
-     inkscape:label="#g5050"
-     transform="matrix(1.9090909,0,0,1,1602.1774,-709.58399)"
-     id="toolbutton-hover-bottom">
-    <rect
-       style="opacity:0.01000001;fill:#afb4b9;fill-opacity:0.39215686;stroke:none"
-       id="rect6268"
-       width="55"
-       height="1"
-       x="-719.80719"
-       y="810.58398" />
-    <rect
-       style="opacity:0.5;fill:currentColor;fill-opacity:1;stroke:none"
-       id="rect6270"
-       width="55"
-       height="1"
-       x="-719.80719"
-       y="812.58398"
-       class="ColorScheme-ButtonFocus" />
-  </g>
-  <g
-     inkscape:label="#g5034"
-     transform="translate(997.80716,-713.58398)"
-     id="toolbutton-hover-topright">
-    <path
-       sodipodi:nodetypes="ccccc"
-       inkscape:connector-curvature="0"
-       style="opacity:0.5;fill:currentColor;fill-opacity:1;stroke:none"
-       d="m -664.80709,776.58403 c 1.65685,0 3,1.34314 3,3 l -1.00004,0 c 0,-1.17217 -1.01529,-2.00005 -1.99996,-2.00005 z"
-       id="path6274"
-       class="ColorScheme-ButtonFocus" />
-    <path
-       transform="matrix(0.5,0,0,-0.5,-744.80709,700.08403)"
-       sodipodi:end="1.5707963"
-       sodipodi:start="0"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:ry="2"
-       sodipodi:rx="2"
-       sodipodi:cy="-159"
-       sodipodi:cx="160"
-       id="path6278"
-       style="opacity:0.01000001;fill:#fafafa;fill-opacity:1;stroke:none"
-       sodipodi:type="arc" />
-  </g>
-  <g
-     inkscape:label="#g5030"
-     transform="translate(997.80716,-709.58399)"
-     id="toolbutton-hover-bottomright">
-    <path
-       sodipodi:nodetypes="ccccc"
-       id="path6282"
-       d="m -664.80709,813.58399 c 1.65685,0 3,-1.34314 3,-3 l -1.00004,0 c 0,1.13778 -0.93952,2 -1.99996,2 z"
-       style="opacity:0.5;fill:currentColor;fill-opacity:1;stroke:none"
-       inkscape:connector-curvature="0"
-       class="ColorScheme-ButtonFocus" />
-    <path
-       sodipodi:type="arc"
-       style="opacity:0.01000001;fill:#afb4b9;fill-opacity:0.39215686;stroke:none"
-       id="path6286"
-       sodipodi:cx="160"
-       sodipodi:cy="-159"
-       sodipodi:rx="2"
-       sodipodi:ry="2"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:start="0"
-       sodipodi:end="1.5707963"
-       transform="matrix(0.5,0,0,0.5,-744.80709,890.08403)" />
-  </g>
-  <g
-     inkscape:label="#g5046"
-     transform="matrix(1,0,0,1.666664,997.80716,-1249.9712)"
-     id="toolbutton-hover-right">
-    <rect
-       style="opacity:0.01000001;fill:url(#linearGradient6300);fill-opacity:1;stroke:none"
-       id="rect6292"
-       width="1"
-       height="21"
-       x="-664.80713"
-       y="789.58398" />
-    <rect
-       transform="scale(-1,1)"
-       style="opacity:0.5;fill:currentColor;stroke:none"
-       id="rect6294"
-       width="1"
-       height="21"
-       x="661.80713"
-       y="789.58398"
-       class="ColorScheme-ButtonFocus" />
-  </g>
-  <rect
-     class="ColorScheme-Background"
-     inkscape:label="#rect4146"
-     y="66.000053"
-     x="228"
-     height="34.999943"
-     width="105"
-     id="toolbutton-hover-center"
-     style="fill:currentColor;fill-opacity:0.01000001;stroke:none" />
-  <path
-     sodipodi:nodetypes="cccc"
-     inkscape:connector-curvature="0"
-     style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none"
-     d="m 336.00001,165 c 1.65685,0 3,1.34314 3,3 L 336,168 Z"
-     id="toolbutton-pressed-topright"
-     class="ColorScheme-ButtonHover" />
-  <path
-     class="ColorScheme-ButtonHover"
-     id="toolbutton-pressed-topleft"
-     d="m 228,168 c 0,-1.65686 1.34314,-3 3,-3 l 0,3 z"
-     style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none"
-     inkscape:connector-curvature="0"
-     sodipodi:nodetypes="cccc" />
-  <rect
-     style="fill:currentColor;fill-opacity:1;stroke:none"
-     id="toolbutton-pressed-left"
-     width="3"
-     height="35"
-     x="-231"
-     y="168"
-     class="ColorScheme-ButtonHover"
-     transform="scale(-1,1)" />
-  <rect
-     y="-206"
-     x="231.00002"
-     height="3"
-     width="105"
-     id="toolbutton-pressed-bottom"
-     style="fill:currentColor;fill-opacity:1;stroke:none"
-     class="ColorScheme-ButtonHover"
-     transform="scale(1,-1)" />
-  <path
-     class="ColorScheme-ButtonHover"
-     id="toolbutton-pressed-bottomright"
-     d="m 336.00001,206 c 1.65685,0 3,-1.34314 3,-3 L 336,203 Z"
-     style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none"
-     inkscape:connector-curvature="0"
-     sodipodi:nodetypes="cccc" />
-  <path
-     sodipodi:nodetypes="cccc"
-     inkscape:connector-curvature="0"
-     style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none"
-     d="m 228,203 c 0,1.65686 1.34314,3 3,3 l 0,-3 z"
-     id="toolbutton-pressed-bottomleft"
-     class="ColorScheme-ButtonHover" />
-  <rect
-     y="97"
-     x="279.49997"
-     height="6"
-     width="2"
-     id="toolbutton-hover-hint-bottom-margin"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-  <rect
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     id="toolbutton-hover-hint-top-margin"
-     width="2"
-     height="6"
-     x="279.49997"
-     y="64" />
-  <rect
-     y="226"
-     x="-83.999969"
-     height="6"
-     width="2"
-     id="toolbutton-hover-hint-left-margin"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     transform="matrix(0,-1,1,0,0,0)" />
-  <rect
-     transform="matrix(0,-1,1,0,0,0)"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     id="toolbutton-hover-hint-right-margin"
-     width="2"
-     height="6"
-     x="-83.999969"
-     y="329" />
-  <rect
-     transform="matrix(0,-1,1,0,0,0)"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     id="toolbutton-pressed-hint-left-margin"
-     width="2"
-     height="6"
-     x="-186"
-     y="229" />
-  <rect
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     id="toolbutton-pressed-hint-bottom-margin"
-     width="2"
-     height="6"
-     x="282.5"
-     y="199.00005" />
-  <g
-     inkscape:label="#g5038"
-     transform="translate(716.8072,-665.58403)"
-     id="focus-background-topleft">
-    <path
-       class="ColorScheme-ButtonFocus"
-       inkscape:connector-curvature="0"
-       style="fill:currentColor;stroke:none"
-       d="m -719.80709,777.58403 c -1.10457,0 -2,0.89543 -2,2 h 1 c 0,-0.55228 0.44772,-1 1,-1 z"
-       id="path1077" />
-    <path
-       transform="matrix(-0.5,0,0,-0.5,-639.80709,700.08403)"
-       sodipodi:end="1.5707963"
-       sodipodi:start="0"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:ry="2"
-       sodipodi:rx="2"
-       sodipodi:cy="-159"
-       sodipodi:cx="160"
-       id="path1079"
-       style="color:#eff0f1;opacity:0;fill:#000000;fill-opacity:0.50196078;stroke:none"
-       sodipodi:type="arc"
-       class="ColorScheme-ButtonBackground" />
-    <path
-       id="path2983"
-       d="m -719.80709,777.58403 c -1.10457,0 -2,0.89543 -2,2 h 1 c 0,-0.55228 0.44772,-1 1,-1 z"
-       style="color:#3daee9;fill:#000000;stroke:none;fill-opacity:0.14117648"
-       inkscape:connector-curvature="0"
-       class="ColorScheme-ButtonFocus" />
-  </g>
-  <g
-     inkscape:label="#g5026"
-     id="focus-background-bottomleft"
-     transform="translate(716.8072,-661.58404)">
-    <path
-       class="ColorScheme-ButtonFocus"
-       id="path1083"
-       d="m -719.80709,812.58403 c -1.10457,0 -2,-0.89543 -2,-2 h 1 c 0,0.55228 0.44772,1 1,1 z"
-       style="fill:currentColor;stroke:none"
-       inkscape:connector-curvature="0" />
-    <path
-       sodipodi:type="arc"
-       style="color:#eff0f1;opacity:0;fill:#000000;fill-opacity:0.50196078;stroke:none"
-       id="path1085"
-       sodipodi:cx="160"
-       sodipodi:cy="-159"
-       sodipodi:rx="2"
-       sodipodi:ry="2"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:start="0"
-       sodipodi:end="1.5707963"
-       transform="matrix(-0.5,0,0,0.5,-639.80709,890.08403)" />
-    <path
-       inkscape:connector-curvature="0"
-       style="color:#3daee9;fill:#000000;stroke:none;fill-opacity:0.14117648"
-       d="m -719.80709,812.58403 c -1.10457,0 -2,-0.89543 -2,-2 h 1 c 0,0.55228 0.44772,1 1,1 z"
-       id="path2979"
-       class="ColorScheme-ButtonFocus" />
-  </g>
-  <g
-     inkscape:label="#g5042"
-     transform="matrix(1,0,0,1.666664,716.8072,-1201.9712)"
-     id="focus-background-left">
-    <rect
-       class="ColorScheme-ButtonFocus"
-       style="fill:currentColor;stroke:none"
-       id="rect1089"
-       width="1"
-       height="21"
-       x="-721.80719"
-       y="789.58398" />
-    <rect
-       style="color:#eff0f1;opacity:0;fill:#000000;fill-opacity:0.50196078;stroke:none"
-       id="rect1091"
-       width="1"
-       height="21"
-       x="-720.80719"
-       y="789.58398"
-       class="ColorScheme-ButtonBackground" />
-    <rect
-       y="789.58398"
-       x="-721.80719"
-       height="21"
-       width="1"
-       id="rect2981"
-       style="color:#3daee9;fill:#000000;stroke:none;fill-opacity:0.14117648"
-       class="ColorScheme-ButtonFocus" />
-  </g>
-  <g
-     inkscape:label="#g5054"
-     transform="matrix(1.9090909,0,0,1,1371.1774,-665.58403)"
-     id="focus-background-top">
-    <rect
-       class="ColorScheme-ButtonFocus"
-       style="fill:currentColor;stroke:none"
-       id="rect1095"
-       width="55"
-       height="1"
-       x="-719.80719"
-       y="777.58398" />
-    <rect
-       style="color:#eff0f1;opacity:0;fill:#000000;fill-opacity:0.50196078;stroke:none"
-       id="rect1097"
-       width="55"
-       height="1"
-       x="-719.80719"
-       y="778.58398"
-       class="ColorScheme-ButtonBackground" />
-    <rect
-       y="777.58398"
-       x="-719.80719"
-       height="1"
-       width="55"
-       id="rect2973"
-       style="color:#3daee9;fill:#000000;stroke:none;fill-opacity:0.14117648"
-       class="ColorScheme-ButtonFocus" />
-  </g>
-  <g
-     inkscape:label="#g5050"
-     transform="matrix(1.9090909,0,0,1,1371.1774,-661.58404)"
-     id="focus-background-bottom">
-    <rect
-       class="ColorScheme-ButtonFocus"
-       y="811.58398"
-       x="-719.80719"
-       height="1"
-       width="55"
-       id="rect1101"
-       style="fill:currentColor;stroke:none" />
-    <rect
-       y="810.58398"
-       x="-719.80719"
-       height="1"
-       width="55"
-       id="rect1103"
-       style="color:#eff0f1;opacity:0;fill:#000000;fill-opacity:0.50196078;stroke:none" />
-    <rect
-       style="color:#3daee9;fill:#000000;stroke:none;fill-opacity:0.14117648"
-       id="rect2977"
-       width="55"
-       height="1"
-       x="-719.80719"
-       y="811.58398"
-       class="ColorScheme-ButtonFocus" />
-  </g>
-  <g
-     inkscape:label="#g5034"
-     transform="translate(766.80717,-665.58403)"
-     id="focus-background-topright">
-    <path
-       class="ColorScheme-ButtonFocus"
-       id="path1107"
-       d="m -664.80709,777.58403 c 1.10457,0 2,0.89543 2,2 h -1 c 0,-0.55228 -0.44772,-1 -1,-1 z"
-       style="fill:currentColor;stroke:none"
-       inkscape:connector-curvature="0" />
-    <path
-       sodipodi:type="arc"
-       style="color:#eff0f1;opacity:0;fill:#000000;fill-opacity:0.50196078;stroke:none"
-       id="path1109"
-       sodipodi:cx="160"
-       sodipodi:cy="-159"
-       sodipodi:rx="2"
-       sodipodi:ry="2"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:start="0"
-       sodipodi:end="1.5707963"
-       transform="matrix(0.5,0,0,-0.5,-744.80709,700.08403)"
-       class="ColorScheme-ButtonBackground" />
-    <path
-       inkscape:connector-curvature="0"
-       style="color:#3daee9;fill:#000000;stroke:none;fill-opacity:0.14117648"
-       d="m -664.80709,777.58403 c 1.10457,0 2,0.89543 2,2 h -1 c 0,-0.55228 -0.44772,-1 -1,-1 z"
-       id="path2971"
-       class="ColorScheme-ButtonFocus" />
-  </g>
-  <g
-     inkscape:label="#g5030"
-     transform="translate(766.80717,-661.58404)"
-     id="focus-background-bottomright">
-    <path
-       transform="matrix(0.5,0,0,0.5,-744.80709,890.08403)"
-       sodipodi:end="1.5707963"
-       sodipodi:start="0"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:ry="2"
-       sodipodi:rx="2"
-       sodipodi:cy="-159"
-       sodipodi:cx="160"
-       id="path1113"
-       style="color:#eff0f1;opacity:0;fill:#000000;fill-opacity:0.50196078;stroke:none"
-       sodipodi:type="arc"
-       class="ColorScheme-ButtonBackground" />
-    <path
-       id="path1115"
-       d="m -664.80709,812.58403 c 1.10457,0 2,-0.89543 2,-2 h -1 c 0,0.55228 -0.44772,1 -1,1 z"
-       style="fill:currentColor;stroke:none"
-       inkscape:connector-curvature="0"
-       class="ColorScheme-ButtonFocus" />
-    <path
-       class="ColorScheme-ButtonFocus"
-       inkscape:connector-curvature="0"
-       style="color:#3daee9;fill:#000000;stroke:none;fill-opacity:0.14117648"
-       d="m -664.80709,812.58403 c 1.10457,0 2,-0.89543 2,-2 h -1 c 0,0.55228 -0.44772,1 -1,1 z"
-       id="path2975" />
-  </g>
-  <g
-     inkscape:label="#g5046"
-     transform="matrix(1,0,0,1.666664,766.80717,-1201.9712)"
-     id="focus-background-right">
-    <rect
-       y="789.58398"
-       x="-664.80713"
-       height="21"
-       width="1"
-       id="rect1119"
-       style="color:#eff0f1;opacity:0;fill:#000000;fill-opacity:0.50196078;stroke:none"
-       class="ColorScheme-ButtonBackground" />
-    <rect
-       transform="scale(-1,1)"
-       style="fill:currentColor;stroke:none"
-       id="rect1121"
-       width="1"
-       height="21"
-       x="662.80713"
-       y="789.58398"
-       class="ColorScheme-ButtonFocus" />
-    <rect
-       class="ColorScheme-ButtonFocus"
-       y="789.58398"
-       x="662.80713"
-       height="21"
-       width="1"
-       id="rect2969"
-       style="color:#3daee9;fill:#000000;fill-opacity:0.14117648;stroke:none"
-       transform="scale(-1,1)" />
-  </g>
-  <g
-     transform="translate(-112.99996,161.99995)"
-     id="focus-background-center">
-    <rect
-       style="fill:currentColor;fill-opacity:1;stroke:none"
-       id="rect1125"
-       width="105"
-       height="34.999943"
-       x="109.99997"
-       y="-47.999954"
-       inkscape:label="#rect4146"
-       class="ColorScheme-ButtonFocus" />
-    <rect
-       inkscape:label="#rect4146"
-       y="-47.999954"
-       x="109.99997"
-       height="34.999943"
-       width="105"
-       id="rect1127"
-       style="color:#eff0f1;fill:url(#linearGradient1139);fill-opacity:1;stroke:none" />
-  </g>
-  <rect
-     y="145"
-     x="48.500008"
-     height="6"
-     width="2"
-     id="focus-background-hint-bottom-margin"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-  <rect
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     id="focus-background-hint-top-margin"
-     width="2"
-     height="6"
-     x="48.500008"
-     y="112.00001" />
-  <rect
-     y="-4.9999638"
-     x="-131.99997"
-     height="6"
-     width="2"
-     id="focus-background-hint-left-margin"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     transform="rotate(-90)" />
-  <rect
-     transform="rotate(-90)"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     id="focus-background-hint-right-margin"
-     width="2"
-     height="6"
-     x="-131.99997"
-     y="98.000038" />
-  <rect
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     id="focus-background-hint-compose-over-border"
-     width="3"
-     height="3"
-     x="-14.999997"
-     y="127"
-     ry="0" />
-  <path
-     style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     d="m 14.254101,88.249998 v 13.943832 h 33.9959 V 88.249998 Z"
-     id="mask-focus-background-center"
-     inkscape:connector-curvature="0" />
-  <g
-     id="mask-focus-background-left"
-     transform="translate(-49.738299,130.24995)">
-    <path
-       sodipodi:nodetypes="ccccc"
-       inkscape:connector-curvature="0"
-       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       d="m 62,-41.999954 v 14 h 1 l -0.0117,-14 z"
-       id="path2987" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path2989"
-       d="M 61,-41.999984 V -28 h 1 v -13.999984 z"
-       style="fill:#000000;fill-opacity:0;fill-rule:nonzero;stroke:none" />
-  </g>
-  <g
-     id="mask-focus-background-top"
-     transform="matrix(0.25951067,0,0,1,-2.8736045,132.23421)">
-    <path
-       sodipodi:nodetypes="ccccc"
-       inkscape:connector-curvature="0"
-       id="path2993"
-       d="m 66.00001,-45.984214 2e-6,1 H 197.00001 v -1 z"
-       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-    <path
-       inkscape:connector-curvature="0"
-       style="fill:#000000;fill-opacity:0;fill-rule:nonzero;stroke:none"
-       d="m 66,-46.984214 v 1 h 131 v -1 z"
-       id="path2995" />
-  </g>
-  <g
-     id="mask-focus-background-right"
-     transform="translate(-150.73829,130.29497)">
-    <path
-       sodipodi:nodetypes="ccccc"
-       inkscape:connector-curvature="0"
-       id="path2999"
-       d="m 200.9883,-42.044974 0.0117,14.01377 -1.01171,-0.01377 v -14 z"
-       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-    <path
-       inkscape:connector-curvature="0"
-       style="fill:#000000;fill-opacity:0;fill-rule:nonzero;stroke:none"
-       d="M 202.00001,-41.984204 V -28 h -1 v -13.984204 z"
-       id="path3001" />
-    <path
-       id="path3003"
-       d="m 201,-41.986174 v 13.95497 h -1 v -13.95497 z"
-       style="fill:#ffffff;fill-opacity:0;fill-rule:nonzero;stroke:none"
-       inkscape:connector-curvature="0" />
-  </g>
-  <g
-     id="mask-focus-background-bottom"
-     transform="matrix(0.25951067,0,0,1,-2.8701035,128.29497)">
-    <path
-       sodipodi:nodetypes="ccccc"
-       id="path3007"
-       d="m 65.970715,-25.044974 0.01349,1.04498 130.984195,-0.0625 -0.0135,-0.98248 z"
-       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       inkscape:connector-curvature="0" />
-    <rect
-       style="fill:#000000;fill-opacity:0;stroke:none"
-       id="rect3009"
-       width="131"
-       height="1.0000023"
-       x="66"
-       y="-23.999954" />
-  </g>
-  <g
-     transform="translate(-21.749999,66.249998)"
-     id="mask-focus-background-topleft">
-    <path
-       class="ColorScheme-ButtonBackground"
-       sodipodi:type="arc"
-       style="color:#eff0f1;fill:#000000;fill-opacity:1;stroke:none"
-       id="path3013"
-       sodipodi:cx="160"
-       sodipodi:cy="-159"
-       sodipodi:rx="2"
-       sodipodi:ry="2"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:start="0"
-       sodipodi:end="1.5707963"
-       transform="matrix(-0.5,0,0,-0.5,115,-58.5)" />
-    <rect
-       style="opacity:0;fill:#000000;fill-opacity:1;stroke:none"
-       id="rect3015"
-       width="1"
-       height="1"
-       x="33"
-       y="19" />
-  </g>
-  <g
-     transform="rotate(90,9.0000011,61.249999)"
-     id="mask-focus-background-topright">
-    <path
-       transform="matrix(-0.5,0,0,-0.5,115,-58.5)"
-       sodipodi:end="1.5707963"
-       sodipodi:start="0"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:ry="2"
-       sodipodi:rx="2"
-       sodipodi:cy="-159"
-       sodipodi:cx="160"
-       id="path3019"
-       style="color:#eff0f1;fill:#000000;fill-opacity:1;stroke:none"
-       sodipodi:type="arc"
-       class="ColorScheme-ButtonBackground" />
-    <rect
-       y="19"
-       x="33"
-       height="1"
-       width="1"
-       id="rect3021"
-       style="opacity:0;fill:#000000;fill-opacity:1;stroke:none" />
-    <path
-       class="ColorScheme-ButtonBackground"
-       sodipodi:type="arc"
-       style="color:#eff0f1;fill:#000000;fill-opacity:1;stroke:none"
-       id="path3023"
-       sodipodi:cx="160"
-       sodipodi:cy="-159"
-       sodipodi:rx="2"
-       sodipodi:ry="2"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:start="0"
-       sodipodi:end="1.5707963"
-       transform="matrix(-0.5,0,0,-0.5,115,-58.5)" />
-  </g>
-  <g
-     transform="matrix(1,0,0,-1,-21.749999,124.25)"
-     id="mask-focus-background-bottomleft">
-    <path
-       transform="matrix(-0.5,0,0,-0.5,115,-58.5)"
-       sodipodi:end="1.5707963"
-       sodipodi:start="0"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:ry="2"
-       sodipodi:rx="2"
-       sodipodi:cy="-159"
-       sodipodi:cx="160"
-       id="path3027"
-       style="color:#eff0f1;fill:#000000;fill-opacity:1;stroke:none"
-       sodipodi:type="arc"
-       class="ColorScheme-ButtonBackground" />
-    <rect
-       y="19"
-       x="33"
-       height="1"
-       width="1"
-       id="rect3029"
-       style="opacity:0;fill:#000000;fill-opacity:1;stroke:none" />
-  </g>
-  <g
-     id="mask-focus-background-bottomright"
-     transform="matrix(0,-1,-1,0,70.250001,138.25)">
-    <path
-       class="ColorScheme-ButtonBackground"
-       sodipodi:type="arc"
-       style="color:#eff0f1;fill:#000000;fill-opacity:1;stroke:none"
-       id="path3033"
-       sodipodi:cx="160"
-       sodipodi:cy="-159"
-       sodipodi:rx="2"
-       sodipodi:ry="2"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:start="0"
-       sodipodi:end="1.5707963"
-       transform="matrix(-0.5,0,0,-0.5,115,-58.5)" />
-    <rect
-       style="opacity:0;fill:#000000;fill-opacity:1;stroke:none"
-       id="rect3035"
-       width="1"
-       height="1"
-       x="33"
-       y="19" />
-    <path
-       transform="matrix(-0.5,0,0,-0.5,115,-58.5)"
-       sodipodi:end="1.5707963"
-       sodipodi:start="0"
-       d="m 162,-159 a 2,2 0 0 1 -2,2 l 0,-2 z"
-       sodipodi:ry="2"
-       sodipodi:rx="2"
-       sodipodi:cy="-159"
-       sodipodi:cx="160"
-       id="path3037"
-       style="color:#eff0f1;fill:#000000;fill-opacity:1;stroke:none"
-       sodipodi:type="arc"
-       class="ColorScheme-ButtonBackground" />
-  </g>
-  <rect
-     ry="0"
-     y="134.75"
-     x="-14.999997"
-     height="3"
-     width="3"
-     id="hint-focus-highlighted-background"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+    <g fill-rule="evenodd" transform="translate(177,65)" id="shadow-bottomright">
+        <path sodipodi:nodetypes="cccc" opacity="0.00100002" fill-opacity="0.00392199" d="m 27,-11 v 3 c 1.662,0 3,-1.338 3,-3 z" id="rect1509-7-9-6-2" />
+        <path sodipodi:nodetypes="ccccc" opacity="0.15" d="m 29,-11 c 0,1.108 -0.892,2 -2,2 v 1 c 1.662,0 3,-1.338 3,-3 z" id="path1561" />
+    </g>
+    <g fill-rule="evenodd" transform="translate(177,64)" id="shadow-topright">
+        <path sodipodi:nodetypes="cccc" opacity="0.00100002" fill-opacity="0.00392199" d="m 27,-35 h 3 c 0,-1.662 -1.338,-3 -3,-3 z" id="rect1509-7-9-6" />
+        <path sodipodi:nodetypes="csccc" opacity="0.15" d="M 27.4043,-37.958984 C 28.3173,-37.773102 29,-36.9695 29,-36 v 1 h 1 c 0,-1.523257 -1.1285,-2.760718 -2.5957,-2.958984 z" id="rect1509-5" />
+    </g>
+    <path opacity="0.00100002" fill-rule="evenodd" fill-opacity="0.00392199" d="m 180,31 h 22 v 22 h -22 z" id="shadow-center" />
+    <path opacity="0.00100002" fill-rule="evenodd" fill-opacity="0.00392199" d="m 176,30 v 22 h 3 V 30 Z" id="shadow-left" sodipodi:nodetypes="ccccc" />
+    <path opacity="0.00100002" fill-rule="evenodd" fill-opacity="0.00392199" d="m 180,26 v 3 h 22 v -3 z" id="shadow-top" sodipodi:nodetypes="ccccc" />
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 190,26 h 2 v 1e-6 h -2 z" id="shadow-hint-top-margin" style="stroke-width:0.999997" />
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 190,56 h 2 v 1 h -2 z" id="shadow-hint-bottom-margin" style="stroke-width:0.999997" />
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 206,40 h 1 v 2 h -1 z" id="shadow-hint-right-margin" style="stroke-width:0.999997" />
+    <path sodipodi:nodetypes="cccc" opacity="0.00100002" fill-rule="evenodd" fill-opacity="0.00392199" d="m 179,26 c -1.662,0 -3,1.338 -3,3 h 3 z" id="shadow-topleft" />
+    <rect y="40" x="176" height="2" width="0.001" id="shadow-hint-left-margin" style="fill:#ff00ff;fill-opacity:1;fill-rule:evenodd;stroke-width:1" />
+    <g id="normal-center">
+        <path id="path34" fill-rule="evenodd" fill="currentColor" class="ColorScheme-ButtonBackground" d="m180 68h22v22h-22z" />
+        <rect y="68" x="180" height="22" width="22" id="c" style="fill:url(#linearGradient1133-3);fill-opacity:1;fill-rule:evenodd" />
+    </g>
+    <g fill-rule="evenodd" transform="translate(174,66)" id="normal-bottomleft">
+        <path fill="currentColor" class="ColorScheme-ButtonBackground" d="m 0,28 c 0,1.108 0.892,2 2,2 v -2 z" id="rect833-7-3" />
+        <path opacity="0.3" fill="currentColor" class="ColorScheme-ButtonText" d="m 0,28 c 0,1.108 0.892,2 2,2 V 29 C 1.446,29 1,28.554 1,28 Z" id="path915" />
+        <path id="bl" d="m 0,28 c 0,1.108 0.892,2 2,2 v -2 z" style="fill:url(#linearGradient1233-6);fill-opacity:1" />
+    </g>
+    <g fill-rule="evenodd" transform="translate(176,66)" id="normal-bottom">
+        <path fill="currentColor" class="ColorScheme-ButtonBackground" d="m -26,-30 h 22 v 2 h -22 z" transform="scale(-1)" id="rect829-6" />
+        <path opacity="0.3" fill="currentColor" class="ColorScheme-ButtonText" d="m -26,-30 h 22 v 1 h -22 z" transform="scale(-1)" id="rect829-6-2" />
+        <rect style="fill:url(#linearGradient1148-9);fill-opacity:1;fill-rule:evenodd" id="b" width="22" height="2" x="4" y="28" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(1,0,0,-1,174,92)" id="normal-topleft">
+        <path fill="currentColor" class="ColorScheme-ButtonBackground" d="m 0,28 c 0,1.108 0.892,2 2,2 v -2 z" id="rect833-7-3-1" />
+        <path opacity="0.3" fill="currentColor" class="ColorScheme-ButtonText" d="m 0,28 c 0,1.108 0.892,2 2,2 V 29 C 1.446,29 1,28.554 1,28 Z" id="path915-2" />
+        <path style="fill:url(#linearGradient1233);fill-opacity:1" d="m 0,28 c 0,1.108 0.892,2 2,2 v -2 z" id="tl" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(1,0,0,-1,176,92)" id="normal-top">
+        <path fill="currentColor" class="ColorScheme-ButtonBackground" d="m -26,-30 h 22 v 2 h -22 z" transform="scale(-1)" id="rect829-6-0" />
+        <path opacity="0.3" fill="currentColor" class="ColorScheme-ButtonText" d="m -26,-30 h 22 v 1 h -22 z" transform="scale(-1)" id="rect829-6-2-9" />
+        <rect transform="scale(1,-1)" y="-30" x="4" height="2" width="22" id="t" style="fill:url(#linearGradient1148);fill-opacity:1;fill-rule:evenodd" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(0,1,1,0,178,62)" id="normal-topright">
+        <path fill="currentColor" class="ColorScheme-ButtonBackground" d="m 0,28 c 0,1.108 0.892,2 2,2 v -2 z" id="rect833-7-3-6" />
+        <path opacity="0.3" fill="currentColor" class="ColorScheme-ButtonText" d="m 0,28 c 0,1.108 0.892,2 2,2 V 29 C 1.446,29 1,28.554 1,28 Z" id="path915-0" />
+        <path id="tr" d="M 2,30 C 0.892,30 0,29.108 0,28 h 2 z" style="fill:url(#linearGradient1233-9);fill-opacity:1" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(0,1,1,0,178,64)" id="normal-right">
+        <path fill="currentColor" class="ColorScheme-ButtonBackground" d="m -26,-30 h 22 v 2 h -22 z" transform="scale(-1)" id="rect829-6-26" />
+        <path opacity="0.3" fill="currentColor" class="ColorScheme-ButtonText" d="m -26,-30 h 22 v 1 h -22 z" transform="scale(-1)" id="rect829-6-2-1" />
+        <rect transform="matrix(0,1,1,0,0,0)" style="fill:url(#linearGradient1148-3);fill-opacity:1;fill-rule:evenodd" id="r" width="2" height="22" x="28" y="4" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(-1,0,0,1,208,66)" id="normal-bottomright">
+        <path fill="currentColor" class="ColorScheme-ButtonBackground" d="m 0,28 c 0,1.108 0.892,2 2,2 v -2 z" id="rect833-7-3-7" />
+        <path opacity="0.3" fill="currentColor" class="ColorScheme-ButtonText" d="m 0,28 c 0,1.108 0.892,2 2,2 V 29 C 1.446,29 1,28.554 1,28 Z" id="path915-9" />
+        <path style="fill:url(#linearGradient1233-6-8);fill-opacity:1" d="m 0,28 c 0,1.108 0.892,2 2,2 v -2 z" id="br" />
+    </g>
+    <g fill-rule="evenodd" transform="rotate(90,70,134)" id="normal-left">
+        <path fill="currentColor" class="ColorScheme-ButtonBackground" d="m -26,-30 h 22 v 2 h -22 z" transform="scale(-1)" id="rect829-6-26-0" />
+        <path opacity="0.3" fill="currentColor" class="ColorScheme-ButtonText" d="m -26,-30 h 22 v 1 h -22 z" transform="scale(-1)" id="rect829-6-2-1-2" />
+        <rect transform="rotate(-90)" y="4" x="-30" height="22" width="2" id="l" style="fill:url(#linearGradient1148-3-3);fill-opacity:1;fill-rule:evenodd" />
+    </g>
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 190,62 h 2 v 6 h -2 z" id="normal-hint-top-margin" style="stroke-width:0.999996" />
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 190,90 h 2 v 6 h -2 z" id="normal-hint-bottom-margin" style="stroke-width:0.999996" />
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 174,78 h 6 v 2 h -6 z" id="normal-hint-left-margin" style="stroke-width:0.999996" />
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 202,78 h 6 v 2 h -6 z" id="normal-hint-right-margin" style="stroke-width:0.999996" />
+    <path fill-rule="evenodd" d="m56 68h22v22h-22z" id="mask-normal-center" />
+    <path fill-rule="evenodd" d="m80 92v2c1.108 0 2-.892 2-2z" id="mask-normal-bottomright" />
+    <path fill-rule="evenodd" d="m56 92v2h22v-2z" id="mask-normal-bottom" />
+    <path fill-rule="evenodd" d="m52 92c0 1.108.892 2 2 2v-2h-1z" id="mask-normal-bottomleft" />
+    <path fill-rule="evenodd" d="m80 68v22h2v-22z" id="mask-normal-right" />
+    <path fill-rule="evenodd" d="m52 68v22h2v-22z" id="mask-normal-left" />
+    <path fill-rule="evenodd" d="m80 64v2h2c0-1.108-.892-2-2-2z" id="mask-normal-topright" />
+    <path fill-rule="evenodd" d="m56 64v2h22v-2z" id="mask-normal-top" />
+    <path fill-rule="evenodd" d="m54 64c-1.108 0-2 .892-2 2h2v-1z" id="mask-normal-topleft" />
+    <g fill-rule="evenodd" transform="translate(176 102)" id="hover-bottomleft">
+        <path opacity=".001" fill-opacity=".003922" fill="currentColor" class="ColorScheme-ButtonBackground" d="m0 28c0 1.108.892 2 2 2v-2z" id="rect833-7-3-55" />
+        <path fill="currentColor" class="ColorScheme-ButtonHover" d="m0 28c0 1.108.892 2 2 2v-1c-.554 0-1-.446-1-1z" id="path915-4" />
+    </g>
+    <g fill-rule="evenodd" transform="translate(176 102)" id="hover-bottom">
+        <path opacity=".001" fill-opacity=".003922" fill="currentColor" class="ColorScheme-ButtonBackground" d="m-26-30h22v2h-22z" transform="scale(-1)" id="rect829-6-5" />
+        <path fill="currentColor" class="ColorScheme-ButtonHover" d="m-26-30h22v1h-22z" transform="scale(-1)" id="rect829-6-2-6" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(1 0 0 -1 176 132)" id="hover-topleft">
+        <path opacity=".001" fill-opacity=".003922" fill="currentColor" class="ColorScheme-ButtonBackground" d="m0 28c0 1.108.892 2 2 2v-2z" id="rect833-7-3-1-3" />
+        <path fill="currentColor" class="ColorScheme-ButtonHover" d="m0 28c0 1.108.892 2 2 2v-1c-.554 0-1-.446-1-1z" id="path915-2-7" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(1 0 0 -1 176 132)" id="hover-top">
+        <path opacity=".001" fill-opacity=".003922" fill="currentColor" class="ColorScheme-ButtonBackground" d="m-26-30h22v2h-22z" transform="scale(-1)" id="rect829-6-0-5" />
+        <path fill="currentColor" class="ColorScheme-ButtonHover" d="m-26-30h22v1h-22z" transform="scale(-1)" id="rect829-6-2-9-2" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(0 1 1 0 176 102)" id="hover-topright">
+        <path opacity=".001" fill-opacity=".003922" fill="currentColor" class="ColorScheme-ButtonBackground" d="m0 28c0 1.108.892 2 2 2v-2z" id="rect833-7-3-6-4" />
+        <path fill="currentColor" class="ColorScheme-ButtonHover" d="m0 28c0 1.108.892 2 2 2v-1c-.554 0-1-.446-1-1z" id="path915-0-7" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(0 1 1 0 176 102)" id="hover-right">
+        <path opacity=".001" fill-opacity=".003922" fill="currentColor" class="ColorScheme-ButtonBackground" d="m-26-30h22v2h-22z" transform="scale(-1)" id="rect829-6-26-4" />
+        <path fill="currentColor" class="ColorScheme-ButtonHover" d="m-26-30h22v1h-22z" transform="scale(-1)" id="rect829-6-2-1-3" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(-1 0 0 1 206 102)" id="hover-bottomright">
+        <path opacity=".001" fill-opacity=".003922" fill="currentColor" class="ColorScheme-ButtonBackground" d="m0 28c0 1.108.892 2 2 2v-2z" id="rect833-7-3-7-7" />
+        <path fill="currentColor" class="ColorScheme-ButtonHover" d="m0 28c0 1.108.892 2 2 2v-1c-.554 0-1-.446-1-1z" id="path915-9-8" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(0 1 -1 0 206 102)" id="hover-left">
+        <path opacity=".001" fill-opacity=".003922" fill="currentColor" class="ColorScheme-ButtonBackground" d="m-26-30h22v2h-22z" transform="scale(-1)" id="rect829-6-26-0-8" />
+        <path fill="currentColor" class="ColorScheme-ButtonHover" d="m-26-30h22v1h-22z" transform="scale(-1)" id="rect829-6-2-1-2-8" />
+    </g>
+    <path opacity=".001" fill-rule="evenodd" fill-opacity=".003922" d="m180 106h22v22h-22z" id="hover-center" />
+    <rect fill-rule="evenodd" fill="#ff00ff" height="0.001" width="2" y="102" x="190" id="hover-hint-top-margin" />
+    <rect fill-rule="evenodd" fill="#ff00ff" height="0.001" width="2" y="131" x="190" id="hover-hint-bottom-margin" />
+    <rect fill-rule="evenodd" fill="#ff00ff" height="2" width="0.001" y="116" x="205" id="hover-hint-right-margin" />
+    <rect style="fill:#ff00ff;fill-opacity:1;fill-rule:evenodd;stroke-width:1" id="hover-hint-left-margin" width="0.001" height="2" x="176" y="116" />
+    <g fill-rule="evenodd" id="focus-bottom">
+        <path opacity=".001" fill-opacity=".003922" fill="currentColor" class="ColorScheme-ButtonBackground" d="m-202-170h22v2h-22z" transform="scale(-1)" id="rect829-6-5-2-9" />
+        <path fill="currentColor" class="ColorScheme-ButtonFocus" d="m-202-170h22v1h-22z" transform="scale(-1)" id="rect829-6-2-6-6-9" />
+        <path opacity=".2" fill="currentColor" class="ColorScheme-ButtonFocus" d="m180 170v1h22v-1z" id="path1565-4-90-2" />
+    </g>
+    <g fill-rule="evenodd" id="focus-bottomleft">
+        <path opacity=".001" fill-opacity=".003922" fill="currentColor" class="ColorScheme-ButtonBackground" d="m176 168c0 1.108.892 2 2 2v-2z" id="rect833-7-3-55-6-7" />
+        <path fill="currentColor" class="ColorScheme-ButtonFocus" d="m176 168c0 1.108.892 2 2 2v-1c-.554 0-1-.446-1-1z" id="path915-4-8-2" />
+        <path opacity=".2" fill="currentColor" class="ColorScheme-ButtonFocus" d="m176 168c0 1.108.892 2 2 2v1c-1.662 0-3-1.338-3-3z" id="path1561-6-4-7-2" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(1 0 0 -1 0 310)" id="focus-topleft">
+        <path opacity=".001" fill-opacity=".003922" fill="currentColor" class="ColorScheme-ButtonBackground" d="m176 168c0 1.108.892 2 2 2v-2z" id="rect833-7-3-55-6-7-6" />
+        <path fill="currentColor" class="ColorScheme-ButtonFocus" d="m176 168c0 1.108.892 2 2 2v-1c-.554 0-1-.446-1-1z" id="path915-4-8-2-0" />
+        <path opacity=".2" fill="currentColor" class="ColorScheme-ButtonFocus" d="m176 168c0 1.108.892 2 2 2v1c-1.662 0-3-1.338-3-3z" id="path1561-6-4-7-2-7" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(-1 0 0 -1 382 310)" id="focus-topright">
+        <path opacity=".001" fill-opacity=".003922" fill="currentColor" class="ColorScheme-ButtonBackground" d="m176 168c0 1.108.892 2 2 2v-2z" id="rect833-7-3-55-6-7-1" />
+        <path fill="currentColor" class="ColorScheme-ButtonFocus" d="m176 168c0 1.108.892 2 2 2v-1c-.554 0-1-.446-1-1z" id="path915-4-8-2-01" />
+        <path opacity=".2" fill="currentColor" class="ColorScheme-ButtonFocus" d="m176 168c0 1.108.892 2 2 2v1c-1.662 0-3-1.338-3-3z" id="path1561-6-4-7-2-3" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(-1 0 0 1 382 0)" id="focus-bottomright">
+        <path opacity=".001" fill-opacity=".003922" fill="currentColor" class="ColorScheme-ButtonBackground" d="m176 168c0 1.108.892 2 2 2v-2z" id="rect833-7-3-55-6-7-7" />
+        <path fill="currentColor" class="ColorScheme-ButtonFocus" d="m176 168c0 1.108.892 2 2 2v-1c-.554 0-1-.446-1-1z" id="path915-4-8-2-2" />
+        <path opacity=".2" fill="currentColor" class="ColorScheme-ButtonFocus" d="m176 168c0 1.108.892 2 2 2v1c-1.662 0-3-1.338-3-3z" id="path1561-6-4-7-2-6" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(1 0 0 -1 0 310)" id="focus-top">
+        <path opacity=".001" fill-opacity=".003922" fill="currentColor" class="ColorScheme-ButtonBackground" d="m-202-170h22v2h-22z" transform="scale(-1)" id="rect829-6-5-2-9-5" />
+        <path fill="currentColor" class="ColorScheme-ButtonFocus" d="m-202-170h22v1h-22z" transform="scale(-1)" id="rect829-6-2-6-6-9-2" />
+        <path opacity=".2" fill="currentColor" class="ColorScheme-ButtonFocus" d="m180 170v1h22v-1z" id="path1565-4-90-2-0" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(0 -1 1 0 36 346)" id="focus-right">
+        <path opacity=".001" fill-opacity=".003922" fill="currentColor" class="ColorScheme-ButtonBackground" d="m-202-170h22v2h-22z" transform="scale(-1)" id="rect829-6-5-2-9-0" />
+        <path fill="currentColor" class="ColorScheme-ButtonFocus" d="m-202-170h22v1h-22z" transform="scale(-1)" id="rect829-6-2-6-6-9-9" />
+        <path opacity=".2" fill="currentColor" class="ColorScheme-ButtonFocus" d="m180 170v1h22v-1z" id="path1565-4-90-2-9" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(0 -1 -1 0 346 346)" id="focus-left">
+        <path opacity=".001" fill-opacity=".003922" fill="currentColor" class="ColorScheme-ButtonBackground" d="m-202-170h22v2h-22z" transform="scale(-1)" id="rect829-6-5-2-9-0-1" />
+        <path fill="currentColor" class="ColorScheme-ButtonFocus" d="m-202-170h22v1h-22z" transform="scale(-1)" id="rect829-6-2-6-6-9-9-0" />
+        <path opacity=".2" fill="currentColor" class="ColorScheme-ButtonFocus" d="m180 170v1h22v-1z" id="path1565-4-90-2-9-3" />
+    </g>
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 190,139 h 2 v 1 h -2 z" id="focus-hint-top-margin" />
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 190,170 h 2 v 1 h -2 z" id="focus-hint-bottom-margin" />
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 175,154 h 1 v 2 h -1 z" id="focus-hint-left-margin" />
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 206,154 h 1 v 2 h -1 z" id="focus-hint-right-margin" />
+    <path id="focus-center" d="m 180,144 h 22 v 22 h -22 z" fill-opacity="0.00392199" fill-rule="evenodd" opacity="0.00100002" />
+    <g id="focus-background-center">
+        <path id="path208" fill-rule="evenodd" fill="currentColor" class="ColorScheme-ButtonFocus" d="m118 144h22v22h-22z" />
+        <rect style="fill:url(#linearGradient1133);fill-rule:evenodd;fill-opacity:1" id="fc" width="22" height="22" x="118" y="144" />
+    </g>
+    <g fill-rule="evenodd" transform="translate(112,142)" id="focus-background-bottomleft">
+        <path fill="currentColor" class="ColorScheme-ButtonFocus" d="m 0,28 c 0,1.108 0.892,2 2,2 v -2 z" id="rect833-7-3-55-1-3" />
+        <path opacity="0.3" fill="currentColor" class="ColorScheme-ButtonText" d="m 0,28 c 0,1.108 0.892,2 2,2 V 29 C 1.446,29 1,28.554 1,28 Z" id="path915-4-7-1" />
+        <path style="fill:url(#linearGradient1233-6-3);fill-opacity:1" d="m 0,28 c 0,1.108 0.892,2 2,2 v -2 z" id="fbl" />
+    </g>
+    <g fill-rule="evenodd" transform="translate(114,142)" id="focus-background-bottom">
+        <path fill="currentColor" class="ColorScheme-ButtonFocus" d="m -26,-30 h 22 v 2 h -22 z" transform="scale(-1)" id="rect829-6-5-1-9" />
+        <path opacity="0.3" fill="currentColor" class="ColorScheme-ButtonText" d="m -26,-30 h 22 v 1 h -22 z" transform="scale(-1)" id="rect829-6-2-6-1-0" />
+        <rect y="28" x="4" height="2" width="22" id="fb" style="fill:url(#linearGradient1356-6);fill-opacity:1;fill-rule:evenodd" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(1,0,0,-1,112,168)" id="focus-background-topleft">
+        <path fill="currentColor" class="ColorScheme-ButtonFocus" d="m 0,28 c 0,1.108 0.892,2 2,2 v -2 z" id="rect833-7-3-1-3-9-6" />
+        <path opacity="0.3" fill="currentColor" class="ColorScheme-ButtonText" d="m 0,28 c 0,1.108 0.892,2 2,2 V 29 C 1.446,29 1,28.554 1,28 Z" id="path915-2-7-7-7" />
+        <path id="ftl" d="m 0,28 c 0,1.108 0.892,2 2,2 v -2 z" style="fill:url(#linearGradient1233-8);fill-opacity:1" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(1,0,0,-1,114,168)" id="focus-background-top">
+        <path fill="currentColor" class="ColorScheme-ButtonFocus" d="m -26,-30 h 22 v 2 h -22 z" transform="scale(-1)" id="rect829-6-0-5-6-4" />
+        <path opacity="0.3" fill="currentColor" class="ColorScheme-ButtonText" d="m -26,-30 h 22 v 1 h -22 z" transform="scale(-1)" id="rect829-6-2-9-2-7-0" />
+        <rect transform="scale(1,-1)" style="fill:url(#linearGradient1356);fill-opacity:1;fill-rule:evenodd" id="ft" width="22" height="2" x="4" y="-30" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(0,1,1,0,116,138)" id="focus-background-topright">
+        <path fill="currentColor" class="ColorScheme-ButtonFocus" d="m 0,28 c 0,1.108 0.892,2 2,2 v -2 z" id="rect833-7-3-6-4-6-4" />
+        <path opacity="0.3" fill="currentColor" class="ColorScheme-ButtonText" d="m 0,28 c 0,1.108 0.892,2 2,2 V 29 C 1.446,29 1,28.554 1,28 Z" id="path915-0-7-5-7" />
+        <path style="fill:url(#linearGradient1233-9-7);fill-opacity:1" d="M 2,30 C 0.892,30 0,29.108 0,28 h 2 z" id="ftr" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(0,1,1,0,116,140)" id="focus-background-right">
+        <path fill="currentColor" class="ColorScheme-ButtonFocus" d="m -26,-30 h 22 v 2 h -22 z" transform="scale(-1)" id="rect829-6-26-4-3-8" />
+        <path opacity="0.3" fill="currentColor" class="ColorScheme-ButtonText" d="m -26,-30 h 22 v 1 h -22 z" transform="scale(-1)" id="rect829-6-2-1-3-9-5" />
+        <rect transform="matrix(0,1,1,0,0,0)" style="fill:url(#linearGradient1133-0);fill-opacity:1;fill-rule:evenodd" id="fr" width="2" height="22" x="28" y="4" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(-1,0,0,1,146,142)" id="focus-background-bottomright">
+        <path fill="currentColor" class="ColorScheme-ButtonFocus" d="m 0,28 c 0,1.108 0.892,2 2,2 v -2 z" id="rect833-7-3-7-7-8-2" />
+        <path opacity="0.3" fill="currentColor" class="ColorScheme-ButtonText" d="m 0,28 c 0,1.108 0.892,2 2,2 V 29 C 1.446,29 1,28.554 1,28 Z" id="path915-9-8-1-6" />
+        <path id="fbr" d="m 0,28 c 0,1.108 0.892,2 2,2 v -2 z" style="fill:url(#linearGradient1233-6-8-4);fill-opacity:1" />
+    </g>
+    <g fill-rule="evenodd" transform="rotate(90,1,141)" id="focus-background-left">
+        <path fill="currentColor" class="ColorScheme-ButtonFocus" d="m -26,-30 h 22 v 2 h -22 z" transform="scale(-1)" id="rect829-6-26-0-8-9-6" />
+        <path opacity="0.3" fill="currentColor" class="ColorScheme-ButtonText" d="m -26,-30 h 22 v 1 h -22 z" transform="scale(-1)" id="rect829-6-2-1-2-8-3-6" />
+        <rect transform="rotate(-90)" y="4" x="-30" height="22" width="2" id="fl" style="fill:url(#linearGradient1133-0-5);fill-opacity:1;fill-rule:evenodd" />
+    </g>
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 128,138 h 2 v 6 h -2 z" id="focus-background-hint-top-margin" style="stroke-width:0.999996" />
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 128,166 h 2 v 6 h -2 z" id="focus-background-hint-bottom-margin" style="stroke-width:0.999996" />
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 112,154 h 6 v 2 h -6 z" id="focus-background-hint-left-margin" style="stroke-width:0.999996" />
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 140,154 h 6 v 2 h -6 z" id="focus-background-hint-right-margin" style="stroke-width:0.999996" />
+    <path fill-rule="evenodd" d="m56 144h22v22h-22z" id="mask-focus-background-center" />
+    <path fill-rule="evenodd" d="m80 168v2c1.108 0 2-.892 2-2z" id="mask-focus-background-bottomright" />
+    <path fill-rule="evenodd" d="m56 168v2h22v-2z" id="mask-focus-background-bottom" />
+    <path fill-rule="evenodd" d="m52 168c0 1.108.892 2 2 2v-2h-1z" id="mask-focus-background-bottomleft" />
+    <path fill-rule="evenodd" d="m80 144v22h2v-22z" id="mask-focus-background-right" />
+    <path fill-rule="evenodd" d="m52 144v22h2v-22z" id="mask-focus-background-left" />
+    <path fill-rule="evenodd" d="m80 140v2h2c0-1.108-.892-2-2-2z" id="mask-focus-background-topright" />
+    <path fill-rule="evenodd" d="m56 140v2h22v-2z" id="mask-focus-background-top" />
+    <path fill-rule="evenodd" d="m54 140c-1.108 0-2 .892-2 2h2v-1z" id="mask-focus-background-topleft" />
+    <path fill-rule="evenodd" fill="currentColor" class="ColorScheme-ButtonHover" d="m 180,182 h 22 v 22 h -22 z" id="pressed-center" />
+    <g fill-rule="evenodd" transform="translate(174,180)" id="pressed-bottomleft">
+        <path fill="currentColor" class="ColorScheme-ButtonHover" d="m 0,28 c 0,1.108 0.892,2 2,2 v -2 z" id="rect833-7-3-55-1" />
+        <path opacity="0.3" fill="currentColor" class="ColorScheme-ButtonText" d="m 0,28 c 0,1.108 0.892,2 2,2 V 29 C 1.446,29 1,28.554 1,28 Z" id="path915-4-7" />
+    </g>
+    <g fill-rule="evenodd" transform="translate(176,180)" id="pressed-bottom">
+        <path fill="currentColor" class="ColorScheme-ButtonHover" d="m -26,-30 h 22 v 2 h -22 z" transform="scale(-1)" id="rect829-6-5-1" />
+        <path opacity="0.3" fill="currentColor" class="ColorScheme-ButtonText" d="m -26,-30 h 22 v 1 h -22 z" transform="scale(-1)" id="rect829-6-2-6-1" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(1,0,0,-1,174,206)" id="pressed-topleft">
+        <path fill="currentColor" class="ColorScheme-ButtonHover" d="m 0,28 c 0,1.108 0.892,2 2,2 v -2 z" id="rect833-7-3-1-3-9" />
+        <path opacity="0.3" fill="currentColor" class="ColorScheme-ButtonText" d="m 0,28 c 0,1.108 0.892,2 2,2 V 29 C 1.446,29 1,28.554 1,28 Z" id="path915-2-7-7" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(1,0,0,-1,176,206)" id="pressed-top">
+        <path fill="currentColor" class="ColorScheme-ButtonHover" d="m -26,-30 h 22 v 2 h -22 z" transform="scale(-1)" id="rect829-6-0-5-6" />
+        <path opacity="0.3" fill="currentColor" class="ColorScheme-ButtonText" d="m -26,-30 h 22 v 1 h -22 z" transform="scale(-1)" id="rect829-6-2-9-2-7" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(0,1,1,0,178,176)" id="pressed-topright">
+        <path fill="currentColor" class="ColorScheme-ButtonHover" d="m 0,28 c 0,1.108 0.892,2 2,2 v -2 z" id="rect833-7-3-6-4-6" />
+        <path opacity="0.3" fill="currentColor" class="ColorScheme-ButtonText" d="m 0,28 c 0,1.108 0.892,2 2,2 V 29 C 1.446,29 1,28.554 1,28 Z" id="path915-0-7-5" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(0,1,1,0,178,178)" id="pressed-right">
+        <path fill="currentColor" class="ColorScheme-ButtonHover" d="m -26,-30 h 22 v 2 h -22 z" transform="scale(-1)" id="rect829-6-26-4-3" />
+        <path opacity="0.3" fill="currentColor" class="ColorScheme-ButtonText" d="m -26,-30 h 22 v 1 h -22 z" transform="scale(-1)" id="rect829-6-2-1-3-9" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(-1,0,0,1,208,180)" id="pressed-bottomright">
+        <path fill="currentColor" class="ColorScheme-ButtonHover" d="m 0,28 c 0,1.108 0.892,2 2,2 v -2 z" id="rect833-7-3-7-7-8" />
+        <path opacity="0.3" fill="currentColor" class="ColorScheme-ButtonText" d="m 0,28 c 0,1.108 0.892,2 2,2 V 29 C 1.446,29 1,28.554 1,28 Z" id="path915-9-8-1" />
+    </g>
+    <g fill-rule="evenodd" transform="rotate(90,13,191)" id="pressed-left">
+        <path fill="currentColor" class="ColorScheme-ButtonHover" d="m -26,-30 h 22 v 2 h -22 z" transform="scale(-1)" id="rect829-6-26-0-8-9" />
+        <path opacity="0.3" fill="currentColor" class="ColorScheme-ButtonText" d="m -26,-30 h 22 v 1 h -22 z" transform="scale(-1)" id="rect829-6-2-1-2-8-3" />
+    </g>
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 190,176 h 2 v 6 h -2 z" id="pressed-hint-top-margin" style="stroke-width:0.999996" />
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 190,204 h 2 v 6 h -2 z" id="pressed-hint-bottom-margin" style="stroke-width:0.999996" />
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 174,192 h 6 v 2 h -6 z" id="pressed-hint-left-margin" style="stroke-width:0.999996" />
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 202,192 h 6 v 2 h -6 z" id="pressed-hint-right-margin" style="stroke-width:0.999996" />
+    <g fill-rule="evenodd" transform="translate(238 140)" id="toolbutton-hover-bottom">
+        <path opacity=".001" fill-opacity=".003922" d="m4-11v3h22v-3z" id="path1565-7-9" />
+        <path fill="currentColor" class="ColorScheme-ButtonHover" d="m4-9v1h22v-1z" id="path1565-4" />
+    </g>
+    <g fill-rule="evenodd" transform="translate(238 140)" id="toolbutton-hover-bottomright">
+        <path opacity=".001" fill-opacity=".003922" d="m27-8v-3h3c0 1.662-1.338 3-3 3z" id="rect1509-7-9-6-2-2" />
+        <path fill="currentColor" class="ColorScheme-ButtonHover" d="m29-11c0 1.108-.892 2-2 2v1c1.662 0 3-1.338 3-3z" id="path1561-6" />
+    </g>
+    <g fill-rule="evenodd" transform="translate(238 140)" id="toolbutton-hover-right">
+        <path opacity=".001" fill-opacity=".003922" d="m27-12h3v-22h-3z" id="path1565-7-8-1" />
+        <path fill="currentColor" class="ColorScheme-ButtonHover" d="m29-34v22h1v-22z" id="path1559-2" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(-1 0 0 -1 268 94)" id="toolbutton-hover-top">
+        <path opacity=".001" fill-opacity=".003922" d="m4-11v3h22v-3z" id="path1565-7-9-8" />
+        <path fill="currentColor" class="ColorScheme-ButtonHover" d="m4-9v1h22v-1z" id="path1565-4-9" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(-1 0 0 -1 268 94)" id="toolbutton-hover-topleft">
+        <path opacity=".001" fill-opacity=".003922" d="m27-8v-3h3c0 1.662-1.338 3-3 3z" id="rect1509-7-9-6-2-2-8" />
+        <path fill="currentColor" class="ColorScheme-ButtonHover" d="m29-11c0 1.108-.892 2-2 2v1c1.662 0 3-1.338 3-3z" id="path1561-6-8" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(-1 0 0 -1 268 94)" id="toolbutton-hover-left">
+        <path opacity=".001" fill-opacity=".003922" d="m27-12h3v-22h-3z" id="path1565-7-8-1-6" />
+        <path fill="currentColor" class="ColorScheme-ButtonHover" d="m29-34v22h1v-22z" id="path1559-2-8" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(1 0 0 -1 238 94)" id="toolbutton-hover-topright">
+        <path opacity=".001" fill-opacity=".003922" d="m27-8v-3h3c0 1.662-1.338 3-3 3z" id="rect1509-7-9-6-2-2-83" />
+        <path fill="currentColor" class="ColorScheme-ButtonHover" d="m29-11c0 1.108-.892 2-2 2v1c1.662 0 3-1.338 3-3z" id="path1561-6-3" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(-1 0 0 1 268 140)" id="toolbutton-hover-bottomleft">
+        <path opacity=".001" fill-opacity=".003922" d="m27-8v-3h3c0 1.662-1.338 3-3 3z" id="rect1509-7-9-6-2-2-0" />
+        <path fill="currentColor" class="ColorScheme-ButtonHover" d="m29-11c0 1.108-.892 2-2 2v1c1.662 0 3-1.338 3-3z" id="path1561-6-4" />
+    </g>
+    <path opacity=".001" fill-rule="evenodd" fill-opacity=".003922" d="m242 106h22v22h-22z" id="toolbutton-hover-center" />
+    <rect fill-rule="evenodd" fill="#ff00ff" height="0.001" width="2" y="102" x="252" id="toolbutton-hover-hint-top-margin" />
+    <rect fill-rule="evenodd" fill="#ff00ff" height="0.001" width="2" y="131" x="252" id="toolbutton-hover-hint-bottom-margin" />
+    <rect fill-rule="evenodd" fill="#ff00ff" height="2" width="0.001" y="116" x="267" id="toolbutton-hover-hint-right-margin" />
+    <rect y="116" x="238" height="2" width="0.001" id="toolbutton-hover-hint-left-margin" style="fill:#ff00ff;fill-opacity:1;fill-rule:evenodd;stroke-width:1" />
+    <g fill-rule="evenodd" transform="translate(62)" id="toolbutton-focus-bottom">
+        <path opacity=".001" fill-opacity=".003922" fill="currentColor" class="ColorScheme-ButtonBackground" d="m-202-170h22v3h-22z" transform="scale(-1)" id="rect829-6-5-2-9-8" />
+        <path fill="currentColor" class="ColorScheme-ButtonFocus" d="m-202-170h22v1h-22z" transform="scale(-1)" id="rect829-6-2-6-6-9-3" />
+        <path opacity=".2" fill="currentColor" class="ColorScheme-ButtonFocus" d="m180 170v1h22v-1z" id="path1565-4-90-2-7" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(1 0 0 -1 62 310)" id="toolbutton-focus-top">
+        <path opacity=".001" fill-opacity=".003922" fill="currentColor" class="ColorScheme-ButtonBackground" d="m-202-170h22v3h-22z" transform="scale(-1)" id="rect829-6-5-2-9-5-3" />
+        <path fill="currentColor" class="ColorScheme-ButtonFocus" d="m-202-170h22v1h-22z" transform="scale(-1)" id="rect829-6-2-6-6-9-2-7" />
+        <path opacity=".2" fill="currentColor" class="ColorScheme-ButtonFocus" d="m180 170v1h22v-1z" id="path1565-4-90-2-0-8" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(0 -1 1 0 98 346)" id="toolbutton-focus-right">
+        <path opacity=".001" fill-opacity=".003922" fill="currentColor" class="ColorScheme-ButtonBackground" d="m-202-170h22v3h-22z" transform="scale(-1)" id="rect829-6-5-2-9-0-4" />
+        <path fill="currentColor" class="ColorScheme-ButtonFocus" d="m-202-170h22v1h-22z" transform="scale(-1)" id="rect829-6-2-6-6-9-9-1" />
+        <path opacity=".2" fill="currentColor" class="ColorScheme-ButtonFocus" d="m180 170v1h22v-1z" id="path1565-4-90-2-9-9" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(0 -1 -1 0 408 346)" id="toolbutton-focus-left">
+        <path opacity=".001" fill-opacity=".003922" fill="currentColor" class="ColorScheme-ButtonBackground" d="m-202-170h22v3h-22z" transform="scale(-1)" id="rect829-6-5-2-9-0-1-9" />
+        <path fill="currentColor" class="ColorScheme-ButtonFocus" d="m-202-170h22v1h-22z" transform="scale(-1)" id="rect829-6-2-6-6-9-9-0-8" />
+        <path opacity=".2" fill="currentColor" class="ColorScheme-ButtonFocus" d="m180 170v1h22v-1z" id="path1565-4-90-2-9-3-8" />
+    </g>
+    <g fill-rule="evenodd" id="toolbutton-focus-bottomleft">
+        <path opacity=".2" fill="currentColor" class="ColorScheme-ButtonFocus" d="m237 167c0 2.216 1.784 4 4 4v-1c-1.662 0-3-1.338-3-3z" id="rect2974" />
+        <path opacity=".001" fill-opacity=".003922" d="m241 170v-3h-3c0 1.662 1.338 3 3 3z" id="rect1509-7-9-6-2-2-0-8" />
+        <path fill="currentColor" class="ColorScheme-ButtonFocus" d="m239 167c0 1.108.892 2 2 2v1c-1.662 0-3-1.338-3-3z" id="path1561-6-4-7" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(1 0 0 -1 0 310)" id="toolbutton-focus-topleft">
+        <path opacity=".2" fill="currentColor" class="ColorScheme-ButtonFocus" d="m237 167c0 2.216 1.784 4 4 4v-1c-1.662 0-3-1.338-3-3z" id="rect2974-6" />
+        <path opacity=".001" fill-opacity=".003922" d="m241 170v-3h-3c0 1.662 1.338 3 3 3z" id="rect1509-7-9-6-2-2-0-8-7" />
+        <path fill="currentColor" class="ColorScheme-ButtonFocus" d="m239 167c0 1.108.892 2 2 2v1c-1.662 0-3-1.338-3-3z" id="path1561-6-4-7-6" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(-1 0 0 -1 506 310)" id="toolbutton-focus-topright">
+        <path opacity=".2" fill="currentColor" class="ColorScheme-ButtonFocus" d="m237 167c0 2.216 1.784 4 4 4v-1c-1.662 0-3-1.338-3-3z" id="rect2974-9" />
+        <path opacity=".001" fill-opacity=".003922" d="m241 170v-3h-3c0 1.662 1.338 3 3 3z" id="rect1509-7-9-6-2-2-0-8-75" />
+        <path fill="currentColor" class="ColorScheme-ButtonFocus" d="m239 167c0 1.108.892 2 2 2v1c-1.662 0-3-1.338-3-3z" id="path1561-6-4-7-9" />
+    </g>
+    <g fill-rule="evenodd" transform="matrix(-1 0 0 1 506 0)" id="toolbutton-focus-bottomright">
+        <path opacity=".2" fill="currentColor" class="ColorScheme-ButtonFocus" d="m237 167c0 2.216 1.784 4 4 4v-1c-1.662 0-3-1.338-3-3z" id="rect2974-8" />
+        <path opacity=".001" fill-opacity=".003922" d="m241 170v-3h-3c0 1.662 1.338 3 3 3z" id="rect1509-7-9-6-2-2-0-8-5" />
+        <path fill="currentColor" class="ColorScheme-ButtonFocus" d="m239 167c0 1.108.892 2 2 2v1c-1.662 0-3-1.338-3-3z" id="path1561-6-4-7-3" />
+    </g>
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 252,139 h 2 v 1 h -2 z" id="toolbutton-focus-hint-top-margin" />
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 252,170 h 2 v 1 h -2 z" id="toolbutton-focus-hint-bottom-margin" />
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 237,154 h 1 v 2 h -1 z" id="toolbutton-focus-hint-left-margin" />
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 268,154 h 1 v 2 h -1 z" id="toolbutton-focus-hint-right-margin" />
+    <path id="toolbutton-focus-center" d="m 242,144 h 22 v 22 h -22 z" fill-opacity="0.00392199" fill-rule="evenodd" opacity="0.00100002" />
+    <path fill-rule="evenodd" fill="currentColor" class="ColorScheme-ButtonHover" d="m 242,176 v 3 h 22 v -3 z" id="toolbutton-pressed-top" />
+    <path fill-rule="evenodd" fill="currentColor" class="ColorScheme-ButtonHover" d="m 239,176 c -1.662,0 -3,1.338 -3,3 h 3 v -2 z" id="toolbutton-pressed-topleft" />
+    <path fill-rule="evenodd" fill="currentColor" class="ColorScheme-ButtonHover" d="m242 182h22v22h-22z" id="toolbutton-pressed-center" />
+    <path fill-rule="evenodd" fill="currentColor" class="ColorScheme-ButtonHover" d="m 264,210 v -3 h -22 v 3 z" id="toolbutton-pressed-bottom" />
+    <path fill-rule="evenodd" fill="currentColor" class="ColorScheme-ButtonHover" d="m 267,210 c 1.662,0 3,-1.338 3,-3 h -3 v 2 z" id="toolbutton-pressed-bottomright" />
+    <path fill-rule="evenodd" fill="currentColor" class="ColorScheme-ButtonHover" d="m 270,182 h -3 v 22 h 3 z" id="toolbutton-pressed-right" />
+    <path fill-rule="evenodd" fill="currentColor" class="ColorScheme-ButtonHover" d="m 270,179 c 0,-1.662 -1.338,-3 -3,-3 v 3 h 2 z" id="toolbutton-pressed-topright" />
+    <path fill-rule="evenodd" fill="currentColor" class="ColorScheme-ButtonHover" d="m 236,204 h 3 v -22 h -3 z" id="toolbutton-pressed-left" />
+    <path fill-rule="evenodd" fill="currentColor" class="ColorScheme-ButtonHover" d="m 236,207 c 0,1.662 1.338,3 3,3 v -3 h -2 z" id="toolbutton-pressed-bottomleft" />
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 252,176 h 2 v 6 h -2 z" id="toolbutton-pressed-hint-top-margin" style="stroke-width:0.999996" />
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 252,204 h 2 v 6 h -2 z" id="toolbutton-pressed-hint-bottom-margin" style="stroke-width:0.999996" />
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 236,192 h 6 v 2 h -6 z" id="toolbutton-pressed-hint-left-margin" style="stroke-width:0.999996" />
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 264,192 h 6 v 2 h -6 z" id="toolbutton-pressed-hint-right-margin" style="stroke-width:0.999996" />
+    <text word-spacing="0" text-anchor="end" letter-spacing="0" font-size="10" font-family="Noto Sans" y="82" x="36" id="text2130"><tspan text-anchor="end" font-size="10" y="82" x="36" id="tspan2128">normal</tspan></text>
+    <text word-spacing="0" text-anchor="end" letter-spacing="0" font-size="10" font-family="Noto Sans" y="120" x="36" id="text2130-0"><tspan text-anchor="end" font-size="10" y="120" x="36" id="tspan2128-4">hover</tspan></text>
+    <text word-spacing="0" text-anchor="end" letter-spacing="0" font-size="10" font-family="Noto Sans" y="158" x="36" id="text2130-0-2"><tspan text-anchor="end" font-size="10" y="158" x="36" id="tspan2128-4-9">focus</tspan></text>
+    <text word-spacing="0" text-anchor="end" letter-spacing="0" font-size="10" font-family="Noto Sans" y="196" x="36" id="text2130-0-2-6"><tspan text-anchor="end" font-size="10" y="196" x="36" id="tspan2128-4-9-1">pressed</tspan></text>
+    <text word-spacing="0" text-anchor="middle" letter-spacing="0" font-size="10" font-family="Noto Sans" y="8" x="191" id="text2130-0-2-0"><tspan text-anchor="middle" font-size="10" y="8" x="191" id="tspan2128-4-9-4">(default)</tspan></text>
+    <text word-spacing="0" text-anchor="middle" letter-spacing="0" font-size="10" font-family="Noto Sans" y="8" x="253" id="text2130-0-2-0-2"><tspan text-anchor="middle" font-size="10" y="8" x="253" id="tspan2128-4-9-4-2">toolbutton</tspan></text>
+    <text word-spacing="0" text-anchor="end" letter-spacing="0" font-size="10" font-family="Noto Sans" y="44" x="36" id="text2130-0-2-0-1"><tspan text-anchor="end" font-size="10" y="44" x="36" id="tspan2128-4-9-4-7">shadow</tspan></text>
+    <text word-spacing="0" text-anchor="middle" letter-spacing="0" font-size="10" font-family="Noto Sans" y="8" x="67" id="text2130-0-2-0-4"><tspan text-anchor="middle" font-size="10" y="8" x="67" id="tspan2128-4-9-4-3">mask</tspan></text>
+    <text word-spacing="0" text-anchor="middle" letter-spacing="0" font-size="10" font-family="Noto Sans" y="8" x="129" id="text2130-0-2-0-4-1"><tspan text-anchor="middle" font-size="10" y="8" x="129" id="tspan2128-4-9-4-3-4">background</tspan></text>
+    <path fill-rule="evenodd" fill="#ff00ff" d="m 148,-44 h 87.99999 v 24 H 148 Z" id="rect1134" />
+    <text word-spacing="0" text-anchor="middle" letter-spacing="0" font-size="10px" font-family="'Noto Sans'" y="-28" x="192" id="text2130-0-2-0-4-7"><tspan text-anchor="middle" font-size="10px" y="-28" x="192" id="tspan2128-4-9-4-3-5">margin hint</tspan></text>
+    <path fill-rule="evenodd" fill="#00ff00" d="m -12,192 h 3.9999999 v 4 H -12 Z" id="pressed-hint-compose-over-border" style="stroke-width:1" />
+    <text xml:space="preserve" id="text2130-0-2-0-4-7-3" x="96" y="-56" font-family="'Noto Sans'" font-size="10px" letter-spacing="0" text-anchor="middle" word-spacing="0" style="text-align:start;text-anchor:start;white-space:pre;inline-size:600" transform="translate(200,64)"><tspan x="96" y="-56"><tspan style="font-size:10px;text-align:start;text-anchor:start">NOTE: Some margin hints have 0.001 width or height because you can't use exactly 0!
+</tspan></tspan><tspan x="96" y="-43.500003"><tspan style="font-size:10px;text-align:start;text-anchor:start">NOTE: shadow, hover and focus (not focus-background) use negative margins!
+</tspan></tspan><tspan x="96" y="-31.000003"><tspan style="font-size:10px;text-align:start;text-anchor:start">This behavior is implemented in at least the following files (please keep this up to date, fix the problem or find a better place to </tspan></tspan><tspan x="96" y="-18.500003"><tspan style="font-size:10px;text-align:start;text-anchor:start">put this info):
+</tspan></tspan><tspan x="96" y="-6.000003"><tspan style="font-size:10px;text-align:start;text-anchor:start">plasma-framework/src/declarativeimports/plasmacomponents3/private/ButtonShadow.qml
+</tspan></tspan><tspan x="96" y="6.499997"><tspan style="font-size:10px;text-align:start;text-anchor:start">
+</tspan></tspan><tspan x="96" y="18.999997"><tspan style="font-size:10px;text-align:start;text-anchor:start">We should add support for a negative margins hint to FrameSvg and document it instead of requiring people to read source </tspan></tspan><tspan x="96" y="31.499997"><tspan style="font-size:10px;text-align:start;text-anchor:start">code in order to know these things. Unfortunately, not sure if we can change the code of ButtonShadow since it would break </tspan></tspan><tspan x="96" y="43.999997"><tspan style="font-size:10px;text-align:start;text-anchor:start">themes that rely on this undocumented behaviour. Maybe in KF6.</tspan></tspan></text>
+    <path style="stroke-width:1" id="normal-hint-compose-over-border" d="m -12,76 h 3.9999999 v 4 H -12 Z" fill="#00ff00" fill-rule="evenodd" />
+    <path fill-rule="evenodd" fill="#00ff00" d="m -12,152 h 3.9999999 v 4 H -12 Z" id="focus-background-hint-compose-over-border" style="stroke-width:1" />
+    <path style="stroke-width:1" id="hint-focus-highlighted-background" d="m -20,152 h 4 v 4 h -4 z" fill="#00ff00" fill-rule="evenodd" />
+    <text xml:space="preserve" style="font-size:21.3333px;line-height:1.25;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans';letter-spacing:0px;word-spacing:0px" x="96" y="-68" id="text1171"><tspan sodipodi:role="line" id="tspan1169" /></text>
+    <path id="rect1134-36" d="M -64,0 H -8 V 16 H -64 Z" fill="#00ff00" fill-rule="evenodd" style="stroke-width:0.999997" />
+    <text id="text2130-0-2-0-4-7-0" x="-36" y="12" font-family="'Noto Sans'" font-size="10px" letter-spacing="0" text-anchor="middle" word-spacing="0"><tspan id="tspan2128-4-9-4-3-5-62" x="-36" y="12" font-size="10px" text-anchor="middle">other hints</tspan></text>
 </svg>
