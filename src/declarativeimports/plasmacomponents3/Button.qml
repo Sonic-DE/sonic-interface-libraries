@@ -86,19 +86,12 @@ T.Button {
     }
 
     background: Item {
-        //retrocompatibility with old controls
-        implicitWidth: label.visible ? units.gridUnit * 6 : implicitHeight
-        implicitHeight: Math.floor(units.gridUnit * 1.6) + Math.floor(units.gridUnit * 1.6) % 2
         Private.ButtonShadow {
             anchors.fill: parent
             visible: (!control.flat || control.hovered) && (!control.pressed || !control.checked)
             state: {
                 if (control.pressed) {
                     return "hidden"
-                } else if (control.hovered) {
-                    return "hover"
-                } else if (control.activeFocus) {
-                    return "focus"
                 } else {
                     return "shadow"
                 }
@@ -112,11 +105,38 @@ T.Button {
             id: surfaceNormal
             anchors.fill: parent
             imagePath: "widgets/button"
-            prefix: control.activeFocus ? ["focus-background", "normal"] : "normal"
-            opacity: (!control.flat || control.hovered) && (!control.pressed || !control.checked) ? 1 : 0
+            prefix: "normal"
+            opacity: !control.flat && (!control.pressed || !control.checked) ? 1 : 0
             Behavior on opacity {
                 OpacityAnimator {
-                    duration: units.longDuration
+                    duration: units.shortDuration
+                    easing.type: Easing.InOutQuad
+                }
+            }
+        }
+        PlasmaCore.FrameSvgItem {
+            anchors {
+                fill: parent
+                leftMargin: -margins.left
+                topMargin: -margins.top
+                rightMargin: -margins.right
+                bottomMargin: -margins.bottom
+            }
+            visible: opacity > 0
+            opacity: control.hovered || control.activeFocus
+            imagePath: "widgets/button"
+            prefix: {
+                if (control.hovered) {
+                    return control.flat ? "toolbutton-hover" : "hover"
+                } else if (control.activeFocus) {
+                    return control.flat ? "toolbutton-focus" : "focus"
+                } else {
+                    return "hidden"
+                }
+            }
+            Behavior on opacity {
+                PropertyAnimation {
+                    duration: units.shortDuration
                     easing.type: Easing.InOutQuad
                 }
             }
@@ -128,7 +148,7 @@ T.Button {
             opacity: control.checked || control.pressed ? 1 : 0
             Behavior on opacity {
                 OpacityAnimator {
-                    duration: units.longDuration
+                    duration: units.shortDuration
                     easing.type: Easing.InOutQuad
                 }
             }

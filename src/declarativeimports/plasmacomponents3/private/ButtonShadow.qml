@@ -127,7 +127,7 @@ Item {
         Transition {
             PropertyAnimation {
                 properties: "opacity"
-                duration: units.longDuration
+                duration: units.shortDuration
                 easing.type: Easing.OutQuad
             }
         }
