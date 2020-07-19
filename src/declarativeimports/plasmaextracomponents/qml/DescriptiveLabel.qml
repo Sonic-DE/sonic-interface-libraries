@@ -21,8 +21,8 @@ import QtQuick 2.0
 import org.kde.plasma.components 2.0
 
 /**
- * This is a descriptive label which uses the plasma theme. The characteristics of
- * the text will be automatically set according to the plasma theme. Use this
+ * This is a descriptive label which uses the plasma PlasmaCore.Theme. The characteristics of
+ * the text will be automatically set according to the plasma PlasmaCore.Theme. Use this
  * components for less important additional data to show in a user interface.
  *
  * Example usage:

@@ -21,10 +21,10 @@ import QtQuick 2.0
 import org.kde.plasma.components 2.0
 
 /**
- * This is a paragraph Label which uses the plasma theme.
+ * This is a paragraph Label which uses the plasma PlasmaCore.Theme.
  *
  * The characteristics of the text will be automatically set according to the
- * plasma theme. Use this components for paragraphs of text in your
+ * plasma PlasmaCore.Theme. Use this components for paragraphs of text in your
  * application. Use this component for blocks of text in your app.
  *
  * Example usage:

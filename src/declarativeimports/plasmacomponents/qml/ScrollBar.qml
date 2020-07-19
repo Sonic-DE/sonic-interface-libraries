@@ -24,7 +24,7 @@ import "private" as Private
 import org.kde.plasma.components 2.0 as PlasmaComponents
 
 /**
- * A simple Scroll Bar using the plasma theme.
+ * A simple Scroll Bar using the plasma PlasmaCore.Theme.
  *
  * This component does not belong to the QtComponents API specification but it
  * was based on the ScrollDecorator component. You should not use it for touch

@@ -21,12 +21,12 @@
 
 
 /**
- * A button with optional label and icon which uses the plasma theme.
+ * A button with optional label and icon which uses the plasma PlasmaCore.Theme.
  *
  * This button component can also be used as a checkable button by using
  * the checkable and checked properties for that.  Plasma theme is the
  * theme which changes via the systemsetting-workspace appearance -desktop
- * theme.
+ * PlasmaCore.Theme.
  */
 import QtQuick 2.1
 import QtQuick.Controls 1.2 as QtControls
@@ -49,7 +49,7 @@ QtControls.Button {
      *
      * See also Qt documentation for font type.
      */
-    property font font: theme.defaultFont
+    property font font: PlasmaCore.Theme.defaultFont
 
     /*
      * overrides iconsource for compatibility

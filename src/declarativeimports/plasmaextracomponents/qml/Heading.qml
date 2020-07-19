@@ -24,7 +24,7 @@ import org.kde.plasma.components 2.0
  * A heading label used for subsections of texts.
  *
  * The characteristics of the text will be automatically set according to the
- * plasma theme. Use this components for section titles or headings in your UI,
+ * plasma PlasmaCore.Theme. Use this components for section titles or headings in your UI,
  * for example page or section titles.
  *
  * Example usage:
@@ -65,7 +65,7 @@ Label {
     wrapMode: Text.WordWrap
 
     function headerPointSize(l) {
-        var n = theme.defaultFont.pointSize;
+        var n = PlasmaCore.Theme.defaultFont.pointSize;
         var s;
         switch (l) {
         case 1:

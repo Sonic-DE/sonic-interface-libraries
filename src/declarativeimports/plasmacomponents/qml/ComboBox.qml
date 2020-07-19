@@ -21,7 +21,7 @@ import QtQuick.Controls 1.1
 import QtQuick.Controls.Styles.Plasma 2.0 as Styles
 
 /**
- * This is a combobox which uses the plasma theme.
+ * This is a combobox which uses the plasma PlasmaCore.Theme.
  *
  * Properties are the same as the QtQuick Controls ComboBox component
  *

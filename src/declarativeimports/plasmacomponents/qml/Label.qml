@@ -24,10 +24,10 @@ import QtQuick.Controls.Private 1.0 as QtQuickControlsPrivate
 import org.kde.plasma.core 2.0 as PlasmaCore
 
 /**
- * This is a label which uses the plasma theme.
+ * This is a label which uses the plasma PlasmaCore.Theme.
  *
  * The characteristics of the text will be automatically set according to the
- * plasma theme. If you need a more customized text item use the Text component
+ * plasma PlasmaCore.Theme. If you need a more customized text item use the Text component
  * from QtQuick.
  *
  * You can use all elements of the QML Text component, in particular the "text"
@@ -38,7 +38,7 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 Text {
     id: root
 
-    height: Math.round(Math.max(paintedHeight, theme.mSize(theme.defaultFont).height*1.6))
+    height: Math.round(Math.max(paintedHeight, PlasmaCore.Theme.mSize(PlasmaCore.Theme.defaultFont).height*1.6))
     verticalAlignment: lineCount > 1 ? Text.AlignTop : Text.AlignVCenter
 
     activeFocusOnTab: false
@@ -47,15 +47,15 @@ Text {
     // https://bugreports.qt.io/browse/QTBUG-70481
     renderType: QtQuickControlsPrivate.Settings.isMobile || Screen.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
 
-    font.capitalization: theme.defaultFont.capitalization
-    font.family: theme.defaultFont.family
-    font.italic: theme.defaultFont.italic
-    font.letterSpacing: theme.defaultFont.letterSpacing
-    font.pointSize: theme.defaultFont.pointSize
-    font.strikeout: theme.defaultFont.strikeout
-    font.underline: theme.defaultFont.underline
-    font.weight: theme.defaultFont.weight
-    font.wordSpacing: theme.defaultFont.wordSpacing
+    font.capitalization: PlasmaCore.Theme.defaultFont.capitalization
+    font.family: PlasmaCore.Theme.defaultFont.family
+    font.italic: PlasmaCore.Theme.defaultFont.italic
+    font.letterSpacing: PlasmaCore.Theme.defaultFont.letterSpacing
+    font.pointSize: PlasmaCore.Theme.defaultFont.pointSize
+    font.strikeout: PlasmaCore.Theme.defaultFont.strikeout
+    font.underline: PlasmaCore.Theme.defaultFont.underline
+    font.weight: PlasmaCore.Theme.defaultFont.weight
+    font.wordSpacing: PlasmaCore.Theme.defaultFont.wordSpacing
     color: PlasmaCore.ColorScope.textColor
 
     opacity: enabled? 1 : 0.6

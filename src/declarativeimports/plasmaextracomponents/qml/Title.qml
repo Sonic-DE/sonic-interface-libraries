@@ -21,8 +21,8 @@ import QtQuick 2.0
 import org.kde.plasma.components 2.0
 
 /**
- * This is a title label which uses the plasma theme.  The characteristics of
- * the text will be automatically set according to the plasma theme. Use this
+ * This is a title label which uses the plasma PlasmaCore.Theme.  The characteristics of
+ * the text will be automatically set according to the plasma PlasmaCore.Theme. Use this
  * components for titles in your UI, for example page or section titles.
  *
  * Example usage:
@@ -44,5 +44,5 @@ import org.kde.plasma.components 2.0
 Label {
     id: root
     // Match size of level 1 Heading
-    font.pointSize: Math.round(theme.defaultFont.pointSize * 1.50)
+    font.pointSize: Math.round(PlasmaCore.Theme.defaultFont.pointSize * 1.50)
 }
