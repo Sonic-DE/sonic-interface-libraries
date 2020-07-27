@@ -13,6 +13,7 @@ Frame 3.0 Frame.qml
 GroupBox 3.0 GroupBox.qml
 ItemDelegate 3.0 ItemDelegate.qml
 Label 3.0 Label.qml
+ListItem 3.0 ListItem.qml
 MenuItem 3.0 MenuItem.qml
 Menu 3.0 Menu.qml
 Popup 3.0 Popup.qml
