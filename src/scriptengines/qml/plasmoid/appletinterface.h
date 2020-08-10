@@ -1,23 +1,10 @@
 /*
- *   Copyright 2008 Chani Armitage <chani@kde.org>
- *   Copyright 2008, 2009 Aaron Seigo <aseigo@kde.org>
- *   Copyright 2010 Marco Martin <mart@kde.org>
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU Library General Public License as
- *   published by the Free Software Foundation; either version 2, or
- *   (at your option) any later version.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details
- *
- *   You should have received a copy of the GNU Library General Public
- *   License along with this program; if not, write to the
- *   Free Software Foundation, Inc.,
- *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
+    SPDX-FileCopyrightText: 2008 Chani Armitage <chani@kde.org>
+    SPDX-FileCopyrightText: 2008, 2009 Aaron Seigo <aseigo@kde.org>
+    SPDX-FileCopyrightText: 2010 Marco Martin <mart@kde.org>
+
+    SPDX-License-Identifier: LGPL-2.0-or-later
+*/
 
 #ifndef APPLETINTERFACE_H
 #define APPLETINTERFACE_H
@@ -97,7 +84,7 @@ class AppletInterface : public PlasmaQuick::AppletQuickItem
      * * Text.StyledText
      * * Text.RichText
      * Note: in the default implementation the main text is always plain text
-     */
+    */
     Q_PROPERTY(int toolTipTextFormat READ toolTipTextFormat WRITE setToolTipTextFormat NOTIFY toolTipTextFormatChanged)
 
     /**
@@ -225,7 +212,7 @@ class AppletInterface : public PlasmaQuick::AppletQuickItem
 
     /**
      * An interface to the native C++ plasmoid, if implemented
-     */
+    */
     Q_PROPERTY(QObject *nativeInterface READ nativeInterface CONSTANT)
 
     /**
@@ -247,7 +234,7 @@ class AppletInterface : public PlasmaQuick::AppletQuickItem
 
     /**
      * The available region of this screen, panels excluded. It's a list of rectangles
-     */
+    */
     Q_PROPERTY(QVariantList availableScreenRegion READ availableScreenRegion NOTIFY availableScreenRegionChanged)
 
     Q_PROPERTY(bool loading MEMBER m_loading NOTIFY isLoadingChanged)
