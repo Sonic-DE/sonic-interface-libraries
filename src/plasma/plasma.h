@@ -253,7 +253,7 @@ public:
         CompletelyUntrusted,        /**< The signature is broken/expired/false */
         UnknownTrusted,             /**< The signature is valid, but the key is unknown */
         UserTrusted,                /**< The signature is valid and made with a key signed by one of the
-                                     user's own keys */
+                                     user's own keys*/
         SelfTrusted,                /**< The signature is valid and made with one of the user's own keys*/
         FullyTrusted,               /**< The signature is valid and made with a key signed by the vendor's key*/
         UltimatelyTrusted           /**< The signature is valid and made with the vendor's key*/

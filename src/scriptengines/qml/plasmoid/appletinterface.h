@@ -84,7 +84,7 @@ class AppletInterface : public PlasmaQuick::AppletQuickItem
      * * Text.StyledText
      * * Text.RichText
      * Note: in the default implementation the main text is always plain text
-    */
+     */
     Q_PROPERTY(int toolTipTextFormat READ toolTipTextFormat WRITE setToolTipTextFormat NOTIFY toolTipTextFormatChanged)
 
     /**
@@ -234,7 +234,7 @@ class AppletInterface : public PlasmaQuick::AppletQuickItem
 
     /**
      * The available region of this screen, panels excluded. It's a list of rectangles
-    */
+     */
     Q_PROPERTY(QVariantList availableScreenRegion READ availableScreenRegion NOTIFY availableScreenRegionChanged)
 
     Q_PROPERTY(bool loading MEMBER m_loading NOTIFY isLoadingChanged)

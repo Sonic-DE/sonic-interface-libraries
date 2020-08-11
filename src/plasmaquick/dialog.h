@@ -67,7 +67,7 @@ class DialogPrivate;
  * }
  * @endcode
  *
-*/
+ */
 class PLASMAQUICK_EXPORT Dialog : public QQuickWindow, public QQmlParserStatus
 {
     Q_OBJECT
