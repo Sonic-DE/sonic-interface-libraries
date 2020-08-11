@@ -212,7 +212,7 @@ class AppletInterface : public PlasmaQuick::AppletQuickItem
 
     /**
      * An interface to the native C++ plasmoid, if implemented
-    */
+     */
     Q_PROPERTY(QObject *nativeInterface READ nativeInterface CONSTANT)
 
     /**
