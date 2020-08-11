@@ -1,5 +1,5 @@
 /*
-    SPDX-FileCopyrightText: 2015 Marco MArtin <mart@kde.org>
+    SPDX-FileCopyrightText: 2015 Marco Martin <mart@kde.org>
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */

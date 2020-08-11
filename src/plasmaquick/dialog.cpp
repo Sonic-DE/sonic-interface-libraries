@@ -1209,7 +1209,7 @@ bool Dialog::event(QEvent *event)
          * (only the first expose event, guarded by shelldurface existence)
          * and tear it down when the window gets hidden
          * see https://phabricator.kde.org/T6064
-        */
+         */
 #if HAVE_KWAYLAND
         //sometimes non null regions arrive even for non visible windows
         //for which surface creation would fail
@@ -1246,7 +1246,7 @@ bool Dialog::event(QEvent *event)
 
     /*Fitt's law: if the containment has margins, and the mouse cursor clicked
      * on the mouse edge, forward the click in the containment boundaries
-    */
+     */
     if (d->mainItem && !d->mainItem->size().isEmpty()) {
         switch (event->type()) {
             case QEvent::MouseMove:

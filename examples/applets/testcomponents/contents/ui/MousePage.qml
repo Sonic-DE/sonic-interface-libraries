@@ -38,7 +38,7 @@ PlasmaComponents.Page {
         void wheelMoved(KDeclarativeWheelEvent *wheel);
         void containsMouseChanged(bool containsMouseChanged);
         void hoverEnabledChanged(bool hoverEnabled);
-       */
+        */
         onPressed: {
             print("Pressed");
             melstatus.text = "pressed";
