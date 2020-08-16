@@ -1,5 +1,8 @@
- 
+ButtonBackground 1.0 ButtonBackground.qml
 ButtonShadow 1.0 ButtonShadow.qml
 DefaultListItemBackground 1.0 DefaultListItemBackground.qml
+FlatButtonBackground 1.0 FlatButtonBackground.qml
 RoundShadow 1.0 RoundShadow.qml
+RaisedButtonBackground 1.0 RaisedButtonBackground.qml
+RaisedButtonHoverFocus 1.0 RaisedButtonHoverFocus.qml
 TextFieldFocus 1.0 TextFieldFocus.qml
