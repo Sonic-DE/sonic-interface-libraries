@@ -1,37 +1,40 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.2
-
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 3.0 as PlasmaComponents
 
-PlasmaCore.ColorScope
-{
-    id: root
-    width: 500
-    height: 300
-    property bool invertedColors: false
-    default property alias children: container.children
-    colorGroup: invertedColors ? PlasmaCore.Theme.ComplementaryColorGroup : PlasmaCore.Theme.NormalColorGroup
+PlasmaComponents.Page {
+    id: mainPage
+    title: "Test"
+    width: Math.max(contentWidth, implicitHeaderWidth, implicitFooterWidth) + leftPadding + rightPadding
+    height: contentHeight + implicitHeaderHeight + implicitFooterHeight + topPadding + bottomPadding
+    PlasmaCore.ColorScope.colorGroup: complementaryColorsCheckBox.checked ? PlasmaCore.Theme.ComplementaryColorGroup : PlasmaCore.Theme.NormalColorGroup
 
-    Rectangle {
-        anchors.fill: parent
+    padding: PlasmaCore.Units.gridUnit
+
+    header: PlasmaComponents.ToolBar {
+        implicitWidth: toolBarRowLayout.implicitWidth + leftPadding + rightPadding
+        leftPadding: mainPage.padding
+        rightPadding: mainPage.padding
+        contentItem: RowLayout {
+            id: toolBarRowLayout
+            spacing: PlasmaCore.Units.smallSpacing
+            PlasmaComponents.Label {
+                id: titleLabel
+                text: mainPage.title
+                Layout.alignment: Qt.AlignLeft
+            }
+            PlasmaComponents.CheckBox {
+                id: complementaryColorsCheckBox
+                text: "Use complementary colors"
+                checked: false
+                Layout.alignment: Qt.AlignRight
+            }
+        }
+    }
+
+    background: Rectangle {
         color:  PlasmaCore.ColorScope.backgroundColor
     }
- 
-    PlasmaComponents.Label {
-        id: label
-        text: root.invertedColors ? "Invert" : "Normal"
-        MouseArea {
-            anchors.fill: parent
-            onClicked: root.invertedColors = !root.invertedColors
-        }
-    } 
-    
-    Item {
-        id: container
-        anchors.top: label.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-    }
 }
+
