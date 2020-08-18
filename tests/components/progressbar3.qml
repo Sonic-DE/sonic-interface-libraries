@@ -1,17 +1,23 @@
 import QtQuick 2.0
-
+import QtQuick.Layouts 1.12
+import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 3.0 as PlasmaComponents
 
 ComponentBase {
     id: root
+    title: "Plasma Components 3 ProgressBar"
+    property int progressBarWidth: testProgressBar.width
 
-    Flow {
-        anchors.fill: parent
-        anchors.margins: 20
-        spacing: 20
+    PlasmaComponents.ProgressBar {
+        id: testProgressBar
+        visible: false
+    }
+
+    contentItem: Flow {
+        spacing: PlasmaCore.Units.largeSpacing
 
         Column {
-            Text {
+            PlasmaComponents.Label {
                 text: "0%"
             }
             PlasmaComponents.ProgressBar {
@@ -22,7 +28,7 @@ ComponentBase {
         }
 
         Column {
-            Text {
+            PlasmaComponents.Label {
                 text: "50%"
             }
             PlasmaComponents.ProgressBar {
@@ -33,7 +39,7 @@ ComponentBase {
         }
 
         Column {
-            Text {
+            PlasmaComponents.Label {
                 text: "100%"
             }
             PlasmaComponents.ProgressBar {
@@ -44,8 +50,10 @@ ComponentBase {
         }
 
         Column {
-            Text {
-                text: "Make sure the bar does\nnot leak outside"
+            PlasmaComponents.Label {
+                text: "Min: 0; Max: 200; Value: 1\nMake sure the bar does not leak outside."
+                wrapMode: Text.WordWrap
+                width: progressBarWidth
             }
             PlasmaComponents.ProgressBar {
                 from: 0
@@ -55,8 +63,10 @@ ComponentBase {
         }
 
         Column {
-            Text {
-                text: "should look like 100%"
+            PlasmaComponents.Label {
+                text: "Min: 0; Max: 100; Value: 110\nThe progress bar should look like it is at 100%."
+                wrapMode: Text.WordWrap
+                width: progressBarWidth
             }
             PlasmaComponents.ProgressBar {
                 from: 0
@@ -66,8 +76,10 @@ ComponentBase {
         }
 
         Column {
-            Text {
-                text: "QA Style 50%"
+            PlasmaComponents.Label {
+                text: "Min: -100; Max: 100; Value: 0\nThe progress bar should look like it is at 50%."
+                wrapMode: Text.WordWrap
+                width: progressBarWidth
             }
             PlasmaComponents.ProgressBar {
                 from: -100
@@ -77,8 +89,10 @@ ComponentBase {
         }
 
         Column {
-            Text {
-                text: "should look like 0%"
+            PlasmaComponents.Label {
+                text: "Min: 0; Max: 100; Value: -10\nThe progress bar should look like it is at 0%."
+                wrapMode: Text.WordWrap
+                width: progressBarWidth
             }
             PlasmaComponents.ProgressBar {
                 from: 0
@@ -88,8 +102,10 @@ ComponentBase {
         }
 
         Column {
-            Text {
-                text: "should be a continuous movement,<br>from one end to the other and back"
+            PlasmaComponents.Label {
+                text: "This should have a continuous movement from one end to the other and back."
+                wrapMode: Text.WordWrap
+                width: progressBarWidth
             }
             PlasmaComponents.ProgressBar {
                 indeterminate: indeterminateCheckBox.checked
@@ -98,8 +114,10 @@ ComponentBase {
         }
 
         Column {
-            Text {
-                text: "Checking and unchecking should not break the layout,<br>should look like 50% if unchecked"
+            PlasmaComponents.Label {
+                text: "Checking and unchecking should not break the layout. The progress bar should look like it is at 50% if unchecked."
+                wrapMode: Text.WordWrap
+                width: progressBarWidth
             }
             PlasmaComponents.CheckBox {
                 id: indeterminateCheckBox
