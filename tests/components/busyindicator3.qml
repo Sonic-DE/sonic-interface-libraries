@@ -11,7 +11,7 @@ ComponentBase {
 
         PlasmaComponents.Label {
             wrapMode: Text.WordWrap
-            text: "The BusyIndicator should disappear when unchecked and restart when checked."
+            text: "The BusyIndicator should maintain a 1:1 aspect ratio, disappear when unchecked and restart when checked."
             Layout.preferredWidth: Math.max(busyIndicatorLayout.width, root.implicitHeaderWidth)
         }
 
@@ -20,6 +20,8 @@ ComponentBase {
             spacing: PlasmaCore.Units.gridUnit
 
             PlasmaComponents.BusyIndicator {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 running: runningButton.checked
             }
 
