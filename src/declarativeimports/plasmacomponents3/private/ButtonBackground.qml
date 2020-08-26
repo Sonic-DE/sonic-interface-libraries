@@ -10,7 +10,7 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 Item {
     id: root
     // TODO: mark this required when our minimum Qt version is new enough
-    property T.AbstractButton parentControl
+    property T.Button parentControl
 
     // These should be used as the padding for the parent control
     property real leftMargin
@@ -24,8 +24,8 @@ Item {
      */
     property string usedPrefix
 
-    readonly property bool keyboardFocus: parentControl.activeFocus &&
-        (parentControl.focusReason == Qt.TabFocusReason || parentControl.focusReason == Qt.BacktabFocusReason)
+    implicitWidth: PlasmaCore.Units.gridUnit + root.leftMargin + root.rightMargin
+    implicitHeight: PlasmaCore.Units.gridUnit + root.topMargin + root.bottomMargin
 
     FlatButtonBackground {
         id: flatButtonBackground
@@ -33,7 +33,7 @@ Item {
         hovered: parentControl.hovered
         pressed: parentControl.pressed
         checked: parentControl.checked
-        focused: root.keyboardFocus
+        focused: parentControl.visualFocus
     }
 
     RaisedButtonBackground {
@@ -42,7 +42,7 @@ Item {
         hovered: parentControl.hovered
         pressed: parentControl.pressed
         checked: parentControl.checked
-        focused: root.keyboardFocus
+        focused: parentControl.visualFocus
     }
 
     state: parentControl.flat ? "flat" : "raised"
