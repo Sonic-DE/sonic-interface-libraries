@@ -52,6 +52,7 @@ T.BusyIndicator {
                 to: 360
                 duration: 2000
                 loops: Animation.Infinite
+                running: control.running
             }
         }
     }
