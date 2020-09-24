@@ -36,12 +36,25 @@ T.ToolTip {
         // those used to determine the alt key shortcut
         text: control.text.replace(/&(?=\S)/g, "")
         font: control.font
-        color: PlasmaCore.ColorScope.textColor
+        color: PlasmaCore.Theme.complementaryTextColor
+
     }
 
     background: PlasmaCore.FrameSvgItem {
-        height: Math.max(implicitHeight, control.height)
-        width: Math.max(implicitWidth, control.width)
-        imagePath: "widgets/background"
+        colorGroup: PlasmaCore.Theme.ComplementaryColorGroup
+        height: Math.max(implicitHeight, control.height) + margins.top + margins.bottom
+        width: Math.max(implicitWidth, control.width) + margins.left + margins.right
+        imagePath: "widgets/tooltip"
+        prefix: "shadow"
+
+        PlasmaCore.FrameSvgItem {
+            colorGroup: PlasmaCore.Theme.ComplementaryColorGroup
+            anchors.fill: parent
+            anchors.leftMargin: parent.margins.left
+            anchors.rightMargin: parent.margins.right
+            anchors.topMargin: parent.margins.top
+            anchors.bottomMargin: parent.margins.bottom
+            imagePath: "opaque/widgets/tooltip"
+        }
     }
 }
