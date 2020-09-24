@@ -20,14 +20,18 @@ T.ToolTip {
     delay: Kirigami.Units.toolTipDelay
     timeout: 5000
 
-    implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
-    implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset, implicitContentHeight + topPadding + bottomPadding)
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset, implicitContentWidth + leftPadding + rightPadding)
 
     margins: units.gridUnit
-    leftPadding: background.margins.left
-    topPadding: background.margins.top
-    rightPadding: background.margins.right
-    bottomPadding: background.margins.bottom
+    leftPadding: backgroundItem.margins.left
+    topPadding: backgroundItem.margins.top
+    rightPadding: backgroundItem.margins.right
+    bottomPadding: backgroundItem.margins.bottom
+    leftInset: -shadowItem.margins.left
+    topInset: -shadowItem.margins.top
+    rightInset: -shadowItem.margins.right
+    bottomInset: -shadowItem.margins.bottom
 
     closePolicy: T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutsideParent | T.Popup.CloseOnReleaseOutsideParent
 
@@ -41,13 +45,13 @@ T.ToolTip {
     }
 
     background: PlasmaCore.FrameSvgItem {
+        id: shadowItem
         colorGroup: PlasmaCore.Theme.ComplementaryColorGroup
-        height: Math.max(implicitHeight, control.height) + margins.top + margins.bottom
-        width: Math.max(implicitWidth, control.width) + margins.left + margins.right
         imagePath: "widgets/tooltip"
         prefix: "shadow"
 
         PlasmaCore.FrameSvgItem {
+            id: backgroundItem
             colorGroup: PlasmaCore.Theme.ComplementaryColorGroup
             anchors.fill: parent
             anchors.leftMargin: parent.margins.left
