@@ -20,28 +20,44 @@ T.ToolTip {
     delay: Kirigami.Units.toolTipDelay
     timeout: 5000
 
-    implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
-    implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset, implicitContentHeight + topPadding + bottomPadding)
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset, implicitContentWidth + leftPadding + rightPadding)
 
     margins: units.gridUnit
-    leftPadding: background.margins.left
-    topPadding: background.margins.top
-    rightPadding: background.margins.right
-    bottomPadding: background.margins.bottom
+    leftPadding: backgroundItem.margins.left
+    topPadding: backgroundItem.margins.top
+    rightPadding: backgroundItem.margins.right
+    bottomPadding: backgroundItem.margins.bottom
+    leftInset: -shadowItem.margins.left
+    topInset: -shadowItem.margins.top
+    rightInset: -shadowItem.margins.right
+    bottomInset: -shadowItem.margins.bottom
 
     closePolicy: T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutsideParent | T.Popup.CloseOnReleaseOutsideParent
+
+    PlasmaCore.ColorScope.colorGroup: PlasmaCore.Theme.ToolTipColorGroup
 
     contentItem: Label {
         // Strip out ampersands right before non-whitespace characters, i.e.
         // those used to determine the alt key shortcut
         text: control.text.replace(/&(?=\S)/g, "")
         font: control.font
-        color: PlasmaCore.ColorScope.textColor
+
     }
 
     background: PlasmaCore.FrameSvgItem {
-        height: Math.max(implicitHeight, control.height)
-        width: Math.max(implicitWidth, control.width)
-        imagePath: "widgets/background"
+        id: shadowItem
+        imagePath: "widgets/tooltip"
+        prefix: "shadow"
+
+        PlasmaCore.FrameSvgItem {
+            id: backgroundItem
+            anchors.fill: parent
+            anchors.leftMargin: parent.margins.left
+            anchors.rightMargin: parent.margins.right
+            anchors.topMargin: parent.margins.top
+            anchors.bottomMargin: parent.margins.bottom
+            imagePath: "opaque/widgets/tooltip"
+        }
     }
 }
