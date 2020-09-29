@@ -51,6 +51,7 @@ public:
     struct CacheId {
         double width;
         double height;
+        QString filePath;
         QString elementName;
         int status;
         double dpr;
@@ -119,6 +120,28 @@ public:
     bool usesColors : 1;
     bool cacheRendering : 1;
     bool themeFailed : 1;
+};
+
+
+class SvgRectsCache : public QObject {
+    Q_OBJECT
+public:
+    SvgRectsCache(QObject *parent = nullptr);
+
+    static SvgRectsCache *instance();
+
+    void insert(SvgPrivate::CacheId cacheId, const QRectF &rect, QDateTime &lastModified);
+    QRectF elementRect(SvgPrivate::CacheId cacheId);
+    void loadImageFromCache(const QString &path);
+    void expireCache(const QString &path);
+
+    QList<QSizeF> sizeHintsForId(const QString &path, const QString &id);
+    void setSizeHintsForId(const QString &path, const QString &id, QList<QSizeF> sizes);
+
+private:
+    KSharedConfigPtr m_svgElementsCache;
+    QHash<uint, QRectF> m_localRectCache;
+    QHash<QString, QList<QSizeF>> m_sizeHintsForId;
 };
 
 }
