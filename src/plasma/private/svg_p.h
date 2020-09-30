@@ -62,7 +62,7 @@ public:
     ~SvgPrivate();
 
     //This function is meant for the rects cache
-    QString cacheId(const QString &elementId) const;
+    CacheId cacheId(const QString &elementId) const;
 
     //This function is meant for the pixmap cache
     QString cachePath(const QString &path, const QSize &size) const;
@@ -78,7 +78,7 @@ public:
     void eraseRenderer();
 
     QRectF elementRect(const QString &elementId);
-    QRectF findAndCacheElementRect(const QString &elementId, const QString &cacheId);
+    QRectF findAndCacheElementRect(const QString &elementId);
 
     void checkColorHints();
 
@@ -98,9 +98,9 @@ public:
 
     Svg *q;
     QPointer<Theme> theme;
-    QHash<QString, QRectF> localRectCache;
+ //   QHash<QString, QRectF> localRectCache;
 //     QHash<CacheId, QRectF> localRectCache;
-    QMultiHash<QString, QSize> elementsWithSizeHints;
+  //  QMultiHash<QString, QSize> elementsWithSizeHints;
     SharedSvgRenderer::Ptr renderer;
     QString themePath;
     QString path;
@@ -130,18 +130,22 @@ public:
 
     static SvgRectsCache *instance();
 
-    void insert(SvgPrivate::CacheId cacheId, const QRectF &rect, QDateTime &lastModified);
-    QRectF elementRect(SvgPrivate::CacheId cacheId);
+    void insert(SvgPrivate::CacheId cacheId, const QRectF &rect, unsigned int &lastModified);
+    bool findElementRect(SvgPrivate::CacheId cacheId, QRectF &rect);
     void loadImageFromCache(const QString &path);
     void expireCache(const QString &path);
 
-    QList<QSizeF> sizeHintsForId(const QString &path, const QString &id);
-    void setSizeHintsForId(const QString &path, const QString &id, QList<QSizeF> sizes);
+    void setNaturalSize(const QString &path, qreal scaleFactor, const QSizeF &size);
+    QSizeF naturalSize(const QString &path, qreal scaleFactor);
+
+    QList<QSize> sizeHintsForId(const QString &path, const QString &id);
+    void setSizeHintsForId(const QString &path, const QString &id, QList<QSize> sizes);
 
 private:
+    QTimer *m_configSyncTimer = nullptr;
     KSharedConfigPtr m_svgElementsCache;
     QHash<uint, QRectF> m_localRectCache;
-    QHash<QString, QList<QSizeF>> m_sizeHintsForId;
+    QHash<QString, QList<QSize>> m_sizeHintsForId;
 };
 
 }
