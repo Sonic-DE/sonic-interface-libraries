@@ -144,6 +144,7 @@ public:
 private:
     QTimer *m_configSyncTimer = nullptr;
     KSharedConfigPtr m_svgElementsCache;
+    QSet<unsigned int> m_invalidElements;
     QHash<uint, QRectF> m_localRectCache;
     QHash<QString, QList<QSize>> m_sizeHintsForId;
 };

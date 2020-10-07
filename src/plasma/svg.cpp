@@ -176,7 +176,12 @@ void SvgRectsCache::insert(Plasma::SvgPrivate::CacheId cacheId, const QRectF &re
 
     KConfigGroup imageGroup(m_svgElementsCache, cacheId.filePath);
     imageGroup.writeEntry("LastModified", lastModified);
-    imageGroup.writeEntry(QString::number(id), rect);
+    if (rect.isValid()) {
+        imageGroup.writeEntry(QString::number(id), rect);
+    } else {
+        m_invalidElements << id;
+        imageGroup.writeEntry("Invalidelements", imageGroup.readEntry("Invalidelements", QList<unsigned int>()) << id);
+    }
     m_configSyncTimer->start();
 }
 
@@ -196,6 +201,8 @@ bool SvgRectsCache::findElementRect(Plasma::SvgPrivate::CacheId cacheId, QRectF 
 void SvgRectsCache::loadImageFromCache(const QString &path)
 {
     KConfigGroup imageGroup(m_svgElementsCache, path);
+    m_invalidElements += imageGroup.readEntry("Invalidelements", QList<unsigned int>()).toSet();
+
     for (const auto &key : imageGroup.keyList()) {
         bool ok = false;
         const unsigned int id = key.toUInt(&ok);
