@@ -12,13 +12,17 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 T.Frame {
     id: control
 
-    implicitWidth: contentWidth + leftPadding + rightPadding
-    implicitHeight: contentHeight + topPadding + bottomPadding
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            contentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             contentHeight + topPadding + bottomPadding)
 
-    contentWidth: contentItem.implicitWidth || (contentChildren.length === 1 ? contentChildren[0].implicitWidth : 0)
-    contentHeight: contentItem.implicitHeight || (contentChildren.length === 1 ? contentChildren[0].implicitHeight : 0)
+    palette: PlasmaCore.Theme.palette
 
-    padding: units.smallSpacing
+    leftPadding: background.leftMargin
+    topPadding: background.topMargin
+    rightPadding: background.rightMargin
+    bottomPadding: background.bottomMargin
 
     background: PlasmaCore.FrameSvgItem {
         imagePath: "widgets/frame"

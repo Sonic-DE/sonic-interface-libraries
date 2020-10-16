@@ -17,9 +17,12 @@ T.ScrollView {
 
     clip: true
 
-    implicitWidth: Math.max(background ? background.implicitWidth : 0, contentWidth + leftPadding + rightPadding)
-    implicitHeight: Math.max(background ? background.implicitHeight : 0, contentHeight + topPadding + bottomPadding)
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            contentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             contentHeight + topPadding + bottomPadding)
 
+    palette: PlasmaCore.Theme.palette
 
     //create a background only after Component.onCompleted, see on the component creation below for explanation
     Component.onCompleted: {
@@ -27,7 +30,6 @@ T.ScrollView {
             controlRoot.background = backgroundComponent.createObject(controlRoot);
         }
     }
-
  
     data: [
         Kirigami.WheelHandler {
