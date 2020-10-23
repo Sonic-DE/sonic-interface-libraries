@@ -299,6 +299,7 @@ bool Theme::findInCache(const QString &key, QPixmap &pix, unsigned int lastModif
             pix = temp;
             return true;
         }
+        qWarning()<<"NOTINCACHE"<<key<<lastModified<<temp;
     }
 
     return false;

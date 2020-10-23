@@ -238,6 +238,7 @@ bool ThemePrivate::useCache()
 
         ThemeConfig config;
         pixmapCache = new KImageCache(cacheFile, config.themeCacheKb() * 1024);
+        pixmapCache->setEvictionPolicy(KSharedDataCache::EvictLeastRecentlyUsed);
 
         if (cachesTooOld) {
             discardCache(PixmapCache | SvgElementsCache);

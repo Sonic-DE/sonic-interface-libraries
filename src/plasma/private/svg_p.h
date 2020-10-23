@@ -139,13 +139,16 @@ public:
     QSizeF naturalSize(const QString &path, qreal scaleFactor);
 
     QList<QSize> sizeHintsForId(const QString &path, const QString &id);
-    void setSizeHintsForId(const QString &path, const QString &id, QList<QSize> sizes);
+    void insertSizeHintForId(const QString &path, const QString &id, const QSize &size);
+
+    QString iconThemePath() const;
+    void setIconThemePath(const QString &path);
 
 private:
     QTimer *m_configSyncTimer = nullptr;
     KSharedConfigPtr m_svgElementsCache;
-    QSet<unsigned int> m_invalidElements;
     QHash<uint, QRectF> m_localRectCache;
+    QHash<QString, QSet<unsigned int>> m_invalidElements;
     QHash<QString, QList<QSize>> m_sizeHintsForId;
 };
 
