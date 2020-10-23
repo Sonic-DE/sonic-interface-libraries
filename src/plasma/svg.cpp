@@ -229,7 +229,7 @@ QList<QSize> SvgRectsCache::sizeHintsForId(const QString &path, const QString &i
         for (const auto &token : encoded) {
             const auto &parts = token.split(QLatin1Char('x'));
             if (parts.size() != 2) {
-                return QList<QSize>();
+                continue;
             }
             QSize size = QSize(parts[0].toDouble(), parts[1].toDouble());
             if (!size.isEmpty()) {
@@ -551,7 +551,7 @@ QPixmap SvgPrivate::findInCache(const QString &elementId, qreal ratio, const QSi
         //qCDebug(LOG_PLASMA) << "found cached version of " << id << p.size();
         return p;
     }
-qWarning()<<"FAIL CACHE"<<id<<lastModified;
+
     //qCDebug(LOG_PLASMA) << "didn't find cached version of " << id << ", so re-rendering";
 
     //qCDebug(LOG_PLASMA) << "size for " << actualElementId << " is " << s;
@@ -586,7 +586,7 @@ qWarning()<<"FAIL CACHE"<<id<<lastModified;
     if (cacheRendering) {
         cacheAndColorsTheme()->insertIntoCache(id, p, QString::number((qint64)q, 16) % QLatin1Char('_') % actualElementId);
     }
-qWarning()<<"AAAAAAAAAAAAAAA"<<id<<cacheRendering<< cacheAndColorsTheme()->findInCache(id, p, lastModified)<<p;
+
     return p;
 }
 

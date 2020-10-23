@@ -340,7 +340,6 @@ void ThemePrivate::compositingChanged(bool active)
 
 void ThemePrivate::discardCache(CacheTypes caches)
 {
-qWarning()<<"DISCARD";
     if (caches & PixmapCache) {
         pixmapsToCache.clear();
         pixmapSaveTimer->stop();
