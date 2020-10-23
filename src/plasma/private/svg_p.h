@@ -141,11 +141,12 @@ public:
     QList<QSize> sizeHintsForId(const QString &path, const QString &id);
     void insertSizeHintForId(const QString &path, const QString &id, const QSize &size);
 
-    QString iconThemePath() const;
+    QString iconThemePath();
     void setIconThemePath(const QString &path);
 
 private:
     QTimer *m_configSyncTimer = nullptr;
+    QString m_iconThemePath;
     KSharedConfigPtr m_svgElementsCache;
     QHash<uint, QRectF> m_localRectCache;
     QHash<QString, QSet<unsigned int>> m_invalidElements;
