@@ -8,6 +8,7 @@
 #include "theme_p.h"
 #include "framesvg.h"
 #include "framesvg_p.h"
+#include "svg_p.h"
 #include "debug_p.h"
 
 #include <QGuiApplication>
@@ -270,12 +271,11 @@ bool ThemePrivate::useCache()
         if (iconTheme) {
             currentIconThemePath = iconTheme->dir();
         }
-        KConfigGroup globalGroup(svgElementsCache, QLatin1String("Global"));
-        const QString oldIconThemePath = globalGroup.readEntry("currentIconThemePath", QString());
+
+        const QString oldIconThemePath = SvgRectsCache::instance()->iconThemePath();
         if (oldIconThemePath != currentIconThemePath) {
             discardCache(PixmapCache | SvgElementsCache);
-            globalGroup.writeEntry("currentIconThemePath", currentIconThemePath);
-            svgElementsCache = KSharedConfig::openConfig(svgElementsFile, KConfig::SimpleConfig);
+            SvgRectsCache::instance()->setIconThemePath(currentIconThemePath);
         }
     }
 
@@ -339,6 +339,7 @@ void ThemePrivate::compositingChanged(bool active)
 
 void ThemePrivate::discardCache(CacheTypes caches)
 {
+qWarning()<<"DISCARD";
     if (caches & PixmapCache) {
         pixmapsToCache.clear();
         pixmapSaveTimer->stop();

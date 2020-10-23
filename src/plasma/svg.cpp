@@ -259,6 +259,26 @@ void SvgRectsCache::insertSizeHintForId(const QString &path, const QString &id, 
     m_configSyncTimer->start();
 }
 
+QString SvgRectsCache::iconThemePath()
+{
+    if (!m_iconThemePath.isEmpty()) {
+        return m_iconThemePath;
+    }
+
+    KConfigGroup imageGroup(m_svgElementsCache, QStringLiteral("General"));
+    m_iconThemePath = imageGroup.readEntry(QStringLiteral("IconThemePath"), QString());
+
+    return m_iconThemePath;
+}
+
+void SvgRectsCache::setIconThemePath(const QString &path)
+{
+    m_iconThemePath = path;
+    KConfigGroup imageGroup(m_svgElementsCache, QStringLiteral("General"));
+    imageGroup.writeEntry(QStringLiteral("IconThemePath"), path);
+    m_configSyncTimer->start();
+}
+
 void SvgRectsCache::expireCache(const QString &path)
 {
     KConfigGroup imageGroup(m_svgElementsCache, path);
@@ -568,7 +588,7 @@ qWarning()<<"FAIL CACHE"<<id<<lastModified;
     if (cacheRendering) {
         cacheAndColorsTheme()->insertIntoCache(id, p, QString::number((qint64)q, 16) % QLatin1Char('_') % actualElementId);
     }
-
+qWarning()<<"AAAAAAAAAAAAAAA"<<id<<cacheRendering<< cacheAndColorsTheme()->findInCache(id, p, lastModified)<<p;
     return p;
 }
 
