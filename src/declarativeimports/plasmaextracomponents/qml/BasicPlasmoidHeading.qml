@@ -13,7 +13,7 @@ import org.kde.plasma.components 3.0 as PlasmaComponents
 
 PlasmoidHeading {
     default property alias extraControls: extraControls.data
-    visible: plasmoid.location !== PlasmaCore.Types.SystemTray
+    visible: plasmoid.location !== PlasmaCore.Types.SystemTray || extraControls.children.length > 0
 
     contentItem: RowLayout {
         Heading {
