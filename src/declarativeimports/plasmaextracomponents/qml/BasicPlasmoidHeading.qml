@@ -11,7 +11,19 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PC2
 import org.kde.plasma.components 3.0 as PlasmaComponents
 
+ /**
+  * A standard basic header for plasmoids which has title, a config button and
+  * a popup menu with all extra plasmoid actions.
+  * By default, it will be invisible when the plamsoid is in the system tray, as it provides a replacement header with the same features
+  * 
+  * 
+  * @inherit PlasmoidHeading
+  */
 PlasmoidHeading {
+    /**
+     * extraControls: list<QtObject>
+     * any extra control and button that may be inserted in the  heading
+     */
     default property alias extraControls: extraControls.data
     visible: plasmoid.location !== PlasmaCore.Types.SystemTray || extraControls.children.length > 0
 
