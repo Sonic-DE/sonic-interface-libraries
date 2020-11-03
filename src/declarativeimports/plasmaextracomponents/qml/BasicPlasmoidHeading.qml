@@ -24,8 +24,9 @@ PlasmoidHeading {
      * extraControls: list<QtObject>
      * any extra control and button that may be inserted in the  heading
      */
-    default property alias extraControls: extraControls.data
-    visible: plasmoid.location !== PlasmaCore.Types.SystemTray || extraControls.children.length > 0
+    default property alias extraControls: extraControlsLayout.data
+
+    visible: plasmoid.location !== PlasmaCore.Types.SystemTray
 
     contentItem: RowLayout {
         Heading {
@@ -37,7 +38,7 @@ PlasmoidHeading {
             text: plasmoid.title
         }
         RowLayout {
-            id: extraControls
+            id: extraControlsLayout
             visible: children.length > 0
             Layout.fillHeight: true
         }
