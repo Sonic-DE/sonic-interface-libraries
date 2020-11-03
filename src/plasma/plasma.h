@@ -142,7 +142,8 @@ public:
         TopEdge,      /**< Along the top of the screen*/
         BottomEdge,   /**< Along the bottom of the screen*/
         LeftEdge,     /**< Along the left side of the screen */
-        RightEdge     /**< Along the right side of the screen */
+        RightEdge,     /**< Along the right side of the screen */
+        SystemTray
     };
     Q_ENUM(Location)
 
