@@ -95,6 +95,7 @@ public:
         NoContainmentType = -1,  /**< @internal */
         DesktopContainment = 0,  /**< A desktop containment */
         PanelContainment,        /**< A desktop panel */
+
         CustomContainment = 127, /**< A containment that is neither a desktop nor a panel
                                 but something application specific */
         CustomPanelContainment = 128, /**< A customized desktop panel */
@@ -142,8 +143,7 @@ public:
         TopEdge,      /**< Along the top of the screen*/
         BottomEdge,   /**< Along the bottom of the screen*/
         LeftEdge,     /**< Along the left side of the screen */
-        RightEdge,     /**< Along the right side of the screen */
-        SystemTray
+        RightEdge     /**< Along the right side of the screen */
     };
     Q_ENUM(Location)
 
