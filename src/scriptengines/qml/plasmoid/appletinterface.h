@@ -114,7 +114,7 @@ class AppletInterface : public PlasmaQuick::AppletQuickItem
 
     /**
      * Type of the containment we're in
-     * @since 5.76
+     * @since 5.77
      */
     Q_PROPERTY(Plasma::Types::ContainmentDisplayHints containmentDisplayHints READ containmentDisplayHints NOTIFY containmentDisplayHintsChanged)
 

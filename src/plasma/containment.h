@@ -290,7 +290,7 @@ public Q_SLOTS:
      * Set Display hints that come from the containment that suggest the applet how to look and behave.
      *
      * @param hints the new hints, as bitwise OR
-     * @since 5.76
+     * @since 5.77
      */
     void setContainmentDisplayHints(Plasma::Types::ContainmentDisplayHints hints);
 

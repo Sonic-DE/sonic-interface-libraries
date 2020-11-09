@@ -178,7 +178,7 @@ public:
 
     /**
      * @return Display hints that come from the containment that suggest the applet how to look and behave.
-     * @since 5.76
+     * @since 5.77
      */
     Types::ContainmentDisplayHints containmentDisplayHints() const;
 

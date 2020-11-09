@@ -88,6 +88,7 @@ public:
 
     /**
      * Display hints that come from the containment that suggest the applet how to look and behave.
+     * @since 5.77
      */
     enum ContainmentDisplayHint {
         NoContainmentDisplayHint = 0,
