@@ -97,6 +97,7 @@ public:
     };
     Q_ENUM(ContainmentDisplayHint)
     Q_DECLARE_FLAGS(ContainmentDisplayHints, ContainmentDisplayHint)
+    Q_FLAG(ContainmentDisplayHints)
 
     /**
      * This enumeration describes the type of the Containment.

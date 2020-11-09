@@ -349,7 +349,7 @@ void Containment::setContainmentDisplayHints(Types::ContainmentDisplayHints hint
         return;
     }
 
-    hints = d->containmentDisplayHints;
+    d->containmentDisplayHints = hints;
     emit containmentDisplayHintsChanged(hints);
 }
 
