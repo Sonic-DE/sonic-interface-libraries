@@ -92,7 +92,7 @@ public:
     enum ContainmentDisplayHint {
         NoContainmentDisplayHint = 0,
         ContainmentDrawsPlasmoidHeading = 1, /**< The containment will draw an titlebar-looking header for the applets, so the applets shouldn't attempt to paint a similar thing **/
-        DesktopFullyCovered = 2 /**< The desktop area is not visible at all, for instance a window has been maximized on top of it */
+        DesktopFullyCovered = 2 /**< The desktop area for the contaiment's screen is not visible at all, for instance a window has been maximized on top of it */
     };
     Q_ENUM(ContainmentDisplayHint)
     Q_DECLARE_FLAGS(ContainmentDisplayHints, ContainmentDisplayHint)
