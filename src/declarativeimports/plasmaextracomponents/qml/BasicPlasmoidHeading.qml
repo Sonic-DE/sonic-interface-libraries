@@ -26,14 +26,14 @@ PlasmoidHeading {
      */
     default property alias extraControls: extraControlsLayout.data
 
-    visible: plasmoid.containmentType !== PlasmaCore.Types.CustomEmbeddedContainment
+    visible: !(plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentDrawsPlasmoidHeading)
 
     contentItem: RowLayout {
         Heading {
             elide: Text.ElideRight
             wrapMode: Text.NoWrap
             Layout.fillWidth: true
-            visible: plasmoid.containmentType !== PlasmaCore.Types.CustomEmbeddedContainment
+            visible: (plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentDrawsPlasmoidHeading)
             level: 1
             text: plasmoid.title
         }
@@ -44,7 +44,7 @@ PlasmoidHeading {
         }
         PlasmaComponents.ToolButton {
             id: actionsButton
-            visible: visibleActions > 0 && plasmoid.containmentType !== PlasmaCore.Types.CustomEmbeddedContainment
+            visible: visibleActions > 0 && !(plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentDrawsPlasmoidHeading)
             checked: configMenu.status !== PC2.DialogStatus.Closed
             property int visibleActions: 0
             property QtObject singleAction
@@ -120,7 +120,7 @@ PlasmoidHeading {
         }
         PlasmaComponents.ToolButton {
             icon.name: "configure"
-            visible: plasmoid && plasmoid.action("configure") && plasmoid.containmentType !== PlasmaCore.Types.CustomEmbeddedContainment
+            visible: plasmoid && plasmoid.action("configure") && !(plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentDrawsPlasmoidHeading)
             PlasmaComponents.ToolTip {
                 text: parent.visible ? plasmoid.action("configure").text : ""
             }

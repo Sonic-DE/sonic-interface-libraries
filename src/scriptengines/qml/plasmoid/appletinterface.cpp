@@ -98,6 +98,8 @@ AppletInterface::AppletInterface(DeclarativeAppletScript *script, const QVariant
 
     connect(applet(), &Plasma::Applet::activated,
             this, &AppletInterface::activated);
+    connect(applet(), &Plasma::Applet::containmentDisplayHintsChanged,
+            this, &AppletInterface::containmentDisplayHintsChanged);
 
     connect(appletScript(), &DeclarativeAppletScript::formFactorChanged,
             this, &AppletInterface::formFactorChanged);
@@ -113,9 +115,6 @@ AppletInterface::AppletInterface(DeclarativeAppletScript *script, const QVariant
         // Screen change implies geo change for good measure.
         connect(applet()->containment(), &Plasma::Containment::screenChanged,
                 this, &AppletInterface::screenGeometryChanged);
-
-        connect(applet()->containment(), &Plasma::Containment::containmentTypeChanged,
-                this, &AppletInterface::containmentTypeChanged);
 
         connect(applet()->containment()->corona(), &Plasma::Corona::screenGeometryChanged, this, [this](int id) {
             if (id == applet()->containment()->screen()) {
@@ -235,13 +234,9 @@ Plasma::Types::Location AppletInterface::location() const
     return applet()->location();
 }
 
-Plasma::Types::ContainmentType AppletInterface::containmentType() const
+Plasma::Types::ContainmentDisplayHints AppletInterface::containmentDisplayHints() const
 {
-    if (applet()->containment()) {
-        return applet()->containment()->containmentType();
-    } else {
-        return Plasma::Types::NoContainmentType;
-    }
+    return applet()->containmentDisplayHints();
 }
 
 QString AppletInterface::currentActivity() const

@@ -116,7 +116,7 @@ class AppletInterface : public PlasmaQuick::AppletQuickItem
      * Type of the containment we're in
      * @since 5.76
      */
-    Q_PROPERTY(Plasma::Types::ContainmentType containmentType READ containmentType NOTIFY containmentTypeChanged)
+    Q_PROPERTY(Plasma::Types::ContainmentDisplayHints containmentDisplayHints READ containmentDisplayHints NOTIFY containmentDisplayHintsChanged)
 
     /**
      * Location for the plasmoid
@@ -381,7 +381,7 @@ public:
 
     Plasma::Types::Location location() const;
 
-    Plasma::Types::ContainmentType containmentType() const;
+    Plasma::Types::ContainmentDisplayHints containmentDisplayHints() const;
 
     QString currentActivity() const;
 
@@ -466,7 +466,7 @@ Q_SIGNALS:
     void toolTipItemChanged();
     void formFactorChanged();
     void locationChanged();
-    void containmentTypeChanged();
+    void containmentDisplayHintsChanged();
     void contextChanged();
     void immutabilityChanged();
     void statusChanged();
