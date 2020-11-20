@@ -322,6 +322,7 @@ public:
      **/
     KPluginInfo::List listDataEngineInfo(const QString &parentApp = QString());
 
+#if PLASMA_ENABLE_DEPRECATED_SINCE(5, 77)
     /**
      * Returns a list of all known ContainmentActions.
      *
@@ -330,8 +331,23 @@ public:
      *                  The default value of QString() will result in a
      *                  list of all ContainmentActions.
      * @return list of ContainmentActions
+     * @deprecated since 5.77, use listContainmentActionsMetaData()
      **/
+    PLASMA_DEPRECATED_VERSION(5, 77, "Use listContainmentActionsMetaData()")
     KPluginInfo::List listContainmentActionsInfo(const QString &parentApp);
+#endif
+
+    /**
+     * Returns a list of all known ContainmentActions.
+     *
+     * @param parentApp the application to filter ContainmentActions on. Uses the
+     *                  X-KDE-ParentApp entry (if any) in the plugin metadata.
+     *                  The default value of QString() will result in a
+     *                  list of all ContainmentActions.
+     * @return list of ContainmentActions
+     * @since 5.77
+     **/
+    QVector<KPluginMetaData> listContainmentActionsMetaData(const QString &parentApp);
 
     /**
      * Set the plugin loader which will be queried for all loads.
