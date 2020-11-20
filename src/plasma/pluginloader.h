@@ -322,6 +322,7 @@ public:
      **/
     KPluginInfo::List listDataEngineInfo(const QString &parentApp = QString());
 
+#if PLASMA_ENABLE_DEPRECATED_SINCE(5, 77)
     /**
      * Returns a list of all known ContainmentActions.
      *
@@ -331,7 +332,11 @@ public:
      *                  list of all ContainmentActions.
      * @return list of ContainmentActions
      **/
+    PLASMA_DEPRECATED_VERSION(5, 77, "Use listContainmentActionsMetaData()")
     KPluginInfo::List listContainmentActionsInfo(const QString &parentApp);
+#endif
+
+    QVector<KPluginMetaData> listContainmentActionsMetaData(const QString &parentApp);
 
     /**
      * Set the plugin loader which will be queried for all loads.
