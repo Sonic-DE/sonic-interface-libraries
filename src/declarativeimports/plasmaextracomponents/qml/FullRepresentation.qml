@@ -6,6 +6,7 @@
 
 import QtQuick 2.12
 import QtQuick.Layouts 1.12
+import QtQuick.Window 2.2
 
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 3.0 as PlasmaComponents
@@ -65,13 +66,29 @@ import org.kde.plasma.components 2.0 as PlasmaExtras
     // Used only for the negative margins
     PlasmaCore.FrameSvgItem {
         id: headingSvg
+
+        property bool isDesktop: false
         readonly property bool showingScrollView: (control.contentItem instanceof PlasmaComponents.ScrollView) || (control.contentItem instanceof ScrollArea)
-        readonly property real leftHint: fromCurrentTheme ? -fixedMargins.left : 0
-        readonly property real rightHint: fromCurrentTheme ? -fixedMargins.right : 0
-        readonly property real topHint: fromCurrentTheme ? -fixedMargins.top : 0
-        readonly property real bottomHint: fromCurrentTheme ? -fixedMargins.bottom : 0
+
+        readonly property real leftHint: isDesktop ? -fixedMargins.left + shadowMargins.left : -fixedMargins.left
+        readonly property real rightHint: isDesktop ? -fixedMargins.right + shadowMargins.right : -fixedMargins.right
+        readonly property real topHint: isDesktop ? -fixedMargins.top + shadowMargins.top : -fixedMargins.top
+        readonly property real bottomHint: isDesktop ? -fixedMargins.bottom + shadowMargins.bottom : -fixedMargins.bottom
+
         visible: false
-        imagePath: "widgets/plasmoidheading"
-        prefix: 'header'
+
+        imagePath: {
+            if (control.Window.window && (control.Window.window instanceof PlasmaCore.Dialog)) {
+                isDesktop = false;
+                return "dialogs/background";
+            // Perhaps panel case shouldn't be managed at all?
+            } else if (typeof plasmoid !== "undefined" && plasmoid.formFactor == PlasmaCore.Types.Horizontal || PlasmaCore.Types.Vertical) {
+                isDesktop = false;
+                return "widgets/panel-background";
+            } else {
+                isDesktop = true;
+                return "widgets/background";
+            }
+        }
     }
  }
