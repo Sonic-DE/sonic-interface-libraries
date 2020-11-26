@@ -15,7 +15,7 @@
    viewBox="0 0 173 56.000004"
    id="svg2"
    version="1.1"
-   inkscape:version="0.92.4 5da689c313, 2019-01-14"
+   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
    sodipodi:docname="tooltip.svg">
   <style
      type="text/css"
@@ -509,7 +509,7 @@
      inkscape:pageopacity="0.65882353"
      inkscape:pageshadow="2"
      inkscape:zoom="8.0000001"
-     inkscape:cx="43.380535"
+     inkscape:cx="20.943035"
      inkscape:cy="23.329216"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -518,7 +518,7 @@
      borderlayer="true"
      units="px"
      inkscape:window-width="1920"
-     inkscape:window-height="1017"
+     inkscape:window-height="1019"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -656,10 +656,6 @@
        x="930.36218"
        y="-25.000004"
        transform="matrix(0,1,-1,0,0,0)" />
-    <rect style="fill:#00ff00;fill-opacity:1;stroke:none" id="hint-inset-top-margin" width="4" height="6.0000248" x="33" y="904.36218"/>
-    <rect y="954.36218" x="33" height="5.9999752" width="4" id="hint-inset-bottom-margin" style="fill:#00ff00;fill-opacity:1;stroke:none"/>
-    <rect y="-63" x="930.36218" height="6.0000153" width="4" id="hint-inset-right-margin" style="fill:#00ff00;fill-opacity:1;stroke:none" transform="matrix(0,1,-1,0,0,0)"/>
-    <rect style="fill:#00ff00;fill-opacity:1;stroke:none" id="hint-inset-left-margin" width="4" height="6.0000038" x="930.36218" y="-13.000004" transform="matrix(0,1,-1,0,0,0)"/>
     <g
        id="shadow-top"
        transform="translate(56.99998,1.7232666e-5)"
@@ -1019,10 +1015,36 @@
        width="4.0000229"
        id="shadow-hint-left-margin"
        style="fill:#ff00ff;fill-opacity:1;stroke:none;stroke-width:0.99999994" />
-    <rect y="904.36218" x="97" height="5.9999771" width="4" id="shadow-hint-inset-top-margin" style="fill:#00ff00;fill-opacity:1;stroke:none"/>
-    <rect style="fill:#00ff00;fill-opacity:1;stroke:none" id="shadow-hint-inset-bottom-margin" width="4" height="6.0000229" x="97" y="954.36218"/>
-    <rect transform="matrix(0,1,-1,0,0,0)" style="fill:#00ff00;fill-opacity:1;stroke:none" id="shadow-hint-inset-right-margin" width="3.9999769" height="5.9999771" x="936.36218" y="-119.99998"/>
-    <rect transform="matrix(0,1,-1,0,0,0)" y="-70" x="936.36218" height="6" width="4.0000229" id="shadow-hint-inset-left-margin" style="fill:#00ff00;fill-opacity:1;stroke:none"/>
+    <rect
+       y="904.36218"
+       x="97"
+       height="5.9999771"
+       width="4"
+       id="shadow-hint-inset-top-margin"
+       style="fill:#00ff00;fill-opacity:1;stroke:none" />
+    <rect
+       style="fill:#00ff00;fill-opacity:1;stroke:none"
+       id="shadow-hint-inset-bottom-margin"
+       width="4"
+       height="6.0000229"
+       x="97"
+       y="954.36218" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#00ff00;fill-opacity:1;stroke:none"
+       id="shadow-hint-inset-right-margin"
+       width="3.9999769"
+       height="5.9999771"
+       x="936.36218"
+       y="-119.99998" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       y="-70"
+       x="936.36218"
+       height="6"
+       width="4.0000229"
+       id="shadow-hint-inset-left-margin"
+       style="fill:#00ff00;fill-opacity:1;stroke:none" />
     <rect
        y="910.11212"
        x="131.99985"

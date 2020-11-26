@@ -381,6 +381,7 @@ void AppletQuickItemPrivate::compactRepresentationCheck()
             connectLayoutAttached(item);
             expanded = true;
             emit q->expandedChanged(true);
+            emit q->currentRepresentationItemChanged(item);
         }
 
         //Icon
@@ -413,6 +414,7 @@ void AppletQuickItemPrivate::compactRepresentationCheck()
 
             expanded = false;
             emit q->expandedChanged(false);
+            emit q->currentRepresentationItemChanged(compactItem);
         }
     }
 }
@@ -815,6 +817,15 @@ void AppletQuickItem::setPreferredRepresentation(QQmlComponent *component)
     d->preferredRepresentation = component;
     emit preferredRepresentationChanged(component);
     d->compactRepresentationCheck();
+}
+
+QQuickItem *AppletQuickItem::currentRepresentationItem()
+{
+    if (d->appletShouldBeExpanded()) {
+        return fullRepresentationItem();
+    } else {
+        return compactRepresentationItem();
+    }
 }
 
 bool AppletQuickItem::isExpanded() const
