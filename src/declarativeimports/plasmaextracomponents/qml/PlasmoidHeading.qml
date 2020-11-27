@@ -57,7 +57,7 @@ import QtQuick.Templates 2.12 as T
 
     background: PlasmaCore.FrameSvgItem {
         id: headingSvg
-        readonly property bool insideRepresentationComponent: control.parent instanceof FullRepresentation
+        readonly property bool insideRepresentationComponent: control.parent instanceof Representation
         visible: fromCurrentTheme
         imagePath: "widgets/plasmoidheading"
         prefix: location == PlasmoidHeading.Location.Header? 'header' : 'footer'
