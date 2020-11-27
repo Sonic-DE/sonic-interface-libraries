@@ -78,12 +78,6 @@ class PLASMAQUICK_EXPORT AppletQuickItem : public QQuickItem
      */
     Q_PROPERTY(QObject *rootItem READ rootItem CONSTANT)
 
-    /**
-     * The current representation child of this AppletQuickItem. It will be fullRepresentationItem in expanded mode and compactrepresentationItem in collapsed mode.
-     * @since 5.77
-     */
-    Q_PROPERTY(QQuickItem *currentRepresentationItem READ currentRepresentationItem NOTIFY currentRepresentationItemChanged)
-
 public:
     AppletQuickItem(Plasma::Applet *applet, QQuickItem *parent = nullptr);
     ~AppletQuickItem() override;
@@ -110,8 +104,6 @@ public:
     QQuickItem *fullRepresentationItem();
     QObject *rootItem();
     QObject *testItem();
-
-    QQuickItem *currentRepresentationItem();
 
 ////PROPERTY ACCESSORS
     int switchWidth() const;
@@ -152,8 +144,6 @@ Q_SIGNALS:
 
     void compactRepresentationItemChanged(QObject *compactRepresentationItem);
     void fullRepresentationItemChanged(QObject *fullRepresentationItem);
-
-    void currentRepresentationItemChanged(QQuickItem *currentRepresentationItem);
 
 protected:
     KDeclarative::QmlObject *qmlObject();
