@@ -813,7 +813,7 @@ void FrameSvgPrivate::updateSizes(FrameData *frame) const
     if (q->hasElement(frame->prefix % QLatin1String("hint-inset-top-margin"))) {
         frame->insetTopMargin = q->elementSize(frame->prefix % QLatin1String("hint-inset-top-margin")).height();
     } else {
-        frame->insetTopMargin = 0;
+        frame->insetTopMargin = -1;
     }
 
     frame->fixedLeftWidth = q->elementSize(frame->prefix % QLatin1String("left")).width();
@@ -834,7 +834,7 @@ void FrameSvgPrivate::updateSizes(FrameData *frame) const
     if (q->hasElement(frame->prefix % QLatin1String("hint-inset-left-margin"))) {
         frame->insetLeftMargin = q->elementSize(frame->prefix % QLatin1String("hint-inset-left-margin")).width();
     } else {
-        frame->insetLeftMargin = 0;
+        frame->insetLeftMargin = -1;
     }
 
     frame->fixedRightWidth = q->elementSize(frame->prefix % QLatin1String("right")).width();
@@ -855,7 +855,7 @@ void FrameSvgPrivate::updateSizes(FrameData *frame) const
     if (q->hasElement(frame->prefix % QLatin1String("hint-inset-right-margin"))) {
         frame->insetRightMargin = q->elementSize(frame->prefix % QLatin1String("hint-inset-right-margin")).width();
     } else {
-        frame->insetRightMargin = 0;
+        frame->insetRightMargin = -1;
     }
 
     frame->fixedBottomHeight = q->elementSize(frame->prefix % QLatin1String("bottom")).height();
@@ -876,7 +876,7 @@ void FrameSvgPrivate::updateSizes(FrameData *frame) const
     if (q->hasElement(frame->prefix % QLatin1String("hint-inset-bottom-margin"))) {
         frame->insetBottomMargin = q->elementSize(frame->prefix % QLatin1String("hint-inset-bottom-margin")).height();
     } else {
-        frame->insetBottomMargin = 0;
+        frame->insetBottomMargin = -1;
     }
 
     frame->composeOverBorder = (q->hasElement(frame->prefix % QLatin1String("hint-compose-over-border")) &&
