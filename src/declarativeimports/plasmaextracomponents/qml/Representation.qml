@@ -37,5 +37,39 @@ import org.kde.plasma.components 2.0 as PlasmaExtras
  PlasmaComponents.Page {
     id: control
 
-    padding: (control.contentItem instanceof PlasmaComponents.ScrollView) || (control.contentItem instanceof ScrollArea)? 0 : units.gridUnit
+    leftPadding: backgroundMetrics.getMargin("left")
+    rightPadding: backgroundMetrics.getMargin("right")
+    topPadding: backgroundMetrics.getMargin("top")
+    bottomPadding: backgroundMetrics.getMargin("bottom")
+
+    PlasmaCore.FrameSvgItem {
+        id: backgroundMetrics
+        visible: false
+        property bool isDesktop: false
+        imagePath: {
+            if (control.Window.window && (control.Window.window instanceof PlasmaCore.Dialog)) {
+                isDesktop = false;
+                return "dialogs/background";
+            // Perhaps panel case shouldn't be managed at all?
+            } else if (typeof plasmoid !== "undefined" && plasmoid.formFactor == PlasmaCore.Types.Horizontal || PlasmaCore.Types.Vertical) {
+                isDesktop = false;
+                return "widgets/panel-background";
+            } else if (plasmoid.formFactor == PlasmaCore.Types.Planar) {
+                isDesktop = true;
+                return "widgets/background";
+            } else {
+                isDesktop = false;
+                return "";
+            }
+        }
+        readonly property bool hasInset: backgroundMetrics.margins.left >= 0 && backgroundMetrics.margins.right >= 0 && backgroundMetrics.margins.top >= 0 && backgroundMetrics.inset.bottom >= 0
+        readonly property bool scrollViewDetected: (control.contentItem instanceof PlasmaComponents.ScrollView) || (control.contentItem instanceof ScrollArea)
+        function getMargin(margin) {
+            if (!hasInset) {
+                return margins[margin]
+            } else {
+                return scrollViewDetected ? 0 : backgroundMetrics.margins.left - backgroundMetrics.inset.left
+            }
+        }
+    }
  }
