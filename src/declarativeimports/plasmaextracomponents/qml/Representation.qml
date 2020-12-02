@@ -53,17 +53,13 @@ import org.kde.plasma.components 2.0 as PlasmaExtras
     PlasmaCore.FrameSvgItem {
         id: backgroundMetrics
         visible: false
-        property bool isDesktop: false
         imagePath: {
             if (control.Window.window && (control.Window.window instanceof PlasmaCore.Dialog)) {
-                isDesktop = false;
                 return "dialogs/background";
             } else if (plasmoid.formFactor == PlasmaCore.Types.Planar) {
-                isDesktop = true;
                 return "widgets/background";
             // panels and other formfactors are explicitly not supported
             } else {
-                isDesktop = false;
                 return "";
             }
         }
