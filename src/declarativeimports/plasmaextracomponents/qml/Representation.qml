@@ -34,13 +34,21 @@ import org.kde.plasma.components 2.0 as PlasmaExtras
   * @since 5.77
   * @inherit QtQuick.Templates.Page
   */
+ 
  PlasmaComponents.Page {
     id: control
 
+    // TODO KF6: should become possible to set the paddings directly (which won't be negative anymore)
+    /**
+     * collapseMarginsHint: bool
+     * if true, the representation will remove any borders its container may have put and will be collapsed above its borders
+     */
+    property bool collapseMarginsHint: (control.contentItem instanceof PlasmaComponents.ScrollView) || (control.contentItem instanceof ScrollArea)
+
     leftPadding: backgroundMetrics.getMargin("left")
     rightPadding: backgroundMetrics.getMargin("right")
-    topPadding: backgroundMetrics.getMargin("top")
-    bottomPadding: backgroundMetrics.getMargin("bottom")
+    topPadding: header ? 0 : backgroundMetrics.getMargin("top")
+    bottomPadding: footer ? 0 : backgroundMetrics.getMargin("bottom")
 
     PlasmaCore.FrameSvgItem {
         id: backgroundMetrics
@@ -51,7 +59,7 @@ import org.kde.plasma.components 2.0 as PlasmaExtras
                 isDesktop = false;
                 return "dialogs/background";
             // Perhaps panel case shouldn't be managed at all?
-            } else if (typeof plasmoid !== "undefined" && plasmoid.formFactor == PlasmaCore.Types.Horizontal || PlasmaCore.Types.Vertical) {
+            } else if (typeof plasmoid !== "undefined" && plasmoid.formFactor == PlasmaCore.Types.Horizontal || plasmoid.formFactor == PlasmaCore.Types.Vertical) {
                 isDesktop = false;
                 return "widgets/panel-background";
             } else if (plasmoid.formFactor == PlasmaCore.Types.Planar) {
@@ -63,12 +71,11 @@ import org.kde.plasma.components 2.0 as PlasmaExtras
             }
         }
         readonly property bool hasInset: backgroundMetrics.margins.left >= 0 && backgroundMetrics.margins.right >= 0 && backgroundMetrics.margins.top >= 0 && backgroundMetrics.inset.bottom >= 0
-        readonly property bool scrollViewDetected: (control.contentItem instanceof PlasmaComponents.ScrollView) || (control.contentItem instanceof ScrollArea)
         function getMargin(margin) {
             if (!hasInset) {
-                return margins[margin]
+                return 0;
             } else {
-                return scrollViewDetected ? 0 : backgroundMetrics.margins.left - backgroundMetrics.inset.left
+                return control.collapseMarginsHint ? -backgroundMetrics.fixedMargins[margin] + backgroundMetrics.inset[margin] : 0
             }
         }
     }
