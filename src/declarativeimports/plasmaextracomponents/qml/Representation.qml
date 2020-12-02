@@ -58,13 +58,10 @@ import org.kde.plasma.components 2.0 as PlasmaExtras
             if (control.Window.window && (control.Window.window instanceof PlasmaCore.Dialog)) {
                 isDesktop = false;
                 return "dialogs/background";
-            // Perhaps panel case shouldn't be managed at all?
-            } else if (typeof plasmoid !== "undefined" && plasmoid.formFactor == PlasmaCore.Types.Horizontal || plasmoid.formFactor == PlasmaCore.Types.Vertical) {
-                isDesktop = false;
-                return "widgets/panel-background";
             } else if (plasmoid.formFactor == PlasmaCore.Types.Planar) {
                 isDesktop = true;
                 return "widgets/background";
+            // panels and other formfactors are explicitly not supported
             } else {
                 isDesktop = false;
                 return "";
