@@ -90,7 +90,7 @@ class PLASMAQUICK_EXPORT Dialog : public QQuickWindow, public QQmlParserStatus
     Q_PROPERTY(QObject *margins READ margins CONSTANT)
 
     /**
-     * Margins where the dialog background actually starts, excluiding things likle shadows or borders
+     * Margins where the dialog background actually starts, excluiding things like shadows or borders
      * @see DialogMargins
      * @since 5.77
      */
