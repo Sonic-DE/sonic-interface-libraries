@@ -70,7 +70,7 @@ import org.kde.plasma.components 2.0 as PlasmaExtras
                 return "";
             }
         }
-        readonly property bool hasInset: backgroundMetrics.margins.left >= 0 && backgroundMetrics.margins.right >= 0 && backgroundMetrics.margins.top >= 0 && backgroundMetrics.inset.bottom >= 0
+        readonly property bool hasInset: backgroundMetrics.inset.left >= 0 && backgroundMetrics.inset.right >= 0 && backgroundMetrics.inset.top >= 0 && backgroundMetrics.inset.bottom >= 0
         function getMargin(margin) {
             if (!hasInset) {
                 return 0;
