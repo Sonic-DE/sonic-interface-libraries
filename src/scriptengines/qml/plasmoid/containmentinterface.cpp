@@ -874,7 +874,6 @@ QList<QObject *> ContainmentInterface::actions() const
 
 void ContainmentInterface::setContainmentDisplayHints(Plasma::Types::ContainmentDisplayHints hints)
 {
-    qWarning()<<"BLAAAH"<<hints;
     m_containment->setContainmentDisplayHints(hints);
 }
 
