@@ -73,12 +73,12 @@ public:
     QString requestedPrefix;
     FrameSvg::EnabledBorders enabledBorders;
     QPixmap cachedBackground;
-    QCache<QString, QRegion> cachedMasks;
+    QCache<uint, QRegion> cachedMasks;
     static const int MAX_CACHED_MASKS = 10;
     uint lastModified = 0;
 
     QSize frameSize;
-    QString cacheId;
+    uint cacheId;
 
     //measures
     int topHeight;
@@ -125,6 +125,16 @@ public:
 class FrameSvgPrivate
 {
 public:
+    struct CacheId {
+        FrameSvg::EnabledBorders enabledBorders;
+        double width;
+        double height;
+        QString prefix;
+        QString imagePath;
+        int scaleFactor;
+        int devicePixelRatio;
+    };
+
     FrameSvgPrivate(FrameSvg *psvg)
         : q(psvg),
           overlayPos(0, 0),
@@ -145,7 +155,7 @@ public:
 
     void generateBackground(const QSharedPointer<FrameData> &frame);
     void generateFrameBackground(const QSharedPointer<FrameData> &);
-    QString cacheId(FrameData *frame, const QString &prefixToUse) const;
+    CacheId cacheId(FrameData *frame, const QString &prefixToUse) const;
     void cacheFrame(const QString &prefixToSave, const QPixmap &background, const QPixmap &overlay);
     void updateSizes(FrameData* frame) const;
     void updateSizes(const QSharedPointer<FrameData> &frame) const { return updateSizes(frame.data()); }
@@ -178,12 +188,22 @@ public:
     //this can differ from frame->frameSize if we are in a transition
     QSize pendingFrameSize;
 
-    static QHash<ThemePrivate *, QHash<QString, QWeakPointer<FrameData>> > s_sharedFrames;
+    static QHash<ThemePrivate *, QHash<uint, QWeakPointer<FrameData>> > s_sharedFrames;
 
     bool cacheAll : 1;
     bool repaintBlocked : 1;
 };
 
+class FrameSvgCache : public QObject {
+    Q_OBJECT
+public:
+    FrameSvgCache(QObject *parent = nullptr);
+
+    static FrameSvgCache *instance();
+};
+
 }
+
+uint qHash(const Plasma::FrameSvgPrivate::CacheId &id);
 
 #endif
