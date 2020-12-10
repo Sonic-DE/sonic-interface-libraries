@@ -38,11 +38,11 @@ Theme::Theme(QObject *parent)
 {
     if (!ThemePrivate::globalTheme) {
         ThemePrivate::globalTheme = new ThemePrivate;
+        ThemePrivate::globalTheme->settingsChanged(false);
     }
     ThemePrivate::globalTheme->ref.ref();
     d = ThemePrivate::globalTheme;
 
-    d->settingsChanged(false);
     if (QCoreApplication::instance()) {
         connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit,
                 d, &ThemePrivate::onAppExitCleanup);
