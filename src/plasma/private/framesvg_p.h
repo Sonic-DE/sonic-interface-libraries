@@ -129,10 +129,12 @@ public:
         FrameSvg::EnabledBorders enabledBorders;
         double width;
         double height;
-        QString prefix;
         QString imagePath;
+        QString prefix;
+        int status;
         int scaleFactor;
         int devicePixelRatio;
+        int colorGroup;
     };
 
     FrameSvgPrivate(FrameSvg *psvg)
@@ -192,14 +194,6 @@ public:
 
     bool cacheAll : 1;
     bool repaintBlocked : 1;
-};
-
-class FrameSvgCache : public QObject {
-    Q_OBJECT
-public:
-    FrameSvgCache(QObject *parent = nullptr);
-
-    static FrameSvgCache *instance();
 };
 
 }
