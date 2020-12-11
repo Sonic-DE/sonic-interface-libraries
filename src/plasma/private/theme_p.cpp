@@ -76,12 +76,6 @@ ThemePrivate::ThemePrivate(QObject *parent)
     pixmapSaveTimer->setInterval(600);
     QObject::connect(pixmapSaveTimer, &QTimer::timeout, this, &ThemePrivate::scheduledCacheUpdate);
 
-    rectSaveTimer = new QTimer(this);
-    rectSaveTimer->setSingleShot(true);
-    //2 minutes
-    rectSaveTimer->setInterval(2 * 60 * 1000);
-    QObject::connect(rectSaveTimer, &QTimer::timeout, this, &ThemePrivate::saveSvgElementsCache);
-
     updateNotificationTimer = new QTimer(this);
     updateNotificationTimer->setSingleShot(true);
     updateNotificationTimer->setInterval(100);
@@ -122,7 +116,6 @@ ThemePrivate::ThemePrivate(QObject *parent)
 
 ThemePrivate::~ThemePrivate()
 {
-    saveSvgElementsCache();
     FrameSvgPrivate::s_sharedFrames.remove(this);
     delete pixmapCache;
 }
@@ -247,26 +240,7 @@ bool ThemePrivate::useCache()
         }
     }
 
-    if (cacheTheme && !svgElementsCache) {
-        const QString svgElementsFileNameBase = QLatin1String("plasma-svgelements-") + themeName;
-        QString svgElementsFileName = svgElementsFileNameBase;
-        if (!themeVersion.isEmpty()) {
-            svgElementsFileName += QLatin1String("_v") + themeVersion;
-        }
-
-        // now we check for (and remove) old caches
-        QDir cacheDir(QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation));
-        cacheDir.setNameFilters(QStringList({svgElementsFileNameBase + QLatin1Char('*')}));
-
-        const auto files = cacheDir.entryInfoList();
-        for (const QFileInfo &file : files) {
-            if (!file.absoluteFilePath().endsWith(svgElementsFileName)) {
-                QFile::remove(file.absoluteFilePath());
-            }
-        }
-
-        const QString svgElementsFile = QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation) + QLatin1Char('/') + svgElementsFileName;
-        svgElementsCache = KSharedConfig::openConfig(svgElementsFile, KConfig::SimpleConfig);
+    if (cacheTheme) {
         QString currentIconThemePath;
         const auto *iconTheme = KIconLoader::global()->theme();
         if (iconTheme) {
@@ -358,9 +332,6 @@ void ThemePrivate::discardCache(CacheTypes caches)
 
     if (caches & SvgElementsCache) {
         discoveries.clear();
-        invalidElements.clear();
-
-        svgElementsCache = nullptr;
     }
 }
 
@@ -656,21 +627,6 @@ void ThemePrivate::settingsChanged(bool emitChanges)
     //qCDebug(LOG_PLASMA) << "Settings Changed!";
     KConfigGroup cg = config();
     setThemeName(cg.readEntry("name", ThemePrivate::defaultTheme), false, emitChanges);
-}
-
-void ThemePrivate::saveSvgElementsCache()
-{
-    if (svgElementsCache) {
-        QHashIterator<QString, QSet<QString> > it(invalidElements);
-        while (it.hasNext()) {
-            it.next();
-            KConfigGroup imageGroup(svgElementsCache, it.key());
-            imageGroup.writeEntry("invalidElements", it.value().values()); //FIXME: add QSet support to KConfig
-        }
-
-        //Pretty drastic, but this is executed only very rarely
-        svgElementsCache->sync();
-    }
 }
 
 QColor ThemePrivate::color(Theme::ColorRole role, Theme::ColorGroup group) const
