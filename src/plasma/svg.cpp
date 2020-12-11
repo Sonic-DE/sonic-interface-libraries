@@ -138,7 +138,8 @@ uint qHash(const Plasma::SvgPrivate::CacheId &id)
     result ^= ::qHash(id.elementName) + 0x9e3779b9 + (result << 6) + (result >> 2);
     result ^= ::qHash(id.filePath) + 0x9e3779b9 + (result << 6) + (result >> 2);
     result ^= ::qHash(id.status) + 0x9e3779b9 + (result << 6) + (result >> 2);
-    result ^= ::qHash(id.dpr) + 0x9e3779b9 + (result << 6) + (result >> 2);
+    result ^= ::qHash(id.devicePixelRatio) + 0x9e3779b9 + (result << 6) + (result >> 2);
+    result ^= ::qHash(id.scaleFactor) + 0x9e3779b9 + (result << 6) + (result >> 2);
     result ^= ::qHash(id.colorGroup) + 0x9e3779b9 + (result << 6) + (result >> 2);
     return result;
 }
@@ -343,13 +344,13 @@ SvgPrivate::~SvgPrivate()
 SvgPrivate::CacheId SvgPrivate::cacheId(const QString &elementId) const
 {
     auto idSize = size.isValid() && size != naturalSize ? size : QSizeF{-1.0, -1.0};
-    return CacheId{idSize.width(), idSize.height(), path, elementId, status, devicePixelRatio, -1};
+    return CacheId{idSize.width(), idSize.height(), path, elementId, status, devicePixelRatio, scaleFactor, -1};
 }
 
 //This function is meant for the pixmap cache
 QString SvgPrivate::cachePath(const QString &id, const QSize &size) const
 {
-    auto cacheId = CacheId{double(size.width()), double(size.height()), path, id, status, devicePixelRatio, colorGroup};
+    auto cacheId = CacheId{double(size.width()), double(size.height()), path, id, status, devicePixelRatio, scaleFactor, colorGroup};
     return QString::number(qHash(cacheId));
 }
 

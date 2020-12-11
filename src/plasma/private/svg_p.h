@@ -54,7 +54,8 @@ public:
         QString filePath;
         QString elementName;
         int status;
-        double dpr;
+        double devicePixelRatio;
+        double scaleFactor;
         int colorGroup;
     };
 
