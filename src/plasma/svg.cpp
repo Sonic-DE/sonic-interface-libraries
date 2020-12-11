@@ -141,6 +141,7 @@ uint qHash(const Plasma::SvgPrivate::CacheId &id)
     result ^= ::qHash(id.devicePixelRatio) + 0x9e3779b9 + (result << 6) + (result >> 2);
     result ^= ::qHash(id.scaleFactor) + 0x9e3779b9 + (result << 6) + (result >> 2);
     result ^= ::qHash(id.colorGroup) + 0x9e3779b9 + (result << 6) + (result >> 2);
+    result ^= ::qHash(id.lastModified) + 0x9e3779b9 + (result << 6) + (result >> 2);
     return result;
 }
 
@@ -166,12 +167,12 @@ SvgRectsCache *SvgRectsCache::instance()
     return &privateSvgRectsCacheSelf()->self;
 }
 
-void SvgRectsCache::insert(Plasma::SvgPrivate::CacheId cacheId, const QRectF &rect, unsigned int &lastModified)
+void SvgRectsCache::insert(Plasma::SvgPrivate::CacheId cacheId, const QRectF &rect, unsigned int lastModified)
 {
     insert(qHash(cacheId), cacheId.filePath, rect, lastModified);
 }
 
-void SvgRectsCache::insert(uint id, const QString &filePath, const QRectF &rect, unsigned int &lastModified)
+void SvgRectsCache::insert(uint id, const QString &filePath, const QRectF &rect, unsigned int lastModified)
 {
     if (m_localRectCache.contains(id)) {
         return;
@@ -212,9 +213,22 @@ bool SvgRectsCache::findElementRect(uint id, const QString &filePath, QRectF &re
     return true;
 }
 
-void SvgRectsCache::loadImageFromCache(const QString &path)
+void SvgRectsCache::loadImageFromCache(const QString &path, uint lastModified)
 {
+    if (path.isEmpty()) {
+        return;
+    }
+
     KConfigGroup imageGroup(m_svgElementsCache, path);
+
+    unsigned int savedTime = imageGroup.readEntry("LastModified", 0);
+
+    if (lastModified > savedTime) {
+        imageGroup.deleteGroup();
+        m_configSyncTimer->start();
+        return;
+    }
+
     m_invalidElements[path] = imageGroup.readEntry("Invalidelements", QList<unsigned int>()).toSet();
 
     for (const auto &key : imageGroup.keyList()) {
@@ -339,6 +353,12 @@ QStringList SvgRectsCache::cachedKeysForPath(const QString &path) const
     return filtered;
 }
 
+void SvgRectsCache::updateLastModified(const QString &filePath, unsigned int lastModified)
+{
+    KConfigGroup imageGroup(m_svgElementsCache, filePath);
+    imageGroup.writeEntry("LastModified", lastModified);
+    m_configSyncTimer->start();    
+}
 
 SvgPrivate::SvgPrivate(Svg *svg)
     : q(svg),
@@ -369,13 +389,13 @@ SvgPrivate::~SvgPrivate()
 SvgPrivate::CacheId SvgPrivate::cacheId(const QString &elementId) const
 {
     auto idSize = size.isValid() && size != naturalSize ? size : QSizeF{-1.0, -1.0};
-    return CacheId{idSize.width(), idSize.height(), path, elementId, status, devicePixelRatio, scaleFactor, -1};
+    return CacheId{idSize.width(), idSize.height(), path, elementId, status, devicePixelRatio, scaleFactor, -1, lastModified};
 }
 
 //This function is meant for the pixmap cache
 QString SvgPrivate::cachePath(const QString &id, const QSize &size) const
 {
-    auto cacheId = CacheId{double(size.width()), double(size.height()), path, id, status, devicePixelRatio, scaleFactor, colorGroup};
+    auto cacheId = CacheId{double(size.width()), double(size.height()), path, id, status, devicePixelRatio, scaleFactor, colorGroup, lastModified};
     return QString::number(qHash(cacheId));
 }
 
@@ -445,7 +465,11 @@ bool SvgPrivate::setImagePath(const QString &imagePath)
 #endif
     }
 
-    SvgRectsCache::instance()->loadImageFromCache(path);
+    QFileInfo info(path);
+
+    lastModified = info.lastModified().toSecsSinceEpoch();
+
+    SvgRectsCache::instance()->loadImageFromCache(path, lastModified);
 
     // check if svg wants colorscheme applied
     checkColorHints();
@@ -464,10 +488,6 @@ bool SvgPrivate::setImagePath(const QString &imagePath)
             //qCDebug(LOG_PLASMA) << "natural size for" << path << "from cache is" << naturalSize;
         }
     }
-
-    QFileInfo info(path);
-
-    lastModified = info.lastModified().toSecsSinceEpoch();
 
     q->resize();
     emit q->imagePathChanged();
@@ -587,6 +607,8 @@ QPixmap SvgPrivate::findInCache(const QString &elementId, qreal ratio, const QSi
     if (cacheRendering) {
         cacheAndColorsTheme()->insertIntoCache(id, p, QString::number((qint64)q, 16) % QLatin1Char('_') % actualElementId);
     }
+
+    SvgRectsCache::instance()->updateLastModified(path, lastModified);
 
     return p;
 }
