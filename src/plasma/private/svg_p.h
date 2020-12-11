@@ -57,6 +57,7 @@ public:
         double devicePixelRatio;
         double scaleFactor;
         int colorGroup;
+        uint lastModified;
     };
 
     SvgPrivate(Svg *svg);
@@ -131,13 +132,13 @@ public:
 
     static SvgRectsCache *instance();
 
-    void insert(SvgPrivate::CacheId cacheId, const QRectF &rect, unsigned int &lastModified);
-    void insert(uint id, const QString &filePath, const QRectF &rect, unsigned int &lastModified);
+    void insert(SvgPrivate::CacheId cacheId, const QRectF &rect, unsigned int lastModified);
+    void insert(uint id, const QString &filePath, const QRectF &rect, unsigned int lastModified);
     // Those 2 methods are the same, the second uses the integer id produced by hashed CacheId
     bool findElementRect(SvgPrivate::CacheId cacheId, QRectF &rect);
     bool findElementRect(uint id, const QString &filePath, QRectF &rect);
 
-    void loadImageFromCache(const QString &path);
+    void loadImageFromCache(const QString &path, uint lastModified);
     void dropImageFromCache(const QString &path);
     void expireCache(const QString &path);
 
@@ -151,6 +152,8 @@ public:
     void setIconThemePath(const QString &path);
 
     QStringList cachedKeysForPath(const QString &path) const;
+
+    void updateLastModified(const QString &filePath, unsigned int lastModified);
 
 private:
     QTimer *m_configSyncTimer = nullptr;
