@@ -135,6 +135,7 @@ public:
         int scaleFactor;
         int devicePixelRatio;
         int colorGroup;
+        uint lastModified;
     };
 
     FrameSvgPrivate(FrameSvg *psvg)
