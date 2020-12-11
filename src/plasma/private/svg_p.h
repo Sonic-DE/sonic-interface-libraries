@@ -132,8 +132,13 @@ public:
     static SvgRectsCache *instance();
 
     void insert(SvgPrivate::CacheId cacheId, const QRectF &rect, unsigned int &lastModified);
+    void insert(uint id, const QString &filePath, const QRectF &rect, unsigned int &lastModified);
+    // Those 2 methods are the same, the second uses the integer id produced by hashed CacheId
     bool findElementRect(SvgPrivate::CacheId cacheId, QRectF &rect);
+    bool findElementRect(uint id, const QString &filePath, QRectF &rect);
+
     void loadImageFromCache(const QString &path);
+    void dropImageFromCache(const QString &path);
     void expireCache(const QString &path);
 
     void setNaturalSize(const QString &path, qreal scaleFactor, const QSizeF &size);
@@ -144,6 +149,8 @@ public:
 
     QString iconThemePath();
     void setIconThemePath(const QString &path);
+
+    QStringList cachedKeysForPath(const QString &path) const;
 
 private:
     QTimer *m_configSyncTimer = nullptr;
