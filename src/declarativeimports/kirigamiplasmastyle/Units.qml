@@ -85,6 +85,12 @@ QtObject {
     property int shortDuration: units.shortDuration
 
     /**
+     * units.instantaneousDuration should be used for elements that should have a hint of smoothness,
+     * but otherwise animate near instantly.
+     */
+    property int instantaneousDuration: units.instantaneousDuration
+
+    /**
      * units.veryLongDuration should be used for specialty animations that benefit
      * from being even longer than longDuration.
      */
