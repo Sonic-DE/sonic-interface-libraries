@@ -158,6 +158,11 @@ private:
     QTimer *m_configSyncTimer = nullptr;
     QString m_iconThemePath;
     KSharedConfigPtr m_svgElementsCache;
+    /* 
+     * We are indexing in the hash cache ids by their "digested" uint out of qHash(CacheId)
+     * because we need to serialize it and unserialize it to a config file,
+     * which is more efficient to do that with the uint directly rather than a CacheId struct serialization
+     */
     QHash<uint, QRectF> m_localRectCache;
     QHash<QString, QSet<unsigned int>> m_invalidElements;
     QHash<QString, QList<QSize>> m_sizeHintsForId;
