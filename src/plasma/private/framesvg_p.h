@@ -16,6 +16,8 @@
 
 #include <Plasma/Theme>
 
+#include "svg_p.h"
+
 namespace Plasma
 {
 
@@ -125,19 +127,6 @@ public:
 class FrameSvgPrivate
 {
 public:
-    struct CacheId {
-        FrameSvg::EnabledBorders enabledBorders;
-        double width;
-        double height;
-        QString imagePath;
-        QString prefix;
-        int status;
-        int scaleFactor;
-        int devicePixelRatio;
-        int colorGroup;
-        uint lastModified;
-    };
-
     FrameSvgPrivate(FrameSvg *psvg)
         : q(psvg),
           overlayPos(0, 0),
@@ -158,7 +147,7 @@ public:
 
     void generateBackground(const QSharedPointer<FrameData> &frame);
     void generateFrameBackground(const QSharedPointer<FrameData> &);
-    CacheId cacheId(FrameData *frame, const QString &prefixToUse) const;
+    SvgPrivate::CacheId cacheId(FrameData *frame, const QString &prefixToUse) const;
     void cacheFrame(const QString &prefixToSave, const QPixmap &background, const QPixmap &overlay);
     void updateSizes(FrameData* frame) const;
     void updateSizes(const QSharedPointer<FrameData> &frame) const { return updateSizes(frame.data()); }
@@ -198,7 +187,5 @@ public:
 };
 
 }
-
-uint qHash(const Plasma::FrameSvgPrivate::CacheId &id);
 
 #endif

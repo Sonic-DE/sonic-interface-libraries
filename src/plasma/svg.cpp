@@ -34,6 +34,23 @@
 #include "theme.h"
 #include "debug_p.h"
 
+uint qHash(const Plasma::SvgPrivate::CacheId &id, uint seed)
+{
+    std::array<uint, 10> parts = {
+        ::qHash(id.width),
+        ::qHash(id.height),
+        ::qHash(id.elementName),
+        ::qHash(id.filePath),
+        ::qHash(id.status),
+        ::qHash(id.devicePixelRatio),
+        ::qHash(id.scaleFactor),
+        ::qHash(id.colorGroup),
+        ::qHash(id.lastModified)
+    };
+    return qHashRange(parts.begin(), parts.end(), seed);
+}
+
+
 namespace Plasma
 {
 
@@ -130,22 +147,6 @@ bool SharedSvgRenderer::load(
     }
 
     return true;
-}
-
-uint qHash(const Plasma::SvgPrivate::CacheId &id, uint seed = 0)
-{
-    std::array<uint, 10> parts = {
-        ::qHash(id.width),
-        ::qHash(id.height),
-        ::qHash(id.elementName),
-        ::qHash(id.filePath),
-        ::qHash(id.status),
-        ::qHash(id.devicePixelRatio),
-        ::qHash(id.scaleFactor),
-        ::qHash(id.colorGroup),
-        ::qHash(id.lastModified)
-    };
-    return qHashRange(parts.begin(), parts.end(), seed);
 }
 
 SvgRectsCache::SvgRectsCache(QObject *parent)
@@ -389,13 +390,13 @@ SvgPrivate::~SvgPrivate()
 SvgPrivate::CacheId SvgPrivate::cacheId(const QString &elementId) const
 {
     auto idSize = size.isValid() && size != naturalSize ? size : QSizeF{-1.0, -1.0};
-    return CacheId{idSize.width(), idSize.height(), path, elementId, status, devicePixelRatio, scaleFactor, -1, lastModified};
+    return CacheId{idSize.width(), idSize.height(), path, elementId, status, devicePixelRatio, scaleFactor, -1, 0, lastModified};
 }
 
 //This function is meant for the pixmap cache
 QString SvgPrivate::cachePath(const QString &id, const QSize &size) const
 {
-    auto cacheId = CacheId{double(size.width()), double(size.height()), path, id, status, devicePixelRatio, scaleFactor, colorGroup, lastModified};
+    auto cacheId = CacheId{double(size.width()), double(size.height()), path, id, status, devicePixelRatio, scaleFactor, colorGroup, 0, lastModified};
     return QString::number(qHash(cacheId, SvgRectsCache::s_seed));
 }
 

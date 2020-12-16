@@ -27,21 +27,6 @@
 namespace Plasma
 {
 
-uint qHash(const Plasma::FrameSvgPrivate::CacheId &id)
-{
-    uint result = 0;
-    result ^= ::qHash(id.enabledBorders) + 0x9e3779b9 + (result << 6) + (result >> 2);
-    result ^= ::qHash(id.width) + 0x9e3779b9 + (result << 6) + (result >> 2);
-    result ^= ::qHash(id.height) + 0x9e3779b9 + (result << 6) + (result >> 2);
-    result ^= ::qHash(id.imagePath) + 0x9e3779b9 + (result << 6) + (result >> 2);
-    result ^= ::qHash(id.prefix) + 0x9e3779b9 + (result << 6) + (result >> 2);
-    result ^= ::qHash(id.status) + 0x9e3779b9 + (result << 6) + (result >> 2);
-    result ^= ::qHash(id.scaleFactor) + 0x9e3779b9 + (result << 6) + (result >> 2);
-    result ^= ::qHash(id.devicePixelRatio) + 0x9e3779b9 + (result << 6) + (result >> 2);
-    result ^= ::qHash(id.colorGroup) + 0x9e3779b9 + (result << 6) + (result >> 2);
-    return result;
-}
-
 QHash<ThemePrivate *, QHash<uint, QWeakPointer<FrameData>> > FrameSvgPrivate::s_sharedFrames;
 
 // Any attempt to generate a frame whose width or height is larger than this
@@ -347,7 +332,7 @@ QRegion FrameSvg::mask() const
         return result;
     }
 
-    uint id = qHash(d->cacheId(d->frame.data(), QString()));
+    uint id = qHash(d->cacheId(d->frame.data(), QString()), SvgRectsCache::s_seed);
 
     QRegion* obj = d->frame->cachedMasks.object(id);
 
@@ -769,10 +754,10 @@ void FrameSvgPrivate::paintCorner(QPainter& p, const QSharedPointer<FrameData> &
     }
 }
 
-FrameSvgPrivate::CacheId FrameSvgPrivate::cacheId(FrameData *frame, const QString &prefixToSave) const
+SvgPrivate::CacheId FrameSvgPrivate::cacheId(FrameData *frame, const QString &prefixToSave) const
 {
     const QSize size = frameSize(frame).toSize();
-    return CacheId{frame->enabledBorders, size.width(), size.height(),frame->imagePath,  prefixToSave, q->status(), q->scaleFactor(), q->devicePixelRatio(), q->colorGroup(), q->Svg::d->lastModified};
+    return SvgPrivate::CacheId{size.width(), size.height(),frame->imagePath,  prefixToSave, q->status(), q->scaleFactor(), q->devicePixelRatio(), q->colorGroup(), frame->enabledBorders, q->Svg::d->lastModified};
 }
 
 void FrameSvgPrivate::cacheFrame(const QString &prefixToSave, const QPixmap &background, const QPixmap &overlay)

@@ -57,6 +57,7 @@ public:
         double devicePixelRatio;
         double scaleFactor;
         int colorGroup;
+        int extraFlags; //Not used here, used for enabledborders in FrameSvg
         uint lastModified;
     };
 
@@ -170,7 +171,7 @@ private:
 
 }
 
-uint qHash(const Plasma::SvgPrivate::CacheId &id);
+uint qHash(const Plasma::SvgPrivate::CacheId &id, uint seed = 0);
 
 #endif
 
