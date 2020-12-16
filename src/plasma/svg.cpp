@@ -45,6 +45,8 @@ public:
 
 Q_GLOBAL_STATIC(SvgRectsCacheSingleton, privateSvgRectsCacheSelf)
 
+const uint SvgRectsCache::s_seed = 0x9e3779b9;
+
 SharedSvgRenderer::SharedSvgRenderer(QObject *parent)
     : QSvgRenderer(parent)
 {
@@ -130,22 +132,21 @@ bool SharedSvgRenderer::load(
     return true;
 }
 
-uint qHash(const Plasma::SvgPrivate::CacheId &id)
+uint qHash(const Plasma::SvgPrivate::CacheId &id, uint seed = 0)
 {
-    uint result = 0;
-    result ^= ::qHash(id.width) + 0x9e3779b9 + (result << 6) + (result >> 2);
-    result ^= ::qHash(id.height) + 0x9e3779b9 + (result << 6) + (result >> 2);
-    result ^= ::qHash(id.elementName) + 0x9e3779b9 + (result << 6) + (result >> 2);
-    result ^= ::qHash(id.filePath) + 0x9e3779b9 + (result << 6) + (result >> 2);
-    result ^= ::qHash(id.status) + 0x9e3779b9 + (result << 6) + (result >> 2);
-    result ^= ::qHash(id.devicePixelRatio) + 0x9e3779b9 + (result << 6) + (result >> 2);
-    result ^= ::qHash(id.scaleFactor) + 0x9e3779b9 + (result << 6) + (result >> 2);
-    result ^= ::qHash(id.colorGroup) + 0x9e3779b9 + (result << 6) + (result >> 2);
-    result ^= ::qHash(id.lastModified) + 0x9e3779b9 + (result << 6) + (result >> 2);
-    return result;
+    std::array<uint, 10> parts = {
+        ::qHash(id.width),
+        ::qHash(id.height),
+        ::qHash(id.elementName),
+        ::qHash(id.filePath),
+        ::qHash(id.status),
+        ::qHash(id.devicePixelRatio),
+        ::qHash(id.scaleFactor),
+        ::qHash(id.colorGroup),
+        ::qHash(id.lastModified)
+    };
+    return qHashRange(parts.begin(), parts.end(), seed);
 }
-
-
 
 SvgRectsCache::SvgRectsCache(QObject *parent)
     : QObject(parent)
@@ -169,7 +170,7 @@ SvgRectsCache *SvgRectsCache::instance()
 
 void SvgRectsCache::insert(Plasma::SvgPrivate::CacheId cacheId, const QRectF &rect, unsigned int lastModified)
 {
-    insert(qHash(cacheId), cacheId.filePath, rect, lastModified);
+    insert(qHash(cacheId, SvgRectsCache::s_seed), cacheId.filePath, rect, lastModified);
 }
 
 void SvgRectsCache::insert(uint id, const QString &filePath, const QRectF &rect, unsigned int lastModified)
@@ -193,7 +194,7 @@ void SvgRectsCache::insert(uint id, const QString &filePath, const QRectF &rect,
 
 bool SvgRectsCache::findElementRect(Plasma::SvgPrivate::CacheId cacheId, QRectF &rect)
 {
-    return findElementRect(qHash(cacheId), cacheId.filePath, rect);
+    return findElementRect(qHash(cacheId, SvgRectsCache::s_seed), cacheId.filePath, rect);
 }
 
 bool SvgRectsCache::findElementRect(uint id, const QString &filePath, QRectF &rect)
@@ -314,8 +315,7 @@ void SvgRectsCache::expireCache(const QString &path)
     KConfigGroup imageGroup(m_svgElementsCache, path);
 
     unsigned int savedTime = imageGroup.readEntry("LastModified", QDateTime().toSecsSinceEpoch());
-    QFile f(path);
-    QFileInfo info(f);
+    QFileInfo info(path);
     if (info.exists()) {
         unsigned int lastModified = info.lastModified().toSecsSinceEpoch();
         if (lastModified <= savedTime) {
@@ -396,7 +396,7 @@ SvgPrivate::CacheId SvgPrivate::cacheId(const QString &elementId) const
 QString SvgPrivate::cachePath(const QString &id, const QSize &size) const
 {
     auto cacheId = CacheId{double(size.width()), double(size.height()), path, id, status, devicePixelRatio, scaleFactor, colorGroup, lastModified};
-    return QString::number(qHash(cacheId));
+    return QString::number(qHash(cacheId, SvgRectsCache::s_seed));
 }
 
 bool SvgPrivate::setImagePath(const QString &imagePath)
@@ -438,8 +438,7 @@ bool SvgPrivate::setImagePath(const QString &imagePath)
     themed = isThemed;
     path.clear();
     themePath.clear();
-//    localRectCache.clear();
-//    elementsWithSizeHints.clear();
+
     bool oldFromCurrentTheme = fromCurrentTheme;
     fromCurrentTheme = !inIconTheme && isThemed && actualTheme()->currentThemeHasImage(imagePath);
 
@@ -483,9 +482,7 @@ bool SvgPrivate::setImagePath(const QString &imagePath)
         if (naturalSize.isEmpty()) {
             createRenderer();
             naturalSize = renderer->defaultSize() * scaleFactor;
-            //qCDebug(LOG_PLASMA) << "natural size for" << path << "from renderer is" << naturalSize;
             SvgRectsCache::instance()->setNaturalSize(path, scaleFactor, naturalSize);
-            //qCDebug(LOG_PLASMA) << "natural size for" << path << "from cache is" << naturalSize;
         }
     }
 
@@ -643,10 +640,6 @@ void SvgPrivate::createRenderer()
         }
     }
 
-    //qCDebug(LOG_PLASMA) << "********************************";
-    //qCDebug(LOG_PLASMA) << "FAIL! **************************";
-    //qCDebug(LOG_PLASMA) << path << "**";
-
     QString styleSheet = cacheAndColorsTheme()->d->svgStyleSheet(colorGroup, status);
     styleCrc = qChecksum(styleSheet.toUtf8().constData(), styleSheet.size());
 
@@ -704,8 +697,6 @@ void SvgPrivate::eraseRenderer()
 
     renderer = nullptr;
     styleCrc = 0;
-//    localRectCache.clear();
-//    elementsWithSizeHints.clear();
 }
 
 QRectF SvgPrivate::elementRect(const QString &elementId)
@@ -840,7 +831,6 @@ QRectF SvgPrivate::makeUniform(const QRectF &orig, const QRectF &dst)
         res.setHeight(res.height() + offset);
     }
 
-    //qCDebug(LOG_PLASMA)<<"Aligning Rects, origin:"<<orig<<"destination:"<<dst<<"result:"<<res;
     return res;
 }
 

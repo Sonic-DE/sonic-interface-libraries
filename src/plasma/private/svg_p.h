@@ -100,9 +100,6 @@ public:
 
     Svg *q;
     QPointer<Theme> theme;
- //   QHash<QString, QRectF> localRectCache;
-//     QHash<CacheId, QRectF> localRectCache;
-  //  QMultiHash<QString, QSize> elementsWithSizeHints;
     SharedSvgRenderer::Ptr renderer;
     QString themePath;
     QString path;
@@ -154,6 +151,8 @@ public:
     QStringList cachedKeysForPath(const QString &path) const;
 
     void updateLastModified(const QString &filePath, unsigned int lastModified);
+
+    static const uint s_seed;
 
 private:
     QTimer *m_configSyncTimer = nullptr;

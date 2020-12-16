@@ -270,7 +270,7 @@ public:
      **/
     void setCacheLimit(int kbytes);
 
-#if PLASMA_ENABLE_DEPRECATED_SINCE(5, 77)
+#if PLASMA_ENABLE_DEPRECATED_SINCE(5, 78)
     /**
      * Tries to load the rect of a sub element from a disk cache
      *
@@ -280,7 +280,7 @@ public:
      *           if not found or if we are sure it doesn't exist it will be QRect()
      * @return true if the element was found in cache or if we are sure the element doesn't exist
      **/
-    PLASMA_DEPRECATED_VERSION(5, 77, "Rects Cache public API is deprecated")
+    PLASMA_DEPRECATED_VERSION(5, 78, "Rects Cache public API is deprecated")
     bool findInRectsCache(const QString &image, const QString &element, QRectF &rect) const;
 
     /**
@@ -292,7 +292,7 @@ public:
      *
      * @since 4.6
      */
-    PLASMA_DEPRECATED_VERSION(5, 77, "Rects Cache public API is deprecated")
+    PLASMA_DEPRECATED_VERSION(5, 78, "Rects Cache public API is deprecated")
     QStringList listCachedRectKeys(const QString &image) const;
 
     /**
@@ -302,7 +302,7 @@ public:
      * @param element sub element we want insert the rect
      * @param rect element rectangle
      **/
-    PLASMA_DEPRECATED_VERSION(5, 77, "Rects Cache public API is deprecated")
+    PLASMA_DEPRECATED_VERSION(5, 78, "Rects Cache public API is deprecated")
     void insertIntoRectsCache(const QString &image, const QString &element, const QRectF &rect);
 
     /**
@@ -310,7 +310,7 @@ public:
      *
      * @param image the path to the image the cache is associated with
      **/
-    PLASMA_DEPRECATED_VERSION(5, 77, "Rects Cache public API is deprecated")
+    PLASMA_DEPRECATED_VERSION(5, 78, "Rects Cache public API is deprecated")
     void invalidateRectsCache(const QString &image);
 
     /**
@@ -320,7 +320,7 @@ public:
      *
      * @param image the path to the image the cache is associated with
      */
-    PLASMA_DEPRECATED_VERSION(5, 77, "Rects Cache public API is deprecated")
+    PLASMA_DEPRECATED_VERSION(5, 78, "Rects Cache public API is deprecated")
     void releaseRectsCache(const QString &image);
 #endif
 
