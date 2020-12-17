@@ -57,7 +57,7 @@ public:
         double devicePixelRatio;
         double scaleFactor;
         int colorGroup;
-        int extraFlags; //Not used here, used for enabledborders in FrameSvg
+        uint extraFlags; //Not used here, used for enabledborders in FrameSvg
         uint lastModified;
     };
 

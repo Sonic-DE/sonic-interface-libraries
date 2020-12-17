@@ -45,6 +45,7 @@ uint qHash(const Plasma::SvgPrivate::CacheId &id, uint seed)
         ::qHash(id.devicePixelRatio),
         ::qHash(id.scaleFactor),
         ::qHash(id.colorGroup),
+        ::qHash(id.extraFlags),
         ::qHash(id.lastModified)
     };
     return qHashRange(parts.begin(), parts.end(), seed);
@@ -188,7 +189,7 @@ void SvgRectsCache::insert(uint id, const QString &filePath, const QRectF &rect,
         imageGroup.writeEntry(QString::number(id), rect);
     } else {
         m_invalidElements[filePath] << id;
-        imageGroup.writeEntry("Invalidelements", m_invalidElements[filePath].toList());
+        imageGroup.writeEntry("Invalidelements", m_invalidElements[filePath].values());
     }
     m_configSyncTimer->start();
 }
@@ -231,11 +232,11 @@ void SvgRectsCache::loadImageFromCache(const QString &path, uint lastModified)
         return;
     }
 
-    m_invalidElements[path] = imageGroup.readEntry("Invalidelements", QList<unsigned int>()).toSet();
+    auto list = imageGroup.readEntry("Invalidelements", QList<unsigned int>());
+    m_invalidElements[path] = QSet<unsigned int>(list.begin(), list.end());
 
     for (const auto &key : imageGroup.keyList()) {
         bool ok = false;
-        const unsigned int id = key.toUInt(&ok);
         if (ok) {
             const QRectF rect = imageGroup.readEntry(key, QRectF());
             m_localRectCache.insert(key.toUInt(), rect);
@@ -562,8 +563,6 @@ QPixmap SvgPrivate::findInCache(const QString &elementId, qreal ratio, const QSi
 
     const QString id = cachePath(actualElementId, size);
 
-    //qCDebug(LOG_PLASMA) << "id is " << id;
-
     QPixmap p;
     if (cacheRendering && cacheAndColorsTheme()->findInCache(id, p, lastModified)) {
         p.setDevicePixelRatio(ratio);
@@ -571,10 +570,6 @@ QPixmap SvgPrivate::findInCache(const QString &elementId, qreal ratio, const QSi
         return p;
     }
 
-    //qCDebug(LOG_PLASMA) << "didn't find cached version of " << id << ", so re-rendering";
-
-    //qCDebug(LOG_PLASMA) << "size for " << actualElementId << " is " << s;
-    // we have to re-render this puppy
     createRenderer();
 
     QRectF finalRect = makeUniform(renderer->boundsOnElement(actualElementId), QRect(QPoint(0, 0), size));
@@ -617,7 +612,6 @@ void SvgPrivate::createRenderer()
         return;
     }
 
-    //qCDebug(LOG_PLASMA) << kBacktrace();
     if (themed && path.isEmpty() && !themeFailed) {
         Applet *applet = qobject_cast<Applet *>(q->parent());
         //FIXME: this maybe could be more efficient if we knew if the package was empty, e.g. for
@@ -647,7 +641,6 @@ void SvgPrivate::createRenderer()
     QHash<QString, SharedSvgRenderer::Ptr>::const_iterator it = s_renderers.constFind(styleCrc + path);
 
     if (it != s_renderers.constEnd()) {
-        //qCDebug(LOG_PLASMA) << "gots us an existing one!";
         renderer = it.value();
     } else {
         if (path.isEmpty()) {
@@ -669,9 +662,8 @@ void SvgPrivate::createRenderer()
 
                 originalId.replace(sizeHintedKeyExpr, QStringLiteral("\\3"));
                 SvgRectsCache::instance()->insertSizeHintForId(path, originalId, elementRect.size().toSize());
-                
-//                 const QString cacheId = CACHE_ID_NATURAL_SIZE(elementId, status, devicePixelRatio);
-                const CacheId cacheId({-1.0, -1.0, path, elementId, status, devicePixelRatio, -1});
+
+                const CacheId cacheId({-1.0, -1.0, path, elementId, status, devicePixelRatio, scaleFactor, -1, 0, lastModified});
                 SvgRectsCache::instance()->insert(cacheId, elementRect, lastModified);
             }
         }
@@ -1028,7 +1020,6 @@ void Svg::resize(const QSizeF &size)
     }
 
     d->size = size;
-//    d->localRectCache.clear();
     emit sizeChanged();
 }
 
@@ -1040,7 +1031,6 @@ void Svg::resize()
     }
 
     d->size = d->naturalSize;
-   // d->localRectCache.clear();
     emit sizeChanged();
 }
 
@@ -1096,7 +1086,6 @@ bool Svg::containsMultipleImages() const
 void Svg::setImagePath(const QString &svgFilePath)
 {
     if (d->setImagePath(svgFilePath)) {
-        //qCDebug(LOG_PLASMA) << "repaintNeeded";
         emit repaintNeeded();
     }
 }

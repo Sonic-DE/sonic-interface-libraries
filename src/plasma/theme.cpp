@@ -308,7 +308,6 @@ bool Theme::findInCache(const QString &key, QPixmap &pix, unsigned int lastModif
         return true;
     }
 
-    qWarning()<<"NOTINCACHE"<<key<<lastModified<<temp;
     return false;
 }
 
@@ -379,6 +378,7 @@ void Theme::invalidateRectsCache(const QString &image)
 
 void Theme::releaseRectsCache(const QString &image)
 {
+    Q_UNUSED(image);
     // No op: the internal svg cache always writes the invalid elements in the proper place
 }
 
