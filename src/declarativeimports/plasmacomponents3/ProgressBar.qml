@@ -36,7 +36,9 @@ T.ProgressBar {
             running: control.indeterminate && control.visible
 
             onStarted: indicator.width =  units.gridUnit * 2
-            onStopped: indicator.width = parent.width * control.position
+            onStopped: indicator.width = Qt.binding(function() {
+                return indicator.parent.width * control.position;
+            });
 
             PropertyAnimation {
                 target: indicator
