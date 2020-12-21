@@ -72,7 +72,7 @@ Item {
                     value: true
                 }
                 OpacityAnimator {
-                    duration: units.veryShortDuration
+                    duration: 0
                     easing.type: Easing.OutQuad
                 }
             }
@@ -82,8 +82,7 @@ Item {
             to: "hidden"
             SequentialAnimation {
                 OpacityAnimator {
-                    // Same duration as pressed and flat background hovered state animations
-                    duration: units.veryShortDuration
+                    duration: 0
                     easing.type: Easing.OutQuad
                 }
                 PropertyAction {

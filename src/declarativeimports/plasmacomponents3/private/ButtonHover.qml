@@ -55,7 +55,7 @@ Item {
             to: "hidden"
             SequentialAnimation {
                 OpacityAnimator {
-                    duration: units.veryShortDuration
+                    duration: 0
                     easing.type: Easing.OutQuad
                 }
                 PropertyAction {
@@ -75,8 +75,7 @@ Item {
                     value: true
                 }
                 OpacityAnimator {
-                    // Using a shorter duration here makes things feel more responsive.
-                    duration: units.veryShortDuration
+                    duration: 0
                     easing.type: Easing.OutQuad
                 }
             }
