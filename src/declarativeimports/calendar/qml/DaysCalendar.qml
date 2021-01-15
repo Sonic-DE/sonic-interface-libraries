@@ -8,11 +8,12 @@
 
 import QtQuick 2.2
 import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.1
+import QtQuick.Controls 1.1 as QQC1
+import QtQuick.Controls 2.10
 
 import org.kde.plasma.calendar 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 2.0 as Components
+import org.kde.plasma.components 3.0 as Components
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 
 Item {
@@ -69,7 +70,7 @@ Item {
         }
     }
 
-    Stack.onStatusChanged: {
+    QQC1.Stack.onStatusChanged: {
         if (Stack.status === Stack.Inactive) {
             daysCalendar.transformScale = 1
             opacity = 1
@@ -134,17 +135,25 @@ Item {
 
         Components.ToolButton {
             id: previousButton
-            iconName: Qt.application.layoutDirection === Qt.RightToLeft ? "go-next" : "go-previous"
+            property string tooltip
+
+            icon.name: Qt.application.layoutDirection === Qt.RightToLeft ? "go-next" : "go-previous"
             onClicked: daysCalendar.previous()
             Accessible.name: tooltip
+            ToolTip.text: tooltip
+            ToolTip.visible: hovered
             //SEE QTBUG-58307
             Layout.preferredHeight: implicitHeight + implicitHeight%2
         }
 
         Components.ToolButton {
-            iconName: "go-jump-today"
+            icon.name: "go-jump-today"
+            property string tooltip
+
             onClicked: root.resetToToday()
             tooltip: i18ndc("libplasma5", "Reset calendar to today", "Today")
+            ToolTip.text: tooltip
+            ToolTip.visible: hovered
             Accessible.name: tooltip
             Accessible.description: i18nd("libplasma5", "Reset calendar to today")
             //SEE QTBUG-58307
@@ -153,9 +162,13 @@ Item {
 
         Components.ToolButton {
             id: nextButton
-            iconName: Qt.application.layoutDirection === Qt.RightToLeft ? "go-previous" : "go-next"
+            property string tooltip
+
+            icon.name: Qt.application.layoutDirection === Qt.RightToLeft ? "go-previous" : "go-next"
             onClicked: daysCalendar.next()
             Accessible.name: tooltip
+            ToolTip.text: tooltip
+            ToolTip.visible: hovered
             //SEE QTBUG-58307
             Layout.preferredHeight: implicitHeight + implicitHeight%2
         }
