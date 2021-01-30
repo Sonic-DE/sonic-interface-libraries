@@ -42,8 +42,6 @@ import "private" as Private
     Layout.fillWidth: true
     bottomPadding: location == PlasmoidHeading.Location.Footer ? 0 : -backgroundMetrics.getMargin("bottom")
     topPadding: location == PlasmoidHeading.Location.Footer ? -backgroundMetrics.getMargin("top") : 0
-    leftPadding: 0
-    rightPadding: 0
 
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset, implicitContentHeight + topPadding + bottomPadding)
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset, implicitContentWidth + leftPadding + rightPadding)
