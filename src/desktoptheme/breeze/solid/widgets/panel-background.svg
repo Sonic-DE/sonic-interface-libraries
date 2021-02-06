@@ -428,7 +428,6 @@
          width="6"
          height="32"
          fill="currentColor"
-         opacity=".85"
          style="opacity:1" />
     </g>
     <g
@@ -442,7 +441,6 @@
          width="6"
          height="32"
          fill="currentColor"
-         opacity=".85"
          style="opacity:1" />
     </g>
     <g
@@ -456,7 +454,6 @@
          width="5.9999995"
          height="32"
          fill="currentColor"
-         opacity=".85"
          style="opacity:1" />
     </g>
     <g
@@ -469,7 +466,6 @@
          width="5.9999995"
          height="32"
          fill="currentColor"
-         opacity=".85"
          style="opacity:1" />
     </g>
     <g
@@ -489,7 +485,6 @@
          width="32"
          height="32"
          fill="currentColor"
-         opacity=".85"
          style="opacity:1" />
     </g>
     <g
@@ -510,8 +505,7 @@
          y="-50.999985"
          width="6"
          height="32"
-         fill="url(#linearGradient3054)"
-         opacity=".85" />
+         fill="url(#linearGradient3054)" />
       <rect
          id="rect4824"
          transform="matrix(0,-1,-1,0,0,0)"
@@ -529,22 +523,19 @@
          transform="translate(0,904.36218)"
          d="m7 9v3h6v-4 1z"
          fill="url(#linearGradient4922)"
-         fill-rule="evenodd"
-         opacity=".85" />
+         fill-rule="evenodd" />
       <path
          id="path4830"
          transform="translate(-58,904.36218)"
          d="m65 0v9h6c0-2 1-3 3-3v-6z"
          fill="url(#radialGradient4924)"
-         fill-rule="evenodd"
-         opacity=".85" />
+         fill-rule="evenodd" />
       <path
          id="path4832"
          transform="translate(-58,904.36218)"
          d="m74 0v6h-1 4v-6h-4z"
          fill="url(#linearGradient4926)"
-         fill-rule="evenodd"
-         opacity=".85" />
+         fill-rule="evenodd" />
       <rect
          id="rect4834"
          transform="scale(-1,1)"
@@ -580,22 +571,19 @@
          transform="translate(0,904.36218)"
          d="m57 9v-1 4h6v-4 1z"
          fill="url(#linearGradient4928)"
-         fill-rule="evenodd"
-         opacity=".85" />
+         fill-rule="evenodd" />
       <path
          id="path4844"
          transform="translate(-58,904.36218)"
          d="m112 0v6c2 0 3 1 3 3h6v-9z"
          fill="url(#radialGradient4930)"
-         fill-rule="evenodd"
-         opacity=".85" />
+         fill-rule="evenodd" />
       <path
          id="path4846"
          transform="translate(-58,904.36218)"
          d="m109 0v6h4-1v-6h1z"
          fill="url(#linearGradient3056)"
-         fill-rule="evenodd"
-         opacity=".85" />
+         fill-rule="evenodd" />
       <rect
          id="rect4848"
          x="50.999985"
@@ -638,8 +626,7 @@
          y="-50.999985"
          width="6"
          height="32"
-         fill="url(#linearGradient4934)"
-         opacity=".85" />
+         fill="url(#linearGradient4934)" />
       <rect
          id="rect4860"
          transform="rotate(90)"
@@ -657,22 +644,19 @@
          transform="translate(-58,904.36218)"
          d="m74 50v6h-1 4v-6h-4z"
          fill="url(#linearGradient4936)"
-         fill-rule="evenodd"
-         opacity=".85" />
+         fill-rule="evenodd" />
       <path
          id="path4866"
          transform="translate(-58,904.36218)"
          d="m65 47v9h9v-6c-2 0-3-1-3-3z"
          fill="url(#radialGradient4938)"
-         fill-rule="evenodd"
-         opacity=".85" />
+         fill-rule="evenodd" />
       <path
          id="path4868"
          transform="translate(0,904.36218)"
          d="m7 44v4-1h6v1-4z"
          fill="url(#linearGradient4940)"
-         fill-rule="evenodd"
-         opacity=".85" />
+         fill-rule="evenodd" />
       <rect
          id="rect4870"
          transform="scale(-1)"
@@ -708,22 +692,19 @@
          transform="translate(-58,904.36218)"
          d="m109 50v6h4-1v-6h1z"
          fill="url(#linearGradient4942)"
-         fill-rule="evenodd"
-         opacity=".85" />
+         fill-rule="evenodd" />
       <path
          id="path4880"
          transform="translate(-58,904.36218)"
          d="m115 47c0 2-1 3-3 3v6h9v-9z"
          fill="url(#radialGradient4944)"
-         fill-rule="evenodd"
-         opacity=".85" />
+         fill-rule="evenodd" />
       <path
          id="path4882"
          transform="translate(0,904.36218)"
          d="m57 44v4-1h6v1-4z"
          fill="url(#linearGradient4946)"
-         fill-rule="evenodd"
-         opacity=".85" />
+         fill-rule="evenodd" />
       <rect
          id="rect4884"
          transform="scale(1,-1)"
@@ -769,8 +750,7 @@
          y="916.36218"
          width="5.9999995"
          height="32"
-         fill="url(#linearGradient4948)"
-         opacity=".85" />
+         fill="url(#linearGradient4948)" />
       <rect
          id="rect4896"
          transform="scale(-1,1)"
@@ -796,8 +776,7 @@
          y="916.36218"
          width="5.9999995"
          height="32"
-         fill="url(#linearGradient4950)"
-         opacity=".85" />
+         fill="url(#linearGradient4950)" />
       <rect
          id="rect4904"
          x="55.999985"
@@ -946,7 +925,6 @@
          transform="translate(0,904.36218)"
          d="m16 6c-2 0-3 1-3 3v3h6v-6h-1 1z"
          fill="currentColor"
-         opacity=".85"
          style="opacity:1" />
     </g>
     <g
@@ -958,7 +936,6 @@
          transform="translate(0,904.36218)"
          d="m51 6v6h6v-3c0-2-1-3-3-3h-2z"
          fill="currentColor"
-         opacity=".85"
          style="opacity:1" />
     </g>
     <g
@@ -969,7 +946,6 @@
          class="ColorScheme-Background"
          d="m19 954.36218v-6h-6v3c0 2 1 3 3 3h2z"
          fill="currentColor"
-         opacity=".85"
          style="opacity:1" />
     </g>
     <g
@@ -980,7 +956,6 @@
          class="ColorScheme-Background"
          d="m51 954.36218v-6h6v3c0 2-1 3-3 3h-2z"
          fill="currentColor"
-         opacity=".85"
          style="opacity:1" />
     </g>
     <rect
