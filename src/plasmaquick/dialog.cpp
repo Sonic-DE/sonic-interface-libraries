@@ -763,8 +763,8 @@ void DialogPrivate::applyType()
         frameSvgItem->setImagePath(QString());
     } else {
         auto prefix = QStringLiteral("");
-        if ((backgroundHints & Dialog::OpaqueBackground) == Dialog::OpaqueBackground) {
-            prefix = QStringLiteral("opaque/");
+        if ((backgroundHints & Dialog::SolidBackground) == Dialog::SolidBackground) {
+            prefix = QStringLiteral("solid/");
         }
         if (type == Dialog::Tooltip) {
             frameSvgItem->setImagePath(prefix + QStringLiteral("widgets/tooltip"));
