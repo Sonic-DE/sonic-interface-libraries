@@ -37,7 +37,7 @@ Item {
 
     property bool showWeekNumbers
 
-    onShowWeekNumbersChanged: canvas.requestPaint()
+    property bool showCustomHeader: false;
 
     // how precise date matching should be, 3 = day+month+year, 2 = month+year, 1 = just year
     property int dateMatchingPrecision
@@ -77,11 +77,7 @@ Item {
     }
 
     RowLayout {
-        anchors {
-            top: parent.top
-            left: canvas.left
-            right: canvas.right
-        }
+        visible: !showCustomHeader
         spacing: PlasmaCore.Units.smallSpacing
 
         PlasmaExtras.Heading {
@@ -170,72 +166,6 @@ Item {
         }
     }
 
-    // Paints the inner grid and the outer frame
-    Canvas {
-        id: canvas
-
-        anchors {
-            horizontalCenter: parent.horizontalCenter
-            bottom: parent.bottom
-        }
-        width: (daysCalendar.cellWidth + root.borderWidth) * gridColumns + root.borderWidth
-        height: (daysCalendar.cellHeight + root.borderWidth) * calendarGrid.rows + root.borderWidth
-
-        opacity: root.borderOpacity
-        antialiasing: false
-        clip: false
-        onPaint: {
-            var ctx = getContext("2d");
-            // this is needed as otherwise the canvas seems to have some sort of
-            // inner clip region which does not update on size changes
-            ctx.reset();
-            ctx.save();
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.strokeStyle = PlasmaCore.Theme.textColor;
-            ctx.lineWidth = root.borderWidth
-            ctx.globalAlpha = 1.0;
-
-            ctx.beginPath();
-
-            // When line is more wide than 1px, it is painted with 1px line at the actual coords
-            // and then 1px lines are added first to the left of the middle then right (then left again)
-            // So all the lines need to be offset a bit to have their middle point in the center
-            // of the grid spacing rather than on the left most pixel, otherwise they will be painted
-            // over the days grid which will be visible on eg. mouse hover
-            var lineBasePoint = Math.floor(root.borderWidth / 2)
-
-            // horizontal lines
-            for (var i = 0; i < calendarGrid.rows + 1; i++) {
-                var lineY = lineBasePoint + (daysCalendar.cellHeight + root.borderWidth) * (i);
-
-                if (i == 0 || i == calendarGrid.rows) {
-                    ctx.moveTo(0, lineY);
-                } else {
-                    ctx.moveTo(showWeekNumbers ? daysCalendar.cellWidth + root.borderWidth : root.borderWidth, lineY);
-                }
-                ctx.lineTo(width, lineY);
-            }
-
-            // vertical lines
-            for (var i = 0; i < gridColumns + 1; i++) {
-                var lineX = lineBasePoint + (daysCalendar.cellWidth + root.borderWidth) * (i);
-
-                // Draw the outer vertical lines in full height so that it closes
-                // the outer rectangle
-                if (i == 0 || i == gridColumns || !daysCalendar.headerModel) {
-                    ctx.moveTo(lineX, 0);
-                } else {
-                    ctx.moveTo(lineX, root.borderWidth + daysCalendar.cellHeight);
-                }
-                ctx.lineTo(lineX, height);
-            }
-
-            ctx.closePath();
-            ctx.stroke();
-            ctx.restore();
-        }
-    }
-
     PlasmaCore.Svg {
         id: calendarSvg
         imagePath: "widgets/calendar"
@@ -251,20 +181,13 @@ Item {
         }
     }
 
-    Connections {
-        target: theme
-        function onTextColorChanged() {
-            canvas.requestPaint();
-        }
-    }
-
     Column {
         id: weeksColumn
         visible: showWeekNumbers
         anchors {
-            top: canvas.top
+            top: parent.top
             left: parent.left
-            bottom: canvas.bottom
+            bottom: parent.bottom
             // The borderWidth needs to be counted twice here because it goes
             // in fact through two lines - the topmost one (the outer edge)
             // and then the one below weekday strings
@@ -291,7 +214,8 @@ Item {
         id: calendarGrid
 
         anchors {
-            right: canvas.right
+            top: parent.top
+            right: parent.right
             rightMargin: root.borderWidth
             bottom: parent.bottom
             bottomMargin: root.borderWidth
