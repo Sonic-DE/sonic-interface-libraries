@@ -39,6 +39,7 @@ PinchArea {
     property int firstDay: new Date(showDate.getFullYear(), showDate.getMonth(), 1).getDay()
     property alias today: calendarBackend.today
     property bool showWeekNumbers: false
+    property alias showCustomHeader: mainDaysCalendar.showCustomHeader
 
     property alias cellHeight: mainDaysCalendar.cellHeight
     property QtObject daysModel: calendarBackend.daysModel
@@ -79,6 +80,9 @@ PinchArea {
         return Qt.formatDate(d, "dddd dd MMM yyyy");
     }
 
+    /**
+     * Move calendar to month view showing today's date.
+     */
     function resetToToday() {
         calendarBackend.resetToToday();
         root.currentDate = root.today;
@@ -106,6 +110,86 @@ PinchArea {
             var label = decade - 1 + i;
             yearModel.setProperty(i, "yearNumber", label);
             yearModel.setProperty(i, "label", label);
+        }
+    }
+
+    /**
+     * Possible calendar views
+     */
+    enum CalendarView {
+        MonthView, ///< MonthView
+        YearView, ///< YearView
+        DecadeView ///< DecadeView
+    }
+
+    /**
+     * Go to the next month/year/decade depending on the current
+     * calendar view displayed.
+     */
+    function nextFrame() {
+        if (stack.depth === 0) {
+            calendarBackend.nextMonth();
+        } else if (stack.depth === 1) {
+            calendarBackend.nextYear();
+        } else if (stack.depth === 2) {
+            calendarBackend.nextDecade();
+        }
+    }
+
+    /**
+     * Go to the previous month/year/decade depending on the current
+     * calendar view displayed.
+     */
+    function previousFrame() {
+        if (stack.depth === 0) {
+            calendarBackend.previousMonth()
+        } else if (stack.depth === 1) {
+            calendarBackend.previousYear()
+        } else if (stack.depth === 2) {
+            calendarBackend.previousDecade()
+        }
+    }
+
+    /**
+     * \return CalendarView
+     */
+    readonly property calendarViewDisplayed: {
+        if (stack.depth === 1) {
+            return CalendarView.MonthView;
+        } else if (stack.depth === 2) {
+            return CalendarView.YearView;
+        } else if (stack.depth === 3) {
+            return CalendarView.DecadeView;
+        }
+    }
+
+    /**
+     * Show month view.
+     */
+    function showMonthView() {
+        stack.pop(null);
+    }
+
+    /**
+     * Show year view.
+     */
+    function showYearView() {
+        if (stack.depth > 2) {
+            stack.pop(yearOverview);
+        } else {
+            stack.push(yearOverview);
+        }
+    }
+
+    /**
+     * Show month view.
+     */
+    function showDecadeView() {
+        if (stack.depth === 1) {
+            stack.push(yearOverview);
+        }
+        if (stack.depth === 2) {
+            stack.push(decadeOverview);
         }
     }
 
