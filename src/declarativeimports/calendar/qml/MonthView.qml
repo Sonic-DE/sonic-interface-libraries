@@ -39,7 +39,7 @@ PinchArea {
     property int firstDay: new Date(showDate.getFullYear(), showDate.getMonth(), 1).getDay()
     property alias today: calendarBackend.today
     property bool showWeekNumbers: false
-    property alias showCustomHeader: mainDaysCalendar.showCustomHeader
+    property bool showCustomHeader: false
 
     property alias cellHeight: mainDaysCalendar.cellHeight
     property QtObject daysModel: calendarBackend.daysModel
@@ -153,7 +153,7 @@ PinchArea {
     /**
      * \return CalendarView
      */
-    readonly property calendarViewDisplayed: {
+    readonly property var calendarViewDisplayed: {
         if (stack.depth === 1) {
             return CalendarView.MonthView;
         } else if (stack.depth === 2) {
@@ -311,6 +311,7 @@ PinchArea {
             rows: calendarBackend.weeks
 
             showWeekNumbers: root.showWeekNumbers
+            showCustomHeader: root.showCustomHeader
 
             headerModel: calendarBackend.days
             gridModel: calendarBackend.daysModel
@@ -342,6 +343,7 @@ PinchArea {
             rows: 4
 
             dateMatchingPrecision: Calendar.MatchYearAndMonth
+            showCustomHeader: root.showCustomHeader
 
             gridModel: monthModel
 
@@ -375,6 +377,7 @@ PinchArea {
             rows: 4
 
             dateMatchingPrecision: Calendar.MatchYear
+            showCustomHeader: root.showCustomHeader
 
             gridModel: yearModel
 
