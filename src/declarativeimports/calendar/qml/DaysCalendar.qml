@@ -20,24 +20,16 @@ Item {
 
     signal headerClicked
 
-    signal previous
-    signal next
-
     signal activated(int index, var date, var item)
     // so it forwards it to the delegate which then emits activated with all the necessary data
     signal activateHighlightedItem
 
     readonly property int gridColumns: showWeekNumbers ? calendarGrid.columns + 1 : calendarGrid.columns
 
-    property alias previousLabel: previousButton.tooltip
-    property alias nextLabel: nextButton.tooltip
-
     property int rows
     property int columns
 
     property bool showWeekNumbers
-
-    property bool showCustomHeader: false;
 
     // how precise date matching should be, 3 = day+month+year, 2 = month+year, 1 = just year
     property int dateMatchingPrecision
@@ -45,12 +37,10 @@ Item {
     property alias headerModel: days.model
     property alias gridModel: repeater.model
 
-    property alias title: heading.text
-
     // Take the calendar width, subtract the inner and outer spacings and divide by number of columns (==days in week)
-    readonly property int cellWidth: Math.floor((stack.width - (daysCalendar.columns + 1) * root.borderWidth) / (daysCalendar.columns + (showWeekNumbers ? 1 : 0)))
+    readonly property int cellWidth: Math.floor((swipeView.width - (daysCalendar.columns + 1) * root.borderWidth) / (daysCalendar.columns + (showWeekNumbers ? 1 : 0)))
     // Take the calendar height, subtract the inner spacings and divide by number of rows (root.weeks + one row for day names)
-    readonly property int cellHeight:  Math.floor((stack.height - heading.height - calendarGrid.rows * root.borderWidth) / calendarGrid.rows)
+    readonly property int cellHeight:  Math.floor((swipeView.height - heading.height - calendarGrid.rows * root.borderWidth) / calendarGrid.rows)
 
     property real transformScale: 1
     property point transformOrigin: Qt.point(width / 2, height / 2)
@@ -73,96 +63,6 @@ Item {
         if (QQC1.Stack.status === QQC1.Stack.Inactive) {
             daysCalendar.transformScale = 1
             opacity = 1
-        }
-    }
-
-    RowLayout {
-        visible: !showCustomHeader
-        spacing: PlasmaCore.Units.smallSpacing
-
-        PlasmaExtras.Heading {
-            id: heading
-
-            Layout.fillWidth: true
-
-            level: 2
-            elide: Text.ElideRight
-            font.capitalization: Font.Capitalize
-            //SEE QTBUG-58307
-            //try to make all heights an even number, otherwise the layout engine gets confused
-            Layout.preferredHeight: implicitHeight + implicitHeight%2
-
-            MouseArea {
-                id: monthMouse
-                property int previousPixelDelta
-
-                anchors.fill: parent
-                onClicked: {
-                    if (!stack.busy) {
-                        daysCalendar.headerClicked()
-                    }
-                }
-                onExited: previousPixelDelta = 0
-                onWheel: {
-                    var delta = wheel.angleDelta.y || wheel.angleDelta.x
-                    var pixelDelta = wheel.pixelDelta.y || wheel.pixelDelta.x
-
-                    // For high-precision touchpad scrolling, we get a wheel event for basically every slightest
-                    // finger movement. To prevent the view from suddenly ending up in the next century, we
-                    // cumulate all the pixel deltas until they're larger than the label and then only change
-                    // the month. Standard mouse wheel scrolling is unaffected since it's fine.
-                    if (pixelDelta) {
-                        if (Math.abs(previousPixelDelta) < monthMouse.height) {
-                            previousPixelDelta += pixelDelta
-                            return
-                        }
-                    }
-
-                    if (delta >= 15) {
-                        daysCalendar.previous()
-                    } else if (delta <= -15) {
-                        daysCalendar.next()
-                    }
-                    previousPixelDelta = 0
-                }
-            }
-        }
-
-        Components.ToolButton {
-            id: previousButton
-            property string tooltip
-
-            icon.name: Qt.application.layoutDirection === Qt.RightToLeft ? "go-next" : "go-previous"
-            onClicked: daysCalendar.previous()
-            Accessible.name: tooltip
-            Components.ToolTip { text: parent.tooltip }
-            //SEE QTBUG-58307
-            Layout.preferredHeight: implicitHeight + implicitHeight%2
-        }
-
-        Components.ToolButton {
-            icon.name: "go-jump-today"
-            property string tooltip
-
-            onClicked: root.resetToToday()
-            tooltip: i18ndc("libplasma5", "Reset calendar to today", "Today")
-            Accessible.name: tooltip
-            Accessible.description: i18nd("libplasma5", "Reset calendar to today")
-            Components.ToolTip { text: parent.tooltip }
-            //SEE QTBUG-58307
-            Layout.preferredHeight: implicitHeight + implicitHeight%2
-        }
-
-        Components.ToolButton {
-            id: nextButton
-            property string tooltip
-
-            icon.name: Qt.application.layoutDirection === Qt.RightToLeft ? "go-previous" : "go-next"
-            onClicked: daysCalendar.next()
-            Accessible.name: tooltip
-            Components.ToolTip { text: parent.tooltip }
-            //SEE QTBUG-58307
-            Layout.preferredHeight: implicitHeight + implicitHeight%2
         }
     }
 
