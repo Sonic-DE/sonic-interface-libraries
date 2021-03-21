@@ -127,11 +127,11 @@ PinchArea {
      * calendar view displayed.
      */
     function nextFrame() {
-        if (stack.depth === 0) {
+        if (stack.depth === 1) {
             calendarBackend.nextMonth();
-        } else if (stack.depth === 1) {
-            calendarBackend.nextYear();
         } else if (stack.depth === 2) {
+            calendarBackend.nextYear();
+        } else if (stack.depth === 3) {
             calendarBackend.nextDecade();
         }
     }
@@ -141,12 +141,12 @@ PinchArea {
      * calendar view displayed.
      */
     function previousFrame() {
-        if (stack.depth === 0) {
-            calendarBackend.previousMonth()
-        } else if (stack.depth === 1) {
-            calendarBackend.previousYear()
+        if (stack.depth === 1) {
+            calendarBackend.previousMonth();
         } else if (stack.depth === 2) {
-            calendarBackend.previousDecade()
+            calendarBackend.previousYear();
+        } else if (stack.depth === 3) {
+            calendarBackend.previousDecade();
         }
     }
 
@@ -155,11 +155,11 @@ PinchArea {
      */
     readonly property var calendarViewDisplayed: {
         if (stack.depth === 1) {
-            return CalendarView.MonthView;
+            return MonthView.CalendarView.MonthView;
         } else if (stack.depth === 2) {
-            return CalendarView.YearView;
+            return MonthView.CalendarView.YearView;
         } else if (stack.depth === 3) {
-            return CalendarView.DecadeView;
+            return MonthView.CalendarView.DecadeView;
         }
     }
 
