@@ -219,104 +219,114 @@ Item {
         onPressed: mouse.accepted = false
     }
 
-    RowLayout {
+    ColumnLayout {
         id: viewHeader
         visible: !showCustomHeader
-        width: parent.width
         height: !visible ? 0 : implicitHeight
+        width: parent.width
         anchors {
             top: parent.top
-            left: parent.left
-            right: parent.right
-        }
-        spacing: PlasmaCore.Units.smallSpacing
-
-        Components.TabButton {
-            text: i18n("Months");
-            onClicked: root.showMonthView();
-            opacity: root.calendarViewDisplayed === MonthView.CalendarView.MonthView ? 1 : 0.8
-        }
-        Components.TabButton {
-            text: i18n("Years");
-            onClicked: root.showYearView();
-            opacity: root.calendarViewDisplayed === MonthView.CalendarView.YearView ? 1 : 0.7
-        }
-        Components.TabButton {
-            text: i18n("Decade");
-            onClicked: root.showDecadeView();
-            opacity: root.calendarViewDisplayed === MonthView.CalendarView.DecadeView ? 1 : 0.7
         }
 
-        PlasmaExtras.Heading {
-            id: heading
-            text: calendarBackend.displayedDate.getFullYear() == new Date().getFullYear() ? root.selectedMonth : i18ndc("libplasma5", "Format: month, year", "%1, %2", root.selectedMonth, root.selectedYear.toString())
-            Layout.fillWidth: true
+        RowLayout {
+            PlasmaExtras.Heading {
+                id: heading
+                text: /*calendarBackend.displayedDate.getFullYear() == new Date().getFullYear() ? root.selectedMonth : */i18ndc("libplasma5", "Format: **month** year", "<strong>%1</strong> %2", root.selectedMonth, root.selectedYear.toString())
 
-            level: 2
-            elide: Text.ElideRight
-            font.capitalization: Font.Capitalize
-            //SEE QTBUG-58307
-            //try to make all heights an even number, otherwise the layout engine gets confused
-            Layout.preferredHeight: implicitHeight + implicitHeight%2
-        }
+                level: 2
+                elide: Text.ElideRight
+                font.capitalization: Font.Capitalize
+                //SEE QTBUG-58307
+                //try to make all heights an even number, otherwise the layout engine gets confused
+                Layout.preferredHeight: implicitHeight + implicitHeight%2
+                Layout.fillWidth: true
+            }
+            Row {
+                spacing: 0
+                Components.ToolButton {
+                    id: previousButton
+                    property string tooltip: {
+                        switch(root.calendarViewDisplayed) {
+                            case MonthView.CalendarView.MonthView:
+                                return i18nd("libplasma5", "Previous Month")
+                            case MonthView.CalendarView.YearView:
+                                return i18nd("libplasma5", "Previous Year")
+                            case MonthView.CalendarView.DecadeView:
+                                return i18nd("libplasma5", "Previous Decade")
+                            default:
+                                return "";
+                        }
+                    }
 
-        Components.ToolButton {
-            id: previousButton
-            property string tooltip: {
-                switch(root.calendarViewDisplayed) {
-                    case MonthView.CalendarView.MonthView:
-                        return i18nd("libplasma5", "Previous Month")
-                    case MonthView.CalendarView.YearView:
-                        return i18nd("libplasma5", "Previous Year")
-                    case MonthView.CalendarView.DecadeView:
-                        return i18nd("libplasma5", "Previous Decade")
-                    default:
-                        return "";
+                    //SEE QTBUG-58307
+                    Layout.preferredHeight: implicitHeight + implicitHeight % 2
+                    icon.name: Qt.application.layoutDirection === Qt.RightToLeft ? "go-next" : "go-previous"
+                    onClicked: root.previousFrame()
+                    Accessible.name: tooltip
+                    Components.ToolTip { text: parent.tooltip }
+                }
+
+                Components.ToolButton {
+                    icon.name: "go-jump-today"
+                    property string tooltip
+
+                    //SEE QTBUG-58307
+                    Layout.preferredHeight: implicitHeight + implicitHeight % 2
+                    onClicked: root.resetToToday()
+                    tooltip: i18ndc("libplasma5", "Reset calendar to today", "Today")
+                    Accessible.name: tooltip
+                    Accessible.description: i18nd("libplasma5", "Reset calendar to today")
+                    Components.ToolTip { text: parent.tooltip }
+                }
+
+                Components.ToolButton {
+                    id: nextButton
+                    property string tooltip: {
+                        switch(root.calendarViewDisplayed) {
+                            case MonthView.CalendarView.MonthView:
+                                return i18nd("libplasma5", "Next Month")
+                            case MonthView.CalendarView.YearView:
+                                return i18nd("libplasma5", "Next Year")
+                            case MonthView.CalendarView.DecadeView:
+                                return i18nd("libplasma5", "Next Decade")
+                            default:
+                                return "";
+                        }
+                    }
+
+                    //SEE QTBUG-58307
+                    Layout.preferredHeight: implicitHeight + implicitHeight % 2
+                    icon.name: Qt.application.layoutDirection === Qt.RightToLeft ? "go-previous" : "go-next"
+                    Components.ToolTip { text: parent.tooltip }
+                    onClicked: root.nextFrame();
+                    Accessible.name: tooltip
                 }
             }
-
-            icon.name: Qt.application.layoutDirection === Qt.RightToLeft ? "go-next" : "go-previous"
-            onClicked: root.previousFrame()
-            Accessible.name: tooltip
-            Components.ToolTip { text: parent.tooltip }
-            //SEE QTBUG-58307
-            Layout.preferredHeight: implicitHeight + implicitHeight%2
         }
 
-        Components.ToolButton {
-            icon.name: "go-jump-today"
-            property string tooltip
-
-            onClicked: root.resetToToday()
-            tooltip: i18ndc("libplasma5", "Reset calendar to today", "Today")
-            Accessible.name: tooltip
-            Accessible.description: i18nd("libplasma5", "Reset calendar to today")
-            Components.ToolTip { text: parent.tooltip }
-            //SEE QTBUG-58307
-            Layout.preferredHeight: implicitHeight + implicitHeight % 2
-        }
-
-        Components.ToolButton {
-            id: nextButton
-            property string tooltip: {
-                switch(root.calendarViewDisplayed) {
-                    case MonthView.CalendarView.MonthView:
-                        return i18nd("libplasma5", "Next Month")
-                    case MonthView.CalendarView.YearView:
-                        return i18nd("libplasma5", "Next Year")
-                    case MonthView.CalendarView.DecadeView:
-                        return i18nd("libplasma5", "Next Decade")
-                    default:
-                        return "";
-                }
+        Components.TabBar {
+            id: tabBar
+            currentIndex: swipeView.currentIndex
+            Layout.preferredWidth: contentWidth
+            Layout.alignment: Qt.AlignRight
+            Components.TabButton {
+                text: i18n("Days");
+                onClicked: root.showMonthView();
+                opacity: root.calendarViewDisplayed === MonthView.CalendarView.MonthView ? 1 : 0.8
+                width: implicitWidth
             }
-
-            icon.name: Qt.application.layoutDirection === Qt.RightToLeft ? "go-previous" : "go-next"
-            Components.ToolTip { text: parent.tooltip }
-            onClicked: daysCalendar.next()
-            Accessible.name: tooltip
-            //SEE QTBUG-58307
-            Layout.preferredHeight: implicitHeight + implicitHeight % 2
+            Components.TabButton {
+                text: i18n("Months");
+                onClicked: root.showYearView();
+                opacity: root.calendarViewDisplayed === MonthView.CalendarView.YearView ? 1 : 0.7
+                width: implicitWidth
+            }
+            Components.TabButton {
+                text: i18n("Years");
+                onClicked: root.showDecadeView();
+                opacity: root.calendarViewDisplayed === MonthView.CalendarView.DecadeView ? 1 : 0.7
+                width: implicitWidth
+            }
         }
     }
 
