@@ -41,19 +41,21 @@ Item {
     property bool showWeekNumbers: false
     property bool showCustomHeader: false
 
+    /**
+     * Current index of the internal swipeView. Usefull for binding
+     * a TabBar to it.
+     */
+    property alias currentIndex: swipeView.currentIndex
+
     property alias cellHeight: mainDaysCalendar.cellHeight
     property QtObject daysModel: calendarBackend.daysModel
 
     function isToday(date) {
-        if (date.toDateString() == new Date().toDateString()) {
-            return true;
-        }
-
-        return false;
+        return date.toDateString() === new Date().toDateString();
     }
 
     function eventDate(yearNumber,monthNumber,dayNumber) {
-        var d = new Date(yearNumber, monthNumber-1, dayNumber);
+        const d = new Date(yearNumber, monthNumber-1, dayNumber);
         return Qt.formatDate(d, "dddd dd MMM yyyy");
     }
 
@@ -94,9 +96,9 @@ Item {
      * Possible calendar views
      */
     enum CalendarView {
-        MonthView, ///< MonthView
-        YearView, ///< YearView
-        DecadeView ///< DecadeView
+        DayView,
+        MonthView,
+        YearView
     }
 
     /**
@@ -132,11 +134,11 @@ Item {
      */
     readonly property var calendarViewDisplayed: {
         if (swipeView.currentIndex === 0) {
-            return MonthView.CalendarView.MonthView;
+            return MonthView.CalendarView.DayView;
         } else if (swipeView.currentIndex === 1) {
-            return MonthView.CalendarView.YearView;
+            return MonthView.CalendarView.MonthView;
         } else if (swipeView.currentIndex === 2) {
-            return MonthView.CalendarView.DecadeView;
+            return MonthView.CalendarView.YearView;
         }
     }
 
@@ -332,6 +334,7 @@ Item {
 
     QQC2.SwipeView {
         id: swipeView
+        orientation: Qt.Vertical
         anchors {
             top: viewHeader.bottom
             left: parent.left
