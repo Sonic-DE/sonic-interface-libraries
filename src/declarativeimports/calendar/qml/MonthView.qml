@@ -233,7 +233,7 @@ Item {
         RowLayout {
             PlasmaExtras.Heading {
                 id: heading
-                text: /*calendarBackend.displayedDate.getFullYear() == new Date().getFullYear() ? root.selectedMonth : */i18ndc("libplasma5", "Format: **month** year", "<strong>%1</strong> %2", root.selectedMonth, root.selectedYear.toString())
+                text: i18ndc("libplasma5", "Format: **month** year", "<strong>%1</strong> %2", root.selectedMonth, root.selectedYear.toString())
 
                 level: 2
                 elide: Text.ElideRight
@@ -249,11 +249,11 @@ Item {
                     id: previousButton
                     property string tooltip: {
                         switch(root.calendarViewDisplayed) {
-                            case MonthView.CalendarView.MonthView:
+                            case MonthView.CalendarView.DayView:
                                 return i18nd("libplasma5", "Previous Month")
-                            case MonthView.CalendarView.YearView:
+                            case MonthView.CalendarView.MonthView:
                                 return i18nd("libplasma5", "Previous Year")
-                            case MonthView.CalendarView.DecadeView:
+                            case MonthView.CalendarView.YearView:
                                 return i18nd("libplasma5", "Previous Decade")
                             default:
                                 return "";
@@ -275,21 +275,22 @@ Item {
                     //SEE QTBUG-58307
                     Layout.preferredHeight: implicitHeight + implicitHeight % 2
                     onClicked: root.resetToToday()
-                    tooltip: i18ndc("libplasma5", "Reset calendar to today", "Today")
+                    Components.ToolTip {
+                        text: i18ndc("libplasma5", "Reset calendar to today", "Today")
+                    }
                     Accessible.name: tooltip
                     Accessible.description: i18nd("libplasma5", "Reset calendar to today")
-                    Components.ToolTip { text: parent.tooltip }
                 }
 
                 Components.ToolButton {
                     id: nextButton
                     property string tooltip: {
                         switch(root.calendarViewDisplayed) {
-                            case MonthView.CalendarView.MonthView:
+                            case MonthView.CalendarView.DayView:
                                 return i18nd("libplasma5", "Next Month")
-                            case MonthView.CalendarView.YearView:
+                            case MonthView.CalendarView.MonthView:
                                 return i18nd("libplasma5", "Next Year")
-                            case MonthView.CalendarView.DecadeView:
+                            case MonthView.CalendarView.YearView:
                                 return i18nd("libplasma5", "Next Decade")
                             default:
                                 return "";
@@ -312,19 +313,19 @@ Item {
             Layout.preferredWidth: contentWidth
             Layout.alignment: Qt.AlignRight
             Components.TabButton {
-                text: i18n("Days");
+                text: i18nc("libplasma5", "Days");
                 onClicked: root.showMonthView();
                 opacity: root.calendarViewDisplayed === MonthView.CalendarView.MonthView ? 1 : 0.8
                 width: implicitWidth
             }
             Components.TabButton {
-                text: i18n("Months");
+                text: i18nd("libplasma5", "Months");
                 onClicked: root.showYearView();
                 opacity: root.calendarViewDisplayed === MonthView.CalendarView.YearView ? 1 : 0.7
                 width: implicitWidth
             }
             Components.TabButton {
-                text: i18n("Years");
+                text: i18nd("libplasma5", "Years");
                 onClicked: root.showDecadeView();
                 opacity: root.calendarViewDisplayed === MonthView.CalendarView.DecadeView ? 1 : 0.7
                 width: implicitWidth
