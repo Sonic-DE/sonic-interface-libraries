@@ -84,17 +84,8 @@ Item {
         }
         spacing: PlasmaCore.Units.smallSpacing
 
-        PlasmaExtras.Heading {
-            id: heading
-
-            Layout.fillWidth: true
-
-            level: 2
-            elide: Text.ElideRight
-            font.capitalization: Font.Capitalize
-            //SEE QTBUG-58307
-            //try to make all heights an even number, otherwise the layout engine gets confused
-            Layout.preferredHeight: implicitHeight + implicitHeight%2
+        Components.ToolButton {
+            down: monthMouse.pressed
 
             MouseArea {
                 id: monthMouse
@@ -130,7 +121,22 @@ Item {
                     previousPixelDelta = 0
                 }
             }
+
+            contentItem: RowLayout {
+                PlasmaCore.IconItem {
+                    source: "go-up"
+                }
+                PlasmaExtras.Heading {
+                    id: heading
+
+                    level: 2
+                    elide: Text.ElideRight
+                    font.capitalization: Font.Capitalize
+                }
+            }
         }
+
+        Item { Layout.fillWidth: true }
 
         Components.ToolButton {
             id: previousButton
