@@ -5,8 +5,9 @@
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
-import QtQuick 2.0
+import QtQuick 2.5
 import QtQuick.Controls 1.1
+import QtQuick.Controls 2.7 as QQC2
 import QtQuick.Layouts 1.1
 
 import org.kde.plasma.calendar 2.0
@@ -165,57 +166,70 @@ PinchArea {
         onPressed: mouse.accepted = false
     }
 
-    StackView {
+    QQC2.StackView {
         id: stack
 
         anchors.fill: parent
 
-        delegate: StackViewDelegate {
-            pushTransition: StackViewTransition {
-                NumberAnimation {
-                    target: exitItem
-                    duration: PlasmaCore.Units.longDuration
-                    property: "opacity"
-                    from: 1
-                    to: 0
-                }
-                NumberAnimation {
-                    target: enterItem
-                    duration: PlasmaCore.Units.longDuration
-                    property: "opacity"
-                    from: 0
-                    to: 1
-                }
-                NumberAnimation {
-                    target: enterItem
-                    duration: PlasmaCore.Units.longDuration
-                    property: "transformScale"
-                    from: 1.5
-                    to: 1
-                }
+        readonly property real zoomFactor: 3
+
+        popEnter: Transition {
+            ScaleAnimator {
+                from: 0
+                to: 1
+                duration: PlasmaCore.Units.longDuration * (stack.zoomFactor / 2)
+                easing.type: Easing.OutCubic
             }
-            popTransition: StackViewTransition {
-                NumberAnimation {
-                    target: exitItem
-                    duration: PlasmaCore.Units.longDuration
-                    property: "opacity"
-                    from: 1
-                    to: 0
-                }
-                NumberAnimation {
-                    target: exitItem
-                    duration: PlasmaCore.Units.longDuration
-                    property: "transformScale"
-                    // so no matter how much you scaled, it would still fly towards you
-                    to: exitItem.transformScale * 1.5
-                }
-                NumberAnimation {
-                    target: enterItem
-                    duration: PlasmaCore.Units.longDuration
-                    property: "opacity"
-                    from: 0
-                    to: 1
-                }
+            OpacityAnimator {
+                from: 0
+                to: 1
+                duration: PlasmaCore.Units.longDuration * (stack.zoomFactor / 2)
+                easing.type: Easing.OutCubic
+            }
+        }
+
+        popExit: Transition {
+            ScaleAnimator {
+                from: 1
+                to: stack.zoomFactor
+                duration: PlasmaCore.Units.longDuration * (stack.zoomFactor / 2)
+                easing.type: Easing.OutCubic
+            }
+            OpacityAnimator {
+                from: 1
+                to: 0
+                duration: PlasmaCore.Units.longDuration * (stack.zoomFactor / 2)
+                easing.type: Easing.OutCubic
+            }
+        }
+
+        pushEnter: Transition {
+            ScaleAnimator {
+                from: stack.zoomFactor
+                to: 1
+                duration: PlasmaCore.Units.longDuration * (stack.zoomFactor / 2)
+                easing.type: Easing.OutCubic
+            }
+            OpacityAnimator {
+                from: 0
+                to: 1
+                duration: PlasmaCore.Units.longDuration * (stack.zoomFactor / 2)
+                easing.type: Easing.OutCubic
+            }
+        }
+
+        pushExit: Transition {
+            ScaleAnimator {
+                from: 1
+                to: 0
+                duration: PlasmaCore.Units.longDuration * (stack.zoomFactor / 2)
+                easing.type: Easing.OutCubic
+            }
+            OpacityAnimator {
+                from: 1
+                to: 0
+                duration: PlasmaCore.Units.longDuration * (stack.zoomFactor / 2)
+                easing.type: Easing.OutCubic
             }
         }
 
