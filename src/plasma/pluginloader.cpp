@@ -688,6 +688,7 @@ KPluginInfo::List PluginLoader::listContainmentsOfType(const QString &type, cons
     return KPluginInfo::fromMetaData(KPackage::PackageLoader::self()->findPackages(QStringLiteral("Plasma/Applet"), QString(), filter).toVector());
 }
 
+#if PLASMA_BUILD_DEPRECATED_SINCE(5, 81)
 KPluginInfo::List PluginLoader::listContainmentsForMimeType(const QString &mimeType)
 {
     auto filter = [&mimeType](const KPluginMetaData &md) -> bool {
@@ -697,6 +698,7 @@ KPluginInfo::List PluginLoader::listContainmentsForMimeType(const QString &mimeT
 
     return KPluginInfo::fromMetaData(KPackage::PackageLoader::self()->findPackages(QStringLiteral("Plasma/Applet"), QString(), filter).toVector());
 }
+#endif
 
 QStringList PluginLoader::listContainmentTypes()
 {
