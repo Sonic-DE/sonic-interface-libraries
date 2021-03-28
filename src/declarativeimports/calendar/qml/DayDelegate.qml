@@ -8,11 +8,12 @@
 import QtQuick 2.0
 import org.kde.plasma.calendar 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 2.0 as Components
+import org.kde.plasma.components 2.0 as Components2
+import org.kde.plasma.components 3.0 as Components
 
 import org.kde.plasma.calendar 2.0
 
-MouseArea {
+Components.AbstractButton {
     id: dayStyle
 
     hoverEnabled: true
@@ -21,8 +22,8 @@ MouseArea {
 
     readonly property date thisDate: new Date(yearNumber, typeof monthNumber !== "undefined" ? monthNumber - 1 : 0, typeof dayNumber !== "undefined" ? dayNumber : 1)
     readonly property bool today: {
-        var today = root.today;
-        var result = true;
+        const today = root.today;
+        let result = true;
         if (dateMatchingPrecision >= Calendar.MatchYear) {
             result = result && today.getFullYear() === thisDate.getFullYear()
         }
@@ -35,8 +36,8 @@ MouseArea {
         return result
     }
     readonly property bool selected: {
-        var current = root.currentDate;
-        var result = true;
+        const current = root.currentDate;
+        let result = true;
         if (dateMatchingPrecision >= Calendar.MatchYear) {
             result = result && current.getFullYear() === thisDate.getFullYear()
         }
@@ -56,36 +57,19 @@ MouseArea {
         label.font.pixelSize = Math.max(PlasmaCore.Theme.smallestFont.pixelSize, Math.floor(daysCalendar.cellHeight / 3))
     }
 
-    Rectangle {
+    Components2.Highlight {
         id: todayRect
         anchors.fill: parent
         opacity: {
-            if (selected && today) {
-                0.6
-            } else if (today) {
-                0.4
-            } else {
-                0
+            if (today) {
+                return 1;
+            } else if (selected) {
+                return 0.6;
+            } else if (dayStyle.hovered) {
+                return 0.3;
             }
+            return 0;
         }
-        color: PlasmaCore.Theme.textColor
-    }
-
-    Rectangle {
-        id: highlightDate
-        anchors.fill: todayRect
-        opacity: {
-            if (selected) {
-                0.6
-            } else if (dayStyle.containsMouse) {
-                0.4
-            } else {
-                0
-            }
-        }
-        visible: !today
-        color: PlasmaCore.Theme.highlightColor
-        z: todayRect.z - 1
     }
 
     Loader {
@@ -97,12 +81,8 @@ MouseArea {
         sourceComponent: eventsMarkerComponent
     }
 
-    Components.Label {
+    contentItem: Components.Label {
         id: label
-        anchors {
-            fill: todayRect
-            margins: PlasmaCore.Units.smallSpacing
-        }
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         text: model.label || dayNumber
@@ -115,6 +95,5 @@ MouseArea {
         // Setting both results in a warning
         // -1 is an undocumented same as unset (see qquickvaluetypes)
         font.pointSize: -1
-        color: today ? PlasmaCore.Theme.backgroundColor : PlasmaCore.Theme.textColor
     }
 }
