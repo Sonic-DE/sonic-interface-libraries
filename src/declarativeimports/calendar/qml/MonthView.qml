@@ -363,6 +363,7 @@ PinchArea { // TODO KF6 switch to Item
             gridModel: calendarBackend.daysModel
 
             dateMatchingPrecision: Calendar.MatchYearMonthAndDay
+            customCellWidth: cellHeight
 
             onActivated: {
                 const rowNumber = Math.floor(index / columns);
