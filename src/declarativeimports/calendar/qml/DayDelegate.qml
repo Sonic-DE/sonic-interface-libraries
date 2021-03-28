@@ -10,6 +10,7 @@ import org.kde.plasma.calendar 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as Components2
 import org.kde.plasma.components 3.0 as Components
+import org.kde.plasma.extras 2.0 as PlasmaExtras
 
 import org.kde.plasma.calendar 2.0
 
@@ -50,13 +51,6 @@ Components.AbstractButton {
         return result
     }
 
-    onHeightChanged: {
-        // this is needed here as the text is first rendered, counting with the default root.cellHeight
-        // then root.cellHeight actually changes to whatever it should be, but the Label does not pick
-        // it up after that, so we need to change it explicitly after the cell size changes
-        label.font.pixelSize = Math.max(PlasmaCore.Theme.smallestFont.pixelSize, Math.floor(daysCalendar.cellHeight / 3))
-    }
-
     Components2.Highlight {
         id: todayRect
         anchors.fill: parent
@@ -81,7 +75,7 @@ Components.AbstractButton {
         sourceComponent: eventsMarkerComponent
     }
 
-    contentItem: Components.Label {
+    contentItem: PlasmaExtras.Heading {
         id: label
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
@@ -90,10 +84,5 @@ Components.AbstractButton {
         wrapMode: Text.NoWrap
         elide: Text.ElideRight
         fontSizeMode: Text.HorizontalFit
-        font.pixelSize: Math.max(PlasmaCore.Theme.smallestFont.pixelSize, Math.floor(daysCalendar.cellHeight / 3))
-        // Plasma component set point size, this code wants to set pixel size
-        // Setting both results in a warning
-        // -1 is an undocumented same as unset (see qquickvaluetypes)
-        font.pointSize: -1
     }
 }
