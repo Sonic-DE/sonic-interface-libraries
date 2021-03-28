@@ -6,18 +6,20 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 import QtQuick 2.0
-import QtQuick.Controls 1.1
+import QtQuick.Controls 2.15 as QQC2
 import QtQuick.Layouts 1.1
 
 import org.kde.plasma.calendar 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 2.0 as PlasmaComponents
+import org.kde.plasma.components 3.0 as Components
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 
-PinchArea {
+PinchArea { // TODO KF6 switch to Item
     id: root
 
-    anchors.fill: parent
+    anchors.fill: parent // TODO KF6 don't use anchors
+
+    enabled: false
 
     property alias selectedMonth: calendarBackend.monthName
     property alias selectedYear: calendarBackend.year
@@ -39,74 +41,128 @@ PinchArea {
     property int firstDay: new Date(showDate.getFullYear(), showDate.getMonth(), 1).getDay()
     property alias today: calendarBackend.today
     property bool showWeekNumbers: false
+    property bool showCustomHeader: false
+
+    /**
+     * Current index of the internal swipeView. Usefull for binding
+     * a TabBar to it.
+     */
+    property alias currentIndex: swipeView.currentIndex
 
     property alias cellHeight: mainDaysCalendar.cellHeight
     property QtObject daysModel: calendarBackend.daysModel
 
-    onPinchStarted: stack.currentItem.transformOrigin = pinch.center
-    onPinchUpdated: {
-        var item = stack.currentItem
-        if (stack.depth < 3 && pinch.scale < 1) {
-            item.transformScale = pinch.scale
-            item.opacity = pinch.scale
-        } else if (stack.depth > 1 && pinch.scale > 1) {
-            item.transformScale = pinch.scale
-            item.opacity = (2 - pinch.scale / 2)
-        }
-    }
-    onPinchFinished: {
-        var item = stack.currentItem
-        if (item.transformScale < 0.7) {
-            item.headerClicked()
-        } else if (item.transformScale > 1.4) {
-            item.activateHighlightedItem()
-        } else {
-            item.transformScale = 1
-            item.opacity = 1
-        }
-    }
-
     function isToday(date) {
-        if (date.toDateString() == new Date().toDateString()) {
-            return true;
-        }
-
-        return false;
+        return date.toDateString() === new Date().toDateString();
     }
 
     function eventDate(yearNumber,monthNumber,dayNumber) {
-        var d = new Date(yearNumber, monthNumber-1, dayNumber);
+        const d = new Date(yearNumber, monthNumber-1, dayNumber);
         return Qt.formatDate(d, "dddd dd MMM yyyy");
     }
 
+    /**
+     * Move calendar to month view showing today's date.
+     */
     function resetToToday() {
         calendarBackend.resetToToday();
         root.currentDate = root.today;
-        stack.pop(null);
+        swipeView.currentIndex = 0;
     }
 
     function updateYearOverview() {
-        var date = calendarBackend.displayedDate;
-        var day = date.getDate();
-        var year = date.getFullYear();
+        const date = calendarBackend.displayedDate;
+        const day = date.getDate();
+        const year = date.getFullYear();
 
-        for (var i = 0, j = monthModel.count; i < j; ++i) {
+        for (let i = 0, j = monthModel.count; i < j; ++i) {
             monthModel.setProperty(i, "yearNumber", year);
         }
     }
 
     function updateDecadeOverview() {
-        var date = calendarBackend.displayedDate;
-        var day = date.getDate();
-        var month = date.getMonth() + 1;
-        var year = date.getFullYear();
-        var decade = year - year % 10;
+        const date = calendarBackend.displayedDate;
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        const decade = year - year % 10;
 
-        for (var i = 0, j = yearModel.count; i < j; ++i) {
-            var label = decade - 1 + i;
+        for (let i = 0, j = yearModel.count; i < j; ++i) {
+            const label = decade - 1 + i;
             yearModel.setProperty(i, "yearNumber", label);
             yearModel.setProperty(i, "label", label);
         }
+    }
+
+    /**
+     * Possible calendar views
+     */
+    enum CalendarView {
+        DayView,
+        MonthView,
+        YearView
+    }
+
+    /**
+     * Go to the next month/year/decade depending on the current
+     * calendar view displayed.
+     */
+    function nextFrame() {
+        if (swipeView.currentIndex === 0) {
+            calendarBackend.nextMonth();
+        } else if (swipeView.currentIndex === 1) {
+            calendarBackend.nextYear();
+        } else if (swipeView.currentIndex === 2) {
+            calendarBackend.nextDecade();
+        }
+    }
+
+    /**
+     * Go to the previous month/year/decade depending on the current
+     * calendar view displayed.
+     */
+    function previousFrame() {
+        if (swipeView.currentIndex === 0) {
+            calendarBackend.previousMonth();
+        } else if (swipeView.currentIndex === 1) {
+            calendarBackend.previousYear();
+        } else if (swipeView.currentIndex === 2) {
+            calendarBackend.previousDecade();
+        }
+    }
+
+    /**
+     * \return CalendarView
+     */
+    readonly property var calendarViewDisplayed: {
+        if (swipeView.currentIndex === 0) {
+            return MonthView.CalendarView.DayView;
+        } else if (swipeView.currentIndex === 1) {
+            return MonthView.CalendarView.MonthView;
+        } else if (swipeView.currentIndex === 2) {
+            return MonthView.CalendarView.YearView;
+        }
+    }
+
+    /**
+     * Show month view.
+     */
+    function showMonthView() {
+        swipeView.currentIndex = 0;
+    }
+
+    /**
+     * Show year view.
+     */
+    function showYearView() {
+        swipeView.currentIndex = 1;
+    }
+
+    /**
+     * Show month view.
+     */
+    function showDecadeView() {
+        swipeView.currentIndex = 2;
     }
 
     Calendar {
@@ -148,6 +204,8 @@ PinchArea {
         Component.onCompleted: {
             for (var i = 0; i < 12; ++i) {
                 append({
+                    label: 2050, // this value will be overwritten, but it set the type of the property to int
+                    yearNumber: 2050,
                     isCurrent: (i > 0 && i < 11) // first and last year are outside the decade
                 })
             }
@@ -276,6 +334,24 @@ PinchArea {
             }
         }
     }
+
+    QQC2.SwipeView {
+        id: swipeView
+        orientation: Qt.Vertical
+        anchors {
+            top: viewHeader.bottom
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
+        clip: true
+
+        onCurrentIndexChanged: if (currentIndex > 1) {
+            updateDecadeOverview();
+        }
+
+        // MonthView
+        DaysCalendar {
             id: mainDaysCalendar
 
             columns: calendarBackend.days
