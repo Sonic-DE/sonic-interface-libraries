@@ -658,10 +658,12 @@ QString PluginLoader::appletCategory(const QString &appletName)
     return p.metadata().category();
 }
 
+#if PLASMA_BUILD_DEPRECATED_SINCE(5, 81)
 KPluginInfo::List PluginLoader::listContainments(const QString &category, const QString &parentApp)
 {
     return listContainmentsOfType(QString(), category, parentApp);
 }
+#endif
 
 QList<KPluginMetaData> PluginLoader::listContainmentsMetaData(std::function<bool(const KPluginMetaData &)> filter)
 {
@@ -685,6 +687,7 @@ QList<KPluginMetaData> PluginLoader::listContainmentsMetaDataOfType(const QStrin
     return listContainmentsMetaData(filter);
 }
 
+#if PLASMA_BUILD_DEPRECATED_SINCE(5, 81)
 KPluginInfo::List PluginLoader::listContainmentsOfType(const QString &type, const QString &category, const QString &parentApp)
 {
     KConfigGroup group(KSharedConfig::openConfig(), "General");
@@ -709,6 +712,7 @@ KPluginInfo::List PluginLoader::listContainmentsOfType(const QString &type, cons
 
     return KPluginInfo::fromMetaData(KPackage::PackageLoader::self()->findPackages(QStringLiteral("Plasma/Applet"), QString(), filter).toVector());
 }
+#endif
 
 KPluginInfo::List PluginLoader::listContainmentsForMimeType(const QString &mimeType)
 {
