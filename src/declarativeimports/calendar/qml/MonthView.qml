@@ -291,6 +291,7 @@ PinchArea { // TODO KF6 switch to Item
             id: tabBar
             currentIndex: swipeView.currentIndex
             Layout.fillWidth: true
+            Layout.bottomMargin: PlasmaCore.Units.smallSpacing
 
             Components.TabButton {
                 text: i18nc("libplasma5", "Days");
@@ -315,7 +316,6 @@ PinchArea { // TODO KF6 switch to Item
 
     QQC2.SwipeView {
         id: swipeView
-        orientation: Qt.Vertical
         anchors {
             top: viewHeader.bottom
             left: parent.left
