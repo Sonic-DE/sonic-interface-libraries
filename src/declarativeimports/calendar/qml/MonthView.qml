@@ -225,8 +225,7 @@ PinchArea { // TODO KF6 switch to Item
             spacing: 0
             PlasmaExtras.Heading {
                 id: heading
-                text: i18ndc("libplasma5", "Format: **month** year", "<strong>%1</strong> %2", root.selectedMonth, root.selectedYear.toString())
-
+                text: swipeView.currentIndex > 0 ? i18ndc("libplasma5", "Format: month year", "%1 %2", root.selectedMonth, root.selectedYear.toString()) : root.selectedMonth
                 level: 2
                 elide: Text.ElideRight
                 font.capitalization: Font.Capitalize
