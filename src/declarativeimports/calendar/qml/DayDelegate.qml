@@ -8,7 +8,7 @@
 import QtQuick 2.0
 import org.kde.plasma.calendar 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 2.0 as Components2
+import org.kde.plasma.components 2.0 as Components2 // For Highlight
 import org.kde.plasma.components 3.0 as Components
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 
