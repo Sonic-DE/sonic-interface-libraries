@@ -38,10 +38,9 @@ Item {
     property alias gridModel: repeater.model
 
     // Take the calendar width, subtract the inner and outer spacings and divide by number of columns (==days in week)
-    readonly property int cellWidth: squareCell ? cellHeight : Math.floor((swipeView.width - (daysCalendar.columns + 1) * root.borderWidth) / (daysCalendar.columns + (showWeekNumbers ? 1 : 0)))
+    readonly property int cellWidth: Math.floor((swipeView.width - (daysCalendar.columns + 1) * root.borderWidth) / (daysCalendar.columns + (showWeekNumbers ? 1 : 0)))
     // Take the calendar height, subtract the inner spacings and divide by number of rows (root.weeks + one row for day names)
     readonly property int cellHeight:  Math.floor((swipeView.height - heading.height - calendarGrid.rows * root.borderWidth) / calendarGrid.rows)
-    property bool squareCell: false
 
     PlasmaCore.Svg {
         id: calendarSvg

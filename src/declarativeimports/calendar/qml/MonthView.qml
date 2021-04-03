@@ -133,7 +133,7 @@ PinchArea { // TODO KF6 switch to Item
     /**
      * \return CalendarView
      */
-    readonly property var currentView: {
+    readonly property var calendarViewDisplayed: {
         if (swipeView.currentIndex === 0) {
             return MonthView.CalendarView.DayView;
         } else if (swipeView.currentIndex === 1) {
@@ -340,7 +340,6 @@ PinchArea { // TODO KF6 switch to Item
             gridModel: calendarBackend.daysModel
 
             dateMatchingPrecision: Calendar.MatchYearMonthAndDay
-            squareCell: true
 
             onActivated: {
                 const rowNumber = Math.floor(index / columns);
