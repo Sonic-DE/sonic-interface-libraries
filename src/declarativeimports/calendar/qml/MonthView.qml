@@ -295,19 +295,16 @@ PinchArea { // TODO KF6 switch to Item
             Components.TabButton {
                 text: i18nc("libplasma5", "Days");
                 onClicked: root.showMonthView();
-                opacity: root.calendarViewDisplayed === MonthView.CalendarView.MonthView ? 1 : 0.8
                 display: Components.AbstractButton.TextOnly
             }
             Components.TabButton {
                 text: i18nd("libplasma5", "Months");
                 onClicked: root.showYearView();
-                opacity: root.calendarViewDisplayed === MonthView.CalendarView.YearView ? 1 : 0.7
                 display: Components.AbstractButton.TextOnly
             }
             Components.TabButton {
                 text: i18nd("libplasma5", "Years");
                 onClicked: root.showDecadeView();
-                opacity: root.calendarViewDisplayed === MonthView.CalendarView.DecadeView ? 1 : 0.7
                 display: Components.AbstractButton.TextOnly
             }
         }
