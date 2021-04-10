@@ -190,6 +190,7 @@ PinchArea { // TODO KF6 switch to Item
                 append({
                     label: Qt.locale(Qt.locale().uiLanguages[0]).standaloneMonthName(i, Locale.LongFormat),
                     monthNumber: i + 1,
+                    yearNumber: 2050,
                     isCurrent: true
                 })
             }
