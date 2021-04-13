@@ -11,7 +11,7 @@ import QtQuick.Layouts 1.1
 
 import org.kde.plasma.calendar 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 3.0 as Components
+import org.kde.plasma.components 3.0 as PlasmaComponents3
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 
 PinchArea { // TODO KF6 switch to Item
@@ -232,7 +232,7 @@ PinchArea { // TODO KF6 switch to Item
                 font.capitalization: Font.Capitalize
                 Layout.fillWidth: true
             }
-            Components.ToolButton {
+            PlasmaComponents3.ToolButton {
                 id: previousButton
                 property string tooltip: {
                     switch(root.calendarViewDisplayed) {
@@ -250,22 +250,22 @@ PinchArea { // TODO KF6 switch to Item
                 icon.name: Qt.application.layoutDirection === Qt.RightToLeft ? "go-next" : "go-previous"
                 onClicked: root.previousView()
                 Accessible.name: tooltip
-                Components.ToolTip { text: parent.tooltip }
+                PlasmaComponents3.ToolTip { text: parent.tooltip }
             }
 
-            Components.ToolButton {
+            PlasmaComponents3.ToolButton {
                 icon.name: "go-jump-today"
                 property string tooltip
 
                 onClicked: root.resetToToday()
-                Components.ToolTip {
+                PlasmaComponents3.ToolTip {
                     text: i18ndc("libplasma5", "Reset calendar to today", "Today")
                 }
                 Accessible.name: tooltip
                 Accessible.description: i18nd("libplasma5", "Reset calendar to today")
             }
 
-            Components.ToolButton {
+            PlasmaComponents3.ToolButton {
                 id: nextButton
                 property string tooltip: {
                     switch(root.calendarViewDisplayed) {
@@ -281,32 +281,32 @@ PinchArea { // TODO KF6 switch to Item
                 }
 
                 icon.name: Qt.application.layoutDirection === Qt.RightToLeft ? "go-previous" : "go-next"
-                Components.ToolTip { text: parent.tooltip }
+                PlasmaComponents3.ToolTip { text: parent.tooltip }
                 onClicked: root.nextView();
                 Accessible.name: tooltip
             }
         }
 
-        Components.TabBar {
+        PlasmaComponents3.TabBar {
             id: tabBar
             currentIndex: swipeView.currentIndex
             Layout.fillWidth: true
             Layout.bottomMargin: PlasmaCore.Units.smallSpacing
 
-            Components.TabButton {
+            PlasmaComponents3.TabButton {
                 text: i18nc("libplasma5", "Days");
                 onClicked: root.showMonthView();
-                display: Components.AbstractButton.TextOnly
+                display: PlasmaComponents3.AbstractButton.TextOnly
             }
-            Components.TabButton {
+            PlasmaComponents3.TabButton {
                 text: i18nd("libplasma5", "Months");
                 onClicked: root.showYearView();
-                display: Components.AbstractButton.TextOnly
+                display: PlasmaComponents3.AbstractButton.TextOnly
             }
-            Components.TabButton {
+            PlasmaComponents3.TabButton {
                 text: i18nd("libplasma5", "Years");
                 onClicked: root.showDecadeView();
-                display: Components.AbstractButton.TextOnly
+                display: PlasmaComponents3.AbstractButton.TextOnly
             }
         }
     }
