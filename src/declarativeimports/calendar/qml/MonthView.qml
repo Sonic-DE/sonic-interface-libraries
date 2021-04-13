@@ -2,6 +2,7 @@
     SPDX-FileCopyrightText: 2013 Heena Mahour <heena393@gmail.com>
     SPDX-FileCopyrightText: 2013 Sebastian Kügler <sebas@kde.org>
     SPDX-FileCopyrightText: 2015 Kai Uwe Broulik <kde@privat.broulik.de>
+    SPDX-FileCopyrightText: 2021 Carl Schwan <carlschwan@kde.org>
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
@@ -186,7 +187,7 @@ PinchArea { // TODO KF6 switch to Item
         id: monthModel
 
         Component.onCompleted: {
-            for (var i = 0; i < 12; ++i) {
+            for (let i = 0; i < 12; ++i) {
                 append({
                     label: Qt.locale(Qt.locale().uiLanguages[0]).standaloneMonthName(i, Locale.LongFormat),
                     monthNumber: i + 1,
@@ -202,7 +203,7 @@ PinchArea { // TODO KF6 switch to Item
         id: yearModel
 
         Component.onCompleted: {
-            for (var i = 0; i < 12; ++i) {
+            for (let i = 0; i < 12; ++i) {
                 append({
                     label: 2050, // this value will be overwritten, but it set the type of the property to int
                     yearNumber: 2050,
