@@ -2,6 +2,7 @@
     SPDX-FileCopyrightText: 2013 Heena Mahour <heena393@gmail.com>
     SPDX-FileCopyrightText: 2013 Sebastian Kügler <sebas@kde.org>
     SPDX-FileCopyrightText: 2015, 2016 Kai Uwe Broulik <kde@privat.broulik.de>
+    SPDX-FileCopyrightText: 2021 Carl Schwan <carlschwan@kde.org>
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
