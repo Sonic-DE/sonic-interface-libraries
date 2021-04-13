@@ -217,6 +217,8 @@ PinchArea { // TODO KF6 switch to Item
     ColumnLayout {
         id: viewHeader
         visible: !showCustomHeader
+        // Make sure the height of the invible item is zero, otherwise anchoring to the iten will
+        // include the height even if it is invisible.
         height: !visible ? 0 : implicitHeight
         width: parent.width
         anchors {
@@ -255,15 +257,9 @@ PinchArea { // TODO KF6 switch to Item
             }
 
             PlasmaComponents3.ToolButton {
-                icon.name: "go-jump-today"
-                property string tooltip
-
-                onClicked: root.resetToToday()
-                PlasmaComponents3.ToolTip {
-                    text: i18ndc("libplasma5", "Reset calendar to today", "Today")
-                }
-                Accessible.name: tooltip
+                text: i18ndc("libplasma5", "Reset calendar to today", "Today")
                 Accessible.description: i18nd("libplasma5", "Reset calendar to today")
+                onClicked: root.resetToToday()
             }
 
             PlasmaComponents3.ToolButton {
