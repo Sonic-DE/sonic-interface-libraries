@@ -1120,6 +1120,11 @@ void ContainmentInterface::addContainmentActions(QMenu *desktopMenu, QEvent *eve
         }
     } else {
         desktopMenu->addActions(actions);
+        for (auto action : qAsConst(actions)) {
+            if (action->menu() && action->menu()->windowHandle()) {
+                action->menu()->windowHandle()->setTransientParent(desktopMenu->windowHandle());
+            }
+        }
     }
 
     return;
