@@ -21,9 +21,27 @@ PinchArea { // TODO KF6 switch to Item
 
     enabled: false
 
+    /**
+     * Currently selected month name.
+     * \property string MonthView::selectedMonth
+     */
     property alias selectedMonth: calendarBackend.monthName
+    /**
+     * Currently selected month year.
+     * \property int MonthView::selectedYear
+     */
     property alias selectedYear: calendarBackend.year
+    /**
+     * The start day of a week.
+     * \property int MonthView::firstDayOfWeek
+     * \sa Calendar::firstDayOfWeek
+     */
     property alias firstDayOfWeek: calendarBackend.firstDayOfWeek
+    /**
+     * Currently selected date.
+     * \property date MonthView::selectedDate
+     */
+    property alias selectedDate: calendarBackend.displayedDate
 
     property QtObject date
     property date currentDate
