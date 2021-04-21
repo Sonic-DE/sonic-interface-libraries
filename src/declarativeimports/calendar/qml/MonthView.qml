@@ -7,7 +7,6 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 import QtQuick 2.0
-import QtQuick.Controls 2.15 as QQC2
 import QtQuick.Layouts 1.1
 
 import org.kde.plasma.calendar 2.0
@@ -229,7 +228,7 @@ PinchArea { // TODO KF6 switch to Item
             spacing: 0
             PlasmaExtras.Heading {
                 id: heading
-                text: swipeView.currentIndex > 0 ? i18ndc("libplasma5", "Format: month year", "%1 %2", root.selectedMonth, root.selectedYear.toString()) : root.selectedMonth
+                text: swipeView.currentIndex > 0 || root.selectedYear !== today.getFullYear() || calendarBackend.displayedDate.getMonth() !== today.getMonth() ? i18ndc("libplasma5", "Format: month year", "%1 %2", root.selectedMonth, root.selectedYear.toString()) : root.selectedMonth
                 level: 2
                 elide: Text.ElideRight
                 font.capitalization: Font.Capitalize
@@ -308,7 +307,7 @@ PinchArea { // TODO KF6 switch to Item
         }
     }
 
-    QQC2.SwipeView {
+    PlasmaComponents3.SwipeView {
         id: swipeView
         anchors {
             top: viewHeader.bottom
