@@ -128,6 +128,7 @@ public:
     QPointF positionAdjustedForMainItem(const QPointF &point) const;
 
     void setupWaylandIntegration();
+    void updateWaylandShellSurfaceRole();
 
     void applyType();
 
@@ -695,6 +696,24 @@ void DialogPrivate::setupWaylandIntegration()
 #endif
 }
 
+void DialogPrivate::updateWaylandShellSurfaceRole()
+{
+#if HAVE_KWAYLAND
+    // Try again after setup
+    if (!shellSurface) {
+        return;
+    }
+
+    if (q->flags() & Qt::WindowStaysOnTopHint) {
+        shellSurface->setRole(KWayland::Client::PlasmaShellSurface::Role::Panel);
+        shellSurface->setPanelBehavior(KWayland::Client::PlasmaShellSurface::PanelBehavior::WindowsGoBelow);
+    } else {
+        shellSurface->setRole(KWayland::Client::PlasmaShellSurface::Role::Normal);
+        shellSurface->setPanelBehavior(KWayland::Client::PlasmaShellSurface::PanelBehavior::AlwaysVisible);
+    }
+#endif
+}
+
 void DialogPrivate::applyType()
 {
     if (type != Dialog::Normal) {
@@ -1076,6 +1095,7 @@ void Dialog::setFramelessFlags(Qt::WindowFlags flags)
         flags |= Qt::Dialog;
     setFlags(Qt::FramelessWindowHint | flags);
     d->applyType();
+    d->updateWaylandShellSurfaceRole();
     Q_EMIT flagsChanged();
 }
 
@@ -1203,6 +1223,7 @@ bool Dialog::event(QEvent *event)
         if (!d->shellSurface && isVisible()) {
             KWindowSystem::setState(winId(), NET::SkipTaskbar | NET::SkipPager | NET::SkipSwitcher);
             d->setupWaylandIntegration();
+            d->updateWaylandShellSurfaceRole();
             d->updateVisibility(true);
             d->updateTheme();
         }
