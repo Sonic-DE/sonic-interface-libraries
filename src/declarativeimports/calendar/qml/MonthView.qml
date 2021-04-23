@@ -37,11 +37,6 @@ PinchArea { // TODO KF6 switch to Item
      * \sa Calendar::firstDayOfWeek
      */
     property alias firstDayOfWeek: calendarBackend.firstDayOfWeek
-    /**
-     * Currently selected date.
-     * \property date MonthView::selectedDate
-     */
-    property alias selectedDate: calendarBackend.displayedDate
 
     property QtObject date
     property date currentDate
@@ -246,7 +241,7 @@ PinchArea { // TODO KF6 switch to Item
             spacing: 0
             PlasmaExtras.Heading {
                 id: heading
-                text: swipeView.currentIndex > 0 || root.selectedYear !== today.getFullYear() || calendarBackend.displayedDate.getMonth() !== today.getMonth() ? i18ndc("libplasma5", "Format: month year", "%1 %2", root.selectedMonth, root.selectedYear.toString()) : root.selectedMonth
+                text: swipeView.currentIndex > 0 || root.selectedYear !== today.getFullYear() ? i18ndc("libplasma5", "Format: month year", "%1 %2", root.selectedMonth, root.selectedYear.toString()) : root.selectedMonth
                 level: 2
                 elide: Text.ElideRight
                 font.capitalization: Font.Capitalize
