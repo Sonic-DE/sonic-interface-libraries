@@ -1,6 +1,7 @@
 /*
     SPDX-FileCopyrightText: 2013 Mark Gaiser <markg85@gmail.com>
     SPDX-FileCopyrightText: 2016 Martin Klapetek <mklapetek@kde.org>
+    SPDX-FileCopyrightText: 2021 Carl Schwan <carlschwan@kde.org>
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
@@ -208,10 +209,12 @@ void DaysModel::onEventModified(const CalendarEvents::EventData &data)
 
 void DaysModel::onEventRemoved(const QString &uid)
 {
-    // TODO We should update the model with beginRemoveRows otherwise
-    // it will create a minor bug that the event is not immediately removed
-    // from the calendar view. Normally an user will only see it if the
-    // calendar is pinned.
+    // HACK We should update the model with beginRemoveRows instead of
+    // using beginResetModel() since this creates a small visual glitches
+    // if an event is removed in Korganizer and the calendar is open.
+    // Using beginRemoveRows instead we make the code a lot more complex
+    // and if not done correcly will introduce bugs.
+    beginResetModel();
     QList<QDate> updatesList;
     auto i = m_eventsData.begin();
     while (i != m_eventsData.end()) {
@@ -235,6 +238,7 @@ void DaysModel::onEventRemoved(const QString &uid)
 
         Q_EMIT agendaUpdated(date);
     }
+    endResetModel();
 }
 
 QList<QObject *> DaysModel::eventsForDate(const QDate &date)
