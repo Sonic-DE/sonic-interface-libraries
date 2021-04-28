@@ -49,7 +49,8 @@ int DaysModel::rowCount(const QModelIndex &parent) const
     } else {
         // event count
         const auto &eventDatas = data(parent, Roles::Events).value<QList<CalendarEvents::EventData>>();
-        return std::min(eventDatas.count(), 5); // only display up to 5 events a day
+        Q_ASSERT(eventDatas.count() <= 5);
+        return eventDatas.count()
     }
 }
 
@@ -117,9 +118,12 @@ void DaysModel::update()
     for (int i = 0; i < m_data->count(); i++) {
         const DayData &currentData = m_data->at(i);
         const QDate currentDate(currentData.yearNumber, currentData.monthNumber, currentData.dayNumber);
-        beginRemoveRows(index(i, 0), 0, m_eventsData.values(currentDate).count());
-        m_eventsData.remove(currentDate);
-        endRemoveRows();
+        const int count = m_eventsData.values(currentDate).count();
+        if (count > 0) {
+            beginRemoveRows(index(i, 0), 0, count - 1);
+            m_eventsData.remove(currentDate);
+            endRemoveRows();
+        }
     }
     m_eventsData.clear();
 
