@@ -50,7 +50,7 @@ int DaysModel::rowCount(const QModelIndex &parent) const
         // event count
         const auto &eventDatas = data(parent, Roles::Events).value<QList<CalendarEvents::EventData>>();
         Q_ASSERT(eventDatas.count() <= 5);
-        return eventDatas.count()
+        return eventDatas.count();
     }
 }
 
