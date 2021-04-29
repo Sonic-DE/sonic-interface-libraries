@@ -115,17 +115,12 @@ void DaysModel::update()
         return;
     }
 
-    for (int i = 0; i < m_data->count(); i++) {
-        const DayData &currentData = m_data->at(i);
-        const QDate currentDate(currentData.yearNumber, currentData.monthNumber, currentData.dayNumber);
-        const int count = m_eventsData.values(currentDate).count();
-        if (count > 0) {
-            beginRemoveRows(index(i, 0), 0, count - 1);
-            m_eventsData.remove(currentDate);
-            endRemoveRows();
-        }
-    }
+    // We need to reset the model since m_data has already been changed here
+    // and we can't remove the events manually with beginRemoveRows() since
+    // we don't know where the old events were located.
+    beginResetModel();
     m_eventsData.clear();
+    endResetModel();
 
     const QDate modelFirstDay(m_data->at(0).yearNumber, m_data->at(0).monthNumber, m_data->at(0).dayNumber);
 
