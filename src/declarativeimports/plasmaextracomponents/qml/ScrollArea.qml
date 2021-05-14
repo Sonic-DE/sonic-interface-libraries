@@ -15,7 +15,7 @@ import QtQuick.Controls.Styles.Plasma 2.0 as Styles
  * scrollbar will be a SectionScroller.
  *
  * See QtControls.ScrollView for full API
- * @deprecated Use PlasmaComponents3.ScrollView instead
+ * @deprecated since 5.83, use PlasmaComponents3.ScrollView instead
  */
 
 QtQuickControls.ScrollView {
