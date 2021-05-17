@@ -97,6 +97,7 @@ if(X11_FOUND AND XCB_XCB_FOUND)
   #add_feature_info("X Rendering Extension (libXrender)" X11_Xrender_FOUND "Support for compositing, rendering operations, and alpha-blending. STRONGLY RECOMMENDED")
 endif()
 
+set(OpenGL_GL_PREFERENCE "LEGACY")
 find_package(OpenGL)
 set_package_properties(OpenGL PROPERTIES DESCRIPTION "The OpenGL libraries"
                        URL "https://www.opengl.org/"
