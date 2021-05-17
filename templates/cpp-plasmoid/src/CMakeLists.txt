@@ -1,11 +1,11 @@
 # TODO: adapt "org.kde.plasma" here & elsewhere if needed (see README)
 add_definitions(-DTRANSLATION_DOMAIN=\"plasma_applet_org.kde.plasma.%{APPNAMELC}\")
 
-set(%{APPNAMELC}_SRCS
+add_library(plasma_applet_%{APPNAMELC} MODULE)
+
+target_sources(plasma_applet_%{APPNAMELC} PRIVATE
     %{APPNAMELC}.cpp
 )
-
-add_library(plasma_applet_%{APPNAMELC} MODULE ${%{APPNAMELC}_SRCS})
 
 kcoreaddons_desktop_to_json(plasma_applet_%{APPNAMELC} package/metadata.desktop SERVICE_TYPES plasma-applet.desktop)
 

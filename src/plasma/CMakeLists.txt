@@ -8,9 +8,16 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config-plasma.h.cmake ${CMAKE_CURRENT
 
 add_definitions(-DKDE_DEFAULT_DEBUG_AREA=1209)
 
-########### next target ###############
+add_library(KF5Plasma)
+add_library(KF5::Plasma ALIAS KF5Plasma)
 
-set(Plasma_LIB_SRCS
+set_target_properties(KF5Plasma PROPERTIES
+    VERSION     ${PLASMA_VERSION}
+    SOVERSION   ${PLASMA_SOVERSION}
+    EXPORT_NAME Plasma
+)
+
+target_sources(KF5Plasma PRIVATE
 #global
     plasma.cpp
     pluginloader.cpp
@@ -52,17 +59,17 @@ set(Plasma_LIB_SRCS
 if(NOT EXCLUDE_DEPRECATED_BEFORE_AND_AT STREQUAL "CURRENT" AND
    EXCLUDE_DEPRECATED_BEFORE_AND_AT VERSION_LESS 5.83.0)
     #packages
-    set(Plasma_LIB_SRCS ${Plasma_LIB_SRCS} package.cpp packagestructure.cpp)
+    target_sources(KF5Plasma PRIVATE package.cpp packagestructure.cpp)
 endif()
 
 
 if(HAVE_X11)
-    set(Plasma_LIB_SRCS ${Plasma_LIB_SRCS} private/effectwatcher.cpp)
+    target_sources(KF5Plasma PRIVATE private/effectwatcher.cpp)
 endif()
 
-kconfig_add_kcfg_files(Plasma_LIB_SRCS data/kconfigxt/libplasma-theme-global.kcfgc)
+kconfig_add_kcfg_files(KF5Plasma data/kconfigxt/libplasma-theme-global.kcfgc)
 
-ecm_qt_declare_logging_category(Plasma_LIB_SRCS
+ecm_qt_declare_logging_category(KF5Plasma
     HEADER debug_p.h
     IDENTIFIER LOG_PLASMA
     CATEGORY_NAME kf.plasma.core
@@ -71,8 +78,6 @@ ecm_qt_declare_logging_category(Plasma_LIB_SRCS
     EXPORT PLASMA
 )
 
-add_library(KF5Plasma ${Plasma_LIB_SRCS})
-add_library(KF5::Plasma ALIAS KF5Plasma)
 ecm_generate_export_header(KF5Plasma
     EXPORT_FILE_NAME plasma/plasma_export.h
     BASE_NAME Plasma
@@ -121,12 +126,6 @@ target_include_directories(KF5Plasma PUBLIC
 target_include_directories(KF5Plasma INTERFACE
   "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF5};${KDE_INSTALL_INCLUDEDIR_KF5}/Plasma>"
 )
-
-set_target_properties(KF5Plasma PROPERTIES
-                                VERSION ${PLASMA_VERSION}
-                                SOVERSION ${PLASMA_SOVERSION}
-                                EXPORT_NAME Plasma
-                      )
 
 ########### install files ###############
 ecm_generate_headers(Plasma_CamelCase_HEADERS
