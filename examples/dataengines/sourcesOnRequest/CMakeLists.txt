@@ -1,9 +1,8 @@
-set(sourcesOnRequest_SRCS
+add_library(plasma_dataengine_example_sourcesOnRequest MODULE)
+
+target_sources(plasma_dataengine_example_sourcesOnRequest PRIVATE
     sourcesOnRequest.cpp
 )
-
-add_library(plasma_dataengine_example_sourcesOnRequest MODULE ${sourcesOnRequest_SRCS})
-
 kcoreaddons_desktop_to_json(plasma_dataengine_example_sourcesOnRequest plasma-dataengine-example-sourcesOnRequest.desktop)
 
 target_link_libraries(plasma_dataengine_example_sourcesOnRequest

@@ -1,10 +1,10 @@
 add_definitions(-DTRANSLATION_DOMAIN=\"plasma_applet_org.kde.plasma.%{APPNAMELC}\")
 
-set(%{APPNAMELC}plugin_SRCS
+add_library(%{APPNAMELC}plugin SHARED)
+
+target_sources(%{APPNAMELC}plugin PRIVATE
     %{APPNAMELC}plugin.cpp
 )
-
-add_library(%{APPNAMELC}plugin SHARED ${%{APPNAMELC}plugin_SRCS})
 
 target_link_libraries(%{APPNAMELC}plugin
     KF5::I18n

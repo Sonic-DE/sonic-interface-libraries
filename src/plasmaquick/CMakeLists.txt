@@ -4,7 +4,10 @@ else()
     add_definitions(-DHAVE_XCB_SHAPE=0)
 endif()
 
-set(plasmaquick_LIB_SRC
+add_library(KF5PlasmaQuick SHARED)
+add_library(KF5::PlasmaQuick ALIAS KF5PlasmaQuick)
+
+target_sources(KF5PlasmaQuick PRIVATE
     appletquickitem.cpp
     debug_p.cpp
     dialog.cpp
@@ -22,10 +25,10 @@ set(plasmaquick_LIB_SRC
 )
 
 if(HAVE_KWAYLAND)
-    set(plasmaquick_LIB_SRC ${plasmaquick_LIB_SRC} waylandintegration.cpp)
+    target_sources(KF5PlasmaQuick PRIVATE waylandintegration.cpp)
 endif()
 
-ecm_qt_declare_logging_category(PlasmaQuick_LIB_SRCS
+ecm_qt_declare_logging_category(KF5PlasmaQuick
     HEADER debug_p.h
     IDENTIFIER LOG_PLASMAQUICK
     CATEGORY_NAME kf.plasma.quick
@@ -34,8 +37,6 @@ ecm_qt_declare_logging_category(PlasmaQuick_LIB_SRCS
     EXPORT PLASMA
 )
 
-add_library(KF5PlasmaQuick SHARED ${plasmaquick_LIB_SRC})
-add_library(KF5::PlasmaQuick ALIAS KF5PlasmaQuick)
 target_include_directories(KF5PlasmaQuick PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR};${CMAKE_CURRENT_BINARY_DIR}/..>")
 
 target_link_libraries(KF5PlasmaQuick
