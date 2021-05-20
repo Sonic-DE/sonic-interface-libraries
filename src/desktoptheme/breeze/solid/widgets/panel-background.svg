@@ -11,12 +11,12 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="173"
-   height="56.000004"
-   viewBox="0 0 173 56.000004"
+   height="128"
+   viewBox="0 0 173 128"
    id="svg2"
    version="1.1"
    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
-   sodipodi:docname="_panel-background.svg">
+   sodipodi:docname="panel-background.svg">
   <style
      type="text/css"
      id="current-color-scheme">
@@ -267,9 +267,9 @@
      borderopacity="1"
      inkscape:pageopacity="0.65882353"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.2820875"
-     inkscape:cx="96.163595"
-     inkscape:cy="21.575417"
+     inkscape:zoom="7.4699998"
+     inkscape:cx="74.378313"
+     inkscape:cy="87.161537"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -277,7 +277,7 @@
      borderlayer="true"
      units="px"
      inkscape:window-width="1920"
-     inkscape:window-height="997"
+     inkscape:window-height="973"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -304,7 +304,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -312,7 +312,15 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-904.36218)">
+     transform="translate(0,-832.36218)">
+    <rect
+       style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none"
+       id="thick-center"
+       width="32"
+       height="32"
+       x="20"
+       y="852.36218"
+       class="ColorScheme-Background" />
     <rect
        style="fill:url(#linearGradient1020);fill-opacity:1;stroke:none;stroke-width:2.21880078"
        id="shadow-right"
@@ -382,7 +390,7 @@
     <g
        id="bottom">
       <rect
-         transform="matrix(0,1,-1,0,0,0)"
+         transform="rotate(90)"
          style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none"
          id="rect4148"
          width="6"
@@ -466,39 +474,39 @@
        style="fill:#00ff00;fill-opacity:1;stroke:none"
        id="hint-top-inset"
        width="4"
-       height="0.000001"
+       height="1e-06"
        x="33"
        y="904.36218" />
     <rect
        y="954.36218"
        x="33"
-       height="0.000001"
+       height="1e-06"
        width="4"
        id="hint-bottom-inset"
        style="fill:#00ff00;fill-opacity:1;stroke:none" />
     <rect
        y="-63"
        x="930.36218"
-       height="0.000001"
+       height="1e-06"
        width="4"
        id="hint-right-inset"
        style="fill:#00ff00;fill-opacity:1;stroke:none"
-       transform="matrix(0,1,-1,0,0,0)" />
+       transform="rotate(90)" />
     <rect
        style="fill:#00ff00;fill-opacity:1;stroke:none"
        id="hint-left-inset"
        width="4"
-       height="0.000001"
+       height="1e-06"
        x="930.36218"
        y="-13.000004"
-       transform="matrix(0,1,-1,0,0,0)" />
+       transform="rotate(90)" />
     <text
        id="text4270"
        y="134.59453"
        x="195.14162"
-       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:justify;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Gill Sans"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:14px;line-height:125%;font-family:'Gill Sans';text-align:justify;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
        xml:space="preserve"><tspan
-         y="134.59453"
+         y="147.33278"
          x="195.14162"
          id="tspan4272"
          sodipodi:role="line" /></text>
@@ -696,18 +704,18 @@
        id="thick-hint-right-margin"
        width="4"
        height="8"
-       x="936.36218"
+       x="872.36218"
        y="-57" />
     <rect
        transform="rotate(90)"
        y="-21"
-       x="936.36218"
+       x="872.36218"
        height="8"
        width="4"
        id="thick-hint-left-margin"
        style="fill:#800080;fill-opacity:1;stroke:none;stroke-width:1.15470016" />
     <rect
-       y="910.36218"
+       y="846.36218"
        x="39"
        height="8"
        width="4"
@@ -719,6 +727,6 @@
        width="4"
        height="8"
        x="40"
-       y="946.36218" />
+       y="882.36218" />
   </g>
 </svg>
