@@ -53,7 +53,7 @@ if(HAVE_X11)
   endif()
 
   if(HAVE_GLX)
-    target_link_libraries(corebindingsplugin ${OPENGL_gl_LIBRARY})
+    target_link_libraries(corebindingsplugin OpenGL::GLX)
   endif()
 endif()
 
