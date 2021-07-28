@@ -20,9 +20,9 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      showgrid="false"
-     inkscape:zoom="7.1676301"
-     inkscape:cx="86.5"
-     inkscape:cy="28.042742"
+     inkscape:zoom="7.5562581"
+     inkscape:cx="71.265432"
+     inkscape:cy="14.292789"
      inkscape:window-width="1920"
      inkscape:window-height="1007"
      inkscape:window-x="0"
@@ -68,7 +68,8 @@
        class="ColorScheme-Text"
        transform="rotate(90)"
        d="m49-51h1v32h-1z"
-       opacity=".15" />
+       opacity=".15"
+       fill="currentColor" />
   </g>
   <path
      id="header-left"
@@ -91,7 +92,8 @@
        class="ColorScheme-Text"
        d="m57 49h-6v1h6c0-1-2e-5 0 0-1z"
        fill-rule="evenodd"
-       opacity=".15" />
+       opacity=".15"
+       fill="correntColor" />
   </g>
   <g
      id="header-bottomleft"
@@ -107,7 +109,8 @@
        class="ColorScheme-Text"
        d="m19 50v-1h-4l-2-2e-5v1l2 2e-5h1z"
        fill-rule="evenodd"
-       opacity=".15" />
+       opacity=".15"
+       fill="currentColor" />
   </g>
   <path
      id="footer-center"
@@ -145,7 +148,8 @@
        class="ColorScheme-Text"
        transform="matrix(0 -1 -1 0 0 0)"
        d="m-7-99h1v32h-1z"
-       opacity=".15" />
+       opacity=".15"
+       fill="currentColor" />
   </g>
   <path
      id="footer-left"
@@ -168,7 +172,8 @@
        class="ColorScheme-Text"
        d="m105 7h-6v-1h6c0 1-2e-5 0 0 1z"
        fill-rule="evenodd"
-       opacity=".15" />
+       opacity=".15"
+       fill="currentColor" />
   </g>
   <g
      id="footer-topleft"
@@ -184,7 +189,8 @@
        class="ColorScheme-Text"
        d="m67 6v1h-4l-2 2e-5v-1l2-2e-5h1z"
        fill-rule="evenodd"
-       opacity=".15" />
+       opacity=".15"
+       fill="currentColor" />
   </g>
   <path
      id="footer-bottomleft"
