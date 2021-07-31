@@ -48,7 +48,7 @@
                 "Name[zh_TW]": "Aaron Seigo"
             }
         ],
-        "Id": "Plasma/Applet",
+        "KPackageStructure": "Plasma/Applet",
         "Name": "Plasmoid",
         "Name[ar]": "بلازمويد",
         "Name[az]": "Plasma vidjeti, plasmoid",
@@ -92,10 +92,7 @@
         "Name[vi]": "Plasmoid",
         "Name[x-test]": "xxPlasmoidxx",
         "Name[zh_CN]": "小部件",
-        "Name[zh_TW]": "元件",
-        "ServiceTypes": [
-            "KPackage/PackageStructure"
-        ],
+        "Name[zh_TW]": "元件"
         "Version": "1"
     },
     "X-KDE-ParentApp": "org.kde.plasmashell"

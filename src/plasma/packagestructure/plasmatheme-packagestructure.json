@@ -48,7 +48,7 @@
                 "Name[zh_TW]": "Aaron Seigo"
             }
         ],
-        "Id": "Plasma/Theme",
+        "KPackageStructure": "Plasma/Theme",
         "Name": "Plasma Theme",
         "Name[ar]": "سمة بلازما",
         "Name[az]": "Plasma Mövzusu",
@@ -93,9 +93,6 @@
         "Name[x-test]": "xxPlasma Themexx",
         "Name[zh_CN]": "Plasma 主题",
         "Name[zh_TW]": "Plasma 主題",
-        "ServiceTypes": [
-            "KPackage/PackageStructure"
-        ],
         "Version": "1"
     },
     "X-KDE-ParentApp": "org.kde.plasmashell"
