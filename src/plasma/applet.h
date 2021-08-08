@@ -78,6 +78,18 @@ class PLASMA_EXPORT Applet : public QObject
 
 public:
     // CONSTRUCTORS
+
+    /**
+     * This constructor can be used with the KCoreAddons plugin loading system.
+     * The argument list is expected to have two elements: the KService service ID for the desktop entry
+     * and an applet ID which must be a base 10 number.
+     *
+     * @param parent a QObject parent; you probably want to pass in 0
+     * @param data, KPluginMetaData used to create this plugin
+     * @param args a list of strings containing the applet id
+     */
+    Applet(QObject *parentObject, const KPluginMetaData &data, const QVariantList &args);
+
     /**
      * @param parent the QObject this applet is parented to
      * @param serviceId the name of the .desktop file containing the

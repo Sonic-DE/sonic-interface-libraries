@@ -209,7 +209,7 @@ Applet *PluginLoader::loadApplet(const QString &name, uint appletId, const QVari
         if (p.metadata().serviceTypes().contains(QLatin1String("Plasma/Containment"))) {
             applet = new Containment(nullptr, allArgs);
         } else {
-            applet = new Applet(nullptr, allArgs);
+            applet = new Applet(nullptr, p.metadata(), allArgs);
         }
     }
 
