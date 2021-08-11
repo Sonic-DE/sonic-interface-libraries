@@ -161,7 +161,7 @@ T.TextField {
             id: clearButton
             //ltr confusingly refers to the direction of the arrow in the icon, not the text direction which it should be used in
             source: clearButtonShown ? (LayoutMirroring.enabled ? "edit-clear-locationbar-ltr" : "edit-clear-locationbar-rtl") : ""
-            height: Math.max(control.height * 0.8, PlasmaCore.Units.iconSizes.small)
+            height: Math.max(control.height * 0.5, PlasmaCore.Units.iconSizes.small)
             width: height
             opacity: (control.length > 0 && clearButtonShown && control.enabled) ? 1 : 0
             visible: opacity > 0
