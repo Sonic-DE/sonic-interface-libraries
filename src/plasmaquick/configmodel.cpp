@@ -235,9 +235,9 @@ QVariant ConfigModel::data(const QModelIndex &index, int role) const
         return d->categories.at(index.row())->visible();
     case KCMRole: {
         const QString pluginName = d->categories.at(index.row())->pluginName();
-        const QString pluginPath = KPluginLoader::findPlugin(pluginName);
+        KPluginMetaData data(pluginName);
         // no kcm is registered for this row, it's a normal qml-only entry
-        if (pluginName.isEmpty() || pluginPath.isEmpty()) {
+        if (pluginName.isEmpty() || data.fileName().isEmpty()) {
             return QVariant();
         }
 
@@ -245,16 +245,11 @@ QVariant ConfigModel::data(const QModelIndex &index, int role) const
             return QVariant::fromValue(d->kcms.value(pluginName));
         }
 
-        KPluginLoader loader(pluginPath);
-        KPluginFactory *factory = loader.factory();
-        if (!factory) {
-            qWarning() << "Error loading KCM:" << loader.errorString();
+        auto res = KPluginFactory::instantiatePlugin<KQuickAddons::ConfigModule>(data, const_cast<ConfigModel *>(this));
+        if (!res) {
+            qWarning() << "Error loading KCM:" << res.errorString;
         } else {
-            KQuickAddons::ConfigModule *cm = factory->create<KQuickAddons::ConfigModule>(const_cast<ConfigModel *>(this));
-            if (!cm) {
-                qWarning() << "Error creating KCM object from plugin" << loader.fileName();
-            }
-
+            KQuickAddons::ConfigModule *cm = res.plugin;
             if (QQmlContext *ctx = QQmlEngine::contextForObject(this)) {
                 // assign the ConfigModule the same QML context as we have so it can use the same QML engine as we do
                 QQmlEngine::setContextForObject(cm, ctx);
