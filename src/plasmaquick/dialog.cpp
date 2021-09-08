@@ -580,7 +580,7 @@ void DialogPrivate::syncToMainItemSize()
 {
     Q_ASSERT(mainItem);
 
-    if (!componentComplete) {
+    if (!componentComplete || !q->isExposed()) {
         return;
     }
     if (mainItem->width() <= 0 || mainItem->height() <= 0) {
@@ -1124,7 +1124,7 @@ void Dialog::resizeEvent(QResizeEvent *re)
     }
 
     // A dialog can be resized even if no mainItem has ever been set
-    if (!d->mainItem) {
+    if (!d->mainItem || !isExposed()) {
         return;
     }
 
