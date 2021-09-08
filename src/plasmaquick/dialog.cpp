@@ -575,7 +575,7 @@ void DialogPrivate::syncToMainItemSize()
 {
     Q_ASSERT(mainItem);
 
-    if (!componentComplete) {
+    if (!componentComplete || !visible) {
         return;
     }
     if (mainItem->width() <= 0 || mainItem->height() <= 0) {
