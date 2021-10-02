@@ -48,5 +48,16 @@ T.RadioButton {
         iconHeight: control.icon.height
         iconSource: control.icon.name || control.icon.source
         labelText: control.text
+        Rectangle { // As long as we don't enable antialiasing, not rounding should be fine
+            parent: control.contentItem
+            width: Math.min(parent.availableWidth, parent.implicitContentWidth)
+            height: PlasmaCore.Units.devicePixelRatio
+            x: parent.leftPadding
+            y: parent.topPadding
+                + (parent.availableHeight - parent.implicitContentHeight) / 2
+                + parent.implicitContentHeight + height
+            color: PlasmaCore.ColorScope.highlightColor
+            visible: control.visualFocus
+        }
     }
 }
