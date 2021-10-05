@@ -39,6 +39,10 @@ T.Control {
             colorGroup: root.PlasmaCore.ColorScope.colorGroup
             implicitWidth: PlasmaCore.Units.iconSizes.sizeForLabels
             implicitHeight: PlasmaCore.Units.iconSizes.sizeForLabels
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Layout.maximumWidth: implicitWidth > 0 ? implicitWidth : Number.POSITIVE_INFINITY
+            Layout.maximumHeight: implicitHeight > 0 ? implicitHeight : Number.POSITIVE_INFINITY
             Layout.alignment: if (root.display === T.AbstractButton.TextBesideIcon && label.visible) {
                 Qt.AlignRight | Qt.AlignVCenter
             } else if (root.display === T.AbstractButton.TextUnderIcon && label.visible) {
