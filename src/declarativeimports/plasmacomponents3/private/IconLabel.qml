@@ -13,19 +13,14 @@ T.Control {
     id: root
     property int alignment: 0 // Null alignment
     property int display: T.AbstractButton.TextBesideIcon
-    property alias labelText: label.text
-    property alias labelColor: label.color
-    property alias labelLinkColor: label.linkColor
-    property alias labelElide: label.elide
-    property alias iconWidth: iconItem.implicitWidth
-    property alias iconHeight: iconItem.implicitHeight
-    property alias iconSource: iconItem.source
-    property alias iconOverlays: iconItem.overlays
-    property alias iconActive: iconItem.active
-    property alias iconAnimated: iconItem.animated
-    property alias iconUsesPlasmaTheme: iconItem.usesPlasmaTheme
-    property alias iconRoundToIconSize: iconItem.roundToIconSize
-    property alias iconValid: iconItem.valid
+    readonly property bool iconOnly: display === T.AbstractButton.IconOnly || !label.visible
+    readonly property bool textOnly: display === T.AbstractButton.TextOnly || !iconItem.visible
+    readonly property bool textBesideIcon: display === T.AbstractButton.TextBesideIcon && iconItem.visible && label.visible
+    readonly property bool textUnderIcon: display === T.AbstractButton.TextUnderIcon && iconItem.visible && label.visible
+
+    property alias iconItem: iconItem
+    property alias label: label
+
     PlasmaCore.ColorScope.inherit: true
     implicitWidth: implicitContentWidth + leftPadding + rightPadding
     implicitHeight: implicitContentHeight + topPadding + bottomPadding
