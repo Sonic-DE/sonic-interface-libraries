@@ -119,6 +119,12 @@ class ToolTip : public QQuickItem
      */
     Q_PROPERTY(int timeout MEMBER m_timeout WRITE setTimeout)
 
+    /**
+     * Whether to dimiss tooltip when the mouse leaves the ToolTipArea even if not into the tooltip itself.
+     * The default is true.
+     */
+    Q_PROPERTY(bool dismissOnHoverLeave MEMBER m_dismissOnHoverLeave WRITE setDismissOnHoverLeave NOTIFY dismissOnHoverLeaveChanged)
+
 public:
     /// @cond INTERNAL_DOCS
     explicit ToolTip(QQuickItem *parent = nullptr);
@@ -153,6 +159,8 @@ public:
     void setInteractive(bool interactive);
 
     void setTimeout(int timeout);
+
+    void setDismissOnHoverLeave(bool dismissOnHoverLeave);
     /// @endcond
 
 public Q_SLOTS:
@@ -194,12 +202,19 @@ Q_SIGNALS:
     void locationChanged();
     void activeChanged();
     void interactiveChanged();
+    void dismissOnHoverLeaveChanged();
     /**
      * Emitted just before the tooltip dialog is shown.
      *
      * @since 5.45
      */
     void aboutToShow();
+    /**
+     * Emitted when the tooltip's visibility changes.
+     *
+     * @since 5.88
+     */
+    void toolTipVisibleChanged(bool toolTipVisible);
 
 private Q_SLOTS:
     void settingsChanged(const QString &file);
@@ -222,6 +237,7 @@ private:
     bool m_interactive;
     int m_interval;
     int m_timeout;
+    bool m_dismissOnHoverLeave;
 
     // ToolTipDialog is not a Q_GLOBAL_STATIC because QQuickwindows as global static
     // are deleted too later after some stuff in the qml runtime has already been deleted,

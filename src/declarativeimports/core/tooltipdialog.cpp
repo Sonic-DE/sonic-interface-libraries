@@ -62,6 +62,7 @@ void ToolTipDialog::showEvent(QShowEvent *event)
     if (m_hideTimeout > 0) {
         m_showTimer->start(m_hideTimeout);
     }
+
     Dialog::showEvent(event);
 }
 
