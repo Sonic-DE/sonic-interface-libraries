@@ -28,7 +28,6 @@ ToolTip::ToolTip(QQuickItem *parent)
     , m_active(true)
     , m_interactive(false)
     , m_timeout(4000)
-    , m_dismissOnHoverLeave(true)
     , m_usingDialog(false)
 {
     setAcceptHoverEvents(true);
@@ -248,17 +247,6 @@ void ToolTip::setInteractive(bool interactive)
     Q_EMIT interactiveChanged();
 }
 
-void ToolTip::setDismissOnHoverLeave(bool dismissOnHoverLeave)
-{
-    if (m_dismissOnHoverLeave == dismissOnHoverLeave) {
-        return;
-    }
-
-    m_dismissOnHoverLeave = dismissOnHoverLeave;
-
-    Q_EMIT dismissOnHoverLeaveChanged();
-}
-
 void ToolTip::setTimeout(int timeout)
 {
     m_timeout = timeout;
@@ -325,7 +313,7 @@ void ToolTip::setContainsMouse(bool contains)
         m_containsMouse = contains;
         Q_EMIT containsMouseChanged();
     }
-    if (!contains && m_dismissOnHoverLeave) {
+    if (!contains) {
         tooltipDialogInstance()->dismiss();
     }
 }
