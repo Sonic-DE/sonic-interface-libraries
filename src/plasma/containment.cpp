@@ -180,6 +180,12 @@ void Containment::restore(KConfigGroup &group)
     restoreContents(group);
     setImmutability((Types::ImmutabilityType)group.readEntry("immutability", (int)Types::Mutable));
 
+    KConfigGroup shortcutConfig(&group, "Shortcuts");
+    QString shortcutText = shortcutConfig.readEntryUntranslated("global", QString());
+    if (!shortcutText.isEmpty()) {
+        setGlobalShortcut(QKeySequence(shortcutText));
+    }
+
     if (isContainment() && KAuthorized::authorize(QStringLiteral("plasma/containment_actions"))) {
         KConfigGroup cfg = KConfigGroup(corona()->config(), "ActionPlugins");
         cfg = KConfigGroup(&cfg, QString::number(containmentType()));
