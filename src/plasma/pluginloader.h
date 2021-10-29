@@ -566,6 +566,7 @@ protected:
     virtual KPluginInfo::List internalContainmentActionsInfo() const;
 #endif
 
+#if PLASMA_ENABLE_DEPRECATED_SINCE(5, 88)
     /**
      * Standardized mechanism for providing internal applets by install .desktop files
      * in $APPPDATA/plasma/internal/applets/
@@ -604,6 +605,7 @@ protected:
      * @return list of services
      */
     KPluginInfo::List standardInternalServiceInfo() const;
+#endif
 
     PluginLoader();
     virtual ~PluginLoader();
