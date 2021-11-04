@@ -744,7 +744,6 @@ void DialogPrivate::applyType()
         if (shellSurface) {
             if (type == Dialog::OnScreenDisplay) {
                 shellSurface->setRole(KWayland::Client::PlasmaShellSurface::Role::OnScreenDisplay);
-                shellSurface->setPanelBehavior(KWayland::Client::PlasmaShellSurface::PanelBehavior::AlwaysVisible);
             } else if (q->flags() & Qt::WindowStaysOnTopHint) {
                 shellSurface->setRole(KWayland::Client::PlasmaShellSurface::Role::Panel);
                 shellSurface->setPanelBehavior(KWayland::Client::PlasmaShellSurface::PanelBehavior::WindowsGoBelow);
