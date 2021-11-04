@@ -692,6 +692,9 @@ void DialogPrivate::setupWaylandIntegration()
         return;
     }
     shellSurface = interface->createSurface(s, q);
+    if (type == Dialog::OnScreenDisplay) {
+        shellSurface->setRole(KWayland::Client::PlasmaShellSurface::Role::OnScreenDisplay);
+    }
 #endif
 }
 
@@ -736,15 +739,20 @@ void DialogPrivate::applyType()
         if (!wmType) {
             KWindowSystem::setType(q->winId(), static_cast<NET::WindowType>(type));
         }
+#if HAVE_KWAYLAND
+        if (type == Dialog::OnScreenDisplay) {
+            if (shellSurface) {
+                shellSurface->setRole(KWayland::Client::PlasmaShellSurface::Role::OnScreenDisplay);
+            }
+        }
+#endif
     } else {
         q->setFlags(Qt::FramelessWindowHint | q->flags());
 
 #if HAVE_KWAYLAND
         // Only possible after setup
         if (shellSurface) {
-            if (type == Dialog::OnScreenDisplay) {
-                shellSurface->setRole(KWayland::Client::PlasmaShellSurface::Role::OnScreenDisplay);
-            } else if (q->flags() & Qt::WindowStaysOnTopHint) {
+            if (q->flags() & Qt::WindowStaysOnTopHint) {
                 shellSurface->setRole(KWayland::Client::PlasmaShellSurface::Role::Panel);
                 shellSurface->setPanelBehavior(KWayland::Client::PlasmaShellSurface::PanelBehavior::WindowsGoBelow);
             } else {
