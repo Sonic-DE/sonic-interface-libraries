@@ -742,7 +742,10 @@ void DialogPrivate::applyType()
 #if HAVE_KWAYLAND
         // Only possible after setup
         if (shellSurface) {
-            if (q->flags() & Qt::WindowStaysOnTopHint) {
+            if (type == Dialog::OnScreenDisplay) {
+                shellSurface->setRole(KWayland::Client::PlasmaShellSurface::Role::OnScreenDisplay);
+                shellSurface->setPanelBehavior(KWayland::Client::PlasmaShellSurface::PanelBehavior::AlwaysVisible);
+            } else if (q->flags() & Qt::WindowStaysOnTopHint) {
                 shellSurface->setRole(KWayland::Client::PlasmaShellSurface::Role::Panel);
                 shellSurface->setPanelBehavior(KWayland::Client::PlasmaShellSurface::PanelBehavior::WindowsGoBelow);
             } else {
