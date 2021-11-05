@@ -692,9 +692,6 @@ void DialogPrivate::setupWaylandIntegration()
         return;
     }
     shellSurface = interface->createSurface(s, q);
-    if (type == Dialog::OnScreenDisplay) {
-        shellSurface->setRole(KWayland::Client::PlasmaShellSurface::Role::OnScreenDisplay);
-    }
 #endif
 }
 
