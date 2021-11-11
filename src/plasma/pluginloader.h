@@ -499,6 +499,7 @@ protected:
     virtual ContainmentActions *internalLoadContainmentActions(Containment *parent, const QString &containmentActionsName, const QVariantList &args);
 
 #if PLASMA_BUILD_DEPRECATED_SINCE(5, 86)
+    class Package; // FWD class so that excluding deprecated API does not cause an unknown type
     /**
      * A re-implementable method that allows subclasses to override
      * the default behaviour of loadPackage. If the service requested is not recognized,
