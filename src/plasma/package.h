@@ -364,6 +364,11 @@ private:
 }
 Q_DECLARE_METATYPE(Plasma::Package)
 
+#else
+namespace Plasma
+{
+class Package; // FWD class so that excluding deprecated API does not cause an unknown type
+}
 #endif // PLASMA_ENABLE_DEPRECATED_SINCE(5, 28)
 
 #endif
