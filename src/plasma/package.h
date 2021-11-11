@@ -26,6 +26,7 @@ class Package;
 
 namespace Plasma
 {
+class Package; // FWD class so that excluding deprecated API does not cause an unknown type
 /**
  * @class Package plasma/package.h <Plasma/Package>
  *
