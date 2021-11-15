@@ -9,6 +9,7 @@
 #include "utils.h"
 
 #include <KWindowSystem>
+#include <QScreen>
 
 void DialogNativeTest::initTestCase()
 {
@@ -84,8 +85,9 @@ void DialogNativeTest::position()
 {
     QVERIFY(QTest::qWaitForWindowExposed(m_dialog));
 
-    QCOMPARE(m_dialog->x(), 0);
-    QCOMPARE(m_dialog->y(), 49);
+    auto screenTopLeft = m_dialog->screen()->geometry().topLeft();
+    QCOMPARE(m_dialog->x(), screenTopLeft.x());
+    QCOMPARE(m_dialog->y(), screenTopLeft.y() + 49);
 
     m_dialog->setVisualParent(m_panel2->contentItem());
     QCOMPARE(m_dialog->x(), 69);
