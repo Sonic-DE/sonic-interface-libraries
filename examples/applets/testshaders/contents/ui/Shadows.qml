@@ -138,18 +138,18 @@ ShaderExample {
 
         ShaderEffect {
             anchors.fill: theItem
-            property variant source: theSource
-            property variant shadow: ShaderEffectSource {
+            property var source: theSource
+            property var shadow: ShaderEffectSource {
                 sourceItem: ShaderEffect {
                     width: theItem.width
                     height: theItem.height
-                    property variant delta: Qt.size(0.0, 1.0 / height)
-                    property variant source: ShaderEffectSource {
+                    property var delta: Qt.size(0.0, 1.0 / height)
+                    property var source: ShaderEffectSource {
                         sourceItem: ShaderEffect {
                             width: theItem.width
                             height: theItem.height
-                            property variant delta: Qt.size(1.0 / width, 0.0)
-                            property variant source: theSource
+                            property var delta: Qt.size(1.0 / width, 0.0)
+                            property var source: theSource
                             fragmentShader: "
                                 uniform lowp float qt_Opacity;
                                 uniform sampler2D source;
@@ -179,9 +179,9 @@ ShaderExample {
                 }
             }
             property real angle: 0
-            property variant offset: Qt.point(distanceSlider.value * Math.cos(angle), distanceSlider.value * Math.sin(angle))
+            property var offset: Qt.point(distanceSlider.value * Math.cos(angle), distanceSlider.value * Math.sin(angle))
             NumberAnimation on angle { loops: Animation.Infinite; from: 0; to: Math.PI * 2; duration: 6000 }
-            property variant delta: Qt.size(offset.x / width, offset.y / height)
+            property var delta: Qt.size(offset.x / width, offset.y / height)
             property real darkness: opacitySlider.value // Changeme
             fragmentShader: "
                 uniform lowp float qt_Opacity;
