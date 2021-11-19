@@ -58,7 +58,7 @@ Item {
      * The page to be automatically loaded when this PageStack component gets
      * instantiated.
      */
-    property variant initialPage
+    property var initialPage
 
     /** Indicates whether there is an ongoing page transition. */
     property bool busy: internal.ongoingTransitionCount > 0
