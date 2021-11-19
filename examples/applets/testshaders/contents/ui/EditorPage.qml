@@ -42,7 +42,7 @@ PlasmaComponents.Page {
     ShaderEffect {
         id: mainShader
         anchors.fill: editorPage
-        property variant source: effectSource
+        property var source: effectSource
         property real f: 0
         property real f2: 0
         property int intensity: 1
