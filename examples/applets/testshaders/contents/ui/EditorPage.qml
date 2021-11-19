@@ -48,6 +48,7 @@ PlasmaComponents.Page {
         property int intensity: 1
         smooth: true
     }
+
     PlasmaComponents.ToolButton {
         iconSource: "dialog-close"
         width: _h
@@ -57,11 +58,10 @@ PlasmaComponents.Page {
         onClicked: {
             mainShader.fragmentShader = "";
             mainShader.vertexShader = "";
-            editorPage.shader = ""
-            vertexPage.shader = ""
+            editorPage.shader = "";
+            vertexPage.shader = "";
         }
     }
-
 
     PlasmaExtras.Heading {
         id: heading
@@ -73,6 +73,7 @@ PlasmaComponents.Page {
         }
         text: pageName
     }
+
     PlasmaComponents.ButtonColumn {
         anchors {
             right: parent.right
@@ -132,9 +133,8 @@ PlasmaComponents.Page {
 
         }
 
-
-
     }
+
 //     PlasmaComponents.CheckBox {
 //         id: hideSourceCheckbox
 //         text: "Hide Source Item"

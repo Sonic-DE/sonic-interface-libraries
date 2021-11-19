@@ -25,7 +25,7 @@ ShaderExample {
             y: parent.height / 2
             width: parent.width
             height: parent.height
-//             clip: true
+            //clip: true
             anchors.topMargin: 48
             //anchors.leftMargin: 42
 
@@ -39,7 +39,7 @@ ShaderExample {
             }
 
             CustomParticle {
-                vertexShader:"
+                vertexShader: `
                     uniform lowp float qt_Opacity;
                     varying lowp float fFade;
                     varying highp vec2 fPos;
@@ -69,9 +69,9 @@ ShaderExample {
                         fFade = fadeIn * fadeOut * qt_Opacity;
                         fPos = vec2(pos.x/320., pos.y/480.);
                     }
-                "
+                `
                 //! [0]
-                fragmentShader: "
+                fragmentShader: `
                     varying highp vec2 fPos;
                     varying lowp float fFade;
                     varying highp vec2 qt_TexCoord0;
@@ -80,9 +80,9 @@ ShaderExample {
                         highp float dist = length(circlePos);
                         highp float circleFactor = max(min(1.0 - dist, 1.0), 0.0);
                         gl_FragColor = vec4(fPos.x*2.0 - fPos.y, fPos.y*2.0 - fPos.x, fPos.x*fPos.y*2.0, 0.0) * circleFactor * fFade;
-                    }"
+                    }
+                `
                 //! [0]
-
             }
         }
     }
