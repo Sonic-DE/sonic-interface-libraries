@@ -96,7 +96,7 @@ ShaderExample {
         id: wobbleShader
 
         anchors.fill: imageItem
-        //property real time
+
         property variant mouse
         property variant resolution
 
