@@ -170,9 +170,9 @@ Item {
         }
 
         if (initialPage) {
-            if (depth == 0) {
+            if (depth === 0) {
                 push(initialPage, null, true)
-            } else if (depth == 1) {
+            } else if (depth === 1) {
                 replace(initialPage, null, true)
             } else {
                 console.log("Cannot update PageStack.initialPage")
@@ -182,7 +182,7 @@ Item {
 
     Component.onCompleted: {
         internal.completed = true
-        if (initialPage && depth == 0)
+        if (initialPage && depth === 0)
             push(initialPage, null, true)
     }
 
