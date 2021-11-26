@@ -373,7 +373,6 @@ unsigned int SvgRectsCache::lastModifiedTimeFromCache(const QString &filePath)
 
 void SvgRectsCache::updateLastModified(const QString &filePath, unsigned int lastModified)
 {
-
     KConfigGroup imageGroup(m_svgElementsCache, filePath);
     const unsigned int savedTime = lastModifiedTimeFromCache(filePath);
 
