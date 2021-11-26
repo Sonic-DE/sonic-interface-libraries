@@ -492,9 +492,9 @@ bool SvgPrivate::setImagePath(const QString &imagePath)
 
     lastModified = lastModifiedDate.toSecsSinceEpoch();
 
-    const bool modifiedDateWasCaced = SvgRectsCache::instance()->loadImageFromCache(path, lastModified);
+    const bool imageWasCached = SvgRectsCache::instance()->loadImageFromCache(path, lastModified);
 
-    if (!modifiedDateWasCaced) {
+    if (!imageWasCached) {
         auto i = s_renderers.constBegin();
         while (i != s_renderers.constEnd()) {
             if (i.key().contains(path)) {
