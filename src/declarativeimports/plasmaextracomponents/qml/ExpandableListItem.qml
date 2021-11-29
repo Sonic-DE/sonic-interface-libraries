@@ -420,6 +420,7 @@ Item {
 
         // Handle right-click, if so defined
         onClicked: {
+            listItem.ListView.view.currentIndex = index;
             if (mouse.button == Qt.RightButton) {
                 if (contextMenu instanceof PlasmaComponents2.Menu) {
                     contextMenu.visualParent = parent
@@ -427,8 +428,6 @@ Item {
                     contextMenu.open(mouse.x, mouse.y)
                     return
                 }
-            } else {
-                listItem.ListView.view.currentIndex = index;
             }
         }
 
