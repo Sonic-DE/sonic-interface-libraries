@@ -33,6 +33,16 @@ Item {
 
     property var lastHoveredText: [];
 
+    function search_text(clist) {
+      let text_list = [];
+      for (let key in clist) {
+        const child = clist[key];
+        if (child instanceof Text) text_list.push(child);
+        if (child.children) text_list = [...text_list, ...search_text(child.children, text_list)]
+      }
+      return text_list;
+    }
+
     Connections {
         target: highlight.ListView.view
         function onCurrentIndexChanged() {
@@ -40,17 +50,6 @@ Item {
                 text_component.color = PlasmaCore.ColorScope.textColor;
             }
             if (highlight.ListView.view.currentIndex >= 0) {
-                function search_text(clist) {
-                  let text_list = [];
-                  for (let key in clist) {
-                    const child = clist[key];
-                    if (child instanceof Text) text_list.push(child);
-                    if (child.children) text_list = [...text_list, ...search_text(child.children, text_list)]
-                  }
-                  return text_list;
-                }
-
-
                 lastHoveredText = search_text(highlight.ListView.view.itemAtIndex(highlight.ListView.view.currentIndex).children);
                 for (const text_component of lastHoveredText) {
                     text_component.color = PlasmaCore.ColorScope.highlightedTextColor;
