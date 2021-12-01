@@ -75,9 +75,10 @@ Label {
 
     Accessible.role: Accessible.Heading
 
+    // TODO KF6: Make it private or refactor completely
     function headerPointSize(l) {
-        var n = PlasmaCore.Theme.defaultFont.pointSize;
-        var s;
+        console.warn("org.kde.plasma.extras/Heading::headerPointSize() is deprecated. Use font.pointSize directly instead");
+        const n = PlasmaCore.Theme.defaultFont.pointSize;
         switch (l) {
         case 1:
             return n * 1.35 + step;
