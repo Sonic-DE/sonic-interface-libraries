@@ -105,6 +105,10 @@ void WallpaperInterface::syncWallpaperPackage()
         return;
     }
 
+    if (m_wallpaperPlugin == QStringLiteral("org.kde.slideshow")) {
+        Q_EMIT slideShowClosed();
+    }
+
     m_wallpaperPlugin = m_containmentInterface->containment()->wallpaper();
 
     if (!m_qmlObject) {

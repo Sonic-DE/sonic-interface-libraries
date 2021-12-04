@@ -76,6 +76,13 @@ public:
 
 Q_SIGNALS:
     void packageChanged();
+
+    /**
+     * When pluginName is changed from "org.kde.slideshow" to others.
+     *
+     * @since 5.89
+     */
+    void slideShowClosed();
     void configurationChanged();
     void isLoadingChanged();
 
