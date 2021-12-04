@@ -35,6 +35,7 @@ class WallpaperInterface : public QQuickItem
     Q_OBJECT
 
     Q_PROPERTY(QString pluginName READ pluginName NOTIFY packageChanged)
+
     Q_PROPERTY(KDeclarative::ConfigPropertyMap *configuration READ configuration NOTIFY configurationChanged)
     Q_PROPERTY(bool loading MEMBER m_loading NOTIFY isLoadingChanged)
 
@@ -76,6 +77,13 @@ public:
 
 Q_SIGNALS:
     void packageChanged();
+
+    /**
+     * When pluginName is changed from "org.kde.slideshow" to others.
+     *
+     * @since 5.24
+     */
+    void slideShowClosed();
     void configurationChanged();
     void isLoadingChanged();
 
