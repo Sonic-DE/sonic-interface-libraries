@@ -10,13 +10,12 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 
-
 PlasmaCore.ColorScope {
-    id: tooltipContentItem
-
     property Item toolTip
     property int preferredTextWidth: PlasmaCore.Units.gridUnit * 20
 
+    // gridUnit is effectively equal to `PlasmaCore.Units.smallSpacing * 4`
+    // which is a double (both sides) of RowLayout's `anchors.margins`.
     Layout.minimumWidth: childrenRect.width + PlasmaCore.Units.gridUnit
     Layout.minimumHeight: childrenRect.height + PlasmaCore.Units.gridUnit
     Layout.maximumWidth: childrenRect.width + PlasmaCore.Units.gridUnit
@@ -24,6 +23,7 @@ PlasmaCore.ColorScope {
 
     LayoutMirroring.enabled: Qt.application.layoutDirection === Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
+
     colorGroup: PlasmaCore.Theme.NormalColorGroup
     inherit: false
 
@@ -32,24 +32,22 @@ PlasmaCore.ColorScope {
         anchors {
             left: parent.left
             top: parent.top
-            margins: PlasmaCore.Units.gridUnit / 2
+            margins: PlasmaCore.Units.smallSpacing * 2
         }
 
-        spacing: PlasmaCore.Units.largeSpacing
+        spacing: PlasmaCore.Units.gridUnit
 
         Image {
-            id: tooltipImage
             source: toolTip ? toolTip.image : ""
-            visible: toolTip != null && toolTip.image != ""
+            visible: toolTip !== null && toolTip.image !== ""
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
         }
 
         PlasmaCore.IconItem {
-            id: tooltipIcon
             animated: false
             source: toolTip ? toolTip.icon : ""
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            visible: toolTip != null && toolTip.icon != "" && toolTip.image == "" && valid
+            visible: toolTip !== null && toolTip.icon !== "" && toolTip.image === "" && valid
             Layout.preferredWidth: PlasmaCore.Units.iconSizes.medium
             Layout.preferredHeight: PlasmaCore.Units.iconSizes.medium
         }
@@ -59,17 +57,16 @@ PlasmaCore.ColorScope {
             spacing: 0
 
             PlasmaExtras.Heading {
-                id: tooltipMaintext
                 level: 3
                 Layout.fillWidth: true
                 elide: Text.ElideRight
                 wrapMode: Text.Wrap
                 text: toolTip ? toolTip.mainText : ""
                 textFormat: Text.PlainText
-                visible: text != ""
+                visible: text !== ""
             }
+
             PlasmaComponents.Label {
-                id: tooltipSubtext
                 Layout.fillWidth: true
                 // Unset Label default height, confuses the layout engine completely
                 // either shifting the item vertically or letting it get too wide
@@ -78,10 +75,9 @@ PlasmaCore.ColorScope {
                 text: toolTip ? toolTip.subText : ""
                 textFormat: toolTip ? toolTip.textFormat : Text.AutoText
                 opacity: 0.6
-                visible: text != ""
+                visible: text !== ""
                 maximumLineCount: 8
             }
         }
     }
 }
-
