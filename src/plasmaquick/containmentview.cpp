@@ -226,8 +226,8 @@ void ContainmentView::destroy()
 {
     QObject *graphicObject = d->containment->property("_plasma_graphicObject").value<QObject *>();
     if (auto item = qobject_cast<QQuickItem *>(graphicObject)) {
-        item->setParentItem(nullptr); // First, remove the item from the view
         item->setVisible(false);
+        item->setParentItem(nullptr); // First, remove the item from the view
     }
     deleteLater(); // delete the view
 }
