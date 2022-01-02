@@ -1,10 +1,7 @@
-/*
-    SPDX-FileCopyrightText: 2011 Daker Fernandes Pinheiro <dakerfp@gmail.com>
+// SPDX-FileCopyrightText: 2011 Daker Fernandes Pinheiro <dakerfp@gmail.com>
+// SPDX-License-Identifier: LGPL-2.0-or-later
 
-    SPDX-License-Identifier: LGPL-2.0-or-later
-*/
-
-import QtQuick 2.1
+import QtQuick 2.15
 import org.kde.plasma.core 2.0 as PlasmaCore
 
 /**
@@ -15,24 +12,40 @@ import org.kde.plasma.core 2.0 as PlasmaCore
  * Provides built-in animation of Behavior on opacity Easing.OutQuad for a
  * duration of 50ms (defined in PlasmaCore.Units.veryShortDuration).
  *
- * (TODO, make optional? e.g. animate: false)
+ * @code{.qml}
+ * import QtQuick 2.15
+ * import org.kde.plasma.extras 2.0 as PlasmaExtras
+ *
+ * ListView {
+ *     highlightFollowsCurrentItem: true
+ *     highlight: PlasmaExtras.Highlight { }
+ *     highlightMoveDuration: 0
+ *     highlightResizeDuration: 0
+ *     currentIndex: -1
+ * }
+ *
+ * @endcode
  *
  * @inherit QtQuick.Item
- * @deprecated Use PlasmaExtras.Highlight instead.
  */
 Item {
     id: highlight
 
-    /** true if the user is hovering over the component */
-    //in the case we are the highlight of a listview, it follows the mouse, so hover = true
+    /**
+     * This property holds whether the control is hovered.
+     */
     property bool hover: ListView ? true : false
+    // in the case we are the highlight of a listview, it follows the mouse, so hover = true
 
-    /** true if the mouse button is pressed over the component. */
+    /**
+     * This property holds whether the button is physically pressed. A button can
+     * be pressed by either touch or key events.
+     */
     property bool pressed: false
-    width: ListView.view ? ListView.view.width : undefined
+
     property alias marginHints: background.margins;
 
-    Component.onCompleted: console.warn("PlasmaComponents2.Highlight is deprecated. Use PlasmaExtras.Highlight instead.")
+    width: ListView.view ? ListView.view.width : undefined
 
     Connections {
         target: highlight.ListView.view
@@ -56,11 +69,13 @@ Item {
         id: background
         imagePath: "widgets/viewitem"
         prefix: {
-            if (pressed)
-                return hover ? "selected+hover" : "selected";
+            if (pressed) {
+                return hovered ? "selected+hover" : "selected";
+            }
 
-            if (hover)
+            if (hovered) {
                 return "hover";
+            }
 
             return "normal";
         }
@@ -72,13 +87,6 @@ Item {
             }
         }
 
-        anchors {
-            fill: parent
-        //FIXME: breaks listviews and highlight item
-        //    topMargin: -background.margins.top
-        //    leftMargin: -background.margins.left
-        //    bottomMargin: -background.margins.bottom
-        //    rightMargin: -background.margins.right
-        }
+        anchors.fill: parent
     }
 }
