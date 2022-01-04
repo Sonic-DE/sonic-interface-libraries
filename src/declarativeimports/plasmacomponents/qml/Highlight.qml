@@ -32,7 +32,7 @@ Item {
     width: ListView.view ? ListView.view.width : undefined
     property alias marginHints: background.margins;
 
-    Component.onCompleted: console.warn("PlasmaComponents2.Highlight is deprecated. Use PlasmaExtras.Highlight instead.")
+    Component.onCompleted: console.warn("PlasmaComponents2.Highlight is deprecated. Use PlasmaExtras.Highlight instead.", (new Error).stack)
 
     Connections {
         target: highlight.ListView.view
