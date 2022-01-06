@@ -240,4 +240,12 @@ T.TextField {
         id: lineEditSvg
         imagePath: "widgets/lineedit"
     }
+
+    // Workaround I-beam cursor not being used when
+    // readOnly == true && selectByMouse == true.
+    // https://bugreports.qt.io/browse/QTBUG-99604
+    // Shouldn't interfere with TextField::hovered.
+    HoverHandler {
+        cursorShape: control.selectByMouse ? Qt.IBeamCursor : undefined
+    }
 }
