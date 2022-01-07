@@ -1167,6 +1167,7 @@ void ContainmentInterface::itemChange(ItemChange change, const ItemChangeData &v
         } else if (m_wallpaperInterface) {
             m_wallpaperInterface->deleteLater();
             m_wallpaperInterface = nullptr;
+            Q_EMIT wallpaperInterfaceChanged();
         }
     }
 
