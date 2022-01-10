@@ -411,7 +411,9 @@ const QString ThemePrivate::processStyleSheet(const QString &css, Plasma::Svg::S
     // If you add elements here, make sure their names are sufficiently unique to not cause
     // clashes between element keys
     elements[QStringLiteral("%textcolor")] =
-        color(status == Svg::Status::Selected ? Theme::HighlightedTextColor : Theme::TextColor, Theme::NormalColorGroup).name();
+        color(status == Svg::Status::Selected ? Theme::HighlightedTextColor : (Svg::Status::Inactive ? Theme::DisabledTextColor : Theme::TextColor),
+              Theme::NormalColorGroup)
+            .name();
     elements[QStringLiteral("%backgroundcolor")] =
         color(status == Svg::Status::Selected ? Theme::HighlightColor : Theme::BackgroundColor, Theme::NormalColorGroup).name();
     elements[QStringLiteral("%highlightcolor")] = color(Theme::HighlightColor, Theme::NormalColorGroup).name();
