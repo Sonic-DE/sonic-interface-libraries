@@ -20,6 +20,7 @@ T.TextField {
     /**
      * Whether the button to clear the text from TextField is visible.
      * @since 5.73
+     * @deprecated since 5.92 Use SearchField instead
      */
     property bool clearButtonShown: false
 
