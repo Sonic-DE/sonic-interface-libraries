@@ -51,7 +51,7 @@ PlasmaExtras.ActionTextField {
         anchors.bottomMargin: Math.round((parent.implicitHeight - implicitHeight) / 2 + (parent.bottomPadding - parent.topPadding) / 2)
         implicitHeight: PlasmaCore.Units.iconSizes.sizeForLabels
         implicitWidth: PlasmaCore.Units.iconSizes.sizeForLabels
-        // TODO placeholder color
+        status: PlasmaCore.Svg.Inactive
 
         source: "search"
 
