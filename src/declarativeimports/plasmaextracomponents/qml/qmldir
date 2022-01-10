@@ -2,6 +2,8 @@ module org.kde.plasma.extras
 plugin plasmaextracomponentsplugin
 
 App 2.0 App.qml
+ActionTextField 2.0 ActionTextField.qml
+SearchField 2.0 SearchField.qml
 ConditionalLoader 2.0 ConditionalLoader.qml
 ListItem 2.0 ListItem.qml
 ExpandableListItem 2.0 ExpandableListItem.qml
