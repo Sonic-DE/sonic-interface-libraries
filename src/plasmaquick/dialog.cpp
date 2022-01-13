@@ -753,23 +753,28 @@ void DialogPrivate::applyType()
             default:
                 break;
             }
+            if (q->flags() & Qt::WindowStaysOnTopHint) {
+                shellSurface->setPanelBehavior(KWayland::Client::PlasmaShellSurface::PanelBehavior::WindowsGoBelow);
+            } else {
+                shellSurface->setPanelBehavior(KWayland::Client::PlasmaShellSurface::PanelBehavior::AlwaysVisible);
+            }
         }
 #endif
     } else {
         q->setFlags(Qt::FramelessWindowHint | q->flags());
-    }
-
 #if HAVE_KWAYLAND
-    // Only possible after setup
-    if (shellSurface) {
-        if (q->flags() & Qt::WindowStaysOnTopHint) {
-            shellSurface->setRole(KWayland::Client::PlasmaShellSurface::Role::Panel);
-            shellSurface->setPanelBehavior(KWayland::Client::PlasmaShellSurface::PanelBehavior::WindowsGoBelow);
-        } else {
-            shellSurface->setRole(KWayland::Client::PlasmaShellSurface::Role::Normal);
-            shellSurface->setPanelBehavior(KWayland::Client::PlasmaShellSurface::PanelBehavior::AlwaysVisible);
+        // Only possible after setup
+        if (shellSurface) {
+            if (q->flags() & Qt::WindowStaysOnTopHint) {
+                shellSurface->setRole(KWayland::Client::PlasmaShellSurface::Role::Panel);
+                shellSurface->setPanelBehavior(KWayland::Client::PlasmaShellSurface::PanelBehavior::WindowsGoBelow);
+            } else {
+                shellSurface->setRole(KWayland::Client::PlasmaShellSurface::Role::Normal);
+                shellSurface->setPanelBehavior(KWayland::Client::PlasmaShellSurface::PanelBehavior::AlwaysVisible);
+            }
         }
     }
+
 #endif
 
     // an OSD can't be a Dialog, as qt xcb would attempt to set a transient parent for it
