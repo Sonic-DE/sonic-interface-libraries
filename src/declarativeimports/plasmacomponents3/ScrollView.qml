@@ -28,6 +28,8 @@ T.ScrollView {
     data: [
         Kirigami.WheelHandler {
             target: controlRoot.contentItem
+            horizontalStepSize: Qt.styleHints.wheelScrollLines * 20 * PlasmaCore.Units.devicePixelRatio
+            verticalStepSize: Qt.styleHints.wheelScrollLines * 20 * PlasmaCore.Units.devicePixelRatio
         }
     ]
 
