@@ -38,6 +38,14 @@ class WallpaperInterface : public QQuickItem
     Q_PROPERTY(KDeclarative::ConfigPropertyMap *configuration READ configuration NOTIFY configurationChanged)
     Q_PROPERTY(bool loading MEMBER m_loading NOTIFY isLoadingChanged)
 
+    /**
+     * Provides access to the ID of the screen where the wallpaper interface is on.
+     * Can be useful to figure out if a wallpaper is on the primary screen.
+     *
+     * @since 5.92
+     */
+    Q_PROPERTY(int screen READ screen NOTIFY screenChanged)
+
 public:
     explicit WallpaperInterface(ContainmentInterface *parent = nullptr);
     ~WallpaperInterface() override;
@@ -74,10 +82,25 @@ public:
 
     bool isLoading() const;
 
+    /**
+     * Returns the ID of thescreen where the wallpaper interface is on.
+     *
+     * @return the screen ID
+     * @since 5.92
+     */
+    int screen() const;
+
 Q_SIGNALS:
     void packageChanged();
     void configurationChanged();
     void isLoadingChanged();
+
+    /**
+     * Emits when the screen ID has changed.
+     *
+     * @since 5.92
+     */
+    void screenChanged();
 
 private Q_SLOTS:
     void syncWallpaperPackage();

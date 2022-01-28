@@ -43,6 +43,7 @@ WallpaperInterface::WallpaperInterface(ContainmentInterface *parent)
         syncWallpaperPackage();
     }
     connect(m_containmentInterface->containment(), &Plasma::Containment::wallpaperChanged, this, &WallpaperInterface::syncWallpaperPackage);
+    connect(m_containmentInterface, &ContainmentInterface::screenChanged, this, &WallpaperInterface::screenChanged);
 }
 
 WallpaperInterface::~WallpaperInterface()
@@ -257,6 +258,11 @@ WallpaperInterface *WallpaperInterface::qmlAttachedProperties(QObject *object)
 bool WallpaperInterface::isLoading() const
 {
     return m_loading;
+}
+
+int WallpaperInterface::screen() const
+{
+    return m_containmentInterface->screen();
 }
 
 #include "moc_wallpaperinterface.cpp"
