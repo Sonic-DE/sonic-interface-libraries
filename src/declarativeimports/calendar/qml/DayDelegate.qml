@@ -29,7 +29,7 @@ PlasmaComponents3.AbstractButton {
     readonly property date thisDate: new Date(yearNumber, typeof monthNumber !== "undefined" ? monthNumber - 1 : 0, typeof dayNumber !== "undefined" ? dayNumber : 1)
 
     Accessible.name: thisDate.toLocaleDateString(Qt.locale(), Locale.LongFormat)
-    Accessible.description: (model.eventCount !== undefined && model.eventCount > 0) ? i18ndp("libplasma5", "%1 event", "%1 events") : ''
+    Accessible.description: (model.eventCount !== undefined && model.eventCount > 0) ? i18ndp("libplasma5", "%1 event", "%1 events") : i18nd("libplasma5", "No events")
 
     readonly property bool today: {
         const today = root.today;
