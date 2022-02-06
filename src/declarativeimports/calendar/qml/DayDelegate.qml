@@ -94,14 +94,49 @@ PlasmaComponents3.AbstractButton {
         }
     }
 
-    contentItem: PlasmaExtras.Heading {
-        id: label
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-        text: model.label || dayNumber
-        opacity: isCurrent ? 1.0 : 0.5
-        wrapMode: Text.NoWrap
-        elide: Text.ElideRight
-        fontSizeMode: Text.HorizontalFit
+    // TODO: Add a tooltip to show full alternate date
+
+    contentItem: Item {
+        // ColumnLayout makes scrolling too slow, so use anchors to position labels
+        anchors.fill: parent
+
+        PlasmaExtras.Heading {
+            id: label
+            anchors {
+                left: parent.left
+                right: parent.right
+                top: parent.top
+                bottom: subDayLabel.top
+            }
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            text: model.label || dayNumber
+            opacity: isCurrent ? 1.0 : 0.5
+            wrapMode: Text.NoWrap
+            elide: Text.ElideRight
+            fontSizeMode: Text.HorizontalFit
+        }
+
+        Loader {
+            id: subDayLabel
+            active: !!model.subDayLabel && model.subDayLabel.length > 0
+            anchors {
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+            }
+
+            sourceComponent: PlasmaComponents3.Label {
+                elide: Text.ElideRight
+                font.pointSize: Kirigami.Theme.smallFont.pointSize
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                maximumLineCount: 1
+                opacity: label.opacity
+                text: model.subDayLabel
+                textFormat: Text.PlainText
+                wrapMode: Text.NoWrap
+            }
+        }
     }
 }
