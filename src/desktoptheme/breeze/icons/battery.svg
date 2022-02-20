@@ -913,8 +913,7 @@
          inkscape:connector-curvature="0" />
     </g>
     <g
-       id="g12519"
-       inkscape:label="profile-powersave"
+       id="profile-powersave"
        transform="translate(0,44.000005)">
       <rect
          y="404.50504"
@@ -937,8 +936,7 @@
          transform="translate(214.53572,404.50504)" />
     </g>
     <g
-       id="g12821"
-       inkscape:label="profile-performance"
+       id="profile-performance"
        transform="translate(0,66.000005)">
       <rect
          y="404.50504"
