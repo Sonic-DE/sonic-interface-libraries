@@ -396,7 +396,12 @@ void WindowThumbnail::iconToTexture(WindowTextureProvider *textureProvider)
 #if HAVE_GLX
 bool WindowThumbnail::windowToTextureGLX(WindowTextureProvider *textureProvider)
 {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     if (window()->openglContext()) {
+#else
+    const auto openglContext = static_cast<QOpenGLContext *>(window()->rendererInterface()->getResource(window(), QSGRendererInterface::OpenGLContextResource));
+    if (openglContext) {
+#endif
         if (!m_openGLFunctionsResolved) {
             resolveGLXFunctions();
         }
@@ -425,7 +430,12 @@ bool WindowThumbnail::windowToTextureGLX(WindowTextureProvider *textureProvider)
                 return false;
             }
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
             textureProvider->setTexture(window()->createTextureFromId(m_texture, QSize(geo->width, geo->height), QQuickWindow::TextureCanUseAtlas));
+#else
+            textureProvider->setTexture(
+                QNativeInterface::QSGOpenGLTexture::fromNative(m_texture, window(), QSize(geo->width, geo->height), QQuickWindow::TextureCanUseAtlas));
+#endif
         }
         textureProvider->texture()->bind();
         bindGLXTexture();
@@ -473,7 +483,11 @@ bool WindowThumbnail::xcbWindowToTextureEGL(WindowTextureProvider *textureProvid
                 size.setWidth(geo->width);
                 size.setHeight(geo->height);
             }
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
             textureProvider->setTexture(window()->createTextureFromId(m_texture, size, QQuickWindow::TextureCanUseAtlas));
+#else
+            textureProvider->setTexture(QNativeInterface::QSGOpenGLTexture::fromNative(m_texture, window(), size, QQuickWindow::TextureCanUseAtlas));
+#endif
         }
         textureProvider->texture()->bind();
         bindEGLTexture();
@@ -488,7 +502,11 @@ void WindowThumbnail::resolveEGLFunctions()
     if (display == EGL_NO_DISPLAY) {
         return;
     }
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     auto *context = window()->openglContext();
+#else
+    auto *context = static_cast<QOpenGLContext *>(window()->rendererInterface()->getResource(window(), QSGRendererInterface::OpenGLContextResource));
+#endif
     QList<QByteArray> extensions = QByteArray(eglQueryString(display, EGL_EXTENSIONS)).split(' ');
     if (extensions.contains(QByteArrayLiteral("EGL_KHR_image")) //
         || (extensions.contains(QByteArrayLiteral("EGL_KHR_image_base")) //
@@ -567,7 +585,11 @@ xcb_pixmap_t WindowThumbnail::pixmapForWindow()
 #if HAVE_GLX
 void WindowThumbnail::resolveGLXFunctions()
 {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     auto *context = window()->openglContext();
+#else
+    auto *context = static_cast<QOpenGLContext *>(window()->rendererInterface()->getResource(window(), QSGRendererInterface::OpenGLContextResource));
+#endif
     QList<QByteArray> extensions = QByteArray(glXQueryExtensionsString(QX11Info::display(), QX11Info::appScreen())).split(' ');
     if (extensions.contains(QByteArrayLiteral("GLX_EXT_texture_from_pixmap"))) {
         m_bindTexImage = context->getProcAddress(QByteArrayLiteral("glXBindTexImageEXT"));
