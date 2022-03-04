@@ -173,7 +173,7 @@ bool ThemePrivate::useCache()
             QString currentCacheFileName;
             if (!themeMetadataPath.isEmpty()) {
                 // now we record the theme version, if we can
-                const KPluginInfo pluginInfo(themeMetadataPath);
+                const KPluginMetaData pluginInfo(themeMetadataPath);
                 if (pluginInfo.isValid()) {
                     themeVersion = pluginInfo.version();
                 }
@@ -622,7 +622,7 @@ void ThemePrivate::settingsFileChanged(const QString &file)
 {
     qCDebug(LOG_PLASMA) << "settingsFile: " << file;
     if (file == themeMetadataPath) {
-        const KPluginInfo pluginInfo(themeMetadataPath);
+        const KPluginMetaData pluginInfo(themeMetadataPath);
         if (!pluginInfo.isValid() || themeVersion != pluginInfo.version()) {
             scheduleThemeChangeNotification(SvgElementsCache);
         }
