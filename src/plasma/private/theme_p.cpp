@@ -58,9 +58,12 @@ KPluginMetaData getMetaDataForTheme(const QString &theme)
         return KPluginMetaData::fromJsonFile(packageBasePath + QLatin1String("/metadata.json"));
     }
 #if KCOREADDONS_BUILD_DEPRECATED_SINCE(5, 92)
+    QT_WARNING_PUSH
+    QT_WARNING_DISABLE_DEPRECATED
     else if (QFileInfo::exists(packageBasePath + QLatin1String("/metadata.desktop"))) {
         return KPluginMetaData::fromDesktopFile(packageBasePath + QLatin1String("/metadata.desktop"));
     }
+    QT_WARNING_POP
 #endif
     else {
         qCWarning(LOG_PLASMA) << "Could not locate metadata for theme" << theme;
@@ -651,8 +654,8 @@ void ThemePrivate::settingsFileChanged(const QString &file)
 {
     qCDebug(LOG_PLASMA) << "settingsFile: " << file;
     if (file == themeMetadataPath) {
-        const KPluginInfo pluginInfo(themeMetadataPath);
-        if (!pluginInfo.isValid() || themeVersion != pluginInfo.version()) {
+        const KPluginMetaData data = getMetaDataForTheme(themeName);
+        if (!data.isValid() || themeVersion != data.version()) {
             scheduleThemeChangeNotification(SvgElementsCache);
         }
     } else if (file.endsWith(QLatin1String(themeRcFile))) {
