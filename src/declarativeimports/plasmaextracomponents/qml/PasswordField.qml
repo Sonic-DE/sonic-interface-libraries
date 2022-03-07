@@ -18,7 +18,7 @@ import org.kde.plasma.extras 2.0 as PlasmaExtras
  * }
  * @endcode
  *
- * @since 5.91
+ * @since 5.93
  * @inherit org::kde::plasma::extras::ActionTextField
  * @author Carl Schwan <carl@carlschwan.eu>
  */
@@ -29,7 +29,7 @@ PlasmaExtras.ActionTextField {
      * This property holds whether we show the clear text password.
      *
      * By default, it's false.
-     * @since 5.91
+     * @since 5.93
      */
     property bool showPassword: false
 

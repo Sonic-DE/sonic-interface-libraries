@@ -42,7 +42,7 @@ import org.kde.plasma.core 2.0 as PlasmaCore
  * @endcode
  *
  * @inherit QtQuick.Controls.TextField
- * @since 5.91
+ * @since 5.93
  * @author Carl Schwan <carl@carlschwan.eu>
  */
 PlasmaComponents3.TextField {
@@ -51,7 +51,7 @@ PlasmaComponents3.TextField {
     /**
      * This property holds a shortcut sequence that will focus the text field.
      *
-     * @since 5.91
+     * @since 5.93
      */
     property string focusSequence
 
@@ -60,7 +60,7 @@ PlasmaComponents3.TextField {
      *
      * By default this list is empty.
      *
-     * @since 5.91
+     * @since 5.93
      */
     property list<QQC2.Action> leftActions
 
@@ -69,7 +69,7 @@ PlasmaComponents3.TextField {
      *
      * By default this list is empty.
      *
-     * @since 5.91
+     * @since 5.93
      */
     property list<QQC2.Action> rightActions
 

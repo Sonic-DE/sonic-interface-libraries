@@ -23,7 +23,7 @@ import org.kde.plasma.core 2.0 as PlasmaCore
  * @endcode
  *
  * @inherit org::plasmas::extras::ActionTextField
- * @since 5.91
+ * @since 5.93
  */
 PlasmaExtras.ActionTextField {
     id: root
