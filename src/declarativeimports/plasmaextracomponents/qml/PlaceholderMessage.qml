@@ -213,8 +213,8 @@ ColumnLayout {
         opacity: 0.5
 
         Layout.alignment: Qt.AlignHCenter
-        Layout.preferredWidth: PlasmaCore.Units.iconSizes.huge
-        Layout.preferredHeight: PlasmaCore.Units.iconSizes.huge
+        Layout.preferredWidth: Math.round(PlasmaCore.Units.iconSizes.huge * 1.5)
+        Layout.preferredHeight: Math.round(PlasmaCore.Units.iconSizes.huge * 1.5)
 
         source: root.iconName || null
     }
@@ -223,8 +223,7 @@ ColumnLayout {
         text: root.text
         visible: text.length > 0
 
-        level: 2
-        opacity: 0.5
+        type: PlasmaExtras.Heading.Primary
 
         Layout.fillWidth: true
         horizontalAlignment: Qt.AlignHCenter
@@ -236,8 +235,6 @@ ColumnLayout {
         text: root.explanation
         visible:  root.explanation !== ""
 
-        opacity: 0.5
-
         horizontalAlignment: Qt.AlignHCenter
         wrapMode: Text.WordWrap
 
@@ -248,6 +245,7 @@ ColumnLayout {
         id: actionButton
 
         Layout.alignment: Qt.AlignHCenter
+        Layout.topMargin: Kirigami.Units.gridUnit
 
         visible: action && action.enabled
     }
