@@ -237,7 +237,7 @@ QVariant ConfigModel::data(const QModelIndex &index, int role) const
             if (!d->appletInterface.data()->kPackage().isValid()) {
                 qWarning() << "wrong applet" << d->appletInterface.data()->pluginMetaData().name();
             }
-            return d->appletInterface.data()->kPackage().fileUrl("ui", source);
+            return d->appletInterface.data()->kPackage().filePath("ui", source);
         } else {
             return source;
         }
