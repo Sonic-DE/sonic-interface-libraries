@@ -270,14 +270,19 @@ ConfigView::ConfigView(Plasma::Applet *applet, QWindow *parent)
     , d(new ConfigViewPrivate(applet, this))
 {
     setIcon(QIcon::fromTheme(QStringLiteral("configure")));
-    qmlRegisterType<ConfigModel>("org.kde.plasma.configuration", 2, 0, "ConfigModel");
-    qmlRegisterType<ConfigCategory>("org.kde.plasma.configuration", 2, 0, "ConfigCategory");
+    // HACK for QTBUG-89406: Only register once to avoid memory leak
+    [[maybe_unused]] static int configModelRegisterResult = qmlRegisterType<ConfigModel>("org.kde.plasma.configuration", 2, 0, "ConfigModel");
+    [[maybe_unused]] static int configCategoryRegisterResult = qmlRegisterType<ConfigCategory>("org.kde.plasma.configuration", 2, 0, "ConfigCategory");
     d->init();
     connect(applet, &QObject::destroyed, this, &ConfigView::close);
     connect(this, &QQuickView::statusChanged, [=](QQuickView::Status status) {
         if (status == QQuickView::Ready) {
             d->mainItemLoaded();
         }
+    });
+
+    connect(engine(), &QObject::destroyed, this, [] {
+        qCritical() << "engine destroyed";
     });
 }
 
