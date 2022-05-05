@@ -684,6 +684,8 @@ void FrameSvgItem::componentComplete()
 
 void FrameSvgItem::updateDevicePixelRatio()
 {
+    if (qEnvironmentVariableIsSet("PLASMA_USE_QT_SCALING")) return;
+
     m_frameSvg->setScaleFactor(qMax<qreal>(1.0, floor(Units::instance().devicePixelRatio())));
 
     // devicepixelratio is always set integer in the svg, so needs at least 192dpi to double up.
