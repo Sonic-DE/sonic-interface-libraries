@@ -688,7 +688,15 @@ void ContainmentInterface::mimeTypeRetrieved(KIO::Job *job, const QString &mimet
                     m_dropMenu->addAction(action);
                     actionsToWallpapers.insert(action, info.pluginId());
                     const QUrl url = tjob->url();
-                    connect(action, &QAction::triggered, this, [this, url]() {
+                    connect(action, &QAction::triggered, this, [this, info, url]() {
+                        // Change wallpaper plugin if it's not the current one
+                        qCritical() << info.pluginId();
+                        if (m_wallpaperInterface && containment()->wallpaper() != info.pluginId()) {
+                            deleteWallpaperInterface();
+                            // Will call loadWallpaper and create a new wallpaper interface
+                            containment()->setWallpaper(info.pluginId());
+                        }
+
                         // set wallpapery stuff
                         if (m_wallpaperInterface && url.isValid()) {
                             m_wallpaperInterface->setUrl(url);
