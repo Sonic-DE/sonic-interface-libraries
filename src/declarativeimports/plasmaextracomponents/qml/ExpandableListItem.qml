@@ -287,19 +287,15 @@ Item {
      */
     property bool isDefault: false
 
-    readonly property int enabledActions: {
-        if (contextualActionsModel) {
-            return Array.from(contextualActionsModel).filter(item => item.enabled).length > 0;
-        }
-        return 0;
-    }
+    readonly property bool hasEnabledActions: Array.from(contextualActionsModel).some(action => action.enabled)
+
     /*
      * hasExpandableContent: bool (read-only)
      * Whether or not this expandable list item is actually expandable. True if
      * this item has either a custom view or else at least one enabled action.
      * Otherwise false.
      */
-    readonly property bool hasExpandableContent: customExpandedViewContent || enabledActions > 0
+    readonly property bool hasExpandableContent: customExpandedViewContent || hasEnabledActions
 
     /*
      * expand()
@@ -552,7 +548,7 @@ Item {
 
                     visible: status == Loader.Ready
 
-                    active: expandedView.expanded && listItem.enabledActions > 0
+                    active: expandedView.expanded && listItem.hasEnabledActions
 
                     Layout.fillWidth: true
 
