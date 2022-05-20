@@ -11,6 +11,13 @@
 #if PLASMA_ENABLE_DEPRECATED_SINCE(5, 94)
 #include <KPluginInfo>
 #include <plasma/package.h>
+#else
+class KPluginInfo
+{
+public:
+    typedef QList<KPluginInfo> List;
+    void *d;
+};
 #endif
 
 #include <plasma/plasma.h>
