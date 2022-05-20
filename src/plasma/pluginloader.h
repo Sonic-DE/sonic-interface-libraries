@@ -18,6 +18,7 @@
 #include <QVariant>
 
 class KPluginMetaData;
+class KPluginInfo;
 namespace Plasma
 {
 class Applet;
