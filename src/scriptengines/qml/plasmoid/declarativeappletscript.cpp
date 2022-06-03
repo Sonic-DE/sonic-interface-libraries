@@ -52,7 +52,7 @@ DeclarativeAppletScript::DeclarativeAppletScript(QObject *parent, const QVariant
 
     qmlRegisterUncreatableType<WallpaperInterface>(uri, 2, 0, "Wallpaper", QStringLiteral("Do not create objects of type Wallpaper"));
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+#if KDECLARATIVE_ENABLE_DEPRECATED_SINCE(5, 89)
     qmlRegisterAnonymousType<KDeclarative::ConfigPropertyMap>(uri, 1);
 #else
     qmlRegisterAnonymousType<KConfigPropertyMap>(uri, 1);
