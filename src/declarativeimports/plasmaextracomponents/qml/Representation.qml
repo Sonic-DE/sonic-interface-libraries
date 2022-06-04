@@ -20,12 +20,12 @@ import "private" as Private
  *
  * This code will create a full representation with a listview that will automatically
  * full the whole area without margins from the plasmoid popup borders
- * @code
+ * @code{.qml}
  * Plasmoid.Representation: PlasmaExtras.Representation {
- *     header: PlasmaExtras.BasicPlasmoidHeading{}
+ *     header: PlasmaExtras.BasicPlasmoidHeading {}
  *     contentItem: PlasmaComponent.ScrollView {
  *         ListView {
- *             ....
+ *             // ...
  *         }
  *     }
  * }
