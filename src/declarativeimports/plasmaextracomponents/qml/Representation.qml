@@ -19,7 +19,7 @@ import "private" as Private
  * When the contentItem is a ScrollView or a Scrollarea, the plasmoid margins will be automatically removed.
  *
  * This code will create a full representation with a listview that will automatically
- * full the whole area without margins from the plasmoid popup borders
+ * fill the whole area without margins from the plasmoid popup borders
  * @code{.qml}
  * Plasmoid.Representation: PlasmaExtras.Representation {
  *     header: PlasmaExtras.BasicPlasmoidHeading {}
