@@ -46,6 +46,11 @@ Item {
     property bool hovered: ListView.view || GridView.view ? true : false
 
     /**
+     * @deprecated At some point we had the "hover" property which was replaced with "hovered"
+     */
+    property alias hover: hovered
+
+    /**
      * This property holds whether the highlight has a pressed appearance.
      */
     property bool pressed: false
