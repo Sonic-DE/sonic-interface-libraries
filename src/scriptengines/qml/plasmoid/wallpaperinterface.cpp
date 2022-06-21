@@ -37,6 +37,8 @@ WallpaperInterface::WallpaperInterface(ContainmentInterface *parent)
     , m_qmlObject(nullptr)
     , m_configuration(nullptr)
     , m_configLoader(nullptr)
+    , m_mousePassTarget(nullptr)
+    , m_acceptedButtons(Qt::MouseButton::NoButton)
 {
     m_actions = new KActionCollection(this);
 
@@ -281,6 +283,56 @@ WallpaperInterface *WallpaperInterface::qmlAttachedProperties(QObject *object)
 bool WallpaperInterface::isLoading() const
 {
     return m_loading;
+}
+
+
+QQuickItem* WallpaperInterface::mousePassTarget() const
+{
+    return m_mousePassTarget;
+}
+
+void WallpaperInterface::setMousePassTarget(QObject* object)
+{
+    QQuickItem* item = qobject_cast<QQuickItem*>(object);
+    if (item != m_mousePassTarget)
+    {
+        m_mousePassTarget = item;
+        Q_EMIT mousePassTargetChanged();
+        
+        if(m_mousePassTarget)
+            m_mousePassTarget->setAcceptedMouseButtons(m_acceptedButtons);
+    }
+}
+
+Qt::MouseButtons WallpaperInterface::acceptedButtons() const
+{
+    return m_acceptedButtons;
+}
+
+void WallpaperInterface::setAcceptedButtons(Qt::MouseButtons buttons)
+{
+    if (buttons != m_acceptedButtons)
+    {
+        m_acceptedButtons = buttons;
+        Q_EMIT acceptedButtonsChanged();
+
+        if(m_mousePassTarget)
+            m_mousePassTarget->setAcceptedMouseButtons(m_acceptedButtons);
+    }
+}
+
+bool WallpaperInterface::passWidget() const
+{
+    return m_passWidget;
+}
+
+void WallpaperInterface::setPassWidget(bool pass)
+{
+    if (pass != m_passWidget)
+    {
+        m_passWidget = pass;
+        Q_EMIT passWidgetChanged();
+    } 
 }
 
 #include "moc_wallpaperinterface.cpp"

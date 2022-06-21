@@ -45,6 +45,9 @@ class WallpaperInterface : public QQuickItem
     Q_PROPERTY(KConfigPropertyMap *configuration READ configuration NOTIFY configurationChanged)
 #endif
     Q_PROPERTY(bool loading MEMBER m_loading NOTIFY isLoadingChanged)
+    Q_PROPERTY(QQuickItem* mousePassTarget READ mousePassTarget WRITE setMousePassTarget NOTIFY mousePassTargetChanged)
+    Q_PROPERTY(Qt::MouseButtons acceptedButtons READ acceptedButtons WRITE setAcceptedButtons NOTIFY acceptedButtonsChanged)
+    Q_PROPERTY(bool passWidget READ passWidget WRITE setPassWidget NOTIFY passWidgetChanged)
 
 public:
     explicit WallpaperInterface(ContainmentInterface *parent = nullptr);
@@ -86,11 +89,26 @@ public:
 
     bool isLoading() const;
 
+    QQuickItem* mousePassTarget() const;
+
+    void setMousePassTarget(QObject* object);
+
+    Qt::MouseButtons acceptedButtons() const;
+
+    void setAcceptedButtons(Qt::MouseButtons buttons);
+
+    bool passWidget() const;
+
+    void setPassWidget(bool pass);
+
 Q_SIGNALS:
     void packageChanged();
     void configurationChanged();
     void isLoadingChanged();
     void repaintNeeded();
+    void mousePassTargetChanged();
+    void acceptedButtonsChanged();
+    void passWidgetChanged();
 
 private Q_SLOTS:
     void syncWallpaperPackage();
@@ -109,7 +127,11 @@ private:
 #endif
     KConfigLoader *m_configLoader;
     KActionCollection *m_actions;
+    QPointer<QQuickItem> m_mousePassTarget;
+    Qt::MouseButtons m_acceptedButtons;
+
     bool m_loading = false;
+    bool m_passWidget = false;
 
     static QHash<QObject *, WallpaperInterface *> s_rootObjects;
 };
