@@ -184,7 +184,7 @@ void SvgItem::updatePolish()
         // setContainsMultipleImages has to be done there since m_frameSvg can be shared with somebody else
         m_textureChanged = true;
         m_svg.data()->setContainsMultipleImages(!m_elementID.isEmpty());
-        m_image = m_svg.data()->image(QSize(width(), height()), m_elementID);
+        m_image = m_svg.data()->image(QSize(width(), height()) * window()->devicePixelRatio(), m_elementID);
     }
 }
 
