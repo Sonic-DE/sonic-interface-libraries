@@ -371,6 +371,16 @@ Item {
 
     KeyNavigation.tab: defaultActionButtonVisible ? defaultActionButton : expandToggleButton
     KeyNavigation.right: defaultActionButtonVisible ? defaultActionButton : expandToggleButton
+    KeyNavigation.down: expandToggleButton.KeyNavigation.down
+    Keys.onDownPressed: {
+        if (!actionsListLoader.item || ListView.view.currentIndex < 0) {
+            ListView.view.Keys.onDownPressed(event);
+            event.accepted = true;
+            return;
+        }
+
+        event.accepted = false; // Forward to KeyNavigation.down
+    }
 
     Accessible.role: Accessible.Button
     Accessible.name: title
@@ -515,6 +525,11 @@ Item {
 
                     KeyNavigation.tab: expandToggleButton
                     KeyNavigation.right: expandToggleButton
+                    KeyNavigation.down: expandToggleButton.KeyNavigation.down
+                    Keys.onUpPressed: {
+                        listItem.forceActiveFocus(); // Avoid residual focus on this button
+                        listItem.ListView.view.Keys.onUpPressed(event);
+                    }
 
                     Accessible.description: action ? action.Accessible.description : ""
                 }
@@ -527,6 +542,12 @@ Item {
                     display: PlasmaComponents3.AbstractButton.IconOnly
                     text: expandedView.expanded ? i18ndc("libplasma5", "@action:button", "Collapse") : i18ndc("libplasma5", "@action:button", "Expand")
                     icon.name: expandedView.expanded ? "collapse" : "expand"
+
+                    KeyNavigation.down: KeyNavigation.tab
+                    Keys.onUpPressed: {
+                        listItem.forceActiveFocus(); // Avoid residual focus on this button
+                        listItem.ListView.view.Keys.onUpPressed(event);
+                    }
 
                     onClicked: listItem.toggleExpanded()
 
@@ -580,6 +601,7 @@ Item {
                             spacing: 0
 
                             Repeater {
+                                id: actionRepeater
 
                                 model: listItem.contextualActionsModel
 
@@ -590,6 +612,16 @@ Item {
 
                                     text: model.text
                                     icon.name: model.icon.name
+
+                                    KeyNavigation.up: index > 0 ? actionRepeater.itemAt(index - 1) : expandToggleButton
+                                    Keys.onDownPressed: {
+                                        if (index === actionRepeater.count - 1) {
+                                            event.accepted = true;
+                                            listItem.ListView.view.Keys.onDownPressed(event);
+                                        } else {
+                                            event.accepted = false; // Forward to KeyNavigation.down
+                                        }
+                                    }
 
                                     onClicked: {
                                         modelData.trigger()
