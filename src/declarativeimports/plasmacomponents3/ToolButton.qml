@@ -14,6 +14,8 @@ import "private" as Private
 T.ToolButton {
     id: control
 
+    Accessible.onPressAction: clicked()
+
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
