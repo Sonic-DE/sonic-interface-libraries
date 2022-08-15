@@ -24,6 +24,7 @@ PlasmaCore.FrameSvgItem {
     }
 
     PlasmaCore.SvgItem {
+        anchors.fill: parent
         svg: PlasmaCore.Svg {
             id: checkmarkSvg
             imagePath: "widgets/checkmarks"
@@ -42,9 +43,6 @@ PlasmaCore.FrameSvgItem {
             } else {
                 return control.checked ? 1 : 0;
             }
-        }
-        anchors {
-            fill: parent
         }
         Behavior on opacity {
             NumberAnimation {
