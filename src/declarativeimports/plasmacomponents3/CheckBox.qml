@@ -13,8 +13,6 @@ import "private"
 
 T.CheckBox {
     id: control
-    property real __indicatorMargin: control.indicator && control.indicator.visible && control.indicator.width > 0 ?
-        indicator.width + control.spacing : 0
 
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding,
@@ -34,17 +32,25 @@ T.CheckBox {
     icon.height: PlasmaCore.Units.iconSizes.smallMedium
 
     indicator: CheckIndicator {
-        x: !control.mirrored ? control.leftPadding : control.width - width - control.rightPadding
+        x: (control.text || control.icon.name || control.icon.source)
+            ? (control.mirrored ? control.width - width - control.rightPadding : control.leftPadding)
+            : control.leftPadding + Math.round((control.availableWidth - width) / 2)
         y: control.topPadding + Math.round((control.availableHeight - height) / 2)
+
         control: control
     }
 
     contentItem: IconLabel {
-        leftPadding: control.mirrored ? 0 : control.__indicatorMargin
-        rightPadding: !control.mirrored ? 0 : control.__indicatorMargin
+        readonly property int indicatorEffectiveWidth: control.indicator && control.indicator.visible && control.indicator.width > 0
+            ? control.indicator.width + control.spacing : 0
+
+        mirrored: control.mirrored
+        leftPadding: !control.mirrored ? indicatorEffectiveWidth : 0
+        rightPadding: control.mirrored ? indicatorEffectiveWidth : 0
+
         palette: control.palette
         font: control.font
-        alignment: Qt.AlignLeft
+        alignment: Qt.AlignLeft | Qt.AlignVCenter
         display: control.display
         spacing: control.spacing
         iconItem.implicitWidth: control.icon.width
