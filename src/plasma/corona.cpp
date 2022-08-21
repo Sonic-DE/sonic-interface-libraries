@@ -483,7 +483,6 @@ void CoronaPrivate::init()
     lockAction->setText(i18n("Lock Widgets"));
     lockAction->setAutoRepeat(true);
     lockAction->setIcon(QIcon::fromTheme(QStringLiteral("object-locked")));
-    lockAction->setData(Plasma::Types::ControlAction);
     lockAction->setShortcut(QKeySequence(QStringLiteral("alt+d, l")));
     lockAction->setShortcutContext(Qt::ApplicationShortcut);
 
@@ -498,7 +497,6 @@ void CoronaPrivate::init()
     editAction->setText(i18n("Enter Edit Mode"));
     editAction->setAutoRepeat(true);
     editAction->setIcon(QIcon::fromTheme(QStringLiteral("document-edit")));
-    editAction->setData(Plasma::Types::ControlAction);
     editAction->setShortcut(QKeySequence(QStringLiteral("alt+d, e")));
     editAction->setShortcutContext(Qt::ApplicationShortcut);
 }
