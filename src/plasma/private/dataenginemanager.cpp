@@ -120,7 +120,8 @@ Plasma::DataEngine *DataEngineManager::loadEngine(const QString &name)
 #if PLASMA_BUILD_DEPRECATED_SINCE(5, 94)
     DataEngine *engine = PluginLoader::self()->loadDataEngine(name);
 #else
-    DataEngine *engine = KPluginFactory::instantiatePlugin<Plasma::DataEngine>(KPluginMetaData(name)).plugin;
+    // Expect the plugin id to be the same as the file name or not explicitly set
+    DataEngine *engine = KPluginFactory::instantiatePlugin<Plasma::DataEngine>(KPluginMetaData(QLatin1String("plasma/dataengine/") + name)).plugin;
 #endif
     if (!engine) {
         qCDebug(LOG_PLASMA) << "Can't find a dataengine named" << name;
