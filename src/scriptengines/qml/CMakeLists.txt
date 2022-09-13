@@ -6,19 +6,17 @@ if(KDE_PLATFORM_FEATURE_BINARY_COMPATIBLE_FEATURE_REDUCTION)
 endif()
 
 #DECLARATIVE APPLET
-add_library(plasma_appletscript_declarative MODULE)
+add_library(plasma_appletscript_object OBJECT)
 
-target_sources(plasma_appletscript_declarative PRIVATE
-    plasmoid/declarativeappletscript.cpp
+target_sources(plasma_appletscript_object PRIVATE
     plasmoid/dropmenu.cpp
     plasmoid/appletinterface.cpp
     plasmoid/containmentinterface.cpp
+    plasmoid/declarativeappletscript.cpp
     plasmoid/wallpaperinterface.cpp
 )
 
-set_target_properties(plasma_appletscript_declarative PROPERTIES PREFIX "")
-
-target_link_libraries(plasma_appletscript_declarative
+target_link_libraries(plasma_appletscript_object
     Qt${QT_MAJOR_VERSION}::Quick
     Qt${QT_MAJOR_VERSION}::Qml
     KF5::Activities
@@ -33,6 +31,17 @@ target_link_libraries(plasma_appletscript_declarative
     KF5::Package
     KF5::Notifications
 )
+
+add_library(plasma_appletscript_declarative MODULE)
+target_sources(plasma_appletscript_declarative PRIVATE
+    plasmoid/declarativeappletscriptplugin.cpp
+)
+
+target_link_libraries(plasma_appletscript_declarative PRIVATE
+    plasma_appletscript_object
+)
+
+set_target_properties(plasma_appletscript_declarative PROPERTIES PREFIX "")
 if (QT_MAJOR_VERSION EQUAL "6")
     target_link_libraries(plasma_appletscript_declarative KF5::ConfigQml)
 endif()
