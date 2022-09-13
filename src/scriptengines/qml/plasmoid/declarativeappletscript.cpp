@@ -119,7 +119,3 @@ QList<QAction *> DeclarativeAppletScript::contextualActions()
 
     return m_interface->contextualActions();
 }
-
-K_PLUGIN_CLASS_WITH_JSON(DeclarativeAppletScript, "plasma-scriptengine-applet-declarative.json")
-
-#include "declarativeappletscript.moc"
