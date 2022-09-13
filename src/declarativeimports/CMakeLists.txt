@@ -5,6 +5,7 @@ add_subdirectory(plasmaextracomponents)
 add_subdirectory(platformcomponents)
 add_subdirectory(calendar)
 add_subdirectory(kirigamiplasmastyle)
+add_subdirectory(plasmoid)
 
 install(DIRECTORY plasmastyle/ DESTINATION ${KDE_INSTALL_QMLDIR}/QtQuick/Controls/Styles/Plasma)
 
