@@ -108,12 +108,7 @@ Item {
             linkColor: PlasmaCore.Theme.linkColor
             elide: Text.ElideRight
             Layout.alignment: Qt.AlignCenter
-            Layout.fillWidth: {
-                if (!iconItem.visible || gridLayout.flow === GridLayout.TopToBottom) {
-                    return implicitWidth > gridLayout.width;
-                }
-                return iconItem.implicitWidth + gridLayout.columnSpacing + implicitWidth > gridLayout.width;
-            }
+            Layout.fillWidth: !iconItem.visible || gridLayout.flow === GridLayout.TopToBottom
         }
     }
 }
