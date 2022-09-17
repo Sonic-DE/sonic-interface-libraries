@@ -164,6 +164,9 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event) override;
     void wheelEvent(QWheelEvent *event) override;
     void keyPressEvent(QKeyEvent *event) override;
+    bool childMouseEventFilter(QQuickItem *item, QEvent *event) override;
+
+
 
     void addAppletActions(QMenu *desktopMenu, Plasma::Applet *applet, QEvent *event);
     void addContainmentActions(QMenu *desktopMenu, QEvent *event);
@@ -212,6 +215,7 @@ private:
     void clearDataForMimeJob(KIO::Job *job);
     void setAppletArgs(Plasma::Applet *applet, const QString &mimetype, const QString &data);
     void deleteWallpaperInterface();
+    void updateFiltersChildMouseEvents();
 
     WallpaperInterface *m_wallpaperInterface;
     QList<QObject *> m_appletInterfaces;

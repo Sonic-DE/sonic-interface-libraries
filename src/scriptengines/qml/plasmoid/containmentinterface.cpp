@@ -59,6 +59,8 @@ ContainmentInterface::ContainmentInterface(DeclarativeAppletScript *parent, cons
 
     connect(m_containment->corona(), &Plasma::Corona::editModeChanged, this, &ContainmentInterface::editModeChanged);
 
+    connect(this, &ContainmentInterface::wallpaperInterfaceChanged, this, &ContainmentInterface::updateFiltersChildMouseEvents);
+
     if (!m_appletInterfaces.isEmpty()) {
         Q_EMIT appletsChanged();
     }
@@ -1024,6 +1026,62 @@ void ContainmentInterface::mousePressEvent(QMouseEvent *event)
     event->setAccepted(true);
 }
 
+
+bool ContainmentInterface::childMouseEventFilter(QQuickItem *sourceItem, QEvent *event)
+{
+    do {
+        if (!m_wallpaperInterface)
+            break;
+
+        QQuickItem* target = m_wallpaperInterface->mousePassTarget();
+
+        if (!target || target == sourceItem)
+            break;
+
+        switch (event->type()) {
+        case QEvent::MouseMove:
+        case QEvent::MouseButtonPress:
+        case QEvent::MouseButtonDblClick:
+        case QEvent::MouseButtonRelease: {
+            if (!m_wallpaperInterface->passWidget())
+            {
+                if (this->width() > sourceItem->width() && this->height() > sourceItem->height())
+                    break;
+            }
+
+            QMouseEvent *me = static_cast<QMouseEvent *>(event);
+            Qt::MouseButton button = event->type() == QEvent::MouseMove ? Qt::MouseButton::AllButtons : me->button();
+            if (m_wallpaperInterface->acceptedButtons() & button)
+            {
+                QMouseEvent targetEvent(me->type(),
+                                        sourceItem->mapToItem(target, me->pos()),
+                                        me->screenPos(),
+                                        me->button(),
+                                        me->buttons(),
+                                        me->modifiers());
+                QCoreApplication::sendEvent(target, &targetEvent);
+            }
+            break;
+        }
+        case QEvent::HoverEnter:
+        case QEvent::HoverLeave:
+        case QEvent::HoverMove: {
+            QHoverEvent *me = static_cast<QHoverEvent *>(event);
+            QHoverEvent targetEvent(me->type(),
+                                    sourceItem->mapToItem(target, me->posF()),
+                                    sourceItem->mapToItem(target, me->oldPosF()),
+                                    me->modifiers());
+            QCoreApplication::sendEvent(target, &targetEvent);
+            break;
+        }
+        default:
+            break;
+        }
+    } while (false);
+    return QQuickItem::childMouseEventFilter(sourceItem, event);
+}
+ 
+
 void ContainmentInterface::wheelEvent(QWheelEvent *event)
 {
     const QString trigger = Plasma::ContainmentActions::eventToString(event);
@@ -1182,6 +1240,11 @@ void ContainmentInterface::deleteWallpaperInterface()
     m_containment->setProperty("wallpaperGraphicsObject", QVariant());
     m_wallpaperInterface->deleteLater();
     m_wallpaperInterface = nullptr;
+}
+
+void ContainmentInterface::updateFiltersChildMouseEvents()
+{
+    setFiltersChildMouseEvents(m_wallpaperInterface != nullptr);
 }
 
 #include "moc_containmentinterface.cpp"
