@@ -39,7 +39,7 @@ PlasmaExtras.ActionTextField {
     readonly property var p0: Shortcut {
         // Let's consider this shortcut a standard, it's also supported at least by su and sudo
         sequence: "Ctrl+Shift+U"
-        onActivated: root.text = ""
+        onActivated: root.clear();
     }
 
     echoMode: root.showPassword ? TextInput.Normal : TextInput.Password
