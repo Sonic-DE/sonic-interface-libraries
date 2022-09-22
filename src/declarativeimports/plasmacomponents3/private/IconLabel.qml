@@ -50,8 +50,33 @@ Item {
 
     PlasmaCore.ColorScope.inherit: true
 
-    implicitWidth: gridLayout.implicitWidth + leftPadding + rightPadding
-    implicitHeight: gridLayout.implicitHeight + topPadding + bottomPadding
+    // don't trust implicit size of a layout: it will be lying because of an elided label
+    implicitWidth: {
+        var w = leftPadding + rightPadding;
+        if (gridLayout.flow === GridLayout.TopToBottom) {
+            w += Math.max(
+                iconItem.visible ? iconItem.implicitWidth : 0,
+                label.visible ? label.implicitWidth : 0);
+        } else {
+            if (iconItem.visible) { w += iconItem.implicitWidth; }
+            if (label.visible) { w += label.implicitWidth; }
+            if (iconItem.visible && label.visible) { w += gridLayout.columnSpacing; }
+        }
+        return w;
+    }
+    implicitHeight: {
+        var h = topPadding + bottomPadding;
+        if (gridLayout.flow === GridLayout.TopToBottom) {
+            if (iconItem.visible) { h += iconItem.implicitHeight; }
+            if (label.visible) { h += label.implicitHeight; }
+            if (iconItem.visible && label.visible) { h += gridLayout.rowSpacing; }
+        } else {
+            h += Math.max(
+                iconItem.visible ? iconItem.implicitHeight : 0,
+                label.visible ? label.implicitHeight : 0);
+        }
+        return h;
+    }
 
     GridLayout {
         id: gridLayout
