@@ -6,9 +6,9 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-import QtQuick 2.2
+import QtQuick 2.15
 import QtQuick.Templates @QQC2_VERSION@ as T
-import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.core 2.1 as PlasmaCore
 
 T.BusyIndicator {
     id: control
@@ -28,16 +28,16 @@ T.BusyIndicator {
     contentItem: Item {
         id: baseItem
         // Don't want it to animate at all if the user has disabled animations
-        property bool animationRunning: control.visible && control.running && PlasmaCore.Units.longDuration > 1;
+        property bool animationRunning: control.visible && control.running && PlasmaCore.Units.longDuration > 1
 
         /* implicitWidth and implicitHeight won't work unless they come
          * from a child of the contentItem. No idea why.
          */
         implicitWidth: PlasmaCore.Units.gridUnit * 2
-        implicitHeight: implicitWidth
+        implicitHeight: PlasmaCore.Units.gridUnit * 2
 
         visible: opacity > 0
-        opacity: control.running ? 1.0 : 0.0
+        opacity: control.running ? 1 : 0
         Behavior on opacity {
             OpacityAnimator {
                 duration: PlasmaCore.Units.shortDuration
@@ -55,11 +55,11 @@ T.BusyIndicator {
             if (animationRunning) {
                 const date = new Date;
                 const ms = date.valueOf();
-                const startAngle = ((ms % rotationAnimator.duration) / rotationAnimator.duration) * 360
-                rotationAnimator.from = startAngle
-                rotationAnimator.to = startAngle + 360
+                const startAngle = ((ms % rotationAnimator.duration) / rotationAnimator.duration) * 360;
+                rotationAnimator.from = startAngle;
+                rotationAnimator.to = startAngle + 360;
             }
-            rotationAnimator.running = animationRunning
+            rotationAnimator.running = animationRunning;
         }
 
         PlasmaCore.SvgItem {
@@ -70,7 +70,7 @@ T.BusyIndicator {
              */
             anchors.centerIn: parent
             width: Math.min(parent.width, parent.height)
-            height: width
+            height: Math.min(parent.width, parent.height)
 
             svg: PlasmaCore.Svg {
                 imagePath: "widgets/busywidget"
