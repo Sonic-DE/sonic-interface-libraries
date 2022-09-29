@@ -28,7 +28,7 @@ T.BusyIndicator {
     contentItem: Item {
         id: baseItem
         // Don't want it to animate at all if the user has disabled animations
-        property bool animationRunning: visible && (control.running || opacity > 0) && PlasmaCore.Units.longDuration > 1;
+        property bool animationRunning: control.visible && control.running && PlasmaCore.Units.longDuration > 1;
 
         /* implicitWidth and implicitHeight won't work unless they come
          * from a child of the contentItem. No idea why.
@@ -55,9 +55,9 @@ T.BusyIndicator {
             if (animationRunning) {
                 const date = new Date;
                 const ms = date.valueOf();
-                busyIndicatorSvgItem.rotation = ((ms % rotationAnimator.duration) / rotationAnimator.duration) * 360
-                rotationAnimator.from = busyIndicatorSvgItem.rotation
-                rotationAnimator.to = 360 + busyIndicatorSvgItem.rotation
+                const startAngle = ((ms % rotationAnimator.duration) / rotationAnimator.duration) * 360
+                rotationAnimator.from = startAngle
+                rotationAnimator.to = startAngle + 360
             }
             rotationAnimator.running = animationRunning
         }
