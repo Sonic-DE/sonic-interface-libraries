@@ -40,7 +40,7 @@ T.BusyIndicator {
         Behavior on opacity {
             OpacityAnimator {
                 duration: PlasmaCore.Units.shortDuration
-                easing.type: Easing.OutQuad
+                easing.type: Easing.OutCubic
             }
         }
 
