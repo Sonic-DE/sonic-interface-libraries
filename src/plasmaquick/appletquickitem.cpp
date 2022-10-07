@@ -541,9 +541,9 @@ AppletQuickItem *AppletQuickItem::qmlAttachedProperties(QObject *object)
     }
     // at the moment of the attached object creation, the root item is the only one that hasn't a parent
     // only way to avoid creation of this attached for everybody but the root item
-    AppletQuickItem *ret = qobject_cast<AppletQuickItem *>(context->property("_plasmoid_property").value<QObject *>());
+    AppletQuickItem *ret = context ? qobject_cast<AppletQuickItem *>(context->property("_plasmoid_property").value<QObject *>()) : nullptr;
     if (!ret) {
-        qWarning() << "Could not find the Plasmoid for" << object << context << context->baseUrl();
+        qWarning() << "Could not find the Plasmoid for" << object << context << (context ? context->baseUrl() : QUrl());
     }
     return ret;
 }
