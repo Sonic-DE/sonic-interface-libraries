@@ -140,6 +140,7 @@ PlasmaComponents3.TextField {
     Row {
         id: leftActionsRow
         padding: visible ? PlasmaCore.Units.smallSpacing : 0
+        LayoutMirroring.enabled: root.effectiveHorizontalAlignment === TextInput.AlignRight
         anchors.left: parent.left
         anchors.leftMargin: PlasmaCore.Units.smallSpacing
         anchors.verticalCenter: parent.verticalCenter
@@ -155,6 +156,7 @@ PlasmaComponents3.TextField {
         id: rightActionsRow
         padding: visible ? PlasmaCore.Units.smallSpacing : 0
         layoutDirection: Qt.RightToLeft
+        LayoutMirroring.enabled: root.effectiveHorizontalAlignment === TextInput.AlignRight
         anchors.right: parent.right
         anchors.rightMargin: PlasmaCore.Units.smallSpacing
         anchors.verticalCenter: parent.verticalCenter
