@@ -71,7 +71,7 @@ PlasmaExtras.ActionTextField {
     focusSequence: "Ctrl+F"
     inputMethodHints: Qt.ImhNoPredictiveText
     rightActions: QQC2.Action {
-        icon.name: root.mirrored ? "edit-clear-locationbar-ltr" : "edit-clear-locationbar-rtl"
+        icon.name: root.LayoutMirroring.enabled ? "edit-clear-locationbar-ltr" : "edit-clear-locationbar-rtl"
         enabled: root.text.length > 0
         onTriggered: root.text = ""
     }
