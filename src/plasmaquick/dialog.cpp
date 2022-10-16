@@ -1245,6 +1245,23 @@ QPoint Dialog::popupPosition(QQuickItem *item, const QSize &size)
         }
     }
 
+    if (d->type == Dialog::AppletPopup) {
+        switch (d->location) {
+        case Plasma::Types::TopEdge:
+        case Plasma::Types::BottomEdge:
+            if (qAbs(dialogPos.x() + size.width() - avail.center().x()) < size.width()/2) {
+                dialogPos.setX(avail.center().x() - size.width() / 2);
+            }
+            break;
+        case Plasma::Types::LeftEdge:
+        case Plasma::Types::RightEdge:
+            if (qAbs(dialogPos.y() + size.height()/2 - avail.center().y()) < size.height()/2) {
+                dialogPos.setY(avail.center().y() - size.height() / 2);
+            }
+            break;
+        }
+    }
+
     if (dialogPos.x() < avail.left()) {
         // popup hits lhs
         if (d->location != Plasma::Types::LeftEdge || d->location == Plasma::Types::RightEdge) {
