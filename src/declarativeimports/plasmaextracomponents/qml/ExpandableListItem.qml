@@ -389,7 +389,13 @@ Item {
         hoverEnabled: true
 
         // using onPositionChanged instead of onContainsMouseChanged so this doesn't trigger when the list reflows
-        onPositionChanged: listItem.ListView.view.currentIndex = (containsMouse ? index : -1)
+        onPositionChanged: {
+            // don't change currentIndex if it would make listview scroll
+            // see https://bugs.kde.org/show_bug.cgi?id=387797
+            if (parent.y - listItem.ListView.view.contentY + parent.height  + 1 /* border */ < listItem.ListView.view.height) {
+                listItem.ListView.view.currentIndex = (containsMouse ? index : -1)
+            }
+        }
         onExited: if (listItem.ListView.view.currentIndex === index) {
             listItem.ListView.view.currentIndex = -1;
         }
