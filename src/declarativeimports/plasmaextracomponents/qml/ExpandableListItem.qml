@@ -392,7 +392,7 @@ Item {
         onPositionChanged: {
             // don't change currentIndex if it would make listview scroll
             // see https://bugs.kde.org/show_bug.cgi?id=387797
-            if (parent.y - listItem.ListView.view.contentY + parent.height  + 1 /* border */ < listItem.ListView.view.height) {
+            if (parent.y - listItem.ListView.view.contentY >= 0 && parent.y - listItem.ListView.view.contentY + parent.height  + 1 /* border */ < listItem.ListView.view.height) {
                 listItem.ListView.view.currentIndex = (containsMouse ? index : -1)
             }
         }
