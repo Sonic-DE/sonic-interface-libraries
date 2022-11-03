@@ -27,9 +27,9 @@
      inkscape:current-layer="svg2"
      inkscape:showpageshadow="2"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="144.31918"
-     inkscape:cx="153.89846"
-     inkscape:cy="13.293451"
+     inkscape:zoom="19.706647"
+     inkscape:cx="30.700301"
+     inkscape:cy="17.633644"
      inkscape:window-width="1920"
      inkscape:window-height="1119"
      inkscape:window-x="0"
@@ -410,15 +410,6 @@
      id="mask-topleft"
      d="m 114,16 h -1 6 v -6 1 c -3.45746,-0.0052 -4.96328,1.572529 -5,5 z"
      sodipodi:nodetypes="cccccc" />
-  <rect
-     id="rect30894"
-     height="44"
-     rx="3"
-     style="fill:#ffff00;fill-rule:evenodd"
-     width="44"
-     x="57"
-     y="10"
-     ry="3" />
   <g
      id="shadow-center"
      transform="translate(63,16)">
@@ -429,6 +420,21 @@
        width="32"
        x="0"
        y="0" />
+  </g>
+  <g
+     id="shadow-topleft"
+     transform="rotate(180,31.5,8)">
+    <path
+       d="M 0,6 V 0 H 6 C 6,4 4,6 0,6 Z"
+       inkscape:label="#shadow-bottomright"
+       style="opacity:0.00100002;fill:#000000;fill-opacity:0.00392157"
+       id="path95-4-2"
+       sodipodi:nodetypes="cccc" />
+    <path
+       id="path2368-7-5"
+       style="fill:url(#radialGradient3268-6-6);fill-opacity:1;fill-rule:evenodd;stroke-width:0.999997"
+       d="M 6,0 C 6,4 4,6 0,6 V 16 H 3 C 10.179702,16 16,10.179702 16,3 V 0 Z"
+       sodipodi:nodetypes="cccsscc" />
   </g>
   <g
      id="shadow-top"
@@ -466,6 +472,11 @@
        style="fill:url(#linearGradient1734);fill-opacity:1"
        x="0" />
   </g>
+  <path
+     style="opacity:1;fill:#ffff00;stroke-width:2;stroke-linecap:round"
+     d="m 63,10 h 32 c 4,0 6,2 6,6 v 32 c 0,4 -2,6 -6,6 H 63 c -4,0 -6,-2 -6,-6 V 16 c 0,-4 2,-6 6,-6 z"
+     id="path838"
+     sodipodi:nodetypes="ccccccccc" />
   <g
      id="shadow-left"
      transform="translate(47,16)">
@@ -603,21 +614,6 @@
        id="path2368-7"
        style="fill:url(#radialGradient3268-6);fill-opacity:1;fill-rule:evenodd;stroke-width:0.999997"
        d="M 6,0 C 6,3.9881462 3.9744051,6 0,6 V 16 H 3 C 10.179702,16 16,10.179702 16,3 V 0 Z"
-       sodipodi:nodetypes="cccsscc" />
-  </g>
-  <g
-     id="shadow-topleft"
-     transform="rotate(180,31.5,8)">
-    <path
-       d="M 0,6 V 0 H 6 C 6,4 4,6 0,6 Z"
-       inkscape:label="#shadow-bottomright"
-       style="opacity:0.00100002;fill:#000000;fill-opacity:0.00392157"
-       id="path95-4-2"
-       sodipodi:nodetypes="cccc" />
-    <path
-       id="path2368-7-5"
-       style="fill:url(#radialGradient3268-6-6);fill-opacity:1;fill-rule:evenodd;stroke-width:0.999997"
-       d="M 6,0 C 6,4 4,6 0,6 V 16 H 3 C 10.179702,16 16,10.179702 16,3 V 0 Z"
        sodipodi:nodetypes="cccsscc" />
   </g>
   <rect
