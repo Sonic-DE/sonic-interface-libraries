@@ -412,10 +412,10 @@ SvgPrivate::~SvgPrivate()
 }
 
 // This function is meant for the rects cache
-SvgPrivate::CacheId SvgPrivate::cacheId(const QString &elementId) const
+SvgPrivate::CacheId SvgPrivate::cacheId(const QStringView &elementId) const
 {
     auto idSize = size.isValid() && size != naturalSize ? size : QSizeF{-1.0, -1.0};
-    return CacheId{idSize.width(), idSize.height(), path, elementId, status, devicePixelRatio, scaleFactor, -1, 0, lastModified};
+    return CacheId{idSize.width(), idSize.height(), path, elementId.toString(), status, devicePixelRatio, scaleFactor, -1, 0, lastModified};
 }
 
 // This function is meant for the pixmap cache
@@ -718,7 +718,7 @@ void SvgPrivate::eraseRenderer()
     styleCrc = QChar(0);
 }
 
-QRectF SvgPrivate::elementRect(const QString &elementId)
+QRectF SvgPrivate::elementRect(const QStringView &elementId)
 {
     if (themed && path.isEmpty()) {
         if (themeFailed) {
@@ -748,16 +748,18 @@ QRectF SvgPrivate::elementRect(const QString &elementId)
     return rect;
 }
 
-QRectF SvgPrivate::findAndCacheElementRect(const QString &elementId)
+QRectF SvgPrivate::findAndCacheElementRect(const QStringView &elementId)
 {
     // we need to check the id before createRenderer(), otherwise it may generate a different id compared to the previous cacheId)( call
     const CacheId cacheId = SvgPrivate::cacheId(elementId);
 
     createRenderer();
 
+    auto elementIdString = elementId.toString();
+
     // This code will usually never be run because createRenderer already caches all the boundingRect in the elements in the svg
     QRectF elementRect =
-        renderer->elementExists(elementId) ? renderer->transformForElement(elementId).map(renderer->boundsOnElement(elementId)).boundingRect() : QRectF();
+        renderer->elementExists(elementIdString) ? renderer->transformForElement(elementIdString).map(renderer->boundsOnElement(elementIdString)).boundingRect() : QRectF();
     naturalSize = renderer->defaultSize() * scaleFactor;
 
     qreal dx = size.width() / renderer->defaultSize().width();
@@ -1060,12 +1062,27 @@ QSize Svg::elementSize(const QString &elementId) const
     return d->elementRect(elementId).size().toSize();
 }
 
+QSize Svg::elementSize(const QStringView &elementId) const
+{
+    return d->elementRect(elementId).size().toSize();
+}
+
 QRectF Svg::elementRect(const QString &elementId) const
 {
     return d->elementRect(elementId);
 }
 
+QRectF Svg::elementRect(const QStringView &elementId) const
+{
+    return d->elementRect(elementId);
+}
+
 bool Svg::hasElement(const QString &elementId) const
+{
+    return hasElement(QStringView(elementId));
+}
+
+bool Svg::hasElement(const QStringView &elementId) const
 {
     if (elementId.isEmpty() || (d->path.isNull() && d->themePath.isNull())) {
         return false;

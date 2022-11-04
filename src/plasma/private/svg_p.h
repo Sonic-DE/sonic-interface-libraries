@@ -59,7 +59,7 @@ public:
     ~SvgPrivate();
 
     // This function is meant for the rects cache
-    CacheId cacheId(const QString &elementId) const;
+    CacheId cacheId(const QStringView &elementId) const;
 
     // This function is meant for the pixmap cache
     QString cachePath(const QString &path, const QSize &size) const;
@@ -74,8 +74,8 @@ public:
     void createRenderer();
     void eraseRenderer();
 
-    QRectF elementRect(const QString &elementId);
-    QRectF findAndCacheElementRect(const QString &elementId);
+    QRectF elementRect(const QStringView &elementId);
+    QRectF findAndCacheElementRect(const QStringView &elementId);
 
     void checkColorHints();
 
