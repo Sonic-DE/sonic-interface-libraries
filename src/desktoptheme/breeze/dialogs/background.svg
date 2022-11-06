@@ -24,14 +24,14 @@
      inkscape:pagecheckerboard="1"
      inkscape:blackoutopacity="0.0"
      showgrid="true"
-     inkscape:current-layer="svg2"
+     inkscape:current-layer="left"
      inkscape:showpageshadow="2"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="20.884385"
-     inkscape:cx="17.692645"
-     inkscape:cy="9.6962396"
+     inkscape:zoom="16.138031"
+     inkscape:cx="31.819248"
+     inkscape:cy="28.659011"
      inkscape:window-width="1920"
-     inkscape:window-height="1119"
+     inkscape:window-height="1127"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1">
@@ -191,193 +191,196 @@
   <g
      id="shadow-bottomright-9"
      transform="translate(95,48)" />
-  <rect
-     id="hint-tile-center"
-     height="5"
-     style="fill:#ff6600"
-     width="5"
-     x="0"
-     y="0" />
-  <g
-     id="top"
-     transform="translate(6,10)">
-    <rect
-       id="rect4152"
-       height="6"
-       style="color:#eff0f1;opacity:0.85;fill:currentColor;stop-color:#eff0f1"
-       class="ColorScheme-Background"
-       width="32"
-       x="0"
-       y="0" />
-    <path
-       style="color:#eff0f1;opacity:0.5;stop-color:#eff0f1"
-       d="M 0,0 V 1 H 32 V 0 Z"
-       id="path1337"
-       class="ColorScheme-Background"
-       fill="currentColor" />
-  </g>
-  <g
-     id="bottom"
-     transform="translate(6,48)">
-    <rect
-       id="rect4148"
-       height="6"
-       style="color:#eff0f1;opacity:0.85;fill:currentColor;stop-color:#eff0f1"
-       class="ColorScheme-Background"
-       width="32"
-       x="0"
-       y="0" />
-    <path
-       style="color:#eff0f1;opacity:0.5;stop-color:#eff0f1"
-       d="M 0,5 V 6 H 32 V 5 Z"
-       id="path1671"
-       class="ColorScheme-Background"
-       fill="currentColor" />
-  </g>
   <g
      id="left"
      transform="translate(0,16)">
     <rect
-       id="rect4144"
-       height="32"
-       style="color:#eff0f1;opacity:0.85;fill:currentColor;stop-color:#eff0f1"
-       class="ColorScheme-Background"
-       width="6"
+       id="hint-tile-center"
+       height="5"
+       style="fill:#ff6600"
+       width="5"
        x="0"
-       y="0" />
-    <path
-       style="color:#eff0f1;opacity:0.5;stop-color:#eff0f1"
-       d="M 0,32 H 1 V 0 H 0 Z"
-       id="path1785"
-       class="ColorScheme-Background"
-       fill="currentColor" />
-  </g>
-  <g
-     id="right"
-     transform="translate(38,16)">
+       y="-16" />
+    <g
+       id="top"
+       transform="translate(6,-6)">
+      <rect
+         id="rect4152"
+         height="6"
+         style="opacity:0.85;fill:currentColor"
+         class="ColorScheme-Background"
+         width="32"
+         x="0"
+         y="0" />
+      <path
+         style="opacity:0.5;fill:currentColor"
+         d="M 0,0 V 1 H 32 V 0 Z"
+         id="path1337"
+         class="ColorScheme-Background"
+         fill="currentColor" />
+    </g>
+    <g
+       id="bottom"
+       transform="translate(6,32)">
+      <rect
+         id="rect4148"
+         height="6"
+         style="opacity:0.85;fill:currentColor"
+         class="ColorScheme-Background"
+         width="32"
+         x="0"
+         y="0" />
+      <path
+         style="opacity:0.5;fill:currentColor"
+         d="M 0,5 V 6 H 32 V 5 Z"
+         id="path1671"
+         class="ColorScheme-Background"
+         fill="currentColor" />
+    </g>
+    <g
+       id="left-3">
+      <rect
+         id="rect4144"
+         height="32"
+         style="opacity:0.85;fill:currentColor"
+         class="ColorScheme-Background"
+         width="6"
+         x="0"
+         y="0" />
+      <path
+         style="opacity:0.5;fill:currentColor"
+         d="M 0,32 H 1 V 0 H 0 Z"
+         id="path1785"
+         class="ColorScheme-Background"
+         fill="currentColor" />
+    </g>
+    <g
+       id="right"
+       transform="translate(38)">
+      <rect
+         id="rect4140"
+         height="32"
+         style="opacity:0.85;fill:currentColor"
+         class="ColorScheme-Background"
+         width="6"
+         x="0"
+         y="0" />
+      <path
+         style="opacity:0.5;fill:currentColor"
+         d="M 5,32 H 6 V 0 H 5 Z"
+         id="path1902"
+         class="ColorScheme-Background"
+         fill="currentColor" />
+    </g>
+    <g
+       id="center"
+       transform="translate(6)">
+      <rect
+         id="rect4138"
+         height="32"
+         style="opacity:0.85;fill:currentColor"
+         class="ColorScheme-Background"
+         width="32"
+         x="0"
+         y="0" />
+    </g>
+    <g
+       id="topleft"
+       transform="translate(0,-6)">
+      <path
+         d="M 0,6 H 6 V 0 C 2,0 0,2 0,6 Z"
+         style="opacity:0.85;fill:currentColor"
+         class="ColorScheme-Background"
+         id="path3115"
+         sodipodi:nodetypes="cccc" />
+    </g>
+    <g
+       id="topright"
+       transform="translate(38,-6)">
+      <path
+         d="M 0,0 V 6 H 6 C 6,2 4,0 0,0 Z"
+         style="opacity:0.85;fill:currentColor"
+         class="ColorScheme-Background"
+         id="path3118"
+         sodipodi:nodetypes="cccc" />
+    </g>
+    <g
+       id="bottomleft"
+       transform="translate(0,32)">
+      <path
+         d="M 6,6 V 0 H 0 c 0,4 2,6 6,6 z"
+         style="opacity:0.85;fill:currentColor"
+         class="ColorScheme-Background"
+         id="path3124"
+         sodipodi:nodetypes="cccc" />
+    </g>
+    <g
+       id="bottomright"
+       transform="translate(38,32)">
+      <path
+         d="M 0,6 V 0 H 6 C 6,4 4,6 0,6 Z"
+         style="opacity:0.85;fill:currentColor"
+         class="ColorScheme-Background"
+         id="path3121"
+         sodipodi:nodetypes="cccc" />
+    </g>
     <rect
-       id="rect4140"
-       height="32"
-       style="color:#eff0f1;opacity:0.85;fill:currentColor;stop-color:#eff0f1"
-       class="ColorScheme-Background"
-       width="6"
-       x="0"
-       y="0" />
-    <path
-       style="color:#eff0f1;opacity:0.5;stop-color:#eff0f1"
-       d="M 5,32 H 6 V 0 H 5 Z"
-       id="path1902"
-       class="ColorScheme-Background"
-       fill="currentColor" />
-  </g>
-  <g
-     id="center"
-     transform="translate(6,16)">
+       id="hint-top-margin"
+       height="4"
+       style="fill:#ff00ff;stroke-width:0.999996"
+       width="4"
+       x="20"
+       y="-6" />
     <rect
-       id="rect4138"
-       height="32"
-       style="color:#eff0f1;opacity:0.85;fill:currentColor;stop-color:#eff0f1"
-       class="ColorScheme-Background"
-       width="32"
+       id="hint-bottom-margin"
+       height="4"
+       style="fill:#ff00ff;stroke-width:0.999996"
+       width="4"
+       x="20"
+       y="34" />
+    <rect
+       id="hint-right-margin"
+       height="4"
+       style="fill:#ff00ff;stroke-width:0.999996"
+       width="4"
+       x="40"
+       y="14" />
+    <rect
+       id="hint-left-margin"
+       height="4"
+       style="fill:#ff00ff;stroke-width:0.999996"
+       width="4"
        x="0"
-       y="0" />
+       y="14" />
+    <rect
+       id="hint-top-inset"
+       height="9.9999999e-09"
+       style="fill:#00ff00"
+       width="4"
+       x="20"
+       y="-6" />
+    <rect
+       id="hint-bottom-inset"
+       height="9.9999999e-09"
+       style="fill:#00ff00"
+       width="4"
+       x="20"
+       y="38" />
+    <rect
+       id="hint-left-inset"
+       height="4"
+       style="fill:#00ff00"
+       width="9.9999999e-09"
+       x="0"
+       y="14" />
+    <rect
+       id="hint-right-inset"
+       height="4"
+       style="fill:#00ff00"
+       width="9.9999999e-09"
+       x="44"
+       y="14" />
   </g>
-  <g
-     id="topleft"
-     transform="translate(0,10)">
-    <path
-       d="M 0,6 H 6 V 0 C 2,0 0,2 0,6 Z"
-       style="color:#eff0f1;opacity:0.85;fill:currentColor;stop-color:#eff0f1"
-       class="ColorScheme-Background"
-       id="path3115"
-       sodipodi:nodetypes="cccc" />
-  </g>
-  <g
-     id="topright"
-     transform="translate(38,10)">
-    <path
-       d="M 0,0 V 6 H 6 C 6,2 4,0 0,0 Z"
-       style="color:#eff0f1;opacity:0.85;fill:currentColor;stop-color:#eff0f1"
-       class="ColorScheme-Background"
-       id="path3118"
-       sodipodi:nodetypes="cccc" />
-  </g>
-  <g
-     id="bottomleft"
-     transform="translate(0,48)">
-    <path
-       d="M 6,6 V 0 H 0 c 0,4 2,6 6,6 z"
-       style="color:#eff0f1;opacity:0.85;fill:currentColor;stop-color:#eff0f1"
-       class="ColorScheme-Background"
-       id="path3124"
-       sodipodi:nodetypes="cccc" />
-  </g>
-  <g
-     id="bottomright"
-     transform="translate(38,48)">
-    <path
-       d="M 0,6 V 0 H 6 C 6,4 4,6 0,6 Z"
-       style="color:#eff0f1;opacity:0.85;fill:currentColor;stop-color:#eff0f1"
-       class="ColorScheme-Background"
-       id="path3121"
-       sodipodi:nodetypes="cccc" />
-  </g>
-  <rect
-     id="hint-top-margin"
-     height="4"
-     style="fill:#ff00ff;stroke-width:0.999996"
-     width="4"
-     x="20"
-     y="10" />
-  <rect
-     id="hint-bottom-margin"
-     height="4"
-     style="fill:#ff00ff;stroke-width:0.999996"
-     width="4"
-     x="20"
-     y="50" />
-  <rect
-     id="hint-right-margin"
-     height="4"
-     style="fill:#ff00ff;stroke-width:0.999996"
-     width="4"
-     x="40"
-     y="30" />
-  <rect
-     id="hint-left-margin"
-     height="4"
-     style="fill:#ff00ff;stroke-width:0.999996"
-     width="4"
-     x="0"
-     y="30" />
-  <rect
-     id="hint-top-inset"
-     height="9.9999999e-09"
-     style="fill:#00ff00"
-     width="4"
-     x="20"
-     y="10" />
-  <rect
-     id="hint-bottom-inset"
-     height="9.9999999e-09"
-     style="fill:#00ff00"
-     width="4"
-     x="20"
-     y="54" />
-  <rect
-     id="hint-left-inset"
-     height="4"
-     style="fill:#00ff00"
-     width="9.9999999e-09"
-     x="0"
-     y="30" />
-  <rect
-     id="hint-right-inset"
-     height="4"
-     style="fill:#00ff00"
-     width="9.9999999e-09"
-     x="44"
-     y="30" />
   <rect
      id="mask-top"
      height="6.000021"
