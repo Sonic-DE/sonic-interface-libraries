@@ -19,9 +19,18 @@ Item {
     property real bottomMargin: surfaceNormal.margins.bottom
     property string usedPrefix: surfaceNormal.usedPrefix
 
-    ButtonShadow {
-        anchors.fill: parent
-        showShadow: enabled && !root.checked && !root.pressed
+    PlasmaCore.FrameSvgItem {
+        id: shadow
+        anchors {
+            fill: parent
+            leftMargin: -margins.left
+            topMargin: -margins.top
+            rightMargin: -margins.right
+            bottomMargin: -margins.bottom
+        }
+        imagePath: "widgets/button"
+        prefix: "shadow"
+        visible: enabled && !root.checked && !root.pressed
     }
 
     PlasmaCore.FrameSvgItem {
