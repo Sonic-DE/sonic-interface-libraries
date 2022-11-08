@@ -490,6 +490,16 @@ QRegion FrameSvgItem::mask() const
     return m_frameSvg->mask();
 }
 
+int FrameSvgItem::minimumDrawingHeight() const
+{
+    return m_frameSvg->minimumDrawingHeight();
+}
+
+int FrameSvgItem::minimumDrawingWidth() const
+{
+    return m_frameSvg->minimumDrawingWidth();
+}
+
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 void FrameSvgItem::geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry)
 #else
