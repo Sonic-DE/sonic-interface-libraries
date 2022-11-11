@@ -23,9 +23,6 @@ target_sources(corebindingsplugin PRIVATE
     iconitem.cpp
     units.cpp
     windowthumbnail.cpp
-    fadingnode.cpp
-
-    shaders.qrc
 )
 if (QT_MAJOR_VERSION EQUAL "6")
     add_subdirectory(shaders6)
