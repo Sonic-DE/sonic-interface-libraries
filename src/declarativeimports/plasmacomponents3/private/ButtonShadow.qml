@@ -6,21 +6,6 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-/**Documented API
-Inherits:
-        Item
-
-Imports:
-        QtQuick 2.1
-        org.kde.plasma.core
-
-Description:
-TODO i need more info here
-
-
-Properties:
-**/
-
 import QtQuick 2.12
 import org.kde.plasma.core 2.0 as PlasmaCore
 
