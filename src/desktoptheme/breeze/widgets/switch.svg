@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="svg2"
+   height="18.01"
+   width="51"
+   version="1.1"
+   sodipodi:docname="switch.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs78" />
+  <sodipodi:namedview
+     id="namedview76"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:blackoutopacity="0.0"
+     showgrid="true"
+     inkscape:current-layer="svg2"
+     width="32px"
+     inkscape:showpageshadow="2"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="11.801508"
+     inkscape:cx="-1.1862891"
+     inkscape:cy="2.8386204"
+     inkscape:window-width="1920"
+     inkscape:window-height="1127"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid895"
+       originx="-17"
+       originy="-24.99" />
+  </sodipodi:namedview>
+  <style
+     id="current-color-scheme"
+     type="text/css">
+        .ColorScheme-Text {
+            color:#232629;
+            stop-color:#232629;
+        }
+        .ColorScheme-Background {
+            color:#eff0f1;
+            stop-color:#eff0f1;
+        }
+        .ColorScheme-Highlight {
+            color:#3daee9;
+            stop-color:#3daee9;
+        }
+        .ColorScheme-ButtonText {
+            color:#232629;
+            stop-color:#232629;
+        }
+        .ColorScheme-ButtonBackground {
+            color:#eff0f1;
+            stop-color:#eff0f1;
+        }
+    </style>
+  <rect
+     id="hint-tile-center"
+     height="4"
+     style="opacity:1;fill:#ff2a2a;fill-opacity:1"
+     width="4"
+     x="0"
+     y="7.0100002" />
+  <g
+     id="topleft"
+     transform="matrix(0.53333333,0,0,0.53333333,14,-15.99)">
+    <path
+       d="m 30,45 c 0,-8.371117 6.606391,-15 15,-15 0,4 0,6 0,15"
+       sodipodi:nodetypes="ccc"
+       class="ColorScheme-Highlight"
+       style="fill:currentColor;fill-opacity:0.5"
+       id="path2278" />
+    <path
+       d="m 30,45 c 0,-8.371117 6.606391,-15 15,-15 v 1 c -7.750845,0 -14,6.202439 -14,14"
+       id="path2040"
+       sodipodi:nodetypes="cccc"
+       class="ColorScheme-Highlight"
+       style="fill:currentColor;fill-opacity:1" />
+  </g>
+  <g
+     id="topright"
+     transform="matrix(0,0.53333333,-0.53333333,0,67,-15.99)">
+    <path
+       d="m 30,45 c 0,-8.371117 6.606391,-15 15,-15 0,4 0,6 0,15"
+       sodipodi:nodetypes="ccc"
+       class="ColorScheme-Highlight"
+       style="fill:currentColor;fill-opacity:0.5"
+       id="path2283" />
+    <path
+       d="m 30,45 c 0,-8.371117 6.606391,-15 15,-15 v 1 c -7.750845,0 -14,6.202439 -14,14"
+       id="path2285"
+       sodipodi:nodetypes="cccc"
+       class="ColorScheme-Highlight"
+       style="fill:currentColor;fill-opacity:1" />
+  </g>
+  <g
+     id="bottomleft"
+     transform="matrix(0.53333333,0,0,-0.53333333,14,34.01)">
+    <path
+       d="m 30,45 c 0,-8.371117 6.606391,-15 15,-15 0,4 0,6 0,15"
+       sodipodi:nodetypes="ccc"
+       class="ColorScheme-Highlight"
+       style="fill:currentColor;fill-opacity:0.5"
+       id="path2289" />
+    <path
+       d="m 30,45 c 0,-8.371117 6.606391,-15 15,-15 v 1 c -7.750845,0 -14,6.202439 -14,14"
+       id="path2291"
+       sodipodi:nodetypes="cccc"
+       class="ColorScheme-Highlight"
+       style="fill:currentColor;fill-opacity:1" />
+  </g>
+  <g
+     id="bottomright"
+     transform="matrix(0,-0.53333333,-0.53333333,0,67,34.01)">
+    <path
+       d="m 30,45 c 0,-8.371117 6.606391,-15 15,-15 0,4 0,6 0,15"
+       sodipodi:nodetypes="ccc"
+       class="ColorScheme-Highlight"
+       style="fill:currentColor;fill-opacity:0.5"
+       id="path2295" />
+    <path
+       d="m 30,45 c 0,-8.371117 6.606391,-15 15,-15 v 1 c -7.750845,0 -14,6.202439 -14,14"
+       id="path2297"
+       sodipodi:nodetypes="cccc"
+       class="ColorScheme-Highlight"
+       style="fill:currentColor;fill-opacity:1" />
+  </g>
+  <g
+     id="top"
+     transform="matrix(1,0,0,0.53333333,-15,-15.99)">
+    <path
+       d="m 53,30 h 5 v 15 h -5 z"
+       id="path2453"
+       class="ColorScheme-Highlight"
+       style="fill:currentColor;fill-opacity:0.5" />
+    <path
+       style="fill:currentColor;fill-opacity:1"
+       d="m 53,31 h 5 v -1 h -5 z"
+       id="path2455"
+       class="ColorScheme-Highlight" />
+  </g>
+  <g
+     id="bottom"
+     transform="matrix(1,0,0,-0.53333333,-15,34.01)">
+    <path
+       d="m 53,30 h 5 v 15 h -5 z"
+       id="path2644"
+       class="ColorScheme-Highlight"
+       style="fill:currentColor;fill-opacity:0.5" />
+    <path
+       style="fill:currentColor;fill-opacity:1"
+       d="m 53,31 h 5 v -1 h -5 z"
+       id="path2646"
+       class="ColorScheme-Highlight" />
+  </g>
+  <path
+     style="fill:currentColor;fill-opacity:0.5;stroke-width:0.632456"
+     d="M 38,8.0100001 V 10.01 h 5 V 8.0100001 Z"
+     id="center"
+     class="ColorScheme-Highlight" />
+  <g
+     id="left"
+     transform="matrix(0,-0.4,0.53333333,0,14,31.21)">
+    <path
+       d="m 53,30 h 5 v 15 h -5 z"
+       id="path2939"
+       class="ColorScheme-Highlight"
+       style="fill:currentColor;fill-opacity:0.5" />
+    <path
+       style="fill:currentColor;fill-opacity:1"
+       d="m 53,31 h 5 v -1 h -5 z"
+       id="path2941"
+       class="ColorScheme-Highlight" />
+  </g>
+  <g
+     id="right"
+     transform="matrix(0,0.4,-0.53333333,0,67,-13.19)">
+    <path
+       d="m 53,30 h 5 v 15 h -5 z"
+       id="path3044"
+       class="ColorScheme-Highlight"
+       style="fill:currentColor;fill-opacity:0.5" />
+    <path
+       style="fill:currentColor;fill-opacity:1"
+       d="m 53,31 h 5 v -1 h -5 z"
+       id="path3046"
+       class="ColorScheme-Highlight" />
+  </g>
+  <g
+     id="inactive-topleft"
+     transform="matrix(0.53333333,0,0,0.53333333,-10,-16)">
+    <path
+       d="m 30,45 c 0,-8.371117 6.606391,-15 15,-15 0,4 0,6 0,15"
+       sodipodi:nodetypes="ccc"
+       class="ColorScheme-ButtonText"
+       style="fill:currentColor;fill-opacity:0.09"
+       id="path3759" />
+    <path
+       d="m 30,45 c 0,-8.371117 6.606391,-15 15,-15 v 1 c -7.750845,0 -14,6.202439 -14,14"
+       id="path3761"
+       sodipodi:nodetypes="cccc"
+       class="ColorScheme-ButtonText"
+       style="fill:currentColor;fill-opacity:0.24" />
+  </g>
+  <g
+     id="inactive-topright"
+     transform="matrix(0,0.53333333,-0.53333333,0,43,-16)">
+    <path
+       d="m 30,45 c 0,-8.371117 6.606391,-15 15,-15 0,4 0,6 0,15"
+       sodipodi:nodetypes="ccc"
+       class="ColorScheme-ButtonText"
+       style="fill:currentColor;fill-opacity:0.09"
+       id="path3765" />
+    <path
+       d="m 30,45 c 0,-8.371117 6.606391,-15 15,-15 v 1 c -7.750845,0 -14,6.202439 -14,14"
+       id="path3767"
+       sodipodi:nodetypes="cccc"
+       class="ColorScheme-ButtonText"
+       style="fill:currentColor;fill-opacity:0.24" />
+  </g>
+  <g
+     id="inactive-bottomleft"
+     transform="matrix(0.53333333,0,0,-0.53333333,-10,34)">
+    <path
+       d="m 30,45 c 0,-8.371117 6.606391,-15 15,-15 0,4 0,6 0,15"
+       sodipodi:nodetypes="ccc"
+       class="ColorScheme-ButtonText"
+       style="fill:currentColor;fill-opacity:0.09"
+       id="path3771" />
+    <path
+       d="m 30,45 c 0,-8.371117 6.606391,-15 15,-15 v 1 c -7.750845,0 -14,6.202439 -14,14"
+       id="path3773"
+       sodipodi:nodetypes="cccc"
+       class="ColorScheme-ButtonText"
+       style="fill:currentColor;fill-opacity:0.24" />
+  </g>
+  <g
+     id="inactive-bottomright"
+     transform="matrix(0,-0.53333333,-0.53333333,0,43,34)">
+    <path
+       d="m 30,45 c 0,-8.371117 6.606391,-15 15,-15 0,4 0,6 0,15"
+       sodipodi:nodetypes="ccc"
+       class="ColorScheme-ButtonText"
+       style="fill:currentColor;fill-opacity:0.09"
+       id="path3777" />
+    <path
+       d="m 30,45 c 0,-8.371117 6.606391,-15 15,-15 v 1 c -7.750845,0 -14,6.202439 -14,14"
+       id="path3779"
+       sodipodi:nodetypes="cccc"
+       class="ColorScheme-ButtonText"
+       style="fill:currentColor;fill-opacity:0.24" />
+  </g>
+  <g
+     id="inactive-top"
+     transform="matrix(1,0,0,0.53333333,-39,-16)">
+    <path
+       d="m 53,30 h 5 v 15 h -5 z"
+       id="path3783"
+       class="ColorScheme-ButtonText"
+       style="fill:currentColor;fill-opacity:0.09" />
+    <path
+       style="fill:currentColor;fill-opacity:0.24"
+       d="m 53,31 h 5 v -1 h -5 z"
+       id="path3785"
+       class="ColorScheme-ButtonText" />
+  </g>
+  <g
+     id="inactive-bottom"
+     transform="matrix(1,0,0,-0.53333333,-39,34)">
+    <path
+       d="m 53,30 h 5 v 15 h -5 z"
+       id="path3789"
+       class="ColorScheme-ButtonText"
+       style="fill:currentColor;fill-opacity:0.09" />
+    <path
+       style="fill:currentColor;fill-opacity:0.24"
+       d="m 53,31 h 5 v -1 h -5 z"
+       id="path3791"
+       class="ColorScheme-ButtonText" />
+  </g>
+  <path
+     style="fill:currentColor;fill-opacity:0.09;stroke-width:0.635611"
+     d="M 14,8.0000001 V 10.02 h 5 V 8.0000001 Z"
+     id="inactive-center"
+     class="ColorScheme-ButtonText" />
+  <g
+     id="inactive-left"
+     transform="matrix(0,-0.402,0.53333333,0,-10,31.316)">
+    <path
+       d="m 53,30 h 5 v 15 h -5 z"
+       id="path3797"
+       class="ColorScheme-ButtonText"
+       style="fill:currentColor;fill-opacity:0.09" />
+    <path
+       style="fill:currentColor;fill-opacity:0.24"
+       d="m 53,31 h 5 v -1 h -5 z"
+       id="path3799"
+       class="ColorScheme-ButtonText" />
+  </g>
+  <g
+     id="inactive-right"
+     transform="matrix(0,0.402,-0.53333333,0,43,-13.306)">
+    <path
+       d="m 53,30 h 5 v 15 h -5 z"
+       id="path3803"
+       class="ColorScheme-ButtonText"
+       style="fill:currentColor;fill-opacity:0.09" />
+    <path
+       style="fill:currentColor;fill-opacity:0.24"
+       d="m 53,31 h 5 v -1 h -5 z"
+       id="path3805"
+       class="ColorScheme-ButtonText" />
+  </g>
+</svg>
