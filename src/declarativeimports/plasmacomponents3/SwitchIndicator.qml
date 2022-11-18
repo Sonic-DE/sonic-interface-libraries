@@ -15,28 +15,27 @@ Item {
 
     required property T.AbstractButton control
 
-    implicitWidth: Math.round(PlasmaCore.Units.gridUnit * 1.5)
+    implicitWidth: Math.round(PlasmaCore.Units.gridUnit * 2)
     implicitHeight : PlasmaCore.Units.gridUnit
 
     opacity: control.enabled ? 1 : 0.6
 
     PlasmaCore.FrameSvgItem {
         anchors {
-            left: parent.left
-            right: parent.right
-            verticalCenter: parent.verticalCenter
+            fill: parent
+            topMargin: 1
+            bottomMargin: 1
         }
-        imagePath: "widgets/bar_meter_horizontal"
-        prefix: "bar-inactive"
+        imagePath: "widgets/switch"
+        prefix: "inactive"
     }
     PlasmaCore.FrameSvgItem {
         anchors {
-            left: parent.left
-            right: parent.right
-            verticalCenter: parent.verticalCenter
+            fill: parent
+            topMargin: 1
+            bottomMargin: 1
         }
-        imagePath: "widgets/bar_meter_horizontal"
-        prefix: "bar-active"
+        imagePath: "widgets/switch"
         opacity: root.control.checked ? 1 : 0
         Behavior on opacity {
             OpacityAnimator {
