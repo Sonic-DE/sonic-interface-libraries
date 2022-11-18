@@ -1,0 +1,89 @@
+<svg id="svg2" version="1.1" viewBox="0 0 51 18.01" xmlns="http://www.w3.org/2000/svg">
+    <style id="current-color-scheme" type="text/css">.ColorScheme-Text {
+            color:#232629;
+            stop-color:#232629;
+        }
+        .ColorScheme-Background {
+            color:#eff0f1;
+            stop-color:#eff0f1;
+        }
+        .ColorScheme-Highlight {
+            color:#3daee9;
+            stop-color:#3daee9;
+        }
+        .ColorScheme-ButtonText {
+            color:#232629;
+            stop-color:#232629;
+        }
+        .ColorScheme-ButtonBackground {
+            color:#eff0f1;
+            stop-color:#eff0f1;
+        }</style>
+    <rect id="hint-tile-center" y="7.0100002" width="4" height="4" fill="#ff2a2a"/>
+    <g id="topleft" transform="matrix(.53333333 0 0 .53333333 14 -15.99)" fill="currentColor">
+        <path id="path2278" class="ColorScheme-Highlight" d="m30 45c0-8.371117 6.606391-15 15-15v15" fill-opacity=".5"/>
+        <path id="path2040" class="ColorScheme-Highlight" d="m30 45c0-8.371117 6.606391-15 15-15v1c-7.750845 0-14 6.202439-14 14"/>
+    </g>
+    <g id="topright" transform="matrix(0 .53333333 -.53333333 0 67 -15.99)" fill="currentColor">
+        <path id="path2283" class="ColorScheme-Highlight" d="m30 45c0-8.371117 6.606391-15 15-15v15" fill-opacity=".5"/>
+        <path id="path2285" class="ColorScheme-Highlight" d="m30 45c0-8.371117 6.606391-15 15-15v1c-7.750845 0-14 6.202439-14 14"/>
+    </g>
+    <g id="bottomleft" transform="matrix(.53333333 0 0 -.53333333 14 34.01)" fill="currentColor">
+        <path id="path2289" class="ColorScheme-Highlight" d="m30 45c0-8.371117 6.606391-15 15-15v15" fill-opacity=".5"/>
+        <path id="path2291" class="ColorScheme-Highlight" d="m30 45c0-8.371117 6.606391-15 15-15v1c-7.750845 0-14 6.202439-14 14"/>
+    </g>
+    <g id="bottomright" transform="matrix(0 -.53333333 -.53333333 0 67 34.01)" fill="currentColor">
+        <path id="path2295" class="ColorScheme-Highlight" d="m30 45c0-8.371117 6.606391-15 15-15v15" fill-opacity=".5"/>
+        <path id="path2297" class="ColorScheme-Highlight" d="m30 45c0-8.371117 6.606391-15 15-15v1c-7.750845 0-14 6.202439-14 14"/>
+    </g>
+    <g id="top" transform="matrix(1 0 0 .53333333 -15 -15.99)" fill="currentColor">
+        <path id="path2453" class="ColorScheme-Highlight" d="m53 30h5v15h-5z" fill-opacity=".5"/>
+        <path id="path2455" class="ColorScheme-Highlight" d="m53 31h5v-1h-5z"/>
+    </g>
+    <g id="bottom" transform="matrix(1 0 0 -.53333333 -15 34.01)" fill="currentColor">
+        <path id="path2644" class="ColorScheme-Highlight" d="m53 30h5v15h-5z" fill-opacity=".5"/>
+        <path id="path2646" class="ColorScheme-Highlight" d="m53 31h5v-1h-5z"/>
+    </g>
+    <path id="center" class="ColorScheme-Highlight" d="m38 8.0100001v1.9999999h5v-1.9999999z" fill="currentColor" fill-opacity=".5" stroke-width=".632456"/>
+    <g id="left" transform="matrix(0 -.4 .53333333 0 14 31.21)" fill="currentColor">
+        <path id="path2939" class="ColorScheme-Highlight" d="m53 30h5v15h-5z" fill-opacity=".5"/>
+        <path id="path2941" class="ColorScheme-Highlight" d="m53 31h5v-1h-5z"/>
+    </g>
+    <g id="right" transform="matrix(0 .4 -.53333333 0 67 -13.19)" fill="currentColor">
+        <path id="path3044" class="ColorScheme-Highlight" d="m53 30h5v15h-5z" fill-opacity=".5"/>
+        <path id="path3046" class="ColorScheme-Highlight" d="m53 31h5v-1h-5z"/>
+    </g>
+    <g id="inactive-topleft" transform="matrix(.53333333 0 0 .53333333 -10 -16)" fill="currentColor">
+        <path id="path3759" class="ColorScheme-ButtonText" d="m30 45c0-8.371117 6.606391-15 15-15v15" fill-opacity=".09"/>
+        <path id="path3761" class="ColorScheme-ButtonText" d="m30 45c0-8.371117 6.606391-15 15-15v1c-7.750845 0-14 6.202439-14 14" fill-opacity=".24"/>
+    </g>
+    <g id="inactive-topright" transform="matrix(0 .53333333 -.53333333 0 43 -16)" fill="currentColor">
+        <path id="path3765" class="ColorScheme-ButtonText" d="m30 45c0-8.371117 6.606391-15 15-15v15" fill-opacity=".09"/>
+        <path id="path3767" class="ColorScheme-ButtonText" d="m30 45c0-8.371117 6.606391-15 15-15v1c-7.750845 0-14 6.202439-14 14" fill-opacity=".24"/>
+    </g>
+    <g id="inactive-bottomleft" transform="matrix(.53333333 0 0 -.53333333 -10 34)" fill="currentColor">
+        <path id="path3771" class="ColorScheme-ButtonText" d="m30 45c0-8.371117 6.606391-15 15-15v15" fill-opacity=".09"/>
+        <path id="path3773" class="ColorScheme-ButtonText" d="m30 45c0-8.371117 6.606391-15 15-15v1c-7.750845 0-14 6.202439-14 14" fill-opacity=".24"/>
+    </g>
+    <g id="inactive-bottomright" transform="matrix(0 -.53333333 -.53333333 0 43 34)" fill="currentColor">
+        <path id="path3777" class="ColorScheme-ButtonText" d="m30 45c0-8.371117 6.606391-15 15-15v15" fill-opacity=".09"/>
+        <path id="path3779" class="ColorScheme-ButtonText" d="m30 45c0-8.371117 6.606391-15 15-15v1c-7.750845 0-14 6.202439-14 14" fill-opacity=".24"/>
+    </g>
+    <g id="inactive-top" transform="matrix(1 0 0 .53333333 -39 -16)" fill="currentColor">
+        <path id="path3783" class="ColorScheme-ButtonText" d="m53 30h5v15h-5z" fill-opacity=".09"/>
+        <path id="path3785" class="ColorScheme-ButtonText" d="m53 31h5v-1h-5z" fill-opacity=".24"/>
+    </g>
+    <g id="inactive-bottom" transform="matrix(1 0 0 -.53333333 -39 34)" fill="currentColor">
+        <path id="path3789" class="ColorScheme-ButtonText" d="m53 30h5v15h-5z" fill-opacity=".09"/>
+        <path id="path3791" class="ColorScheme-ButtonText" d="m53 31h5v-1h-5z" fill-opacity=".24"/>
+    </g>
+    <path id="inactive-center" class="ColorScheme-ButtonText" d="m14 8.0000001v2.0199999h5v-2.0199999z" fill="currentColor" fill-opacity=".09" stroke-width=".635611"/>
+    <g id="inactive-left" transform="matrix(0 -.402 .53333333 0 -10 31.316)" fill="currentColor">
+        <path id="path3797" class="ColorScheme-ButtonText" d="m53 30h5v15h-5z" fill-opacity=".09"/>
+        <path id="path3799" class="ColorScheme-ButtonText" d="m53 31h5v-1h-5z" fill-opacity=".24"/>
+    </g>
+    <g id="inactive-right" transform="matrix(0 .402 -.53333333 0 43 -13.306)" fill="currentColor">
+        <path id="path3803" class="ColorScheme-ButtonText" d="m53 30h5v15h-5z" fill-opacity=".09"/>
+        <path id="path3805" class="ColorScheme-ButtonText" d="m53 31h5v-1h-5z" fill-opacity=".24"/>
+    </g>
+</svg>
