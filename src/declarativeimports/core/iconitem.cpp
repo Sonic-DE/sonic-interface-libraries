@@ -650,6 +650,7 @@ QSGNode *IconItem::updatePaintNode(QSGNode *oldNode, UpdatePaintNodeData *update
     } else {
         if (oldNode->childCount() == 0) {
             oldNode->appendChildNode(createSubtree(1.0));
+            m_textureChanged = true;
         }
 
         if (oldNode->childCount() > 1) {
