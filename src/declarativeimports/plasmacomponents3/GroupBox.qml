@@ -10,6 +10,10 @@ import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 3.0 as PlasmaComponents3
 
+/**
+ * @brief A simple groupbox with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.GroupBox
+ */
 T.GroupBox {
     id: control
 

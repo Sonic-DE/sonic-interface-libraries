@@ -10,6 +10,10 @@ import QtQuick 2.15
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.1 as PlasmaCore
 
+/**
+ * @brief A simple busy busy indicator with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.BusyIndicator
+ */
 T.BusyIndicator {
     id: control
 

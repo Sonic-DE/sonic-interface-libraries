@@ -9,6 +9,10 @@ import QtQuick.Layouts 1.2
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.0 as PlasmaCore
 
+/**
+ * @brief A simple page indicator with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.PageIndicator
+ */
 T.PageIndicator {
     id: control
 

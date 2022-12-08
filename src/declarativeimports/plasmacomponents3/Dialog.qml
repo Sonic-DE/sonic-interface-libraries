@@ -8,6 +8,10 @@ import QtQuick 2.6
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.0 as PlasmaCore
 
+/**
+ * @brief A simple dialog with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.Dialog
+ */
 T.Dialog {
     id: control
 

@@ -10,6 +10,10 @@ import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.1 as PlasmaCore
 import "private"
 
+/**
+ * @brief A simple checkbox with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.CheckBox
+ */
 T.CheckBox {
     id: control
 

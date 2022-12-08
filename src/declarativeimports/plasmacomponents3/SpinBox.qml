@@ -11,6 +11,10 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 3.0 as PlasmaComponents3
 import "private" as P
 
+/**
+ * @brief A simple spin box with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.SpinBox
+ */
 T.SpinBox {
     id: control
 

@@ -10,6 +10,10 @@ import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.kirigami 2.5 as Kirigami
 
+/**
+ * @brief A simple menu with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.Menu
+ */
 T.Menu {
     id: control
 

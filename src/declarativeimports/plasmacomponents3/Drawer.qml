@@ -8,6 +8,10 @@ import QtQuick 2.6
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.0 as PlasmaCore
 
+/**
+ * @brief A simple drawer with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.Drawer
+ */
 T.Drawer {
     id: control
 

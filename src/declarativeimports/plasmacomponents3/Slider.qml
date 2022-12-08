@@ -10,6 +10,10 @@ import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.0 as PlasmaCore
 import "private" as P
 
+/**
+ * @brief A simple slider with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.Slider
+ */
 T.Slider {
     id: control
 

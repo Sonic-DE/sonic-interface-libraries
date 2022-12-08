@@ -11,6 +11,10 @@ import QtQuick 2.15
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.0 as PlasmaCore
 
+/**
+ * @brief A simple menu spearator with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.MenuSeparator
+ */
 T.MenuSeparator {
     id: controlRoot
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,

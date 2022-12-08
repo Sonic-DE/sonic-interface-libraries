@@ -9,6 +9,10 @@ import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.0 as PlasmaCore
 import "private" as Private
 
+/**
+ * @brief A simple range slider with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.RangeSlider
+ */
 T.RangeSlider {
     id: control
 

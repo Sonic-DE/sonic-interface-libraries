@@ -14,6 +14,10 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.kirigami 2.9 as Kirigami
 import org.kde.plasma.components 3.0 as PlasmaComponents3
 
+/**
+ * @brief A simple scroll view with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.ScrollView
+ */
 T.ScrollView {
     id: controlRoot
 

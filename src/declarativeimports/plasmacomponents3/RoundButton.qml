@@ -11,6 +11,10 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.kirigami 2.5 as Kirigami
 import "private" as Private
 
+/**
+ * @brief A simple round button with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.RoundButton
+ */
 T.RoundButton {
     id: control
 

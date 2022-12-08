@@ -5,6 +5,10 @@
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.0 as PlasmaCore
 
+/**
+ * @brief A simple abstract button with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.AbstractButton
+ */
 T.AbstractButton {
     id: control
 
