@@ -54,7 +54,7 @@ PlasmaComponents3.TextField {
      *
      * @since 5.93
      */
-    property string focusSequence
+    property alias focusSequence: focusShortcut.sequence
 
     /**
      * This property holds a list of actions that will be displayed on the left side of the text field.
@@ -110,7 +110,6 @@ PlasmaComponents3.TextField {
     Shortcut {
         id: focusShortcut
         enabled: root.focusSequence
-        sequence: root.focusSequence
         onActivated: {
             root.forceActiveFocus()
             root.selectAll()
