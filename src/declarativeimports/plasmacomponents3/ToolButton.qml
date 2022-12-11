@@ -13,6 +13,9 @@ import "private" as Private
 
 /**
  * @brief A simple tool button with custom styling to better fit the plasma environment.
+ *
+ * It sets implicit size, visual styling, content item, background item, etc.
+ *
  * @inherit QtQuick.Controls.ToolButton
  */
 T.ToolButton {

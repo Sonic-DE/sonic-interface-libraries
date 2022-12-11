@@ -13,6 +13,9 @@ import "private" as Private
 
 /**
  * @brief A simple button with custom styling to better fit the plasma environment.
+ *
+ * It sets implicit size, padding, styling, content item and background item.
+ *
  * @inherit QtQuick.Controls.Button
  */
 T.Button {

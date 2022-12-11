@@ -10,6 +10,9 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 
 /**
  * @brief A simple tab bar with custom styling to better fit the plasma environment.
+ *
+ * It sets implicit size, spacing and contentItem.
+ *
  * @inherit QtQuick.Controls.TabBar
  */
 T.TabBar {

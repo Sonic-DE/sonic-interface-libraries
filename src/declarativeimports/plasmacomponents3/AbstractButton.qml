@@ -7,6 +7,9 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 
 /**
  * @brief A simple abstract button with custom styling to better fit the plasma environment.
+ *
+ * It sets implicit size.
+ *
  * @inherit QtQuick.Controls.AbstractButton
  */
 T.AbstractButton {

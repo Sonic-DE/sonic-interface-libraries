@@ -10,6 +10,9 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 
 /**
  * @brief A simple tool bar with custom styling to better fit the plasma environment.
+ *
+ * It sets implicit size, padding, spacing and background item.
+ *
  * @inherit QtQuick.Controls.ToolBar
  */
 T.ToolBar {
