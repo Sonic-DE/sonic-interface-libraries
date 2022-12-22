@@ -67,6 +67,11 @@ class ContainmentInterface : public AppletInterface
     Q_PROPERTY(QList<QObject *> actions READ actions NOTIFY actionsChanged)
 
     /**
+     * Actions from context menu plugins associated to this containment
+     */
+    Q_PROPERTY(QList<QObject *> contextualActions READ contextualActions NOTIFY contextualActionsChanged)
+
+    /**
      * True when the Plasma Shell is in an edit mode that allows to move
      * things around: it's different from userConfiguring as it's about
      * editing plasmoids inside the containment, rather than the containment
@@ -104,6 +109,7 @@ public:
     QString activityName() const;
 
     QList<QObject *> actions() const;
+    QList<QObject *> contextualActions() const;
 
     void setContainmentDisplayHints(Plasma::Types::ContainmentDisplayHints hints);
 
@@ -167,7 +173,7 @@ protected:
     void keyPressEvent(QKeyEvent *event) override;
 
     void addAppletActions(QMenu *desktopMenu, Plasma::Applet *applet, QEvent *event);
-    void addContainmentActions(QMenu *desktopMenu, QEvent *event);
+    void addContainmentActions(QMenu *desktopMenu, QEvent *event) const;
 
     virtual bool isLoading() const override;
     void itemChange(ItemChange change, const ItemChangeData &value) override;
@@ -197,6 +203,12 @@ Q_SIGNALS:
     void actionsChanged();
     void editModeChanged();
     void wallpaperInterfaceChanged();
+
+    /**
+     * Emitted when the containment actions (actions from plugins) changed
+     * @see Plasma::Containment::containmentActionsChanged
+     */
+    void contextualActionsChanged();
 
 protected Q_SLOTS:
     void appletAddedForward(Plasma::Applet *applet);
