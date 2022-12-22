@@ -56,6 +56,7 @@ ContainmentInterface::ContainmentInterface(DeclarativeAppletScript *parent, cons
 
     connect(m_containment.data(), &Plasma::Containment::appletRemoved, this, &ContainmentInterface::appletRemovedForward);
     connect(m_containment.data(), &Plasma::Containment::appletAdded, this, &ContainmentInterface::appletAddedForward);
+    connect(m_containment.data(), &Plasma::Containment::containmentActionsChanged, this, &ContainmentInterface::contextualActionsChanged);
 
     connect(m_containment->corona(), &Plasma::Corona::editModeChanged, this, &ContainmentInterface::editModeChanged);
 
@@ -872,9 +873,31 @@ QList<QObject *> ContainmentInterface::actions() const
     for (const QString &name : std::as_const(actionOrder)) {
         QAction *a = orderedActions.value(name);
         if (a && !a->menu()) {
+            a->setIconText(a->icon().name()); // Used in desktop toolbox
             actionList << a;
         }
         ++i;
+    }
+
+    return actionList;
+}
+
+QList<QObject *> ContainmentInterface::contextualActions() const
+{
+    QMouseEvent event(QEvent::MouseButtonRelease, QPoint(), Qt::RightButton, Qt::RightButton, Qt::NoModifier);
+
+    QMenu desktopMenu;
+    addContainmentActions(&desktopMenu, &event);
+
+    const QList<QAction *> menuActions = desktopMenu.actions();
+    QList<QObject *> actionList;
+
+    for (QAction *action : menuActions) {
+        if (action->menu()) {
+            continue;
+        }
+        action->setIconText(action->icon().name()); // Used in desktop toolbox
+        actionList.append(static_cast<QObject *>(action));
     }
 
     return actionList;
@@ -1113,7 +1136,7 @@ void ContainmentInterface::addAppletActions(QMenu *desktopMenu, Plasma::Applet *
     }
 }
 
-void ContainmentInterface::addContainmentActions(QMenu *desktopMenu, QEvent *event)
+void ContainmentInterface::addContainmentActions(QMenu *desktopMenu, QEvent *event) const
 {
     if (m_containment->corona()->immutability() != Plasma::Types::Mutable //
         && !KAuthorized::authorizeAction(QStringLiteral("plasma/containment_actions"))) {
