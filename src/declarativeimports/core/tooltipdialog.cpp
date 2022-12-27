@@ -15,7 +15,7 @@
 #include <KWindowSystem>
 #include <kdeclarative/qmlobjectsharedengine.h>
 
-ToolTipDialog::ToolTipDialog(QQuickItem *parent)
+ToolTipDialog::ToolTipDialog(QQuickWindow *parent)
     : Dialog(parent)
     , m_qmlObject(nullptr)
     , m_hideTimeout(-1)
