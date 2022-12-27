@@ -28,7 +28,7 @@ class ToolTipDialog : public PlasmaQuick::Dialog
     Q_OBJECT
 
 public:
-    explicit ToolTipDialog(QQuickItem *parent = nullptr);
+    explicit ToolTipDialog(QQuickWindow *parent = nullptr);
     ~ToolTipDialog() override;
 
     QQuickItem *loadDefaultItem();
