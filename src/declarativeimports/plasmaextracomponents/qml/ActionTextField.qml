@@ -117,17 +117,41 @@ PlasmaComponents3.TextField {
 
         // here to make it private
         component ActionIcon: PlasmaCore.IconItem {
+            id: iconItem
             implicitWidth: PlasmaCore.Units.iconSizes.small
             implicitHeight: PlasmaCore.Units.iconSizes.small
 
             anchors.verticalCenter: parent.verticalCenter
-
+            activeFocusOnTab: true
             source: modelData.icon.name.length > 0 ? modelData.icon.name : modelData.icon.source
             visible: modelData.enabled
-            MouseArea {
-                onClicked: modelData.trigger()
+
+            Accessible.name: modelData.text
+
+            Keys.onPressed: {
+                switch (event.key) {
+                case Qt.Key_Space:
+                case Qt.Key_Enter:
+                case Qt.Key_Return:
+                case Qt.Key_Select:
+                    modelData.trigger();
+                    event.accepted = true;
+                    break;
+                }
+            }
+
+            HoverHandler {
+                id: hoverHandler
                 cursorShape: Qt.ArrowCursor
-                anchors.fill: parent
+            }
+
+            TapHandler {
+                onTapped: modelData.trigger()
+            }
+
+            PlasmaComponents3.ToolTip {
+                visible: (hoverHandler.hovered || iconItem.activeFocus) && text.length > 0
+                text: modelData.text
             }
         }
     }
