@@ -151,6 +151,11 @@ public:
      */
     Q_INVOKABLE QAction *globalAction(QString name) const;
 
+    /**
+     * Opens the context menu of the Corona
+     */
+    Q_INVOKABLE void openContextMenu(const QPointF &globalPos);
+
     bool isEditMode() const;
     void setEditMode(bool edit);
 
