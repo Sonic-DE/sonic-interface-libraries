@@ -1255,7 +1255,7 @@ QPoint Dialog::popupPosition(QQuickItem *item, const QSize &size)
             break;
         case Plasma::Types::LeftEdge:
         case Plasma::Types::RightEdge:
-            if (qAbs(parentRect.center().y() - avail.center().y() ) < size.height() / 2 - parentRect.width() / 3) {
+            if (qAbs(parentRect.center().y() - avail.center().y() ) < size.height() / 2 - parentRect.height() / 3) {
                 dialogPos.setY(avail.center().y() - size.height() / 2);
             }
             break;
