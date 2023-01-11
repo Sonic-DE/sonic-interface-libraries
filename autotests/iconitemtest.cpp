@@ -108,6 +108,12 @@ QQuickItem *IconItemTest::createIconItem()
 
 QImage IconItemTest::grabImage(QQuickItem *item)
 {
+    // Ensure the item is rendered at least once before continuing. Otherwise
+    // we run the risk of nothing having changed when calling this in quick
+    // succession.
+    QSignalSpy frameSwappedSpy(item->window(), &QQuickWindow::frameSwapped);
+    frameSwappedSpy.wait(100);
+
     QSharedPointer<QQuickItemGrabResult> grab = item->grabToImage();
     QSignalSpy spy(grab.data(), SIGNAL(ready()));
     spy.wait();
@@ -214,6 +220,7 @@ void IconItemTest::animation()
     grabImage(item1);
     item1->setProperty("source", "user-away");
     // animation from user-busy -> user-away
+    QTest::qWait(50); // Wait a moment so the image actually has time to change
     QVERIFY(userAwayImg != grabImage(item1));
 
     // animated = false
@@ -223,9 +230,11 @@ void IconItemTest::animation()
     QImage userBusyImg = grabImage(item2);
 
     item2->setProperty("source", "user-away");
+    QTest::qWait(50); // Wait a moment so the image actually has time to change
     QCOMPARE(userAwayImg, grabImage(item2));
 
     item2->setProperty("source", "user-busy");
+    QTest::qWait(50); // Wait a moment so the image actually has time to change
     QCOMPARE(userBusyImg, grabImage(item2));
 }
 
