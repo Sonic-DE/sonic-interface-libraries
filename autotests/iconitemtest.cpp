@@ -108,6 +108,12 @@ QQuickItem *IconItemTest::createIconItem()
 
 QImage IconItemTest::grabImage(QQuickItem *item)
 {
+    // Ensure the item is rendered at least once before continuing. Otherwise
+    // we run the risk of nothing having changed when calling this in quick
+    // succession.
+    QSignalSpy frameSwappedSpy(item->window(), &QQuickWindow::frameSwapped);
+    frameSwappedSpy.wait(50);
+
     QSharedPointer<QQuickItemGrabResult> grab = item->grabToImage();
     QSignalSpy spy(grab.data(), SIGNAL(ready()));
     spy.wait();
