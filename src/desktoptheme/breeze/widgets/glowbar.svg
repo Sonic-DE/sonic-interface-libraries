@@ -24,20 +24,20 @@
     <rect id="hint-glow-radius" width="5" height="5" x="0" y="0" style="fill:#ff6600" />
     <rect id="hint-tile-center" width="5" height="5" x="0" y="6" style="fill:#ff6600" />
     <g transform="translate(0,-904.36218)" id="top">
-        <rect ry="0" rx="0" y="914.36218" x="22" height="12" width="12" id="rect853" style="fill:url(#gradientTop)" />
+        <rect y="914.36218" x="22" height="12" width="12" id="rect853" style="fill:url(#gradientTop)" />
     </g>
     <g transform="translate(0,-904.36218)" id="left">
-        <rect transform="rotate(-90)" ry="0" rx="0" y="10" x="-938.36218" height="12" width="12" id="rect853-20" style="fill:url(#gradientLeft)" />
+        <rect transform="rotate(-90)" y="10" x="-938.36218" height="12" width="12" id="rect853-20" style="fill:url(#gradientLeft)" />
     </g>
     <g transform="translate(0,-904.36218)" id="right">
-        <rect transform="rotate(90)" ry="0" rx="0" y="-46" x="926.36218" height="12" width="12" id="rect853-0" style="fill:url(#gradientRight)" />
+        <rect transform="rotate(90)" y="-46" x="926.36218" height="12" width="12" id="rect853-0" style="fill:url(#gradientRight)" />
     </g>
     <g transform="translate(0,-904.36218)" id="center">
         <rect y="926.36218" x="22" height="12" width="12" id="rect4313" style="opacity:1;fill:none;fill-opacity:1;stroke:none" />
         <rect y="926.36218" x="22" height="11.999968" width="12" id="rect1580" style="fill:#3daee9;fill-opacity:0.8745098;fill-rule:evenodd" />
     </g>
     <g transform="translate(0,-904.36218)" id="bottom">
-        <rect transform="scale(1,-1)" ry="0" rx="0" y="-950.36218" x="22" height="12" width="12" id="rect853-2" style="fill:url(#gradientBottom)" />
+        <rect transform="scale(1,-1)" y="-950.36218" x="22" height="12" width="12" id="rect853-2" style="fill:url(#gradientBottom)" />
     </g>
     <g transform="translate(0,-904.36218)" id="bottomright">
         <path id="path1420-8" d="m 34,950.36215 a 12,11.999997 0 0 0 12,-12 H 34 Z" style="fill:url(#gradientBottomRight);fill-opacity:1;fill-rule:evenodd" />
