@@ -26,7 +26,6 @@ target_sources(KF6Plasma PRIVATE
     containmentactions.cpp
     corona.cpp
     private/applet_p.cpp
-    private/associatedapplicationmanager.cpp
     private/containment_p.cpp
     private/timetracker.cpp
 
