@@ -36,7 +36,6 @@
 #include "scripting/appletscript.h"
 
 #include "debug_p.h"
-#include "private/associatedapplicationmanager_p.h"
 #include "private/containment_p.h"
 
 #include <cmath>
@@ -540,11 +539,6 @@ void Applet::flushPendingConstraintsEvents()
             }
         }
 
-        QAction *runAssociatedApplication = d->actions->action(QStringLiteral("run associated application"));
-        if (runAssociatedApplication) {
-            connect(runAssociatedApplication, &QAction::triggered, this, &Applet::runAssociatedApplication, Qt::UniqueConnection);
-        }
-
         d->updateShortcuts();
     }
 
@@ -732,55 +726,6 @@ void Applet::configChanged()
         }
         d->script->configChanged();
     }
-}
-
-void Applet::setAssociatedApplication(const QString &string)
-{
-    // TODO KF6: remove AssociatedApplicationManager, make it a simple property
-    AssociatedApplicationManager::self()->setApplication(this, string);
-
-    QAction *runAssociatedApplication = d->actions->action(QStringLiteral("run associated application"));
-    if (runAssociatedApplication) {
-        bool valid = AssociatedApplicationManager::self()->appletHasValidAssociatedApplication(this);
-        runAssociatedApplication->setVisible(valid);
-        runAssociatedApplication->setEnabled(valid);
-    }
-
-    Q_EMIT associatedApplicationChanged(string);
-}
-
-void Applet::setAssociatedApplicationUrls(const QList<QUrl> &urls)
-{
-    AssociatedApplicationManager::self()->setUrls(this, urls);
-
-    QAction *runAssociatedApplication = d->actions->action(QStringLiteral("run associated application"));
-    if (runAssociatedApplication) {
-        bool valid = AssociatedApplicationManager::self()->appletHasValidAssociatedApplication(this);
-        runAssociatedApplication->setVisible(valid);
-        runAssociatedApplication->setEnabled(valid);
-    }
-
-    Q_EMIT associatedApplicationUrlsChanged(urls);
-}
-
-QString Applet::associatedApplication() const
-{
-    return AssociatedApplicationManager::self()->application(this);
-}
-
-QList<QUrl> Applet::associatedApplicationUrls() const
-{
-    return AssociatedApplicationManager::self()->urls(this);
-}
-
-void Applet::runAssociatedApplication()
-{
-    AssociatedApplicationManager::self()->run(this);
-}
-
-bool Applet::hasValidAssociatedApplication() const
-{
-    return AssociatedApplicationManager::self()->appletHasValidAssociatedApplication(this);
 }
 
 QString Applet::filePath(const QByteArray &key, const QString &filename) const
