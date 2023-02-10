@@ -20,11 +20,9 @@
 #include <Plasma/Containment>
 #include <Plasma/Theme>
 
-#include "declarativeappletscript.h"
 #include <appletquickitem.h>
 
 class QActionGroup;
-class QmlAppletScript;
 class QSizeF;
 class KConfigPropertyMap;
 
@@ -302,12 +300,10 @@ public:
     Q_ENUM(ActionPriority);
 
 public:
-    AppletInterface(DeclarativeAppletScript *script, const QVariantList &args = QVariantList(), QQuickItem *parent = nullptr);
+    AppletInterface(Plasma::Applet *applet, const QVariantList &args = QVariantList(), QQuickItem *parent = nullptr);
     ~AppletInterface() override;
 
     // API not intended for the QML part
-
-    DeclarativeAppletScript *appletScript() const;
 
     // This is for QML which only supports QList<QObject *>
     QList<QObject *> contextualActionsObjects() const;
@@ -352,23 +348,6 @@ public:
      * @since 5.58
      */
     Q_INVOKABLE void prepareContextualActions();
-
-    /**
-     * FIXME: remove?
-     * Retrieve the path of a file from the Plasmoid package
-     * @param fileName the package-recognized name, such as "mainscript"
-     * @returns the full absolute path of the file, if found, an empty string if not
-     */
-    Q_INVOKABLE QString file(const QString &fileName);
-
-    /**
-     * FIXME: remove?
-     * Retrieve the path of a file from the Plasmoid package
-     * @param fileType the type supported from the package, such as "ui", "config" or "image"
-     * @param filePath the name of the file, such as "foo.qml" or "bar.png"
-     * @returns the full absolute path of the file, if found, an empty string if not
-     */
-    Q_INVOKABLE QString file(const QString &fileType, const QString &filePath);
 
     /**
      * @returns A path where it is safe to write on disk downloaded files.
@@ -556,7 +535,6 @@ private:
     QHash<QString, QActionGroup *> m_actionGroups;
 
     KConfigPropertyMap *m_configuration;
-    DeclarativeAppletScript *m_appletScriptEngine;
 
     // UI-specific members ------------------
 

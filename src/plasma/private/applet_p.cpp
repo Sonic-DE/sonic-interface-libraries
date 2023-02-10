@@ -149,21 +149,21 @@ void AppletPrivate::init(const QString &_packagePath, const QVariantList &args)
     // now we try and set up the script engine.
     // it will be parented to this applet and so will get
     // deleted when the applet does
-    script = Plasma::loadScriptEngine(api, q, args);
+    //  script = Plasma::loadScriptEngine(api, q, args);
 
     // It's valid, let's try to load the icon from within the package
-    if (script) {
-        // use the absolute path of the in-package icon as icon name
-        if (appletDescription.iconName().startsWith(QLatin1Char('/'))) {
-            icon = package.filePath({}, appletDescription.iconName());
-        }
-        // package not valid, get rid of it
-    } else {
-        q->setLaunchErrorMessage(i18nc("API or programming language the widget was written in, name of the widget",
-                                       "Could not create a %1 ScriptEngine for the %2 widget.",
-                                       api,
-                                       appletDescription.name()));
-    }
+    /*  if (script) {
+          // use the absolute path of the in-package icon as icon name
+          if (appletDescription.iconName().startsWith(QLatin1Char('/'))) {
+              icon = package.filePath({}, appletDescription.iconName());
+          }
+          // package not valid, get rid of it
+      } else {
+          q->setLaunchErrorMessage(i18nc("API or programming language the widget was written in, name of the widget",
+                                         "Could not create a %1 ScriptEngine for the %2 widget.",
+                                         api,
+                                         appletDescription.name()));
+      }*/
 
     if (!q->isContainment()) {
         QAction *a = new QAction(QIcon::fromTheme(QStringLiteral("widget-alternatives")), i18n("Show Alternatives..."), q);
