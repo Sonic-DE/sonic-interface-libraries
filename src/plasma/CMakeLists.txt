@@ -45,11 +45,6 @@ target_sources(KF6Plasma PRIVATE
     svg.cpp
     theme.cpp
     private/theme_p.cpp
-
-#scripting
-    scripting/appletscript.cpp
-    scripting/dataenginescript.cpp
-    scripting/scriptengine.cpp
 )
 
 if(HAVE_X11)
@@ -139,13 +134,6 @@ ecm_generate_headers(Plasma_CamelCase_HEADERS
     PREFIX Plasma
 )
 
-set(PlasmaScripting_HEADERS
-    scripting/appletscript.h
-    scripting/dataenginescript.h
-    scripting/scriptengine.h
-)
-
-
 install(FILES
         ${Plasma_HEADERS}
         ${CMAKE_CURRENT_BINARY_DIR}/plasma/plasma_export.h
@@ -154,9 +142,6 @@ install(FILES
 install(FILES ${Plasma_CamelCase_HEADERS}
         DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF}/Plasma COMPONENT Devel)
 
-
-install(FILES ${PlasmaScripting_HEADERS}
-    DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF}/plasma/scripting COMPONENT Devel)
 
 install(FILES data/operations/dataengineservice.operations DESTINATION ${PLASMA_DATA_INSTALL_DIR}/services)
 install(FILES data/operations/plasmoidservice.operations DESTINATION ${PLASMA_DATA_INSTALL_DIR}/services)
@@ -173,7 +158,6 @@ if(BUILD_QCH)
         ORG_DOMAIN org.kde
         SOURCES # using only public headers, to cover only public API
             ${Plasma_HEADERS}
-            ${PlasmaScripting_HEADERS}
             Mainpage.dox
         MD_MAINPAGE "${CMAKE_SOURCE_DIR}/README.md"
         LINK_QCHS
