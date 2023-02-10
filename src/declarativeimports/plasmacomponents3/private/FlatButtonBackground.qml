@@ -5,6 +5,7 @@
 
 import QtQuick 2.6
 import org.kde.plasma.core 2.0 as PlasmaCore
+import "private" as Private
 
 Item {
     id: root
@@ -19,12 +20,12 @@ Item {
     property real bottomMargin: surfaceHover.margins.bottom
     property string usedPrefix: surfaceHover.usedPrefix
 
-    ButtonShadow {
+    Private.ButtonShadow {
         anchors.fill: parent
         showShadow: !(root.checked || root.pressed) && root.usedPrefix === "normal"
     }
 
-    ButtonFocus {
+    Private.ButtonFocus {
         anchors.fill: parent
         showFocus: root.focused && !root.pressed
         flat: true

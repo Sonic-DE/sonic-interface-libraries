@@ -5,6 +5,7 @@
 
 import QtQuick 2.6
 import org.kde.plasma.core 2.0 as PlasmaCore
+import "private" as Private
 
 Item {
     id: root
@@ -28,7 +29,7 @@ Item {
 
     Component {
         id: flatButtonBackground
-        FlatButtonBackground {
+        Private.FlatButtonBackground {
             anchors.fill: parent
             hovered: root.parent.hovered
             pressed: root.parent.down
@@ -39,7 +40,7 @@ Item {
 
     Component {
         id: raisedButtonBackground
-        RaisedButtonBackground {
+        Private.RaisedButtonBackground {
             anchors.fill: parent
             hovered: root.parent.hovered
             pressed: root.parent.down
