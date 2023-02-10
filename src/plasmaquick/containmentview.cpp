@@ -6,6 +6,7 @@
 
 #include "containmentview.h"
 #include "configview.h"
+#include "plasmoid/containmentinterface.h"
 
 #include <QDebug>
 #include <QQmlContext>
@@ -60,6 +61,7 @@ void ContainmentViewPrivate::setContainment(Plasma::Containment *cont)
         QObject::disconnect(containment, nullptr, q, nullptr);
         QObject *oldGraphicObject = containment->property("_plasma_graphicObject").value<QObject *>();
         if (auto item = qobject_cast<QQuickItem *>(oldGraphicObject)) {
+            // TODO: delete
             item->setVisible(false);
         }
         containment->reactToScreenChange();
@@ -110,6 +112,10 @@ void ContainmentViewPrivate::setContainment(Plasma::Containment *cont)
     }
 
     QQuickItem *graphicObject = qobject_cast<QQuickItem *>(containment->property("_plasma_graphicObject").value<QObject *>());
+
+    if (!graphicObject) {
+        graphicObject = new ContainmentInterface(containment);
+    }
 
     if (graphicObject) {
         //         qDebug() << "using as graphic containment" << graphicObject << containment.data();
