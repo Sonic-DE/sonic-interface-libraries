@@ -20,6 +20,10 @@ target_sources(KF6PlasmaQuick PRIVATE
     ../declarativeimports/core/framesvgitem.cpp
     ../declarativeimports/core/managedtexturenode.cpp
     ../declarativeimports/core/units.cpp
+    plasmoid/appletinterface.cpp
+    plasmoid/containmentinterface.cpp
+    plasmoid/dropmenu.cpp
+    plasmoid/wallpaperinterface.cpp
 )
 
 if(HAVE_KWAYLAND)
@@ -46,6 +50,7 @@ target_link_libraries(KF6PlasmaQuick
         KF6::WindowSystem
     PRIVATE
         Qt6::Svg
+        KF6::ConfigQml
         KF6::I18n
         KF6::IconThemes
         KF6::Service
@@ -54,6 +59,10 @@ target_link_libraries(KF6PlasmaQuick
         KF6::Declarative
         KF6::QuickAddons
         KF6::Package
+        KF6::KIOCore
+        KF6::KIOWidgets
+        KF6::Notifications
+        KF6::Activities
 )
 
 if(HAVE_KWAYLAND)

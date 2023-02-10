@@ -68,6 +68,7 @@ void AppletQuickItemPrivate::init()
 
     qmlObject = new KDeclarative::QmlObjectSharedEngine(q);
     if (qmlObject->engine()->urlInterceptors().isEmpty()) {
+        // TODO: remove?
         PackageUrlInterceptor *interceptor = new PackageUrlInterceptor(qmlObject->engine(), KPackage::Package());
         interceptor->setForcePlasmaStyle(true);
         qmlObject->engine()->addUrlInterceptor(interceptor);
@@ -593,7 +594,7 @@ void AppletQuickItem::init()
     }
 
     d->qmlObject->setSource(d->applet->kPackage().fileUrl("mainscript"));
-
+    qWarning() << "SSSSS" << d->applet->kPackage().fileUrl("mainscript");
     if (!engine || !engine->rootContext() || !engine->rootContext()->isValid() || !d->qmlObject->mainComponent() || d->qmlObject->mainComponent()->isError()
         || d->applet->failedToLaunch()) {
         QString reason;
