@@ -13,6 +13,8 @@
 #include "utils/d_ptr.h"
 
 /**
+ * @class Plasma::Application
+ *
  * Class which handles an application execution.
  *
  * Example:
@@ -22,6 +24,8 @@
  *     running: terminalRunningCheckbox.checked
  * }
  * @endcode
+ *
+ * @since org.kde.plasma.platformcomponents
  */
 class Application : public QObject
 {

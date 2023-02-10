@@ -22,6 +22,7 @@ class QmlObject;
 
 /**
  * Internally used by Tooltip
+ * @internal
  */
 class ToolTipDialog : public PlasmaQuick::Dialog
 {

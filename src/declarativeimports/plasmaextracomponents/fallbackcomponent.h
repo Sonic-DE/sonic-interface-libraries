@@ -12,8 +12,12 @@
 #include <QStringList>
 
 /**
+ * @class Plasma::FallbackComponent
+ *
  * Component that loads a qml file based on a chain of different fallback paths
+ *
  * @deprecated this can be done with qmlregistertype on c++ side or a Loader on QML side
+ * @since org.kde.plasma.extras 2.0
  */
 class FallbackComponent : public QObject
 {
