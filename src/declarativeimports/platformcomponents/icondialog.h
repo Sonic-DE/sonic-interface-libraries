@@ -13,6 +13,8 @@
 #include "utils/d_ptr.h"
 
 /**
+ * @class Plasma::IconDialog
+ *
  * Class which handles an icondialog execution.
  *
  * @deprecated Use IconDialog from org.kde.kquickcontrolsaddons
@@ -27,6 +29,8 @@
  *
  * icon = iconDialog.openDialog()
  * @endcode
+ *
+ * @since org.kde.plasma.platformcomponents 2.0
  */
 class IconDialog : public QObject
 {
