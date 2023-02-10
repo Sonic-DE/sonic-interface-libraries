@@ -44,13 +44,19 @@
 
 #include <packageurlinterceptor.h>
 
-ContainmentInterface::ContainmentInterface(DeclarativeAppletScript *parent, const QVariantList &args)
+ContainmentInterface::ContainmentInterface(Plasma::Applet *parent, const QVariantList &args)
     : AppletInterface(parent, args)
     , m_wallpaperInterface(nullptr)
     , m_activityInfo(nullptr)
     , m_wheelDelta(0)
 {
-    m_containment = static_cast<Plasma::Containment *>(appletScript()->applet()->containment());
+    const char *uri = "org.kde.plasma.plasmoid";
+    qmlRegisterUncreatableType<AppletInterface>(uri, 2, 0, "Plasmoid", QStringLiteral("Do not create objects of type Plasmoid"));
+    qmlRegisterUncreatableType<ContainmentInterface>(uri, 2, 0, "Containment", QStringLiteral("Do not create objects of type Containment"));
+
+    qmlRegisterUncreatableType<WallpaperInterface>(uri, 2, 0, "Wallpaper", QStringLiteral("Do not create objects of type Wallpaper"));
+
+    m_containment = static_cast<Plasma::Containment *>(parent->containment());
 
     setAcceptedMouseButtons(Qt::AllButtons);
 
@@ -154,12 +160,12 @@ QList<QObject *> ContainmentInterface::applets()
 
 Plasma::Types::ContainmentType ContainmentInterface::containmentType() const
 {
-    return appletScript()->containmentType();
+    return m_containment->containmentType();
 }
 
 void ContainmentInterface::setContainmentType(Plasma::Types::ContainmentType type)
 {
-    appletScript()->setContainmentType(type);
+    m_containment->setContainmentType(type);
 }
 
 Plasma::Applet *ContainmentInterface::createApplet(const QString &plugin, const QVariantList &args, const QPoint &pos)
@@ -755,7 +761,9 @@ void ContainmentInterface::appletAddedForward(Plasma::Applet *applet)
     // applets can not have a graphic object if they don't have a script engine loaded
     // this can happen if they were loaded with an invalid metadata
     if (!appletGraphicObject) {
-        return;
+        // TODO: pass the args
+        appletGraphicObject = new AppletInterface(applet, {}, this);
+        appletGraphicObject->init();
     }
 
     if (contGraphicObject) {
