@@ -40,6 +40,7 @@ PLASMA_UNIT_TESTS(
     framesvgtest
     iconitemtest
     themetest
+    sharedqmlenginetest
 )
 
 if(HAVE_X11)
