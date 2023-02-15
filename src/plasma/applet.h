@@ -1,5 +1,5 @@
 /*
-    SPDX-FileCopyrightText: 2006-2007 Aaron Seigo <aseigo@kde.org>
+    SPDX-FileCopyrightText: 2006-2007 Aaron Seigo <:wqaseigo@kde.org>
     SPDX-FileCopyrightText: 2007 Riccardo Iaconelli <riccardo@kde.org>
     SPDX-FileCopyrightText: 2008 Ménard Alexis <darktears31@gmail.com>
 
@@ -470,6 +470,17 @@ public:
      * an empty shortcut if no global shortcut is associated.
      */
     QKeySequence globalShortcut() const;
+
+    /**
+     * Sets whether or not this applet provides a user interface for
+     * configuring the applet.
+     *
+     * It defaults to false, and if true is passed in you should
+     * also reimplement createConfigurationInterface()
+     *
+     * @param hasInterface whether or not there is a user interface available
+     **/
+    void setHasConfigurationInterface(bool hasInterface);
 
     // Completely UI-specific, remove or move to scriptengine
     /**
