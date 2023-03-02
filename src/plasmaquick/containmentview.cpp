@@ -61,7 +61,7 @@ void ContainmentViewPrivate::setContainment(Plasma::Containment *cont)
         QObject::disconnect(containment, nullptr, q, nullptr);
         QObject *oldGraphicObject = containment->property("_plasma_graphicObject").value<QObject *>();
         if (auto item = qobject_cast<QQuickItem *>(oldGraphicObject)) {
-            // TODO: delete
+            // TODO: delete the item when needed instead of just hiding, but there are quite a lot of cornercases to manage beforehand
             item->setVisible(false);
         }
         containment->reactToScreenChange();
