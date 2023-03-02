@@ -83,8 +83,6 @@ AppletInterface::AppletInterface(Plasma::Applet *applet, const QVariantList &arg
     connect(applet, &Plasma::Applet::formFactorChanged, this, &AppletInterface::formFactorChanged);
     connect(applet, &Plasma::Applet::locationChanged, this, &AppletInterface::locationChanged);
 
-    connect(applet, &Plasma::Applet::contextChanged, this, &AppletInterface::contextChanged);
-
     if (applet->containment()) {
         connect(applet->containment(), &Plasma::Containment::screenChanged, this, &AppletInterface::screenChanged);
 
