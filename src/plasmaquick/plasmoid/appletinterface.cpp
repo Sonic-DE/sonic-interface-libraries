@@ -806,7 +806,8 @@ bool AppletInterface::eventFilter(QObject *watched, QEvent *event)
                 return false;
             }
 
-            ContainmentInterface *ci = c->property("_plasma_graphicObject").value<ContainmentInterface *>();
+            ContainmentInterface *ci = qobject_cast<ContainmentInterface *>(AppletQuickItem::itemForApplet(c));
+
             if (!ci) {
                 return false;
             }
