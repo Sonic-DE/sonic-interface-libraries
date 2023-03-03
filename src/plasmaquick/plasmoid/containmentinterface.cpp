@@ -64,16 +64,19 @@ ContainmentInterface::ContainmentInterface(Plasma::Applet *parent, const QVarian
     connect(m_containment.data(), &Plasma::Containment::appletAdded, this, &ContainmentInterface::appletAddedForward);
 
     connect(m_containment->corona(), &Plasma::Corona::editModeChanged, this, &ContainmentInterface::editModeChanged);
-
-    if (!m_appletInterfaces.isEmpty()) {
-        Q_EMIT appletsChanged();
-    }
 }
 
 void ContainmentInterface::init()
 {
     if (qmlObject()->rootObject()) {
         return;
+    }
+
+    for (auto *applet : m_containment->applets()) {
+        m_appletInterfaces.append(AppletQuickItem::itemForApplet(applet));
+    }
+    if (!m_appletInterfaces.isEmpty()) {
+        Q_EMIT appletsChanged();
     }
 
     m_activityInfo = new KActivities::Info(m_containment->activity(), this);
@@ -181,7 +184,8 @@ Plasma::Applet *ContainmentInterface::createApplet(const QString &plugin, const 
     Plasma::Applet *applet = m_containment->createApplet(plugin, args);
 
     if (applet) {
-        QQuickItem *appletGraphicObject = applet->property("_plasma_graphicObject").value<QQuickItem *>();
+        AppletQuickItem *appletGraphicObject = AppletQuickItem::itemForApplet(applet);
+
         // invalid applet?
         if (!appletGraphicObject) {
             blockSignals(false);
@@ -207,7 +211,7 @@ void ContainmentInterface::setAppletArgs(Plasma::Applet *applet, const QString &
         return;
     }
 
-    AppletInterface *appletInterface = applet->property("_plasma_graphicObject").value<AppletInterface *>();
+    ContainmentInterface *appletInterface = qobject_cast<ContainmentInterface *>(AppletQuickItem::itemForApplet(applet));
     if (appletInterface) {
         Q_EMIT appletInterface->externalData(mimetype, data);
     }
@@ -218,7 +222,7 @@ QObject *ContainmentInterface::containmentAt(int x, int y)
     QObject *desktop = nullptr;
     const auto lst = m_containment->corona()->containments();
     for (Plasma::Containment *c : lst) {
-        ContainmentInterface *contInterface = c->property("_plasma_graphicObject").value<ContainmentInterface *>();
+        ContainmentInterface *contInterface = qobject_cast<ContainmentInterface *>(AppletQuickItem::itemForApplet(c));
 
         if (contInterface && contInterface->isVisible()) {
             QWindow *w = contInterface->window();
@@ -752,24 +756,25 @@ void ContainmentInterface::appletAddedForward(Plasma::Applet *applet)
         return;
     }
 
-    AppletInterface *appletGraphicObject = applet->property("_plasma_graphicObject").value<AppletInterface *>();
-    AppletInterface *contGraphicObject = m_containment->property("_plasma_graphicObject").value<AppletInterface *>();
+    AppletInterface *appletGraphicObject = qobject_cast<AppletInterface *>(AppletQuickItem::itemForApplet(applet));
 
-    //     qDebug() << "Applet added on containment:" << m_containment->title() << contGraphicObject
+    //     qDebug() << "Applet added on containment:" << m_containment->title() << this
     //              << "Applet: " << applet << applet->title() << appletGraphicObject;
 
+#if 0
+    TODO remove
     // applets can not have a graphic object if they don't have a script engine loaded
     // this can happen if they were loaded with an invalid metadata
     if (!appletGraphicObject) {
         // TODO: pass the args
         appletGraphicObject = new AppletInterface(applet, {}, this);
+        applet->setProperty("_plasma_graphicObject", QVariant::fromValue(appletGraphicObject));
         appletGraphicObject->init();
     }
+#endif
 
-    if (contGraphicObject) {
-        appletGraphicObject->setProperty("visible", false);
-        appletGraphicObject->setProperty("parent", QVariant::fromValue(contGraphicObject));
-    }
+    appletGraphicObject->setProperty("visible", false);
+    appletGraphicObject->setProperty("parent", QVariant::fromValue(this));
 
     m_appletInterfaces << appletGraphicObject;
     connect(appletGraphicObject, &QObject::destroyed, this, [this](QObject *obj) {
@@ -796,7 +801,7 @@ void ContainmentInterface::appletAddedForward(Plasma::Applet *applet)
 
 void ContainmentInterface::appletRemovedForward(Plasma::Applet *applet)
 {
-    AppletInterface *appletGraphicObject = applet->property("_plasma_graphicObject").value<AppletInterface *>();
+    AppletInterface *appletGraphicObject = qobject_cast<AppletInterface *>(AppletQuickItem::itemForApplet(applet));
     if (appletGraphicObject) {
         m_appletInterfaces.removeAll(appletGraphicObject);
         appletGraphicObject->m_positionBeforeRemoval = appletGraphicObject->mapToItem(this, QPointF());
