@@ -98,9 +98,6 @@
         "Name[vi]": "Phụ kiện khai báo",
         "Name[x-test]": "xxDeclarative widgetxx",
         "Name[zh_CN]": "程序声明挂件",
-        "ServiceTypes": [
-            "Plasma/ScriptEngine"
-        ],
         "Version": "0.1"
     },
     "X-EngineName": "declarativeappletscript",
