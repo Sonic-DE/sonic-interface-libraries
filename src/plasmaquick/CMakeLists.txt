@@ -1,3 +1,8 @@
+# Consumer's include dir which has to be explicitly used to make headers of this lib visible to documented includes
+# Results in duplicate of prefix-dir & C++ namespace below, but part of different things, so by design:
+# <visibility-layer>/<C++ namespace>/class header files
+set(PLASMAQUICK_INSTALL_INCLUDEDIR "${KDE_INSTALL_INCLUDEDIR_KF}/PlasmaQuick")
+
 add_library(KF6PlasmaQuick SHARED)
 add_library(KF6::PlasmaQuick ALIAS KF6PlasmaQuick)
 
@@ -36,7 +41,12 @@ ecm_qt_declare_logging_category(KF6PlasmaQuick
     EXPORT PLASMA
 )
 
-target_include_directories(KF6PlasmaQuick PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR};${CMAKE_CURRENT_BINARY_DIR}/..>")
+target_include_directories(KF6PlasmaQuick
+    PUBLIC
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR};${CMAKE_CURRENT_BINARY_DIR}/..>"
+    INTERFACE
+        "$<INSTALL_INTERFACE:${PLASMAQUICK_INSTALL_INCLUDEDIR}>"
+)
 
 target_link_libraries(KF6PlasmaQuick
     PUBLIC
@@ -102,11 +112,17 @@ ecm_generate_headers(PlasmaQuick_CamelCase_HEADERS
     PREFIX PlasmaQuick
 )
 
-install(FILES ${plasmaquick_LIB_INCLUDES}
-        DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF}/plasmaquick COMPONENT Devel)
+install(
+    FILES ${plasmaquick_LIB_INCLUDES}
+    DESTINATION ${PLASMAQUICK_INSTALL_INCLUDEDIR}/plasmaquick
+    COMPONENT Devel
+)
 
-install(FILES ${PlasmaQuick_CamelCase_HEADERS}
-        DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF}/PlasmaQuick COMPONENT Devel)
+install(
+    FILES ${PlasmaQuick_CamelCase_HEADERS}
+    DESTINATION ${PLASMAQUICK_INSTALL_INCLUDEDIR}/PlasmaQuick
+    COMPONENT Devel
+)
 
 set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF6PlasmaQuick")
 
@@ -114,7 +130,7 @@ configure_package_config_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/KF6PlasmaQuickConfig.cmake.in"
     "${CMAKE_CURRENT_BINARY_DIR}/KF6PlasmaQuickConfig.cmake"
     INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
-    PATH_VARS  KDE_INSTALL_INCLUDEDIR_KF CMAKE_INSTALL_PREFIX
+    PATH_VARS  PLASMAQUICK_INSTALL_INCLUDEDIR CMAKE_INSTALL_PREFIX
 )
 
 ecm_setup_version(${KF_VERSION}
