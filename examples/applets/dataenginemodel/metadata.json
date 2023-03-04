@@ -96,14 +96,12 @@
         "Name[vi]": "Model Dataengine",
         "Name[x-test]": "xxDataengine modelxx",
         "Name[zh_CN]": "数据引擎模型",
-        "ServiceTypes": [
-            "Plasma/Applet"
-        ],
         "Version": "",
         "Website": ""
     },
     "Keywords": "",
     "X-KDE-ParentApp": "",
     "X-Plasma-API": "declarativeappletscript",
-    "X-Plasma-MainScript": "ui/main.qml"
+    "X-Plasma-MainScript": "ui/main.qml",
+    "KPackageStructure": "Plasma/Applet"
 }
