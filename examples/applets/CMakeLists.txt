@@ -2,7 +2,6 @@
 plasma_install_package(bugreport org.kde.example.bugreport)
 plasma_install_package(compactrepresentation org.kde.example.compactrepresentation)
 plasma_install_package(config org.kde.example.configuration)
-plasma_install_package(dataenginemodel org.kde.example.dataenginemodel)
 plasma_install_package(helloworld org.kde.example.helloworld)
 plasma_install_package(notes org.kde.example.notes)
 plasma_install_package(qmltasks org.kde.example.tasks)
