@@ -49,7 +49,7 @@ public:
 
     void run() override
     {
-        delete m_provider;
+        m_provider->deleteLater();
     }
 
 private:
