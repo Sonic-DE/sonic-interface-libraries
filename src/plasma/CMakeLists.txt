@@ -76,14 +76,10 @@ PUBLIC
     KF6::ConfigCore
     KF6::CoreAddons
 PRIVATE
-    Qt6::Sql
     Qt6::Svg
-    Qt6::DBus
     KF6::Archive
     KF6::GuiAddons #kimagecache
     KF6::I18n
-    KF6::KIOCore    #ServiceJob
-    KF6::KIOWidgets  #KIO::JobUiDelegate
     KF6::WindowSystem #compositingActive
     KF6::XmlGui   #KActionCollection
     KF6::GlobalAccel #Applet::setGlobalShortcut
