@@ -293,6 +293,17 @@ void WindowThumbnail::setWinId(uint32_t winId)
     Q_EMIT winIdChanged();
 }
 
+void WindowThumbnail::resetWinId()
+{
+    if (m_winId == XCB_WINDOW_NONE) {
+        return;
+    }
+
+    stopRedirecting();
+    m_winId = XCB_WINDOW_NONE;
+    Q_EMIT winIdChanged();
+}
+
 qreal WindowThumbnail::paintedWidth() const
 {
     return m_paintedSize.width();
