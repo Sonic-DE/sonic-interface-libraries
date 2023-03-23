@@ -26,7 +26,11 @@
 
 #include "libplasma-theme-global.h"
 
+<<<<<<< HEAD
 #include <KSvg/ImageSet>
+=======
+#include <KSvg/Theme>
+>>>>>>> a6af98127 (use internally a KSvg::Theme for compatibility)
 
 namespace Plasma
 {
