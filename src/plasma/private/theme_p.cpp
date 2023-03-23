@@ -102,6 +102,8 @@ ThemePrivate::ThemePrivate(QObject *parent)
 {
     ThemeConfig config;
     cacheTheme = config.cacheTheme();
+    kSvgTheme = new KSvg::Theme;
+    kSvgTheme->setBasePath(QStringLiteral(PLASMA_RELATIVE_DATA_INSTALL_DIR "/desktoptheme/"));
 
     pixmapSaveTimer = new QTimer(this);
     pixmapSaveTimer->setSingleShot(true);
@@ -149,6 +151,7 @@ ThemePrivate::~ThemePrivate()
 {
     FrameSvgPrivate::s_sharedFrames.remove(this);
     delete pixmapCache;
+    delete kSvgTheme;
 }
 
 KConfigGroup &ThemePrivate::config()
@@ -823,6 +826,7 @@ void ThemePrivate::processBlurBehindSettings(const KSharedConfigPtr &metadata)
 
 void ThemePrivate::setThemeName(const QString &tempThemeName, bool writeSettings, bool emitChanged)
 {
+    kSvgTheme->setThemeName(tempThemeName);
     QString theme = tempThemeName;
     if (theme.isEmpty() || theme == themeName) {
         // let's try and get the default theme at least
