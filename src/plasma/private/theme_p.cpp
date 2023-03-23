@@ -126,6 +126,7 @@ ThemePrivate::ThemePrivate(QObject *parent)
             if (backgroundContrastActive != active) {
                 backgroundContrastActive = active;
                 scheduleThemeChangeNotification(PixmapCache | SvgElementsCache);
+                kSvgTheme->setSelectors({QStringLiteral("translucent")});
             }
         });
 #endif
@@ -336,6 +337,7 @@ void ThemePrivate::compositingChanged(bool active)
         compositingActive = active;
         // qCDebug(LOG_PLASMA) << QTime::currentTime();
         scheduleThemeChangeNotification(PixmapCache | SvgElementsCache);
+        kSvgTheme->setSelectors({QStringLiteral("opaque")});
     }
 #endif
 }
