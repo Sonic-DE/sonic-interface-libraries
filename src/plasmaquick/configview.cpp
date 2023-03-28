@@ -266,6 +266,7 @@ ConfigView::ConfigView(Plasma::Applet *applet, QWindow *parent)
     : QQuickView(parent)
     , d(new ConfigViewPrivate(applet, this))
 {
+    setInitialProperties({{QStringLiteral("parent"), QVariant::fromValue(contentItem())}});
     setIcon(QIcon::fromTheme(QStringLiteral("configure")));
     // Only register types once
     [[maybe_unused]] static int configModelRegisterResult = qmlRegisterType<ConfigModel>("org.kde.plasma.configuration", 2, 0, "ConfigModel");
