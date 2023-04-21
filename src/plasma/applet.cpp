@@ -469,6 +469,30 @@ void Applet::setConfigurationRequired(bool needsConfig, const QString &reason)
     Q_EMIT configurationRequiredChanged(needsConfig, reason);
 }
 
+void Applet::setConstraintHints(Plasma::Types::ConstraintHints constraintHints)
+{
+    if (d->constraintHints == constraintHints) {
+        return;
+    }
+
+    d->constraintHints = constraintHints;
+    Q_EMIT constraintHintsChanged(constraintHints);
+}
+
+Plasma::Types::ConstraintHints Applet::constraintHints() const
+{
+    return d->constraintHints;
+}
+
+bool Applet::isEditMode() const
+{
+    if (!containment() || !containment()->corona()) {
+        return false;
+    }
+
+    return containment()->corona()->isEditMode();
+}
+
 bool Applet::isUserConfiguring() const
 {
     return d->userConfiguring;
