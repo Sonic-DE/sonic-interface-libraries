@@ -82,6 +82,7 @@ AppletInterface::AppletInterface(Plasma::Applet *applet, const QVariantList &arg
 
     connect(applet, &Plasma::Applet::formFactorChanged, this, &AppletInterface::formFactorChanged);
     connect(applet, &Plasma::Applet::locationChanged, this, &AppletInterface::locationChanged);
+    connect(applet, &Plasma::Applet::constraintHintsChanged, this, &AppletInterface::constraintHintsChanged);
 
     if (applet->containment()) {
         connect(applet->containment(), &Plasma::Containment::screenChanged, this, &AppletInterface::screenChanged);
@@ -582,17 +583,12 @@ bool AppletInterface::hideOnWindowDeactivate() const
 
 void AppletInterface::setConstraintHints(Plasma::Types::ConstraintHints hints)
 {
-    if (m_constraintHints == hints) {
-        return;
-    }
-
-    m_constraintHints = hints;
-    Q_EMIT constraintHintsChanged();
+    applet()->setConstraintHints(hints);
 }
 
 Plasma::Types::ConstraintHints AppletInterface::constraintHints() const
 {
-    return m_constraintHints;
+    return applet()->constraintHints();
 }
 
 QKeySequence AppletInterface::globalShortcut() const
@@ -875,7 +871,7 @@ AppletInterface *AppletInterface::self()
 
 bool AppletInterface::isEditMode() const
 {
-    return applet()->containment()->corona()->isEditMode();
+    return applet()->isEditMode();
 }
 
 #include "moc_appletinterface.cpp"
