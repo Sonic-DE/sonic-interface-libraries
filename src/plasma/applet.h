@@ -155,7 +155,11 @@ class PLASMA_EXPORT Applet : public QObject
      */
     Q_PROPERTY(bool configurationRequired READ configurationRequired WRITE setConfigurationRequired NOTIFY configurationRequiredChanged)
 
-    // TODO KF6: constraintHints
+    /**
+     * The hints that the applet gives to its constraint,
+     * such as asking to fill all the available space ignoring margins.
+     */
+    Q_PROPERTY(Plasma::Types::ConstraintHints constraintHints READ constraintHints WRITE setConstraintHints NOTIFY constraintHintsChanged FINAL)
 
     /**
      * The metadata of the applet.
@@ -164,7 +168,12 @@ class PLASMA_EXPORT Applet : public QObject
 
     // TODO KF6: contextualActions along with AppletInterface::setAction etc, alsongside a declarative way?
 
-    // TODO KF6: editMode
+    /**
+     * True when the Corona is in an edit mode that allows to move
+     * things around.
+     * This is global to the Corona, all containments will have the same value for editMode
+     */
+    Q_PROPERTY(bool editMode READ isEditMode NOTIFY editModeChanged)
 
 public:
     // CONSTRUCTORS
@@ -335,6 +344,28 @@ public:
      * @since 5.20
      */
     QString configurationRequiredReason() const;
+
+    /**
+     * Sets the constraint hits which give a more granular control over sizing in
+     * constrained layouts such as panels
+     *
+     * @param constraintHints such as CanFillArea or MarginAreasSeparator,
+     *                        they can be in bitwise OR
+     */
+    void setConstraintHints(Plasma::Types::ConstraintHints constraintHints);
+
+    /**
+     * @return The constraint hints such as CanFillArea or MarginAreasSeparator,
+     *         they can be in bitwise OR
+     */
+    Plasma::Types::ConstraintHints constraintHints() const;
+
+    /**
+     * @return True when the Corona is in an edit mode that allows to move
+     * things around.
+     * This is global to the Corona, all containments will have the same value for editMode
+     */
+    bool isEditMode() const;
 
     /**
      * @return true when the configuration interface is being shown
@@ -608,6 +639,18 @@ Q_SIGNALS:
      * @since 5.20
      */
     void configurationRequiredChanged(bool needsConfig, const QString &reason);
+
+    /**
+     * Emitted when the constraint hints changed
+     * @see setConstraintHints
+     */
+    void constraintHintsChanged(Plasma::Types::ConstraintHints constraintHints);
+
+    /**
+     * Emitted when the edit mode status changed
+     * @see isEditMode
+     */
+    void editModeChanged(bool editMode);
 
     // TODO KF6 keep as Q_SLOT only stuff that needsto be manually invokable from qml
 public Q_SLOTS:
