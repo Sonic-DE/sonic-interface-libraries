@@ -530,7 +530,6 @@ private:
     friend class ContainmentInterface;
     // This is used by ContainmentInterface
     QPointF m_positionBeforeRemoval;
-    Plasma::Types::ConstraintHints m_constraintHints = Plasma::Types::ConstraintHints::NoHint;
 };
 
 QML_DECLARE_TYPEINFO(AppletInterface, QML_HAS_ATTACHED_PROPERTIES)
