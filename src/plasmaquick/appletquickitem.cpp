@@ -550,8 +550,8 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
     // TODO: move somewhere else? in plasmacore import?
     if (AppletQuickItemPrivate::s_itemsForApplet.isEmpty()) {
         const char *uri = "org.kde.plasma.plasmoid";
-        qmlRegisterUncreatableType<AppletInterface>(uri, 2, 0, "Plasmoid", QStringLiteral("Do not create objects of type Plasmoid"));
-        qmlRegisterUncreatableType<ContainmentInterface>(uri, 2, 0, "Containment", QStringLiteral("Do not create objects of type Containment"));
+        qmlRegisterUncreatableType<Plasma::Applet>(uri, 2, 0, "Plasmoid", QStringLiteral("Do not create objects of type Plasmoid"));
+        qmlRegisterUncreatableType<Plasma::Containment>(uri, 2, 0, "Containment", QStringLiteral("Do not create objects of type Containment"));
         qmlRegisterUncreatableType<WallpaperInterface>(uri, 2, 0, "Wallpaper", QStringLiteral("Do not create objects of type Wallpaper"));
     }
     auto it = AppletQuickItemPrivate::s_itemsForApplet.constFind(applet);
@@ -670,7 +670,7 @@ void AppletQuickItem::init()
     }
 
     if (!qEnvironmentVariableIntValue("PLASMA_NO_CONTEXTPROPERTIES")) {
-        d->qmlObject->rootContext()->setContextProperty(QStringLiteral("plasmoid"), this);
+        d->qmlObject->rootContext()->setContextProperty(QStringLiteral("plasmoid"), d->applet);
     }
 
     // initialize size, so an useless resize less
