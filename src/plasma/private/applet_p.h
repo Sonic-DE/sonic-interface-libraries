@@ -14,6 +14,7 @@
 #include <QPointer>
 
 #include <KActionCollection>
+#include <KConfigPropertyMap>
 #include <KConfigSkeleton>
 #include <KNotification>
 
@@ -78,7 +79,8 @@ public:
 
     // config and package stuff
     KPackage::Package package;
-    KConfigLoader *configLoader;
+    KConfigLoader *configLoader = nullptr;
+    KConfigPropertyMap *configPropertyMap = nullptr;
 
     // actions stuff; put activationAction into actions?
     KActionCollection *actions;

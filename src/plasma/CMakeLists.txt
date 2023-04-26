@@ -78,6 +78,7 @@ PUBLIC
     KF6::CoreAddons
 PRIVATE
     Qt6::Svg
+    KF6::ConfigQml
     KF6::Archive
     KF6::GuiAddons #kimagecache
     KF6::I18n
