@@ -35,6 +35,7 @@ class DeclarativeAppletScript;
 
 class KActionCollection;
 class KConfigLoader;
+class KConfigPropertyMap;
 
 namespace Plasma
 {
@@ -137,7 +138,11 @@ class PLASMA_EXPORT Applet : public QObject
     // TODO KF6: activity, screen, screenGeometry, availableScreenRect, availableScreenRegion: should we instead make the containment accessible from qml
     // plasmoids and ask from there?
 
-    // TODO KF6: configuration object
+    /**
+     * A KConfigPropertyMap instance that represents the configuration
+     * which is usable from QML to read and write settings like any JavaScript Object
+     */
+    Q_PROPERTY(KConfigPropertyMap *configuration READ configuration CONSTANT FINAL)
 
     // TODO KF6: hideOnWindowDeactivate
 
@@ -293,6 +298,12 @@ public:
      * @return config skeleton object, or 0 if none
      **/
     KConfigLoader *configScheme() const;
+
+    /**
+     * @return a KConfigPropertyMap instance that represents the configuration
+     * which is usable from QML to read and write settings like any JavaScript Object
+     */
+    KConfigPropertyMap *configuration();
 
     /**
      * Saves state information about this applet that will
