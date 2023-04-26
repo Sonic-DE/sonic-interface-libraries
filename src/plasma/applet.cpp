@@ -23,6 +23,7 @@
 #include <KAuthorized>
 #include <KColorScheme>
 #include <KConfigLoader>
+#include <KConfigPropertyMap>
 #include <KDesktopFile>
 #include <KGlobalAccel>
 #include <KLocalizedString>
@@ -249,6 +250,14 @@ KConfigLoader *Applet::configScheme() const
     }
 
     return d->configLoader;
+}
+
+KConfigPropertyMap *Applet::configuration()
+{
+    if (!d->configPropertyMap) {
+        d->configPropertyMap = new KConfigPropertyMap(configScheme(), this);
+    }
+    return d->configPropertyMap;
 }
 
 KPackage::Package Applet::kPackage() const
