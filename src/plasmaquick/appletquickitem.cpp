@@ -508,12 +508,12 @@ AppletQuickItem::~AppletQuickItem()
     delete d;
 }
 
-AppletQuickItem *AppletQuickItem::qmlAttachedProperties(QObject *object)
+Plasma::Applet *AppletQuickItem::qmlAttachedProperties(QObject *object)
 {
     QQmlContext *context;
     // Special case: we are asking the attached Plasmoid property of an AppletItem itself, which in this case is itself
     if (auto *appletItem = qobject_cast<AppletQuickItem *>(object)) {
-        return appletItem;
+        return appletItem->applet();
     }
 
     // is it using shared engine mode?
@@ -534,7 +534,7 @@ AppletQuickItem *AppletQuickItem::qmlAttachedProperties(QObject *object)
     }
     // at the moment of the attached object creation, the root item is the only one that hasn't a parent
     // only way to avoid creation of this attached for everybody but the root item
-    AppletQuickItem *ret = qobject_cast<AppletQuickItem *>(context->property("_plasmoid_property").value<QObject *>());
+    Plasma::Applet *ret = qobject_cast<Plasma::Applet *>(context->property("_plasmoid_property").value<QObject *>());
     if (!ret) {
         qWarning() << "Could not find the Plasmoid for" << object << context << context->baseUrl();
     }
@@ -590,7 +590,7 @@ void AppletQuickItem::init()
         return;
     }
 
-    d->qmlObject->rootContext()->setProperty("_plasmoid_property", QVariant::fromValue<QObject *>(this));
+    d->qmlObject->rootContext()->setProperty("_plasmoid_property", QVariant::fromValue<QObject *>(d->applet));
 
     Q_ASSERT(d->applet);
 
@@ -682,6 +682,21 @@ void AppletQuickItem::init()
         initialProperties[QStringLiteral("width")] = w;
         initialProperties[QStringLiteral("height")] = h;
     }
+
+    // add a new property in applet to point to the QQuickItem
+    QJSValue fun =
+        engine->evaluate(QStringLiteral("(function(applet, item) { \
+                Object.defineProperty(applet, 'gui',\
+                                        {\
+                                            enumerable: true,\
+                                            configurable: false,\
+                                            writable: false,\
+                                            value: item\
+                                        }) })"));
+    QJSValueList args;
+    args << engine->newQObject(d->applet) << engine->newQObject(this);
+    fun.call(args);
+
     d->qmlObject->setInitializationDelayed(false);
     d->qmlObject->completeInitialization(initialProperties);
 

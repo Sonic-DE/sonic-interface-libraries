@@ -118,10 +118,9 @@ void ConfigViewPrivate::init()
 
     q->setResizeMode(QQuickView::SizeViewToRootObject);
 
-    auto plasmoid = AppletQuickItem::itemForApplet(applet);
-    q->engine()->rootContext()->setProperty("_plasmoid_property", QVariant::fromValue(plasmoid));
+    q->engine()->rootContext()->setProperty("_plasmoid_property", QVariant::fromValue(applet));
     if (!qEnvironmentVariableIntValue("PLASMA_NO_CONTEXTPROPERTIES")) {
-        q->engine()->rootContext()->setContextProperties({QQmlContext::PropertyPair{QStringLiteral("plasmoid"), QVariant::fromValue(plasmoid)},
+        q->engine()->rootContext()->setContextProperties({QQmlContext::PropertyPair{QStringLiteral("plasmoid"), QVariant::fromValue(applet)},
                                                           QQmlContext::PropertyPair{QStringLiteral("configDialog"), QVariant::fromValue(q)}});
     }
 
