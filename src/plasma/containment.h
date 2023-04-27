@@ -43,7 +43,49 @@ class ContainmentPrivate;
 class PLASMA_EXPORT Containment : public Applet
 {
     Q_OBJECT
+
+    /**
+     * List of applets this containment has: the containments
+     * KF6: this should be AppletQuickItem *
+     */
+    Q_PROPERTY(QList<Plasma::Applet *> applets READ applets NOTIFY appletsChanged)
+
+    /**
+     * Type of this containment
+     */
+    Q_PROPERTY(Plasma::Types::ContainmentType containmentType READ containmentType WRITE setContainmentType NOTIFY containmentTypeChanged)
+
+    /**
+     * Activity UID of this containment
+     */
+    Q_PROPERTY(QString activity READ activity NOTIFY activityChanged)
+
+    /**
+     * Activity name of this containment
+     */
+    Q_PROPERTY(QString activityName READ activityName NOTIFY activityNameChanged)
+
+    /**
+     * Actions associated to this containment or corona
+     * Actions api still a question mark
+     */
+    // TODO Q_PROPERTY(QList<QAction *> actions READ actions NOTIFY actionsChanged)
+
+    /**
+     * True when the Plasma Shell is in an edit mode that allows to move
+     * things around: it's different from userConfiguring as it's about
+     * editing plasmoids inside the containment, rather than the containment
+     * settings dialog itself.
+     * This is global for the whole Plasma process, all containments will have the same value for editMode
+     * TODO: wrap here or expose Corona to qml instead?
+     */
+    // Q_PROPERTY(bool editMode READ isEditMode WRITE setEditMode NOTIFY editModeChanged)
+
+    Q_PROPERTY(Plasma::Types::ContainmentDisplayHints containmentDisplayHints READ containmentDisplayHints WRITE setContainmentDisplayHints NOTIFY
+                   containmentDisplayHintsChanged)
+
     Q_PROPERTY(QString wallpaper READ wallpaper WRITE setWallpaper NOTIFY wallpaperChanged)
+    // TODO: wallpaperItem
     Q_PROPERTY(bool isUiReady READ isUiReady NOTIFY uiReadyChanged)
 
 public:
@@ -171,6 +213,12 @@ public:
     QString activity() const;
 
     /**
+     * @return Activity name corresponding to the activity UID
+     * @see activity
+     */
+    QString activityName() const;
+
+    /**
      * Sets a containmentactions plugin.
      *
      * @param trigger the mouse button (and optional modifier) to associate the plugin with
@@ -205,6 +253,8 @@ Q_SIGNALS:
      */
     void appletRemoved(Plasma::Applet *applet);
 
+    void appletsChanged();
+
     /**
      * This signal is emitted when a new applet is created by the containment.
      * Compared to appletAdded, this gets emitted only when the user explicitly
@@ -219,6 +269,11 @@ Q_SIGNALS:
      * Emitted when the activity id has changed
      */
     void activityChanged(const QString &activity);
+
+    /**
+     * Emitted when the activity name has changed
+     */
+    void activityNameChanged(const QString &name);
 
     /**
      * Emitted when the containment requests an add widgets dialog is shown.
@@ -263,6 +318,11 @@ Q_SIGNALS:
      * @since 5.0
      */
     void formFactorChanged(Plasma::Types::FormFactor formFactor);
+
+    /**
+     * Emitted when the containment disaplay hints change
+     */
+    void containmentDisplayHintsChanged(Plasma::Types::ContainmentDisplayHints hints);
 
     /**
      * Emitted when the ui has been fully loaded and is fully working
