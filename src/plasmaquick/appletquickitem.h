@@ -111,7 +111,7 @@ public:
     static AppletQuickItem *itemForApplet(Plasma::Applet *applet);
 
     ////NEEDED BY QML TO CREATE ATTACHED PROPERTIES
-    static AppletQuickItem *qmlAttachedProperties(QObject *object);
+    static Plasma::Applet *qmlAttachedProperties(QObject *object);
 
 Q_SIGNALS:
     // Property signals
