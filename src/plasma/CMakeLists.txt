@@ -87,6 +87,7 @@ PRIVATE
     KF6::GlobalAccel #Applet::setGlobalShortcut
     KF6::Notifications
     KF6::IconThemes
+    KF6::Activities
     ${PLASMA_EXTRA_LIBS}
 )
 
