@@ -106,6 +106,7 @@ class PLASMA_EXPORT Applet : public QObject
 
     /**
      * Display hints that come from the containment that suggest the applet how to look and behave.
+     * TODO: only in containment?
      */
     Q_PROPERTY(Plasma::Types::ContainmentDisplayHints containmentDisplayHints READ containmentDisplayHints NOTIFY containmentDisplayHintsChanged)
 
@@ -144,7 +145,12 @@ class PLASMA_EXPORT Applet : public QObject
      */
     Q_PROPERTY(KConfigPropertyMap *configuration READ configuration CONSTANT FINAL)
 
-    // TODO KF6: hideOnWindowDeactivate
+    /**
+     * Whether the dialog should be hidden when the dialog loses focus.
+     *
+     * The default value is @c false.
+     **/
+    Q_PROPERTY(bool hideOnWindowDeactivate READ hideOnWindowDeactivate WRITE setHideOnWindowDeactivate NOTIFY hideOnWindowDeactivateChanged)
 
     /**
      * The global shortcut to activate the plasmoid
@@ -177,6 +183,7 @@ class PLASMA_EXPORT Applet : public QObject
      * True when the Corona is in an edit mode that allows to move
      * things around.
      * This is global to the Corona, all containments will have the same value for editMode
+     * TODO: only in containment?
      */
     Q_PROPERTY(bool editMode READ isEditMode NOTIFY editModeChanged)
 
@@ -271,6 +278,17 @@ public:
      * @since 5.77
      */
     Types::ContainmentDisplayHints containmentDisplayHints() const;
+
+    /**
+     * Hint for the gui when the plasmoid opens a window such as a popup for
+     * the extended representation, close it as soon it loses focus
+     */
+    bool hideOnWindowDeactivate() const;
+
+    /**
+     * Sets whether plasmoid's windows should be hidden as soon they lose focus
+     */
+    void setHideOnWindowDeactivate(bool hide);
 
     // CONFIGURATION
     /**
@@ -643,6 +661,8 @@ Q_SIGNALS:
     void locationChanged(Plasma::Types::Location location);
 
     void containmentDisplayHintsChanged(Plasma::Types::ContainmentDisplayHints hints);
+
+    void hideOnWindowDeactivateChanged(bool hide);
 
     /**
      * Emitted when setConfigurationRequired was called
