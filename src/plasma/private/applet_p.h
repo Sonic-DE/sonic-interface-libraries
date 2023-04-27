@@ -102,6 +102,7 @@ public:
     Types::ConstraintHints constraintHints = Types::NoHint;
 
     // a great green field of booleans :)
+    bool hideOnWindowDeactivate = true;
     bool userBackgroundHintsInitialized = false;
     bool hasConfigurationInterface : 1;
     bool failed : 1;

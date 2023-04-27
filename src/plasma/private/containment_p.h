@@ -23,6 +23,11 @@ namespace KIO
 class Job;
 }
 
+namespace KActivities
+{
+class Info;
+}
+
 namespace Plasma
 {
 class Containment;
@@ -70,6 +75,7 @@ public:
     Types::Location location;
     Types::ContainmentDisplayHints containmentDisplayHints = Types::NoContainmentDisplayHint;
 
+    KActivities::Info *activityInfo;
     QList<Applet *> applets;
     // Applets still considered not ready
     QSet<Applet *> loadingApplets;

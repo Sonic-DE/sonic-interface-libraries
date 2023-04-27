@@ -26,6 +26,8 @@
 #include <KConfigSkeleton>
 #include <KLocalizedString>
 
+#include <kactivities/info.h>
+
 #include "containmentactions.h"
 #include "corona.h"
 #include "debug_p.h"
@@ -378,6 +380,7 @@ void Containment::addApplet(Applet *applet)
 
     if (currentContainment && currentContainment != this) {
         Q_EMIT currentContainment->appletRemoved(applet);
+        Q_EMIT appletsChanged();
 
         disconnect(applet, nullptr, currentContainment, nullptr);
         connect(currentContainment, nullptr, applet, nullptr);
@@ -445,6 +448,7 @@ void Containment::addApplet(Applet *applet)
     applet->flushPendingConstraintsEvents();
 
     Q_EMIT appletAdded(applet);
+    Q_EMIT appletsChanged();
 
     if (!currentContainment) {
         applet->updateConstraints(Plasma::Types::StartupCompletedConstraint);
@@ -557,6 +561,14 @@ void Containment::setActivity(const QString &activityId)
 QString Containment::activity() const
 {
     return d->activityId;
+}
+
+QString Containment::activityName() const
+{
+    if (!d->activityInfo) {
+        return QString();
+    }
+    return d->activityInfo->name();
 }
 
 void Containment::reactToScreenChange()

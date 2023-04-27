@@ -279,6 +279,7 @@ void AppletPrivate::askDestroy()
                     });
                 q->containment()->d->applets.insert(position, q);
                 Q_EMIT q->containment()->appletAdded(q);
+                Q_EMIT q->containment()->appletsChanged();
             }
             if (deleteNotification) {
                 deleteNotification->close();
@@ -320,6 +321,7 @@ void AppletPrivate::askDestroy()
         if (!q->isContainment() && q->containment()) {
             q->containment()->d->applets.removeAll(q);
             Q_EMIT q->containment()->appletRemoved(q);
+            Q_EMIT q->containment()->appletsChanged();
         }
     }
 }
