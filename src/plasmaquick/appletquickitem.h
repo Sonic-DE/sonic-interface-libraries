@@ -9,6 +9,7 @@
 
 #include <QQmlComponent>
 #include <QQmlEngine>
+#include <QQmlParserStatus>
 #include <QQuickItem>
 #include <QTimer>
 
@@ -72,7 +73,7 @@ class PLASMAQUICK_EXPORT AppletQuickItem : public QQuickItem
     Q_PROPERTY(QObject *rootItem READ rootItem CONSTANT)
 
 public:
-    AppletQuickItem(Plasma::Applet *applet, QQuickItem *parent = nullptr);
+    AppletQuickItem(QQuickItem *parent = nullptr);
     ~AppletQuickItem() override;
 
     ////API NOT SUPPOSED TO BE USED BY QML
@@ -80,6 +81,7 @@ public:
 
     // Make the constructor lighter and delay the actual instantiation of the qml in the applet
     virtual void init();
+    void classBegin() override;
 
     QQuickItem *compactRepresentationItem();
     QQuickItem *fullRepresentationItem();

@@ -5,6 +5,7 @@
 */
 
 #include "appletquickitem.h"
+#include "appletcontext_p.h"
 #include "debug_p.h"
 #include "plasmoid/appletinterface.h"
 #include "plasmoid/containmentinterface.h"
@@ -35,11 +36,10 @@ namespace PlasmaQuick
 QHash<Plasma::Applet *, AppletQuickItem *> AppletQuickItemPrivate::s_itemsForApplet = QHash<Plasma::Applet *, AppletQuickItem *>();
 AppletQuickItemPrivate::PreloadPolicy AppletQuickItemPrivate::s_preloadPolicy = AppletQuickItemPrivate::Uninitialized;
 
-AppletQuickItemPrivate::AppletQuickItemPrivate(Plasma::Applet *a, AppletQuickItem *item)
+AppletQuickItemPrivate::AppletQuickItemPrivate(AppletQuickItem *item)
     : q(item)
     , switchWidth(-1)
     , switchHeight(-1)
-    , applet(a)
     , expanded(false)
     , activationTogglesExpanded(true)
     , initComplete(false)
@@ -461,36 +461,10 @@ void AppletQuickItemPrivate::fillHeightChanged()
     propagateSizeHint("fillHeight");
 }
 
-AppletQuickItem::AppletQuickItem(Plasma::Applet *applet, QQuickItem *parent)
+AppletQuickItem::AppletQuickItem(QQuickItem *parent)
     : QQuickItem(parent)
-    , d(new AppletQuickItemPrivate(applet, this))
+    , d(new AppletQuickItemPrivate(this))
 {
-    d->init();
-
-    if (d->applet) {
-        d->appletPackage = d->applet->kPackage();
-
-        if (d->applet->containment()) {
-            if (d->applet->containment()->corona()) {
-                d->coronaPackage = d->applet->containment()->corona()->kPackage();
-            }
-
-            d->containmentPackage = d->applet->containment()->kPackage();
-        }
-
-        if (d->applet->pluginMetaData().isValid()) {
-            const QString rootPath = d->applet->pluginMetaData().value(QStringLiteral("X-Plasma-RootPath"));
-            if (!rootPath.isEmpty()) {
-                d->qmlObject->setTranslationDomain(QLatin1String("plasma_applet_") + rootPath);
-            } else {
-                d->qmlObject->setTranslationDomain(QLatin1String("plasma_applet_") + d->applet->pluginMetaData().pluginId());
-            }
-        }
-    }
-
-    d->qmlObject->setInitializationDelayed(true);
-
-    setProperty("_plasma_applet", QVariant::fromValue(d->applet));
 }
 
 AppletQuickItem::~AppletQuickItem()
@@ -550,9 +524,12 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
     // TODO: move somewhere else? in plasmacore import?
     if (AppletQuickItemPrivate::s_itemsForApplet.isEmpty()) {
         const char *uri = "org.kde.plasma.plasmoid";
-        qmlRegisterUncreatableType<Plasma::Applet>(uri, 2, 0, "Plasmoid", QStringLiteral("Do not create objects of type Plasmoid"));
-        qmlRegisterUncreatableType<Plasma::Containment>(uri, 2, 0, "Containment", QStringLiteral("Do not create objects of type Containment"));
+        // TODO: Plasmoid and Containment types which are used only for attached properties, or move qmlAttachedProperties() in Applet/Contaiment
+        qmlRegisterUncreatableType<AppletInterface>(uri, 2, 0, "Plasmoid", QStringLiteral("Do not create objects of type Plasmoid"));
+        qmlRegisterUncreatableType<ContainmentInterface>(uri, 2, 0, "Containment", QStringLiteral("Do not create objects of type Containment"));
         qmlRegisterUncreatableType<WallpaperInterface>(uri, 2, 0, "Wallpaper", QStringLiteral("Do not create objects of type Wallpaper"));
+        qmlRegisterType<AppletInterface>(uri, 2, 0, "PlasmoidItem");
+        qmlRegisterType<ContainmentInterface>(uri, 2, 0, "ContainmentItem");
     }
     auto it = AppletQuickItemPrivate::s_itemsForApplet.constFind(applet);
     if (it != AppletQuickItemPrivate::s_itemsForApplet.constEnd()) {
@@ -560,14 +537,105 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
     }
     Plasma::Containment *pc = qobject_cast<Plasma::Containment *>(applet);
 
-    AppletQuickItem *item = nullptr;
-    if (pc && pc->isContainment()) {
-        // TODO: creation parameters
-        item = new ContainmentInterface(applet, applet->startupArguments());
-    } else {
-        // fail? so it's a normal Applet
-        item = new AppletInterface(applet, applet->startupArguments());
+    // TODO: kill packageurlinterceptor?
+    auto *qmlObject = new PlasmaQuick::SharedQmlEngine(applet);
+    qmlObject->setInitializationDelayed(true);
+    if (qmlObject->engine()->urlInterceptors().isEmpty()) {
+        PackageUrlInterceptor *interceptor = new PackageUrlInterceptor(qmlObject->engine().get(), KPackage::Package());
+        interceptor->setForcePlasmaStyle(true);
+        qmlObject->engine()->addUrlInterceptor(interceptor);
     }
+    if (applet->pluginMetaData().isValid()) {
+        const QString rootPath = applet->pluginMetaData().value(QStringLiteral("X-Plasma-RootPath"));
+        if (!rootPath.isEmpty()) {
+            qmlObject->setTranslationDomain(QLatin1String("plasma_applet_") + rootPath);
+        } else {
+            qmlObject->setTranslationDomain(QLatin1String("plasma_applet_") + applet->pluginMetaData().pluginId());
+        }
+    }
+
+    // FIXME: Plasmoid attached property should be fixed since can't be indexed by engine anymore
+    // if (!qmlObject->rootContext()->property("_plasmoid_property").isNull()) {
+    //     return;
+    // }
+
+    qmlObject->rootContext()->setProperty("_plasmoid_property", QVariant::fromValue<QObject *>(applet));
+    AppletQuickItem *item = nullptr;
+    qmlObject->setSource(applet->kPackage().fileUrl("mainscript"));
+
+    qmlObject->setInitializationDelayed(false);
+    qmlObject->completeInitialization();
+    if (pc && pc->isContainment()) {
+        item = qobject_cast<ContainmentInterface *>(qmlObject->rootObject());
+    } else {
+        item = qobject_cast<AppletInterface *>(qmlObject->rootObject());
+    }
+
+    if (!item || !qmlObject->mainComponent() || qmlObject->mainComponent()->isError() || applet->failedToLaunch()) {
+        QString reason;
+        QJsonObject errorData;
+        errorData[QStringLiteral("appletName")] = i18n("Unknown Applet");
+        errorData[QStringLiteral("isDebugMode")] = qEnvironmentVariableIntValue("PLASMA_ENABLE_QML_DEBUG") != 0;
+
+        if (applet->failedToLaunch()) {
+            reason = applet->launchErrorMessage();
+            errorData[QStringLiteral("errors")] = QJsonArray::fromStringList({reason});
+        } else if (applet->kPackage().isValid()) {
+            const auto errors = qmlObject->mainComponent()->errors();
+            QStringList errorList;
+            for (const QQmlError &error : errors) {
+                reason += error.toString() + QLatin1Char('\n');
+                errorList << error.toString();
+            }
+            errorData[QStringLiteral("errors")] = QJsonArray::fromStringList(errorList);
+            errorData[QStringLiteral("appletName")] = applet->pluginMetaData().name();
+            reason = i18n("Error loading QML file: %1 %2", qmlObject->mainComponent()->url().toString(), reason);
+        } else {
+            reason = i18n("Error loading Applet: package inexistent. %1", applet->launchErrorMessage());
+            errorData[QStringLiteral("errors")] = QJsonArray::fromStringList({reason});
+        }
+
+        qCWarning(LOG_PLASMAQUICK) << errorData[QStringLiteral("appletName")];
+        qCWarning(LOG_PLASMAQUICK) << errorData[QStringLiteral("errors")];
+
+        qmlObject->setSource(applet->containment()->corona()->kPackage().fileUrl("appleterror"));
+
+        // even the error message QML may fail
+        if (qmlObject->mainComponent()->isError()) {
+            return nullptr;
+        } else {
+            // TODO KF6: remove in favour of newer errorInformation
+            qmlObject->completeInitialization({{QStringLiteral("errorInformation"), errorData}, {QStringLiteral("reason"), reason}});
+        }
+
+        item = qobject_cast<AppletInterface *>(qmlObject->rootObject());
+        applet->setLaunchErrorMessage(reason);
+    }
+
+    // TODO: remove add a new property in applet to point to the QQuickItem
+    QJSValue fun =
+        qmlObject->engine()->evaluate(QStringLiteral("(function(applet, item) { \
+                Object.defineProperty(applet, 'gui',\
+                                        {\
+                                            enumerable: true,\
+                                            configurable: false,\
+                                            writable: false,\
+                                            value: item\
+                                        }) })"));
+    QJSValueList args;
+    args << qmlObject->engine()->newQObject(applet) << qmlObject->engine()->newQObject(item);
+    fun.call(args);
+
+    qWarning() << "AAAAAAAAAAA" << item << qmlObject->rootObject();
+    item->setProperty("_plasma_applet", QVariant::fromValue(applet));
+    qmlObject->setParent(item);
+    item->d->applet = applet;
+    item->d->qmlObject = qmlObject;
+
+    if (!qEnvironmentVariableIntValue("PLASMA_NO_CONTEXTPROPERTIES")) {
+        qmlObject->rootContext()->setContextProperty(QStringLiteral("plasmoid"), applet);
+    }
+
     AppletQuickItemPrivate::s_itemsForApplet[applet] = item;
     applet->connect(applet, &QObject::destroyed, applet, [applet]() {
         delete AppletQuickItemPrivate::s_itemsForApplet[applet];
@@ -575,6 +643,7 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
     });
     item->init();
 
+    applet->setProperty("_plasmoid", QVariant::fromValue(item));
     return item;
 }
 
@@ -585,14 +654,17 @@ Plasma::Applet *AppletQuickItem::applet() const
 
 void AppletQuickItem::init()
 {
-    // FIXME: Plasmoid attached property should be fixed since can't be indexed by engine anymore
-    if (!d->qmlObject->rootContext()->property("_plasmoid_property").isNull()) {
-        return;
-    }
-
-    d->qmlObject->rootContext()->setProperty("_plasmoid_property", QVariant::fromValue<QObject *>(d->applet));
-
     Q_ASSERT(d->applet);
+
+    d->appletPackage = d->applet->kPackage();
+
+    if (d->applet->containment()) {
+        if (d->applet->containment()->corona()) {
+            d->coronaPackage = d->applet->containment()->corona()->kPackage();
+        }
+
+        d->containmentPackage = d->applet->containment()->kPackage();
+    }
 
     // Initialize the main QML file
     QQmlEngine *engine = d->qmlObject->engine().get();
@@ -625,81 +697,20 @@ void AppletQuickItem::init()
         engine->setProperty(("_plasma_qqc_style_set"), true);
     }
 
-    d->qmlObject->setSource(d->applet->kPackage().fileUrl("mainscript"));
-    if (!engine || !engine->rootContext() || !engine->rootContext()->isValid() || !d->qmlObject->mainComponent() || d->qmlObject->mainComponent()->isError()
-        || d->applet->failedToLaunch()) {
-        QString reason;
-        QJsonObject errorData;
-        errorData[QStringLiteral("appletName")] = i18n("Unknown Applet");
-        errorData[QStringLiteral("isDebugMode")] = qEnvironmentVariableIntValue("PLASMA_ENABLE_QML_DEBUG") != 0;
-
-        if (d->applet->failedToLaunch()) {
-            reason = d->applet->launchErrorMessage();
-            errorData[QStringLiteral("errors")] = QJsonArray::fromStringList({reason});
-        } else if (d->applet->kPackage().isValid()) {
-            const auto errors = d->qmlObject->mainComponent()->errors();
-            QStringList errorList;
-            for (const QQmlError &error : errors) {
-                reason += error.toString() + QLatin1Char('\n');
-                errorList << error.toString();
-            }
-            errorData[QStringLiteral("errors")] = QJsonArray::fromStringList(errorList);
-            errorData[QStringLiteral("appletName")] = d->applet->pluginMetaData().name();
-            reason = i18n("Error loading QML file: %1 %2", d->qmlObject->mainComponent()->url().toString(), reason);
-        } else {
-            reason = i18n("Error loading Applet: package inexistent. %1", applet()->launchErrorMessage());
-            errorData[QStringLiteral("errors")] = QJsonArray::fromStringList({reason});
+    /*
+        // initialize size, so an useless resize less
+        QVariantHash initialProperties;
+        // initialize with our size only if valid
+        if (width() > 0 && height() > 0) {
+            const qreal w = parentItem() ? std::min(parentItem()->width(), width()) : width();
+            const qreal h = parentItem() ? std::min(parentItem()->height(), height()) : height();
+            initialProperties[QStringLiteral("width")] = w;
+            initialProperties[QStringLiteral("height")] = h;
         }
 
-        qCWarning(LOG_PLASMAQUICK) << errorData[QStringLiteral("appletName")];
-        qCWarning(LOG_PLASMAQUICK) << errorData[QStringLiteral("errors")];
-
-        d->qmlObject->setSource(d->coronaPackage.fileUrl("appleterror"));
-        d->qmlObject->completeInitialization();
-
-        // even the error message QML may fail
-        if (d->qmlObject->mainComponent()->isError()) {
-            return;
-        } else {
-            d->qmlObject->rootObject()->setProperty("errorInformation", errorData);
-            // TODO KF6: remove in favour of newer errorInformation
-            d->qmlObject->rootObject()->setProperty("reason", reason);
-        }
-
-        d->applet->setLaunchErrorMessage(reason);
-    }
-
-    if (!qEnvironmentVariableIntValue("PLASMA_NO_CONTEXTPROPERTIES")) {
-        d->qmlObject->rootContext()->setContextProperty(QStringLiteral("plasmoid"), d->applet);
-    }
-
-    // initialize size, so an useless resize less
-    QVariantHash initialProperties;
-    // initialize with our size only if valid
-    if (width() > 0 && height() > 0) {
-        const qreal w = parentItem() ? std::min(parentItem()->width(), width()) : width();
-        const qreal h = parentItem() ? std::min(parentItem()->height(), height()) : height();
-        initialProperties[QStringLiteral("width")] = w;
-        initialProperties[QStringLiteral("height")] = h;
-    }
-
-    // add a new property in applet to point to the QQuickItem
-    QJSValue fun =
-        engine->evaluate(QStringLiteral("(function(applet, item) { \
-                Object.defineProperty(applet, 'gui',\
-                                        {\
-                                            enumerable: true,\
-                                            configurable: false,\
-                                            writable: false,\
-                                            value: item\
-                                        }) })"));
-    QJSValueList args;
-    args << engine->newQObject(d->applet) << engine->newQObject(this);
-    fun.call(args);
-
-    d->qmlObject->setInitializationDelayed(false);
-    d->qmlObject->completeInitialization(initialProperties);
-
+        d->qmlObject->setInitializationDelayed(false);
+        d->qmlObject->completeInitialization(initialProperties);
+    */
     // otherwise, initialize our size to root object's size
     if (d->qmlObject->rootObject() && (width() <= 0 || height() <= 0)) {
         const qreal w = d->qmlObject->rootObject()->property("width").value<qreal>();
@@ -767,6 +778,16 @@ void AppletQuickItem::init()
             }
         });
     }
+}
+
+void AppletQuickItem::classBegin()
+{
+    QQuickItem::classBegin();
+    AppletContext *ac = qobject_cast<AppletContext *>(QQmlEngine::contextForObject(this)->parentContext());
+    Q_ASSERT(ac);
+    d->applet = ac->applet();
+    d->qmlObject = ac->sharedQmlEngine();
+    // init();
 }
 
 int AppletQuickItem::switchWidth() const
