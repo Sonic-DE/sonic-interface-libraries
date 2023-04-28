@@ -52,7 +52,7 @@ public:
         Aggressive = 2,
     };
 
-    AppletQuickItemPrivate(Plasma::Applet *a, AppletQuickItem *item);
+    AppletQuickItemPrivate(AppletQuickItem *item);
 
     void init();
 

@@ -45,30 +45,30 @@
 
 #include <packageurlinterceptor.h>
 
-ContainmentInterface::ContainmentInterface(Plasma::Applet *parent, const QVariantList &args)
-    : AppletInterface(parent, args)
+ContainmentInterface::ContainmentInterface(QQuickItem *parent)
+    : AppletInterface(parent)
     , m_wallpaperInterface(nullptr)
     , m_activityInfo(nullptr)
     , m_wheelDelta(0)
 {
-    const char *uri = "org.kde.plasma.plasmoid";
+    /*const char *uri = "org.kde.plasma.plasmoid";
     qmlRegisterUncreatableType<AppletInterface>(uri, 2, 0, "Plasmoid", QStringLiteral("Do not create objects of type Plasmoid"));
     qmlRegisterUncreatableType<ContainmentInterface>(uri, 2, 0, "Containment", QStringLiteral("Do not create objects of type Containment"));
 
     qmlRegisterUncreatableType<WallpaperInterface>(uri, 2, 0, "Wallpaper", QStringLiteral("Do not create objects of type Wallpaper"));
-
-    m_containment = static_cast<Plasma::Containment *>(parent->containment());
-
+*/
     setAcceptedMouseButtons(Qt::AllButtons);
+}
+
+void ContainmentInterface::init()
+{
+    m_containment = static_cast<Plasma::Containment *>(applet()->containment());
 
     connect(m_containment.data(), &Plasma::Containment::appletRemoved, this, &ContainmentInterface::appletRemovedForward);
     connect(m_containment.data(), &Plasma::Containment::appletAdded, this, &ContainmentInterface::appletAddedForward);
 
     connect(m_containment->corona(), &Plasma::Corona::editModeChanged, this, &ContainmentInterface::editModeChanged);
-}
 
-void ContainmentInterface::init()
-{
     if (qmlObject()->rootObject()) {
         return;
     }
