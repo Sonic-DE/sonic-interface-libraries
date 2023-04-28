@@ -19,6 +19,7 @@
 #include <QMimeData>
 #include <QMimeDatabase>
 #include <QPainter>
+#include <QQuickItem>
 #include <QTemporaryFile>
 
 #include <KAuthorized>
@@ -431,6 +432,7 @@ void Containment::addApplet(Applet *applet)
 
     Q_EMIT appletAdded(applet);
     Q_EMIT appletsChanged();
+    Q_EMIT applet->containmentChanged(this);
 
     if (!currentContainment) {
         applet->updateConstraints(Plasma::Types::StartupCompletedConstraint);
@@ -443,6 +445,11 @@ void Containment::addApplet(Applet *applet)
 QList<Applet *> Containment::applets() const
 {
     return d->applets;
+}
+
+QQuickItem *Containment::appletItem(Applet *applet) const
+{
+    return applet->property("_plasmoid").value<QQuickItem *>();
 }
 
 int Containment::screen() const
