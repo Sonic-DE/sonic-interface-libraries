@@ -6,6 +6,7 @@
 */
 
 #include "sharedqmlengine.h"
+#include "appletcontext_p.h"
 
 #include <KLocalizedContext>
 #include <QDebug>
@@ -16,10 +17,13 @@
 #include <QQuickItem>
 #include <QTimer>
 
+#include <Plasma/Applet>
+
 #include "debug_p.h"
 
 namespace PlasmaQuick
 {
+// TODO: remove the incubator
 class QmlObjectIncubator : public QQmlIncubator
 {
 public:
@@ -159,6 +163,16 @@ SharedQmlEngine::SharedQmlEngine(QObject *parent)
 {
     d->rootContext = new QQmlContext(engine().get());
     d->rootContext->setParent(this); // Delete the context when deleting the shared engine
+
+    d->context = new KLocalizedContext(d->rootContext);
+    d->rootContext->setContextObject(d->context);
+}
+
+SharedQmlEngine::SharedQmlEngine(Plasma::Applet *applet, QObject *parent)
+    : QObject(parent)
+    , d(new SharedQmlEnginePrivate(this))
+{
+    d->rootContext = new AppletContext(engine().get(), applet, this);
 
     d->context = new KLocalizedContext(d->rootContext);
     d->rootContext->setContextObject(d->context);
