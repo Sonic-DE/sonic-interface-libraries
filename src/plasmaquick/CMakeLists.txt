@@ -13,6 +13,7 @@ set_target_properties(KF6PlasmaQuick PROPERTIES
 )
 
 target_sources(KF6PlasmaQuick PRIVATE
+    appletcontext.cpp
     appletquickitem.cpp
     debug_p.cpp
     dialog.cpp

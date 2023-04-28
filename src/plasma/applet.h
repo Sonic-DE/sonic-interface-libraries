@@ -187,6 +187,11 @@ class PLASMA_EXPORT Applet : public QObject
      */
     Q_PROPERTY(bool editMode READ isEditMode NOTIFY editModeChanged)
 
+    /**
+     *
+     */
+    Q_PROPERTY(Plasma::Containment *containment READ containment NOTIFY containmentChanged)
+
 public:
     // CONSTRUCTORS
 
@@ -682,6 +687,8 @@ Q_SIGNALS:
      * @see isEditMode
      */
     void editModeChanged(bool editMode);
+
+    void containmentChanged(Plasma::Containment *containment);
 
     // TODO KF6 keep as Q_SLOT only stuff that needsto be manually invokable from qml
 public Q_SLOTS:
