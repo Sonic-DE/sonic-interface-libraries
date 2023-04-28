@@ -13,6 +13,8 @@
 #include <KSharedConfig>
 #include <plasma/applet.h>
 
+class QQuickItem;
+
 namespace Plasma
 {
 class Corona;
@@ -141,8 +143,6 @@ public:
      * @param name the plugin name for the applet, as given by
      *        KPluginInfo::pluginName()
      * @param args argument list to pass to the plasmoid
-     * @param geometry where to place the applet, or to auto-place it if an invalid
-     *                 is provided
      *
      * @return a pointer to the applet on success, or 0 on failure
      */
@@ -152,7 +152,6 @@ public:
      * Add an existing applet to this Containment
      *
      * @param applet the applet that should be added
-     * @param pos the containment-relative position
      */
     void addApplet(Applet *applet);
 
@@ -160,6 +159,11 @@ public:
      * @return the applets currently in this Containment
      */
     QList<Applet *> applets() const;
+
+    /**
+     *
+     */
+    QQuickItem *appletItem(Applet *applet) const;
 
     /**
      * @return the screen number this containment is serving as the desktop for
