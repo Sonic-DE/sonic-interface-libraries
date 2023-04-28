@@ -20,6 +20,11 @@ class QQmlComponent;
 class QQmlEngine;
 class KLocalizedContext;
 
+namespace Plasma
+{
+class Applet;
+}
+
 namespace PlasmaQuick
 {
 class SharedQmlEnginePrivate;
@@ -53,6 +58,7 @@ public:
      * @param parent The QObject parent for this object.
      */
     explicit SharedQmlEngine(QObject *parent = nullptr);
+    explicit SharedQmlEngine(Plasma::Applet *applet, QObject *parent = nullptr);
 
     ~SharedQmlEngine() override;
 

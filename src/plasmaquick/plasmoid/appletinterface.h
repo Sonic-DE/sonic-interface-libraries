@@ -284,7 +284,7 @@ public:
     Q_ENUM(ActionPriority);
 
 public:
-    AppletInterface(Plasma::Applet *applet, const QVariantList &args = QVariantList(), QQuickItem *parent = nullptr);
+    AppletInterface(QQuickItem *parent = nullptr);
     ~AppletInterface() override;
 
     // API not intended for the QML part
@@ -348,9 +348,9 @@ public:
 
     QRect availableScreenRect() const;
 
-    static AppletInterface *qmlAttachedProperties(QObject *object)
+    static Plasma::Applet *qmlAttachedProperties(QObject *object)
     {
-        return qobject_cast<AppletInterface *>(AppletQuickItem::qmlAttachedProperties(object));
+        return qobject_cast<Plasma::Applet *>(AppletQuickItem::qmlAttachedProperties(object));
     }
 
     // PROPERTY ACCESSORS-------------------------------------------------------------------

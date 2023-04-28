@@ -81,7 +81,7 @@ class ContainmentInterface : public AppletInterface
                    containmentDisplayHintsChanged)
 
 public:
-    ContainmentInterface(Plasma::Applet *parent, const QVariantList &args = QVariantList());
+    ContainmentInterface(QQuickItem *parent = nullptr);
 
     // Not for QML
     Plasma::Containment *containment() const
@@ -162,9 +162,9 @@ public:
     bool isEditMode() const;
     void setEditMode(bool edit);
 
-    static ContainmentInterface *qmlAttachedProperties(QObject *object)
+    static Plasma::Containment *qmlAttachedProperties(QObject *object)
     {
-        return qobject_cast<ContainmentInterface *>(AppletQuickItem::qmlAttachedProperties(object));
+        return qobject_cast<Plasma::Containment *>(AppletQuickItem::qmlAttachedProperties(object));
     }
 
 protected:

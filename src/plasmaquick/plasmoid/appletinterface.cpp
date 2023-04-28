@@ -30,19 +30,26 @@
 
 #include <KConfigPropertyMap>
 
-AppletInterface::AppletInterface(Plasma::Applet *applet, const QVariantList &args, QQuickItem *parent)
-    : AppletQuickItem(applet, parent)
+AppletInterface::AppletInterface(QQuickItem *parent)
+    : AppletQuickItem(parent)
     , m_configuration(nullptr)
     , m_toolTipTextFormat(0)
     , m_toolTipItem(nullptr)
-    , m_args(args)
     , m_hideOnDeactivate(true)
     , m_oldKeyboardShortcut(0)
     , m_dummyNativeInterface(nullptr)
     , m_positionBeforeRemoval(QPointF(-1, -1))
 {
     qmlRegisterAnonymousType<QAction>("org.kde.plasma.plasmoid", 1);
+}
 
+AppletInterface::~AppletInterface()
+{
+}
+
+void AppletInterface::init()
+{
+    auto *applet = AppletInterface::applet();
     connect(applet->containment()->corona(), &Plasma::Corona::editModeChanged, this, &AppletInterface::editModeChanged);
     connect(this, &AppletInterface::configNeedsSaving, applet, &Plasma::Applet::configNeedsSaving);
     connect(applet, &Plasma::Applet::immutabilityChanged, this, &AppletInterface::immutabilityChanged);
@@ -118,19 +125,12 @@ AppletInterface::AppletInterface(Plasma::Applet *applet, const QVariantList &arg
             }
         }
     });
-}
 
-AppletInterface::~AppletInterface()
-{
-}
-
-void AppletInterface::init()
-{
     if (qmlObject()->rootObject() && m_configuration) {
         return;
     }
 
-    m_configuration = new KConfigPropertyMap(applet()->configScheme(), this);
+    m_configuration = new KConfigPropertyMap(applet->configScheme(), this);
 
     AppletQuickItem::init();
 
@@ -142,7 +142,7 @@ void AppletInterface::init()
 
     connect(this, &AppletInterface::isLoadingChanged, this, &AppletInterface::updateUiReadyConstraint);
 
-    connect(applet(), &Plasma::Applet::activated, this, [=]() {
+    connect(applet, &Plasma::Applet::activated, this, [=]() {
         // in case the applet doesn't want to get shrunk on reactivation,
         // we always expand it again (only in order to conform with legacy behaviour)
         bool activate = !(isExpanded() && isActivationTogglesExpanded());
