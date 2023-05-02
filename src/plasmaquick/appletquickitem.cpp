@@ -626,7 +626,6 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
     args << qmlObject->engine()->newQObject(applet) << qmlObject->engine()->newQObject(item);
     fun.call(args);
 
-    qWarning() << "AAAAAAAAAAA" << item << qmlObject->rootObject();
     item->setProperty("_plasma_applet", QVariant::fromValue(applet));
     qmlObject->setParent(item);
     item->d->applet = applet;
@@ -641,7 +640,6 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
         delete AppletQuickItemPrivate::s_itemsForApplet[applet];
         AppletQuickItemPrivate::s_itemsForApplet.remove(applet);
     });
-    item->init();
 
     applet->setProperty("_plasmoid", QVariant::fromValue(item));
     return item;
@@ -787,7 +785,6 @@ void AppletQuickItem::classBegin()
     Q_ASSERT(ac);
     d->applet = ac->applet();
     d->qmlObject = ac->sharedQmlEngine();
-    // init();
 }
 
 int AppletQuickItem::switchWidth() const
