@@ -51,24 +51,22 @@ ContainmentInterface::ContainmentInterface(QQuickItem *parent)
     , m_activityInfo(nullptr)
     , m_wheelDelta(0)
 {
-    /*const char *uri = "org.kde.plasma.plasmoid";
-    qmlRegisterUncreatableType<AppletInterface>(uri, 2, 0, "Plasmoid", QStringLiteral("Do not create objects of type Plasmoid"));
-    qmlRegisterUncreatableType<ContainmentInterface>(uri, 2, 0, "Containment", QStringLiteral("Do not create objects of type Containment"));
-
-    qmlRegisterUncreatableType<WallpaperInterface>(uri, 2, 0, "Wallpaper", QStringLiteral("Do not create objects of type Wallpaper"));
-*/
     setAcceptedMouseButtons(Qt::AllButtons);
 }
 
-void ContainmentInterface::init()
+void ContainmentInterface::classBegin()
 {
+    AppletInterface::classBegin();
     m_containment = static_cast<Plasma::Containment *>(applet()->containment());
 
     connect(m_containment.data(), &Plasma::Containment::appletRemoved, this, &ContainmentInterface::appletRemovedForward);
     connect(m_containment.data(), &Plasma::Containment::appletAdded, this, &ContainmentInterface::appletAddedForward);
 
     connect(m_containment->corona(), &Plasma::Corona::editModeChanged, this, &ContainmentInterface::editModeChanged);
+}
 
+void ContainmentInterface::init()
+{
     if (qmlObject()->rootObject()) {
         return;
     }
@@ -192,7 +190,6 @@ Plasma::Applet *ContainmentInterface::createApplet(const QString &plugin, const 
 
         blockSignals(false);
 
-        Q_EMIT appletAdded(appletGraphicObject, geom.x(), geom.y());
         Q_EMIT appletsChanged();
     } else {
         blockSignals(false);
@@ -245,7 +242,6 @@ void ContainmentInterface::addApplet(AppletInterface *applet, int x, int y)
     blockSignals(true);
     m_containment->addApplet(applet->applet());
     blockSignals(false);
-    Q_EMIT appletAdded(applet, x, y);
 }
 
 QPointF ContainmentInterface::mapFromApplet(AppletInterface *applet, int x, int y)
@@ -746,17 +742,6 @@ void ContainmentInterface::appletAddedForward(Plasma::Applet *applet)
 
     AppletInterface *appletGraphicObject = qobject_cast<AppletInterface *>(AppletQuickItem::itemForApplet(applet));
 
-    //     qDebug() << "Applet added on containment:" << m_containment->title() << this
-    //              << "Applet: " << applet << applet->title() << appletGraphicObject;
-
-    appletGraphicObject->setProperty("visible", false);
-    appletGraphicObject->setProperty("parent", QVariant::fromValue(this));
-
-    m_appletInterfaces << appletGraphicObject;
-    connect(appletGraphicObject, &QObject::destroyed, this, [this](QObject *obj) {
-        m_appletInterfaces.removeAll(obj);
-    });
-
     QPointF removalPosition = appletGraphicObject->m_positionBeforeRemoval;
     QPointF position = appletGraphicObject->position();
     if (removalPosition.x() < 0.0 && removalPosition.y() < 0.0) {
@@ -765,14 +750,13 @@ void ContainmentInterface::appletAddedForward(Plasma::Applet *applet)
             // add the applet to the center. This avoids always placing new applets
             // in the top left corner, which is likely to be covered by something.
             position = QPointF{width() / 2.0 - appletGraphicObject->width() / 2.0, //
-                               height() / 2.0 - appletGraphicObject->width() / 2.0};
+                               height() / 2.0 - appletGraphicObject->height() / 2.0};
         }
     } else {
         position = removalPosition;
     }
-
-    Q_EMIT appletAdded(appletGraphicObject, position.x(), position.y());
-    Q_EMIT appletsChanged();
+    appletGraphicObject->setX(position.x());
+    appletGraphicObject->setY(position.y());
 }
 
 void ContainmentInterface::appletRemovedForward(Plasma::Applet *applet)
@@ -782,8 +766,6 @@ void ContainmentInterface::appletRemovedForward(Plasma::Applet *applet)
         m_appletInterfaces.removeAll(appletGraphicObject);
         appletGraphicObject->m_positionBeforeRemoval = appletGraphicObject->mapToItem(this, QPointF());
     }
-    Q_EMIT appletRemoved(appletGraphicObject);
-    Q_EMIT appletsChanged();
 }
 
 void ContainmentInterface::loadWallpaper()
