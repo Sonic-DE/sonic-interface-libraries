@@ -567,8 +567,14 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
     qmlObject->completeInitialization();
     if (pc && pc->isContainment()) {
         item = qobject_cast<ContainmentInterface *>(qmlObject->rootObject());
+        if (!item && qmlObject->mainComponent()->isError()) {
+            applet->setLaunchErrorMessage(i18n("The root item of %1 must be of type ContaimentItem", applet->kPackage().fileUrl("mainscript").toString()));
+        }
     } else {
         item = qobject_cast<AppletInterface *>(qmlObject->rootObject());
+        if (!item && qmlObject->mainComponent()->isError()) {
+            applet->setLaunchErrorMessage(i18n("The root item of %1 must be of type PlasmoidItem", applet->kPackage().fileUrl("mainscript").toString()));
+        }
     }
 
     if (!item || !qmlObject->mainComponent() || qmlObject->mainComponent()->isError() || applet->failedToLaunch()) {
@@ -580,7 +586,8 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
         if (applet->failedToLaunch()) {
             reason = applet->launchErrorMessage();
             errorData[QStringLiteral("errors")] = QJsonArray::fromStringList({reason});
-        } else if (applet->kPackage().isValid()) {
+        }
+        if (applet->kPackage().isValid()) {
             const auto errors = qmlObject->mainComponent()->errors();
             QStringList errorList;
             for (const QQmlError &error : errors) {
@@ -609,6 +616,8 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
         }
 
         item = qobject_cast<AppletInterface *>(qmlObject->rootObject());
+        item->setProperty("errorInformation", errorData);
+        item->setProperty("reason", reason);
         applet->setLaunchErrorMessage(reason);
     }
 
