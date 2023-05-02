@@ -83,6 +83,8 @@ class ContainmentInterface : public AppletInterface
 public:
     ContainmentInterface(QQuickItem *parent = nullptr);
 
+    void classBegin() override;
+
     // Not for QML
     Plasma::Containment *containment() const
     {
@@ -180,20 +182,6 @@ protected:
     void itemChange(ItemChange change, const ItemChangeData &value) override;
 
 Q_SIGNALS:
-    /**
-     * Emitted when an applet is added
-     * @param applet the applet object: it's a qml graphical object and an instance of AppletInterface
-     * @param x coordinate containment relative
-     * @param y coordinate containment relative
-     */
-    void appletAdded(QObject *applet, int x, int y);
-
-    /**
-     * Emitted when an applet is removed
-     * @param applet the applet object: it's a qml graphical object and an instance of AppletInterface.
-     *               It's still valid, even if it will be deleted shortly
-     */
-    void appletRemoved(QObject *applet);
 
     // Property notifiers
     void activityChanged();
@@ -205,8 +193,6 @@ Q_SIGNALS:
     void wallpaperInterfaceChanged();
 
 protected Q_SLOTS:
-    void appletAddedForward(Plasma::Applet *applet);
-    void appletRemovedForward(Plasma::Applet *applet);
     void loadWallpaper();
     void dropJobResult(KJob *job);
     void mimeTypeRetrieved(KIO::Job *job, const QString &mimetype);
@@ -216,6 +202,8 @@ private Q_SLOTS:
     Plasma::Applet *createApplet(const QString &plugin, const QVariantList &args, const QRectF &geom);
 
 private:
+    void appletAddedForward(Plasma::Applet *applet);
+    void appletRemovedForward(Plasma::Applet *applet);
     void clearDataForMimeJob(KIO::Job *job);
     void setAppletArgs(Plasma::Applet *applet, const QString &mimetype, const QVariant &data);
     void deleteWallpaperInterface();
