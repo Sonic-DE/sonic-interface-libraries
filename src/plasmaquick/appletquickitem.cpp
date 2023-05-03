@@ -276,6 +276,7 @@ QQuickItem *AppletQuickItemPrivate::createCompactRepresentationExpanderItem()
     }
 
     compactRepresentationExpanderItem->setProperty("compactRepresentation", QVariant::fromValue<QObject *>(createCompactRepresentationItem()));
+    compactRepresentationExpanderItem->setProperty("plasmoidItem", QVariant::fromValue(this));
 
     return compactRepresentationExpanderItem;
 }
@@ -525,11 +526,13 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
     if (AppletQuickItemPrivate::s_itemsForApplet.isEmpty()) {
         const char *uri = "org.kde.plasma.plasmoid";
         // TODO: Plasmoid and Containment types which are used only for attached properties, or move qmlAttachedProperties() in Applet/Contaiment
-        qmlRegisterUncreatableType<Applet>(uri, 2, 0, "Plasmoid", QStringLiteral("Do not create objects of type Plasmoid"));
-        qmlRegisterUncreatableType<Containment>(uri, 2, 0, "Containment", QStringLiteral("Do not create objects of type Containment"));
+        qmlRegisterUncreatableType<AppletInterface>(uri, 2, 0, "Plasmoid", QStringLiteral("Do not create objects of type Plasmoid"));
+        qmlRegisterUncreatableType<ContainmentInterface>(uri, 2, 0, "Containment", QStringLiteral("Do not create objects of type Containment"));
         qmlRegisterUncreatableType<WallpaperInterface>(uri, 2, 0, "Wallpaper", QStringLiteral("Do not create objects of type Wallpaper"));
         qmlRegisterType<AppletInterface>(uri, 2, 0, "PlasmoidItem");
         qmlRegisterType<ContainmentInterface>(uri, 2, 0, "ContainmentItem");
+        qmlRegisterAnonymousType<Plasma::Applet>("org.kde.plasma.plasmoid", 1);
+        qmlRegisterAnonymousType<Plasma::Containment>("org.kde.plasma.plasmoid", 1);
     }
     auto it = AppletQuickItemPrivate::s_itemsForApplet.constFind(applet);
     if (it != AppletQuickItemPrivate::s_itemsForApplet.constEnd()) {
@@ -611,12 +614,12 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
         if (qmlObject->mainComponent()->isError()) {
             return nullptr;
         } else {
-            // TODO KF6: remove in favour of newer errorInformation
-            qmlObject->completeInitialization({{QStringLiteral("errorInformation"), errorData}, {QStringLiteral("reason"), reason}});
+            qmlObject->completeInitialization();
         }
 
         item = qobject_cast<AppletInterface *>(qmlObject->rootObject());
         item->setProperty("errorInformation", errorData);
+        // TODO KF6: remove in favour of newer errorInformation
         item->setProperty("reason", reason);
         applet->setLaunchErrorMessage(reason);
     }
