@@ -154,6 +154,15 @@ void ContainmentInterface::init()
     connect(m_containment.data()->actions(), &KActionCollection::changed, this, &ContainmentInterface::actionsChanged);
 }
 
+PlasmaQuick::AppletQuickItem *ContainmentInterface::itemFor(Plasma::Applet *applet) const
+{
+    if (applet->containment() == m_containment) {
+        return AppletQuickItem::itemForApplet(applet);
+    } else {
+        return nullptr;
+    }
+}
+
 QList<QObject *> ContainmentInterface::applets()
 {
     return m_appletInterfaces;
@@ -740,7 +749,7 @@ void ContainmentInterface::appletAddedForward(Plasma::Applet *applet)
     if (!applet) {
         return;
     }
-
+    qWarning() << "ContainmentInterface::appletAddedForward" << applet;
     AppletInterface *appletGraphicObject = qobject_cast<AppletInterface *>(AppletQuickItem::itemForApplet(applet));
 
     QPointF removalPosition = appletGraphicObject->m_positionBeforeRemoval;
