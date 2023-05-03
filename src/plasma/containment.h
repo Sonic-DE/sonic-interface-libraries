@@ -90,6 +90,13 @@ class PLASMA_EXPORT Containment : public Applet
     // TODO: wallpaperItem
     Q_PROPERTY(bool isUiReady READ isUiReady NOTIFY uiReadyChanged)
 
+    /**
+     * screen area free of panels: the coordinates are relative to the containment,
+     * it's independent from the screen position
+     * For more precise available geometry use availableScreenRegion()
+     */
+    Q_PROPERTY(QRectF availableScreenRect READ availableScreenRect NOTIFY availableScreenRectChanged)
+
 public:
     /**
      * This constructor can be used with the KCoreAddons plugin loading system.
@@ -142,11 +149,6 @@ public:
      * @return the applets currently in this Containment
      */
     QList<Applet *> applets() const;
-
-    /**
-     *
-     */
-    QQuickItem *appletItem(Applet *applet) const;
 
     /**
      * @return the screen number this containment is serving as the desktop for
@@ -224,6 +226,12 @@ public:
      * @returns true when the ui of this containment is fully loaded, as well the ui of every applet in it
      */
     bool isUiReady() const;
+
+    /**
+     * @returns The available screen rect (excluding panels) for the screen this containment is associated to,
+     * empty rectangle if the containment is not active in a screen
+     */
+    QRectF availableScreenRect() const;
 
 Q_SIGNALS:
     /**
@@ -321,6 +329,11 @@ Q_SIGNALS:
      * emitted when the containment type changed
      */
     void containmentTypeChanged();
+
+    /**
+     * Emitted when the available screen rectangle has changed
+     */
+    void availableScreenRectChanged(const QRectF &rect);
 
 public Q_SLOTS:
     /**
