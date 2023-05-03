@@ -130,6 +130,7 @@ public:
      * Subclasses should override this method as the default
      * implementation returns a meaningless value.
      */
+    // TODO: is QRect ok or should we port all to QRectF?
     virtual QRect screenGeometry(int id) const = 0;
 
     /**
@@ -285,12 +286,12 @@ Q_SIGNALS:
     /**
      * This signal indicates that a change in available screen geometry occurred.
      */
-    void availableScreenRegionChanged();
+    void availableScreenRegionChanged(int id);
 
     /**
      * This signal indicates that a change in available screen geometry occurred.
      */
-    void availableScreenRectChanged();
+    void availableScreenRectChanged(int id);
 
     /**
      * This signal indicates that a change in geometry for the screen occurred.
