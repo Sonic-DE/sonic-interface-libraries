@@ -97,6 +97,12 @@ class PLASMA_EXPORT Containment : public Applet
      */
     Q_PROPERTY(QRectF availableScreenRect READ availableScreenRect NOTIFY availableScreenRectChanged)
 
+    /**
+     * Provides access to the geometry of the applet is in.
+     * Can be useful to figure out what's the absolute position of the applet.
+     */
+    Q_PROPERTY(QRectF screenGeometry READ screenGeometry NOTIFY screenGeometryChanged)
+
 public:
     /**
      * This constructor can be used with the KCoreAddons plugin loading system.
@@ -250,6 +256,11 @@ public:
      */
     QRectF availableScreenRect() const;
 
+    /**
+     * @return The geometry of the screen this containment is associated to
+     */
+    QRectF screenGeometry() const;
+
 Q_SIGNALS:
     /**
      * This signal is emitted when a new applet is added in the containment
@@ -351,6 +362,11 @@ Q_SIGNALS:
      * Emitted when the available screen rectangle has changed
      */
     void availableScreenRectChanged(const QRectF &rect);
+
+    /**
+     * Emitted when the screen geometry has changed
+     */
+    void screenGeometryChanged(const QRectF &rect);
 
 public Q_SLOTS:
     /**

@@ -62,6 +62,11 @@ Containment::Containment(QObject *parentObject, const KPluginMetaData &data, con
             Q_EMIT availableScreenRectChanged(availableScreenRect());
         }
     });
+    connect(corona(), &Plasma::Corona::screenGeometryChanged, this, [this](int screenId) {
+        if (screenId == screen() || screenId == lastScreen()) {
+            Q_EMIT screenGeometryChanged(screenGeometry());
+        }
+    });
 }
 
 Containment::~Containment()
@@ -494,6 +499,15 @@ QRectF Containment::availableScreenRect() const
     }
 
     return {};
+}
+
+QRectF Containment::screenGeometry() const
+{
+    if (!corona() || screen() < 0) {
+        return {};
+    }
+
+    return corona()->screenGeometry(screen());
 }
 
 void Containment::setWallpaper(const QString &pluginName)
