@@ -276,7 +276,7 @@ QQuickItem *AppletQuickItemPrivate::createCompactRepresentationExpanderItem()
     }
 
     compactRepresentationExpanderItem->setProperty("compactRepresentation", QVariant::fromValue<QObject *>(createCompactRepresentationItem()));
-    compactRepresentationExpanderItem->setProperty("plasmoidItem", QVariant::fromValue(this));
+    compactRepresentationExpanderItem->setProperty("plasmoidItem", QVariant::fromValue(q));
 
     return compactRepresentationExpanderItem;
 }
