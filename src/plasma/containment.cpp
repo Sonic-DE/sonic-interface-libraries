@@ -56,6 +56,12 @@ Containment::Containment(QObject *parentObject, const KPluginMetaData &data, con
         qCWarning(LOG_PLASMA) << "Unknown containment type requested:" << type << pluginMetaData().fileName()
                               << "check Plasma::Containment::Type for supported values";
     }
+
+    connect(corona(), &Plasma::Corona::availableScreenRectChanged, this, [this](int screenId) {
+        if (screenId == screen() || screenId == lastScreen()) {
+            Q_EMIT availableScreenRectChanged(availableScreenRect());
+        }
+    });
 }
 
 Containment::~Containment()
@@ -447,11 +453,6 @@ QList<Applet *> Containment::applets() const
     return d->applets;
 }
 
-QQuickItem *Containment::appletItem(Applet *applet) const
-{
-    return applet->property("_plasmoid").value<QQuickItem *>();
-}
-
 int Containment::screen() const
 {
     Q_ASSERT(corona());
@@ -465,6 +466,34 @@ int Containment::screen() const
 int Containment::lastScreen() const
 {
     return d->lastScreen;
+}
+
+QRectF Containment::availableScreenRect() const
+{
+    if (!corona()) {
+        return {};
+    }
+
+    int screenId = screen();
+
+    // If corona returned an invalid screenId, try to use lastScreen value if it is valid
+    if (screenId == -1 && lastScreen() > -1) {
+        screenId = lastScreen();
+        // Is this a screen not actually valid?
+        if (screenId >= corona()->numScreens()) {
+            screenId = -1;
+        }
+    }
+
+    if (screenId > -1) {
+        QRectF rect = corona()->availableScreenRect(screenId);
+        // make it relative
+        QRectF geometry = corona()->screenGeometry(screenId);
+        rect.moveTo(rect.topLeft() - geometry.topLeft());
+        return rect;
+    }
+
+    return {};
 }
 
 void Containment::setWallpaper(const QString &pluginName)

@@ -72,6 +72,11 @@ class PLASMAQUICK_EXPORT AppletQuickItem : public QQuickItem
      */
     Q_PROPERTY(QObject *rootItem READ rootItem CONSTANT)
 
+    /**
+     * Gives compatibility to the old plasmoid.* api
+     */
+    Q_PROPERTY(QObject *plasmoid READ applet CONSTANT)
+
 public:
     AppletQuickItem(QQuickItem *parent = nullptr);
     ~AppletQuickItem() override;
