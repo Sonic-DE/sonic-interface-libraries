@@ -14,6 +14,7 @@
 
 #include "appletinterface.h"
 
+class AppletQuickItem;
 class WallpaperInterface;
 class DropMenu;
 class KJob;
@@ -107,6 +108,11 @@ public:
     QList<QObject *> actions() const;
 
     void setContainmentDisplayHints(Plasma::Types::ContainmentDisplayHints hints);
+
+    /**
+     * Returns the corresponding AppletInterface of one of its applets
+     */
+    Q_INVOKABLE AppletQuickItem *itemFor(Plasma::Applet *applet) const;
 
     /**
      * Process the mime data arrived to a particular coordinate, either with a drag and drop or paste with middle mouse button
