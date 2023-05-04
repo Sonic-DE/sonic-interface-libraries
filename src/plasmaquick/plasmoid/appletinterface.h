@@ -257,13 +257,6 @@ class AppletInterface : public PlasmaQuick::AppletQuickItem
 
     Q_PROPERTY(QList<QObject *> contextualActions READ contextualActionsObjects NOTIFY contextualActionsChanged)
 
-    // TODO: Remove in KF6, it is fixed in Qt 6 via QTBUG-97427. Not an #ifdef, because that would break QML code.
-    /**
-     * Returns the Plasmoid object itself.
-     * Workaround QML limitation/bug that does not allow to use attached properties themselves as the value of an expression.
-     */
-    Q_PROPERTY(AppletInterface *self READ self CONSTANT)
-
     /**
      * True when the Corona is in an edit mode that allows to move
      * things around.
@@ -429,8 +422,6 @@ public:
     void setConstraintHints(Plasma::Types::ConstraintHints constraintHints);
 
     KPluginMetaData metaData() const;
-
-    AppletInterface *self();
 
     bool isEditMode() const;
 
