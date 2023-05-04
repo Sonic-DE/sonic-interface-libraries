@@ -864,11 +864,6 @@ KPluginMetaData AppletInterface::metaData() const
     return applet()->pluginMetaData();
 }
 
-AppletInterface *AppletInterface::self()
-{
-    return this;
-}
-
 bool AppletInterface::isEditMode() const
 {
     return applet()->isEditMode();
