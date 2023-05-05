@@ -48,32 +48,14 @@ class AppletInterface : public PlasmaQuick::AppletQuickItem
      */
 
     /**
-     * Version of the QML2 script engine
-     * TODO KF6 Remove
-     */
-    Q_PROPERTY(int apiVersion READ apiVersion CONSTANT)
-
-    /**
-     * Plugin name of the plasmoid
-     */
-    Q_PROPERTY(QString pluginName READ pluginName CONSTANT)
-
-    /**
-     * User friendly title for the plasmoid: it's the localized applet name by default
-     */
-    Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
-
-    /**
      * Main title for the plasmoid tooltip or other means of quick information:
      * it's the same as the title property by default, but it can be personalized
-     * TODO KF6 move in Applet: grouped proeprty or an independent attached property?
      */
     Q_PROPERTY(QString toolTipMainText READ toolTipMainText WRITE setToolTipMainText NOTIFY toolTipMainTextChanged)
 
     /**
      * Description for the plasmoid tooltip or other means of quick information:
      * it comes from the pluginifo comment by default, but it can be personalized
-     * TODO KF6 move in Applet
      */
     Q_PROPERTY(QString toolTipSubText READ toolTipSubText WRITE setToolTipSubText NOTIFY toolTipSubTextChanged)
 
@@ -84,7 +66,6 @@ class AppletInterface : public PlasmaQuick::AppletQuickItem
      * * Text.StyledText
      * * Text.RichText
      * Note: in the default implementation the main text is always plain text
-     * TODO KF6 move in Applet
      */
     Q_PROPERTY(int toolTipTextFormat READ toolTipTextFormat WRITE setToolTipTextFormat NOTIFY toolTipTextFormatChanged)
 
@@ -93,95 +74,8 @@ class AppletInterface : public PlasmaQuick::AppletQuickItem
      * It will ignore all texts set by setToolTipMainText or setToolTipSubText
      *
      * @since 5.19
-     * TODO KF6 where should this go?
      */
     Q_PROPERTY(QQuickItem *toolTipItem READ toolTipItem WRITE setToolTipItem NOTIFY toolTipItemChanged)
-
-    /**
-     * Icon to represent the plasmoid
-     */
-    Q_PROPERTY(QString icon READ icon WRITE setIcon NOTIFY iconChanged)
-
-    /**
-     * Applet id: is unique in the whole Plasma session and will never change across restarts
-     */
-    Q_PROPERTY(uint id READ id CONSTANT)
-
-    /**
-     * FormFactor for the plasmoid
-     */
-    Q_PROPERTY(Plasma::Types::FormFactor formFactor READ formFactor NOTIFY formFactorChanged)
-
-    /**
-     * Type of the containment we're in
-     * @since 5.77
-     */
-    Q_PROPERTY(Plasma::Types::ContainmentDisplayHints containmentDisplayHints READ containmentDisplayHints NOTIFY containmentDisplayHintsChanged)
-
-    /**
-     * Location for the plasmoid
-     */
-    Q_PROPERTY(Plasma::Types::Location location READ location NOTIFY locationChanged)
-
-    /**
-     * Current activity name the plasmoid is in
-     * TODO KF6 in Applet but just as "activity"
-     */
-    Q_PROPERTY(QString currentActivity READ currentActivity NOTIFY contextChanged)
-
-    /**
-     * Configuration object: each config key will be a writable property of this object. property bindings work.
-     * TODO KF6 in Applet?
-     */
-    Q_PROPERTY(QObject *configuration READ configuration CONSTANT)
-
-    /**
-     * When true the plasmoid is busy. The containment may graphically indicate that drawing for instance a spinner busy widget over it
-     */
-    Q_PROPERTY(bool busy WRITE setBusy READ isBusy NOTIFY busyChanged)
-
-    /**
-     * How the applet wants its background to be drawn. The containment may chose to ignore this hint.
-     */
-    Q_PROPERTY(Plasma::Types::BackgroundHints backgroundHints WRITE setBackgroundHints READ backgroundHints NOTIFY backgroundHintsChanged)
-
-    /**
-     * The containment (and/or the user) may decide to use another kind of background instead (if supported by the applet)
-     */
-    Q_PROPERTY(Plasma::Types::BackgroundHints userBackgroundHints WRITE setUserBackgroundHints READ userBackgroundHints NOTIFY userBackgroundHintsChanged)
-
-    /**
-     * The effective background hints the applet has, internally decided how to mix with userBackgroundHints
-     */
-    Q_PROPERTY(Plasma::Types::BackgroundHints effectiveBackgroundHints READ effectiveBackgroundHints NOTIFY effectiveBackgroundHintsChanged)
-
-    /**
-     * Whether the Corona is immutable. The plasmoid implementation should avoid allowing "dangerous" modifications from the user when in an immutable mode
-     *
-     * This is true when immutability is not Mutable
-     * TODO KF6: port all usages to immutability property
-     */
-    Q_PROPERTY(bool immutable READ immutable NOTIFY immutabilityChanged)
-
-    /**
-     * The immutability of the Corona.
-     *
-     * Use this if you need more granular control than just using the immutable property
-     *
-     * @see immutable
-     * @since 5.23
-     */
-    Q_PROPERTY(Plasma::Types::ImmutabilityType immutability READ immutability NOTIFY immutabilityChanged)
-
-    /**
-     * True when the user is configuring, for instance when the configuration dialog is open.
-     */
-    Q_PROPERTY(bool userConfiguring READ userConfiguring NOTIFY userConfiguringChanged)
-
-    /**
-     * Status of the plasmoid: useful to instruct the shell if this plasmoid is requesting attention, if is accepting input, or if is in an idle, inactive state
-     */
-    Q_PROPERTY(Plasma::Types::ItemStatus status READ status WRITE setStatus NOTIFY statusChanged)
 
     // TODO: This was moved up from ContainmentInterface because it is required by the
     // Task Manager applet (for "Show only tasks from this screen") and no Qt API exposes
@@ -192,6 +86,7 @@ class AppletInterface : public PlasmaQuick::AppletQuickItem
     /**
      * Provides access to the geometry of the applet is in.
      * Can be useful to figure out what's the absolute position of the applet.
+     * TODO: move in containment
      */
     Q_PROPERTY(QRect screenGeometry READ screenGeometry NOTIFY screenGeometryChanged)
 
@@ -199,33 +94,9 @@ class AppletInterface : public PlasmaQuick::AppletQuickItem
      * Whether the dialog should be hidden when the dialog loses focus.
      *
      * The default value is @c false.
-     * TODO KF6: move to Applet
+     * TODO KF6: move to Applet? probably not
      **/
     Q_PROPERTY(bool hideOnWindowDeactivate READ hideOnWindowDeactivate WRITE setHideOnWindowDeactivate NOTIFY hideOnWindowDeactivateChanged)
-
-    /**
-     * The global shortcut to activate the plasmoid
-     *
-     * This is typically only used by the default configuration module
-     *
-     */
-    Q_PROPERTY(QKeySequence globalShortcut READ globalShortcut WRITE setGlobalShortcut RESET setGlobalShortcut NOTIFY globalShortcutChanged)
-
-    /**
-     * An interface to the native C++ plasmoid, if implemented
-     */
-    Q_PROPERTY(QObject *nativeInterface READ nativeInterface CONSTANT)
-
-    /**
-     * If true the applet requires manual configuration from the user
-     */
-    Q_PROPERTY(bool configurationRequired READ configurationRequired WRITE setConfigurationRequiredProperty NOTIFY configurationRequiredChanged)
-
-    /**
-     * Reason why the manual user configuration is required
-     */
-    Q_PROPERTY(
-        QString configurationRequiredReason READ configurationRequiredReason WRITE setConfigurationRequiredReason NOTIFY configurationRequiredReasonChanged)
 
     /**
      * screen area free of panels: the coordinates are relative to the containment,
@@ -235,36 +106,11 @@ class AppletInterface : public PlasmaQuick::AppletQuickItem
     Q_PROPERTY(QRect availableScreenRect READ availableScreenRect NOTIFY availableScreenRectChanged)
 
     /**
-     * The available region of this screen, panels excluded. It's a list of rectangles
+     * The available region of this screen, panels excluded. It's a list of rectanglesO: from containment
      */
     Q_PROPERTY(QVariantList availableScreenRegion READ availableScreenRegion NOTIFY availableScreenRegionChanged)
 
-    // TODO KF6 move somewhere gui-only?
     Q_PROPERTY(bool loading MEMBER m_loading NOTIFY isLoadingChanged)
-
-    /**
-     * The hints that the applet gives to its constraint,
-     * such as asking to fill all the available space ignoring margins.
-     * TODO KF6 move to Applet
-     */
-    Q_PROPERTY(Plasma::Types::ConstraintHints constraintHints READ constraintHints WRITE setConstraintHints NOTIFY constraintHintsChanged)
-
-    /**
-     * The metadata of the applet.
-     * @since 5.73
-     */
-    Q_PROPERTY(KPluginMetaData metaData READ metaData CONSTANT)
-
-    Q_PROPERTY(QList<QObject *> contextualActions READ contextualActionsObjects NOTIFY contextualActionsChanged)
-
-    /**
-     * True when the Corona is in an edit mode that allows to move
-     * things around.
-     * This is global to the Corona, all containments will have the same value for editMode
-     * @since 5.96
-     * TODO KF6 move to Applet
-     */
-    Q_PROPERTY(bool editMode READ isEditMode NOTIFY editModeChanged)
 
 public:
     /**
@@ -292,13 +138,6 @@ public:
     void executeAction(const QString &name);
 
     // QML API-------------------------------------------------------------------
-
-    /**
-     * Set this to true if the plasmoid needs to be configured in order to work. The containment will display reason as a message to ask the user to configure.
-     * @param needsConfiguring If the plasmoid needs configuration
-     * @param reason The user readable (and localized) reason the plasmoid needs
-     */
-    Q_INVOKABLE void setConfigurationRequired(bool needsConfiguring, const QString &reason = QString());
 
     Q_INVOKABLE void setActionSeparator(const QString &name);
 
@@ -328,17 +167,6 @@ public:
      */
     Q_INVOKABLE void prepareContextualActions();
 
-    /**
-     * @returns A path where it is safe to write on disk downloaded files.
-     * @since 5.23
-     */
-    Q_INVOKABLE QString downloadPath() const;
-
-    /**
-     * @returns The list of files that have been downloaded
-     */
-    Q_INVOKABLE QStringList downloadedFiles() const;
-
     QVariantList availableScreenRegion() const;
 
     QRect availableScreenRect() const;
@@ -350,12 +178,6 @@ public:
 
     // PROPERTY ACCESSORS-------------------------------------------------------------------
     QString pluginName() const;
-
-    QString icon() const;
-    void setIcon(const QString &icon);
-
-    QString title() const;
-    void setTitle(const QString &title);
 
     QString toolTipMainText() const;
     void setToolTipMainText(const QString &text);
@@ -369,61 +191,11 @@ public:
     QQuickItem *toolTipItem() const;
     void setToolTipItem(QQuickItem *toolTipItem);
 
-    uint id() const;
-
-    Plasma::Types::FormFactor formFactor() const;
-
-    Plasma::Types::Location location() const;
-
-    Plasma::Types::ContainmentDisplayHints containmentDisplayHints() const;
-
-    QString currentActivity() const;
-
-    QObject *configuration() const;
-
-    bool isBusy() const;
-    void setBusy(bool busy);
-
-    Plasma::Types::BackgroundHints backgroundHints() const;
-    void setBackgroundHints(Plasma::Types::BackgroundHints hint);
-
-    Plasma::Types::BackgroundHints userBackgroundHints() const;
-    void setUserBackgroundHints(Plasma::Types::BackgroundHints hint);
-
-    Plasma::Types::BackgroundHints effectiveBackgroundHints() const;
-
-    void setStatus(const Plasma::Types::ItemStatus &status);
-    Plasma::Types::ItemStatus status() const;
-
     int screen() const;
     QRect screenGeometry() const;
 
-    bool immutable() const;
-    Plasma::Types::ImmutabilityType immutability() const;
-    bool userConfiguring() const;
-    int apiVersion() const;
-
     bool hideOnWindowDeactivate() const;
     void setHideOnWindowDeactivate(bool hide);
-
-    QKeySequence globalShortcut() const;
-    void setGlobalShortcut(const QKeySequence &keySequence = QKeySequence());
-
-    QObject *nativeInterface();
-
-    // NOTE: setConfigurationRequiredProperty because ambiguous with the
-    // setConfigurationRequired invokable
-    bool configurationRequired() const;
-    void setConfigurationRequiredProperty(bool required);
-
-    QString configurationRequiredReason() const;
-    void setConfigurationRequiredReason(const QString &reason);
-    Plasma::Types::ConstraintHints constraintHints() const;
-    void setConstraintHints(Plasma::Types::ConstraintHints constraintHints);
-
-    KPluginMetaData metaData() const;
-
-    bool isEditMode() const;
 
 Q_SIGNALS:
     /**
@@ -433,13 +205,6 @@ Q_SIGNALS:
      */
     void externalData(const QString &mimetype, const QVariant &data);
 
-    void configNeedsSaving();
-
-    /**
-     * Emitted when the applet's activation action is triggered
-     */
-    void activated();
-
     /**
      * Emitted just before the contextual actions are about to show
      * For instance just before the context menu containing the actions
@@ -448,36 +213,16 @@ Q_SIGNALS:
     void contextualActionsAboutToShow();
 
     // PROPERTY change notifiers--------------
-    void iconChanged();
-    void titleChanged();
     void toolTipMainTextChanged();
     void toolTipSubTextChanged();
     void toolTipTextFormatChanged();
     void toolTipItemChanged();
-    void formFactorChanged();
-    void locationChanged();
-    void containmentDisplayHintsChanged();
-    void contextChanged();
-    void immutabilityChanged();
-    void statusChanged();
-    void backgroundHintsChanged();
-    void userBackgroundHintsChanged();
-    void effectiveBackgroundHintsChanged();
-    void busyChanged();
     void screenChanged();
     void screenGeometryChanged();
     void hideOnWindowDeactivateChanged();
     void availableScreenRegionChanged();
     void availableScreenRectChanged();
-    void constraintHintsChanged();
     void contextualActionsChanged();
-    void editModeChanged();
-
-    void userConfiguringChanged();
-    void globalShortcutChanged();
-    void configurationRequiredChanged();
-    void configurationRequiredReasonChanged();
-
     void isLoadingChanged();
 
 protected Q_SLOTS:
@@ -511,12 +256,9 @@ private:
     QString m_toolTipSubText;
     int m_toolTipTextFormat;
     QPointer<QQuickItem> m_toolTipItem;
-    QVariantList m_args;
     bool m_hideOnDeactivate : 1;
     bool m_loading = false;
-    // this is used to build an emacs style shortcut
     int m_oldKeyboardShortcut;
-    QObject *m_dummyNativeInterface;
 
     friend class ContainmentInterface;
     // This is used by ContainmentInterface
