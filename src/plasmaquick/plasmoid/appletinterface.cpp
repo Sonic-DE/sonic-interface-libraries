@@ -37,7 +37,6 @@ AppletInterface::AppletInterface(QQuickItem *parent)
     , m_toolTipItem(nullptr)
     , m_hideOnDeactivate(true)
     , m_oldKeyboardShortcut(0)
-    , m_dummyNativeInterface(nullptr)
     , m_positionBeforeRemoval(QPointF(-1, -1))
 {
     qmlRegisterAnonymousType<QAction>("org.kde.plasma.plasmoid", 1);
@@ -50,46 +49,13 @@ AppletInterface::~AppletInterface()
 void AppletInterface::init()
 {
     auto *applet = AppletInterface::applet();
-    connect(applet->containment()->corona(), &Plasma::Corona::editModeChanged, this, &AppletInterface::editModeChanged);
-    connect(this, &AppletInterface::configNeedsSaving, applet, &Plasma::Applet::configNeedsSaving);
-    connect(applet, &Plasma::Applet::immutabilityChanged, this, &AppletInterface::immutabilityChanged);
-    connect(applet, &Plasma::Applet::userConfiguringChanged, this, &AppletInterface::userConfiguringChanged);
-
     connect(applet, &Plasma::Applet::contextualActionsAboutToShow, this, &AppletInterface::contextualActionsAboutToShow);
-
-    connect(applet, &Plasma::Applet::statusChanged, this, &AppletInterface::statusChanged);
-
-    connect(applet, &Plasma::Applet::destroyedChanged, this, &AppletInterface::destroyedChanged);
-
-    connect(applet, &Plasma::Applet::titleChanged, this, &AppletInterface::titleChanged);
 
     connect(applet, &Plasma::Applet::titleChanged, this, [this]() {
         if (m_toolTipMainText.isNull()) {
             Q_EMIT toolTipMainTextChanged();
         }
     });
-
-    connect(applet, &Plasma::Applet::iconChanged, this, &AppletInterface::iconChanged);
-
-    connect(applet, &Plasma::Applet::busyChanged, this, &AppletInterface::busyChanged);
-
-    connect(applet, &Plasma::Applet::backgroundHintsChanged, this, &AppletInterface::backgroundHintsChanged);
-    connect(applet, &Plasma::Applet::effectiveBackgroundHintsChanged, this, &AppletInterface::effectiveBackgroundHintsChanged);
-    connect(applet, &Plasma::Applet::userBackgroundHintsChanged, this, &AppletInterface::userBackgroundHintsChanged);
-
-    connect(applet, &Plasma::Applet::configurationRequiredChanged, this, [this](bool configurationRequired, const QString &reason) {
-        Q_UNUSED(configurationRequired);
-        Q_UNUSED(reason);
-        Q_EMIT configurationRequiredChanged();
-        Q_EMIT configurationRequiredReasonChanged();
-    });
-
-    connect(applet, &Plasma::Applet::activated, this, &AppletInterface::activated);
-    connect(applet, &Plasma::Applet::containmentDisplayHintsChanged, this, &AppletInterface::containmentDisplayHintsChanged);
-
-    connect(applet, &Plasma::Applet::formFactorChanged, this, &AppletInterface::formFactorChanged);
-    connect(applet, &Plasma::Applet::locationChanged, this, &AppletInterface::locationChanged);
-    connect(applet, &Plasma::Applet::constraintHintsChanged, this, &AppletInterface::constraintHintsChanged);
 
     if (applet->containment()) {
         connect(applet->containment(), &Plasma::Containment::screenChanged, this, &AppletInterface::screenChanged);
@@ -136,8 +102,6 @@ void AppletInterface::init()
 
     geometryChange(QRectF(), QRectF(x(), y(), width(), height()));
 
-    Q_EMIT busyChanged();
-
     updateUiReadyConstraint();
 
     connect(this, &AppletInterface::isLoadingChanged, this, &AppletInterface::updateUiReadyConstraint);
@@ -156,10 +120,10 @@ void AppletInterface::init()
         }
     });
 
-    if (m_args.count() == 1) {
-        Q_EMIT externalData(QString(), m_args.first());
-    } else if (!m_args.isEmpty()) {
-        Q_EMIT externalData(QString(), m_args);
+    if (applet->startupArguments().count() == 1) {
+        Q_EMIT externalData(QString(), applet->startupArguments().first());
+    } else if (!applet->startupArguments().isEmpty()) {
+        Q_EMIT externalData(QString(), applet->startupArguments());
     }
 }
 
@@ -195,77 +159,10 @@ void AppletInterface::destroyedChanged(bool destroyed)
     setVisible(!destroyed);
 }
 
-Plasma::Types::FormFactor AppletInterface::formFactor() const
-{
-    return applet()->formFactor();
-}
-
-Plasma::Types::Location AppletInterface::location() const
-{
-    return applet()->location();
-}
-
-Plasma::Types::ContainmentDisplayHints AppletInterface::containmentDisplayHints() const
-{
-    return applet()->containmentDisplayHints();
-}
-
-QString AppletInterface::currentActivity() const
-{
-    if (applet()->containment()) {
-        return applet()->containment()->activity();
-    } else {
-        return QString();
-    }
-}
-
-QObject *AppletInterface::configuration() const
-{
-    return m_configuration;
-}
-
-uint AppletInterface::id() const
-{
-    return applet()->id();
-}
-
-QString AppletInterface::pluginName() const
-{
-    return applet()->pluginMetaData().isValid() ? applet()->pluginMetaData().pluginId() : QString();
-}
-
-QString AppletInterface::icon() const
-{
-    return applet()->icon();
-}
-
-void AppletInterface::setIcon(const QString &icon)
-{
-    if (applet()->icon() == icon) {
-        return;
-    }
-
-    applet()->setIcon(icon);
-}
-
-QString AppletInterface::title() const
-{
-    return applet()->title();
-}
-
-void AppletInterface::setTitle(const QString &title)
-{
-    if (applet()->title() == title) {
-        return;
-    }
-
-    applet()->setTitle(title);
-}
-
 QString AppletInterface::toolTipMainText() const
 {
     if (m_toolTipMainText.isNull()) {
-        return title();
+        return applet()->title();
     } else {
         return m_toolTipMainText;
     }
@@ -344,46 +241,6 @@ void AppletInterface::setToolTipItem(QQuickItem *toolTipItem)
     connect(m_toolTipItem.data(), &QObject::destroyed, this, &AppletInterface::toolTipItemChanged);
 
     Q_EMIT toolTipItemChanged();
-}
-
-bool AppletInterface::isBusy() const
-{
-    return applet()->isBusy();
-}
-
-void AppletInterface::setBusy(bool busy)
-{
-    applet()->setBusy(busy);
-}
-
-Plasma::Types::BackgroundHints AppletInterface::backgroundHints() const
-{
-    return applet()->backgroundHints();
-}
-
-void AppletInterface::setBackgroundHints(Plasma::Types::BackgroundHints hint)
-{
-    applet()->setBackgroundHints(hint);
-}
-
-Plasma::Types::BackgroundHints AppletInterface::effectiveBackgroundHints() const
-{
-    return applet()->effectiveBackgroundHints();
-}
-
-Plasma::Types::BackgroundHints AppletInterface::userBackgroundHints() const
-{
-    return applet()->userBackgroundHints();
-}
-
-void AppletInterface::setUserBackgroundHints(Plasma::Types::BackgroundHints hint)
-{
-    applet()->setUserBackgroundHints(hint);
-}
-
-void AppletInterface::setConfigurationRequired(bool needsConfiguring, const QString &reason)
-{
-    applet()->setConfigurationRequired(needsConfiguring, reason);
 }
 
 QList<QObject *> AppletInterface::contextualActionsObjects() const
@@ -510,46 +367,6 @@ QAction *AppletInterface::action(QString name) const
     return applet()->actions()->action(name);
 }
 
-bool AppletInterface::immutable() const
-{
-    return applet()->immutability() != Plasma::Types::Mutable;
-}
-
-Plasma::Types::ImmutabilityType AppletInterface::immutability() const
-{
-    return applet()->immutability();
-}
-
-bool AppletInterface::userConfiguring() const
-{
-    return applet()->isUserConfiguring();
-}
-
-int AppletInterface::apiVersion() const
-{
-    // Look for C++ plugins first
-    auto filter = [](const KPluginMetaData &md) -> bool {
-        return md.value(QStringLiteral("X-Plasma-API")) == QLatin1String("declarativeappletscript")
-            && md.value(QStringLiteral("X-Plasma-ComponentTypes")).contains(QLatin1String("Applet"));
-    };
-    QVector<KPluginMetaData> plugins = KPluginMetaData::findPlugins(QStringLiteral("plasma/scriptengines"), filter);
-    if (plugins.isEmpty()) {
-        return -1;
-    }
-
-    return plugins.first().value(QStringLiteral("X-KDE-PluginInfo-Version")).toInt();
-}
-
-void AppletInterface::setStatus(const Plasma::Types::ItemStatus &status)
-{
-    applet()->setStatus(status);
-}
-
-Plasma::Types::ItemStatus AppletInterface::status() const
-{
-    return applet()->status();
-}
-
 int AppletInterface::screen() const
 {
     if (Plasma::Containment *c = applet()->containment()) {
@@ -557,15 +374,6 @@ int AppletInterface::screen() const
     }
 
     return -1;
-}
-
-QRect AppletInterface::screenGeometry() const
-{
-    if (!applet() || !applet()->containment() || !applet()->containment()->corona() || applet()->containment()->screen() < 0) {
-        return QRect();
-    }
-
-    return applet()->containment()->corona()->screenGeometry(applet()->containment()->screen());
 }
 
 void AppletInterface::setHideOnWindowDeactivate(bool hide)
@@ -581,70 +389,13 @@ bool AppletInterface::hideOnWindowDeactivate() const
     return m_hideOnDeactivate;
 }
 
-void AppletInterface::setConstraintHints(Plasma::Types::ConstraintHints hints)
+QRect AppletInterface::screenGeometry() const
 {
-    applet()->setConstraintHints(hints);
-}
-
-Plasma::Types::ConstraintHints AppletInterface::constraintHints() const
-{
-    return applet()->constraintHints();
-}
-
-QKeySequence AppletInterface::globalShortcut() const
-{
-    return applet()->globalShortcut();
-}
-
-void AppletInterface::setGlobalShortcut(const QKeySequence &sequence)
-{
-    applet()->setGlobalShortcut(sequence);
-}
-
-QObject *AppletInterface::nativeInterface()
-{
-    return applet();
-}
-
-bool AppletInterface::configurationRequired() const
-{
-    return applet()->configurationRequired();
-}
-
-void AppletInterface::setConfigurationRequiredProperty(bool needsConfiguring)
-{
-    applet()->setConfigurationRequired(needsConfiguring, applet()->configurationRequiredReason());
-}
-
-QString AppletInterface::configurationRequiredReason() const
-{
-    return applet()->configurationRequiredReason();
-}
-
-void AppletInterface::setConfigurationRequiredReason(const QString &reason)
-{
-    applet()->setConfigurationRequired(applet()->configurationRequired(), reason);
-}
-
-QString AppletInterface::downloadPath() const
-{
-    const QString downloadDir = QStandardPaths::writableLocation(QStandardPaths::DownloadLocation) + QStringLiteral("/Plasma/")
-        + applet()->pluginMetaData().pluginId() + QLatin1Char('/');
-
-    if (!QFile::exists(downloadDir)) {
-        QDir dir({QLatin1Char('/')});
-        dir.mkpath(downloadDir);
+    if (!applet() || !applet()->containment() || !applet()->containment()->corona() || applet()->containment()->screen() < 0) {
+        return QRect();
     }
 
-    return downloadDir;
-}
-
-QStringList AppletInterface::downloadedFiles() const
-{
-    const QString downloadDir = QStandardPaths::writableLocation(QStandardPaths::DownloadLocation) + QStringLiteral("/Plasma/")
-        + applet()->pluginMetaData().pluginId() + QLatin1Char('/');
-    QDir dir(downloadDir);
-    return dir.entryList(QDir::Files | QDir::NoSymLinks | QDir::Readable);
+    return applet()->containment()->corona()->screenGeometry(applet()->containment()->screen());
 }
 
 void AppletInterface::executeAction(const QString &name)
@@ -659,6 +410,11 @@ void AppletInterface::executeAction(const QString &name)
             QMetaObject::invokeMethod(qmlObject()->rootObject(), "actionTriggered", Qt::DirectConnection, Q_ARG(QVariant, name));
         }
     }
+}
+
+bool AppletInterface::isLoading() const
+{
+    return m_loading;
 }
 
 QVariantList AppletInterface::availableScreenRegion() const
@@ -852,21 +608,6 @@ void AppletInterface::updateUiReadyConstraint()
     if (!isLoading()) {
         applet()->updateConstraints(Plasma::Types::UiReadyConstraint);
     }
-}
-
-bool AppletInterface::isLoading() const
-{
-    return m_loading;
-}
-
-KPluginMetaData AppletInterface::metaData() const
-{
-    return applet()->pluginMetaData();
-}
-
-bool AppletInterface::isEditMode() const
-{
-    return applet()->isEditMode();
 }
 
 #include "moc_appletinterface.cpp"
