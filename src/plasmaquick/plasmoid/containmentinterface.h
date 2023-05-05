@@ -78,9 +78,6 @@ class ContainmentInterface : public AppletInterface
 
     Q_PROPERTY(WallpaperInterface *wallpaper READ wallpaperInterface NOTIFY wallpaperInterfaceChanged)
 
-    Q_PROPERTY(Plasma::Types::ContainmentDisplayHints containmentDisplayHints READ containmentDisplayHints WRITE setContainmentDisplayHints NOTIFY
-                   containmentDisplayHintsChanged)
-
 public:
     ContainmentInterface(QQuickItem *parent = nullptr);
 
