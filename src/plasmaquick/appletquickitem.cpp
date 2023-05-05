@@ -624,6 +624,11 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
         applet->setLaunchErrorMessage(reason);
     }
 
+    if (!pc || !pc->isContainment()) {
+        applet->updateConstraints(Plasma::Types::UiReadyConstraint);
+        applet->flushPendingConstraintsEvents();
+    }
+
     // TODO: remove add a new property in applet to point to the QQuickItem
     QJSValue fun =
         qmlObject->engine()->evaluate(QStringLiteral("(function(applet, item) { \
