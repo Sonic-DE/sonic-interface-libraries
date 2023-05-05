@@ -67,10 +67,6 @@ void ContainmentInterface::classBegin()
 
 void ContainmentInterface::init()
 {
-    if (qmlObject()->rootObject()) {
-        return;
-    }
-
     for (auto *applet : m_containment->applets()) {
         m_appletInterfaces.append(AppletQuickItem::itemForApplet(applet));
     }
