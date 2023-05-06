@@ -283,7 +283,7 @@ FrameSvgItem::FrameSvgItem(QQuickItem *parent)
     , m_sizeChanged(false)
     , m_fastPath(true)
 {
-    qWrning() << "PlasmaCore.FrameSvgItem is deprecated: use KSvg.FrameSvgItem instead.";
+    qWarning() << "PlasmaCore.FrameSvgItem is deprecated: use KSvg.FrameSvgItem instead.";
     m_frameSvg = new Plasma::FrameSvg(this);
     setFlag(ItemHasContents, true);
     connect(m_frameSvg, &FrameSvg::repaintNeeded, this, &FrameSvgItem::doUpdate);
