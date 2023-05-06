@@ -152,6 +152,9 @@ void ContainmentInterface::init()
 
 PlasmaQuick::AppletQuickItem *ContainmentInterface::itemFor(Plasma::Applet *applet) const
 {
+    if (!applet) {
+        return nullptr;
+    }
     if (applet->containment() == m_containment) {
         return AppletQuickItem::itemForApplet(applet);
     } else {
