@@ -162,7 +162,7 @@ ThemePrivate::~ThemePrivate()
 {
     FrameSvgPrivate::s_sharedFrames.remove(this);
     delete pixmapCache;
-    delete kSvgTheme;
+    delete kSvgImageSet;
 }
 
 KConfigGroup &ThemePrivate::config()
