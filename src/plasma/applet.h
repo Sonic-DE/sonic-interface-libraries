@@ -192,6 +192,9 @@ class PLASMA_EXPORT Applet : public QObject
      */
     Q_PROPERTY(Plasma::Containment *containment READ containment NOTIFY containmentChanged)
 
+    Q_PROPERTY(bool expanded READ isExpanded WRITE setExpanded NOTIFY expandedChanged)
+
+    // TODO: pluginName
 public:
     // CONSTRUCTORS
 
@@ -252,6 +255,16 @@ public:
      * @return the Containment, if any, this applet belongs to
      **/
     Containment *containment() const;
+
+    /**
+     * Sets an hint whether the graphical representation of the applet should be expanded
+     */
+    void setExpanded(bool expanded);
+
+    /**
+     * @return true if the graphical representation of the applet should be expanded (for instance main popup open)
+     */
+    bool isExpanded() const;
 
     /**
      * @return true if this Applet is currently being used as a Containment, false otherwise
@@ -688,7 +701,15 @@ Q_SIGNALS:
      */
     void editModeChanged(bool editMode);
 
+    /**
+     * Emitted when the containment changes
+     */
     void containmentChanged(Plasma::Containment *containment);
+
+    /**
+     * Emitted when the expanded hint changes
+     */
+    void expandedChanged(bool expanded);
 
     // TODO KF6 keep as Q_SLOT only stuff that needsto be manually invokable from qml
 public Q_SLOTS:
