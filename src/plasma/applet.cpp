@@ -699,6 +699,22 @@ Containment *Applet::containment() const
     return c;
 }
 
+void Applet::setExpanded(bool expanded)
+{
+    if (isContainment() || d->expanded == expanded) {
+        return;
+    }
+
+    d->expanded = expanded;
+
+    Q_EMIT expandedChanged(expanded);
+}
+
+bool Applet::isExpanded() const
+{
+    return isContainment() || d->expanded;
+}
+
 void Applet::setGlobalShortcut(const QKeySequence &shortcut)
 {
     if (!d->activationAction) {

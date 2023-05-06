@@ -332,6 +332,9 @@ void AppletQuickItemPrivate::preloadForExpansion()
 
 void AppletQuickItemPrivate::anchorsFillParent(QQuickItem *item, QQuickItem *parent)
 {
+    if (item->parentItem() != parent) {
+        return;
+    }
     // just set once, don't bind
     QQmlProperty::write(item, QStringLiteral("anchors.fill"), QVariant::fromValue<QObject *>(parent));
 }
@@ -377,8 +380,12 @@ void AppletQuickItemPrivate::compactRepresentationCheck()
                 compactRepresentationExpanderItem->setVisible(false);
             }
 
-            item->setParentItem(q);
-            anchorsFillParent(item, q);
+            // the fullrepresentation being the complete AppletItem is actually allowed when the main ui
+            // is child of the root item (like many panel applets)
+            if (item != q) {
+                item->setParentItem(q);
+                anchorsFillParent(item, q);
+            }
 
             if (compactRepresentationItem) {
                 compactRepresentationItem->setVisible(false);
@@ -802,6 +809,7 @@ void AppletQuickItem::classBegin()
     Q_ASSERT(ac);
     d->applet = ac->applet();
     d->qmlObject = ac->sharedQmlEngine();
+    connect(d->applet, &Plasma::Applet::expandedChanged, this, &AppletQuickItem::setExpanded);
 }
 
 int AppletQuickItem::switchWidth() const
@@ -909,6 +917,8 @@ void AppletQuickItem::setExpanded(bool expanded)
     if (d->expanded == expanded) {
         return;
     }
+
+    d->applet->setExpanded(expanded);
 
     if (expanded) {
         d->preloadForExpansion();
