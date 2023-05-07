@@ -13,6 +13,7 @@
 #include "config-plasma.h"
 
 #include <QAbstractButton>
+#include <QActionGroup>
 #include <QDebug>
 #include <QFile>
 #include <QList>
@@ -395,6 +396,11 @@ KPluginMetaData Applet::pluginMetaData() const
     return d->appletDescription;
 }
 
+QString Applet::pluginName() const
+{
+    return d->appletDescription.isValid() ? d->appletDescription.pluginId() : QString();
+}
+
 Types::ImmutabilityType Applet::immutability() const
 {
     // if this object is itself system immutable, then just return that; it's the most
@@ -636,6 +642,78 @@ QList<QAction *> Applet::contextualActions()
 KActionCollection *Applet::actions() const
 {
     return d->actions;
+}
+
+void Applet::setActionSeparator(const QString &name)
+{
+    QAction *action = d->actions->action(name);
+
+    if (action) {
+        action->setSeparator(true);
+    } else {
+        action = new QAction(this);
+        action->setSeparator(true);
+        d->actions->addAction(name, action);
+        //  m_actions.append(name);
+        Q_EMIT contextualActionsChanged();
+    }
+}
+
+void Applet::setActionGroup(const QString &actionName, const QString &group)
+{
+    QAction *action = d->actions->action(actionName);
+
+    if (!action) {
+        return;
+    }
+
+    if (!d->actionGroups.contains(group)) {
+        d->actionGroups[group] = new QActionGroup(this);
+    }
+
+    action->setActionGroup(d->actionGroups[group]);
+}
+
+void Applet::setAction(const QString &name, const QString &text, const QString &icon, const QString &shortcut)
+{
+    QAction *action = d->actions->action(name);
+
+    if (action) {
+        action->setText(text);
+    } else {
+        action = new QAction(text, this);
+        d->actions->addAction(name, action);
+
+        Q_EMIT contextualActionsChanged();
+    }
+
+    action->setProperty("_contextualAction", true);
+
+    if (!icon.isEmpty()) {
+        action->setIcon(QIcon::fromTheme(icon));
+    }
+
+    if (!shortcut.isEmpty()) {
+        action->setShortcut(shortcut);
+    }
+
+    action->setObjectName(name);
+}
+
+void Applet::removeAction(const QString &name)
+{
+    QAction *action = d->actions->action(name);
+    d->actions->removeAction(action);
+}
+
+void Applet::clearActions()
+{
+    d->actions->clear();
+}
+
+QAction *Applet::action(QString name) const
+{
+    return d->actions->action(name);
 }
 
 Types::FormFactor Applet::formFactor() const
