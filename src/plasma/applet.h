@@ -9,6 +9,7 @@
 #ifndef PLASMA_APPLET_H
 #define PLASMA_APPLET_H
 
+#include <QAction>
 #include <QKeySequence>
 #include <QObject>
 #include <QUrl>
@@ -194,8 +195,22 @@ class PLASMA_EXPORT Applet : public QObject
 
     Q_PROPERTY(bool expanded READ isExpanded WRITE setExpanded NOTIFY expandedChanged)
 
+    Q_PROPERTY(QList<QAction *> contextualActions READ contextualActions NOTIFY contextualActionsChanged)
+
+    Q_PROPERTY(QString pluginName READ pluginName CONSTANT FINAL)
     // TODO: pluginName
 public:
+    /** TODO: revise this
+     * Expose the QAction::Priority values which cannot be directly accessed from plasmoids
+     * @since 5.101
+     */
+    enum ActionPriority {
+        LowPriorityAction = QAction::LowPriority,
+        NormalPriorityAction = QAction::NormalPriority,
+        HighPriorityAction = QAction::HighPriority,
+    };
+    Q_ENUM(ActionPriority);
+
     // CONSTRUCTORS
 
     /**
@@ -446,6 +461,11 @@ public:
     KPluginMetaData pluginMetaData() const;
 
     /**
+     * @return the plugin name form KPluginMetaData
+     */
+    QString pluginName() const;
+
+    /**
      * Returns the user-visible title for the applet, as specified in the
      * Name field of the .desktop file. Can be changed with @see setTitle
      *
@@ -542,6 +562,28 @@ public:
      */
     KActionCollection *actions() const;
 
+    // BEGIN TODO
+    // TODO: this whole actions api is there for temporary compatibility bu we need a declarative one before freeze
+    Q_INVOKABLE void setActionSeparator(const QString &name);
+
+    Q_INVOKABLE void setActionGroup(const QString &action, const QString &group);
+    /**
+     * Add an action to the Plasmoid contextual menu.
+     * When the action is triggered a function called action_<name> will be called, if there is no function with that name actionTriggered(name) will be called
+     * instead.
+     * @param: action name
+     * @text: user visible displayed text
+     * @icon: user visible optional displayed icon
+     * @shortcut: shortcut to trigger this action
+     */
+    Q_INVOKABLE void setAction(const QString &name, const QString &text, const QString &icon = QString(), const QString &shortcut = QString());
+
+    Q_INVOKABLE QAction *action(QString) const;
+    Q_INVOKABLE void removeAction(const QString &name);
+
+    Q_INVOKABLE void clearActions();
+
+    // END TODO
     /**
      * Sets the global shortcut to associate with this widget.
      */
@@ -710,6 +752,9 @@ Q_SIGNALS:
      * Emitted when the expanded hint changes
      */
     void expandedChanged(bool expanded);
+
+    // TODO temporary api it should be removed
+    void contextualActionsChanged();
 
     // TODO KF6 keep as Q_SLOT only stuff that needsto be manually invokable from qml
 public Q_SLOTS:
