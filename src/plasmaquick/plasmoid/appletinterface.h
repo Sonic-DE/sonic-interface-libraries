@@ -113,51 +113,14 @@ class AppletInterface : public PlasmaQuick::AppletQuickItem
     Q_PROPERTY(bool loading MEMBER m_loading NOTIFY isLoadingChanged)
 
 public:
-    /**
-     * Expose the QAction::Priority values which cannot be directly accessed from plasmoids
-     * @since 5.101
-     */
-    enum ActionPriority {
-        LowPriorityAction = QAction::LowPriority,
-        NormalPriorityAction = QAction::NormalPriority,
-        HighPriorityAction = QAction::HighPriority,
-    };
-    Q_ENUM(ActionPriority);
-
-public:
     AppletInterface(QQuickItem *parent = nullptr);
     ~AppletInterface() override;
 
     // API not intended for the QML part
 
-    // This is for QML which only supports QList<QObject *>
-    QList<QObject *> contextualActionsObjects() const;
-
-    QList<QAction *> contextualActions() const;
-
-    void executeAction(const QString &name);
+    void executeAction(QAction *action);
 
     // QML API-------------------------------------------------------------------
-
-    Q_INVOKABLE void setActionSeparator(const QString &name);
-
-    Q_INVOKABLE void setActionGroup(const QString &action, const QString &group);
-    /**
-     * Add an action to the Plasmoid contextual menu.
-     * When the action is triggered a function called action_<name> will be called, if there is no function with that name actionTriggered(name) will be called
-     * instead.
-     * @param: action name
-     * @text: user visible displayed text
-     * @icon: user visible optional displayed icon
-     * @shortcut: shortcut to trigger this action
-     */
-    Q_INVOKABLE void setAction(const QString &name, const QString &text, const QString &icon = QString(), const QString &shortcut = QString());
-
-    Q_INVOKABLE void removeAction(const QString &name);
-
-    Q_INVOKABLE void clearActions();
-
-    Q_INVOKABLE QAction *action(QString name) const;
 
     /**
      * Should be called before retrieving any action
@@ -245,8 +208,7 @@ private Q_SLOTS:
     void destroyedChanged(bool destroyed);
 
 private:
-    QStringList m_actions;
-    QHash<QString, QActionGroup *> m_actionGroups;
+    QSet<QAction *> m_actions;
 
     KConfigPropertyMap *m_configuration;
 
