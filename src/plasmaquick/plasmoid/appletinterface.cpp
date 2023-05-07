@@ -50,6 +50,20 @@ void AppletInterface::init()
 {
     auto *applet = AppletInterface::applet();
     connect(applet, &Plasma::Applet::contextualActionsAboutToShow, this, &AppletInterface::contextualActionsAboutToShow);
+    // FIXME: temporary
+    connect(applet, &Plasma::Applet::contextualActionsChanged, this, [this, applet]() {
+        for (auto *a : applet->contextualActions()) {
+            if (!m_actions.contains(a)) {
+                connect(a, &QAction::triggered, this, [this, a]() {
+                    executeAction(a);
+                });
+                connect(a, &QObject::destroyed, this, [this, a]() {
+                    m_actions.remove(a);
+                });
+                m_actions << a;
+            }
+        }
+    });
 
     connect(applet, &Plasma::Applet::titleChanged, this, [this]() {
         if (m_toolTipMainText.isNull()) {
@@ -243,130 +257,6 @@ void AppletInterface::setToolTipItem(QQuickItem *toolTipItem)
     Q_EMIT toolTipItemChanged();
 }
 
-QList<QObject *> AppletInterface::contextualActionsObjects() const
-{
-    QList<QObject *> actions;
-    Plasma::Applet *a = applet();
-    if (a->failedToLaunch()) {
-        return actions;
-    }
-
-    for (const QString &name : std::as_const(m_actions)) {
-        QAction *action = a->actions()->action(name);
-
-        if (action) {
-            actions << action;
-        }
-    }
-
-    return actions;
-}
-
-QList<QAction *> AppletInterface::contextualActions() const
-{
-    QList<QAction *> actions;
-    Plasma::Applet *a = applet();
-    if (a->failedToLaunch()) {
-        return actions;
-    }
-
-    for (const QString &name : std::as_const(m_actions)) {
-        QAction *action = a->actions()->action(name);
-
-        if (action) {
-            actions << action;
-        }
-    }
-
-    return actions;
-}
-
-void AppletInterface::setActionSeparator(const QString &name)
-{
-    Plasma::Applet *a = applet();
-    QAction *action = a->actions()->action(name);
-
-    if (action) {
-        action->setSeparator(true);
-    } else {
-        action = new QAction(this);
-        action->setSeparator(true);
-        a->actions()->addAction(name, action);
-        m_actions.append(name);
-        Q_EMIT contextualActionsChanged();
-    }
-}
-
-void AppletInterface::setActionGroup(const QString &actionName, const QString &group)
-{
-    Plasma::Applet *a = applet();
-    QAction *action = a->actions()->action(actionName);
-
-    if (!action) {
-        return;
-    }
-
-    if (!m_actionGroups.contains(group)) {
-        m_actionGroups[group] = new QActionGroup(this);
-    }
-
-    action->setActionGroup(m_actionGroups[group]);
-}
-
-void AppletInterface::setAction(const QString &name, const QString &text, const QString &icon, const QString &shortcut)
-{
-    Plasma::Applet *a = applet();
-    QAction *action = a->actions()->action(name);
-
-    if (action) {
-        action->setText(text);
-    } else {
-        action = new QAction(text, this);
-        a->actions()->addAction(name, action);
-
-        Q_ASSERT(!m_actions.contains(name));
-        m_actions.append(name);
-        Q_EMIT contextualActionsChanged();
-
-        connect(action, &QAction::triggered, this, [this, name] {
-            executeAction(name);
-        });
-    }
-
-    action->setProperty("_contextualAction", true);
-
-    if (!icon.isEmpty()) {
-        action->setIcon(QIcon::fromTheme(icon));
-    }
-
-    if (!shortcut.isEmpty()) {
-        action->setShortcut(shortcut);
-    }
-
-    action->setObjectName(name);
-}
-
-void AppletInterface::removeAction(const QString &name)
-{
-    Plasma::Applet *a = applet();
-    QAction *action = a->actions()->action(name);
-    delete action;
-    m_actions.removeAll(name);
-}
-
-void AppletInterface::clearActions()
-{
-    const auto oldActionsList = m_actions;
-    for (const QString &action : oldActionsList) {
-        removeAction(action);
-    }
-}
-
-QAction *AppletInterface::action(QString name) const
-{
-    return applet()->actions()->action(name);
-}
-
 int AppletInterface::screen() const
 {
     if (Plasma::Containment *c = applet()->containment()) {
@@ -398,8 +288,10 @@ QRect AppletInterface::screenGeometry() const
     return applet()->containment()->corona()->screenGeometry(applet()->containment()->screen());
 }
 
-void AppletInterface::executeAction(const QString &name)
+void AppletInterface::executeAction(QAction *action)
 {
+    // FIXME: this is an assumption on KActionCollection behavior which sets objectName to the name used in addAction
+    QString name = action->objectName();
     if (qmlObject()->rootObject()) {
         const QMetaObject *metaObj = qmlObject()->rootObject()->metaObject();
         const QByteArray actionMethodName = "action_" + name.toUtf8();

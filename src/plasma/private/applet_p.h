@@ -83,8 +83,9 @@ public:
     KConfigPropertyMap *configPropertyMap = nullptr;
 
     // actions stuff; put activationAction into actions?
-    KActionCollection *actions;
+    KActionCollection *actions; // TODO: can KACtionCollection usage be removed and just be QHash<QString, QAction*>?
     QAction *activationAction;
+    QHash<QString, QActionGroup *> actionGroups;
 
     Types::ItemStatus itemStatus;
 
