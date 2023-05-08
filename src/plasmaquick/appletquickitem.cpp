@@ -707,11 +707,14 @@ void AppletQuickItem::init()
         setSize(parentItem() ? QSizeF(std::min(parentItem()->width(), w), std::min(parentItem()->height(), h)) : QSizeF(w, h));
     }
 
-    // default fullrepresentation is our root main component, if none specified
+    // default fullrepresentation is our root main component (which is the PlasmoidItem definition in the root plasmoid QML file),
+    // if none specified, but the item is AppletIterface first child
     if (!d->fullRepresentation) {
         // FIXME this is an heuristic, is this good enough?
         if (!childItems().isEmpty()) {
+            d->fullRepresentation = d->qmlObject->mainComponent();
             d->fullRepresentationItem = childItems().first();
+            Q_EMIT fullRepresentationChanged(d->fullRepresentation);
             Q_EMIT fullRepresentationItemChanged(d->fullRepresentationItem);
         }
     }
