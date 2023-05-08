@@ -57,7 +57,7 @@ ContainmentInterface::ContainmentInterface(QQuickItem *parent)
 void ContainmentInterface::classBegin()
 {
     AppletInterface::classBegin();
-    m_containment = static_cast<Plasma::Containment *>(applet()->containment());
+    m_containment = static_cast<Plasma::Containment *>(applet());
 
     connect(m_containment.data(), &Plasma::Containment::appletRemoved, this, &ContainmentInterface::appletRemovedForward);
     connect(m_containment.data(), &Plasma::Containment::appletAdded, this, &ContainmentInterface::appletAddedForward);
@@ -252,22 +252,24 @@ void ContainmentInterface::addApplet(AppletInterface *applet, int x, int y)
     blockSignals(false);
 }
 
-QPointF ContainmentInterface::mapFromApplet(AppletInterface *applet, int x, int y)
+QPointF ContainmentInterface::mapFromApplet(Plasma::Applet *applet, int x, int y)
 {
-    if (!applet->window() || !window()) {
+    AppletInterface *appletItem = qobject_cast<AppletInterface *>(AppletQuickItem::itemForApplet(applet));
+    if (appletItem && !appletItem->window() || !window()) {
         return QPointF();
     }
 
     // x,y in absolute screen coordinates of current view
-    QPointF pos = applet->mapToScene(QPointF(x, y));
-    pos = QPointF(pos + applet->window()->geometry().topLeft());
+    QPointF pos = appletItem->mapToScene(QPointF(x, y));
+    pos = QPointF(pos + appletItem->window()->geometry().topLeft());
     // return the coordinate in the relative view's coords
     return pos - window()->geometry().topLeft();
 }
 
-QPointF ContainmentInterface::mapToApplet(AppletInterface *applet, int x, int y)
+QPointF ContainmentInterface::mapToApplet(Plasma::Applet *applet, int x, int y)
 {
-    if (!applet->window() || !window()) {
+    AppletInterface *appletItem = qobject_cast<AppletInterface *>(AppletQuickItem::itemForApplet(applet));
+    if (appletItem && !appletItem->window() || !window()) {
         return QPointF();
     }
 
@@ -275,9 +277,9 @@ QPointF ContainmentInterface::mapToApplet(AppletInterface *applet, int x, int y)
     QPointF pos(x, y);
     pos = QPointF(pos + window()->geometry().topLeft());
     // the coordinate in the relative view's coords
-    pos = pos - applet->window()->geometry().topLeft();
+    pos = pos - appletItem->window()->geometry().topLeft();
     // make it relative to applet coords
-    return pos - applet->mapToScene(QPointF(0, 0));
+    return pos - appletItem->mapToScene(QPointF(0, 0));
 }
 
 QPointF ContainmentInterface::adjustToAvailableScreenRegion(int x, int y, int w, int h) const
@@ -779,6 +781,10 @@ void ContainmentInterface::appletRemovedForward(Plasma::Applet *applet)
 
 void ContainmentInterface::loadWallpaper()
 {
+    if (!m_containment->isContainment()) {
+        return;
+    }
+
     if (m_containment->containmentType() != Plasma::Containment::Type::Desktop && m_containment->containmentType() != Plasma::Containment::Type::Custom) {
         return;
     }
