@@ -137,12 +137,12 @@ public:
     /**
      * Map coordinates from relative to the given applet to relative to this containment
      */
-    Q_INVOKABLE QPointF mapFromApplet(AppletInterface *applet, int x, int y);
+    Q_INVOKABLE QPointF mapFromApplet(Plasma::Applet *applet, int x, int y);
 
     /**
      *Map coordinates from relative to this containment to relative to the given applet
      */
-    Q_INVOKABLE QPointF mapToApplet(AppletInterface *applet, int x, int y);
+    Q_INVOKABLE QPointF mapToApplet(Plasma::Applet *applet, int x, int y);
 
     /**
      * Given a geometry, it adjusts it moving it completely inside of the boundaries
