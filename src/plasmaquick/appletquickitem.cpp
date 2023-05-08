@@ -205,8 +205,7 @@ QQuickItem *AppletQuickItemPrivate::createCompactRepresentationItem()
     QVariantHash initialProperties;
     initialProperties[QStringLiteral("parent")] = QVariant::fromValue(q);
 
-    compactRepresentationItem =
-        qobject_cast<QQuickItem *>(qmlObject->createObjectFromComponent(compactRepresentation, qmlContext(qmlObject->rootObject()), initialProperties));
+    compactRepresentationItem = qobject_cast<QQuickItem *>(qmlObject->createObjectFromComponent(compactRepresentation, qmlContext(q), initialProperties));
 
     Q_EMIT q->compactRepresentationItemChanged(compactRepresentationItem);
 
@@ -222,12 +221,13 @@ QQuickItem *AppletQuickItemPrivate::createFullRepresentationItem()
     if (fullRepresentation && fullRepresentation != qmlObject->mainComponent()) {
         QVariantHash initialProperties;
         initialProperties[QStringLiteral("parent")] = QVariant();
-        fullRepresentationItem =
-            qobject_cast<QQuickItem *>(qmlObject->createObjectFromComponent(fullRepresentation, qmlContext(qmlObject->rootObject()), initialProperties));
+        fullRepresentationItem = qobject_cast<QQuickItem *>(qmlObject->createObjectFromComponent(fullRepresentation, qmlContext(q), initialProperties));
     } else {
-        fullRepresentation = qmlObject->mainComponent();
-        fullRepresentationItem = qobject_cast<QQuickItem *>(qmlObject->rootObject());
-        Q_EMIT q->fullRepresentationChanged(fullRepresentation);
+        if (!q->childItems().isEmpty()) {
+            fullRepresentation = qmlObject->mainComponent();
+            fullRepresentationItem = q->childItems().first();
+            Q_EMIT q->fullRepresentationChanged(fullRepresentation);
+        }
     }
 
     if (!fullRepresentationItem) {
@@ -249,8 +249,7 @@ QQuickItem *AppletQuickItemPrivate::createCompactRepresentationExpanderItem()
         return compactRepresentationExpanderItem;
     }
 
-    compactRepresentationExpanderItem =
-        qobject_cast<QQuickItem *>(qmlObject->createObjectFromComponent(compactRepresentationExpander, qmlContext(qmlObject->rootObject())));
+    compactRepresentationExpanderItem = qobject_cast<QQuickItem *>(qmlObject->createObjectFromComponent(compactRepresentationExpander, qmlContext(q)));
 
     if (!compactRepresentationExpanderItem) {
         return nullptr;
@@ -326,6 +325,7 @@ void AppletQuickItemPrivate::compactRepresentationCheck()
         return;
     }
 
+    // TODO: those conditions shouldn't be necesary anymore as should be guaranteed that if this instance exists then rootObject exists
     if (!qmlObject->rootObject()) {
         return;
     }
