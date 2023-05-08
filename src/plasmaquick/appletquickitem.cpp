@@ -62,16 +62,6 @@ AppletQuickItemPrivate::AppletQuickItemPrivate(AppletQuickItem *item)
     }
 }
 
-void AppletQuickItemPrivate::init()
-{
-    qmlObject = new PlasmaQuick::SharedQmlEngine(q);
-    if (qmlObject->engine()->urlInterceptors().isEmpty()) {
-        PackageUrlInterceptor *interceptor = new PackageUrlInterceptor(qmlObject->engine().get(), KPackage::Package());
-        interceptor->setForcePlasmaStyle(true);
-        qmlObject->engine()->addUrlInterceptor(interceptor);
-    }
-}
-
 int AppletQuickItemPrivate::preloadWeight() const
 {
     int defaultWeight;
@@ -90,19 +80,12 @@ int AppletQuickItemPrivate::preloadWeight() const
                   100);
 }
 
-void AppletQuickItemPrivate::connectLayoutAttached(QObject *item)
+QObject *AppletQuickItemPrivate::searchLayoutAttached(QObject *parent)
 {
     QObject *layout = nullptr;
-
-    // Extract the representation's Layout, if any
-    // No Item?
-    if (!item) {
-        return;
-    }
-
     // Search a child that has the needed Layout properties
     // HACK: here we are not type safe, but is the only way to access to a pointer of Layout
-    const auto lstChildren = item->children();
+    const auto lstChildren = parent->children();
     for (QObject *child : lstChildren) {
         // find for the needed property of Layout: minimum/maximum/preferred sizes and fillWidth/fillHeight
         /* clang-format off */
@@ -118,6 +101,21 @@ void AppletQuickItemPrivate::connectLayoutAttached(QObject *item)
             break;
         }
     }
+    return layout;
+}
+
+void AppletQuickItemPrivate::connectLayoutAttached(QObject *item)
+{
+    // Extract the representation's Layout, if any
+    // No Item?
+    if (!item) {
+        return;
+    }
+    if (!propagateLayout) {
+        return;
+    }
+
+    QObject *layout = searchLayoutAttached(item);
 
     // if the compact repr doesn't export a Layout.* attached property,
     // reset our own with default values
@@ -145,24 +143,7 @@ void AppletQuickItemPrivate::connectLayoutAttached(QObject *item)
     propagateSizeHint("fillWidth");
     propagateSizeHint("fillHeight");
 
-    QObject *newOwnLayout = nullptr;
-
-    const auto children = q->children();
-    for (QObject *child : children) {
-        // find for the needed property of Layout: minimum/maximum/preferred sizes and fillWidth/fillHeight
-        /* clang-format off */
-        if (child->property("minimumWidth").isValid()
-            && child->property("minimumHeight").isValid()
-            && child->property("preferredWidth").isValid()
-            && child->property("preferredHeight").isValid()
-            && child->property("maximumWidth").isValid()
-            && child->property("maximumHeight").isValid()
-            && child->property("fillWidth").isValid()
-            && child->property("fillHeight").isValid()) { /* clang-format on */
-            newOwnLayout = child;
-            break;
-        }
-    }
+    QObject *newOwnLayout = searchLayoutAttached(q);
 
     // this should never happen, since we ask to create it if doesn't exists
     if (!newOwnLayout) {
@@ -206,7 +187,7 @@ void AppletQuickItemPrivate::connectLayoutAttached(QObject *item)
 
 void AppletQuickItemPrivate::propagateSizeHint(const QByteArray &layoutProperty)
 {
-    if (ownLayout && representationLayout) {
+    if (propagateLayout && ownLayout && representationLayout) {
         ownLayout->setProperty(layoutProperty.constData(), representationLayout->property(layoutProperty.constData()));
     }
 }
@@ -719,20 +700,6 @@ void AppletQuickItem::init()
         engine->setProperty(("_plasma_qqc_style_set"), true);
     }
 
-    /*
-        // initialize size, so an useless resize less
-        QVariantHash initialProperties;
-        // initialize with our size only if valid
-        if (width() > 0 && height() > 0) {
-            const qreal w = parentItem() ? std::min(parentItem()->width(), width()) : width();
-            const qreal h = parentItem() ? std::min(parentItem()->height(), height()) : height();
-            initialProperties[QStringLiteral("width")] = w;
-            initialProperties[QStringLiteral("height")] = h;
-        }
-
-        d->qmlObject->setInitializationDelayed(false);
-        d->qmlObject->completeInitialization(initialProperties);
-    */
     // otherwise, initialize our size to root object's size
     if (d->qmlObject->rootObject() && (width() <= 0 || height() <= 0)) {
         const qreal w = d->qmlObject->rootObject()->property("width").value<qreal>();
@@ -742,10 +709,11 @@ void AppletQuickItem::init()
 
     // default fullrepresentation is our root main component, if none specified
     if (!d->fullRepresentation) {
-        d->fullRepresentation = d->qmlObject->mainComponent();
-        d->fullRepresentationItem = qobject_cast<QQuickItem *>(d->qmlObject->rootObject());
-
-        Q_EMIT fullRepresentationChanged(d->fullRepresentation);
+        // FIXME this is an heuristic, is this good enough?
+        if (!childItems().isEmpty()) {
+            d->fullRepresentationItem = childItems().first();
+            Q_EMIT fullRepresentationItemChanged(d->fullRepresentationItem);
+        }
     }
 
     // default compactRepresentation is a simple icon provided by the shell package
@@ -812,6 +780,15 @@ void AppletQuickItem::classBegin()
     connect(d->applet, &Plasma::Applet::expandedChanged, this, &AppletQuickItem::setExpanded);
 }
 
+void AppletQuickItem::componentComplete()
+{
+    QQuickItem::componentComplete();
+
+    // Propagate layout size hints only if the user code didn't set it
+    // FIXME: is this a bit fragile? what we do about layouts?
+    d->propagateLayout = !d->searchLayoutAttached(this);
+}
+
 int AppletQuickItem::switchWidth() const
 {
     return d->switchWidth;
@@ -872,7 +849,7 @@ QObject *AppletQuickItem::testItem()
             return nullptr;
         }
 
-        d->testItem = d->qmlObject->createObjectFromSource(url, qmlContext(rootItem()));
+        d->testItem = d->qmlObject->createObjectFromSource(url, qmlContext(this));
         if (d->testItem) {
             d->testItem->setProperty("plasmoidItem", QVariant::fromValue<QObject *>(this));
         }
@@ -963,11 +940,6 @@ QQuickItem *AppletQuickItem::compactRepresentationItem()
 QQuickItem *AppletQuickItem::fullRepresentationItem()
 {
     return d->fullRepresentationItem;
-}
-
-QObject *AppletQuickItem::rootItem()
-{
-    return d->qmlObject->rootObject();
 }
 
 void AppletQuickItem::childEvent(QChildEvent *event)

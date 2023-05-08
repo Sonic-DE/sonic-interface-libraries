@@ -54,8 +54,6 @@ public:
 
     AppletQuickItemPrivate(AppletQuickItem *item);
 
-    void init();
-
     int preloadWeight() const;
 
     QQuickItem *createCompactRepresentationItem();
@@ -69,6 +67,7 @@ public:
     void preloadForExpansion();
 
     // look into item, and return the Layout attached property, if found
+    QObject *searchLayoutAttached(QObject *parent);
     void connectLayoutAttached(QObject *item);
     void propagateSizeHint(const QByteArray &layoutProperty);
 
@@ -113,6 +112,7 @@ public:
     KPackage::Package coronaPackage;
     KPackage::Package containmentPackage;
 
+    bool propagateLayout = false;
     bool expanded : 1;
     bool activationTogglesExpanded : 1;
     bool initComplete : 1;

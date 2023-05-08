@@ -67,12 +67,6 @@ class PLASMAQUICK_EXPORT AppletQuickItem : public QQuickItem
     Q_PROPERTY(bool activationTogglesExpanded WRITE setActivationTogglesExpanded READ isActivationTogglesExpanded NOTIFY activationTogglesExpandedChanged)
 
     /**
-     * the applet root QML item: sometimes is the same as fullRepresentationItem
-     * if a fullrepresentation was not declared explicitly
-     */
-    Q_PROPERTY(QObject *rootItem READ rootItem CONSTANT)
-
-    /**
      * Gives compatibility to the old plasmoid.* api
      */
     Q_PROPERTY(QObject *plasmoid READ applet CONSTANT)
@@ -87,10 +81,10 @@ public:
     // Make the constructor lighter and delay the actual instantiation of the qml in the applet
     virtual void init();
     void classBegin() override;
+    void componentComplete() override;
 
     QQuickItem *compactRepresentationItem();
     QQuickItem *fullRepresentationItem();
-    QObject *rootItem();
     QObject *testItem();
 
     ////PROPERTY ACCESSORS
