@@ -134,11 +134,6 @@ public:
 
     QRect availableScreenRect() const;
 
-    static Plasma::Applet *qmlAttachedProperties(QObject *object)
-    {
-        return qobject_cast<Plasma::Applet *>(AppletQuickItem::qmlAttachedProperties(object));
-    }
-
     // PROPERTY ACCESSORS-------------------------------------------------------------------
     QString pluginName() const;
 
