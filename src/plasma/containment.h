@@ -55,7 +55,7 @@ class PLASMA_EXPORT Containment : public Applet
     /**
      * Type of this containment
      */
-    Q_PROPERTY(Plasma::Types::ContainmentType containmentType READ containmentType WRITE setContainmentType NOTIFY containmentTypeChanged)
+    Q_PROPERTY(Plasma::Containment::Type containmentType READ containmentType NOTIFY containmentTypeChanged)
 
     /**
      * Activity UID of this containment
