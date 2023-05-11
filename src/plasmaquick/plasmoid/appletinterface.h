@@ -113,6 +113,17 @@ class AppletInterface : public PlasmaQuick::AppletQuickItem
     Q_PROPERTY(bool loading MEMBER m_loading NOTIFY isLoadingChanged)
 
 public:
+    /** TODO: revise this
+     * Expose the QAction::Priority values which cannot be directly accessed from plasmoids
+     * @since 5.101
+     */
+    enum ActionPriority {
+        LowPriorityAction = QAction::LowPriority,
+        NormalPriorityAction = QAction::NormalPriority,
+        HighPriorityAction = QAction::HighPriority,
+    };
+    Q_ENUM(ActionPriority);
+
     AppletInterface(QQuickItem *parent = nullptr);
     ~AppletInterface() override;
 
