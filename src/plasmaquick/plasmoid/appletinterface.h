@@ -115,7 +115,9 @@ class AppletInterface : public PlasmaQuick::AppletQuickItem
 public:
     /** TODO: revise this
      * Expose the QAction::Priority values which cannot be directly accessed from plasmoids
-     * @since 5.101
+     E
+     * even if Plasmoid is an Applet, Plasmoid.LowPriorityAction will search
+     * for an enum in AppletInterface
      */
     enum ActionPriority {
         LowPriorityAction = QAction::LowPriority,
