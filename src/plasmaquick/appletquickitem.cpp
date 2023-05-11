@@ -473,35 +473,26 @@ AppletQuickItem::~AppletQuickItem()
 
 Plasma::Applet *AppletQuickItem::qmlAttachedProperties(QObject *object)
 {
-    QQmlContext *context;
-    // Special case: we are asking the attached Plasmoid property of an AppletItem itself, which in this case is itself
+    // Special case: we are asking the attached Plasmoid property of an AppletItem itself, which in this case is its own Applet
     if (auto *appletItem = qobject_cast<AppletQuickItem *>(object)) {
         return appletItem->applet();
+    } else if (auto *applet = qobject_cast<Plasma::Applet *>(object)) {
+        // Asked for the Plasmoid of an Applet itself
+        return applet;
     }
 
-    // is it using shared engine mode?
-    if (!qmlEngine(object)->parent()) {
-        context = qmlContext(object);
-        // search the root context of the applet in which the object is in
-        while (context) {
-            // the rootcontext of an applet is a child of the engine root context
-            if (context->parentContext() == qmlEngine(object)->rootContext()) {
-                break;
-            }
-
-            context = context->parentContext();
+    QQmlContext *context = qmlContext(object);
+    while (context) {
+        if (auto *appletContext = qobject_cast<AppletContext *>(context)) {
+            return appletContext->applet();
         }
-        // otherwise index by root context
-    } else {
-        context = qmlEngine(object)->rootContext();
+
+        context = context->parentContext();
     }
-    // at the moment of the attached object creation, the root item is the only one that hasn't a parent
-    // only way to avoid creation of this attached for everybody but the root item
-    Plasma::Applet *ret = qobject_cast<Plasma::Applet *>(context->property("_plasmoid_property").value<QObject *>());
-    if (!ret) {
-        qWarning() << "Could not find the Plasmoid for" << object << context << context->baseUrl();
-    }
-    return ret;
+
+    qWarning() << "Could not find the Plasmoid for" << object << context << context->baseUrl();
+    Q_UNREACHABLE();
+    return nullptr;
 }
 
 AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
@@ -545,12 +536,6 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
         }
     }
 
-    // FIXME: Plasmoid attached property should be fixed since can't be indexed by engine anymore
-    // if (!qmlObject->rootContext()->property("_plasmoid_property").isNull()) {
-    //     return;
-    // }
-
-    qmlObject->rootContext()->setProperty("_plasmoid_property", QVariant::fromValue<QObject *>(applet));
     AppletQuickItem *item = nullptr;
     qmlObject->setSource(applet->kPackage().fileUrl("mainscript"));
 
