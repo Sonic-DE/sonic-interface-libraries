@@ -198,19 +198,8 @@ class PLASMA_EXPORT Applet : public QObject
     Q_PROPERTY(QList<QAction *> contextualActions READ contextualActions NOTIFY contextualActionsChanged)
 
     Q_PROPERTY(QString pluginName READ pluginName CONSTANT FINAL)
-    // TODO: pluginName
-public:
-    /** TODO: revise this
-     * Expose the QAction::Priority values which cannot be directly accessed from plasmoids
-     * @since 5.101
-     */
-    enum ActionPriority {
-        LowPriorityAction = QAction::LowPriority,
-        NormalPriorityAction = QAction::NormalPriority,
-        HighPriorityAction = QAction::HighPriority,
-    };
-    Q_ENUM(ActionPriority);
 
+public:
     // CONSTRUCTORS
 
     /**
