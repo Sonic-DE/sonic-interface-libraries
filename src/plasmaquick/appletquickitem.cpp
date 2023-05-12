@@ -548,7 +548,7 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
         }
     } else {
         item = qobject_cast<AppletInterface *>(qmlObject->rootObject());
-        if (!item && qmlObject->mainComponent()->isError()) {
+        if (!item && qmlObject->mainComponent() && qmlObject->mainComponent()->isError()) {
             applet->setLaunchErrorMessage(i18n("The root item of %1 must be of type PlasmoidItem", applet->kPackage().fileUrl("mainscript").toString()));
         }
     }
