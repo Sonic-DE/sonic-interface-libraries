@@ -294,16 +294,15 @@ QQmlEngine *ConfigView::engine()
     return d->engine;
 }
 
-void ConfigView::init()
+QQmlContext *ConfigView::rootContext()
 {
-    QQmlComponent component(engine(), d->applet.data()->kPackage().fileUrl("configmodel"));
-    QObject *object = component.create(d->rootContext);
-    if (!object) {
-        return;
-    }
+    return d->rootContext;
+}
 
-    QQmlComponent uiComponent(engine(), d->corona->kPackage().fileUrl("appletconfigurationui"));
-    object = uiComponent.createWithInitialProperties({{QStringLiteral("parent"), QVariant::fromValue(contentItem())}}, d->rootContext);
+void ConfigView::setSource(const QUrl &src)
+{
+    QQmlComponent uiComponent(engine(), src);
+    QObject *object = uiComponent.createWithInitialProperties({{QStringLiteral("parent"), QVariant::fromValue(contentItem())}}, d->rootContext);
 
     d->rootItem = qobject_cast<QQuickItem *>(object);
     if (!d->rootItem) {
@@ -322,6 +321,16 @@ void ConfigView::init()
     connect(d->rootItem, &QQuickItem::implicitHeightChanged, this, [this]() {
         setWidth(d->rootItem->implicitHeight());
     });
+}
+
+QQuickItem *ConfigView::rootObject()
+{
+    return d->rootItem;
+}
+
+void ConfigView::init()
+{
+    setSource(d->corona->kPackage().fileUrl("appletconfigurationui"));
 }
 
 Plasma::Applet *ConfigView::applet()
