@@ -287,6 +287,7 @@ ConfigView::~ConfigView()
             d->applet.data()->containment()->corona()->requestConfigSync();
         }
     }
+    delete d->rootItem;
 }
 
 QQmlEngine *ConfigView::engine()
