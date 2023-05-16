@@ -11,6 +11,7 @@
 #include <QScopedPointer>
 
 #include <plasmaquick/plasmaquick_export.h>
+#include <qquickitem.h>
 
 //
 //  W A R N I N G
@@ -49,6 +50,9 @@ public:
     ~ConfigView() override;
 
     QQmlEngine *engine();
+    QQmlContext *rootContext();
+    void setSource(const QUrl &src);
+    QQuickItem *rootObject();
 
     virtual void init();
 
