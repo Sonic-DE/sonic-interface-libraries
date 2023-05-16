@@ -30,6 +30,7 @@ class AppletQuickItem;
 class ConfigViewPrivate;
 class ConfigModelPrivate;
 class ConfigModel;
+class ConfigView;
 };
 class DeclarativeAppletScript;
 #include <KPluginFactory>
@@ -887,6 +888,7 @@ private:
     friend class PlasmaQuick::ConfigModel;
     friend class PlasmaQuick::ConfigModelPrivate;
     friend class PlasmaQuick::ConfigViewPrivate;
+    friend class PlasmaQuick::ConfigView;
     friend DeclarativeAppletScript;
 };
 
