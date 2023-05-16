@@ -6,6 +6,7 @@
 
 #include "appletquickitem.h"
 #include "appletcontext_p.h"
+#include "configview.h"
 #include "debug_p.h"
 #include "plasmoid/appletinterface.h"
 #include "plasmoid/containmentinterface.h"
@@ -490,7 +491,7 @@ Plasma::Applet *AppletQuickItem::qmlAttachedProperties(QObject *object)
         context = context->parentContext();
     }
 
-    qWarning() << "Could not find the Plasmoid for" << object << context << context->baseUrl();
+    qWarning() << "Could not find the Plasmoid for" << object;
     Q_UNREACHABLE();
     return nullptr;
 }
