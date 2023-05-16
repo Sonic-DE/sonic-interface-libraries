@@ -34,7 +34,7 @@ class ConfigViewPrivate;
 
 class ConfigModel;
 
-class PLASMAQUICK_EXPORT ConfigView : public QQuickView
+class PLASMAQUICK_EXPORT ConfigView : public QQuickWindow
 {
     Q_OBJECT
     Q_PROPERTY(PlasmaQuick::ConfigModel *configModel READ configModel CONSTANT)
@@ -47,6 +47,8 @@ public:
      **/
     ConfigView(Plasma::Applet *applet, QWindow *parent = nullptr);
     ~ConfigView() override;
+
+    QQmlEngine *engine();
 
     virtual void init();
 
