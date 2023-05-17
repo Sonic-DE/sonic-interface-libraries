@@ -32,7 +32,6 @@
 
 AppletInterface::AppletInterface(QQuickItem *parent)
     : AppletQuickItem(parent)
-    , m_configuration(nullptr)
     , m_toolTipTextFormat(0)
     , m_toolTipItem(nullptr)
     , m_hideOnDeactivate(true)
@@ -48,6 +47,8 @@ AppletInterface::~AppletInterface()
 
 void AppletInterface::init()
 {
+    AppletQuickItem::init();
+
     auto *applet = AppletInterface::applet();
     auto connectActions = [this, applet]() {
         for (auto *a : applet->contextualActions()) {
@@ -107,14 +108,6 @@ void AppletInterface::init()
             }
         }
     });
-
-    if (qmlObject()->rootObject() && m_configuration) {
-        return;
-    }
-
-    m_configuration = new KConfigPropertyMap(applet->configScheme(), this);
-
-    AppletQuickItem::init();
 
     geometryChange(QRectF(), QRectF(x(), y(), width(), height()));
 

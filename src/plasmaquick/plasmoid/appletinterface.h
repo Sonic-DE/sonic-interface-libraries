@@ -218,8 +218,6 @@ private Q_SLOTS:
 private:
     QSet<QAction *> m_actions;
 
-    KConfigPropertyMap *m_configuration;
-
     // UI-specific members ------------------
 
     QString m_toolTipMainText;
