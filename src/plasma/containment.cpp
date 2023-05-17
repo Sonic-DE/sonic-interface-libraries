@@ -56,17 +56,6 @@ Containment::Containment(QObject *parentObject, const KPluginMetaData &data, con
         qCWarning(LOG_PLASMA) << "Unknown containment type requested:" << type << pluginMetaData().fileName()
                               << "check Plasma::Containment::Type for supported values";
     }
-
-    connect(corona(), &Plasma::Corona::availableScreenRectChanged, this, [this](int screenId) {
-        if (screenId == screen() || screenId == lastScreen()) {
-            Q_EMIT availableScreenRectChanged(availableScreenRect());
-        }
-    });
-    connect(corona(), &Plasma::Corona::screenGeometryChanged, this, [this](int screenId) {
-        if (screenId == screen() || screenId == lastScreen()) {
-            Q_EMIT screenGeometryChanged(screenGeometry());
-        }
-    });
 }
 
 Containment::~Containment()
@@ -78,6 +67,22 @@ Containment::~Containment()
 void Containment::init()
 {
     Applet::init();
+
+    connect(corona(), &Plasma::Corona::availableScreenRectChanged, this, [this](int screenId) {
+        if (screenId == screen() || screenId == lastScreen()) {
+            Q_EMIT availableRelativeScreenRectChanged(availableRelativeScreenRect());
+        }
+    });
+    connect(corona(), &Plasma::Corona::availableScreenRegionChanged, this, [this](int screenId) {
+        if (screenId == screen() || screenId == lastScreen()) {
+            Q_EMIT availableRelativeScreenRegionChanged(availableRelativeScreenRegion());
+        }
+    });
+    connect(corona(), &Plasma::Corona::screenGeometryChanged, this, [this](int screenId) {
+        if (screenId == screen() || screenId == lastScreen()) {
+            Q_EMIT screenGeometryChanged(screenGeometry());
+        }
+    });
 
     // connect actions
     ContainmentPrivate::addDefaultActions(actions(), this);
@@ -473,7 +478,7 @@ int Containment::lastScreen() const
     return d->lastScreen;
 }
 
-QRectF Containment::availableScreenRect() const
+QRectF Containment::availableRelativeScreenRect() const
 {
     if (!corona()) {
         return {};
@@ -499,6 +504,32 @@ QRectF Containment::availableScreenRect() const
     }
 
     return {};
+}
+
+QList<QRectF> Containment::availableRelativeScreenRegion() const
+{
+    QList<QRectF> regVal;
+
+    if (!containment() || !containment()->corona()) {
+        return regVal;
+    }
+
+    QRegion reg = QRect(QPoint(0, 0), screenGeometry().size().toSize());
+    int screenId = screen();
+    if (screenId > -1) {
+        reg = containment()->corona()->availableScreenRegion(screenId);
+    }
+
+    auto it = reg.begin();
+    const auto itEnd = reg.end();
+    QRect geometry = containment()->corona()->screenGeometry(screenId);
+    for (; it != itEnd; ++it) {
+        QRect rect = *it;
+        // make it relative
+        rect.moveTo(rect.topLeft() - geometry.topLeft());
+        regVal << QRectF(rect);
+    }
+    return regVal;
 }
 
 QRectF Containment::screenGeometry() const
