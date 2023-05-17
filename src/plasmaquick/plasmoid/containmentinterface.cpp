@@ -67,6 +67,8 @@ void ContainmentInterface::classBegin()
 
 void ContainmentInterface::init()
 {
+    AppletInterface::init();
+
     for (auto *applet : m_containment->applets()) {
         m_appletInterfaces.append(AppletQuickItem::itemForApplet(applet));
     }
@@ -77,8 +79,6 @@ void ContainmentInterface::init()
     m_activityInfo = new KActivities::Info(m_containment->activity(), this);
     connect(m_activityInfo, &KActivities::Info::nameChanged, this, &ContainmentInterface::activityNameChanged);
     Q_EMIT activityNameChanged();
-
-    AppletInterface::init();
 
     // Create the ToolBox
     if (m_containment) {
