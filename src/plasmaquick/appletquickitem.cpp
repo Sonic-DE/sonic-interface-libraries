@@ -492,7 +492,7 @@ Plasma::Applet *AppletQuickItem::qmlAttachedProperties(QObject *object)
     }
 
     qWarning() << "Could not find the Plasmoid for" << object;
-    Q_UNREACHABLE();
+
     return nullptr;
 }
 
