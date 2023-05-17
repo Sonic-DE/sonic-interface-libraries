@@ -12,6 +12,7 @@
 #include <KPluginMetaData>
 #include <KSharedConfig>
 #include <plasma/applet.h>
+#include <qtmetamacros.h>
 
 class QQuickItem;
 
@@ -89,6 +90,11 @@ class PLASMA_EXPORT Containment : public Applet
     Q_PROPERTY(QString wallpaper READ wallpaper WRITE setWallpaper NOTIFY wallpaperChanged)
     // TODO: wallpaperItem
     Q_PROPERTY(bool isUiReady READ isUiReady NOTIFY uiReadyChanged)
+
+    /**
+     * The screen number this containment is serving as the desktop for, or -1 if none
+     */
+    Q_PROPERTY(int screen READ screen NOTIFY screenChanged)
 
     /**
      * screen area free of panels: the coordinates are relative to the containment,

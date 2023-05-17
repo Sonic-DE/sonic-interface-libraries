@@ -23,22 +23,6 @@
 
 namespace PlasmaQuick
 {
-// TODO: remove the incubator
-class QmlObjectIncubator : public QQmlIncubator
-{
-public:
-    QVariantHash m_initialProperties;
-
-protected:
-    void setInitialState(QObject *object) override
-    {
-        QHashIterator<QString, QVariant> i(m_initialProperties);
-        while (i.hasNext()) {
-            i.next();
-            object->setProperty(i.key().toLatin1().data(), i.value());
-        }
-    }
-};
 
 class SharedQmlEnginePrivate
 {
@@ -59,8 +43,6 @@ public:
 
     ~SharedQmlEnginePrivate()
     {
-        delete incubator.object();
-
         // Reset the static engine when we and the static ptr are the last objects holding references to it
         if (s_engine.use_count() == 2) {
             s_engine.reset();
@@ -84,13 +66,12 @@ public:
     void maximumHeightChanged();
     void preferredWidthChanged();
     void preferredHeightChanged();
-    void checkInitializationCompleted();
 
     SharedQmlEngine *q;
 
     QUrl source;
 
-    QmlObjectIncubator incubator;
+    QObject *rootObject = nullptr;
     QQmlComponent *component;
     QTimer *executionEndTimer;
     KLocalizedContext *context{nullptr};
@@ -135,9 +116,9 @@ void SharedQmlEnginePrivate::execute(const QUrl &source)
     delete component;
     component = new QQmlComponent(engine().get(), q);
     QObject::connect(component, &QQmlComponent::statusChanged, q, &SharedQmlEngine::statusChanged, Qt::QueuedConnection);
-    delete incubator.object();
 
     component->loadUrl(source);
+    rootObject = component->beginCreate(rootContext);
 
     if (delay) {
         executionEndTimer->start(0);
@@ -218,11 +199,7 @@ std::shared_ptr<QQmlEngine> SharedQmlEngine::engine()
 
 QObject *SharedQmlEngine::rootObject() const
 {
-    if (d->incubator.status() == QQmlIncubator::Loading) {
-        qWarning(LOG_PLASMAQUICK) << "Trying to use rootObject before initialization is completed, whilst using setInitializationDelayed. Forcing completion";
-        d->incubator.forceCompletion();
-    }
-    return d->incubator.object();
+    return d->rootObject;
 }
 
 QQmlComponent *SharedQmlEngine::mainComponent() const
@@ -248,28 +225,9 @@ QQmlComponent::Status SharedQmlEngine::status() const
     return QQmlComponent::Status(d->component->status());
 }
 
-void SharedQmlEnginePrivate::checkInitializationCompleted()
-{
-    if (!incubator.isReady() && incubator.status() != QQmlIncubator::Error) {
-        QTimer::singleShot(0, q, [this]() {
-            checkInitializationCompleted();
-        });
-        return;
-    }
-
-    if (!incubator.object()) {
-        errorPrint(component);
-    }
-
-    Q_EMIT q->finished();
-}
-
 void SharedQmlEngine::completeInitialization(const QVariantHash &initialProperties)
 {
     d->executionEndTimer->stop();
-    if (d->incubator.object()) {
-        return;
-    }
 
     if (!d->component) {
         qWarning(LOG_PLASMAQUICK) << "No component for" << source();
@@ -281,19 +239,12 @@ void SharedQmlEngine::completeInitialization(const QVariantHash &initialProperti
         return;
     }
 
-    d->incubator.m_initialProperties = initialProperties;
-    d->component->create(d->incubator, d->rootContext);
-
-    if (d->delay) {
-        d->checkInitializationCompleted();
-    } else {
-        d->incubator.forceCompletion();
-
-        if (!d->incubator.object()) {
-            d->errorPrint(d->component);
-        }
-        Q_EMIT finished();
+    for (auto it = initialProperties.constBegin(); it != initialProperties.constEnd(); ++it) {
+        d->rootObject->setProperty(it.key().toUtf8().data(), it.value());
     }
+
+    d->component->completeCreate();
+    Q_EMIT finished();
 }
 
 QObject *SharedQmlEngine::createObjectFromSource(const QUrl &source, QQmlContext *context, const QVariantHash &initialProperties)
@@ -306,12 +257,18 @@ QObject *SharedQmlEngine::createObjectFromSource(const QUrl &source, QQmlContext
 
 QObject *SharedQmlEngine::createObjectFromComponent(QQmlComponent *component, QQmlContext *context, const QVariantHash &initialProperties)
 {
-    QmlObjectIncubator incubator;
-    incubator.m_initialProperties = initialProperties;
-    component->create(incubator, context ? context : d->rootContext);
-    incubator.forceCompletion();
+    /*   QmlObjectIncubator incubator;
+       incubator.m_initialProperties = initialProperties;
+       component->create(incubator, context ? context : d->rootContext);
+       incubator.forceCompletion();
 
-    QObject *object = incubator.object();
+       QObject *object = incubator.object();*/
+
+    QObject *object = component->beginCreate(context ? context : d->rootContext);
+    for (auto it = initialProperties.constBegin(); it != initialProperties.constEnd(); ++it) {
+        object->setProperty(it.key().toUtf8().data(), it.value());
+    }
+    component->completeCreate();
 
     if (!component->isError() && object) {
         // memory management

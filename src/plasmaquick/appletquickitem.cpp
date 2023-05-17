@@ -540,8 +540,6 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
     AppletQuickItem *item = nullptr;
     qmlObject->setSource(applet->kPackage().fileUrl("mainscript"));
 
-    qmlObject->setInitializationDelayed(false);
-    qmlObject->completeInitialization();
     if (pc && pc->isContainment()) {
         item = qobject_cast<ContainmentInterface *>(qmlObject->rootObject());
         if (!item && qmlObject->mainComponent()->isError()) {
@@ -587,8 +585,6 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
         // even the error message QML may fail
         if (qmlObject->mainComponent()->isError()) {
             return nullptr;
-        } else {
-            qmlObject->completeInitialization();
         }
 
         item = qobject_cast<AppletInterface *>(qmlObject->rootObject());
@@ -597,6 +593,10 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
         item->setProperty("reason", reason);
         applet->setLaunchErrorMessage(reason);
     }
+
+    AppletQuickItemPrivate::s_itemsForApplet[applet] = qobject_cast<AppletInterface *>(qmlObject->rootObject());
+    qmlObject->setInitializationDelayed(false);
+    qmlObject->completeInitialization();
 
     if (!pc || !pc->isContainment()) {
         applet->updateConstraints(Plasma::Types::UiReadyConstraint);
@@ -626,7 +626,6 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
         qmlObject->rootContext()->setContextProperty(QStringLiteral("plasmoid"), applet);
     }
 
-    AppletQuickItemPrivate::s_itemsForApplet[applet] = item;
     applet->connect(applet, &QObject::destroyed, applet, [applet]() {
         delete AppletQuickItemPrivate::s_itemsForApplet[applet];
         AppletQuickItemPrivate::s_itemsForApplet.remove(applet);
