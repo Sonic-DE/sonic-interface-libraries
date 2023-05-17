@@ -631,12 +631,14 @@ void Applet::flushPendingConstraintsEvents()
 
 QList<QAction *> Applet::contextualActions()
 {
-    QList<QAction *> contextActions = d->actions->actions();
-    std::remove_if(contextActions.begin(), contextActions.end(), [](QAction *a) {
-        return !a->property("_contextualAction").toBool();
+    // NOTE: KActionColloection can contain duplicates in actions(), once we ported away from it we can remove this hack
+    QSet<QAction *> contextActions;
+
+    std::copy_if(d->actions->actions().constBegin(), d->actions->actions().constEnd(), std::inserter(contextActions, contextActions.begin()), [](QAction *a) {
+        return a->property("_contextualAction").toBool();
     });
 
-    return contextActions;
+    return contextActions.values();
 }
 
 KActionCollection *Applet::actions() const
@@ -680,14 +682,14 @@ void Applet::setAction(const QString &name, const QString &text, const QString &
 
     if (action) {
         action->setText(text);
+        action->setProperty("_contextualAction", true);
     } else {
         action = new QAction(text, this);
         d->actions->addAction(name, action);
 
+        action->setProperty("_contextualAction", true);
         Q_EMIT contextualActionsChanged();
     }
-
-    action->setProperty("_contextualAction", true);
 
     if (!icon.isEmpty()) {
         action->setIcon(QIcon::fromTheme(icon));
