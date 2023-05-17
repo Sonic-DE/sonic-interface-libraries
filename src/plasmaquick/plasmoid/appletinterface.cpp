@@ -49,9 +49,7 @@ AppletInterface::~AppletInterface()
 void AppletInterface::init()
 {
     auto *applet = AppletInterface::applet();
-    connect(applet, &Plasma::Applet::contextualActionsAboutToShow, this, &AppletInterface::contextualActionsAboutToShow);
-    // FIXME: temporary
-    connect(applet, &Plasma::Applet::contextualActionsChanged, this, [this, applet]() {
+    auto connectActions = [this, applet]() {
         for (auto *a : applet->contextualActions()) {
             if (!m_actions.contains(a)) {
                 connect(a, &QAction::triggered, this, [this, a]() {
@@ -63,7 +61,11 @@ void AppletInterface::init()
                 m_actions << a;
             }
         }
-    });
+    };
+    connect(applet, &Plasma::Applet::contextualActionsAboutToShow, this, &AppletInterface::contextualActionsAboutToShow);
+    // FIXME: temporary
+    connect(applet, &Plasma::Applet::contextualActionsChanged, this, connectActions);
+    connectActions();
 
     connect(applet, &Plasma::Applet::titleChanged, this, [this]() {
         if (m_toolTipMainText.isNull()) {
@@ -292,15 +294,13 @@ void AppletInterface::executeAction(QAction *action)
 {
     // FIXME: this is an assumption on KActionCollection behavior which sets objectName to the name used in addAction
     QString name = action->objectName();
-    if (qmlObject()->rootObject()) {
-        const QMetaObject *metaObj = qmlObject()->rootObject()->metaObject();
-        const QByteArray actionMethodName = "action_" + name.toUtf8();
-        const QByteArray actionFunctionName = actionMethodName + QByteArray("()");
-        if (metaObj->indexOfMethod(QMetaObject::normalizedSignature(actionFunctionName.constData()).constData()) != -1) {
-            QMetaObject::invokeMethod(qmlObject()->rootObject(), actionMethodName.constData(), Qt::DirectConnection);
-        } else {
-            QMetaObject::invokeMethod(qmlObject()->rootObject(), "actionTriggered", Qt::DirectConnection, Q_ARG(QVariant, name));
-        }
+    const QMetaObject *metaObj = metaObject();
+    const QByteArray actionMethodName = "action_" + name.toUtf8();
+    const QByteArray actionFunctionName = actionMethodName + QByteArray("()");
+    if (metaObj->indexOfMethod(QMetaObject::normalizedSignature(actionFunctionName.constData()).constData()) != -1) {
+        QMetaObject::invokeMethod(this, actionMethodName.constData(), Qt::DirectConnection);
+    } else {
+        QMetaObject::invokeMethod(this, "actionTriggered", Qt::DirectConnection, Q_ARG(QVariant, name));
     }
 }
 
