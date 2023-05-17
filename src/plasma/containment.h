@@ -101,7 +101,12 @@ class PLASMA_EXPORT Containment : public Applet
      * it's independent from the screen position
      * For more precise available geometry use availableScreenRegion()
      */
-    Q_PROPERTY(QRectF availableScreenRect READ availableScreenRect NOTIFY availableScreenRectChanged)
+    Q_PROPERTY(QRectF availableScreenRect READ availableRelativeScreenRect NOTIFY availableRelativeScreenRectChanged)
+
+    /**
+     * The available region of this screen, panels excluded. It's a list of rectangles
+     */
+    Q_PROPERTY(QList<QRectF> availableScreenRegion READ availableRelativeScreenRegion NOTIFY availableRelativeScreenRegionChanged)
 
     /**
      * Provides access to the geometry of the applet is in.
@@ -260,10 +265,15 @@ public:
      * @returns The available screen rect (excluding panels) for the screen this containment is associated to,
      * empty rectangle if the containment is not active in a screen
      */
-    QRectF availableScreenRect() const;
+    QRectF availableRelativeScreenRect() const;
 
     /**
-     * @return The geometry of the screen this containment is associated to
+     * @returns The available region of this screen, panels excluded. It's a list of rectangles
+     */
+    QList<QRectF> availableRelativeScreenRegion() const;
+
+    /**
+     * @returns The geometry of the screen this containment is associated to
      */
     QRectF screenGeometry() const;
 
@@ -367,7 +377,12 @@ Q_SIGNALS:
     /**
      * Emitted when the available screen rectangle has changed
      */
-    void availableScreenRectChanged(const QRectF &rect);
+    void availableRelativeScreenRectChanged(const QRectF &rect);
+
+    /**
+     * Emitted when the available screen rectangle has changed
+     */
+    void availableRelativeScreenRegionChanged(const QList<QRectF> &region);
 
     /**
      * Emitted when the screen geometry has changed
