@@ -54,6 +54,11 @@ class PLASMA_EXPORT Containment : public Applet
     Q_PROPERTY(QList<Plasma::Applet *> applets READ applets NOTIFY appletsChanged)
 
     /**
+     * The corona for this contaiment
+     */
+    Q_PROPERTY(Plasma::Corona *corona READ corona CONSTANT)
+
+    /**
      * Type of this containment
      */
     Q_PROPERTY(Plasma::Containment::Type containmentType READ containmentType NOTIFY containmentTypeChanged)

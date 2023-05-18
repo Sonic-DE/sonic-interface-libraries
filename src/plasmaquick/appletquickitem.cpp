@@ -509,10 +509,12 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
         qmlRegisterUncreatableType<AppletInterface>(uri, 2, 0, "Plasmoid", QStringLiteral("Do not create objects of type Plasmoid"));
         qmlRegisterUncreatableType<ContainmentInterface>(uri, 2, 0, "Containment", QStringLiteral("Do not create objects of type Containment"));
         qmlRegisterUncreatableType<WallpaperInterface>(uri, 2, 0, "Wallpaper", QStringLiteral("Do not create objects of type Wallpaper"));
+
         qmlRegisterType<AppletInterface>(uri, 2, 0, "PlasmoidItem");
         qmlRegisterType<ContainmentInterface>(uri, 2, 0, "ContainmentItem");
         qmlRegisterAnonymousType<Plasma::Applet>("org.kde.plasma.plasmoid", 1);
         qmlRegisterAnonymousType<Plasma::Containment>("org.kde.plasma.plasmoid", 1);
+        qmlRegisterAnonymousType<Plasma::Corona>("org.kde.plasma.plasmoid", 1);
     }
     auto it = AppletQuickItemPrivate::s_itemsForApplet.constFind(applet);
     if (it != AppletQuickItemPrivate::s_itemsForApplet.constEnd()) {
