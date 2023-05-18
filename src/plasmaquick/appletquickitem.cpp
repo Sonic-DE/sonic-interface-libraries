@@ -5,6 +5,7 @@
 */
 
 #include "appletquickitem.h"
+#include "applet.h"
 #include "appletcontext_p.h"
 #include "configview.h"
 #include "debug_p.h"
@@ -628,7 +629,7 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
         qmlObject->rootContext()->setContextProperty(QStringLiteral("plasmoid"), applet);
     }
 
-    applet->connect(applet, &QObject::destroyed, applet, [applet]() {
+    applet->connect(applet, &Plasma::Applet::appletDeleted, applet, [](Plasma::Applet *applet) {
         delete AppletQuickItemPrivate::s_itemsForApplet[applet];
         AppletQuickItemPrivate::s_itemsForApplet.remove(applet);
     });
