@@ -170,6 +170,11 @@ public:
     KActionCollection *actions() const;
 
     /**
+     * @returns The action with the given name, if any
+     */
+    Q_INVOKABLE QAction *action(const QString &name) const;
+
+    /**
      * Imports an applet layout from a config file. The results will be added to the
      * current set of Containments.
      *
