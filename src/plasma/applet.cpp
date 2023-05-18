@@ -704,7 +704,7 @@ void Applet::clearActions()
     d->actions->clear();
 }
 
-QAction *Applet::action(QString name) const
+QAction *Applet::action(const QString &name) const
 {
     return d->actions->action(name);
 }
