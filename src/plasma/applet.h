@@ -553,7 +553,7 @@ public:
      */
     Q_INVOKABLE void setAction(const QString &name, const QString &text, const QString &icon = QString(), const QString &shortcut = QString());
 
-    Q_INVOKABLE QAction *action(QString) const;
+    Q_INVOKABLE QAction *action(const QString &name) const;
     Q_INVOKABLE void removeAction(const QString &name);
 
     Q_INVOKABLE void clearActions();
