@@ -499,15 +499,6 @@ Plasma::Types::ConstraintHints Applet::constraintHints() const
     return d->constraintHints;
 }
 
-bool Applet::isEditMode() const
-{
-    if (!containment() || !containment()->corona()) {
-        return false;
-    }
-
-    return containment()->corona()->isEditMode();
-}
-
 bool Applet::isUserConfiguring() const
 {
     return d->userConfiguring;

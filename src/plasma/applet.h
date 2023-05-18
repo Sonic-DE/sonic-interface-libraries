@@ -182,14 +182,6 @@ class PLASMA_EXPORT Applet : public QObject
     // TODO KF6: contextualActions along with AppletInterface::setAction etc, alsongside a declarative way?
 
     /**
-     * True when the Corona is in an edit mode that allows to move
-     * things around.
-     * This is global to the Corona, all containments will have the same value for editMode
-     * TODO: only in containment?
-     */
-    Q_PROPERTY(bool editMode READ isEditMode NOTIFY editModeChanged)
-
-    /**
      *
      */
     Q_PROPERTY(Plasma::Containment *containment READ containment NOTIFY containmentChanged)
@@ -411,13 +403,6 @@ public:
      *         they can be in bitwise OR
      */
     Plasma::Types::ConstraintHints constraintHints() const;
-
-    /**
-     * @return True when the Corona is in an edit mode that allows to move
-     * things around.
-     * This is global to the Corona, all containments will have the same value for editMode
-     */
-    bool isEditMode() const;
 
     /**
      * @return true when the configuration interface is being shown
@@ -726,12 +711,6 @@ Q_SIGNALS:
      * @see setConstraintHints
      */
     void constraintHintsChanged(Plasma::Types::ConstraintHints constraintHints);
-
-    /**
-     * Emitted when the edit mode status changed
-     * @see isEditMode
-     */
-    void editModeChanged(bool editMode);
 
     /**
      * Emitted when the containment changes
