@@ -215,6 +215,7 @@ public:
      */
     bool isEditMode() const;
 
+    // TODO: make them not slots anymore
 public Q_SLOTS:
     /**
      * Load applet layout from a config file. The results will be added to the
