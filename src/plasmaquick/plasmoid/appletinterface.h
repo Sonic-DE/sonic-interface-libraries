@@ -212,10 +212,9 @@ protected:
      */
     void updateUiReadyConstraint();
 
-private Q_SLOTS:
+private:
     void destroyedChanged(bool destroyed);
 
-private:
     QSet<QAction *> m_actions;
 
     // UI-specific members ------------------
