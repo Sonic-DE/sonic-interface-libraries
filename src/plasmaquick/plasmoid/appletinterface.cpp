@@ -90,7 +90,7 @@ void AppletInterface::init()
         connect(applet->containment()->corona(), &Plasma::Corona::availableScreenRectChanged, this, &ContainmentInterface::availableScreenRectChanged);
     }
 
-    connect(this, &AppletInterface::expandedChanged, [=](bool expanded) {
+    connect(applet, &Plasma::Applet::expandedChanged, [=](bool expanded) {
         // if both compactRepresentationItem and fullRepresentationItem exist,
         // the applet is in a popup
         if (expanded) {
@@ -118,9 +118,9 @@ void AppletInterface::init()
     connect(applet, &Plasma::Applet::activated, this, [=]() {
         // in case the applet doesn't want to get shrunk on reactivation,
         // we always expand it again (only in order to conform with legacy behaviour)
-        bool activate = !(isExpanded() && isActivationTogglesExpanded());
+        bool activate = !(applet->isExpanded() && isActivationTogglesExpanded());
 
-        setExpanded(activate);
+        applet->setExpanded(activate);
         if (activate) {
             if (QQuickItem *i = qobject_cast<QQuickItem *>(fullRepresentationItem())) {
                 // Bug 372476: never pull focus away from it, only setFocus(true)

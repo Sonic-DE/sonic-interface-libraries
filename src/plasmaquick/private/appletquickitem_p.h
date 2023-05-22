@@ -113,7 +113,6 @@ public:
     KPackage::Package containmentPackage;
 
     bool propagateLayout = false;
-    bool expanded : 1;
     bool activationTogglesExpanded : 1;
     bool initComplete : 1;
     bool compactRepresentationCheckGuard : 1;
