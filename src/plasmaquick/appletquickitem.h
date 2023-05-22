@@ -55,12 +55,6 @@ class PLASMAQUICK_EXPORT AppletQuickItem : public QQuickItem
     Q_PROPERTY(QQmlComponent *preferredRepresentation READ preferredRepresentation WRITE setPreferredRepresentation NOTIFY preferredRepresentationChanged)
 
     /**
-     * True when the applet is showing its full representation. either as the main only view, or in a popup.
-     * Setting it will open or close the popup if the plasmoid is iconified, however it won't have effect if the applet is open
-     */
-    Q_PROPERTY(bool expanded WRITE setExpanded READ isExpanded NOTIFY expandedChanged)
-
-    /**
      * True when the applet wants the activation signal act in toggle mode, i.e. while being expanded
      * the signal shrinks the applet to its not expanded state instead of reexpanding it.
      */
@@ -103,9 +97,6 @@ public:
     QQmlComponent *preferredRepresentation();
     void setPreferredRepresentation(QQmlComponent *component);
 
-    bool isExpanded() const;
-    void setExpanded(bool expanded);
-
     bool isActivationTogglesExpanded() const;
     void setActivationTogglesExpanded(bool activationTogglesExpanded);
 
@@ -119,7 +110,6 @@ Q_SIGNALS:
     void switchWidthChanged(int width);
     void switchHeightChanged(int height);
 
-    void expandedChanged(bool expanded);
     void activationTogglesExpandedChanged(bool activationTogglesExpanded);
 
     void compactRepresentationChanged(QQmlComponent *compactRepresentation);

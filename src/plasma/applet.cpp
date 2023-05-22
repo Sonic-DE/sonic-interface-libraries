@@ -776,6 +776,8 @@ void Applet::setExpanded(bool expanded)
         return;
     }
 
+    Q_EMIT expandedAboutToChange(expanded);
+
     d->expanded = expanded;
 
     Q_EMIT expandedChanged(expanded);
