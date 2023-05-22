@@ -211,7 +211,8 @@ void ContainmentInterface::setAppletArgs(Plasma::Applet *applet, const QString &
         return;
     }
 
-    ContainmentInterface *appletInterface = qobject_cast<ContainmentInterface *>(AppletQuickItem::itemForApplet(applet));
+    AppletInterface *appletInterface = qobject_cast<AppletInterface *>(AppletQuickItem::itemForApplet(applet));
+
     if (appletInterface) {
         Q_EMIT appletInterface->externalData(mimetype, data);
     }
