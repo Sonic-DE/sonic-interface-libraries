@@ -722,6 +722,13 @@ Q_SIGNALS:
      */
     void expandedChanged(bool expanded);
 
+    /**
+     * Emitted when the expanded hint is about to change.
+     * Can be used if the applet wants for instance to prepare up some ui when
+     * the popup is still closed but knows that is about to open
+     */
+    void expandedAboutToChange(bool expanded);
+
     // TODO temporary api it should be removed
     void contextualActionsChanged();
 
