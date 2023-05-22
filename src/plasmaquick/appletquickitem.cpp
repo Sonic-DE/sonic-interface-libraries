@@ -292,7 +292,7 @@ void AppletQuickItemPrivate::preloadForExpansion()
     createFullRepresentationItem();
 
     // When not already expanded, also preload the expander
-    if (!applet->isExpanded() && !applet->isContainment() && (!preferredRepresentation || preferredRepresentation != fullRepresentation)) {
+    if (!appletShouldBeExpanded() && !applet->isContainment() && (!preferredRepresentation || preferredRepresentation != fullRepresentation)) {
         createCompactRepresentationExpanderItem();
     }
 
