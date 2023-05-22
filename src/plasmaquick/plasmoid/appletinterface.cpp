@@ -129,6 +129,8 @@ void AppletInterface::init()
         }
     });
 
+    connect(applet, &Plasma::Applet::destroyedChanged, this, &AppletInterface::destroyedChanged);
+
     if (applet->startupArguments().count() == 1) {
         Q_EMIT externalData(QString(), applet->startupArguments().first());
     } else if (!applet->startupArguments().isEmpty()) {
