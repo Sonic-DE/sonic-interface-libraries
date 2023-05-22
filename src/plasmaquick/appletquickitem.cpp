@@ -42,8 +42,6 @@ AppletQuickItemPrivate::AppletQuickItemPrivate(AppletQuickItem *item)
     : q(item)
     , switchWidth(-1)
     , switchHeight(-1)
-    , expanded(false)
-    , activationTogglesExpanded(true)
     , initComplete(false)
     , compactRepresentationCheckGuard(false)
 {
@@ -294,7 +292,7 @@ void AppletQuickItemPrivate::preloadForExpansion()
     createFullRepresentationItem();
 
     // When not already expanded, also preload the expander
-    if (!expanded && !applet->isContainment() && (!preferredRepresentation || preferredRepresentation != fullRepresentation)) {
+    if (!applet->isExpanded() && !applet->isContainment() && (!preferredRepresentation || preferredRepresentation != fullRepresentation)) {
         createCompactRepresentationExpanderItem();
     }
 
@@ -377,8 +375,7 @@ void AppletQuickItemPrivate::compactRepresentationCheck()
             currentRepresentationItem = item;
             connectLayoutAttached(item);
 
-            expanded = true;
-            Q_EMIT q->expandedChanged(true);
+            applet->setExpanded(true);
         }
 
     } else {
@@ -404,8 +401,7 @@ void AppletQuickItemPrivate::compactRepresentationCheck()
             currentRepresentationItem = compactItem;
             connectLayoutAttached(compactItem);
 
-            expanded = false;
-            Q_EMIT q->expandedChanged(false);
+            applet->setExpanded(false);
         }
     }
 
@@ -731,7 +727,7 @@ void AppletQuickItem::init()
 
     // if we're expanded we don't care about preloading because it will already be the case
     // as well as for containments
-    if (d->applet->isContainment() || d->expanded || d->preferredRepresentation == d->fullRepresentation) {
+    if (d->applet->isContainment() || d->applet->isExpanded() || d->preferredRepresentation == d->fullRepresentation) {
         return;
     }
 
@@ -767,7 +763,18 @@ void AppletQuickItem::classBegin()
     Q_ASSERT(ac);
     d->applet = ac->applet();
     d->qmlObject = ac->sharedQmlEngine();
-    connect(d->applet, &Plasma::Applet::expandedChanged, this, &AppletQuickItem::setExpanded);
+    connect(d->applet, &Plasma::Applet::expandedAboutToChange, this, [this](bool expanded) {
+        if (!expanded) {
+            return;
+        }
+        d->preloadForExpansion();
+        // increase on open, ignore containments
+        if (d->s_preloadPolicy >= AppletQuickItemPrivate::Adaptive && !d->applet->isContainment()) {
+            const int newWeight = qMin(d->preloadWeight() + AppletQuickItemPrivate::PreloadWeightIncrement, 100);
+            d->applet->config().writeEntry(QStringLiteral("PreloadWeight"), newWeight);
+            qCDebug(LOG_PLASMAQUICK) << "Increasing score for" << d->applet->title() << "to" << newWeight;
+        }
+    });
 }
 
 void AppletQuickItem::componentComplete()
@@ -872,33 +879,6 @@ void AppletQuickItem::setPreferredRepresentation(QQmlComponent *component)
     d->preferredRepresentation = component;
     Q_EMIT preferredRepresentationChanged(component);
     d->compactRepresentationCheck();
-}
-
-bool AppletQuickItem::isExpanded() const
-{
-    return d->expanded;
-}
-
-void AppletQuickItem::setExpanded(bool expanded)
-{
-    if (d->expanded == expanded) {
-        return;
-    }
-
-    d->applet->setExpanded(expanded);
-
-    if (expanded) {
-        d->preloadForExpansion();
-        // increase on open, ignore containments
-        if (d->s_preloadPolicy >= AppletQuickItemPrivate::Adaptive && !d->applet->isContainment()) {
-            const int newWeight = qMin(d->preloadWeight() + AppletQuickItemPrivate::PreloadWeightIncrement, 100);
-            d->applet->config().writeEntry(QStringLiteral("PreloadWeight"), newWeight);
-            qCDebug(LOG_PLASMAQUICK) << "Increasing score for" << d->applet->title() << "to" << newWeight;
-        }
-    }
-
-    d->expanded = expanded;
-    Q_EMIT expandedChanged(expanded);
 }
 
 bool AppletQuickItem::isActivationTogglesExpanded() const
