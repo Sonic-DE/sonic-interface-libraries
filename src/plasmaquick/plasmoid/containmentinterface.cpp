@@ -162,16 +162,6 @@ PlasmaQuick::AppletQuickItem *ContainmentInterface::itemFor(Plasma::Applet *appl
     }
 }
 
-QList<QObject *> ContainmentInterface::applets()
-{
-    return m_appletInterfaces;
-}
-
-Plasma::Containment::Type ContainmentInterface::containmentType() const
-{
-    return m_containment->containmentType();
-}
-
 Plasma::Applet *ContainmentInterface::createApplet(const QString &plugin, const QVariantList &args, const QPoint &pos)
 {
     return createApplet(plugin, args, QRectF(pos, QSize()));
@@ -370,11 +360,6 @@ QPointF ContainmentInterface::adjustToAvailableScreenRegion(int x, int y, int w,
     }
 
     return rect.topLeft();
-}
-
-QAction *ContainmentInterface::globalAction(QString name) const
-{
-    return m_containment->corona()->actions()->action(name);
 }
 
 void ContainmentInterface::openContextMenu(const QPointF &globalPos)
@@ -793,80 +778,6 @@ void ContainmentInterface::loadWallpaper()
     }
 
     Q_EMIT wallpaperInterfaceChanged();
-}
-
-QString ContainmentInterface::activity() const
-{
-    return m_containment->activity();
-}
-
-QString ContainmentInterface::activityName() const
-{
-    if (!m_activityInfo) {
-        return QString();
-    }
-    return m_activityInfo->name();
-}
-
-QList<QObject *> ContainmentInterface::actions() const
-{
-    // FIXME: giving directly a QList<QAction*> crashes
-
-    QStringList actionOrder;
-    actionOrder << QStringLiteral("add widgets") << QStringLiteral("manage activities") << QStringLiteral("remove") << QStringLiteral("lock widgets")
-                << QStringLiteral("configure");
-    QHash<QString, QAction *> orderedActions;
-    // use a multimap to sort by action type
-    QMultiMap<int, QObject *> actions;
-    int i = 0;
-    auto listActions = m_containment->actions()->actions();
-    for (QAction *a : std::as_const(listActions)) {
-        if (!actionOrder.contains(a->objectName())) {
-            // FIXME QML visualizations don't support menus for now, *and* there is no way to
-            // distinguish them on QML side
-            if (!a->menu()) {
-                actions.insert(a->data().toInt() * 100 + i, a);
-                ++i;
-            }
-        } else {
-            orderedActions[a->objectName()] = a;
-        }
-    }
-
-    i = 0;
-    listActions = m_containment->corona()->actions()->actions();
-    for (QAction *a : std::as_const(listActions)) {
-        if (a->objectName() == QLatin1String("lock widgets") || a->menu()) {
-            // It is up to the Containment to decide if the user is allowed or not
-            // to lock/unluck the widgets, so corona should not add one when there is none
-            //(user is not allow) and it shouldn't add another one when there is already
-            // one
-            continue;
-        }
-
-        if (!actionOrder.contains(a->objectName())) {
-            actions.insert(a->data().toInt() * 100 + i, a);
-        } else {
-            orderedActions[a->objectName()] = a;
-        }
-        ++i;
-    }
-    QList<QObject *> actionList = actions.values();
-
-    for (const QString &name : std::as_const(actionOrder)) {
-        QAction *a = orderedActions.value(name);
-        if (a && !a->menu()) {
-            actionList << a;
-        }
-        ++i;
-    }
-
-    return actionList;
-}
-
-void ContainmentInterface::setContainmentDisplayHints(Plasma::Types::ContainmentDisplayHints hints)
-{
-    m_containment->setContainmentDisplayHints(hints);
 }
 
 // PROTECTED--------------------
