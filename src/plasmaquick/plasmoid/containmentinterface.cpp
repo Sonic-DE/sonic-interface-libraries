@@ -179,30 +179,8 @@ Plasma::Applet *ContainmentInterface::createApplet(const QString &plugin, const 
 
 Plasma::Applet *ContainmentInterface::createApplet(const QString &plugin, const QVariantList &args, const QRectF &geom)
 {
-    // HACK
-    // This is necessary to delay the appletAdded signal (of containmentInterface) AFTER the applet graphics object has been created
-    blockSignals(true);
-    Plasma::Applet *applet = m_containment->createApplet(plugin, args);
-
-    if (applet) {
-        AppletQuickItem *appletGraphicObject = AppletQuickItem::itemForApplet(applet);
-
-        // invalid applet?
-        if (!appletGraphicObject) {
-            blockSignals(false);
-            return applet;
-        }
-        if (geom.width() > 0 && geom.height() > 0) {
-            appletGraphicObject->setSize(geom.size());
-        }
-
-        blockSignals(false);
-
-        Q_EMIT appletsChanged();
-    } else {
-        blockSignals(false);
-    }
-    return applet;
+    // FIXME: better way rather injecting the geometry as a magic parameter
+    return m_containment->createApplet(plugin, QVariantList(args) << geom);
 }
 
 void ContainmentInterface::setAppletArgs(Plasma::Applet *applet, const QString &mimetype, const QString &data)
@@ -755,17 +733,22 @@ void ContainmentInterface::appletAddedForward(Plasma::Applet *applet)
 
     QPointF removalPosition = appletGraphicObject->m_positionBeforeRemoval;
     QPointF position = appletGraphicObject->position();
-    if (removalPosition.x() < 0.0 && removalPosition.y() < 0.0) {
-        if (position.isNull() && m_containment->containmentType() == Plasma::Containment::Type::Desktop) {
-            // If no position was provided, and we're adding an applet to the desktop,
-            // add the applet to the center. This avoids always placing new applets
-            // in the top left corner, which is likely to be covered by something.
-            position = QPointF{width() / 2.0 - appletGraphicObject->width() / 2.0, //
-                               height() / 2.0 - appletGraphicObject->height() / 2.0};
-        }
-    } else {
+    QRectF dropGeom = applet->startupArguments().isEmpty() ? QRectF() : applet->startupArguments().last().value<QRectF>();
+    if (removalPosition.x() > 0.0 && removalPosition.y() > 0.0) {
         position = removalPosition;
+    } else if (dropGeom.x() > 0 || dropGeom.y() > 0) {
+        position = dropGeom.topLeft();
+        if (dropGeom.width() > 0 && dropGeom.height() > 0) {
+            appletGraphicObject->setSize(dropGeom.size());
+        }
+    } else if (position.isNull() && m_containment->containmentType() == Plasma::Containment::Type::Desktop) {
+        // If no position was provided, and we're adding an applet to the desktop,
+        // add the applet to the center. This avoids always placing new applets
+        // in the top left corner, which is likely to be covered by something.
+        position = QPointF{width() / 2.0 - appletGraphicObject->width() / 2.0, //
+                           height() / 2.0 - appletGraphicObject->height() / 2.0};
     }
+
     appletGraphicObject->setX(position.x());
     appletGraphicObject->setY(position.y());
 }
