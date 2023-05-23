@@ -41,41 +41,6 @@ class ContainmentInterface : public AppletInterface
 {
     Q_OBJECT
 
-    /**
-     * List of applets this containment has: the containments
-     * KF6: this should be AppletQuickItem *
-     */
-    Q_PROPERTY(QList<QObject *> applets READ applets NOTIFY appletsChanged)
-
-    /**
-     * Type of this containment TODO: notify
-     */
-    Q_PROPERTY(Plasma::Containment::Type containmentType READ containmentType CONSTANT)
-
-    /**
-     * Activity name of this containment
-     */
-    Q_PROPERTY(QString activity READ activity NOTIFY activityChanged)
-
-    /**
-     * Activity name of this containment
-     */
-    Q_PROPERTY(QString activityName READ activityName NOTIFY activityNameChanged)
-
-    /**
-     * Actions associated to this containment or corona
-     */
-    Q_PROPERTY(QList<QObject *> actions READ actions NOTIFY actionsChanged)
-
-    /**
-     * True when the Plasma Shell is in an edit mode that allows to move
-     * things around: it's different from userConfiguring as it's about
-     * editing plasmoids inside the containment, rather than the containment
-     * settings dialog itself.
-     * This is global for the whole Plasma process, all containments will have the same value for editMode
-     */
-    Q_PROPERTY(bool editMode READ isEditMode WRITE setEditMode NOTIFY editModeChanged)
-
     Q_PROPERTY(WallpaperInterface *wallpaper READ wallpaperInterface NOTIFY wallpaperInterfaceChanged)
 
 public:
@@ -95,17 +60,6 @@ public:
     }
 
     // For QML use
-    QList<QObject *> applets();
-
-    Plasma::Containment::Type containmentType() const;
-
-    QString activity() const;
-    QString activityName() const;
-
-    QList<QObject *> actions() const;
-
-    void setContainmentDisplayHints(Plasma::Types::ContainmentDisplayHints hints);
-
     /**
      * Returns the corresponding AppletInterface of one of its applets
      */
@@ -130,6 +84,7 @@ public:
     /**
      * Add an existing applet to this containment.
      * The coordinates are passed as local coordinates of this containment
+     * TODO: can this be removed?
      */
     Q_INVOKABLE void addApplet(AppletInterface *applet, int x, int y);
 
@@ -149,11 +104,6 @@ public:
      * @return the toLeft point of the rectangle
      */
     Q_INVOKABLE QPointF adjustToAvailableScreenRegion(int x, int y, int w, int h) const;
-
-    /**
-     * @returns a named action from global Corona's actions
-     */
-    Q_INVOKABLE QAction *globalAction(QString name) const;
 
     /**
      * Opens the context menu of the Corona
