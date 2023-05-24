@@ -722,7 +722,7 @@ void ContainmentInterface::appletAddedForward(Plasma::Applet *applet)
     QPointF removalPosition = appletGraphicObject->m_positionBeforeRemoval;
     QPointF position = appletGraphicObject->position();
     QRectF dropGeom = applet->startupArguments().isEmpty() ? QRectF() : applet->startupArguments().last().value<QRectF>();
-    qWarning() << "AAAAAAAAA" << applet->title() << dropGeom;
+
     if (removalPosition.x() > 0.0 && removalPosition.y() > 0.0) {
         position = removalPosition;
     } else if (dropGeom.x() > 0 || dropGeom.y() > 0) {
