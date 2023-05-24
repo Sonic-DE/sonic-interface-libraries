@@ -113,6 +113,7 @@ void AppletQuickItemPrivate::connectLayoutAttached(QObject *item)
     if (!item) {
         return;
     }
+    // TODO: remove propagateLayout?
     if (!propagateLayout) {
         return;
     }
