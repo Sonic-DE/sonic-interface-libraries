@@ -8,6 +8,7 @@
 
 #include "containmentinterface.h"
 #include "dropmenu.h"
+#include "private/appletquickitem_p.h"
 #include "sharedqmlengine.h"
 #include "wallpaperinterface.h"
 
@@ -59,8 +60,8 @@ void ContainmentInterface::classBegin()
     AppletInterface::classBegin();
     m_containment = static_cast<Plasma::Containment *>(applet());
 
-    connect(m_containment.data(), &Plasma::Containment::appletRemoved, this, &ContainmentInterface::appletRemovedForward);
-    connect(m_containment.data(), &Plasma::Containment::appletAdded, this, &ContainmentInterface::appletAddedForward);
+    connect(m_containment.data(), &Plasma::Containment::appletAboutToBeRemoved, this, &ContainmentInterface::appletRemovedForward);
+    connect(m_containment.data(), &Plasma::Containment::appletAboutToBeAdded, this, &ContainmentInterface::appletAddedForward);
 
     connect(m_containment->corona(), &Plasma::Corona::editModeChanged, this, &ContainmentInterface::editModeChanged);
 }
@@ -715,10 +716,12 @@ void ContainmentInterface::appletAddedForward(Plasma::Applet *applet)
     }
     qWarning() << "ContainmentInterface::appletAddedForward" << applet;
     AppletInterface *appletGraphicObject = qobject_cast<AppletInterface *>(AppletQuickItem::itemForApplet(applet));
+    m_appletInterfaces.append(appletGraphicObject);
 
     QPointF removalPosition = appletGraphicObject->m_positionBeforeRemoval;
     QPointF position = appletGraphicObject->position();
     QRectF dropGeom = applet->startupArguments().isEmpty() ? QRectF() : applet->startupArguments().last().value<QRectF>();
+    qWarning() << "AAAAAAAAA" << applet->title() << dropGeom;
     if (removalPosition.x() > 0.0 && removalPosition.y() > 0.0) {
         position = removalPosition;
     } else if (dropGeom.x() > 0 || dropGeom.y() > 0) {

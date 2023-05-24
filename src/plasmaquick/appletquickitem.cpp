@@ -8,6 +8,7 @@
 #include "applet.h"
 #include "appletcontext_p.h"
 #include "configview.h"
+#include "containment.h"
 #include "debug_p.h"
 #include "plasmoid/appletinterface.h"
 #include "plasmoid/containmentinterface.h"
@@ -35,6 +36,7 @@
 
 namespace PlasmaQuick
 {
+
 QHash<Plasma::Applet *, AppletQuickItem *> AppletQuickItemPrivate::s_itemsForApplet = QHash<Plasma::Applet *, AppletQuickItem *>();
 AppletQuickItemPrivate::PreloadPolicy AppletQuickItemPrivate::s_preloadPolicy = AppletQuickItemPrivate::Uninitialized;
 
@@ -517,6 +519,7 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
     if (it != AppletQuickItemPrivate::s_itemsForApplet.constEnd()) {
         return it.value();
     }
+
     Plasma::Containment *pc = qobject_cast<Plasma::Containment *>(applet);
 
     // TODO: kill packageurlinterceptor?

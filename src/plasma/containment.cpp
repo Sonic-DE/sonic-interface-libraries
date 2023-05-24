@@ -378,6 +378,7 @@ void Containment::addApplet(Applet *applet)
     Containment *currentContainment = applet->containment();
 
     if (currentContainment && currentContainment != this) {
+        Q_EMIT currentContainment->appletAboutToBeRemoved(applet);
         Q_EMIT currentContainment->appletRemoved(applet);
         Q_EMIT appletsChanged();
 
@@ -415,6 +416,7 @@ void Containment::addApplet(Applet *applet)
     auto position = std::lower_bound(d->applets.begin(), d->applets.end(), applet, [](Plasma::Applet *a1, Plasma::Applet *a2) {
         return a1->id() < a2->id();
     });
+    Q_EMIT appletAboutToBeAdded(applet);
     d->applets.insert(position, applet);
 
     if (!d->uiReady) {
