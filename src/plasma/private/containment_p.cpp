@@ -200,6 +200,7 @@ Applet *ContainmentPrivate::createApplet(const QString &name, const QVariantList
 
 void ContainmentPrivate::appletDeleted(Plasma::Applet *applet)
 {
+    Q_EMIT q->appletAboutToBeRemoved(applet);
     applets.removeAll(applet);
 
     Q_EMIT q->appletRemoved(applet);
