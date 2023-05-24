@@ -12,6 +12,8 @@
 #include <QQmlEngine>
 #include <QQuickItem>
 
+#include <Plasma/Corona>
+
 //
 //  W A R N I N G
 //  -------------
