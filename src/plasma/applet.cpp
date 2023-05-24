@@ -743,7 +743,7 @@ bool Applet::hideOnWindowDeactivate() const
 
 void Applet::setHideOnWindowDeactivate(bool hide)
 {
-    if (d->hideOnWindowDeactivate != hide) {
+    if (d->hideOnWindowDeactivate == hide) {
         return;
     }
 
