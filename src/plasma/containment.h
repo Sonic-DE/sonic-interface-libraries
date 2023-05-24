@@ -293,11 +293,23 @@ Q_SIGNALS:
     void appletAdded(Plasma::Applet *applet);
 
     /**
+     * This signal is emitted right before appletAdded, it can be used
+     * to do a preliminary setup on the applet before the handlers of appletAdded are executed.
+     * Useful for instance to prepare the GUI for the applet
+     */
+    void appletAboutToBeAdded(Plasma::Applet *applet);
+
+    /**
      * This signal is emitted when an applet is destroyed
      */
     void appletRemoved(Plasma::Applet *applet);
 
-    void appletsChanged();
+    /**
+     * This signal is emitted right before appletRemoved, it can be used
+     * to do a preliminary setup on the applet before the handlers of appletRemoved are executed.
+     * Useful for instance to prepare or teardown the GUI for the applet
+     */
+    void appletAboutToBeRemoved(Plasma::Applet *applet);
 
     /**
      * This signal is emitted when a new applet is created by the containment.
@@ -308,6 +320,11 @@ Q_SIGNALS:
      * @since 5.16
      */
     void appletCreated(Plasma::Applet *applet);
+
+    /**
+     * Emitted when the list of applets has changed, either added or removed
+     */
+    void appletsChanged();
 
     /**
      * Emitted when the activity id has changed
