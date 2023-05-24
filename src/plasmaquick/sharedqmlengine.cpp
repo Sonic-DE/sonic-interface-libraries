@@ -12,7 +12,6 @@
 #include <QDebug>
 #include <QQmlContext>
 #include <QQmlEngine>
-#include <QQmlIncubator>
 #include <QQmlNetworkAccessManagerFactory>
 #include <QQuickItem>
 #include <QTimer>
@@ -257,14 +256,8 @@ QObject *SharedQmlEngine::createObjectFromSource(const QUrl &source, QQmlContext
 
 QObject *SharedQmlEngine::createObjectFromComponent(QQmlComponent *component, QQmlContext *context, const QVariantHash &initialProperties)
 {
-    /*   QmlObjectIncubator incubator;
-       incubator.m_initialProperties = initialProperties;
-       component->create(incubator, context ? context : d->rootContext);
-       incubator.forceCompletion();
-
-       QObject *object = incubator.object();*/
-
     QObject *object = component->beginCreate(context ? context : d->rootContext);
+
     for (auto it = initialProperties.constBegin(); it != initialProperties.constEnd(); ++it) {
         object->setProperty(it.key().toUtf8().data(), it.value());
     }
@@ -290,7 +283,6 @@ QObject *SharedQmlEngine::createObjectFromComponent(QQmlComponent *component, QQ
         return nullptr;
     }
 }
-
 }
 
 #include "moc_sharedqmlengine.cpp"
