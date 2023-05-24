@@ -701,7 +701,13 @@ void Applet::removeAction(const QString &name)
 
 void Applet::clearActions()
 {
-    d->actions->clear();
+    // FIXME: Now it removes only contextualactions for compatibility
+    //  This needs to be revised in the actions API ovehaul
+    for (auto a : d->actions->actions()) {
+        if (a->property("_contextualAction").toBool()) {
+            d->actions->removeAction(a);
+        }
+    }
 }
 
 QAction *Applet::action(const QString &name) const
