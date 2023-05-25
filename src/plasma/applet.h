@@ -179,17 +179,27 @@ class PLASMA_EXPORT Applet : public QObject
      */
     Q_PROPERTY(KPluginMetaData metaData READ pluginMetaData CONSTANT)
 
-    // TODO KF6: contextualActions along with AppletInterface::setAction etc, alsongside a declarative way?
-
     /**
-     *
+     * The Containment managing this applet
      */
     Q_PROPERTY(Plasma::Containment *containment READ containment NOTIFY containmentChanged)
 
+    /**
+     * Hint set to true if the applet should be siplayed as expanded, such as the main popup open
+     */
     Q_PROPERTY(bool expanded READ isExpanded WRITE setExpanded NOTIFY expandedChanged)
 
+    // TODO KF6: contextualActions along with AppletInterface::setAction etc, alsongside a declarative way?
     Q_PROPERTY(QList<QAction *> contextualActions READ contextualActions NOTIFY contextualActionsChanged)
 
+    /**
+     * True if this applet is a Containment and is acting as one, such as a desktop or a panel
+     */
+    Q_PROPERTY(bool isContainment READ isContainment CONSTANT)
+
+    /**
+     * Plugin name for the applet
+     */
     Q_PROPERTY(QString pluginName READ pluginName CONSTANT FINAL)
 
 public:
