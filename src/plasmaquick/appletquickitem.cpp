@@ -496,6 +496,11 @@ Plasma::Applet *AppletQuickItem::qmlAttachedProperties(QObject *object)
     return nullptr;
 }
 
+bool AppletQuickItem::hasItemForApplet(Plasma::Applet *applet)
+{
+    return AppletQuickItemPrivate::s_itemsForApplet.contains(applet);
+}
+
 AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
 {
     if (!applet) {

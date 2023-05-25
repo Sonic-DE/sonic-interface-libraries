@@ -743,6 +743,9 @@ void ContainmentInterface::appletAddedForward(Plasma::Applet *applet)
 
 void ContainmentInterface::appletRemovedForward(Plasma::Applet *applet)
 {
+    if (!AppletQuickItem::hasItemForApplet(applet)) {
+        return;
+    }
     AppletInterface *appletGraphicObject = qobject_cast<AppletInterface *>(AppletQuickItem::itemForApplet(applet));
     if (appletGraphicObject) {
         m_appletInterfaces.removeAll(appletGraphicObject);
