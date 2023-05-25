@@ -131,10 +131,14 @@ void AppletInterface::init()
 
     connect(applet, &Plasma::Applet::destroyedChanged, this, &AppletInterface::destroyedChanged);
 
-    if (applet->startupArguments().count() == 1) {
-        Q_EMIT externalData(QString(), applet->startupArguments().first());
-    } else if (!applet->startupArguments().isEmpty()) {
-        Q_EMIT externalData(QString(), applet->startupArguments());
+    auto args = applet->startupArguments();
+    if (!args.isEmpty() && args.last().canConvert<QRectF>()) {
+        args.pop_back();
+    }
+    if (args.count() == 1) {
+        Q_EMIT externalData(QString(), args.first());
+    } else if (!args.isEmpty()) {
+        Q_EMIT externalData(QString(), args);
     }
 }
 
