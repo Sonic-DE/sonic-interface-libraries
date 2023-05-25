@@ -110,6 +110,10 @@ class AppletInterface : public PlasmaQuick::AppletQuickItem
      */
     Q_PROPERTY(QVariantList availableScreenRegion READ availableScreenRegion NOTIFY availableScreenRegionChanged)
 
+    /**
+     * True if the UI is still loading, for instance a desktop which doesn't have its wallpaper yet
+     * TODO: still needed?
+     */
     Q_PROPERTY(bool loading MEMBER m_loading NOTIFY isLoadingChanged)
 
 public:
