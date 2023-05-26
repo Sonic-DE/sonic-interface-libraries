@@ -36,7 +36,7 @@ Item {
     //used to tell apart this implementation with the touch components one
     property bool hasOverState: true
 
-    PlasmaCore.Svg {
+    KSvg.Svg {
         id: shadowSvg
         imagePath: "widgets/actionbutton"
     }

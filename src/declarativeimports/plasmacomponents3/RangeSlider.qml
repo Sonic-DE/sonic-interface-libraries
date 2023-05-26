@@ -16,7 +16,7 @@ T.RangeSlider {
     implicitWidth: control.orientation === Qt.Horizontal ? PlasmaCore.Units.gridUnit * 12 : PlasmaCore.Units.gridUnit * 1.6
     implicitHeight: control.orientation === Qt.Horizontal ? PlasmaCore.Units.gridUnit * 1.6 : PlasmaCore.Units.gridUnit * 12
 
-    PlasmaCore.Svg {
+    KSvg.Svg {
         id: grooveSvg
         imagePath: "widgets/slider"
         colorGroup: PlasmaCore.ColorScope.colorGroup

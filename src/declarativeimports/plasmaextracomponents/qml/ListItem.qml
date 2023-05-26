@@ -66,7 +66,7 @@ Kirigami.AbstractListItem {
         visible: __listItem.ListView.view ? __listItem.ListView.view.highlight === null : true
 
         KSvg.SvgItem {
-            svg: PlasmaCore.Svg {
+            svg: KSvg.Svg {
                 imagePath: "widgets/listitem"
             }
             elementId: "separator"

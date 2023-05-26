@@ -29,7 +29,7 @@ T.ToolBar {
         imagePath: "widgets/toolbar"
         colorGroup: PlasmaCore.ColorScope.colorGroup
         KSvg.SvgItem {
-            svg: PlasmaCore.Svg {
+            svg: KSvg.Svg {
                 imagePath: "widgets/listitem"
             }
             elementId: "separator"

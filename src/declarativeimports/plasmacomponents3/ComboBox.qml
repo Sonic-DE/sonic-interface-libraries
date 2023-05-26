@@ -50,7 +50,7 @@ T.ComboBox {
             rightMargin: surfaceNormal.margins.right
             verticalCenter: parent.verticalCenter
         }
-        svg: PlasmaCore.Svg {
+        svg: KSvg.Svg {
             imagePath: "widgets/arrows"
             colorGroup: PlasmaCore.Theme.ButtonColorGroup
         }

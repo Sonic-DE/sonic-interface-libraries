@@ -45,7 +45,7 @@ T.Dial {
         }
     }
 
-    PlasmaCore.Svg {
+    KSvg.Svg {
         id: grooveSvg
         imagePath: "widgets/slider"
         colorGroup: PlasmaCore.ColorScope.colorGroup
@@ -74,7 +74,7 @@ T.Dial {
         }
 
         KSvg.SvgItem {
-            svg: PlasmaCore.Svg {
+            svg: KSvg.Svg {
                 id: buttonSvg
                 imagePath: "widgets/actionbutton"
             }
