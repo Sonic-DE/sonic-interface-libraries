@@ -7,6 +7,7 @@
 import QtQuick 2.6
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.ksvg 2.0 as KSvg
 import "private" as Private
 
 T.Dial {
@@ -72,7 +73,7 @@ T.Dial {
             }
         }
 
-        PlasmaCore.SvgItem {
+        KSvg.SvgItem {
             svg: PlasmaCore.Svg {
                 id: buttonSvg
                 imagePath: "widgets/actionbutton"

@@ -7,6 +7,7 @@
 import QtQuick 2.6
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.ksvg 2.0 as KSvg
 
 T.ToolBar {
     id: control
@@ -23,11 +24,11 @@ T.ToolBar {
 
     spacing: PlasmaCore.Units.smallSpacing
 
-    background: PlasmaCore.FrameSvgItem {
+    background: KSvg.FrameSvgItem {
         implicitHeight: 40 // TODO: Find a good way to sync this with the size of (Button or ToolButton) + padding
         imagePath: "widgets/toolbar"
         colorGroup: PlasmaCore.ColorScope.colorGroup
-        PlasmaCore.SvgItem {
+        KSvg.SvgItem {
             svg: PlasmaCore.Svg {
                 imagePath: "widgets/listitem"
             }

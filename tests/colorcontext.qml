@@ -7,6 +7,7 @@
 import QtQuick 2.1
 import QtQuick.Layouts 1.2
 import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.ksvg 2.0 as KSvg
 import org.kde.plasma.components 3.0 as PC3
 
 ColumnLayout {
@@ -31,7 +32,7 @@ ColumnLayout {
                     imagePath: "icons/audio"
                     colorGroup: PlasmaCore.ColorScope.colorGroup
                 }
-                PlasmaCore.SvgItem {
+                KSvg.SvgItem {
                     width: 32
                     height: 32
                     elementId: "audio-volume-medium"
