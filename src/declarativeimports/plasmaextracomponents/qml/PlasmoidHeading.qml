@@ -71,7 +71,7 @@ T.ToolBar {
         visible: fromCurrentTheme === backgroundSvg.fromCurrentTheme
         imagePath: "widgets/plasmoidheading"
         prefix: position === T.ToolBar.Header ? "header" : "footer"
-        PlasmaCore.Svg {
+        KSvg.Svg {
             id: backgroundSvg
             imagePath: "dialogs/background"
         }

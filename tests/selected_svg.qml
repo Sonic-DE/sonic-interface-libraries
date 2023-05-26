@@ -26,7 +26,7 @@ KSvg.FrameSvgItem {
         }
 
         KSvg.SvgItem {
-            svg: PlasmaCore.Svg {
+            svg: KSvg.Svg {
                 id: svg
                 imagePath: "icons/phone"
                 state: root.state

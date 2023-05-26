@@ -671,7 +671,7 @@ Item {
                         Layout.fillWidth: true
 
                         elementId: "horizontal-line"
-                        svg: PlasmaCore.Svg {
+                        svg: KSvg.Svg {
                             imagePath: "widgets/line"
                         }
                     }

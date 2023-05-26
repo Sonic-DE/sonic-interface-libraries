@@ -19,7 +19,7 @@ T.ProgressBar {
 
     hoverEnabled: false
 
-    PlasmaCore.Svg {
+    KSvg.Svg {
         id: barSvg
         imagePath: "widgets/bar_meter_horizontal"
         colorGroup: PlasmaCore.ColorScope.colorGroup
