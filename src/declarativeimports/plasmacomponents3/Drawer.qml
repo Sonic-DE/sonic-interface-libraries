@@ -7,6 +7,7 @@
 import QtQuick 2.6
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.ksvg 2.0 as KSvg
 
 T.Drawer {
     id: control
@@ -24,7 +25,7 @@ T.Drawer {
     rightPadding: control.edge === Qt.LeftEdge ? Math.round(PlasmaCore.Units.devicePixelRatio) : 0
     bottomPadding: control.edge === Qt.TopEdge ? Math.round(PlasmaCore.Units.devicePixelRatio) : 0
 
-    background: PlasmaCore.FrameSvgItem {
+    background: KSvg.FrameSvgItem {
         anchors {
             fill: parent
             leftMargin: -margins.left

@@ -8,6 +8,7 @@
 import QtQuick 2.15
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.ksvg 2.0 as KSvg
 import "private" as P
 
 Item {
@@ -43,13 +44,13 @@ Item {
     // Uses newer radiobutton.svg
     Component {
         id: radiobuttonComponent
-        PlasmaCore.SvgItem {
+        KSvg.SvgItem {
             svg: radioButtonSvg
             elementId: "normal"
             anchors.centerIn: parent
             implicitWidth: naturalSize.width
             implicitHeight: naturalSize.height
-            PlasmaCore.SvgItem {
+            KSvg.SvgItem {
                 z: -1
                 svg: radioButtonSvg
                 elementId: "shadow"
@@ -66,7 +67,7 @@ Item {
                     }
                 }
             }
-            PlasmaCore.SvgItem {
+            KSvg.SvgItem {
                 svg: radioButtonSvg
                 elementId: "checked"
                 anchors.centerIn: parent
@@ -83,7 +84,7 @@ Item {
                     }
                 }
             }
-            PlasmaCore.SvgItem {
+            KSvg.SvgItem {
                 svg: radioButtonSvg
                 elementId: "focus"
                 anchors.centerIn: parent
@@ -98,7 +99,7 @@ Item {
                     }
                 }
             }
-            PlasmaCore.SvgItem {
+            KSvg.SvgItem {
                 svg: radioButtonSvg
                 elementId: "hover"
                 anchors.centerIn: parent
@@ -114,7 +115,7 @@ Item {
                     }
                 }
             }
-            PlasmaCore.SvgItem {
+            KSvg.SvgItem {
                 svg: radioButtonSvg
                 elementId: "symbol"
                 anchors.centerIn: parent
@@ -136,7 +137,7 @@ Item {
     // NOTE: Do not touch this except to fix bugs. This is for compatibility.
     Component {
         id: compatibilityComponent
-        PlasmaCore.SvgItem {
+        KSvg.SvgItem {
             svg: PlasmaCore.Svg {
                 id: buttonSvg
                 imagePath: "widgets/actionbutton"
@@ -147,7 +148,7 @@ Item {
             implicitWidth: implicitHeight
             implicitHeight: PlasmaCore.Units.iconSizes.small
 
-            PlasmaCore.SvgItem {
+            KSvg.SvgItem {
                 id: checkmark
                 svg: PlasmaCore.Svg {
                     id: checkmarksSvg
