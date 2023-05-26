@@ -7,8 +7,9 @@
 import QtQuick 2.2
 import QtQuick.Controls 2.15 as Controls
 import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.ksvg 2.0 as KSvg
 
-PlasmaCore.FrameSvgItem {
+KSvg.FrameSvgItem {
     id: root
     imagePath: "widgets/background"
     state: PlasmaCore.Svg.Normal
@@ -24,7 +25,7 @@ PlasmaCore.FrameSvgItem {
             onClicked: root.state = (root.state == PlasmaCore.Svg.Selected ? PlasmaCore.Svg.Normal : PlasmaCore.Svg.Selected)
         }
 
-        PlasmaCore.SvgItem {
+        KSvg.SvgItem {
             svg: PlasmaCore.Svg {
                 id: svg
                 imagePath: "icons/phone"
