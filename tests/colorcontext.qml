@@ -27,7 +27,7 @@ ColumnLayout {
             Column {
                 id: widgetsParent
                 anchors.centerIn: parent
-                PlasmaCore.Svg {
+                KSvg.Svg {
                     id: audioSvg
                     imagePath: "icons/audio"
                     colorGroup: PlasmaCore.ColorScope.colorGroup

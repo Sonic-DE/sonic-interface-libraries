@@ -43,7 +43,7 @@ T.SpinBox {
     wheelEnabled: true
     hoverEnabled: Qt.styleHints.useHoverEffects
 
-    PlasmaCore.Svg {
+    KSvg.Svg {
         id: lineSvg
         imagePath: "widgets/line"
     }
@@ -206,7 +206,7 @@ T.SpinBox {
                         }
                     }
                 }
-                PlasmaCore.Svg {
+                KSvg.Svg {
                     id: lineEditSvg
                     imagePath: "widgets/lineedit"
                 }

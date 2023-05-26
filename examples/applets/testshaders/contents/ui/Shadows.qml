@@ -108,7 +108,7 @@ ShaderExample {
 
                     PlasmaCore.SvgItem {
                         id: buttonItem
-                        svg: PlasmaCore.Svg {
+                        svg: KSvg.Svg {
                             id: configIconsSvg
                             imagePath: "widgets/configuration-icons"
                         }

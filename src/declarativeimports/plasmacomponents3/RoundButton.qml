@@ -57,7 +57,7 @@ T.RoundButton {
 
         // Round Button
 
-        PlasmaCore.Svg {
+        KSvg.Svg {
             id: buttonSvg
             imagePath: "widgets/actionbutton"
             colorGroup: PlasmaCore.Theme.ButtonColorGroup

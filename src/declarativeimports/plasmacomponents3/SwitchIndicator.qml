@@ -20,7 +20,7 @@ Item {
     implicitHeight: Math.max(inactive.implicitHeight, button.implicitHeight)
     opacity: control.enabled ? 1 : 0.6
 
-    PlasmaCore.Svg {
+    KSvg.Svg {
         id: switchSvg
         imagePath: "widgets/switch"
         colorGroup: PlasmaCore.ColorScope.colorGroup

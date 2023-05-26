@@ -75,7 +75,7 @@ T.BusyIndicator {
             width: Math.min(parent.width, parent.height)
             height: width
 
-            svg: PlasmaCore.Svg {
+            svg: KSvg.Svg {
                 imagePath: "widgets/busywidget"
                 colorGroup: PlasmaCore.ColorScope.colorGroup
             }
