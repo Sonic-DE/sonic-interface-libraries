@@ -9,6 +9,7 @@
 import QtQuick 2.15
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.1 as PlasmaCore
+import org.kde.ksvg 2.0 as KSvg
 
 T.BusyIndicator {
     id: control
@@ -66,7 +67,7 @@ T.BusyIndicator {
             rotationAnimator.running = animationRunning;
         }
 
-        PlasmaCore.SvgItem {
+        KSvg.SvgItem {
             /* Do not use `anchors.fill: parent` in here or else
              * the aspect ratio won't always be 1:1.
              */

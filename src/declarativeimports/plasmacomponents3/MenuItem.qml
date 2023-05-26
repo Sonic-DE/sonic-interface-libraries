@@ -8,6 +8,7 @@ import QtQuick 2.6
 import QtQuick.Layouts 1.2
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.ksvg 2.0 as KSvg
 import org.kde.kirigami 2.5 as Kirigami
 
 T.MenuItem {
@@ -103,7 +104,7 @@ T.MenuItem {
     background: Item {
         implicitWidth: PlasmaCore.Units.gridUnit * 8
 
-        PlasmaCore.FrameSvgItem {
+        KSvg.FrameSvgItem {
             id: highlight
             imagePath: "widgets/viewitem"
             prefix: "hover"

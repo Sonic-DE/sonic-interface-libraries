@@ -11,6 +11,7 @@ import QtQuick.Controls @QQC2_VERSION@
 import QtQml.Models 2.15
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.ksvg 2.0 as KSvg
 import org.kde.kirigami 2.5 as Kirigami
 import "private" as Private
 
@@ -79,7 +80,7 @@ T.TabButton {
         }
     }
 
-    background: PlasmaCore.FrameSvgItem {
+    background: KSvg.FrameSvgItem {
         visible: !control.ListView.view || !control.ListView.view.highlightItem
         imagePath: "widgets/tabbar"
         prefix: control.T.TabBar.position === T.TabBar.Footer ? "south-active-tab" : "north-active-tab"

@@ -23,6 +23,7 @@ Properties:
 
 import QtQuick 2.1
 import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.ksvg 2.0 as KSvg
 
 Item {
     id: main
@@ -40,7 +41,7 @@ Item {
         imagePath: "widgets/actionbutton"
     }
 
-    PlasmaCore.SvgItem {
+    KSvg.SvgItem {
         id: hover
         svg: shadowSvg
         elementId: "hover"
@@ -50,7 +51,7 @@ Item {
         opacity: 0
     }
 
-    PlasmaCore.SvgItem {
+    KSvg.SvgItem {
         id: shadow
         svg: shadowSvg
         elementId: "shadow"

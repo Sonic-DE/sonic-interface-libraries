@@ -8,6 +8,7 @@ import QtQuick 2.12
 import QtQuick.Layouts 1.12
 
 import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.ksvg 2.0 as KSvg
 import org.kde.plasma.plasmoid 2.0
 import QtQuick.Templates 2.12 as T
 import "private" as Private
@@ -62,7 +63,7 @@ T.ToolBar {
     PlasmaCore.ColorScope.colorGroup: position === T.ToolBar.Header ? PlasmaCore.Theme.HeaderColorGroup : PlasmaCore.Theme.NormalColorGroup
     PlasmaCore.ColorScope.inherit: false
 
-    background: PlasmaCore.FrameSvgItem {
+    background: KSvg.FrameSvgItem {
         id: headingSvg
         // This graphics has to back with the dialog background, so it can be used if:
         // * both this and the dialog background are from the current theme
