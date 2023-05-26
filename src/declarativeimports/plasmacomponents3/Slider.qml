@@ -26,7 +26,7 @@ T.Slider {
     layer.enabled: opacity < 1
     opacity: control.enabled ? 1 : 0.5
 
-    PlasmaCore.Svg {
+    KSvg.Svg {
         id: sliderSvg
         imagePath: "widgets/slider"
         colorGroup: PlasmaCore.ColorScope.colorGroup

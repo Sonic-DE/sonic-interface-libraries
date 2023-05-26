@@ -13,7 +13,7 @@ Item {
     id: main
     state: parent.state
 
-    PlasmaCore.Svg {
+    KSvg.Svg {
         id: lineEditSvg
         property bool hasFocusFrame: lineEditSvg.hasElement("focusframe-center")
         property bool hasFocusOverBase: lineEditSvg.hasElement("hint-focus-over-base")

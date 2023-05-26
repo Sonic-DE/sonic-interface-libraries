@@ -35,7 +35,7 @@ Rectangle {
             KSvg.SvgItem {
                 elementId: modelData
 
-                svg: PlasmaCore.Svg {
+                svg: KSvg.Svg {
                     imagePath: "dialogs/background"
                 }
             }

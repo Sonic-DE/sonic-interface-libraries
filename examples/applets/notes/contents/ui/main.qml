@@ -14,7 +14,7 @@ import org.kde.plasma.components 3.0 as PC3
 KSvg.SvgItem {
     Layout.minimumWidth: 150
     Layout.minimumHeight: 150
-    svg: PlasmaCore.Svg { imagePath: "widgets/notes" }
+    svg: KSvg.Svg { imagePath: "widgets/notes" }
     elementId: "yellow-notes"
 
     Connections {

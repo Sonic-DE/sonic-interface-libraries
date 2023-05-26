@@ -25,7 +25,7 @@ Item {
     opacity: control.enabled ? 1 : 0.5
     layer.enabled: opacity < 1
 
-    PlasmaCore.Svg {
+    KSvg.Svg {
         id: radioButtonSvg
         imagePath: "widgets/radiobutton"
     }
@@ -138,7 +138,7 @@ Item {
     Component {
         id: compatibilityComponent
         KSvg.SvgItem {
-            svg: PlasmaCore.Svg {
+            svg: KSvg.Svg {
                 id: buttonSvg
                 imagePath: "widgets/actionbutton"
             }
@@ -150,7 +150,7 @@ Item {
 
             KSvg.SvgItem {
                 id: checkmark
-                svg: PlasmaCore.Svg {
+                svg: KSvg.Svg {
                     id: checkmarksSvg
                     imagePath: "widgets/checkmarks"
                 }

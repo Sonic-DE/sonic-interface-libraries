@@ -30,7 +30,7 @@ KSvg.FrameSvgItem {
 
     KSvg.SvgItem {
         anchors.fill: parent
-        svg: PlasmaCore.Svg {
+        svg: KSvg.Svg {
             id: checkmarkSvg
             imagePath: "widgets/checkmarks"
         }

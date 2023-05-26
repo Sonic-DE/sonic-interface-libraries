@@ -80,7 +80,7 @@ T.ScrollBar {
         opacity: enabled ? 1 : 0.5
     }
 
-    PlasmaCore.Svg {
+    KSvg.Svg {
         id: scrollbarSvg
         imagePath: "widgets/scrollbar"
         //TODO: support arrows?
