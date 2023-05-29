@@ -736,22 +736,6 @@ Types::ContainmentDisplayHints Applet::containmentDisplayHints() const
     return c ? c->d->containmentDisplayHints : Plasma::Types::NoContainmentDisplayHint;
 }
 
-bool Applet::hideOnWindowDeactivate() const
-{
-    return d->hideOnWindowDeactivate;
-}
-
-void Applet::setHideOnWindowDeactivate(bool hide)
-{
-    if (d->hideOnWindowDeactivate == hide) {
-        return;
-    }
-
-    d->hideOnWindowDeactivate = hide;
-
-    Q_EMIT hideOnWindowDeactivateChanged(hide);
-}
-
 Containment *Applet::containment() const
 {
     Containment *c = qobject_cast<Containment *>(const_cast<Applet *>(this));

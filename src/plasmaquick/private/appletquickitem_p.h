@@ -115,6 +115,7 @@ public:
     KPackage::Package containmentPackage;
 
     bool propagateLayout = false;
+    bool hideOnWindowDeactivate = false;
     bool activationTogglesExpanded : 1;
     bool initComplete : 1;
     bool compactRepresentationCheckGuard : 1;
