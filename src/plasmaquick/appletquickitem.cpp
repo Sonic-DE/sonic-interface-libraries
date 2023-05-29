@@ -528,7 +528,7 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
 
     Plasma::Containment *pc = qobject_cast<Plasma::Containment *>(applet);
 
-    // TODO: kill packageurlinterceptor?
+    // TODO: kill packageurlinterceptor
     auto *qmlObject = new PlasmaQuick::SharedQmlEngine(applet);
     qmlObject->setInitializationDelayed(true);
     if (qmlObject->engine()->urlInterceptors().isEmpty()) {
