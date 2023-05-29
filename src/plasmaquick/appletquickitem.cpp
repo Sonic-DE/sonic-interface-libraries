@@ -612,20 +612,6 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
         applet->flushPendingConstraintsEvents();
     }
 
-    // TODO: remove add a new property in applet to point to the QQuickItem
-    QJSValue fun =
-        qmlObject->engine()->evaluate(QStringLiteral("(function(applet, item) { \
-                Object.defineProperty(applet, 'gui',\
-                                        {\
-                                            enumerable: true,\
-                                            configurable: false,\
-                                            writable: false,\
-                                            value: item\
-                                        }) })"));
-    QJSValueList args;
-    args << qmlObject->engine()->newQObject(applet) << qmlObject->engine()->newQObject(item);
-    fun.call(args);
-
     item->setProperty("_plasma_applet", QVariant::fromValue(applet));
     qmlObject->setParent(item);
     item->d->applet = applet;
