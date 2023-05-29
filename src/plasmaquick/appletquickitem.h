@@ -61,6 +61,13 @@ class PLASMAQUICK_EXPORT AppletQuickItem : public QQuickItem
     Q_PROPERTY(bool activationTogglesExpanded WRITE setActivationTogglesExpanded READ isActivationTogglesExpanded NOTIFY activationTogglesExpandedChanged)
 
     /**
+     * Whether the dialog should be hidden when the dialog loses focus.
+     *
+     * The default value is @c false.
+     **/
+    Q_PROPERTY(bool hideOnWindowDeactivate READ hideOnWindowDeactivate WRITE setHideOnWindowDeactivate NOTIFY hideOnWindowDeactivateChanged)
+
+    /**
      * Gives compatibility to the old plasmoid.* api
      */
     Q_PROPERTY(QObject *plasmoid READ applet CONSTANT)
@@ -100,6 +107,9 @@ public:
     bool isActivationTogglesExpanded() const;
     void setActivationTogglesExpanded(bool activationTogglesExpanded);
 
+    bool hideOnWindowDeactivate() const;
+    void setHideOnWindowDeactivate(bool hide);
+
     static bool hasItemForApplet(Plasma::Applet *applet);
     static AppletQuickItem *itemForApplet(Plasma::Applet *applet);
 
@@ -112,6 +122,7 @@ Q_SIGNALS:
     void switchHeightChanged(int height);
 
     void activationTogglesExpandedChanged(bool activationTogglesExpanded);
+    void hideOnWindowDeactivateChanged(bool hide);
 
     void compactRepresentationChanged(QQmlComponent *compactRepresentation);
     void fullRepresentationChanged(QQmlComponent *fullRepresentation);

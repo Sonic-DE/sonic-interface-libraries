@@ -606,6 +606,7 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
     qmlObject->setInitializationDelayed(false);
     qmlObject->completeInitialization();
 
+    // A normal applet has UI ready as soon as is loaded, a containment, only when also the wallpaper is loaded
     if (!pc || !pc->isContainment()) {
         applet->updateConstraints(Plasma::Types::UiReadyConstraint);
         applet->flushPendingConstraintsEvents();
@@ -902,6 +903,20 @@ void AppletQuickItem::setActivationTogglesExpanded(bool activationTogglesExpande
     }
     d->activationTogglesExpanded = activationTogglesExpanded;
     Q_EMIT activationTogglesExpandedChanged(activationTogglesExpanded);
+}
+
+bool AppletQuickItem::hideOnWindowDeactivate() const
+{
+    return d->hideOnWindowDeactivate;
+}
+
+void AppletQuickItem::setHideOnWindowDeactivate(bool hide)
+{
+    if (d->hideOnWindowDeactivate == hide) {
+        return;
+    }
+    d->hideOnWindowDeactivate = hide;
+    Q_EMIT hideOnWindowDeactivateChanged(hide);
 }
 
 ////////////Internals
