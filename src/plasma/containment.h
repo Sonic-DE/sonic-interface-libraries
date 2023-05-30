@@ -93,7 +93,7 @@ class PLASMA_EXPORT Containment : public Applet
                    containmentDisplayHintsChanged)
 
     Q_PROPERTY(QString wallpaper READ wallpaper WRITE setWallpaper NOTIFY wallpaperChanged)
-    // TODO: wallpaperItem
+
     Q_PROPERTY(bool isUiReady READ isUiReady NOTIFY uiReadyChanged)
 
     /**
@@ -172,17 +172,23 @@ public:
      * @param name the plugin name for the applet, as given by
      *        KPluginInfo::pluginName()
      * @param args argument list to pass to the plasmoid
+     * @param geometryHint an hint to pass to the GUI on the location
+     *           and size we prefer for the newly created applet;
+     *           the gui might choose whether to respect or not this hint
      *
      * @return a pointer to the applet on success, or 0 on failure
      */
-    Applet *createApplet(const QString &name, const QVariantList &args = QVariantList());
+    Applet *createApplet(const QString &name, const QVariantList &args = QVariantList(), const QRectF &geometryHint = QRectF());
 
     /**
      * Add an existing applet to this Containment
      *
      * @param applet the applet that should be added
+     * @param geometryHint an hint to pass to the GUI on the location
+     *           and size we prefer for the newly created applet;
+     *           the gui might choose whether to respect or not this hint
      */
-    void addApplet(Applet *applet);
+    void addApplet(Applet *applet, const QRectF &geometryHint = QRectF());
 
     /**
      * @return the applets currently in this Containment
@@ -289,15 +295,23 @@ Q_SIGNALS:
      * * The user created the applet
      * * The applet was moved in from another containment
      * * The applet got restored at startup
+     * @param applet the applet that has been added
+     * @param geometryHint an hint to pass to the GUI on the location
+     *           and size we prefer for the newly created applet;
+     *           the gui might choose whether to respect or not this hint
      */
-    void appletAdded(Plasma::Applet *applet);
+    void appletAdded(Plasma::Applet *applet, const QRectF &geometryHint);
 
     /**
      * This signal is emitted right before appletAdded, it can be used
      * to do a preliminary setup on the applet before the handlers of appletAdded are executed.
      * Useful for instance to prepare the GUI for the applet
+     * @param applet the applet that is about to be added
+     * @param geometryHint an hint to pass to the GUI on the location
+     *           and size we prefer for the newly created applet;
+     *           the gui might choose whether to respect or not this hint
      */
-    void appletAboutToBeAdded(Plasma::Applet *applet);
+    void appletAboutToBeAdded(Plasma::Applet *applet, const QRectF &geometryHint);
 
     /**
      * This signal is emitted when an applet is destroyed
@@ -319,7 +333,7 @@ Q_SIGNALS:
      * @see appletAdded
      * @since 5.16
      */
-    void appletCreated(Plasma::Applet *applet);
+    void appletCreated(Plasma::Applet *applet, const QRectF &geometryHint);
 
     /**
      * Emitted when the list of applets has changed, either added or removed
