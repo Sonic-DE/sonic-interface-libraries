@@ -64,6 +64,24 @@ AppletQuickItemPrivate::AppletQuickItemPrivate(AppletQuickItem *item)
     }
 }
 
+void AppletQuickItemPrivate::initFromAppletContext(AppletContext *ac)
+{
+    applet = ac->applet();
+    qmlObject = ac->sharedQmlEngine();
+    QObject::connect(applet, &Plasma::Applet::expandedAboutToChange, q, [this](bool expanded) {
+        if (!expanded) {
+            return;
+        }
+        preloadForExpansion();
+        // increase on open, ignore containments
+        if (s_preloadPolicy >= AppletQuickItemPrivate::Adaptive && !applet->isContainment()) {
+            const int newWeight = qMin(preloadWeight() + AppletQuickItemPrivate::PreloadWeightIncrement, 100);
+            applet->config().writeEntry(QStringLiteral("PreloadWeight"), newWeight);
+            qCDebug(LOG_PLASMAQUICK) << "Increasing score for" << applet->title() << "to" << newWeight;
+        }
+    });
+}
+
 int AppletQuickItemPrivate::preloadWeight() const
 {
     int defaultWeight;
@@ -457,6 +475,12 @@ AppletQuickItem::AppletQuickItem(QQuickItem *parent)
 {
 }
 
+AppletQuickItem::AppletQuickItem(Plasma::Applet *applet, QQuickItem *parent)
+    : QQuickItem(parent)
+    , d(new AppletQuickItemPrivate(this))
+{
+}
+
 AppletQuickItem::~AppletQuickItem()
 {
     AppletQuickItemPrivate::s_itemsForApplet.remove(d->applet);
@@ -555,8 +579,21 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
         }
     } else {
         item = qobject_cast<AppletInterface *>(qmlObject->rootObject());
-        if (!item && qmlObject->mainComponent() && qmlObject->mainComponent()->isError()) {
-            applet->setLaunchErrorMessage(i18n("The root item of %1 must be of type PlasmoidItem", applet->kPackage().fileUrl("mainscript").toString()));
+        if (!item && qmlObject->mainComponent() && !qmlObject->mainComponent()->isError()) {
+            auto *quickItem = qobject_cast<QQuickItem *>(qmlObject->rootObject());
+            if (quickItem) {
+                auto *appletItem = new AppletInterface;
+                AppletContext *ac = qobject_cast<AppletContext *>(QQmlEngine::contextForObject(quickItem)->parentContext());
+                Q_ASSERT(ac);
+                qmlObject->engine()->setContextForObject(appletItem, ac);
+                appletItem->setFullRepresentation(qmlObject->mainComponent());
+                appletItem->setPreferredRepresentation(qmlObject->mainComponent());
+                appletItem->d->fullRepresentationItem = quickItem;
+                appletItem->d->initFromAppletContext(ac);
+                item = appletItem;
+            } else {
+                applet->setLaunchErrorMessage(i18n("The root item of %1 must be of type PlasmoidItem", applet->kPackage().fileUrl("mainscript").toString()));
+            }
         }
     }
 
@@ -602,7 +639,7 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
         applet->setLaunchErrorMessage(reason);
     }
 
-    AppletQuickItemPrivate::s_itemsForApplet[applet] = qobject_cast<AppletInterface *>(qmlObject->rootObject());
+    AppletQuickItemPrivate::s_itemsForApplet[applet] = item;
     qmlObject->setInitializationDelayed(false);
     qmlObject->completeInitialization();
 
@@ -757,20 +794,7 @@ void AppletQuickItem::classBegin()
     QQuickItem::classBegin();
     AppletContext *ac = qobject_cast<AppletContext *>(QQmlEngine::contextForObject(this)->parentContext());
     Q_ASSERT(ac);
-    d->applet = ac->applet();
-    d->qmlObject = ac->sharedQmlEngine();
-    connect(d->applet, &Plasma::Applet::expandedAboutToChange, this, [this](bool expanded) {
-        if (!expanded) {
-            return;
-        }
-        d->preloadForExpansion();
-        // increase on open, ignore containments
-        if (d->s_preloadPolicy >= AppletQuickItemPrivate::Adaptive && !d->applet->isContainment()) {
-            const int newWeight = qMin(d->preloadWeight() + AppletQuickItemPrivate::PreloadWeightIncrement, 100);
-            d->applet->config().writeEntry(QStringLiteral("PreloadWeight"), newWeight);
-            qCDebug(LOG_PLASMAQUICK) << "Increasing score for" << d->applet->title() << "to" << newWeight;
-        }
-    });
+    d->initFromAppletContext(ac);
 }
 
 void AppletQuickItem::componentComplete()
