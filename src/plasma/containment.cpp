@@ -347,16 +347,16 @@ void Containment::setLocation(Types::Location location)
     Q_EMIT locationChanged(location);
 }
 
-Applet *Containment::createApplet(const QString &name, const QVariantList &args)
+Applet *Containment::createApplet(const QString &name, const QVariantList &args, const QRectF &geometryHint)
 {
     Plasma::Applet *applet = d->createApplet(name, args);
     if (applet) {
-        Q_EMIT appletCreated(applet);
+        Q_EMIT appletCreated(applet, geometryHint);
     }
     return applet;
 }
 
-void Containment::addApplet(Applet *applet)
+void Containment::addApplet(Applet *applet, const QRectF &geometryHint)
 {
     if (!applet) {
 #ifndef NDEBUG
@@ -416,7 +416,7 @@ void Containment::addApplet(Applet *applet)
     auto position = std::lower_bound(d->applets.begin(), d->applets.end(), applet, [](Plasma::Applet *a1, Plasma::Applet *a2) {
         return a1->id() < a2->id();
     });
-    Q_EMIT appletAboutToBeAdded(applet);
+    Q_EMIT appletAboutToBeAdded(applet, geometryHint);
     d->applets.insert(position, applet);
 
     if (!d->uiReady) {
@@ -448,7 +448,7 @@ void Containment::addApplet(Applet *applet)
     applet->updateConstraints(Plasma::Types::AllConstraints);
     applet->flushPendingConstraintsEvents();
 
-    Q_EMIT appletAdded(applet);
+    Q_EMIT appletAdded(applet, geometryHint);
     Q_EMIT appletsChanged();
     Q_EMIT applet->containmentChanged(this);
 
