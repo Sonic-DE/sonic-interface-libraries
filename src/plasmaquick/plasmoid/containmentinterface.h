@@ -151,11 +151,11 @@ protected Q_SLOTS:
     void mimeTypeRetrieved(KIO::Job *job, const QString &mimetype);
 
 private Q_SLOTS:
-    Plasma::Applet *createApplet(const QString &plugin, const QVariantList &args, const QPoint &pos);
+    Plasma::Applet *createApplet(const QString &plugin, const QVariantList &args, const QPointF &pos);
     Plasma::Applet *createApplet(const QString &plugin, const QVariantList &args, const QRectF &geom);
 
 private:
-    void appletAddedForward(Plasma::Applet *applet);
+    void appletAddedForward(Plasma::Applet *applet, const QRectF &geometryHint);
     void appletRemovedForward(Plasma::Applet *applet);
     void clearDataForMimeJob(KIO::Job *job);
     void setAppletArgs(Plasma::Applet *applet, const QString &mimetype, const QString &data);

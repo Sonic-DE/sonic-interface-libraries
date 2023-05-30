@@ -163,7 +163,7 @@ PlasmaQuick::AppletQuickItem *ContainmentInterface::itemFor(Plasma::Applet *appl
     }
 }
 
-Plasma::Applet *ContainmentInterface::createApplet(const QString &plugin, const QVariantList &args, const QPoint &pos)
+Plasma::Applet *ContainmentInterface::createApplet(const QString &plugin, const QVariantList &args, const QPointF &pos)
 {
     return createApplet(plugin, args, QRectF(pos, QSize()));
 }
@@ -171,7 +171,7 @@ Plasma::Applet *ContainmentInterface::createApplet(const QString &plugin, const 
 Plasma::Applet *ContainmentInterface::createApplet(const QString &plugin, const QVariantList &args, const QRectF &geom)
 {
     // FIXME: better way rather injecting the geometry as a magic parameter
-    return m_containment->createApplet(plugin, QVariantList(args) << geom);
+    return m_containment->createApplet(plugin, QVariantList(args), geom);
 }
 
 void ContainmentInterface::setAppletArgs(Plasma::Applet *applet, const QString &mimetype, const QString &data)
@@ -709,7 +709,7 @@ void ContainmentInterface::mimeTypeRetrieved(KIO::Job *job, const QString &mimet
     }
 }
 
-void ContainmentInterface::appletAddedForward(Plasma::Applet *applet)
+void ContainmentInterface::appletAddedForward(Plasma::Applet *applet, const QRectF &geometryHint)
 {
     if (!applet) {
         return;
@@ -720,14 +720,13 @@ void ContainmentInterface::appletAddedForward(Plasma::Applet *applet)
 
     QPointF removalPosition = appletGraphicObject->m_positionBeforeRemoval;
     QPointF position = appletGraphicObject->position();
-    QRectF dropGeom = applet->startupArguments().isEmpty() ? QRectF() : applet->startupArguments().last().value<QRectF>();
 
     if (removalPosition.x() > 0.0 && removalPosition.y() > 0.0) {
         position = removalPosition;
-    } else if (dropGeom.x() > 0 || dropGeom.y() > 0) {
-        position = dropGeom.topLeft();
-        if (dropGeom.width() > 0 && dropGeom.height() > 0) {
-            appletGraphicObject->setSize(dropGeom.size());
+    } else if (geometryHint.x() > 0 || geometryHint.y() > 0) {
+        position = geometryHint.topLeft();
+        if (geometryHint.width() > 0 && geometryHint.height() > 0) {
+            appletGraphicObject->setSize(geometryHint.size());
         }
     } else if (position.isNull() && m_containment->containmentType() == Plasma::Containment::Type::Desktop) {
         // If no position was provided, and we're adding an applet to the desktop,
