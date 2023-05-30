@@ -34,6 +34,7 @@ namespace PlasmaQuick
 {
 class AppletQuickItem;
 class SharedQmlEngine;
+class AppletContext;
 
 class AppletQuickItemPrivate
 {
@@ -55,6 +56,8 @@ public:
     };
 
     AppletQuickItemPrivate(AppletQuickItem *item);
+
+    void initFromAppletContext(AppletContext *ac);
 
     int preloadWeight() const;
 
