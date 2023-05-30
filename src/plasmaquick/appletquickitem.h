@@ -73,6 +73,7 @@ class PLASMAQUICK_EXPORT AppletQuickItem : public QQuickItem
     Q_PROPERTY(QObject *plasmoid READ applet CONSTANT)
 
 public:
+    AppletQuickItem(Plasma::Applet *applet, QQuickItem *parent = nullptr);
     AppletQuickItem(QQuickItem *parent = nullptr);
     ~AppletQuickItem() override;
 
