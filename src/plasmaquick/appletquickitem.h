@@ -73,7 +73,6 @@ class PLASMAQUICK_EXPORT AppletQuickItem : public QQuickItem
     Q_PROPERTY(QObject *plasmoid READ applet CONSTANT)
 
 public:
-    AppletQuickItem(Plasma::Applet *applet, QQuickItem *parent = nullptr);
     AppletQuickItem(QQuickItem *parent = nullptr);
     ~AppletQuickItem() override;
 
@@ -114,9 +113,6 @@ public:
     static bool hasItemForApplet(Plasma::Applet *applet);
     static AppletQuickItem *itemForApplet(Plasma::Applet *applet);
 
-    ////NEEDED BY QML TO CREATE ATTACHED PROPERTIES
-    static Plasma::Applet *qmlAttachedProperties(QObject *object);
-
 Q_SIGNALS:
     // Property signals
     void switchWidthChanged(int width);
@@ -154,7 +150,5 @@ private:
 };
 
 }
-
-QML_DECLARE_TYPEINFO(PlasmaQuick::AppletQuickItem, QML_HAS_ATTACHED_PROPERTIES)
 
 #endif
