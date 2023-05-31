@@ -177,11 +177,6 @@ class PLASMA_EXPORT Applet : public QObject
      */
     Q_PROPERTY(Plasma::Containment *containment READ containment NOTIFY containmentChanged)
 
-    /**
-     * Hint set to true if the applet should be siplayed as expanded, such as the main popup open
-     */
-    Q_PROPERTY(bool expanded READ isExpanded WRITE setExpanded NOTIFY expandedChanged)
-
     // TODO KF6: contextualActions along with AppletInterface::setAction etc, alsongside a declarative way?
     Q_PROPERTY(QList<QAction *> contextualActions READ contextualActions NOTIFY contextualActionsChanged)
 
@@ -255,16 +250,6 @@ public:
      * @return the Containment, if any, this applet belongs to
      **/
     Containment *containment() const;
-
-    /**
-     * Sets an hint whether the graphical representation of the applet should be expanded
-     */
-    void setExpanded(bool expanded);
-
-    /**
-     * @return true if the graphical representation of the applet should be expanded (for instance main popup open)
-     */
-    bool isExpanded() const;
 
     /**
      * @return true if this Applet is currently being used as a Containment, false otherwise
@@ -706,18 +691,6 @@ Q_SIGNALS:
      * Emitted when the containment changes
      */
     void containmentChanged(Plasma::Containment *containment);
-
-    /**
-     * Emitted when the expanded hint changes
-     */
-    void expandedChanged(bool expanded);
-
-    /**
-     * Emitted when the expanded hint is about to change.
-     * Can be used if the applet wants for instance to prepare up some ui when
-     * the popup is still closed but knows that is about to open
-     */
-    void expandedAboutToChange(bool expanded);
 
     // TODO temporary api it should be removed
     void contextualActionsChanged();

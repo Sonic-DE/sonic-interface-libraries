@@ -55,6 +55,11 @@ class PLASMAQUICK_EXPORT AppletQuickItem : public QQuickItem
     Q_PROPERTY(QQmlComponent *preferredRepresentation READ preferredRepresentation WRITE setPreferredRepresentation NOTIFY preferredRepresentationChanged)
 
     /**
+     * Hint set to true if the applet should be siplayed as expanded, such as the main popup open
+     */
+    Q_PROPERTY(bool expanded READ isExpanded WRITE setExpanded NOTIFY expandedChanged)
+
+    /**
      * True when the applet wants the activation signal act in toggle mode, i.e. while being expanded
      * the signal shrinks the applet to its not expanded state instead of reexpanding it.
      */
@@ -104,6 +109,9 @@ public:
     QQmlComponent *preferredRepresentation();
     void setPreferredRepresentation(QQmlComponent *component);
 
+    bool isExpanded() const;
+    void setExpanded(bool expanded);
+
     bool isActivationTogglesExpanded() const;
     void setActivationTogglesExpanded(bool activationTogglesExpanded);
 
@@ -117,6 +125,8 @@ Q_SIGNALS:
     // Property signals
     void switchWidthChanged(int width);
     void switchHeightChanged(int height);
+
+    void expandedChanged(bool expanded);
 
     void activationTogglesExpandedChanged(bool activationTogglesExpanded);
     void hideOnWindowDeactivateChanged(bool hide);
