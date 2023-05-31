@@ -115,6 +115,7 @@ public:
     KPackage::Package coronaPackage;
     KPackage::Package containmentPackage;
 
+    bool expanded = false;
     bool hideOnWindowDeactivate = false;
     bool activationTogglesExpanded : 1;
     bool initComplete : 1;
