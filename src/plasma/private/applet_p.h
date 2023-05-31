@@ -104,7 +104,6 @@ public:
 
     // a great green field of booleans :)
     bool userBackgroundHintsInitialized = false;
-    bool expanded = false;
     bool hasConfigurationInterface : 1;
     bool failed : 1;
     bool transient : 1;
