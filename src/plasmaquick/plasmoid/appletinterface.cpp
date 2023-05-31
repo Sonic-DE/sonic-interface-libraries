@@ -6,6 +6,7 @@
 */
 
 #include "appletinterface.h"
+#include "appletcontext_p.h"
 #include "sharedqmlengine.h"
 
 #include <QAction>
