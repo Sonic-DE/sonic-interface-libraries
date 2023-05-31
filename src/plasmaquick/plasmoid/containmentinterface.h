@@ -116,11 +116,6 @@ public:
     bool isEditMode() const;
     void setEditMode(bool edit);
 
-    static Plasma::Containment *qmlAttachedProperties(QObject *object)
-    {
-        return qobject_cast<Plasma::Containment *>(AppletQuickItem::qmlAttachedProperties(object));
-    }
-
 protected:
     void init() override;
     void mousePressEvent(QMouseEvent *event) override;
@@ -170,7 +165,5 @@ private:
     int m_wheelDelta;
     friend class AppletInterface;
 };
-
-QML_DECLARE_TYPEINFO(ContainmentInterface, QML_HAS_ATTACHED_PROPERTIES)
 
 #endif
