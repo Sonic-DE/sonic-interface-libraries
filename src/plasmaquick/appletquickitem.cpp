@@ -302,11 +302,11 @@ void AppletQuickItemPrivate::preloadForExpansion()
     }
 
     // When not already expanded, also preload the expander
-    if (!expanded && !applet->isContainment() && (!preferredRepresentation || preferredRepresentation != fullRepresentation)) {
+    if (!appletShouldBeExpanded() && !applet->isContainment() && (!preferredRepresentation || preferredRepresentation != fullRepresentation)) {
         createCompactRepresentationExpanderItem();
     }
 
-    if (!expanded && compactRepresentationExpanderItem) {
+    if (!appletShouldBeExpanded() && compactRepresentationExpanderItem) {
         compactRepresentationExpanderItem->setProperty("fullRepresentation", QVariant::fromValue<QObject *>(createFullRepresentationItem()));
     } else if (fullRepresentationItem) {
         fullRepresentationItem->setProperty("parent", QVariant::fromValue<QObject *>(q));
@@ -412,8 +412,8 @@ void AppletQuickItemPrivate::compactRepresentationCheck()
             currentRepresentationItem = compactItem;
             connectLayoutAttached(compactItem);
 
-            expanded = true;
-            Q_EMIT q->expandedChanged(true);
+            expanded = false;
+            Q_EMIT q->expandedChanged(false);
         }
     }
 
@@ -857,6 +857,7 @@ void AppletQuickItem::setExpanded(bool expanded)
     }
 
     d->expanded = expanded;
+
     Q_EMIT expandedChanged(expanded);
 }
 
