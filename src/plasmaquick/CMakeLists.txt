@@ -26,6 +26,7 @@ target_sources(KF6PlasmaQuick PRIVATE
     quickviewsharedengine.cpp
     plasmawindow.cpp
     private/configcategory_p.cpp
+    private/plasmoidattached_p.cpp
     ../declarativeimports/core/framesvgitem.cpp
     ../declarativeimports/core/imagetexturescache.cpp
     ../declarativeimports/core/managedtexturenode.cpp

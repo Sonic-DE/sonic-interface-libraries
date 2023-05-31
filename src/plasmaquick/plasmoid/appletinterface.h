@@ -236,6 +236,4 @@ private:
     QPointF m_positionBeforeRemoval;
 };
 
-QML_DECLARE_TYPEINFO(AppletInterface, QML_HAS_ATTACHED_PROPERTIES)
-
 #endif
