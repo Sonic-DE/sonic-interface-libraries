@@ -169,7 +169,7 @@ void ContainmentPrivate::containmentConstraintsEvent(Plasma::Types::Constraints 
     }
 }
 
-Applet *ContainmentPrivate::createApplet(const QString &name, const QVariantList &args, uint id)
+Applet *ContainmentPrivate::createApplet(const QString &name, const QVariantList &args, uint id, const QRectF &geometryHint)
 {
     if (!q->isContainment()) {
         return nullptr;
@@ -190,7 +190,7 @@ Applet *ContainmentPrivate::createApplet(const QString &name, const QVariantList
         applet->setLaunchErrorMessage(i18n("Could not find requested component: %1", name));
     }
 
-    q->addApplet(applet);
+    q->addApplet(applet, geometryHint);
     // mirror behavior of resorecontents: if an applet is not valid, set it immediately to uiReady
     if (!applet->pluginMetaData().isValid()) {
         applet->updateConstraints(Plasma::Types::UiReadyConstraint);

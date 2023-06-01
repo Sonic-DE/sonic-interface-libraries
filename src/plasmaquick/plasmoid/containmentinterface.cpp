@@ -425,7 +425,6 @@ void ContainmentInterface::processMimeData(QMimeData *mimeData, int x, int y, KI
         const QStringList appletNames = data.split(QLatin1Char('\n'), Qt::SkipEmptyParts);
         for (const QString &appletName : appletNames) {
             qDebug() << "adding" << appletName;
-
             metaObject()->invokeMethod(this,
                                        "createApplet",
                                        Qt::QueuedConnection,
@@ -715,7 +714,7 @@ void ContainmentInterface::appletAddedForward(Plasma::Applet *applet, const QRec
     if (!applet) {
         return;
     }
-    qWarning() << "ContainmentInterface::appletAddedForward" << applet;
+    qWarning() << "ContainmentInterface::appletAddedForward" << applet << geometryHint;
     AppletInterface *appletGraphicObject = qobject_cast<AppletInterface *>(AppletQuickItem::itemForApplet(applet));
     m_appletInterfaces.append(appletGraphicObject);
 
