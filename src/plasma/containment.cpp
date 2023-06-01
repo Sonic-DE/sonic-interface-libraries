@@ -349,7 +349,7 @@ void Containment::setLocation(Types::Location location)
 
 Applet *Containment::createApplet(const QString &name, const QVariantList &args, const QRectF &geometryHint)
 {
-    Plasma::Applet *applet = d->createApplet(name, args);
+    Plasma::Applet *applet = d->createApplet(name, args, 0, geometryHint);
     if (applet) {
         Q_EMIT appletCreated(applet, geometryHint);
     }
