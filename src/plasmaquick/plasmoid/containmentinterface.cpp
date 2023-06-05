@@ -170,7 +170,6 @@ Plasma::Applet *ContainmentInterface::createApplet(const QString &plugin, const 
 
 Plasma::Applet *ContainmentInterface::createApplet(const QString &plugin, const QVariantList &args, const QRectF &geom)
 {
-    // FIXME: better way rather injecting the geometry as a magic parameter
     return m_containment->createApplet(plugin, QVariantList(args), geom);
 }
 
@@ -759,6 +758,9 @@ void ContainmentInterface::loadWallpaper()
     }
 
     if (m_containment->containmentType() != Plasma::Containment::Type::Desktop && m_containment->containmentType() != Plasma::Containment::Type::Custom) {
+        if (!isLoading()) {
+            applet()->updateConstraints(Plasma::Types::UiReadyConstraint);
+        }
         return;
     }
 
@@ -769,7 +771,11 @@ void ContainmentInterface::loadWallpaper()
         // Qml seems happier if the parent gets set in this way
         m_wallpaperInterface->setProperty("parent", QVariant::fromValue(this));
 
-        connect(m_wallpaperInterface, &WallpaperInterface::isLoadingChanged, this, &AppletInterface::updateUiReadyConstraint);
+        connect(m_wallpaperInterface, &WallpaperInterface::isLoadingChanged, this, [this]() {
+            if (!isLoading()) {
+                applet()->updateConstraints(Plasma::Types::UiReadyConstraint);
+            }
+        });
 
         // set anchors
         QQmlExpression expr(qmlObject()->engine()->rootContext(), m_wallpaperInterface, QStringLiteral("parent"));
@@ -1062,11 +1068,8 @@ void ContainmentInterface::addContainmentActions(QMenu *desktopMenu, QEvent *eve
 
 bool ContainmentInterface::isLoading() const
 {
-    bool loading = AppletInterface::isLoading();
-    if (m_wallpaperInterface) {
-        loading |= m_wallpaperInterface->isLoading();
-    }
-    return loading;
+    return false;
+    return m_wallpaperInterface && m_wallpaperInterface->isLoading();
 }
 
 void ContainmentInterface::itemChange(ItemChange change, const ItemChangeData &value)

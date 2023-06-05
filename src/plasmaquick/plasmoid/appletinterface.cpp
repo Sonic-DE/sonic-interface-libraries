@@ -112,10 +112,6 @@ void AppletInterface::init()
 
     geometryChange(QRectF(), QRectF(x(), y(), width(), height()));
 
-    updateUiReadyConstraint();
-
-    connect(this, &AppletInterface::isLoadingChanged, this, &AppletInterface::updateUiReadyConstraint);
-
     connect(applet, &Plasma::Applet::activated, this, [=]() {
         // in case the applet doesn't want to get shrunk on reactivation,
         // we always expand it again (only in order to conform with legacy behaviour)
@@ -302,11 +298,6 @@ void AppletInterface::executeAction(QAction *action)
     }
 }
 
-bool AppletInterface::isLoading() const
-{
-    return m_loading;
-}
-
 QVariantList AppletInterface::availableScreenRegion() const
 {
     QVariantList regVal;
@@ -491,13 +482,6 @@ bool AppletInterface::eventFilter(QObject *watched, QEvent *event)
     }
 
     return AppletQuickItem::eventFilter(watched, event);
-}
-
-void AppletInterface::updateUiReadyConstraint()
-{
-    if (!isLoading()) {
-        applet()->updateConstraints(Plasma::Types::UiReadyConstraint);
-    }
 }
 
 #include "moc_appletinterface.cpp"
