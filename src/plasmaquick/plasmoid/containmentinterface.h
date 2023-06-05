@@ -123,6 +123,7 @@ public:
 
 protected:
     void init() override;
+    void loadWallpaper();
     void mousePressEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
     void wheelEvent(QWheelEvent *event) override;
@@ -135,7 +136,6 @@ protected:
     void itemChange(ItemChange change, const ItemChangeData &value) override;
 
 Q_SIGNALS:
-
     // Property notifiers
     void activityChanged();
     void activityNameChanged();
@@ -146,16 +146,14 @@ Q_SIGNALS:
     void wallpaperInterfaceChanged();
     void isLoadingChanged();
 
-protected Q_SLOTS:
-    void loadWallpaper();
-    void dropJobResult(KJob *job);
-    void mimeTypeRetrieved(KIO::Job *job, const QString &mimetype);
-
 private Q_SLOTS:
+    // Those need to be invocables (TODO: Allow from QML?) or from inside with metaObject()->invokeMethod
     Plasma::Applet *createApplet(const QString &plugin, const QVariantList &args, const QPointF &pos);
     Plasma::Applet *createApplet(const QString &plugin, const QVariantList &args, const QRectF &geom);
 
 private:
+    void dropJobResult(KJob *job);
+    void mimeTypeRetrieved(KIO::Job *job, const QString &mimetype);
     void appletAddedForward(Plasma::Applet *applet, const QRectF &geometryHint);
     void appletRemovedForward(Plasma::Applet *applet);
     void clearDataForMimeJob(KIO::Job *job);
