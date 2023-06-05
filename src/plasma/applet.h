@@ -515,7 +515,7 @@ public:
     KActionCollection *actions() const;
 
     // BEGIN TODO
-    // TODO: this whole actions api is there for temporary compatibility bu we need a declarative one before freeze
+    // TODO: this whole actions api is there for temporary compatibility buy we need a declarative one before the KF6 API freeze
     Q_INVOKABLE void setActionSeparator(const QString &name);
 
     Q_INVOKABLE void setActionGroup(const QString &action, const QString &group);
