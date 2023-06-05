@@ -696,6 +696,8 @@ void Applet::removeAction(const QString &name)
 {
     QAction *action = d->actions->action(name);
     d->actions->removeAction(action);
+
+    Q_EMIT contextualActionsChanged();
 }
 
 void Applet::clearActions()
@@ -707,6 +709,7 @@ void Applet::clearActions()
             d->actions->removeAction(a);
         }
     }
+    Q_EMIT contextualActionsChanged();
 }
 
 QAction *Applet::action(const QString &name) const
