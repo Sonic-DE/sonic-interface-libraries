@@ -375,7 +375,7 @@ void ConfigView::resizeEvent(QResizeEvent *re)
     if (!d->rootItem) {
         return;
     }
-    // rootObject()->setSize(re->size());
+
     d->rootItem->setSize(re->size());
 
     if (d->applet) {
