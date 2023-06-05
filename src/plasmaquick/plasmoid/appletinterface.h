@@ -110,12 +110,6 @@ class AppletInterface : public PlasmaQuick::AppletQuickItem
      */
     Q_PROPERTY(QVariantList availableScreenRegion READ availableScreenRegion NOTIFY availableScreenRegionChanged)
 
-    /**
-     * True if the UI is still loading, for instance a desktop which doesn't have its wallpaper yet
-     * TODO: still needed?
-     */
-    Q_PROPERTY(bool loading MEMBER m_loading NOTIFY isLoadingChanged)
-
 public:
     AppletInterface(QQuickItem *parent = nullptr);
     ~AppletInterface() override;
@@ -185,7 +179,6 @@ Q_SIGNALS:
     void availableScreenRegionChanged();
     void availableScreenRectChanged();
     void contextualActionsChanged();
-    void isLoadingChanged();
 
 protected Q_SLOTS:
     void init() override;
@@ -193,15 +186,6 @@ protected Q_SLOTS:
 protected:
     bool event(QEvent *event) override;
     bool eventFilter(QObject *watched, QEvent *event) override;
-
-    /*
-     * Returns true if this plasmoid or a dependent feature (i.e wallpaper) is loading
-     */
-    virtual bool isLoading() const;
-    /*
-     * Set UIReadyConstraint if we're not currently loading
-     */
-    void updateUiReadyConstraint();
 
 private:
     void destroyedChanged(bool destroyed);
@@ -215,7 +199,6 @@ private:
     int m_toolTipTextFormat;
     QPointer<QQuickItem> m_toolTipItem;
     bool m_hideOnDeactivate : 1;
-    bool m_loading = false;
     int m_oldKeyboardShortcut;
 
     friend class ContainmentInterface;

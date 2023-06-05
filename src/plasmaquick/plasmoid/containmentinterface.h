@@ -43,6 +43,11 @@ class ContainmentInterface : public AppletInterface
 
     Q_PROPERTY(WallpaperInterface *wallpaper READ wallpaperInterface NOTIFY wallpaperInterfaceChanged)
 
+    /**
+     * True if the UI is still loading, for instance a desktop which doesn't have its wallpaper yet
+     */
+    Q_PROPERTY(bool loading READ isLoading NOTIFY isLoadingChanged)
+
 public:
     ContainmentInterface(QQuickItem *parent = nullptr);
 
@@ -126,7 +131,7 @@ protected:
     void addAppletActions(QMenu *desktopMenu, Plasma::Applet *applet, QEvent *event);
     void addContainmentActions(QMenu *desktopMenu, QEvent *event);
 
-    virtual bool isLoading() const override;
+    bool isLoading() const;
     void itemChange(ItemChange change, const ItemChangeData &value) override;
 
 Q_SIGNALS:
@@ -139,6 +144,7 @@ Q_SIGNALS:
     void actionsChanged();
     void editModeChanged();
     void wallpaperInterfaceChanged();
+    void isLoadingChanged();
 
 protected Q_SLOTS:
     void loadWallpaper();

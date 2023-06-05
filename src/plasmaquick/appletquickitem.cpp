@@ -111,7 +111,6 @@ QObject *AppletQuickItemPrivate::searchLayoutAttached(QObject *parent)
 void AppletQuickItemPrivate::connectLayoutAttached(QObject *item)
 {
     // Extract the representation's Layout, if any
-    // No Item?
     if (!item) {
         return;
     }
