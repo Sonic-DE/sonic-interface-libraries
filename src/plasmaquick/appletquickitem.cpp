@@ -581,8 +581,6 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
 
         item = qobject_cast<AppletInterface *>(qmlObject->rootObject());
         item->setProperty("errorInformation", errorData);
-        // TODO KF6: remove in favour of newer errorInformation
-        item->setProperty("reason", reason);
         applet->setLaunchErrorMessage(reason);
     }
 
