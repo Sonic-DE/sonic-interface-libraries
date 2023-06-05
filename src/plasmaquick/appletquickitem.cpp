@@ -719,11 +719,6 @@ void AppletQuickItem::classBegin()
     d->qmlObject = ac->sharedQmlEngine();
 }
 
-void AppletQuickItem::componentComplete()
-{
-    QQuickItem::componentComplete();
-}
-
 int AppletQuickItem::switchWidth() const
 {
     return d->switchWidth;

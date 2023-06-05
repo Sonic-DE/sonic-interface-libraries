@@ -73,22 +73,6 @@ class PLASMA_EXPORT Containment : public Applet
      */
     Q_PROPERTY(QString activityName READ activityName NOTIFY activityNameChanged)
 
-    /**
-     * Actions associated to this containment or corona
-     * Actions api still a question mark
-     */
-    // TODO Q_PROPERTY(QList<QAction *> actions READ actions NOTIFY actionsChanged)
-
-    /**
-     * True when the Plasma Shell is in an edit mode that allows to move
-     * things around: it's different from userConfiguring as it's about
-     * editing plasmoids inside the containment, rather than the containment
-     * settings dialog itself.
-     * This is global for the whole Plasma process, all containments will have the same value for editMode
-     * TODO: wrap here or expose Corona to qml instead?
-     */
-    // Q_PROPERTY(bool editMode READ isEditMode WRITE setEditMode NOTIFY editModeChanged)
-
     Q_PROPERTY(Plasma::Types::ContainmentDisplayHints containmentDisplayHints READ containmentDisplayHints WRITE setContainmentDisplayHints NOTIFY
                    containmentDisplayHintsChanged)
 

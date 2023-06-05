@@ -180,10 +180,8 @@ Q_SIGNALS:
     void availableScreenRectChanged();
     void contextualActionsChanged();
 
-protected Q_SLOTS:
-    void init() override;
-
 protected:
+    void init() override;
     bool event(QEvent *event) override;
     bool eventFilter(QObject *watched, QEvent *event) override;
 

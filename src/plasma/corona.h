@@ -130,7 +130,6 @@ public:
      * Subclasses should override this method as the default
      * implementation returns a meaningless value.
      */
-    // TODO: is QRect ok or should we port all to QRectF?
     virtual QRect screenGeometry(int id) const = 0;
 
     /**
