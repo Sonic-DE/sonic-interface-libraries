@@ -335,11 +335,6 @@ void AppletQuickItemPrivate::compactRepresentationCheck()
         return;
     }
 
-    // TODO: those conditions shouldn't be necesary anymore as should be guaranteed that if this instance exists then rootObject exists
-    if (!qmlObject->rootObject()) {
-        return;
-    }
-
     // ignore 0 sizes;
     if (q->width() <= 0 || q->height() <= 0) {
         return;
@@ -495,7 +490,6 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
     // TODO: move somewhere else? in plasmacore import?
     if (AppletQuickItemPrivate::s_itemsForApplet.isEmpty()) {
         const char *uri = "org.kde.plasma.plasmoid";
-        // TODO: Plasmoid and Containment types which are used only for attached properties, or move qmlAttachedProperties() in Applet/Contaiment
         qmlRegisterUncreatableType<PlasmoidAttached>(uri, 2, 0, "Plasmoid", QStringLiteral("Do not create objects of type Plasmoid"));
         qmlRegisterUncreatableType<ContainmentAttached>(uri, 2, 0, "Containment", QStringLiteral("Do not create objects of type Containment"));
         qmlRegisterUncreatableType<WallpaperInterface>(uri, 2, 0, "Wallpaper", QStringLiteral("Do not create objects of type Wallpaper"));
@@ -660,13 +654,6 @@ void AppletQuickItem::init()
         QObject *o = c.create();
         o->deleteLater();
         engine->setProperty(("_plasma_qqc_style_set"), true);
-    }
-
-    // otherwise, initialize our size to root object's size
-    if (d->qmlObject->rootObject() && (width() <= 0 || height() <= 0)) {
-        const qreal w = d->qmlObject->rootObject()->property("width").value<qreal>();
-        const qreal h = d->qmlObject->rootObject()->property("height").value<qreal>();
-        setSize(parentItem() ? QSizeF(std::min(parentItem()->width(), w), std::min(parentItem()->height(), h)) : QSizeF(w, h));
     }
 
     // If no fullRepresentation was defined, we won't create compact and expander either.
