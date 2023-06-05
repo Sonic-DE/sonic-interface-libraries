@@ -84,10 +84,7 @@ public:
     ////API NOT SUPPOSED TO BE USED BY QML
     Plasma::Applet *applet() const;
 
-    // Make the constructor lighter and delay the actual instantiation of the qml in the applet
-    virtual void init();
     void classBegin() override;
-    void componentComplete() override;
 
     QQuickItem *compactRepresentationItem();
     QQuickItem *fullRepresentationItem();
@@ -139,6 +136,8 @@ Q_SIGNALS:
     void fullRepresentationItemChanged(QObject *fullRepresentationItem);
 
 protected:
+    // Initializations that need to be executed after classBegin()
+    virtual void init();
     PlasmaQuick::SharedQmlEngine *qmlObject();
 
     // Reimplementation

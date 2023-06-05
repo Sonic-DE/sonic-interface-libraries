@@ -647,7 +647,6 @@ void Applet::setActionSeparator(const QString &name)
         action = new QAction(this);
         action->setSeparator(true);
         d->actions->addAction(name, action);
-        //  m_actions.append(name);
         Q_EMIT contextualActionsChanged();
     }
 }
