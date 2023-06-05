@@ -622,7 +622,7 @@ void Applet::flushPendingConstraintsEvents()
 
 QList<QAction *> Applet::contextualActions()
 {
-    // NOTE: KActionColloection can contain duplicates in actions(), once we ported away from it we can remove this hack
+    // NOTE: KActionCollection can contain duplicates in actions(); once we ported away from it we can remove this hack
     QSet<QAction *> contextActions;
 
     std::copy_if(d->actions->actions().constBegin(), d->actions->actions().constEnd(), std::inserter(contextActions, contextActions.begin()), [](QAction *a) {

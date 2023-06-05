@@ -38,7 +38,6 @@ class PlasmoidAttached : public QObject
 public:
     /** TODO: revise this
      * Expose the QAction::Priority values which cannot be directly accessed from plasmoids
-     E
      * even if Plasmoid is an Applet, Plasmoid.LowPriorityAction will search
      * for an enum in AppletInterface
      */
