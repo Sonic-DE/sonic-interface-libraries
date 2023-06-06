@@ -128,17 +128,6 @@ void ContainmentInterface::init()
         }
     }
 
-    // set parent, both as object hierarchically and visually
-    // do this only for containments, applets will do it in compactrepresentationcheck
-    if (qmlObject()->rootObject()) {
-        qmlObject()->rootObject()->setProperty("parent", QVariant::fromValue(this));
-
-        // set anchors
-        QQmlExpression expr(qmlObject()->engine()->rootContext(), qmlObject()->rootObject(), QStringLiteral("parent"));
-        QQmlProperty prop(qmlObject()->rootObject(), QStringLiteral("anchors.fill"));
-        prop.write(expr.evaluate());
-    }
-
     connect(m_containment.data(), &Plasma::Containment::activityChanged, this, &ContainmentInterface::activityChanged);
     connect(m_containment.data(), &Plasma::Containment::activityChanged, this, [=]() {
         delete m_activityInfo;
