@@ -172,7 +172,7 @@ public:
      *           and size we prefer for the newly created applet;
      *           the gui might choose whether to respect or not this hint
      */
-    void addApplet(Applet *applet, const QRectF &geometryHint = QRectF());
+    Q_INVOKABLE void addApplet(Applet *applet, const QRectF &geometryHint = QRectF());
 
     /**
      * @return the applets currently in this Containment

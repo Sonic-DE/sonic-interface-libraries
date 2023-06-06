@@ -83,13 +83,14 @@ public:
     /**
      * Search for a containment at those coordinates.
      * the coordinates are passed as local coordinates of *this* containment
+     * TODO: this should be contaimentItemAt() but needs further client code adaptations
      */
     Q_INVOKABLE QObject *containmentAt(int x, int y);
 
     /**
      * Add an existing applet to this containment.
      * The coordinates are passed as local coordinates of this containment
-     * TODO: can this be removed?
+     * TODO: remove?
      */
     Q_INVOKABLE void addApplet(AppletInterface *applet, int x, int y);
 

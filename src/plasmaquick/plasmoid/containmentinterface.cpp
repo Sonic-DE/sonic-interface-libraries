@@ -213,7 +213,7 @@ void ContainmentInterface::addApplet(AppletInterface *applet, int x, int y)
 QPointF ContainmentInterface::mapFromApplet(Plasma::Applet *applet, int x, int y)
 {
     AppletInterface *appletItem = qobject_cast<AppletInterface *>(AppletQuickItem::itemForApplet(applet));
-    if (appletItem && !appletItem->window() || !window()) {
+    if (!appletItem || !appletItem->window() || !window()) {
         return QPointF();
     }
 
@@ -227,7 +227,7 @@ QPointF ContainmentInterface::mapFromApplet(Plasma::Applet *applet, int x, int y
 QPointF ContainmentInterface::mapToApplet(Plasma::Applet *applet, int x, int y)
 {
     AppletInterface *appletItem = qobject_cast<AppletInterface *>(AppletQuickItem::itemForApplet(applet));
-    if (appletItem && !appletItem->window() || !window()) {
+    if (!appletItem || !appletItem->window() || !window()) {
         return QPointF();
     }
 
@@ -709,13 +709,13 @@ void ContainmentInterface::appletAddedForward(Plasma::Applet *applet, const QRec
     QPointF removalPosition = appletGraphicObject->m_positionBeforeRemoval;
     QPointF position = appletGraphicObject->position();
 
-    if (removalPosition.x() > 0.0 && removalPosition.y() > 0.0) {
-        position = removalPosition;
-    } else if (geometryHint.x() > 0 || geometryHint.y() > 0) {
+    if (geometryHint.x() > 0 || geometryHint.y() > 0) {
         position = geometryHint.topLeft();
         if (geometryHint.width() > 0 && geometryHint.height() > 0) {
             appletGraphicObject->setSize(geometryHint.size());
         }
+    } else if (removalPosition.x() > 0.0 && removalPosition.y() > 0.0) {
+        position = removalPosition;
     } else if (position.isNull() && m_containment->containmentType() == Plasma::Containment::Type::Desktop) {
         // If no position was provided, and we're adding an applet to the desktop,
         // add the applet to the center. This avoids always placing new applets
