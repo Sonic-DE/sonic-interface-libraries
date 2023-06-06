@@ -863,6 +863,23 @@ void AppletQuickItem::setHideOnWindowDeactivate(bool hide)
     Q_EMIT hideOnWindowDeactivateChanged(hide);
 }
 
+bool AppletQuickItem::preloadFullRepresentation() const
+{
+    return d->preloadFullRepresentation;
+}
+
+void AppletQuickItem::setPreloadFullRepresentation(bool preload)
+{
+    if (d->preloadFullRepresentation == preload) {
+        return;
+    }
+
+    d->preloadFullRepresentation = preload;
+    d->createFullRepresentationItem();
+
+    Q_EMIT preloadFullRepresentationChanged(preload);
+}
+
 ////////////Internals
 
 PlasmaQuick::SharedQmlEngine *AppletQuickItem::qmlObject()

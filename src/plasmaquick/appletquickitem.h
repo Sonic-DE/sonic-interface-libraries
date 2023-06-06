@@ -50,6 +50,15 @@ class PLASMAQUICK_EXPORT AppletQuickItem : public QQuickItem
     Q_PROPERTY(QQuickItem *fullRepresentationItem READ fullRepresentationItem NOTIFY fullRepresentationItemChanged)
 
     /**
+     * When true the full representation will be loaded immediately together with the main plasmoid.
+     * Note that this will have a negative impact on plasmoid loading times
+     * This is needed only when some important logic has to live inside the full representation and
+     * needs to be accessed from the outside. Use with care
+     * TODO: remove? we whould find a better way to fix folderview and Notes
+     */
+    Q_PROPERTY(bool preloadFullRepresentation READ preloadFullRepresentation WRITE setPreloadFullRepresentation NOTIFY preloadFullRepresentationChanged)
+
+    /**
      * this is supposed to be either one between compactRepresentation or fullRepresentation
      */
     Q_PROPERTY(QQmlComponent *preferredRepresentation READ preferredRepresentation WRITE setPreferredRepresentation NOTIFY preferredRepresentationChanged)
@@ -115,6 +124,9 @@ public:
     bool hideOnWindowDeactivate() const;
     void setHideOnWindowDeactivate(bool hide);
 
+    bool preloadFullRepresentation() const;
+    void setPreloadFullRepresentation(bool preload);
+
     static bool hasItemForApplet(Plasma::Applet *applet);
     static AppletQuickItem *itemForApplet(Plasma::Applet *applet);
 
@@ -134,6 +146,8 @@ Q_SIGNALS:
 
     void compactRepresentationItemChanged(QObject *compactRepresentationItem);
     void fullRepresentationItemChanged(QObject *fullRepresentationItem);
+
+    void preloadFullRepresentationChanged(bool preload);
 
 protected:
     // Initializations that need to be executed after classBegin()
