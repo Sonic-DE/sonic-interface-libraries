@@ -223,12 +223,6 @@ QQuickItem *AppletQuickItemPrivate::createFullRepresentationItem()
         QVariantHash initialProperties;
         initialProperties[QStringLiteral("parent")] = QVariant();
         fullRepresentationItem = qobject_cast<QQuickItem *>(qmlObject->createObjectFromComponent(fullRepresentation, qmlContext(q), initialProperties));
-    } else {
-        if (!q->childItems().isEmpty()) {
-            fullRepresentation = qmlObject->mainComponent();
-            fullRepresentationItem = q->childItems().first();
-            Q_EMIT q->fullRepresentationChanged(fullRepresentation);
-        }
     }
 
     if (!fullRepresentationItem) {
@@ -482,7 +476,8 @@ bool AppletQuickItem::hasItemForApplet(Plasma::Applet *applet)
 
 AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
 {
-    if (!applet) {
+    // Don't try to create applet items when the app is closing
+    if (!applet || qApp->closingDown()) {
         return nullptr;
     }
 
