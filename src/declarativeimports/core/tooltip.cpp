@@ -7,6 +7,8 @@
 */
 
 #include "tooltip.h"
+#include "appletquickitem.h"
+#include "plasmoid/containmentinterface.h"
 #include "tooltipdialog.h"
 
 #include <QDebug>
@@ -131,8 +133,9 @@ void ToolTip::showToolTip()
     if (m_location == Plasma::Types::Floating) {
         QQuickItem *p = parentItem();
         while (p) {
-            if (p->property("location").isValid()) {
-                location = (Plasma::Types::Location)p->property("location").toInt();
+            AppletQuickItem *appletItem = qobject_cast<AppletQuickItem *>(p);
+            if (appletItem) {
+                location = appletItem->plasmoid()->location();
                 break;
             }
             p = p->parentItem();
