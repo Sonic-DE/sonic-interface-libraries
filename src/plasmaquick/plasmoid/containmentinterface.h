@@ -148,8 +148,7 @@ Q_SIGNALS:
     void isLoadingChanged();
 
 private Q_SLOTS:
-    // Those need to be invocables (TODO: Allow from QML?) or from inside with metaObject()->invokeMethod
-    Plasma::Applet *createApplet(const QString &plugin, const QVariantList &args, const QPointF &pos);
+    // Used only internally by a metaObject()->invokeMethod
     Plasma::Applet *createApplet(const QString &plugin, const QVariantList &args, const QRectF &geom);
 
 private:

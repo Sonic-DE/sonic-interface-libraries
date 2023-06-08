@@ -152,11 +152,6 @@ PlasmaQuick::AppletQuickItem *ContainmentInterface::itemFor(Plasma::Applet *appl
     }
 }
 
-Plasma::Applet *ContainmentInterface::createApplet(const QString &plugin, const QVariantList &args, const QPointF &pos)
-{
-    return createApplet(plugin, args, QRectF(pos, QSize()));
-}
-
 Plasma::Applet *ContainmentInterface::createApplet(const QString &plugin, const QVariantList &args, const QRectF &geom)
 {
     return m_containment->createApplet(plugin, QVariantList(args), geom);
