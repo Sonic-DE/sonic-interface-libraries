@@ -112,9 +112,6 @@ public:
      */
     Q_INVOKABLE void openContextMenu(const QPointF &globalPos);
 
-    bool isEditMode() const;
-    void setEditMode(bool edit);
-
 protected:
     void init() override;
     void loadWallpaper();

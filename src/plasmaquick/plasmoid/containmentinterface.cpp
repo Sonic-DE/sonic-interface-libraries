@@ -345,16 +345,6 @@ void ContainmentInterface::openContextMenu(const QPointF &globalPos)
     mousePressEvent(&me);
 }
 
-bool ContainmentInterface::isEditMode() const
-{
-    return m_containment->corona()->isEditMode();
-}
-
-void ContainmentInterface::setEditMode(bool edit)
-{
-    m_containment->corona()->setEditMode(edit);
-}
-
 void ContainmentInterface::processMimeData(QObject *mimeDataProxy, int x, int y, KIO::DropJob *dropJob)
 {
     QMimeData *mime = qobject_cast<QMimeData *>(mimeDataProxy);
