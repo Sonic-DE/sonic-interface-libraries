@@ -170,7 +170,7 @@ void ContainmentInterface::setAppletArgs(Plasma::Applet *applet, const QString &
     }
 }
 
-QObject *ContainmentInterface::containmentAt(int x, int y)
+QObject *ContainmentInterface::containmentItemAt(int x, int y)
 {
     QObject *desktop = nullptr;
     const auto lst = m_containment->corona()->containments();
@@ -192,17 +192,6 @@ QObject *ContainmentInterface::containmentAt(int x, int y)
         }
     }
     return desktop;
-}
-
-void ContainmentInterface::addApplet(AppletInterface *applet, int x, int y)
-{
-    if (!applet || applet->applet()->containment() == m_containment) {
-        return;
-    }
-
-    blockSignals(true);
-    m_containment->addApplet(applet->applet());
-    blockSignals(false);
 }
 
 QPointF ContainmentInterface::mapFromApplet(Plasma::Applet *applet, int x, int y)

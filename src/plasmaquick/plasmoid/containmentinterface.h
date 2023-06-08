@@ -85,14 +85,7 @@ public:
      * the coordinates are passed as local coordinates of *this* containment
      * TODO: this should be contaimentItemAt() but needs further client code adaptations
      */
-    Q_INVOKABLE QObject *containmentAt(int x, int y);
-
-    /**
-     * Add an existing applet to this containment.
-     * The coordinates are passed as local coordinates of this containment
-     * TODO: remove?
-     */
-    Q_INVOKABLE void addApplet(AppletInterface *applet, int x, int y);
+    Q_INVOKABLE QObject *containmentItemAt(int x, int y);
 
     /**
      * Map coordinates from relative to the given applet to relative to this containment
