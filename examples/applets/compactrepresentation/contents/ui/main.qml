@@ -22,7 +22,7 @@ Item {
         }
     }
 
-    fullRepresentatioin: PlasmaComponents.Label {
+    fullRepresentation: PlasmaComponents.Label {
         text: i18n("Hello world")
     }
 }
