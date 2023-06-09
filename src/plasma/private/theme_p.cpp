@@ -102,7 +102,7 @@ ThemePrivate::ThemePrivate(QObject *parent)
 {
     ThemeConfig config;
     cacheTheme = config.cacheTheme();
-    kSvgImageSet = new KSvg::ImageSet;
+    kSvgImageSet = std::unique_ptr<KSvg::ImageSet>(new KSvg::ImageSet);
     kSvgImageSet->setBasePath(QStringLiteral(PLASMA_RELATIVE_DATA_INSTALL_DIR "/desktoptheme/"));
 
     pixmapSaveTimer = new QTimer(this);
@@ -152,7 +152,6 @@ ThemePrivate::~ThemePrivate()
 {
     FrameSvgPrivate::s_sharedFrames.remove(this);
     delete pixmapCache;
-    delete kSvgImageSet;
 }
 
 KConfigGroup &ThemePrivate::config()
