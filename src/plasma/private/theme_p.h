@@ -97,7 +97,7 @@ public:
     static ThemePrivate *globalTheme;
     static QHash<QString, ThemePrivate *> themes;
 
-    KSvg::ImageSet *kSvgImageSet;
+    std::unique_ptr<KSvg::ImageSet> kSvgImageSet;
     QString themeName;
     KPluginMetaData pluginMetaData;
     QList<QString> fallbackThemes;
