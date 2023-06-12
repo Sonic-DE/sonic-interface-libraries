@@ -8,7 +8,7 @@ import QtQuick 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.ksvg 2.0 as KSvg
+import org.kde.ksvg 1.0 as KSvg
 import "../" as PlasmaComponents
 
 GridLayout {

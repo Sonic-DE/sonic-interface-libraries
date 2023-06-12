@@ -8,7 +8,7 @@ import QtQuick 2.12
 import QtQuick.Layouts 1.12
 
 import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.ksvg 2.0 as KSvg
+import org.kde.ksvg 1.0 as KSvg
 import org.kde.plasma.plasmoid 2.0
 import QtQuick.Templates 2.12 as T
 import "private" as Private
