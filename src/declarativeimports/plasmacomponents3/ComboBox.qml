@@ -9,7 +9,7 @@ import QtQuick.Templates @QQC2_VERSION@ as T
 import QtQuick.Controls @QQC2_VERSION@ as Controls
 import Qt5Compat.GraphicalEffects
 import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.ksvg 2.0 as KSvg
+import org.kde.ksvg 1.0 as KSvg
 import org.kde.kirigami 2.5 as Kirigami
 import "private" as Private
 import "mobiletextselection" as MobileTextSelection
