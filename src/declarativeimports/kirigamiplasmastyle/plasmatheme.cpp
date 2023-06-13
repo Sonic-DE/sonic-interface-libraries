@@ -45,6 +45,7 @@ PlasmaTheme::PlasmaTheme(QObject *parent)
     }()));
 
     syncColors();
+    connect(&m_theme, &Plasma::Theme::themeChanged, this, &PlasmaTheme::syncColors);
 }
 
 PlasmaTheme::~PlasmaTheme()
