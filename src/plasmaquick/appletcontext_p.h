@@ -9,6 +9,7 @@
 #include "sharedqmlengine.h"
 
 #include <QQmlContext>
+#include <qstringlistmodel.h>
 
 namespace Plasma
 {
@@ -21,6 +22,7 @@ namespace PlasmaQuick
 class AppletContext : public QQmlContext
 {
     Q_OBJECT
+    Q_PROPERTY(QString _kirigamiTheme READ kirigamiTheme CONSTANT)
 public:
     AppletContext(QQmlEngine *engine, Plasma::Applet *applet, SharedQmlEngine *parent);
     ~AppletContext();
@@ -28,9 +30,13 @@ public:
     Plasma::Applet *applet() const;
     SharedQmlEngine *sharedQmlEngine() const;
 
+    QString kirigamiTheme() const;
+    void setKirigamiTheme(const QString &theme);
+
 private:
     Plasma::Applet *m_applet;
     SharedQmlEngine *m_sharedEngine;
+    QString m_kirigamiTheme = QStringLiteral("KirigamiPlasmaStyle");
 };
 
 }
