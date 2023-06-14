@@ -48,15 +48,6 @@ SharedQmlEngine *AppletContext::sharedQmlEngine() const
     return m_sharedEngine;
 }
 
-QString AppletContext::kirigamiTheme() const
-{
-    return m_kirigamiTheme;
-}
-
-void AppletContext::setKirigamiTheme(const QString &theme)
-{
-    m_kirigamiTheme = theme;
-}
 }
 
 #include "moc_appletcontext_p.cpp"

@@ -84,7 +84,6 @@ void ConfigViewPrivate::init()
     }
 
     rootContext = new AppletContext(q->engine(), applet, nullptr);
-    rootContext->setKirigamiTheme({});
     rootContext->setParent(q->engine());
 
     applet.data()->setUserConfiguring(true);
