@@ -69,12 +69,12 @@ T.TextField {
     rightPadding: (__hasBackgroundAndMargins ? background.margins.right : 0) + (control.effectiveHorizontalAlignment === TextInput.AlignRight ? 0 : inlineButtonRow.width)
     bottomPadding: __hasBackgroundAndMargins ? background.margins.bottom : 0
 
-    PlasmaCore.ColorScope.inherit: !background || !background.visible
-    PlasmaCore.ColorScope.colorGroup: PlasmaCore.Theme.ViewColorGroup
+    Kirigami.Theme.inherit: !background || !background.visible
+    Kirigami.Theme.colorSet: Kirigami.Theme.View
 
-    color: control.backgroundVisible ? PlasmaCore.Theme.viewTextColor : PlasmaCore.ColorScope.textColor
-    selectionColor: control.backgroundVisible ? PlasmaCore.Theme.viewFocusColor : PlasmaCore.ColorScope.highlightColor
-    selectedTextColor: control.backgroundVisible ? PlasmaCore.Theme.viewHighlightedTextColor : PlasmaCore.ColorScope.highlightedTextColor
+    color: control.backgroundVisible ? PlasmaCore.Theme.viewTextColor : Kirigami.Theme.textColor
+    selectionColor: control.backgroundVisible ? PlasmaCore.Theme.viewFocusColor : Kirigami.Theme.highlightColor
+    selectedTextColor: control.backgroundVisible ? PlasmaCore.Theme.viewHighlightedTextColor : Kirigami.Theme.highlightedTextColor
     placeholderTextColor: PlasmaCore.Theme.disabledTextColor
 
     verticalAlignment: TextInput.AlignVCenter

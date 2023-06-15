@@ -46,8 +46,8 @@ T.ToolButton {
 
     flat: true
 
-    PlasmaCore.ColorScope.inherit: flat
-    PlasmaCore.ColorScope.colorGroup: flat && parent ? parent.PlasmaCore.ColorScope.colorGroup : PlasmaCore.Theme.ButtonColorGroup
+    Kirigami.Theme.inherit: flat
+    Kirigami.Theme.colorSet: flat && parent ? parent.Kirigami.Theme.colorSet : Kirigami.Theme.Button
 
     contentItem: Private.ButtonContent {
         labelText: control.Kirigami.MnemonicData.richTextLabel

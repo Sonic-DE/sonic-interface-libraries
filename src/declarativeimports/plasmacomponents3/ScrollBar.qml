@@ -49,7 +49,7 @@ T.ScrollBar {
             && (controlRoot.mirrored ? controlRoot.rightInset > 0 : controlRoot.leftInset > 0)
         implicitWidth: PlasmaCore.Units.devicePixelRatio
         implicitHeight: implicitWidth
-        color: PlasmaCore.ColorScope.textColor
+        color: Kirigami.Theme.textColor
         opacity: 0.1
     }
 
@@ -58,7 +58,6 @@ T.ScrollBar {
         implicitWidth: Math.max(scrollbarSvg.elementSize("hint-scrollbar-size").width, fixedMargins.left + fixedMargins.right)
         implicitHeight: Math.max(scrollbarSvg.elementSize("hint-scrollbar-size").height, fixedMargins.top + fixedMargins.bottom)
         imagePath:"widgets/scrollbar"
-        colorGroup: PlasmaCore.ColorScope.colorGroup
         prefix: controlRoot.horizontal ? "background-horizontal" : "background-vertical"
         opacity: controlRoot.hovered && controlRoot.interactive
         visible: opacity > 0
@@ -75,7 +74,6 @@ T.ScrollBar {
         imagePath:"widgets/scrollbar"
         implicitWidth: Math.max(scrollbarSvg.elementSize("hint-scrollbar-size").width, fixedMargins.left + fixedMargins.right)
         implicitHeight: Math.max(scrollbarSvg.elementSize("hint-scrollbar-size").height, fixedMargins.top + fixedMargins.bottom)
-        colorGroup: PlasmaCore.ColorScope.colorGroup
         prefix: controlRoot.interactive && (controlRoot.pressed || controlRoot.hovered) && controlRoot.enabled ? "mouseover-slider" : "slider"
         opacity: enabled ? 1 : 0.5
     }

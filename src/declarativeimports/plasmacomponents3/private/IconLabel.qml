@@ -9,6 +9,7 @@ import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.1 as PlasmaCore
+import org.kde.kirigami 2.20 as Kirigami
 
 Item {
     id: root
@@ -47,7 +48,7 @@ Item {
     // Fixed in Qt 6.2, see QTBUG-91227
     property bool mirrored: false
 
-    PlasmaCore.ColorScope.inherit: true
+    Kirigami.Theme.inherit: true
 
     implicitWidth: gridLayout.implicitWidth + leftPadding + rightPadding
     implicitHeight: gridLayout.implicitHeight + topPadding + bottomPadding
@@ -87,6 +88,7 @@ Item {
         PlasmaCore.IconItem {
             id: iconItem
             visible: valid && width > 0 && height > 0 && root.display !== T.AbstractButton.TextOnly
+            //FIXME
             colorGroup: root.PlasmaCore.ColorScope.colorGroup
             implicitWidth: PlasmaCore.Units.iconSizes.sizeForLabels
             implicitHeight: PlasmaCore.Units.iconSizes.sizeForLabels
@@ -100,7 +102,7 @@ Item {
             visible: text.length > 0 && root.display !== T.AbstractButton.IconOnly
             palette: root.palette
             font: root.font
-            color: PlasmaCore.ColorScope.textColor
+            color: Kirigami.Theme.textColor
             linkColor: PlasmaCore.Theme.linkColor
             elide: Text.ElideRight
             Layout.alignment: Qt.AlignCenter

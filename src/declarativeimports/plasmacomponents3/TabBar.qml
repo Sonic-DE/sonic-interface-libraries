@@ -40,7 +40,6 @@ T.TabBar {
         highlight: KSvg.FrameSvgItem {
             imagePath: "widgets/tabbar"
             prefix: control.position == T.TabBar.Header ? "north-active-tab" : "south-active-tab"
-            colorGroup: PlasmaCore.ColorScope.colorGroup
         }
     }
 }
