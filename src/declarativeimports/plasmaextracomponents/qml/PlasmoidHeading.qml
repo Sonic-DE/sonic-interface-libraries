@@ -68,7 +68,7 @@ T.ToolBar {
         // This graphics has to back with the dialog background, so it can be used if:
         // * both this and the dialog background are from the current theme
         // * both this and the dialog background are from fallback
-        visible: fromCurrentTheme === backgroundSvg.fromCurrentTheme
+        visible: fromCurrentImageSet === backgroundSvg.fromCurrentImageSet
         imagePath: "widgets/plasmoidheading"
         prefix: position === T.ToolBar.Header ? "header" : "footer"
         KSvg.Svg {
