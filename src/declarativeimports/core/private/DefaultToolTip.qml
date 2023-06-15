@@ -10,7 +10,7 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 3.0 as PlasmaComponents
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 
-PlasmaCore.ColorScope {
+Item {
     property Item toolTip
     property int preferredTextWidth: PlasmaCore.Units.gridUnit * 20
 
@@ -24,8 +24,8 @@ PlasmaCore.ColorScope {
     LayoutMirroring.enabled: Qt.application.layoutDirection === Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
 
-    colorGroup: PlasmaCore.Theme.NormalColorGroup
-    inherit: false
+    Kirigami.Theme.colorSet: Kirigami.Theme.Window
+    Kirigami.Theme.inherit: false
 
     RowLayout {
 

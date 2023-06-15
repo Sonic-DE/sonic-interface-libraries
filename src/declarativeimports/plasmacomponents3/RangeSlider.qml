@@ -8,6 +8,7 @@ import QtQuick 2.6
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.ksvg 1.0 as KSvg
+import org.kde.kirigami 2.20 as Kirigami
 import "private" as Private
 
 T.RangeSlider {
@@ -19,8 +20,8 @@ T.RangeSlider {
     KSvg.Svg {
         id: grooveSvg
         imagePath: "widgets/slider"
-        colorGroup: PlasmaCore.ColorScope.colorGroup
-
+        // FIXME
+        colorSet: control.Kirigami.Theme.colorSet
     }
     first.handle: Item {
         property bool horizontal: control.orientation === Qt.Horizontal
@@ -77,7 +78,6 @@ T.RangeSlider {
     background: KSvg.FrameSvgItem {
         imagePath: "widgets/slider"
         prefix: "groove"
-        colorGroup: PlasmaCore.ColorScope.colorGroup
         readonly property bool horizontal: control.orientation === Qt.Horizontal
         implicitWidth: horizontal ? PlasmaCore.Units.gridUnit * 8 : margins.left + margins.right
         implicitHeight: horizontal ? margins.top + margins.bottom : PlasmaCore.Units.gridUnit * 8
@@ -90,7 +90,6 @@ T.RangeSlider {
         KSvg.FrameSvgItem {
             imagePath: "widgets/slider"
             prefix: "groove-highlight"
-            colorGroup: PlasmaCore.ColorScope.colorGroup
             x: parent.horizontal ? control.first.position * parent.width : 0
             y: parent.horizontal ? 0 : control.second.visualPosition * parent.height
             width: parent.horizontal ? control.second.position * parent.width - control.first.position * parent.width : parent.width

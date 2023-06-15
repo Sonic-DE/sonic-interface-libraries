@@ -33,7 +33,7 @@ PlasmaComponents.Page {
     }
 
     background: Rectangle {
-        color:  PlasmaCore.ColorScope.backgroundColor
+        color:  Kirigami.Theme.backgroundColor
     }
 }
 

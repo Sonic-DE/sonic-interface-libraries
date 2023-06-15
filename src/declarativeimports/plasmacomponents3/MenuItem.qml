@@ -108,7 +108,6 @@ T.MenuItem {
             id: highlight
             imagePath: "widgets/viewitem"
             prefix: "hover"
-            colorGroup: PlasmaCore.ColorScope.colorGroup
             anchors.fill: parent
             opacity: {
                 if (controlRoot.highlighted || controlRoot.hovered || controlRoot.pressed) {
