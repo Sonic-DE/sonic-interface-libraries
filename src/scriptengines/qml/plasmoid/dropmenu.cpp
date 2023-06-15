@@ -26,6 +26,10 @@ DropMenu::DropMenu(KIO::DropJob *dropJob, const QPoint &dropPoint, ContainmentIn
 {
     if (!dropJob) {
         m_menu = new QMenu(i18n("Content dropped"));
+        // Breeze and Oxygen have rounded corners on menus. They set this attribute in polish()
+        // but at that time the underlying surface has already been created where setting this
+        // flag makes no difference anymore (Bug 385311)
+        m_menu->setAttribute(Qt::WA_TranslucentBackground);
         if (m_menu->winId()) {
             m_menu->windowHandle()->setTransientParent(parent->window());
         }
