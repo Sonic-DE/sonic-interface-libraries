@@ -75,10 +75,7 @@ T.BusyIndicator {
             width: Math.min(parent.width, parent.height)
             height: width
 
-            svg: KSvg.Svg {
-                imagePath: "widgets/busywidget"
-                colorGroup: PlasmaCore.ColorScope.colorGroup
-            }
+            svg: imagePath: "widgets/busywidget"
             elementId: "busywidget"
 
             RotationAnimator on rotation {

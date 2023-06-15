@@ -8,6 +8,7 @@
 import QtQuick 2.15
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.1 as PlasmaCore
+import org.kde.kirigami 2.20 as Kirigami
 import "private" as Private
 
 T.RadioButton {
@@ -60,7 +61,7 @@ T.RadioButton {
             height: PlasmaCore.Units.devicePixelRatio
             anchors.left: parent.left
             anchors.top: parent.bottom
-            color: PlasmaCore.ColorScope.highlightColor
+            color: Kirigami.Theme.highlightColor
             visible: control.visualFocus
         }
     }
