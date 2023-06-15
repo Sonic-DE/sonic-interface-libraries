@@ -32,7 +32,7 @@ Item {
 
     Loader {
         anchors.fill: parent
-        sourceComponent: radioButtonSvg.fromCurrentTheme
+        sourceComponent: radioButtonSvg.fromCurrentImageSet
             // Hardcode breeze-light and breeze-dark because fromCurrentTheme is
             // false for them. This is because they don't contain any SVGs and
             // inherit all of them from the default theme.
