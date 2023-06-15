@@ -9,6 +9,7 @@ import QtQuick 2.15
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.1 as PlasmaCore
 import org.kde.ksvg 1.0 as KSvg
+import org.kde.kirigami 2.20 as Kirigami
 import "private" as Private
 
 Item {
@@ -23,7 +24,8 @@ Item {
     KSvg.Svg {
         id: switchSvg
         imagePath: "widgets/switch"
-        colorGroup: PlasmaCore.ColorScope.colorGroup
+        // FIXME
+        colorSet: control.Kirigami.Theme.colorSet
     }
 
     KSvg.FrameSvgItem {
@@ -42,14 +44,12 @@ Item {
                 ? switchSvg.elementSize("hint-bar-size").width
                 : root.implicitHeight * 2
         imagePath: "widgets/switch"
-        colorGroup: PlasmaCore.ColorScope.colorGroup
         prefix: "inactive"
     }
     KSvg.FrameSvgItem {
         anchors.fill: inactive
         imagePath: "widgets/switch"
         prefix: "active"
-        colorGroup: PlasmaCore.ColorScope.colorGroup
         opacity: root.control.checked ? 1 : 0
         Behavior on opacity {
             OpacityAnimator {

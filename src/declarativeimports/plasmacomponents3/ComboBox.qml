@@ -71,7 +71,7 @@ T.ComboBox {
         readOnly: control.down || !control.editable
         inputMethodHints: control.inputMethodHints
         validator: control.validator
-        color: PlasmaCore.ColorScope.textColor
+        color: Kirigami.Theme.textColor
         selectionColor: Kirigami.Theme.highlightColor
         selectedTextColor: Kirigami.Theme.highlightedTextColor
 
@@ -197,7 +197,7 @@ T.ComboBox {
             }
             radius: 2
             color: PlasmaCore.Theme.viewBackgroundColor
-            border.color: Qt.rgba(PlasmaCore.ColorScope.textColor.r, PlasmaCore.ColorScope.textColor.g, PlasmaCore.ColorScope.textColor.b, 0.3)
+            border.color: Qt.rgba(Kirigami.Theme.textColor.r, Kirigami.Theme.textColor.g, Kirigami.Theme.textColor.b, 0.3)
             layer.enabled: true
 
             layer.effect: DropShadow {

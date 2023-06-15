@@ -9,6 +9,7 @@ import QtQuick 2.6
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.ksvg 1.0 as KSvg
+import org.kde.kirigami 2.20 as Kirigami
 import "private" as P
 
 T.Slider {
@@ -29,8 +30,8 @@ T.Slider {
     KSvg.Svg {
         id: sliderSvg
         imagePath: "widgets/slider"
-        colorGroup: PlasmaCore.ColorScope.colorGroup
-
+        // FIXME
+        colorSet: control.Kirigami.Theme.colorSet
     }
 
     handle: Item {
@@ -94,7 +95,6 @@ T.Slider {
     background: KSvg.FrameSvgItem {
         imagePath: "widgets/slider"
         prefix: "groove"
-        colorGroup: PlasmaCore.ColorScope.colorGroup
         implicitWidth: control.horizontal ? PlasmaCore.Units.gridUnit * 12 : fixedMargins.left + fixedMargins.right
         implicitHeight: control.vertical ? PlasmaCore.Units.gridUnit * 12 : fixedMargins.top + fixedMargins.bottom
 
@@ -107,7 +107,6 @@ T.Slider {
             id: grooveFill
             imagePath: "widgets/slider"
             prefix: "groove-highlight"
-            colorGroup: PlasmaCore.ColorScope.colorGroup
 
             LayoutMirroring.enabled: control.mirrored
             anchors.left: parent.left
@@ -143,7 +142,7 @@ T.Slider {
                         width: control.vertical ? parent.width : PlasmaCore.Units.devicePixelRatio
                         height: control.horizontal ? parent.height : PlasmaCore.Units.devicePixelRatio
                         opacity: withinFill ? 1 : 0.3
-                        color: withinFill ? PlasmaCore.ColorScope.highlightColor : PlasmaCore.ColorScope.textColor
+                        color: withinFill ? Kirigami.Theme.highlightColor : Kirigami.Theme.textColor
                     }
                 }
             }

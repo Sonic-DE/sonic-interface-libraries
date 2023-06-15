@@ -8,6 +8,7 @@ import QtQuick 2.6
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.ksvg 1.0 as KSvg
+import org.kde.kirigami 2.20 as Kirigami
 import "private" as Private
 
 T.Dial {
@@ -31,14 +32,14 @@ T.Dial {
 
             ctx.globalAlpha = 0.3;
             ctx.beginPath();
-            ctx.strokeStyle = control.PlasmaCore.ColorScope.textColor;
+            ctx.strokeStyle = control.Kirigami.Theme.textColor;
             ctx.lineWidth=5;
             ctx.arc(centreX, centreY, width/2.4, 0, 2*Math.PI, false);
             ctx.stroke();
             ctx.globalAlpha = 1;
 
             ctx.beginPath();
-            ctx.strokeStyle = control.PlasmaCore.ColorScope.highlightColor;
+            ctx.strokeStyle = control.Kirigami.Theme.highlightColor;
             ctx.lineWidth=5;
             ctx.arc(centreX, centreY, width/2.4, 0.7*Math.PI, 1.6*Math.PI * control.position - 1.25*Math.PI, false);
             ctx.stroke();
@@ -48,7 +49,8 @@ T.Dial {
     KSvg.Svg {
         id: grooveSvg
         imagePath: "widgets/slider"
-        colorGroup: PlasmaCore.ColorScope.colorGroup
+        //FIXME: can this be made not necessary/less hacky?
+        colorSet: control.Kirigami.Theme.colorSet
     }
     handle: Item {
         x: (control.width/2) + Math.cos((-(control.angle-90)*Math.PI)/180) * (control.width/2-width/2) - width/2

@@ -10,6 +10,7 @@ import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.ksvg 1.0 as KSvg
 import org.kde.plasma.components 3.0 as PlasmaComponents3
+import org.kde.kirigami 2.20 as Kirigami
 import "private" as P
 
 T.SpinBox {
@@ -61,6 +62,7 @@ T.SpinBox {
             anchors.centerIn: parent
             implicitWidth: PlasmaCore.Units.iconSizes.sizeForLabels
             implicitHeight: PlasmaCore.Units.iconSizes.sizeForLabels
+            //FIXME
             colorGroup: PlasmaCore.ColorScope.colorGroup
             source: "list-add"
         }
@@ -93,6 +95,7 @@ T.SpinBox {
             anchors.centerIn: parent
             implicitWidth: PlasmaCore.Units.iconSizes.sizeForLabels
             implicitHeight: PlasmaCore.Units.iconSizes.sizeForLabels
+            // FIXME
             colorGroup: PlasmaCore.ColorScope.colorGroup
             source: "list-remove"
         }

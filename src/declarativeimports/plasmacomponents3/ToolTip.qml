@@ -62,8 +62,8 @@ T.ToolTip {
             wrapMode: Text.WordWrap
             font: control.font
 
-            PlasmaCore.ColorScope.colorGroup: PlasmaCore.Theme.ToolTipColorGroup
-            PlasmaCore.ColorScope.inherit: false
+            Kirigami.Theme.colorGroup: Kirigami.Theme.Tooltip
+            Kirigami.Theme.inherit: false
             Layout.fillWidth: true
             // This value is basically arbitrary. It just looks nice.
             Layout.maximumWidth: PlasmaCore.Units.gridUnit * 14
@@ -82,8 +82,8 @@ T.ToolTip {
             anchors.bottomMargin: -margins.bottom
             imagePath: "solid/widgets/tooltip"
             prefix: "shadow"
-            colorGroup: PlasmaCore.Theme.ToolTipColorGroup
-            PlasmaCore.ColorScope.inherit: false
+            Kirigami.Theme.colorGroup: Kirigami.Theme.Tooltip
+            Kirigami.Theme.inherit: false
         }
 
         KSvg.FrameSvgItem {
@@ -92,8 +92,8 @@ T.ToolTip {
             // Because the transparent one doesn't match the appearance of all
             // other ones
             imagePath: "solid/widgets/tooltip"
-            colorGroup: PlasmaCore.Theme.ToolTipColorGroup
-            PlasmaCore.ColorScope.inherit: false
+            Kirigami.Theme.colorGroup: Kirigami.Theme.Tooltip
+            Kirigami.Theme.inherit: false
         }
     }
 }
