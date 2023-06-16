@@ -107,6 +107,13 @@ class PLASMA_EXPORT Applet : public QObject
     Q_PROPERTY(Plasma::Types::ImmutabilityType immutability READ immutability WRITE setImmutability NOTIFY immutabilityChanged)
 
     /**
+     * Whether the Corona is immutable. The plasmoid implementation should avoid allowing "dangerous" modifications from the user when in an immutable mode
+     *
+     * This is true when immutability is not Mutable
+     */
+    Q_PROPERTY(bool immutable READ immutable NOTIFY immutabilityChanged)
+
+    /**
      * Display hints that come from the containment that suggest the applet how to look and behave.
      * TODO: only in containment?
      */
@@ -189,13 +196,6 @@ class PLASMA_EXPORT Applet : public QObject
      * Plugin name for the applet
      */
     Q_PROPERTY(QString pluginName READ pluginName CONSTANT FINAL)
-
-    /**
-     * Whether the Corona is immutable. The plasmoid implementation should avoid allowing "dangerous" modifications from the user when in an immutable mode
-     *
-     * This is true when immutability is not Mutable
-     */
-    Q_PROPERTY(bool immutable READ immutable NOTIFY immutabilityChanged)
 
 public:
     // CONSTRUCTORS
