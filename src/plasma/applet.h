@@ -190,6 +190,13 @@ class PLASMA_EXPORT Applet : public QObject
      */
     Q_PROPERTY(QString pluginName READ pluginName CONSTANT FINAL)
 
+    /**
+     * Whether the Corona is immutable. The plasmoid implementation should avoid allowing "dangerous" modifications from the user when in an immutable mode
+     *
+     * This is true when immutability is not Mutable
+     */
+    Q_PROPERTY(bool immutable READ immutable NOTIFY immutabilityChanged)
+
 public:
     // CONSTRUCTORS
 
@@ -224,6 +231,11 @@ public:
      * @return The type of immutability of this applet
      */
     Types::ImmutabilityType immutability() const;
+
+    /**
+     * @return true if immutability() is not Types::Mutable
+     */
+    bool immutable() const;
 
     /**
      * If for some reason, the applet fails to get up on its feet (the
