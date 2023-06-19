@@ -80,12 +80,12 @@ T.ToolBar {
         PlasmaCore.ColorScope.inherit: false
 
         enabledBorders: {
-            let borders = PlasmaCore.FrameSvg.LeftBorder | PlasmaCore.FrameSvg.RightBorder;
+            let borders = KSvg.FrameSvg.LeftBorder | KSvg.FrameSvg.RightBorder;
             if (Plasmoid.position !== PlasmaCore.Types.TopEdge || position !== T.ToolBar.Header) {
-                borders |= PlasmaCore.FrameSvg.TopBorder;
+                borders |= KSvg.FrameSvg.TopBorder;
             }
             if (Plasmoid.position !== PlasmaCore.Types.BottomEdge || position !== T.ToolBar.Footer) {
-                borders |= PlasmaCore.FrameSvg.BottomBorder;
+                borders |= KSvg.FrameSvg.BottomBorder;
             }
             return borders;
         }

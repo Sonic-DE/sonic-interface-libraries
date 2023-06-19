@@ -85,13 +85,13 @@ T.TabButton {
         imagePath: "widgets/tabbar"
         prefix: control.T.TabBar.position === T.TabBar.Footer ? "south-active-tab" : "north-active-tab"
         enabledBorders: {
-            const borders = PlasmaCore.FrameSvgItem.LeftBorder | PlasmaCore.FrameSvgItem.RightBorder
+            const borders = KSvg.FrameSvgItem.LeftBorder | KSvg.FrameSvgItem.RightBorder
             if (!visible || control.checked) {
-                return borders | PlasmaCore.FrameSvgItem.TopBorder | PlasmaCore.FrameSvgItem.BottomBorder
+                return borders | KSvg.FrameSvgItem.TopBorder | KSvg.FrameSvgItem.BottomBorder
             } else if (control.T.TabBar.position === T.TabBar.Footer) {
-                return borders | PlasmaCore.FrameSvgItem.BottomBorder
+                return borders | KSvg.FrameSvgItem.BottomBorder
             } else {
-                return borders | PlasmaCore.FrameSvgItem.TopBorder
+                return borders | KSvg.FrameSvgItem.TopBorder
             }
         }
     }

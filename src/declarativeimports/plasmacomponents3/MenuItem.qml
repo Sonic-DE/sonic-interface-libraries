@@ -74,7 +74,7 @@ T.MenuItem {
         x: controlRoot.mirrored ? controlRoot.padding : controlRoot.width - width - controlRoot.padding
         y: controlRoot.topPadding + (controlRoot.availableHeight - height) / 2
         source: controlRoot.mirrored ? "go-next-symbolic-rtl" : "go-next-symbolic"
-        status: controlRoot.highlighted ? PlasmaCore.Svg.Selected : PlasmaCore.Svg.Normal
+        status: controlRoot.highlighted ? KSvg.Svg.Selected : KSvg.Svg.Normal
         width: Math.max(label.height, Kirigami.Units.iconSizes.small)
         height: width
         visible: controlRoot.subMenu
@@ -87,7 +87,7 @@ T.MenuItem {
         visible: controlRoot.checkable
         sourceComponent: controlRoot.autoExclusive ? radioComponent : checkComponent
     }
-    
+
     Component {
         id: radioComponent
         RadioIndicator {

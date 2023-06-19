@@ -45,7 +45,7 @@ GridLayout {
         colorGroup: parent.PlasmaCore.ColorScope.colorGroup
         visible: source.length > 0 && root.parent.display !== T.Button.TextOnly
         source: root.parent.icon ? (root.parent.icon.name || root.parent.icon.source) : ""
-        status: root.usingFocusBackground ? PlasmaCore.Svg.Selected : PlasmaCore.Svg.Normal
+        status: root.usingFocusBackground ? KSvg.Svg.Selected : KSvg.Svg.Normal
     }
     PlasmaComponents.Label {
         id: label

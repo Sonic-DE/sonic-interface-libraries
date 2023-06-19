@@ -38,14 +38,14 @@ T.Drawer {
         enabledBorders: {
             switch (control.edge) {
             case Qt.BottomEdge:
-                return PlasmaCore.FrameSvgItem.TopBorder;
+                return KSvg.FrameSvgItem.TopBorder;
             case Qt.RightEdge:
-                return PlasmaCore.FrameSvgItem.LeftBorder;
+                return KSvg.FrameSvgItem.LeftBorder;
             case Qt.TopEdge:
-                return PlasmaCore.FrameSvgItem.BottomBorder;
+                return KSvg.FrameSvgItem.BottomBorder;
             case Qt.LeftEdge:
             default:
-                return PlasmaCore.FrameSvgItem.RightBorder;
+                return KSvg.FrameSvgItem.RightBorder;
             }
         }
     }
