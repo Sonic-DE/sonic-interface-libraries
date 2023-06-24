@@ -17,7 +17,6 @@
 #include <plasma/svg.h>
 
 #include "colorscope.h"
-#include "datamodel.h"
 #include "dialog.h"
 #include "framesvgitem.h"
 #include "iconitem.h"
@@ -72,17 +71,11 @@ void CoreBindingsPlugin::registerTypes(const char *uri)
     });
     qmlRegisterType<ColorScope>(uri, 2, 0, "ColorScope");
 
-    // TODO: remove
-    qmlRegisterType<Plasma::SortFilterModel, 0>(uri, 2, 0, "SortFilterModel");
-    qmlRegisterType<Plasma::SortFilterModel, 1>(uri, 2, 1, "SortFilterModel");
-
     qmlRegisterType<PlasmaQuick::Dialog>(uri, 2, 0, "Dialog");
     // HACK make properties like "opacity" work that are in REVISION 1 of QWindow
     qmlRegisterRevision<QWindow, 1>(uri, 2, 0);
     qmlRegisterRevision<QQuickItem, 1>(uri, 2, 0);
     qmlRegisterType<ToolTip>(uri, 2, 0, "ToolTipArea");
-
-    qmlRegisterAnonymousType<QAbstractItemModel>(uri, 1);
 
     qmlRegisterAnonymousType<QQmlPropertyMap>(uri, 1);
     qmlRegisterType<IconItem>(uri, 2, 0, "IconItem");

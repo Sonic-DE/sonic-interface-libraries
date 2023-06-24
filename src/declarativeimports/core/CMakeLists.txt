@@ -11,7 +11,6 @@ ecm_add_qml_module(corebindingsplugin URI "org.kde.plasma.core")
 target_sources(corebindingsplugin PRIVATE
     corebindingsplugin.cpp
     colorscope.cpp
-    datamodel.cpp
     svgitem.cpp
     framesvgitem.cpp
     quicktheme.cpp
