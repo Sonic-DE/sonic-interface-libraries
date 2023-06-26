@@ -627,6 +627,7 @@ void Applet::flushPendingConstraintsEvents()
 
 QList<QAction *> Applet::contextualActions()
 {
+    return d->contextualActions;
     // NOTE: KActionCollection can contain duplicates in actions(); once we ported away from it we can remove this hack
     QSet<QAction *> contextActions;
 
@@ -634,7 +635,38 @@ QList<QAction *> Applet::contextualActions()
         return a->property("_contextualAction").toBool();
     });
 
-    return contextActions.values();
+    QList<QAction *> list = contextActions.values();
+    list.append(d->contextualActions);
+    return list;
+}
+
+QQmlListProperty<QAction> Applet::qmlContextualActions()
+{
+    return QQmlListProperty<QAction>(
+        this,
+        nullptr,
+        [](QQmlListProperty<QAction> *prop, QAction *action) -> void {
+            Applet *a = static_cast<Plasma::Applet *>(prop->object);
+            a->d->contextualActions.append(action);
+        },
+        [](QQmlListProperty<QAction> *prop) -> long long int {
+            Applet *a = static_cast<Plasma::Applet *>(prop->object);
+            return a->d->contextualActions.count();
+        },
+        [](QQmlListProperty<QAction> *prop, long long int idx) -> QAction * {
+            Applet *a = static_cast<Plasma::Applet *>(prop->object);
+            return a->d->contextualActions.value(idx);
+        },
+        [](QQmlListProperty<QAction> *prop) -> void {
+            Applet *a = static_cast<Plasma::Applet *>(prop->object);
+            a->d->contextualActions.clear();
+            std::copy_if(a->d->actions->actions().constBegin(),
+                         a->d->actions->actions().constEnd(),
+                         std::inserter(a->d->contextualActions, a->d->contextualActions.begin()),
+                         [](QAction *a) {
+                             return a->property("_contextualAction").toBool();
+                         });
+        });
 }
 
 KActionCollection *Applet::actions() const
@@ -652,6 +684,7 @@ void Applet::setActionSeparator(const QString &name)
         action = new QAction(this);
         action->setSeparator(true);
         d->actions->addAction(name, action);
+        d->contextualActions.append(action);
         Q_EMIT contextualActionsChanged();
     }
 }
@@ -683,6 +716,7 @@ void Applet::setAction(const QString &name, const QString &text, const QString &
         d->actions->addAction(name, action);
 
         action->setProperty("_contextualAction", true);
+        d->contextualActions.append(action);
         Q_EMIT contextualActionsChanged();
     }
 
