@@ -12,6 +12,7 @@
 #include <QAction>
 #include <QKeySequence>
 #include <QObject>
+#include <QQmlListProperty>
 #include <QUrl>
 
 #include <KConfigGroup>
@@ -185,7 +186,9 @@ class PLASMA_EXPORT Applet : public QObject
     Q_PROPERTY(Plasma::Containment *containment READ containment NOTIFY containmentChanged)
 
     // TODO KF6: contextualActions along with AppletInterface::setAction etc, alsongside a declarative way?
-    Q_PROPERTY(QList<QAction *> contextualActions READ contextualActions NOTIFY contextualActionsChanged)
+    // Q_PROPERTY(QList<QAction *> contextualActions READ contextualActions NOTIFY contextualActionsChanged)
+
+    Q_PROPERTY(QQmlListProperty<QAction> contextualActions READ qmlContextualActions CONSTANT)
 
     /**
      * True if this applet is a Containment and is acting as one, such as a desktop or a panel
@@ -520,6 +523,8 @@ public:
      *         empty list.
      **/
     virtual QList<QAction *> contextualActions();
+
+    QQmlListProperty<QAction> qmlContextualActions();
 
     /**
      * Returns the collection of actions for this Applet

@@ -9,6 +9,7 @@
 
 #include "corebindingsplugin.h"
 
+#include <QActionGroup>
 #include <QQmlContext>
 
 #include <KLocalizedContext>
@@ -92,5 +93,6 @@ void CoreBindingsPlugin::registerTypes(const char *uri)
     qmlRegisterType<Plasma::WindowThumbnail>(uri, 2, 0, "WindowThumbnail");
 
     qmlRegisterAnonymousType<IconGroup>(uri, 2);
-    qmlRegisterExtendedType<QAction, ActionExtension>(uri, 2, 0, "QAction");
+    qmlRegisterExtendedType<QAction, ActionExtension>(uri, 2, 0, "Action");
+    qmlRegisterType<ActionGroup>(uri, 2, 0, "ActionGroup");
 }
