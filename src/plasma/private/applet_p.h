@@ -84,6 +84,7 @@ public:
 
     // actions stuff; put activationAction into actions?
     KActionCollection *actions; // TODO: can KACtionCollection usage be removed and just be QHash<QString, QAction*>?
+    QList<QAction *> contextualActions;
     QAction *activationAction;
     QHash<QString, QActionGroup *> actionGroups;
 
