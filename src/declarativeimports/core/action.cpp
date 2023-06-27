@@ -74,6 +74,28 @@ QActionGroup *ActionExtension::actionGroup() const
     return m_action->actionGroup();
 }
 
+static QKeySequence variantToKeySequence(const QVariant &var)
+{
+    if (var.metaType().id() == QMetaType::Int)
+        return QKeySequence(static_cast<QKeySequence::StandardKey>(var.toInt()));
+    return QKeySequence::fromString(var.toString());
+}
+
+QVariant ActionExtension::shortcut() const
+{
+    return m_action->shortcut();
+}
+
+void ActionExtension::setShortcut(const QVariant &var)
+{
+    const QKeySequence seq = variantToKeySequence(var);
+    if (seq == m_action->shortcut()) {
+        return;
+    }
+    m_action->setShortcut(seq);
+    Q_EMIT shortcutChanged();
+}
+
 QAction *ActionExtension::action() const
 {
     return m_action;

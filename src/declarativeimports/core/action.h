@@ -48,6 +48,7 @@ class ActionExtension : public QObject
     Q_PROPERTY(IconGroup *icon MEMBER m_iconGroup CONSTANT)
     Q_PROPERTY(bool isSeparator READ isSeparator WRITE setSeparator NOTIFY isSeparatorChanged)
     Q_PROPERTY(QActionGroup *actionGroup READ actionGroup WRITE setActionGroup NOTIFY actionGroupChanged)
+    Q_PROPERTY(QVariant shortcut READ shortcut WRITE setShortcut NOTIFY shortcutChanged)
 
 public:
     explicit ActionExtension(QObject *parent = nullptr);
@@ -59,11 +60,15 @@ public:
     void setActionGroup(QActionGroup *group);
     QActionGroup *actionGroup() const;
 
+    void setShortcut(const QVariant &var);
+    QVariant shortcut() const;
+
     QAction *action() const;
 
 Q_SIGNALS:
     void isSeparatorChanged();
     void actionGroupChanged();
+    void shortcutChanged();
 
 private:
     QAction *m_action;
