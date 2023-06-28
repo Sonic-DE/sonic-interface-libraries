@@ -76,13 +76,6 @@ private:
     QString m_icon;
 };
 
-struct QActionForeign {
-    Q_GADGET
-    QML_FOREIGN(QAction)
-    QML_ELEMENT
-    QML_EXTENDED(ActionExtension)
-};
-
 class ActionGroup : public QActionGroup
 {
     Q_OBJECT
