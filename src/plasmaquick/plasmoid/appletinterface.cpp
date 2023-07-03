@@ -52,7 +52,6 @@ void AppletInterface::init()
 
     auto *applet = AppletInterface::applet();
     auto connectActions = [this, applet]() {
-        qWarning() << applet->contextualActions().count();
         for (auto *a : applet->contextualActions()) {
             // TODO: when the old api goes, whole executeAction logic will be deleted
             if (!m_actions.contains(a)) {
