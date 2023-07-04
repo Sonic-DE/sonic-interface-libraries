@@ -28,6 +28,7 @@ target_sources(corebindingsplugin PRIVATE
 target_link_libraries(corebindingsplugin
         Qt6::Quick
         Qt6::Qml
+        Qt6::Widgets
         KF6::IconThemes
         KF6::I18n
         Qt6::Svg
