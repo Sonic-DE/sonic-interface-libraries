@@ -49,6 +49,7 @@ class ActionExtension : public QObject
     Q_PROPERTY(bool isSeparator READ isSeparator WRITE setSeparator NOTIFY isSeparatorChanged)
     Q_PROPERTY(QActionGroup *actionGroup READ actionGroup WRITE setActionGroup NOTIFY actionGroupChanged)
     Q_PROPERTY(QVariant shortcut READ shortcut WRITE setShortcut NOTIFY shortcutChanged)
+    Q_PROPERTY(QMenu *menu READ menu WRITE setMenu NOTIFY menuChanged)
 
 public:
     explicit ActionExtension(QObject *parent = nullptr);
@@ -63,12 +64,16 @@ public:
     void setShortcut(const QVariant &var);
     QVariant shortcut() const;
 
+    void setMenu(QMenu *menu);
+    QMenu *menu();
+
     QAction *action() const;
 
 Q_SIGNALS:
     void isSeparatorChanged();
     void actionGroupChanged();
     void shortcutChanged();
+    void menuChanged();
 
 private:
     QAction *m_action;

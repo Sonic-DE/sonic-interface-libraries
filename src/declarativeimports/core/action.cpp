@@ -5,6 +5,7 @@
 */
 
 #include "action.h"
+#include <QMenu>
 
 IconGroup::IconGroup(ActionExtension *parent)
     : QObject(parent)
@@ -94,6 +95,21 @@ void ActionExtension::setShortcut(const QVariant &var)
     }
     m_action->setShortcut(seq);
     Q_EMIT shortcutChanged();
+}
+
+void ActionExtension::setMenu(QMenu *menu)
+{
+    if (menu == m_action->menu()) {
+        return;
+    }
+
+    m_action->setMenu(menu);
+    Q_EMIT menuChanged();
+}
+
+QMenu *ActionExtension::menu()
+{
+    return m_action->menu();
 }
 
 QAction *ActionExtension::action() const
