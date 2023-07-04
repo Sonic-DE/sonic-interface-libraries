@@ -538,6 +538,16 @@ public:
     Q_INVOKABLE void setInternalAction(const QString &name, QAction *action);
 
     /**
+     * Update properties of an internal action, such as text, icon, and shortcut
+     *
+     * @param: action name: is the action with this name doesn't exists, this function won't do anything
+     * @text: user visible displayed text
+     * @icon: user visible optional displayed icon
+     * @shortcut: shortcut to trigger this action
+     */
+    Q_INVOKABLE void updateInternalAction(const QString &name, const QString &text, const QString &icon, const QString &shortcut = QString());
+
+    /**
      * @returns the internal action with the given name if available
      * @param name the unique name of the action we want
      */
