@@ -7,8 +7,8 @@
 
 #include "qmenuitem.h"
 
-QMenuItem::QMenuItem(QQuickItem *parent)
-    : QQuickItem(parent)
+QMenuItem::QMenuItem(QObject *parent)
+    : QObject(parent)
     , m_action(nullptr)
     , m_section(false)
 {
@@ -59,8 +59,6 @@ void QMenuItem::setAction(QAction *a)
             }
         });
 
-        connect(this, &QQuickItem::visibleChanged, this, &QMenuItem::updateAction);
-        connect(this, &QQuickItem::enabledChanged, this, &QMenuItem::updateAction);
         connect(this, &QObject::destroyed, this, &QMenuItem::deleteLater);
 
         Q_EMIT actionChanged();
@@ -136,10 +134,24 @@ void QMenuItem::setChecked(bool checked)
     m_action->setChecked(checked);
 }
 
-void QMenuItem::updateAction()
+bool QMenuItem::isEnabled() const
 {
-    m_action->setVisible(isVisible());
-    m_action->setEnabled(isEnabled());
+    return m_action->isEnabled();
+}
+
+void QMenuItem::setEnabled(bool enabled)
+{
+    m_action->setEnabled(enabled);
+}
+
+bool QMenuItem::isVisible() const
+{
+    return m_action->isVisible();
+}
+
+void QMenuItem::setVisible(bool visible)
+{
+    m_action->setVisible(visible);
 }
 
 #include "moc_qmenuitem.cpp"
