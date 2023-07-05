@@ -52,7 +52,7 @@ T.ComboBox {
         }
         svg: KSvg.Svg {
             imagePath: "widgets/arrows"
-            colorGroup: PlasmaCore.Theme.ButtonColorGroup
+            colorSet: KSvg.Svg.Button
         }
         elementId: "down-arrow"
     }
@@ -196,7 +196,9 @@ T.ComboBox {
                 margins: -1
             }
             radius: 2
-            color: PlasmaCore.Theme.viewBackgroundColor
+            Kirigami.Theme.colorSet: Kirigami.Theme.View
+            Kirigami.Theme.inherit: false
+            color: Kirigami.Theme.backgroundColor
             border.color: Qt.rgba(Kirigami.Theme.textColor.r, Kirigami.Theme.textColor.g, Kirigami.Theme.textColor.b, 0.3)
             layer.enabled: true
 
