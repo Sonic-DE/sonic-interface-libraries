@@ -77,7 +77,7 @@ T.ToolBar {
             imagePath: "dialogs/background"
         }
 
-        colorSet: control.Kirigami.Theme.colrSet
+        Kirigami.Theme.colorSet: control.Kirigami.Theme.colorSet
         Kirigami.Theme.inherit: false
 
         enabledBorders: {

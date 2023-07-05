@@ -75,7 +75,7 @@ T.BusyIndicator {
             width: Math.min(parent.width, parent.height)
             height: width
 
-            svg: imagePath: "widgets/busywidget"
+            imagePath: "widgets/busywidget"
             elementId: "busywidget"
 
             RotationAnimator on rotation {
