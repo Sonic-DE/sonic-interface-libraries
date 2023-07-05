@@ -12,9 +12,6 @@ target_sources(corebindingsplugin PRIVATE
     corebindingsplugin.cpp
     colorscope.cpp
     datamodel.cpp
-    svgitem.cpp
-    framesvgitem.cpp
-    quicktheme.cpp
     tooltip.cpp
     tooltipdialog.cpp
     iconitem.cpp

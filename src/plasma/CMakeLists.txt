@@ -35,8 +35,6 @@ target_sources(KF6Plasma PRIVATE
     private/timetracker.cpp
 
 #graphics
-    framesvg.cpp
-    svg.cpp
     theme.cpp
     private/theme_p.cpp
 )
@@ -115,8 +113,6 @@ ecm_generate_headers(Plasma_CamelCase_HEADERS
         ContainmentActions
         Corona
         PluginLoader
-        FrameSvg
-        Svg
         Theme
         Plasma
     REQUIRED_HEADERS Plasma_HEADERS

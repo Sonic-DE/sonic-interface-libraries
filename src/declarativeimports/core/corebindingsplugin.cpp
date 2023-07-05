@@ -13,17 +13,10 @@
 
 #include <KLocalizedContext>
 
-#include <plasma/framesvg.h>
-#include <plasma/svg.h>
-
 #include "colorscope.h"
 #include "datamodel.h"
 #include "dialog.h"
-#include "framesvgitem.h"
 #include "iconitem.h"
-#include "quicktheme.h"
-#include "svgitem.h"
-#include "theme.h"
 
 #include "tooltip.h"
 #include "units.h"
@@ -38,10 +31,7 @@ void CoreBindingsPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
 
     QQmlContext *context = engine->rootContext();
 
-    Plasma::QuickTheme *theme = new Plasma::QuickTheme(engine);
-
     if (!qEnvironmentVariableIntValue("PLASMA_NO_CONTEXTPROPERTIES")) {
-        context->setContextProperty(QStringLiteral("theme"), theme);
         context->setContextProperty(QStringLiteral("units"), &Units::instance());
     }
 
@@ -61,15 +51,6 @@ void CoreBindingsPlugin::registerTypes(const char *uri)
         return &Units::instance();
     });
 
-    qmlRegisterType<Plasma::Svg>(uri, 2, 0, "Svg");
-    qmlRegisterType<Plasma::FrameSvg>(uri, 2, 0, "FrameSvg");
-    qmlRegisterType<Plasma::SvgItem>(uri, 2, 0, "SvgItem");
-    qmlRegisterType<Plasma::FrameSvgItem>(uri, 2, 0, "FrameSvgItem");
-
-    // qmlRegisterType<ThemeProxy>(uri, 2, 0, "Theme");
-    qmlRegisterSingletonType<Plasma::QuickTheme>(uri, 2, 0, "Theme", [](QQmlEngine *engine, QJSEngine *) -> QObject * {
-        return new Plasma::QuickTheme(engine);
-    });
     qmlRegisterType<ColorScope>(uri, 2, 0, "ColorScope");
 
     // TODO: remove

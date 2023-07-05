@@ -13,9 +13,7 @@
 #include <QHash>
 
 #include <KColorScheme>
-#include <KImageCache>
 #include <KPluginMetaData>
-#include <KSharedDataCache>
 #include <QDebug>
 #include <QTimer>
 
@@ -38,13 +36,6 @@ class Theme;
 static const int DEFAULT_WALLPAPER_WIDTH = 1920;
 static const int DEFAULT_WALLPAPER_HEIGHT = 1200;
 
-enum CacheType {
-    NoCache = 0,
-    PixmapCache = 1,
-    SvgElementsCache = 2,
-};
-Q_DECLARE_FLAGS(CacheTypes, CacheType)
-Q_DECLARE_OPERATORS_FOR_FLAGS(CacheTypes)
 
 class ThemePrivate : public QObject, public QSharedData
 {
@@ -56,28 +47,19 @@ public:
 
     KConfigGroup &config();
 
-    QString imagePath(const QString &theme, const QString &type, const QString &image);
-    QString findInTheme(const QString &image, const QString &theme, bool cache = true);
-    void discardCache(CacheTypes caches);
-    void scheduleThemeChangeNotification(CacheTypes caches);
-    bool useCache();
     void setThemeName(const QString &themeName, bool writeSettings, bool emitChanged);
     void processWallpaperSettings(const KSharedConfigPtr &metadata);
     void processContrastSettings(const KSharedConfigPtr &metadata);
     void processAdaptiveTransparencySettings(const KSharedConfigPtr &metadata);
     void processBlurBehindSettings(const KSharedConfigPtr &metadata);
 
-    const QString processStyleSheet(const QString &css, Plasma::Svg::Status status);
-    const QString svgStyleSheet(Plasma::Theme::ColorGroup group, Plasma::Svg::Status status);
     QColor color(Theme::ColorRole role, Theme::ColorGroup group = Theme::NormalColorGroup) const;
 
 public Q_SLOTS:
     void compositingChanged(bool active);
     void colorsChanged();
     void settingsFileChanged(const QString &settings);
-    void scheduledCacheUpdate();
     void onAppExitCleanup();
-    void notifyOfChanged();
     void settingsChanged(bool emitChanges);
 
 Q_SIGNALS:
@@ -116,19 +98,7 @@ public:
     QString defaultWallpaperSuffix;
     int defaultWallpaperWidth;
     int defaultWallpaperHeight;
-    KImageCache *pixmapCache;
-    QString cachedDefaultStyleSheet;
-    QHash<QString, QPixmap> pixmapsToCache;
-    QHash<QString, QString> keysToCache;
-    QHash<QString, QString> idsToCache;
-    QHash<Theme::ColorGroup, QString> cachedSvgStyleSheets;
-    QHash<Theme::ColorGroup, QString> cachedSelectedSvgStyleSheets;
-    QHash<Theme::ColorGroup, QString> cachedInactiveSvgStyleSheets;
     QHash<QString, QString> discoveries;
-    QTimer *pixmapSaveTimer;
-    QTimer *updateNotificationTimer;
-    unsigned cacheSize;
-    CacheTypes cachesToDiscard;
     QString themeVersion;
     QString themeMetadataPath;
     QString iconThemeMetadataPath;
@@ -138,7 +108,6 @@ public:
     bool isDefault : 1;
     bool useGlobal : 1;
     bool hasWallpapers : 1;
-    bool cacheTheme : 1;
     bool fixedName : 1;
 
     qreal backgroundContrast;
