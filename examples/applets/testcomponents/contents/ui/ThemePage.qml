@@ -10,6 +10,7 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.kquickcontrolsaddons 2.0 as KQuickControlsAddons
+import org.kde.kirigami 2.20 as Kirigami
 
 // IconTab
 
@@ -38,7 +39,7 @@ PlasmaComponents.Page {
 
         PlasmaComponents.Label {
             text: "This is the smallest readable Font."
-            font: PlasmaCore.Theme.smallestFont
+            font: Kirigami.Theme.smallestFont
 
         }
         Row {
@@ -49,7 +50,7 @@ PlasmaComponents.Page {
             Rectangle {
                 width: cheight
                 height: cheight / 2
-                color: PlasmaCore.Theme.textColor
+                color: Kirigami.Theme.textColor
             }
         }
         Row {
@@ -71,7 +72,7 @@ PlasmaComponents.Page {
             Rectangle {
                 width: cheight
                 height: cheight / 2
-                color: PlasmaCore.Theme.highlightColor
+                color: Kirigami.Theme.highlightColor
             }
         }
         Row {
@@ -82,7 +83,7 @@ PlasmaComponents.Page {
             Rectangle {
                 width: cheight
                 height: cheight / 2
-                color: PlasmaCore.Theme.viewBackgroundColor
+                color: Kirigami.Theme.viewBackgroundColor
             }
         }
     }

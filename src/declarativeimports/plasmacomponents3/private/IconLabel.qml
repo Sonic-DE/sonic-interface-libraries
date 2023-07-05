@@ -103,7 +103,7 @@ Item {
             palette: root.palette
             font: root.font
             color: Kirigami.Theme.textColor
-            linkColor: PlasmaCore.Theme.linkColor
+            linkColor: Kirigami.Theme.linkColor
             elide: Text.ElideRight
             Layout.alignment: Qt.AlignCenter
             Layout.fillWidth: true

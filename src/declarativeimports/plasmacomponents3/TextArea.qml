@@ -25,9 +25,11 @@ T.TextArea {
 
     padding: 6
 
-    color: PlasmaCore.Theme.viewTextColor
-    selectionColor: PlasmaCore.Theme.highlightColor
-    selectedTextColor: PlasmaCore.Theme.highlightedTextColor
+    Kirigami.Theme.colorSet: Kirigami.Theme.View
+    Kirigami.Theme.inherit: false
+    color: Kirigami.Theme.textColor
+    selectionColor: Kirigami.Theme.highlightColor
+    selectedTextColor: Kirigami.Theme.highlightedTextColor
     opacity: control.enabled ? 1 : 0.6
     wrapMode: Text.WordWrap
     verticalAlignment: TextEdit.AlignTop
@@ -78,7 +80,7 @@ T.TextArea {
 
         text: control.placeholderText
         font: control.font
-        color: PlasmaCore.Theme.viewTextColor
+        color: Kirigami.Theme.textColor
         opacity: 0.5
         enabled: false
         horizontalAlignment: control.horizontalAlignment

@@ -29,6 +29,9 @@ T.RoundButton {
 
     hoverEnabled: !Kirigami.Settings.tabletMode
 
+    Kirigami.Theme.colorSet: Kirigami.Theme.Button
+    Kirigami.Theme.inherit: false
+
     contentItem: RowLayout {
         // This is the spacing which will make the icon a square inscribed in the circle with an extra smallspacing of margins
         readonly property int extraSpace: implicitWidth/2 - implicitWidth/2*Math.sqrt(2)/2 + PlasmaCore.Units.smallSpacing
@@ -45,7 +48,7 @@ T.RoundButton {
             text: control.text
             font: control.font
             opacity: enabled || control.highlighted || control.checked ? 1 : 0.4
-            color: PlasmaCore.Theme.buttonTextColor
+            color: Kirigami.Theme.textColor
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             elide: Text.ElideRight
@@ -60,7 +63,7 @@ T.RoundButton {
         KSvg.Svg {
             id: buttonSvg
             imagePath: "widgets/actionbutton"
-            colorGroup: PlasmaCore.Theme.ButtonColorGroup
+            colorSet: KSvg.Svg.Button
         }
 
         Private.RoundShadow {
