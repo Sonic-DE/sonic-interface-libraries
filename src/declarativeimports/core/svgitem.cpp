@@ -24,7 +24,6 @@ SvgItem::SvgItem(QQuickItem *parent)
     : QQuickItem(parent)
     , m_textureChanged(false)
 {
-    qWarning() << "PlasmaCore.SvgItem is deprecated: use KSvg.SvgItem instead.";
     setFlag(QQuickItem::ItemHasContents, true);
     connect(&Units::instance(), &Units::devicePixelRatioChanged, this, &SvgItem::updateDevicePixelRatio);
 }
