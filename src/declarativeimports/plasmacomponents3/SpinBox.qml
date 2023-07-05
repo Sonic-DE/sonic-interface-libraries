@@ -123,9 +123,11 @@ T.SpinBox {
         palette: control.palette
         text: control.displayText
         font: control.font
-        color: PlasmaCore.Theme.viewTextColor
-        selectionColor: PlasmaCore.Theme.highlightColor
-        selectedTextColor: PlasmaCore.Theme.highlightedTextColor
+        Kirigami.Theme.colorSet: Kirigami.Theme.View
+        Kirigami.Theme.inherit: false
+        color: Kirigami.Theme.textColor
+        selectionColor: Kirigami.Theme.highlightColor
+        selectedTextColor: Kirigami.Theme.highlightedTextColor
         horizontalAlignment: Qt.AlignHCenter
         verticalAlignment: Qt.AlignVCenter
         readOnly: !control.editable

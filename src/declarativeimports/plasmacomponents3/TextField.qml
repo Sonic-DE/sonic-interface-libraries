@@ -72,10 +72,10 @@ T.TextField {
     Kirigami.Theme.inherit: !background || !background.visible
     Kirigami.Theme.colorSet: Kirigami.Theme.View
 
-    color: control.backgroundVisible ? PlasmaCore.Theme.viewTextColor : Kirigami.Theme.textColor
-    selectionColor: control.backgroundVisible ? PlasmaCore.Theme.viewFocusColor : Kirigami.Theme.highlightColor
-    selectedTextColor: control.backgroundVisible ? PlasmaCore.Theme.viewHighlightedTextColor : Kirigami.Theme.highlightedTextColor
-    placeholderTextColor: PlasmaCore.Theme.disabledTextColor
+    color:  Kirigami.Theme.textColor
+    selectionColor: Kirigami.Theme.highlightColor
+    selectedTextColor: Kirigami.Theme.highlightedTextColor
+    placeholderTextColor: Kirigami.Theme.disabledTextColor
 
     verticalAlignment: TextInput.AlignVCenter
     // Manually setting this fixes alignment in RTL layouts
