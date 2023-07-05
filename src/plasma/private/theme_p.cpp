@@ -838,7 +838,6 @@ void ThemePrivate::processBlurBehindSettings(const KSharedConfigPtr &metadata)
 void ThemePrivate::setThemeName(const QString &tempThemeName, bool writeSettings, bool emitChanged)
 {
     kSvgImageSet->setImageSetName(tempThemeName);
-
     QString theme = tempThemeName;
     if (theme.isEmpty() || theme == themeName) {
         // let's try and get the default theme at least
