@@ -40,9 +40,13 @@ public:
     virtual QPixmap pixmap(const QSize &size) = 0;
 
 protected:
-    QQuickWindow *window()
+    QQuickWindow *window() const
     {
         return m_iconItem->window();
+    }
+    qreal devicePixelRatio() const
+    {
+        return std::ceil(window() ? window()->devicePixelRatio() : qApp->devicePixelRatio());
     }
 
     IconItem *m_iconItem;
@@ -95,7 +99,7 @@ public:
     QPixmap pixmap(const QSize &size) override
     {
         KIconLoader::global()->setCustomPalette(Plasma::Theme::globalPalette());
-        QPixmap result = m_icon.pixmap(m_icon.actualSize(size), window()->devicePixelRatio());
+        QPixmap result = m_icon.pixmap(m_icon.actualSize(size), devicePixelRatio());
         KIconLoader::global()->resetPalette();
         return result;
     }
@@ -253,11 +257,6 @@ public:
     }
 
 private:
-    qreal devicePixelRatio()
-    {
-        return std::ceil(window() ? window()->devicePixelRatio() : qApp->devicePixelRatio());
-    }
-
     QPointer<Plasma::Svg> m_svgIcon;
     QString m_svgIconName;
 };
