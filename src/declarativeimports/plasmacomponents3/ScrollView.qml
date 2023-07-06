@@ -30,9 +30,9 @@ T.ScrollView {
         Kirigami.WheelHandler {
             target: controlRoot.contentItem
             // `Qt.styleHints.wheelScrollLines * 20` is the default scroll speed.
-            // ` * PlasmaCore.Units.devicePixelRatio` is needed because Plasma doesn't use Qt scaling on X11.
-            horizontalStepSize: Qt.styleHints.wheelScrollLines * 20 * PlasmaCore.Units.devicePixelRatio
-            verticalStepSize: Qt.styleHints.wheelScrollLines * 20 * PlasmaCore.Units.devicePixelRatio
+            // ` * Kirigami.Units.devicePixelRatio` is needed because Plasma doesn't use Qt scaling on X11.
+            horizontalStepSize: Qt.styleHints.wheelScrollLines * 20 * Kirigami.Units.devicePixelRatio
+            verticalStepSize: Qt.styleHints.wheelScrollLines * 20 * Kirigami.Units.devicePixelRatio
         },
         Binding { // TODO KF6: remove, Qt6 has this behavior by default
             target: controlRoot.contentItem // always instanceof Flickable

@@ -28,7 +28,7 @@ T.ProgressBar {
     }
 
     contentItem: Item {
-        implicitWidth: PlasmaCore.Units.gridUnit * 8
+        implicitWidth: Kirigami.Units.gridUnit * 8
         implicitHeight: children[0].height
 
         KSvg.FrameSvgItem {
@@ -56,12 +56,12 @@ T.ProgressBar {
                 running: control.indeterminate && control.contentItem.visible
 
                 NumberAnimation {
-                    duration: PlasmaCore.Units.humanMoment / 2
+                    duration: Kirigami.Units.humanMoment / 2
                     easing.type: Easing.InOutSine
                     to: 1
                 }
                 NumberAnimation {
-                    duration: PlasmaCore.Units.humanMoment / 2
+                    duration: Kirigami.Units.humanMoment / 2
                     easing.type: Easing.InOutSine
                     to: 0
                 }
@@ -70,7 +70,7 @@ T.ProgressBar {
     }
 
     background: Item {
-        implicitWidth: PlasmaCore.Units.gridUnit * 8
+        implicitWidth: Kirigami.Units.gridUnit * 8
         implicitHeight: children[0].height
 
         KSvg.FrameSvgItem {

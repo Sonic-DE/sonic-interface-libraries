@@ -47,8 +47,8 @@ import org.kde.kirigami 2.20 as Kirigami
  *         clip: true
  *         model: myModel
  *         highlight: PlasmaExtras.Highlight {}
- *         highlightMoveDuration: PlasmaCore.Units.longDuration
- *         highlightResizeDuration: PlasmaCore.Units.longDuration
+ *         highlightMoveDuration: Kirigami.Units.longDuration
+ *         highlightResizeDuration: Kirigami.Units.longDuration
  *         delegate: PlasmaExtras.ExpandableListItem {
  *             icon: model.iconName
  *             iconEmblem: model.isPaused ? "emblem-pause" : ""
@@ -462,7 +462,7 @@ Item {
                 id: mainRowLayout
 
                 Layout.fillWidth: true
-                Layout.margins: PlasmaCore.Units.smallSpacing
+                Layout.margins: Kirigami.Units.smallSpacing
                 // Otherwise it becomes taller when the button appears
                 Layout.minimumHeight: defaultActionButton.height
 
@@ -472,8 +472,8 @@ Item {
 
                     usesPlasmaTheme: listItem.iconUsesPlasmaSVG
 
-                    implicitWidth: PlasmaCore.Units.iconSizes.medium
-                    implicitHeight: PlasmaCore.Units.iconSizes.medium
+                    implicitWidth: Kirigami.Units.iconSizes.medium
+                    implicitHeight: Kirigami.Units.iconSizes.medium
 
                     PlasmaCore.IconItem {
                         id: iconEmblem
@@ -483,8 +483,8 @@ Item {
                         anchors.right: parent.right
                         anchors.bottom: parent.bottom
 
-                        implicitWidth: PlasmaCore.Units.iconSizes.small
-                        implicitHeight: PlasmaCore.Units.iconSizes.small
+                        implicitWidth: Kirigami.Units.iconSizes.small
+                        implicitHeight: Kirigami.Units.iconSizes.small
                     }
                 }
 
@@ -605,9 +605,9 @@ Item {
                 ColumnLayout {
                     id: expandedViewLayout
                     anchors.fill: parent
-                    anchors.margins: PlasmaCore.Units.smallSpacing
+                    anchors.margins: Kirigami.Units.smallSpacing
 
-                    spacing: PlasmaCore.Units.smallSpacing
+                    spacing: Kirigami.Units.smallSpacing
 
                     // Actions list
                     Loader {
@@ -626,8 +626,8 @@ Item {
                                 anchors.top: parent.top
                                 anchors.left: parent.left
                                 anchors.right: parent.right
-                                anchors.leftMargin: PlasmaCore.Units.gridUnit
-                                anchors.rightMargin: PlasmaCore.Units.gridUnit
+                                anchors.leftMargin: Kirigami.Units.gridUnit
+                                anchors.rightMargin: Kirigami.Units.gridUnit
 
                                 spacing: 0
 

@@ -9,19 +9,18 @@ import QtQuick.Layouts 1.1
 
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
-// import org.kde.plasma.extras 2.0 as PlasmaExtras
-// import org.kde.kquickcontrolsaddons 2.0 as KQuickControlsAddons
+import org.kde.kirigami 2.20 as Kirigami
 
 Item {
     id: root
     width: 300
     height: 400
     clip: true
-    Layout.minimumWidth: PlasmaCore.Units.gridUnit * 10
-    Layout.minimumHeight: PlasmaCore.Units.gridUnit * 10
+    Layout.minimumWidth: Kirigami.Units.gridUnit * 10
+    Layout.minimumHeight: Kirigami.Units.gridUnit * 10
 
-    property int _s: PlasmaCore.Units.iconSizes.small
-    property int _h: PlasmaCore.Units.iconSizes.medium
+    property int _s: Kirigami.Units.iconSizes.small
+    property int _h: Kirigami.Units.iconSizes.medium
 
     PlasmaComponents.TabBar {
         id: tabBar
@@ -77,7 +76,7 @@ Item {
         visible: false
         anchors {
             bottom: parent.bottom
-            bottomMargin: PlasmaCore.Units.largeSpacing/2
+            bottomMargin: Kirigami.Units.largeSpacing/2
             left: sliderLabel.right
             right: parent.right
         }
@@ -87,14 +86,14 @@ Item {
         focus: true
         onValueChanged: {
             var r = value / 96;
-            print("Setting PlasmaCore.Units.devicePixelRatio: " + r);
-            PlasmaCore.Units.devicePixelRatio = r;
+            print("Setting Kirigami.Units.devicePixelRatio: " + r);
+            Kirigami.Units.devicePixelRatio = r;
             if (value == 0) {
-                value = PlasmaCore.Units.devicePixelRatio * 96;
+                value = Kirigami.Units.devicePixelRatio * 96;
             }
         }
 
-        Component.onCompleted: dprSlider.value = PlasmaCore.Units.devicePixelRatio * 96
+        Component.onCompleted: dprSlider.value = Kirigami.Units.devicePixelRatio * 96
     }
 
 

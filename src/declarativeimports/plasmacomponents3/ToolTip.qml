@@ -26,7 +26,7 @@ T.ToolTip {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset, contentHeight + topPadding + bottomPadding)
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset, contentWidth + leftPadding + rightPadding)
 
-    margins: PlasmaCore.Units.smallSpacing
+    margins: Kirigami.Units.smallSpacing
     leftPadding: backgroundItem.margins.left
     topPadding: backgroundItem.margins.top
     rightPadding: backgroundItem.margins.right
@@ -66,13 +66,13 @@ T.ToolTip {
             Kirigami.Theme.inherit: false
             Layout.fillWidth: true
             // This value is basically arbitrary. It just looks nice.
-            Layout.maximumWidth: PlasmaCore.Units.gridUnit * 14
+            Layout.maximumWidth: Kirigami.Units.gridUnit * 14
         }
     }
 
     background: Item {
-        implicitHeight: PlasmaCore.Units.gridUnit + backgroundItem.margins.top + backgroundItem.margins.bottom
-        implicitWidth: PlasmaCore.Units.gridUnit + backgroundItem.margins.left + backgroundItem.margins.right
+        implicitHeight: Kirigami.Units.gridUnit + backgroundItem.margins.top + backgroundItem.margins.bottom
+        implicitWidth: Kirigami.Units.gridUnit + backgroundItem.margins.left + backgroundItem.margins.right
 
         KSvg.FrameSvgItem {
             anchors.fill: parent

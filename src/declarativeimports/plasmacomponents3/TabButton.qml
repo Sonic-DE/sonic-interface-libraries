@@ -32,10 +32,10 @@ T.TabButton {
     leftPadding: background.margins.left
     rightPadding: background.margins.right
     bottomPadding: background.margins.bottom
-    spacing: PlasmaCore.Units.smallSpacing
+    spacing: Kirigami.Units.smallSpacing
 
-    icon.width: PlasmaCore.Units.iconSizes.smallMedium
-    icon.height: PlasmaCore.Units.iconSizes.smallMedium
+    icon.width: Kirigami.Units.iconSizes.smallMedium
+    icon.height: Kirigami.Units.iconSizes.smallMedium
 
     Kirigami.MnemonicData.enabled: control.enabled && control.visible
     Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.SecondaryControl
@@ -72,7 +72,7 @@ T.TabButton {
         Rectangle { // As long as we don't enable antialiasing, not rounding should be fine
             parent: control.contentItem.label
             width: Math.min(parent.width, parent.contentWidth)
-            height: PlasmaCore.Units.devicePixelRatio
+            height: Kirigami.Units.devicePixelRatio
             anchors.left: parent.left
             anchors.top: parent.bottom
             color: Kirigami.Theme.highlightColor

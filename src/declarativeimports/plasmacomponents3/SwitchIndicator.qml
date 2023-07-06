@@ -53,7 +53,7 @@ Item {
         opacity: root.control.checked ? 1 : 0
         Behavior on opacity {
             OpacityAnimator {
-                duration: PlasmaCore.Units.shortDuration
+                duration: Kirigami.Units.shortDuration
                 easing.type: Easing.InOutQuad
             }
         }
@@ -69,7 +69,7 @@ Item {
 
         Behavior on x {
             XAnimator {
-                duration: PlasmaCore.Units.shortDuration
+                duration: Kirigami.Units.shortDuration
                 easing.type: Easing.InOutQuad
             }
         }
@@ -92,7 +92,7 @@ Item {
             opacity: control.visualFocus
             Behavior on opacity {
                 NumberAnimation {
-                    duration: PlasmaCore.Units.longDuration
+                    duration: Kirigami.Units.longDuration
                     easing.type: Easing.OutCubic
                 }
             }

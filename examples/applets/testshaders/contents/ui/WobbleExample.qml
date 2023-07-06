@@ -8,6 +8,7 @@ import QtQuick 2.0
 import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
+import org.kde.kirigami 2.20 as Kirigami
 
 ShaderExample {
 
@@ -62,7 +63,6 @@ ShaderExample {
     }
     PlasmaComponents.Button {
         anchors { right: parent.right; bottom: parent.bottom; }
-//         height: PlasmaCore.Units.iconSizes.toolbar
         text: "Busy"
         checked: Plasmoid.busy
         onClicked: {

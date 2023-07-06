@@ -5,6 +5,7 @@ import QtQml.Models 2.15
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.plasma.components 3.0 as PlasmaComponents
 import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.kirigami 2.20 as Kirigami
 
 Rectangle {
     height: 800
@@ -19,8 +20,8 @@ Rectangle {
             clip: true
             model: myModel
             highlight: PlasmaExtras.Highlight {}
-            highlightMoveDuration: PlasmaCore.Units.longDuration
-            highlightResizeDuration: PlasmaCore.Units.longDuration
+            highlightMoveDuration: Kirigami.Units.longDuration
+            highlightResizeDuration: Kirigami.Units.longDuration
             delegate: PlasmaExtras.ExpandableListItem {
                 title: model.title
                 subtitle: model.subtitle

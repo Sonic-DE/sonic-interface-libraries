@@ -18,7 +18,7 @@ T.SpinBox {
 
     implicitWidth: Math.max(
         implicitBackgroundWidth + leftInset + rightInset,
-        Math.max(implicitContentWidth, PlasmaCore.Units.gridUnit)
+        Math.max(implicitContentWidth, Kirigami.Units.gridUnit)
             + spacing * 2 + leftPadding + rightPadding,
         up.implicitIndicatorWidth + down.implicitIndicatorWidth
     )
@@ -51,8 +51,8 @@ T.SpinBox {
 
     up.indicator: P.FlatButtonBackground {
         x: control.mirrored ? 0 : parent.width - width
-        implicitHeight: PlasmaCore.Units.gridUnit + bgLoader.topMargin + bgLoader.bottomMargin
-        implicitWidth: PlasmaCore.Units.gridUnit + bgLoader.leftMargin + bgLoader.rightMargin
+        implicitHeight: Kirigami.Units.gridUnit + bgLoader.topMargin + bgLoader.bottomMargin
+        implicitWidth: Kirigami.Units.gridUnit + bgLoader.leftMargin + bgLoader.rightMargin
         height: parent.height
         hovered: control.up.hovered
         pressed: control.up.pressed
@@ -60,8 +60,8 @@ T.SpinBox {
         checked: false
         PlasmaCore.IconItem {
             anchors.centerIn: parent
-            implicitWidth: PlasmaCore.Units.iconSizes.sizeForLabels
-            implicitHeight: PlasmaCore.Units.iconSizes.sizeForLabels
+            implicitWidth: Kirigami.Units.iconSizes.sizeForLabels
+            implicitHeight: Kirigami.Units.iconSizes.sizeForLabels
             //FIXME
             colorGroup: PlasmaCore.ColorScope.colorGroup
             source: "list-add"
@@ -84,8 +84,8 @@ T.SpinBox {
 
     down.indicator: P.FlatButtonBackground {
         x: control.mirrored ? parent.width - width : 0
-        implicitHeight: PlasmaCore.Units.gridUnit + bgLoader.topMargin + bgLoader.bottomMargin
-        implicitWidth: PlasmaCore.Units.gridUnit + bgLoader.leftMargin + bgLoader.rightMargin
+        implicitHeight: Kirigami.Units.gridUnit + bgLoader.topMargin + bgLoader.bottomMargin
+        implicitWidth: Kirigami.Units.gridUnit + bgLoader.leftMargin + bgLoader.rightMargin
         height: parent.height
         hovered: control.down.hovered
         pressed: control.down.pressed
@@ -93,8 +93,8 @@ T.SpinBox {
         checked: false
         PlasmaCore.IconItem {
             anchors.centerIn: parent
-            implicitWidth: PlasmaCore.Units.iconSizes.sizeForLabels
-            implicitHeight: PlasmaCore.Units.iconSizes.sizeForLabels
+            implicitWidth: Kirigami.Units.iconSizes.sizeForLabels
+            implicitHeight: Kirigami.Units.iconSizes.sizeForLabels
             // FIXME
             colorGroup: PlasmaCore.ColorScope.colorGroup
             source: "list-remove"
@@ -181,7 +181,7 @@ T.SpinBox {
                     Behavior on opacity {
                         enabled: control.hovered
                         NumberAnimation {
-                            duration: PlasmaCore.Units.longDuration
+                            duration: Kirigami.Units.longDuration
                             easing.type: Easing.OutCubic
                         }
                     }
@@ -206,7 +206,7 @@ T.SpinBox {
                     opacity: visualFocus || control.activeFocus || control.contentItem.activeFocus
                     Behavior on opacity {
                         NumberAnimation {
-                            duration: PlasmaCore.Units.longDuration
+                            duration: Kirigami.Units.longDuration
                             easing.type: Easing.OutCubic
                         }
                     }

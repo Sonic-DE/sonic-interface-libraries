@@ -23,7 +23,7 @@ T.ToolBar {
     rightPadding: background.margins.right
     bottomPadding: background.margins.bottom
 
-    spacing: PlasmaCore.Units.smallSpacing
+    spacing: Kirigami.Units.smallSpacing
 
     background: KSvg.FrameSvgItem {
         implicitHeight: 40 // TODO: Find a good way to sync this with the size of (Button or ToolButton) + padding
