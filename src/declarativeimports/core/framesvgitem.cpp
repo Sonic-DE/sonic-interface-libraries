@@ -738,6 +738,8 @@ void FrameSvgItem::itemChange(QQuickItem::ItemChange change, const QQuickItem::I
 {
     if (change == ItemSceneChange && value.window) {
         updateDevicePixelRatio();
+    } else if (change == ItemDevicePixelRatioHasChanged) {
+        updateDevicePixelRatio();
     }
 
     QQuickItem::itemChange(change, value);
