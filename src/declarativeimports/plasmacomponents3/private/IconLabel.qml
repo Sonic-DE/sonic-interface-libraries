@@ -8,7 +8,6 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Templates @QQC2_VERSION@ as T
-import org.kde.plasma.core 2.1 as PlasmaCore
 import org.kde.kirigami 2.20 as Kirigami
 
 Item {
@@ -85,11 +84,10 @@ Item {
         width: Math.min(root.availableWidth, implicitWidth)
         height: Math.min(root.availableHeight, implicitHeight)
 
-        PlasmaCore.IconItem {
+        Kirigami.Icon {
             id: iconItem
             visible: valid && width > 0 && height > 0 && root.display !== T.AbstractButton.TextOnly
             //FIXME
-            colorGroup: root.PlasmaCore.ColorScope.colorGroup
             implicitWidth: Kirigami.Units.iconSizes.sizeForLabels
             implicitHeight: Kirigami.Units.iconSizes.sizeForLabels
             Layout.alignment: Qt.AlignCenter

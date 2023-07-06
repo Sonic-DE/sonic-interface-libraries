@@ -7,7 +7,6 @@
 import QtQuick 2.12
 import QtQuick.Controls @QQC2_VERSION@ 
 import QtQuick.Templates @QQC2_VERSION@ as T
-import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.ksvg 1.0 as KSvg
 import org.kde.plasma.components 3.0 as PlasmaComponents3
 import org.kde.kirigami 2.20 as Kirigami
@@ -58,12 +57,10 @@ T.SpinBox {
         pressed: control.up.pressed
         focused: false
         checked: false
-        PlasmaCore.IconItem {
+        Kirigami.Icon {
             anchors.centerIn: parent
             implicitWidth: Kirigami.Units.iconSizes.sizeForLabels
             implicitHeight: Kirigami.Units.iconSizes.sizeForLabels
-            //FIXME
-            colorGroup: PlasmaCore.ColorScope.colorGroup
             source: "list-add"
         }
         KSvg.SvgItem {
@@ -91,12 +88,10 @@ T.SpinBox {
         pressed: control.down.pressed
         focused: false
         checked: false
-        PlasmaCore.IconItem {
+        Kirigami.Icon {
             anchors.centerIn: parent
             implicitWidth: Kirigami.Units.iconSizes.sizeForLabels
             implicitHeight: Kirigami.Units.iconSizes.sizeForLabels
-            // FIXME
-            colorGroup: PlasmaCore.ColorScope.colorGroup
             source: "list-remove"
         }
         KSvg.SvgItem {
