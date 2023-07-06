@@ -8,7 +8,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
 import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.plasma5support 2.0 as P5Support
 import org.kde.plasma.components 2.0 as PlasmaComponents
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.kquickcontrolsaddons 2.0 as KQuickControlsAddons
@@ -25,7 +25,7 @@ Item {
     property int _s: Kirigami.Units.iconSizes.small
     property int _h: Kirigami.Units.iconSizes.desktop
 
-    PlasmaCore.DataSource {
+    P5Support.DataSource {
         id: dataSource
     }
 
