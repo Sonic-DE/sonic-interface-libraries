@@ -69,7 +69,7 @@ T.Slider {
             opacity: control.visualFocus
             Behavior on opacity {
                 NumberAnimation {
-                    duration: PlasmaCore.Units.longDuration
+                    duration: Kirigami.Units.longDuration
                     easing.type: Easing.OutCubic
                 }
             }
@@ -85,7 +85,7 @@ T.Slider {
             Behavior on opacity {
                 enabled: control.hovered
                 NumberAnimation {
-                    duration: PlasmaCore.Units.longDuration
+                    duration: Kirigami.Units.longDuration
                     easing.type: Easing.OutCubic
                 }
             }
@@ -95,8 +95,8 @@ T.Slider {
     background: KSvg.FrameSvgItem {
         imagePath: "widgets/slider"
         prefix: "groove"
-        implicitWidth: control.horizontal ? PlasmaCore.Units.gridUnit * 12 : fixedMargins.left + fixedMargins.right
-        implicitHeight: control.vertical ? PlasmaCore.Units.gridUnit * 12 : fixedMargins.top + fixedMargins.bottom
+        implicitWidth: control.horizontal ? Kirigami.Units.gridUnit * 12 : fixedMargins.left + fixedMargins.right
+        implicitHeight: control.vertical ? Kirigami.Units.gridUnit * 12 : fixedMargins.top + fixedMargins.bottom
 
         width: control.horizontal ? Math.max(fixedMargins.left + fixedMargins.right, control.availableWidth) : implicitWidth
         height: control.vertical ? Math.max(fixedMargins.top + fixedMargins.bottom, control.availableHeight) : implicitHeight
@@ -124,8 +124,8 @@ T.Slider {
             anchors {
                 left: control.horizontal ? parent.left : parent.right
                 top: control.vertical ? parent.top : parent.bottom
-                leftMargin: control.horizontal ? Math.round(control.handle.width / 2) : PlasmaCore.Units.devicePixelRatio
-                topMargin: control.vertical ? Math.round(control.handle.height / 2) : PlasmaCore.Units.devicePixelRatio
+                leftMargin: control.horizontal ? Math.round(control.handle.width / 2) : Kirigami.Units.devicePixelRatio
+                topMargin: control.vertical ? Math.round(control.handle.height / 2) : Kirigami.Units.devicePixelRatio
             }
             width: control.horizontal ? parent.width - control.handle.width : control.background.x
             height: control.vertical ? parent.height - control.handle.height : control.background.y
@@ -133,14 +133,14 @@ T.Slider {
                 anchors.fill: parent
                 rows: control.vertical ? tickLoader.stepCount + 1 : 1
                 columns: control.horizontal ? tickLoader.stepCount + 1 : 1
-                spacing: (control.vertical ? height : width) / tickLoader.stepCount - PlasmaCore.Units.devicePixelRatio
+                spacing: (control.vertical ? height : width) / tickLoader.stepCount - Kirigami.Units.devicePixelRatio
                 LayoutMirroring.enabled: control.mirrored
                 Repeater {
                     model: tickLoader.stepCount + 1
                     delegate: Rectangle {
                         property bool withinFill: (control.horizontal ? index : stepCount - index) <= control.position * tickLoader.stepCount
-                        width: control.vertical ? parent.width : PlasmaCore.Units.devicePixelRatio
-                        height: control.horizontal ? parent.height : PlasmaCore.Units.devicePixelRatio
+                        width: control.vertical ? parent.width : Kirigami.Units.devicePixelRatio
+                        height: control.horizontal ? parent.height : Kirigami.Units.devicePixelRatio
                         opacity: withinFill ? 1 : 0.3
                         color: withinFill ? Kirigami.Theme.highlightColor : Kirigami.Theme.textColor
                     }

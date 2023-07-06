@@ -47,7 +47,7 @@ T.ScrollBar {
         visible: scrollbarSvg.hasElement("private-hint-show-separator")
             && controlRoot.interactive
             && (controlRoot.mirrored ? controlRoot.rightInset > 0 : controlRoot.leftInset > 0)
-        implicitWidth: PlasmaCore.Units.devicePixelRatio
+        implicitWidth: Kirigami.Units.devicePixelRatio
         implicitHeight: implicitWidth
         color: Kirigami.Theme.textColor
         opacity: 0.1
@@ -63,7 +63,7 @@ T.ScrollBar {
         visible: opacity > 0
         Behavior on opacity {
             NumberAnimation {
-                duration: PlasmaCore.Units.longDuration
+                duration: Kirigami.Units.longDuration
                 easing.type: Easing.OutCubic
             }
         }

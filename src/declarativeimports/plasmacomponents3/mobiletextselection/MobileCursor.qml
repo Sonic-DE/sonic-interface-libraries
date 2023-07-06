@@ -11,7 +11,7 @@ import org.kde.kirigami 2.5 as Kirigami
 Item {
     id: root
     width: 1 //<-important that this is actually a single device pixel
-    height: PlasmaCore.Units.gridUnit
+    height: Kirigami.Units.gridUnit
 
     property Item target
 
@@ -20,7 +20,7 @@ Item {
     visible: Kirigami.Settings.tabletMode && ((target.activeFocus && !selectionStartHandle) || target.selectedText.length > 0)
 
     Rectangle {
-        width: Math.round(PlasmaCore.Units.devicePixelRatio * 3)
+        width: Math.round(Kirigami.Units.devicePixelRatio * 3)
         anchors {
             horizontalCenter: parent.horizontalCenter
             top: parent.top
@@ -29,7 +29,7 @@ Item {
         color: Qt.tint(PlasmaCore.Theme.highlightColor, Qt.rgba(1,1,1,0.4))
         radius: width
         Rectangle {
-            width: Math.round(PlasmaCore.Units.gridUnit/1.5)
+            width: Math.round(Kirigami.Units.gridUnit/1.5)
             height: width
             visible: MobileTextActionsToolBar.shouldBeVisible
             anchors {
@@ -42,7 +42,7 @@ Item {
         MouseArea {
             anchors {
                 fill: parent
-                margins: -PlasmaCore.Units.gridUnit
+                margins: -Kirigami.Units.gridUnit
             }
             preventStealing: true
             onPositionChanged: {

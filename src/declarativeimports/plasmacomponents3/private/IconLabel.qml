@@ -90,8 +90,8 @@ Item {
             visible: valid && width > 0 && height > 0 && root.display !== T.AbstractButton.TextOnly
             //FIXME
             colorGroup: root.PlasmaCore.ColorScope.colorGroup
-            implicitWidth: PlasmaCore.Units.iconSizes.sizeForLabels
-            implicitHeight: PlasmaCore.Units.iconSizes.sizeForLabels
+            implicitWidth: Kirigami.Units.iconSizes.sizeForLabels
+            implicitHeight: Kirigami.Units.iconSizes.sizeForLabels
             Layout.alignment: Qt.AlignCenter
             Layout.maximumWidth: implicitWidth > 0 ? implicitWidth : Number.POSITIVE_INFINITY
             Layout.maximumHeight: implicitHeight > 0 ? implicitHeight : Number.POSITIVE_INFINITY

@@ -17,9 +17,9 @@ T.RoundButton {
 
     Accessible.role: Accessible.Button
 
-    implicitWidth: Math.max(PlasmaCore.Units.gridUnit, contentItem.implicitWidth)
+    implicitWidth: Math.max(Kirigami.Units.gridUnit, contentItem.implicitWidth)
                             + leftPadding + rightPadding
-    implicitHeight: Math.max(PlasmaCore.Units.gridUnit, contentItem.implicitHeight)
+    implicitHeight: Math.max(Kirigami.Units.gridUnit, contentItem.implicitHeight)
                             + topPadding + bottomPadding
 
     leftPadding: text.length > 0 ? surfaceNormal.margins.left : contentItem.extraSpace
@@ -34,10 +34,10 @@ T.RoundButton {
 
     contentItem: RowLayout {
         // This is the spacing which will make the icon a square inscribed in the circle with an extra smallspacing of margins
-        readonly property int extraSpace: implicitWidth/2 - implicitWidth/2*Math.sqrt(2)/2 + PlasmaCore.Units.smallSpacing
+        readonly property int extraSpace: implicitWidth/2 - implicitWidth/2*Math.sqrt(2)/2 + Kirigami.Units.smallSpacing
         PlasmaCore.IconItem {
-            Layout.preferredWidth: PlasmaCore.Units.iconSizes.smallMedium
-            Layout.preferredHeight: PlasmaCore.Units.iconSizes.smallMedium
+            Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
+            Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
             Layout.fillWidth: true
             Layout.fillHeight: true
             visible: source.length > 0
@@ -91,7 +91,7 @@ T.RoundButton {
             //internal: if there is no hover status, don't paint on mouse over in touchscreens
             opacity: (control.pressed || control.checked || !control.flat || (roundShadow.hasOverState && control.hovered)) ? 1 : 0
             Behavior on opacity {
-                PropertyAnimation { duration: PlasmaCore.Units.longDuration }
+                PropertyAnimation { duration: Kirigami.Units.longDuration }
             }
         }
 
@@ -113,7 +113,7 @@ T.RoundButton {
             opacity: background.useNormalButton && (!control.flat || control.hovered) && (!control.pressed || !control.checked) ? 1 : 0
             Behavior on opacity {
                 OpacityAnimator {
-                    duration: PlasmaCore.Units.longDuration
+                    duration: Kirigami.Units.longDuration
                     easing.type: Easing.InOutQuad
                 }
             }
@@ -137,7 +137,7 @@ T.RoundButton {
             opacity: control.checked || control.pressed ? 1 : 0
             Behavior on opacity {
                 OpacityAnimator {
-                    duration: PlasmaCore.Units.longDuration
+                    duration: Kirigami.Units.longDuration
                     easing.type: Easing.InOutQuad
                 }
             }

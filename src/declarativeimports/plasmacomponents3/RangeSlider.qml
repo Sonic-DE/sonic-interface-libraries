@@ -14,8 +14,8 @@ import "private" as Private
 T.RangeSlider {
     id: control
 
-    implicitWidth: control.orientation === Qt.Horizontal ? PlasmaCore.Units.gridUnit * 12 : PlasmaCore.Units.gridUnit * 1.6
-    implicitHeight: control.orientation === Qt.Horizontal ? PlasmaCore.Units.gridUnit * 1.6 : PlasmaCore.Units.gridUnit * 12
+    implicitWidth: control.orientation === Qt.Horizontal ? Kirigami.Units.gridUnit * 12 : Kirigami.Units.gridUnit * 1.6
+    implicitHeight: control.orientation === Qt.Horizontal ? Kirigami.Units.gridUnit * 1.6 : Kirigami.Units.gridUnit * 12
 
     KSvg.Svg {
         id: grooveSvg
@@ -79,8 +79,8 @@ T.RangeSlider {
         imagePath: "widgets/slider"
         prefix: "groove"
         readonly property bool horizontal: control.orientation === Qt.Horizontal
-        implicitWidth: horizontal ? PlasmaCore.Units.gridUnit * 8 : margins.left + margins.right
-        implicitHeight: horizontal ? margins.top + margins.bottom : PlasmaCore.Units.gridUnit * 8
+        implicitWidth: horizontal ? Kirigami.Units.gridUnit * 8 : margins.left + margins.right
+        implicitHeight: horizontal ? margins.top + margins.bottom : Kirigami.Units.gridUnit * 8
         width: horizontal ? control.availableWidth : implicitWidth
         height: horizontal ? implicitHeight : control.availableHeight
         anchors.centerIn: parent

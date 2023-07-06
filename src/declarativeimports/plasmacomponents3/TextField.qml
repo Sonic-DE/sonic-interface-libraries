@@ -168,13 +168,13 @@ T.TextField {
         PlasmaCore.IconItem {
             id: showPasswordButton
             source: __effectiveRevealPasswordButtonShown ? (control.echoMode === TextInput.Normal ? "visibility": "hint") : ""
-            height: PlasmaCore.Units.iconSizes.small
+            height: Kirigami.Units.iconSizes.small
             width: height
             opacity: (__effectiveRevealPasswordButtonShown && control.enabled) ? 1 : 0
             visible: opacity > 0
             Behavior on opacity {
                 NumberAnimation {
-                    duration: PlasmaCore.Units.longDuration
+                    duration: Kirigami.Units.longDuration
                     easing.type: Easing.InOutQuad
                 }
             }
@@ -192,13 +192,13 @@ T.TextField {
             id: clearButton
             //ltr confusingly refers to the direction of the arrow in the icon, not the text direction which it should be used in
             source: clearButtonShown ? (control.effectiveHorizontalAlignment === TextInput.AlignRight ? "edit-clear-locationbar-ltr" : "edit-clear-locationbar-rtl") : ""
-            height: PlasmaCore.Units.iconSizes.small
+            height: Kirigami.Units.iconSizes.small
             width: height
             opacity: (control.length > 0 && clearButtonShown && control.enabled) ? 1 : 0
             visible: opacity > 0
             Behavior on opacity {
                 NumberAnimation {
-                    duration: PlasmaCore.Units.longDuration
+                    duration: Kirigami.Units.longDuration
                     easing.type: Easing.InOutQuad
                 }
             }
@@ -213,8 +213,8 @@ T.TextField {
     }
 
     background: KSvg.FrameSvgItem {
-        implicitWidth: PlasmaCore.Units.gridUnit * 8 + margins.left + margins.right
-        implicitHeight: PlasmaCore.Units.gridUnit + margins.top + margins.bottom
+        implicitWidth: Kirigami.Units.gridUnit * 8 + margins.left + margins.right
+        implicitHeight: Kirigami.Units.gridUnit + margins.top + margins.bottom
         imagePath: "widgets/lineedit"
         prefix: "base"
 
@@ -233,7 +233,7 @@ T.TextField {
             Behavior on opacity {
                 enabled: control.hovered
                 NumberAnimation {
-                    duration: PlasmaCore.Units.longDuration
+                    duration: Kirigami.Units.longDuration
                     easing.type: Easing.OutCubic
                 }
             }
@@ -253,7 +253,7 @@ T.TextField {
             opacity: control.visualFocus || control.activeFocus
             Behavior on opacity {
                 NumberAnimation {
-                    duration: PlasmaCore.Units.longDuration
+                    duration: Kirigami.Units.longDuration
                     easing.type: Easing.OutCubic
                 }
             }
