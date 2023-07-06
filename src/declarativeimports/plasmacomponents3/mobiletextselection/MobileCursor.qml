@@ -5,8 +5,7 @@
 */
 
 import QtQuick 2.1
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.kirigami 2.5 as Kirigami
+import org.kde.kirigami 2.20 as Kirigami
 
 Item {
     id: root
@@ -26,7 +25,7 @@ Item {
             top: parent.top
             bottom: parent.bottom
         }
-        color: Qt.tint(PlasmaCore.Theme.highlightColor, Qt.rgba(1,1,1,0.4))
+        color: Qt.tint(Kirigami.Theme.highlightColor, Qt.rgba(1,1,1,0.4))
         radius: width
         Rectangle {
             width: Math.round(Kirigami.Units.gridUnit/1.5)
@@ -37,7 +36,7 @@ Item {
                 verticalCenter: parent.bottom
             }
             radius: width
-            color: Qt.tint(PlasmaCore.Theme.highlightColor, Qt.rgba(1,1,1,0.4))
+            color: Qt.tint(Kirigami.Theme.highlightColor, Qt.rgba(1,1,1,0.4))
         }
         MouseArea {
             anchors {

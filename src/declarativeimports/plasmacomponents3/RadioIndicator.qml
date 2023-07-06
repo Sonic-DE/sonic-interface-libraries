@@ -7,7 +7,6 @@
 
 import QtQuick 2.15
 import QtQuick.Templates @QQC2_VERSION@ as T
-import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.ksvg 1.0 as KSvg
 import org.kde.kirigami 2.20 as Kirigami
 import "private" as P
@@ -37,8 +36,8 @@ Item {
             // Hardcode breeze-light and breeze-dark because fromCurrentTheme is
             // false for them. This is because they don't contain any SVGs and
             // inherit all of them from the default theme.
-            || PlasmaCore.Theme.themeName === "breeze-light"
-            || PlasmaCore.Theme.themeName === "breeze-dark"
+            || KSvg.ImageSet.imageSetName === "breeze-light"
+            || KSvg.ImageSet.imageSetName === "breeze-dark"
             ? radiobuttonComponent : compatibilityComponent
     }
 

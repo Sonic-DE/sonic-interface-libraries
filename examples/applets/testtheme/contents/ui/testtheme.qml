@@ -7,7 +7,6 @@
 import QtQuick 2.1
 import QtQuick.Layouts 1.1
 
-import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
 import org.kde.kirigami 2.20 as Kirigami
 
@@ -67,7 +66,7 @@ Item {
             bottom: parent.bottom
             left: parent.left
         }
-        width: PlasmaCore.Theme.mSize(PlasmaCore.Theme.defaultFont).width * 5
+        width: Kirigami.Units.gridUnit * 5
         text: "dpi: " + dprSlider.value
     }
 

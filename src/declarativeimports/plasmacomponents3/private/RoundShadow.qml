@@ -22,7 +22,6 @@ Properties:
 **/
 
 import QtQuick 2.1
-import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.ksvg 1.0 as KSvg
 import org.kde.kirigami 2.20 as Kirigami
 
