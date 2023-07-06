@@ -10,16 +10,17 @@ import QtQuick.Controls 1.0 as QtControls
 
 // for "units"
 import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.kirigami 2.20 as Kirigami
 
 Column {
     id: root
     property alias cfg_Speed: slider.value
 
     Row {
-        spacing: PlasmaCore.Units.largeSpacing / 2
+        spacing: Kirigami.Units.largeSpacing / 2
 
         QtControls.Label {
-            width: formAlignment - PlasmaCore.Units.largeSpacing
+            width: formAlignment - Kirigami.Units.largeSpacing
             horizontalAlignment: Text.AlignRight
             text: "Speed:"
         }

@@ -74,7 +74,7 @@ T.Menu {
             from: 0
             to: 1
             easing.type: Easing.InOutQuad
-            duration: PlasmaCore.Units.shortDuration
+            duration: Kirigami.Units.shortDuration
         }
     }
 
@@ -84,13 +84,13 @@ T.Menu {
             from: 1
             to: 0
             easing.type: Easing.InOutQuad
-            duration: PlasmaCore.Units.shortDuration
+            duration: Kirigami.Units.shortDuration
         }
     }
 
     background: KSvg.FrameSvgItem {
         imagePath: "widgets/background"
-        implicitWidth: PlasmaCore.Units.gridUnit * 8
-        implicitHeight: PlasmaCore.Units.gridUnit * 2
+        implicitWidth: Kirigami.Units.gridUnit * 8
+        implicitHeight: Kirigami.Units.gridUnit * 2
     }
 }

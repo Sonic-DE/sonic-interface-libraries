@@ -26,7 +26,7 @@ T.MenuItem {
     topPadding: highlight.margins.top
     rightPadding: highlight.margins.right
     bottomPadding: highlight.margins.bottom
-    spacing: PlasmaCore.Units.smallSpacing
+    spacing: Kirigami.Units.smallSpacing
     hoverEnabled: true
 
     Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
@@ -102,7 +102,7 @@ T.MenuItem {
     }
 
     background: Item {
-        implicitWidth: PlasmaCore.Units.gridUnit * 8
+        implicitWidth: Kirigami.Units.gridUnit * 8
 
         KSvg.FrameSvgItem {
             id: highlight
@@ -118,7 +118,7 @@ T.MenuItem {
             }
             Behavior on opacity {
                 NumberAnimation {
-                    duration: PlasmaCore.Units.shortDuration
+                    duration: Kirigami.Units.shortDuration
                 }
             }
         }

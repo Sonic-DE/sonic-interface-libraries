@@ -24,7 +24,7 @@ T.ToolButton {
     rightPadding: background.rightMargin
     bottomPadding: background.bottomMargin
 
-    spacing: PlasmaCore.Units.smallSpacing
+    spacing: Kirigami.Units.smallSpacing
 
     hoverEnabled: !Kirigami.Settings.tabletMode
 

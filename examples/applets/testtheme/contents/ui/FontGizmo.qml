@@ -8,11 +8,8 @@ import QtQuick 2.1
 import QtQuick.Window 2.2
 import QtQuick.Controls 1.0
 import QtQuick.Controls.Private 1.0 as QtQuickControlsPrivate
-
+import org.kde.kirigami 2.20 as Kirigami
 import org.kde.plasma.core 2.0 as PlasmaCore
-//import org.kde.plasma.components 2.0 as PlasmaComponents
-//import org.kde.plasma.extras 2.0 as PlasmaExtras
-//import org.kde.kquickcontrolsaddons 2.0 as KQuickControlsAddons
 
 Text {
 
@@ -27,7 +24,7 @@ Text {
     text: "Lesley 40:83 - (" + font.family + ")"
     height: paintedHeightCheck.checked ? paintedHeight : 22
     //anchors.fill: parent
-    //spacing: PlasmaCore.Units.smallSpacing/2
+    //spacing: Kirigami.Units.smallSpacing/2
     verticalAlignment: Text.AlignTop
 
     Rectangle {

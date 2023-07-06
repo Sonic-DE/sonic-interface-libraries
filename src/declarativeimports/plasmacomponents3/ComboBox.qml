@@ -33,7 +33,7 @@ T.ComboBox {
     leftPadding: surfaceNormal.margins.left + (!control.mirrored ? 0 : __indicatorMargin)
     rightPadding: surfaceNormal.margins.right + (control.mirrored ? 0 : __indicatorMargin)
     bottomPadding: surfaceNormal.margins.bottom
-    spacing: PlasmaCore.Units.smallSpacing
+    spacing: Kirigami.Units.smallSpacing
 
     delegate: ItemDelegate {
         width: control.popup.width
@@ -43,7 +43,7 @@ T.ComboBox {
     }
 
     indicator: KSvg.SvgItem {
-        implicitWidth: PlasmaCore.Units.iconSizes.small
+        implicitWidth: Kirigami.Units.iconSizes.small
         implicitHeight: implicitWidth
         anchors {
             right: parent.right

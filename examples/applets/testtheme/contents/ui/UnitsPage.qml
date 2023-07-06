@@ -10,6 +10,7 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.kquickcontrolsaddons 2.0 as KQuickControlsAddons
+import org.kde.kirigami 2.20 as Kirigami
 
 // IconTab
 
@@ -21,12 +22,12 @@ Item {
 
     id: themePage
     anchors {
-        margins: PlasmaCore.Units.largeSpacing
+        margins: Kirigami.Units.largeSpacing
     }
 
     Column {
         //anchors.fill: parent
-        //spacing: PlasmaCore.Units.smallSpacing/2
+        //spacing: Kirigami.Units.smallSpacing/2
 
         PlasmaExtras.Heading {
             width: parent.width
@@ -41,7 +42,7 @@ Item {
                 width: cwidth/2
                 onClicked: {
                     print("DPI Button onClicked");
-                    var d = PlasmaCore.Units.devicePixelRatio * 96;
+                    var d = Kirigami.Units.devicePixelRatio * 96;
                     dpilabel.text = "\t" + d;
                 }
             }
@@ -51,48 +52,48 @@ Item {
         }
         Row {
             PlasmaComponents.Label {
-                text: "PlasmaCore.Units.devicePixelRatio: "
+                text: "Kirigami.Units.devicePixelRatio: "
                 width: cwidth
             }
             PlasmaComponents.Label {
                 width: cheight
                 height: cheight / 2
-                text: PlasmaCore.Units.devicePixelRatio
+                text: Kirigami.Units.devicePixelRatio
             }
         }
 
         Row {
             PlasmaComponents.Label {
-                text: "PlasmaCore.Units.gridUnit: "
+                text: "Kirigami.Units.gridUnit: "
                 width: cwidth
             }
             PlasmaComponents.Label {
                 width: cheight
                 height: cheight / 2
-                text: PlasmaCore.Units.gridUnit
+                text: Kirigami.Units.gridUnit
             }
         }
 
         Row {
             PlasmaComponents.Label {
-                text: "PlasmaCore.Units.largeSpacing: "
+                text: "Kirigami.Units.largeSpacing: "
                 width: cwidth
             }
             PlasmaComponents.Label {
                 width: cheight
                 height: cheight / 2
-                text: PlasmaCore.Units.largeSpacing
+                text: Kirigami.Units.largeSpacing
             }
         }
         Row {
             PlasmaComponents.Label {
-                text: "PlasmaCore.Units.smallSpacing: "
+                text: "Kirigami.Units.smallSpacing: "
                 width: cwidth
             }
             PlasmaComponents.Label {
                 width: cheight
                 height: cheight / 2
-                text: PlasmaCore.Units.smallSpacing
+                text: Kirigami.Units.smallSpacing
             }
         }
 
