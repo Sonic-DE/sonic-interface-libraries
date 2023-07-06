@@ -9,7 +9,6 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 1.0
 import QtQuick.Controls.Private 1.0 as QtQuickControlsPrivate
 import org.kde.kirigami 2.20 as Kirigami
-import org.kde.plasma.core 2.0 as PlasmaCore
 
 Text {
 
@@ -18,7 +17,7 @@ Text {
     renderType: QtQuickControlsPrivate.Settings.isMobile || Screen.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
     font.pointSize: 22
 
-    //font.family: PlasmaCore.Theme.defaultFont.family
+    //font.family: Kirigami.Theme.defaultFont.family
     font.family: fontCheck.text
     font.weight: lightCheck.checked ? Font.Light : Font.Normal
     text: "Lesley 40:83 - (" + font.family + ")"
