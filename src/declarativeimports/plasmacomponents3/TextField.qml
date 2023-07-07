@@ -7,7 +7,6 @@
 import QtQuick 2.6
 import QtQuick.Controls @QQC2_VERSION@
 import QtQuick.Templates @QQC2_VERSION@ as T
-import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.ksvg 1.0 as KSvg
 import org.kde.config
 import "private" as Private
@@ -165,7 +164,7 @@ T.TextField {
         anchors.verticalCenter: control.verticalCenter
         LayoutMirroring.enabled: control.effectiveHorizontalAlignment === TextInput.AlignRight
 
-        PlasmaCore.IconItem {
+        Kirigami.Icon {
             id: showPasswordButton
             source: __effectiveRevealPasswordButtonShown ? (control.echoMode === TextInput.Normal ? "visibility": "hint") : ""
             height: Kirigami.Units.iconSizes.small
@@ -188,7 +187,7 @@ T.TextField {
             }
         }
 
-        PlasmaCore.IconItem {
+        Kirigami.Icon {
             id: clearButton
             //ltr confusingly refers to the direction of the arrow in the icon, not the text direction which it should be used in
             source: clearButtonShown ? (control.effectiveHorizontalAlignment === TextInput.AlignRight ? "edit-clear-locationbar-ltr" : "edit-clear-locationbar-rtl") : ""
