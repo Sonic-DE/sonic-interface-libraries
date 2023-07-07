@@ -7,7 +7,6 @@
 import QtQuick 2.6
 import QtQuick.Layouts 1.2
 import QtQuick.Templates @QQC2_VERSION@ as T
-import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.ksvg 1.0 as KSvg
 import org.kde.kirigami 2.5 as Kirigami
 import "private" as Private
@@ -35,7 +34,7 @@ T.RoundButton {
     contentItem: RowLayout {
         // This is the spacing which will make the icon a square inscribed in the circle with an extra smallspacing of margins
         readonly property int extraSpace: implicitWidth/2 - implicitWidth/2*Math.sqrt(2)/2 + Kirigami.Units.smallSpacing
-        PlasmaCore.IconItem {
+        Kirigami.Icon {
             Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
             Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
             Layout.fillWidth: true
