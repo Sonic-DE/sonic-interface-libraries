@@ -689,27 +689,6 @@ void Applet::setInternalAction(const QString &name, QAction *action)
     d->actions->addAction(name, action);
 }
 
-void Applet::updateInternalAction(const QString &name, const QString &text, const QString &icon, const QString &shortcut)
-{
-    QAction *action = d->actions->action(name);
-
-    if (!action) {
-        return;
-    }
-
-    action->setText(text);
-
-    if (!icon.isEmpty()) {
-        action->setIcon(QIcon::fromTheme(icon));
-    }
-
-    if (!shortcut.isEmpty()) {
-        action->setShortcut(shortcut);
-    }
-
-    action->setObjectName(name);
-}
-
 QAction *Applet::internalAction(const QString &name) const
 {
     return d->actions->action(name);

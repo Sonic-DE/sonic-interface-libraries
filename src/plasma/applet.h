@@ -523,29 +523,21 @@ public:
      * @return A list of actions. The default implementation returns an
      *         empty list.
      **/
-    virtual QList<QAction *> contextualActions(); // TODO: not virtual anymore
+    virtual QList<QAction *> contextualActions();
 
-    QML_LIST_PROPERTY_ASSIGN_BEHAVIOR_APPEND
+    QML_LIST_PROPERTY_ASSIGN_BEHAVIOR_REPLACE
     QQmlListProperty<QAction> qmlContextualActions();
 
     // This is the new api which will replace all of what's comprised in the TODO block
     /**
      * Add a new internal action. if an internal action with the same name already exists, it
-     * will be replaced with this new one
+     * will be replaced with this new one.
+     * Those are usually actions defined by the system, such as "configure" and "remove"
+     *
      * @param name The unique name for the action
      * @param action The new QAction to be added
      */
     Q_INVOKABLE void setInternalAction(const QString &name, QAction *action);
-
-    /**
-     * Update properties of an internal action, such as text, icon, and shortcut
-     *
-     * @param: action name: is the action with this name doesn't exists, this function won't do anything
-     * @text: user visible displayed text
-     * @icon: user visible optional displayed icon
-     * @shortcut: shortcut to trigger this action
-     */
-    Q_INVOKABLE void updateInternalAction(const QString &name, const QString &text, const QString &icon, const QString &shortcut = QString());
 
     /**
      * @returns the internal action with the given name if available
