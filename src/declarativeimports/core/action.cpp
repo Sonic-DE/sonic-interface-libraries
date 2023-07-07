@@ -33,6 +33,17 @@ QString IconGroup::name() const
     return m_name;
 }
 
+void IconGroup::setIcon(const QIcon &icon)
+{
+    m_action->setIcon(icon);
+    Q_EMIT iconChanged();
+}
+
+QIcon IconGroup::icon() const
+{
+    return m_action->icon();
+}
+
 ActionExtension::ActionExtension(QObject *parent)
     : QObject(parent)
     , m_action(qobject_cast<QAction *>(parent))

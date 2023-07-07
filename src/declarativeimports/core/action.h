@@ -27,6 +27,7 @@ class IconGroup : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(QIcon icon READ icon WRITE setIcon NOTIFY iconChanged)
 public:
     explicit IconGroup(ActionExtension *parent = nullptr);
     ~IconGroup();
@@ -34,8 +35,12 @@ public:
     void setName(const QString &name);
     QString name() const;
 
+    QIcon icon() const;
+    void setIcon(const QIcon &icon);
+
 Q_SIGNALS:
     void nameChanged();
+    void iconChanged();
 
 private:
     QAction *m_action;
