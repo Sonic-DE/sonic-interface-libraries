@@ -18,6 +18,11 @@ class KConfigPropertyMap;
 
 class ContainmentInterface;
 
+namespace Plasma
+{
+class Containment;
+}
+
 namespace PlasmaQuick
 {
 class SharedQmlEngine;
@@ -41,6 +46,8 @@ class WallpaperInterface : public QQuickItem
 public:
     explicit WallpaperInterface(ContainmentInterface *parent = nullptr);
     ~WallpaperInterface() override;
+
+    void classBegin() override;
 
     /**
      * Returns a list of all known wallpapers that can accept the given mimetype
@@ -87,11 +94,11 @@ private Q_SLOTS:
 
 private:
     QString m_wallpaperPlugin;
-    ContainmentInterface *m_containmentInterface;
-    PlasmaQuick::SharedQmlEngine *m_qmlObject;
+    Plasma::Containment *m_containment = nullptr;
+    PlasmaQuick::SharedQmlEngine *m_qmlObject = nullptr;
     KPackage::Package m_pkg;
-    KConfigPropertyMap *m_configuration;
-    KConfigLoader *m_configLoader;
+    KConfigPropertyMap *m_configuration = nullptr;
+    KConfigLoader *m_configLoader = nullptr;
     KActionCollection *m_actions;
     bool m_loading = false;
 

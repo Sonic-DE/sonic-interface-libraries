@@ -5,6 +5,7 @@
 */
 
 #include "wallpaperinterface.h"
+#include "appletcontext_p.h"
 
 #include "containmentinterface.h"
 #include "sharedqmlengine.h"
@@ -28,26 +29,12 @@ QHash<QObject *, WallpaperInterface *> WallpaperInterface::s_rootObjects = QHash
 
 WallpaperInterface::WallpaperInterface(ContainmentInterface *parent)
     : QQuickItem(parent)
-    , m_containmentInterface(parent)
-    , m_qmlObject(nullptr)
-    , m_configuration(nullptr)
-    , m_configLoader(nullptr)
+    , m_actions(new KActionCollection(this))
 {
-    m_actions = new KActionCollection(this);
-
     // resize at the beginning to avoid as much resize events as possible
     if (parent) {
         setSize(QSizeF(parent->width(), parent->height()));
     }
-
-    if (!m_containmentInterface->containment()->wallpaper().isEmpty()) {
-        syncWallpaperPackage();
-    }
-    connect(m_containmentInterface->containment(), &Plasma::Containment::wallpaperChanged, this, &WallpaperInterface::syncWallpaperPackage);
-    connect(m_containmentInterface->containment()->corona(),
-            &Plasma::Corona::startupCompleted,
-            this,
-            std::bind(&WallpaperInterface::repaintNeeded, this, Qt::transparent));
 }
 
 WallpaperInterface::~WallpaperInterface()
@@ -55,6 +42,21 @@ WallpaperInterface::~WallpaperInterface()
     if (m_qmlObject) {
         s_rootObjects.remove(m_qmlObject->engine().get());
     }
+}
+
+void WallpaperInterface::classBegin()
+{
+    QQuickItem::classBegin();
+    PlasmaQuick::AppletContext *ac = qobject_cast<PlasmaQuick::AppletContext *>(QQmlEngine::contextForObject(this)->parentContext());
+    Q_ASSERT(ac);
+    m_containment = ac->applet()->containment();
+    m_qmlObject = ac->sharedQmlEngine();
+
+    if (!m_containment->wallpaper().isEmpty()) {
+        syncWallpaperPackage();
+    }
+    connect(m_containment, &Plasma::Containment::wallpaperChanged, this, &WallpaperInterface::syncWallpaperPackage);
+    connect(m_containment->corona(), &Plasma::Corona::startupCompleted, this, std::bind(&WallpaperInterface::repaintNeeded, this, Qt::transparent));
 }
 
 QList<KPluginMetaData> WallpaperInterface::listWallpaperMetadataForMimetype(const QString &mimetype, const QString &formFactor)
@@ -89,7 +91,7 @@ KConfigLoader *WallpaperInterface::configScheme()
         // FIXME: do we need "mainconfigxml" in wallpaper packagestructures?
         const QString xmlPath = m_pkg.filePath("config", QStringLiteral("main.xml"));
 
-        KConfigGroup cfg = m_containmentInterface->containment()->config();
+        KConfigGroup cfg = m_containment->config();
         cfg = KConfigGroup(&cfg, "Wallpaper");
         cfg = KConfigGroup(&cfg, m_wallpaperPlugin);
 
@@ -107,11 +109,11 @@ KConfigLoader *WallpaperInterface::configScheme()
 
 void WallpaperInterface::syncWallpaperPackage()
 {
-    if (m_wallpaperPlugin == m_containmentInterface->containment()->wallpaper() && m_qmlObject->rootObject()) {
+    if (m_wallpaperPlugin == m_containment->wallpaper() && m_qmlObject->rootObject()) {
         return;
     }
 
-    m_wallpaperPlugin = m_containmentInterface->containment()->wallpaper();
+    m_wallpaperPlugin = m_containment->wallpaper();
 
     if (!m_qmlObject) {
         m_qmlObject = new PlasmaQuick::SharedQmlEngine(this);
