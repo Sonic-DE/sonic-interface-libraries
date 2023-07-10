@@ -21,7 +21,7 @@ Item {
 
     id: themePage
     anchors {
-        margins: Kirigami.Units.largeSpacing
+        margins: Kirigami.Units.gridUnit
     }
 
     FontTest {

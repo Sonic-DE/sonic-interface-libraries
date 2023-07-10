@@ -123,8 +123,8 @@ T.Slider {
             anchors {
                 left: control.horizontal ? parent.left : parent.right
                 top: control.vertical ? parent.top : parent.bottom
-                leftMargin: control.horizontal ? Math.round(control.handle.width / 2) : Kirigami.Units.devicePixelRatio
-                topMargin: control.vertical ? Math.round(control.handle.height / 2) : Kirigami.Units.devicePixelRatio
+                leftMargin: control.horizontal ? Math.round(control.handle.width / 2) : 1
+                topMargin: control.vertical ? Math.round(control.handle.height / 2) : 1
             }
             width: control.horizontal ? parent.width - control.handle.width : control.background.x
             height: control.vertical ? parent.height - control.handle.height : control.background.y
@@ -138,8 +138,8 @@ T.Slider {
                     model: tickLoader.stepCount + 1
                     delegate: Rectangle {
                         property bool withinFill: (control.horizontal ? index : stepCount - index) <= control.position * tickLoader.stepCount
-                        width: control.vertical ? parent.width : Kirigami.Units.devicePixelRatio
-                        height: control.horizontal ? parent.height : Kirigami.Units.devicePixelRatio
+                        width: control.vertical ? parent.width : 1
+                        height: control.horizontal ? parent.height : 1
                         opacity: withinFill ? 1 : 0.3
                         color: withinFill ? Kirigami.Theme.highlightColor : Kirigami.Theme.textColor
                     }

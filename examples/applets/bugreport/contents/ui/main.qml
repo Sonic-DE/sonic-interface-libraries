@@ -31,10 +31,10 @@ Item {
     Column {
         id: col
 
-        spacing: Kirigami.Units.largeSpacing /2
+        spacing: Kirigami.Units.largeSpacing
         anchors {
             fill: parent
-            margins: Kirigami.Units.largeSpacing
+            margins: Kirigami.Units.gridUnit
         }
 
         PlasmaExtras.Heading {

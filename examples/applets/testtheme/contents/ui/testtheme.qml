@@ -75,7 +75,7 @@ Item {
         visible: false
         anchors {
             bottom: parent.bottom
-            bottomMargin: Kirigami.Units.largeSpacing/2
+            bottomMargin: Kirigami.Units.largeSpacing
             left: sliderLabel.right
             right: parent.right
         }

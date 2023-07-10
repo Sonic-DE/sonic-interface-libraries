@@ -22,11 +22,11 @@ Column {
 
     id: themePage
     anchors {
-        margins: Kirigami.Units.largeSpacing
+        margins: Kirigami.Units.gridUnit
     }
 
     Row {
-        spacing: Kirigami.Units.gridUnit/2
+        spacing: Kirigami.Units.largeSpacing
         PlasmaComponents.CheckBox {
             id: boxesCheck
             text: "Show Boxes"
@@ -117,7 +117,7 @@ Column {
             font.pixelSize: height
             anchors {
                 left: img.right
-                leftMargin: Kirigami.Units.gridUnit / 2
+                leftMargin: Kirigami.Units.largeSpacing
                 top: img.top
             }
         }

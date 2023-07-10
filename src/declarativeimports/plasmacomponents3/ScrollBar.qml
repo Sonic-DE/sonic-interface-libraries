@@ -46,7 +46,7 @@ T.ScrollBar {
         visible: scrollbarSvg.hasElement("private-hint-show-separator")
             && controlRoot.interactive
             && (controlRoot.mirrored ? controlRoot.rightInset > 0 : controlRoot.leftInset > 0)
-        implicitWidth: Kirigami.Units.devicePixelRatio
+        implicitWidth: 1
         implicitHeight: implicitWidth
         color: Kirigami.Theme.textColor
         opacity: 0.1

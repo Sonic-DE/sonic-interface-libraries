@@ -12,7 +12,7 @@ ComponentBase {
     id: root
     title: "Plasma Components 3 ComboBox"
     contentItem: ColumnLayout {
-        spacing: Kirigami.Units.largeSpacing
+        spacing: Kirigami.Units.gridUnit
         ListModel {
             id: demoModel
             ListElement { text: "Banana"; color: "Yellow" }

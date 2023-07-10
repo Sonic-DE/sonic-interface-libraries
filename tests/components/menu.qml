@@ -14,7 +14,7 @@ ComponentBase {
     id: root
     title: "Plasma Extras Menu"
     contentItem: ColumnLayout {
-        spacing: Kirigami.Units.largeSpacing
+        spacing: Kirigami.Units.gridUnit
 
         PC3.Button {
             text: "Simple menu"

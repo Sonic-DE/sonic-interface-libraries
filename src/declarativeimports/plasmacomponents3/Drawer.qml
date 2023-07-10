@@ -20,10 +20,10 @@ T.Drawer {
     contentWidth: contentItem.implicitWidth || (contentChildren.length === 1 ? contentChildren[0].implicitWidth : 0)
     contentHeight: contentItem.implicitHeight || (contentChildren.length === 1 ? contentChildren[0].implicitHeight : 0)
 
-    topPadding: control.edge === Qt.BottomEdge ? Math.round(Kirigami.Units.devicePixelRatio) : 0
-    leftPadding: control.edge === Qt.RightEdge ? Math.round(Kirigami.Units.devicePixelRatio) : 0
-    rightPadding: control.edge === Qt.LeftEdge ? Math.round(Kirigami.Units.devicePixelRatio) : 0
-    bottomPadding: control.edge === Qt.TopEdge ? Math.round(Kirigami.Units.devicePixelRatio) : 0
+    topPadding: control.edge === Qt.BottomEdge ? 1 : 0
+    leftPadding: control.edge === Qt.RightEdge ? 1 : 0
+    rightPadding: control.edge === Qt.LeftEdge ? 1 : 0
+    bottomPadding: control.edge === Qt.TopEdge ? 1 : 0
 
     background: KSvg.FrameSvgItem {
         anchors {

@@ -13,7 +13,7 @@ ComponentBase {
     id: root
     title: "Plasma Components 3 RadioButton"
     contentItem: GridLayout {
-        columnSpacing: Kirigami.Units.largeSpacing
+        columnSpacing: Kirigami.Units.gridUnit
         rowSpacing: Kirigami.Units.smallSpacing
         columns: 2
 

@@ -55,7 +55,7 @@ T.Dial {
         x: (control.width/2) + Math.cos((-(control.angle-90)*Math.PI)/180) * (control.width/2-width/2) - width/2
         y: (control.height/2) + Math.sin(((control.angle-90)*Math.PI)/180) * (control.height/2-height/2) - height/2
 
-        implicitHeight: Math.floor(Kirigami.Units.gridUnit*1.6)
+        implicitHeight: Math.floor(Kirigami.Units.gridUnit * 1.6)
         implicitWidth: implicitHeight
 
         Private.RoundShadow {

@@ -15,7 +15,7 @@ ComponentBase {
     contentItem: ColumnLayout {
         GridLayout {
             rowSpacing: Kirigami.Units.smallSpacing
-            columnSpacing: Kirigami.Units.largeSpacing
+            columnSpacing: Kirigami.Units.gridUnit
             columns: 2
 
             PlasmaComponents.Label {
@@ -140,7 +140,7 @@ ComponentBase {
         }
         GridLayout {
             rowSpacing: Kirigami.Units.smallSpacing
-            columnSpacing: Kirigami.Units.largeSpacing
+            columnSpacing: Kirigami.Units.gridUnit
             columns: 2
 
             PlasmaComponents.Label {

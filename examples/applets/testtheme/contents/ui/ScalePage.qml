@@ -16,10 +16,10 @@ Item {
 
     property int cheight: 48
     property int cwidth: themePage.width / 1.2
-    property int _m: Kirigami.Units.gridUnit / 2 * Kirigami.Units.devicePixelRatio
+    property int _m: Kirigami.Units.largeSpacing
 
     anchors {
-        margins: Kirigami.Units.largeSpacing
+        margins: Kirigami.Units.gridUnit
     }
     Column {
         id: col
@@ -43,7 +43,7 @@ Item {
     PlasmaComponents.Label {
         id: cheatLabel
         text: "Cheating with the font size. This label scales with the devicePixelRatio <b>on top of</b> font rendering. Just to show how text scaling can work dynamically. Normal labels scale with the font size. For demonstration purposes we're faking scaled fonts here, to show how layouts' flows change."
-        font.pointSize: Kirigami.Theme.defaultFont.pointSize * Kirigami.Units.devicePixelRatio / 1.8
+        font.pointSize: Kirigami.Theme.defaultFont.pointSize / 1.8
         wrapMode: Text.WordWrap
         anchors {
             margins: _m
@@ -55,7 +55,7 @@ Item {
     Image {
         id: apeImage
         objectName: "apeImage"
-        height: parent.height / 6 * Kirigami.Units.devicePixelRatio
+        height: parent.height / 6
         //width: height
         anchors {
             top: cheatLabel.top
@@ -69,7 +69,7 @@ Item {
         anchors {
             left: parent.left
             top: cheatLabel.height > apeImage.height ?  cheatLabel.bottom : apeImage.bottom
-            topMargin: Kirigami.Units.largeSpacing
+            topMargin: Kirigami.Units.gridUnit
             right: parent.right
         }
         //height: _h

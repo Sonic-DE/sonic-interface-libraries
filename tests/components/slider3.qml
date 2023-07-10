@@ -13,8 +13,8 @@ ComponentBase {
     id: root
     title: "Plasma Components 3 Slider"
     contentItem: GridLayout {
-        columnSpacing: Kirigami.Units.largeSpacing
-        rowSpacing: Kirigami.Units.largeSpacing
+        columnSpacing: Kirigami.Units.gridUnit
+        rowSpacing: Kirigami.Units.gridUnit
         columns: 2
 
         PlasmaComponents.Label {

@@ -16,10 +16,10 @@ Column {
     property alias cfg_Speed: slider.value
 
     Row {
-        spacing: Kirigami.Units.largeSpacing / 2
+        spacing: Kirigami.Units.largeSpacing
 
         QtControls.Label {
-            width: formAlignment - Kirigami.Units.largeSpacing
+            width: formAlignment - Kirigami.Units.largeSpacing * 2
             horizontalAlignment: Text.AlignRight
             text: "Speed:"
         }
