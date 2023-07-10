@@ -77,9 +77,6 @@ T.ToolBar {
             imagePath: "dialogs/background"
         }
 
-        Kirigami.Theme.colorSet: control.Kirigami.Theme.colorSet
-        Kirigami.Theme.inherit: false
-
         enabledBorders: {
             let borders = KSvg.FrameSvg.LeftBorder | KSvg.FrameSvg.RightBorder;
             if (Plasmoid.position !== PlasmaCore.Types.TopEdge || position !== T.ToolBar.Header) {
