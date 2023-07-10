@@ -56,7 +56,6 @@ Item {
         id: apeImage
         objectName: "apeImage"
         height: parent.height / 6
-        //width: height
         anchors {
             top: cheatLabel.top
             right: parent.right
@@ -72,8 +71,6 @@ Item {
             topMargin: Kirigami.Units.gridUnit
             right: parent.right
         }
-        //height: _h
-        //width: parent.width
         spacing: Kirigami.Units.smallSpacing
 
         PlasmaCore.IconItem {
@@ -101,11 +98,5 @@ Item {
             width: Kirigami.Units.iconSizes.huge
             height: width
         }
-//         KQuickControlsAddons.QIconItem {
-//             icon: "preferences-desktop-icons"
-//             width: Kirigami.Units.iconSizes.enormous
-//             height: width
-//         }
-
     }
 }

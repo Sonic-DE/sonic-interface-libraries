@@ -11,8 +11,6 @@ import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.kquickcontrolsaddons 2.0 as KQuickControlsAddons
 import org.kde.kirigami 2.20 as Kirigami
 
-// IconTab
-
 Item {
 
 
@@ -25,9 +23,6 @@ Item {
     }
 
     Column {
-        //anchors.fill: parent
-        //spacing: Kirigami.Units.smallSpacing/2
-
         PlasmaExtras.Heading {
             width: parent.width
             elide: Text.ElideRight

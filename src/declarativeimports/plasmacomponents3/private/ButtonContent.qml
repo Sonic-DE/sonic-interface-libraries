@@ -19,8 +19,6 @@ GridLayout {
     readonly property bool usingFocusBackground: !parent.flat && buttonSvg.hasElement("hint-focus-highlighted-background") && parent.visualFocus && !(parent.pressed || parent.checked)
     readonly property int defaultIconSize: parent.flat ? Kirigami.Units.iconSizes.smallMedium : Kirigami.Units.iconSizes.small
 
-    Kirigami.Theme.inherit: true
-
     columns: parent.display == T.Button.TextBesideIcon ? 2 : 1
 
     rowSpacing: parent.spacing

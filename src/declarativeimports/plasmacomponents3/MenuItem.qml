@@ -69,7 +69,7 @@ T.MenuItem {
         }
     }
 
-    arrow: Plasma.Icon {
+    arrow: Kirigami.Icon {
         x: controlRoot.mirrored ? controlRoot.padding : controlRoot.width - width - controlRoot.padding
         y: controlRoot.topPadding + (controlRoot.availableHeight - height) / 2
         source: controlRoot.mirrored ? "go-next-symbolic-rtl" : "go-next-symbolic"

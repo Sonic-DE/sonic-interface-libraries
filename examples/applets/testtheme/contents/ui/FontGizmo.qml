@@ -17,13 +17,10 @@ Text {
     renderType: QtQuickControlsPrivate.Settings.isMobile || Screen.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
     font.pointSize: 22
 
-    //font.family: Kirigami.Theme.defaultFont.family
     font.family: fontCheck.text
     font.weight: lightCheck.checked ? Font.Light : Font.Normal
     text: "Lesley 40:83 - (" + font.family + ")"
     height: paintedHeightCheck.checked ? paintedHeight : 22
-    //anchors.fill: parent
-    //spacing: Kirigami.Units.smallSpacing/2
     verticalAlignment: Text.AlignTop
 
     Rectangle {

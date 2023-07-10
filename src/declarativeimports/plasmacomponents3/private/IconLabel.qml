@@ -47,8 +47,6 @@ Item {
     // Fixed in Qt 6.2, see QTBUG-91227
     property bool mirrored: false
 
-    Kirigami.Theme.inherit: true
-
     implicitWidth: gridLayout.implicitWidth + leftPadding + rightPadding
     implicitHeight: gridLayout.implicitHeight + topPadding + bottomPadding
 
@@ -87,7 +85,6 @@ Item {
         Kirigami.Icon {
             id: iconItem
             visible: valid && width > 0 && height > 0 && root.display !== T.AbstractButton.TextOnly
-            //FIXME
             implicitWidth: Kirigami.Units.iconSizes.sizeForLabels
             implicitHeight: Kirigami.Units.iconSizes.sizeForLabels
             Layout.alignment: Qt.AlignCenter

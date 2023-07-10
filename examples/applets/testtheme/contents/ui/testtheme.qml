@@ -60,42 +60,6 @@ Item {
 
     }
 
-    PlasmaComponents.Label {
-        id: sliderLabel
-        anchors {
-            bottom: parent.bottom
-            left: parent.left
-        }
-        width: Kirigami.Units.gridUnit * 5
-        text: "dpi: " + dprSlider.value
-    }
-
-    PlasmaComponents.Slider {
-        id: dprSlider
-        visible: false
-        anchors {
-            bottom: parent.bottom
-            bottomMargin: Kirigami.Units.largeSpacing
-            left: sliderLabel.right
-            right: parent.right
-        }
-        minimumValue: 0
-        maximumValue: 300
-        stepSize: 20
-        focus: true
-        onValueChanged: {
-            var r = value / 96;
-            print("Setting Kirigami.Units.devicePixelRatio: " + r);
-            Kirigami.Units.devicePixelRatio = r;
-            if (value == 0) {
-                value = Kirigami.Units.devicePixelRatio * 96;
-            }
-        }
-
-        Component.onCompleted: dprSlider.value = Kirigami.Units.devicePixelRatio * 96
-    }
-
-
     Component.onCompleted: {
         print("Components Test Applet loaded");
     }
