@@ -39,7 +39,7 @@ T.Button {
     }
 
     Kirigami.Theme.inherit: flat
-    Kirigami.Theme.colorSet: flat && parent ? parent.Kirigami.Theme.colorSet : Kirigami.Theme.Button
+    Kirigami.Theme.colorSet: Kirigami.Theme.Button
 
     contentItem: Private.ButtonContent {
         labelText: control.Kirigami.MnemonicData.richTextLabel
