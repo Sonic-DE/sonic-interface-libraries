@@ -107,7 +107,7 @@ void Containment::init()
         }
     }
 
-    QAction *appletBrowserAction = actionCollection->action(QStringLiteral("add widgets"));
+    QAction *appletBrowserAction = internalAction(QStringLiteral("add widgets"));
     if (appletBrowserAction) {
         appletBrowserAction->setVisible(unlocked);
         appletBrowserAction->setEnabled(unlocked);
