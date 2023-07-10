@@ -92,12 +92,12 @@ void Containment::init()
 
     // fix the text of the actions that need title()
     // btw, do we really want to use title() when it's a desktopcontainment?
-    QAction *closeApplet = actionCollection->action(QStringLiteral("remove"));
+    QAction *closeApplet = internalAction(QStringLiteral("remove"));
     if (closeApplet) {
         closeApplet->setText(i18nc("%1 is the name of the applet", "Remove %1", title()));
     }
 
-    QAction *configAction = actionCollection->action(QStringLiteral("configure"));
+    QAction *configAction = internalAction(QStringLiteral("configure"));
     if (configAction) {
         if (d->type == Containment::Type::Panel || d->type == Containment::Type::CustomPanel) {
             configAction->setText(i18n("Enter Edit Mode"));
