@@ -37,7 +37,7 @@ import org.kde.kirigami 2.20 as Kirigami
  *
  *     PlasmaExtras.PlaceholderMessage {
  *         anchors.centerIn: parent
- *         width: parent.width - (Kirigami.Units.largeSpacing * 4)
+ *         width: parent.width - (Kirigami.Units.gridUnit * 4)
  *
  *         visible: listView.count == 0
  *
@@ -59,7 +59,7 @@ import org.kde.kirigami 2.20 as Kirigami
  *
  *     PlasmaExtras.PlaceholderMessage {
  *         anchors.centerIn: parent
- *         width: parent.width - (Kirigami.Units.largeSpacing * 4)
+ *         width: parent.width - (Kirigami.Units.gridUnit * 4)
  *
  *         visible: listView.count == 0
  *
@@ -88,7 +88,7 @@ import org.kde.kirigami 2.20 as Kirigami
  *
  *     PlasmaExtras.PlaceholderMessage {
  *         anchors.centerIn: parent
- *         width: parent.width - (Kirigami.Units.largeSpacing * 4)
+ *         width: parent.width - (Kirigami.Units.gridUnit * 4)
  *
  *         visible: root.networkConnected
  *
@@ -111,7 +111,7 @@ import org.kde.kirigami 2.20 as Kirigami
  *
  *     PlasmaExtras.PlaceholderMessage {
  *         anchors.centerIn: parent
- *         width: parent.width - (Kirigami.Units.largeSpacing * 4)
+ *         width: parent.width - (Kirigami.Units.gridUnit * 4)
  *
  *         visible: root.loading
  *
@@ -223,7 +223,7 @@ ColumnLayout {
      */
     property QQC2.Action helpfulAction
 
-    spacing: Kirigami.Units.largeSpacing
+    spacing: Kirigami.Units.gridUnit
 
     PlasmaCore.IconItem {
         visible: source !== undefined

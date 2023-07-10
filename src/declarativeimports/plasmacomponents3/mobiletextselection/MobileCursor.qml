@@ -19,7 +19,7 @@ Item {
     visible: Kirigami.Settings.tabletMode && ((target.activeFocus && !selectionStartHandle) || target.selectedText.length > 0)
 
     Rectangle {
-        width: Math.round(Kirigami.Units.devicePixelRatio * 3)
+        width: 3
         anchors {
             horizontalCenter: parent.horizontalCenter
             top: parent.top
@@ -28,7 +28,7 @@ Item {
         color: Qt.tint(Kirigami.Theme.highlightColor, Qt.rgba(1,1,1,0.4))
         radius: width
         Rectangle {
-            width: Math.round(Kirigami.Units.gridUnit/1.5)
+            width: Math.round(Kirigami.Units.gridUnit / 1.5)
             height: width
             visible: MobileTextActionsToolBar.shouldBeVisible
             anchors {

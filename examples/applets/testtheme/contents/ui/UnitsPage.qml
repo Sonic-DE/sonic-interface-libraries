@@ -41,7 +41,7 @@ Item {
                 width: cwidth/2
                 onClicked: {
                     print("DPI Button onClicked");
-                    var d = Kirigami.Units.devicePixelRatio * 96;
+                    var d = 96;
                     dpilabel.text = "\t" + d;
                 }
             }

@@ -38,7 +38,7 @@ PlasmaComponents.Page {
 
         PlasmaComponents.Label {
             text: "This is the smallest readable Font."
-            font: Kirigami.Theme.smallestFont
+            font: Kirigami.Theme.smallFont
 
         }
         Row {

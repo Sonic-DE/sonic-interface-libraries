@@ -17,13 +17,13 @@ T.MenuSeparator {
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
-    verticalPadding: Math.round(Kirigami.Units.smallSpacing/2)
+    verticalPadding: Math.round(Kirigami.Units.smallSpacing / 2)
     hoverEnabled: false
     focusPolicy: Qt.NoFocus
     contentItem: Rectangle {
         // same as MenuItem background
         implicitWidth: Kirigami.Units.gridUnit * 8
-        implicitHeight: Kirigami.Units.devicePixelRatio
+        implicitHeight: 1
         color: Kirigami.Theme.textColor
         opacity: 0.2
     }

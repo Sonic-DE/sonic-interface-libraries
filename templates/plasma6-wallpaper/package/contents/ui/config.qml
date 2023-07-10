@@ -14,7 +14,7 @@ ColumnLayout {
     property alias cfg_DisplayText: textField.text
 
     RowLayout {
-        spacing: Kirigami.Units.largeSpacing / 2
+        spacing: Kirigami.Units.largeSpacing
 
         // To allow aligned integration in the settings form,
         // "formAlignment" is a property injected by the config containment
@@ -22,7 +22,7 @@ ColumnLayout {
         QtControls.Label {
             Layout.minimumWidth: width
             Layout.maximumWidth: width
-            width: formAlignment - Kirigami.Units.largeSpacing
+            width: formAlignment - Kirigami.Units.largeSpacing * 2
             horizontalAlignment: Text.AlignRight
 
             // use i18nd in config QML, as the default textdomain is set to that of the config container

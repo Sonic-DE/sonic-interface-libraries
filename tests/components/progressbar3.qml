@@ -20,8 +20,8 @@ ComponentBase {
 
     contentItem: GridLayout {
         columns: 6
-        columnSpacing: Kirigami.Units.largeSpacing
-        rowSpacing: Kirigami.Units.largeSpacing
+        columnSpacing: Kirigami.Units.gridUnit
+        rowSpacing: Kirigami.Units.gridUnit
 
         ColumnLayout {
             PlasmaComponents.Label {

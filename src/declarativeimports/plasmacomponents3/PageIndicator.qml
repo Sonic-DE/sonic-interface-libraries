@@ -19,7 +19,7 @@ T.PageIndicator {
     spacing: Kirigami.Units.smallSpacing
 
     delegate: Rectangle {
-        implicitWidth: Kirigami.Units.gridUnit/2
+        implicitWidth: Kirigami.Units.largeSpacing
         implicitHeight: implicitWidth
 
         radius: width

@@ -24,7 +24,7 @@ Item {
         // Our ColumnLayout is fills the parent item with a bit of margin
         anchors {
             fill: parent
-            margins: Kirigami.Units.largeSpacing
+            margins: Kirigami.Units.gridUnit
         }
 
         spacing: Kirigami.Units.gridUnit

@@ -33,7 +33,7 @@ T.RoundButton {
 
     contentItem: RowLayout {
         // This is the spacing which will make the icon a square inscribed in the circle with an extra smallspacing of margins
-        readonly property int extraSpace: implicitWidth/2 - implicitWidth/2*Math.sqrt(2)/2 + Kirigami.Units.smallSpacing
+        readonly property int extraSpace: implicitWidth / 2 - implicitWidth / 2 * Math.sqrt(2) / 2 + Kirigami.Units.smallSpacing
         Kirigami.Icon {
             Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
             Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
