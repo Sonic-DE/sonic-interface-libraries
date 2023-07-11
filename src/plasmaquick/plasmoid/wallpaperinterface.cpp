@@ -29,9 +29,8 @@
 
 QHash<QObject *, WallpaperInterface *> WallpaperInterface::s_rootObjects = QHash<QObject *, WallpaperInterface *>();
 
-WallpaperInterface::WallpaperInterface(ContainmentInterface *parent)
+WallpaperInterface::WallpaperInterface(QQuickItem *parent)
     : QQuickItem(parent)
-    , m_actions(new KActionCollection(this))
 {
     // resize at the beginning to avoid as much resize events as possible
     if (parent) {
@@ -77,9 +76,6 @@ void WallpaperInterface::componentComplete()
         QQmlProperty prop(m_qmlObject->rootObject(), QStringLiteral("anchors.fill"));
         prop.write(expr.evaluate());
         */
-
-    Q_EMIT packageChanged();
-    Q_EMIT configurationChanged();
 
     m_loading = false;
     Q_EMIT isLoadingChanged();
@@ -127,10 +123,14 @@ KConfigLoader *WallpaperInterface::configScheme()
             QFile file(xmlPath);
             m_configLoader = new KConfigLoader(cfg, &file, this);
         }
-        connect(m_configLoader, &KConfigLoader::configChanged, this, &WallpaperInterface::configurationChanged);
     }
 
     return m_configLoader;
+}
+
+void WallpaperInterface::requestOpenUrl(const QUrl &url)
+{
+    Q_EMIT openUrlRequested(url);
 }
 
 WallpaperInterface *WallpaperInterface::loadWallpaper(ContainmentInterface *containmentInterface)
@@ -188,70 +188,24 @@ WallpaperInterface *WallpaperInterface::loadWallpaper(ContainmentInterface *cont
 
 QList<QAction *> WallpaperInterface::contextualActions() const
 {
-    return m_actions->actions();
+    return m_contextualActions;
+}
+
+QQmlListProperty<QAction> WallpaperInterface::qmlContextualActions()
+{
+    return QQmlListProperty<QAction>(this,
+                                     nullptr,
+                                     WallpaperInterface::contextualActions_append,
+                                     WallpaperInterface::contextualActions_count,
+                                     WallpaperInterface::contextualActions_at,
+                                     WallpaperInterface::contextualActions_clear,
+                                     WallpaperInterface::contextualActions_replace,
+                                     WallpaperInterface::contextualActions_removeLast);
 }
 
 bool WallpaperInterface::supportsMimetype(const QString &mimetype) const
 {
     return m_pkg.metadata().value(QStringLiteral("X-Plasma-DropMimeTypes"), QStringList()).contains(mimetype);
-}
-
-void WallpaperInterface::setUrl(const QUrl &url)
-{
-    if (m_qmlObject->rootObject()) {
-        QMetaObject::invokeMethod(m_qmlObject->rootObject(), "setUrl", Qt::DirectConnection, Q_ARG(QVariant, QVariant::fromValue(url)));
-    }
-}
-
-void WallpaperInterface::setAction(const QString &name, const QString &text, const QString &icon, const QString &shortcut)
-{
-    QAction *action = m_actions->action(name);
-
-    if (action) {
-        action->setText(text);
-    } else {
-        Q_ASSERT(!m_actions->action(name));
-        action = new QAction(text, this);
-        m_actions->addAction(name, action);
-
-        connect(action, &QAction::triggered, this, [this, name] {
-            executeAction(name);
-        });
-    }
-
-    if (!icon.isEmpty()) {
-        action->setIcon(QIcon::fromTheme(icon));
-    }
-
-    if (!shortcut.isEmpty()) {
-        action->setShortcut(shortcut);
-    }
-
-    action->setObjectName(name);
-    setProperty("contextualActions", QVariant::fromValue(contextualActions()));
-}
-
-void WallpaperInterface::removeAction(const QString &name)
-{
-    QAction *action = m_actions->action(name);
-
-    if (action) {
-        m_actions->removeAction(action);
-    }
-    setProperty("contextualActions", QVariant::fromValue(contextualActions()));
-}
-
-QAction *WallpaperInterface::action(QString name) const
-{
-    return m_actions->action(name);
-}
-
-void WallpaperInterface::executeAction(const QString &name)
-{
-    if (m_qmlObject->rootObject()) {
-        const QByteArray actionName("action_" + name.toUtf8());
-        QMetaObject::invokeMethod(m_qmlObject->rootObject(), actionName.constData(), Qt::DirectConnection);
-    }
 }
 
 WallpaperInterface *WallpaperInterface::qmlAttachedProperties(QObject *object)
@@ -264,6 +218,46 @@ WallpaperInterface *WallpaperInterface::qmlAttachedProperties(QObject *object)
 bool WallpaperInterface::isLoading() const
 {
     return m_loading;
+}
+
+void WallpaperInterface::contextualActions_append(QQmlListProperty<QAction> *prop, QAction *action)
+{
+    WallpaperInterface *w = static_cast<WallpaperInterface *>(prop->object);
+    w->m_contextualActions.append(action);
+    Q_EMIT w->contextualActionsChanged(w->m_contextualActions);
+};
+
+qsizetype WallpaperInterface::contextualActions_count(QQmlListProperty<QAction> *prop)
+{
+    WallpaperInterface *w = static_cast<WallpaperInterface *>(prop->object);
+    return w->m_contextualActions.count();
+}
+
+QAction *WallpaperInterface::contextualActions_at(QQmlListProperty<QAction> *prop, qsizetype idx)
+{
+    WallpaperInterface *w = static_cast<WallpaperInterface *>(prop->object);
+    return w->m_contextualActions.value(idx);
+}
+
+void WallpaperInterface::contextualActions_clear(QQmlListProperty<QAction> *prop)
+{
+    WallpaperInterface *w = static_cast<WallpaperInterface *>(prop->object);
+    w->m_contextualActions.clear();
+    Q_EMIT w->contextualActionsChanged(w->m_contextualActions);
+}
+
+void WallpaperInterface::contextualActions_replace(QQmlListProperty<QAction> *prop, qsizetype idx, QAction *action)
+{
+    WallpaperInterface *w = static_cast<WallpaperInterface *>(prop->object);
+    w->m_contextualActions.replace(idx, action);
+    Q_EMIT w->contextualActionsChanged(w->m_contextualActions);
+}
+
+void WallpaperInterface::contextualActions_removeLast(QQmlListProperty<QAction> *prop)
+{
+    WallpaperInterface *w = static_cast<WallpaperInterface *>(prop->object);
+    w->m_contextualActions.pop_back();
+    Q_EMIT w->contextualActionsChanged(w->m_contextualActions);
 }
 
 #include "moc_wallpaperinterface.cpp"
