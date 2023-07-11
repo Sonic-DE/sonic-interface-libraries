@@ -646,7 +646,7 @@ void ContainmentInterface::mimeTypeRetrieved(KIO::Job *job, const QString &mimet
 
                         // set wallpapery stuff
                         if (m_wallpaperInterface && url.isValid()) {
-                            m_wallpaperInterface->setUrl(url);
+                            m_wallpaperInterface->requestOpenUrl(url);
                         }
                     });
                 }

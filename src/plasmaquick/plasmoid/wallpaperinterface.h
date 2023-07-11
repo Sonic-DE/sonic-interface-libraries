@@ -39,12 +39,17 @@ class WallpaperInterface : public QQuickItem
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString pluginName READ pluginName NOTIFY packageChanged)
-    Q_PROPERTY(KConfigPropertyMap *configuration READ configuration NOTIFY configurationChanged)
+    Q_PROPERTY(QString pluginName READ pluginName CONSTANT)
+    Q_PROPERTY(KConfigPropertyMap *configuration READ configuration CONSTANT)
+    /**
+     * Actions to be added in the desktop context menu. To instantiate QActions in a declarative way,
+     * PlasmaCore.Action {} can be used
+     */
+    Q_PROPERTY(QQmlListProperty<QAction> contextualActions READ qmlContextualActions NOTIFY contextualActionsChanged)
     Q_PROPERTY(bool loading MEMBER m_loading NOTIFY isLoadingChanged)
 
 public:
-    explicit WallpaperInterface(ContainmentInterface *parent = nullptr);
+    explicit WallpaperInterface(QQuickItem *parent = nullptr);
     ~WallpaperInterface() override;
 
     void classBegin() override;
@@ -57,6 +62,10 @@ public:
      * @return list of wallpapers
      */
     static QList<KPluginMetaData> listWallpaperMetadataForMimetype(const QString &mimetype, const QString &formFactor = QString());
+
+    /**
+     * INstantiate the WallpaperInterface for a given containment, using the proper plugin
+     */
     static WallpaperInterface *loadWallpaper(ContainmentInterface *ContainmentInterface);
 
     KPackage::Package kPackage() const;
@@ -67,39 +76,40 @@ public:
 
     KConfigLoader *configScheme();
 
+    void requestOpenUrl(const QUrl &url);
+
     QList<QAction *> contextualActions() const;
 
+    QML_LIST_PROPERTY_ASSIGN_BEHAVIOR_REPLACE
+    QQmlListProperty<QAction> qmlContextualActions();
+
     bool supportsMimetype(const QString &mimetype) const;
-
-    void setUrl(const QUrl &urls);
-
-    Q_INVOKABLE void setAction(const QString &name, const QString &text, const QString &icon = QString(), const QString &shortcut = QString());
-
-    Q_INVOKABLE void removeAction(const QString &name);
-
-    Q_INVOKABLE QAction *action(QString name) const;
 
     static WallpaperInterface *qmlAttachedProperties(QObject *object);
 
     bool isLoading() const;
 
 Q_SIGNALS:
-    void packageChanged();
-    void configurationChanged();
     void isLoadingChanged();
+    void openUrlRequested(const QUrl &url);
+    void contextualActionsChanged(const QList<QAction *> &actions);
     void repaintNeeded(const QColor &accentColor = Qt::transparent);
 
-private Q_SLOTS:
-    void executeAction(const QString &name);
-
 private:
+    static void contextualActions_append(QQmlListProperty<QAction> *prop, QAction *action);
+    static qsizetype contextualActions_count(QQmlListProperty<QAction> *prop);
+    static QAction *contextualActions_at(QQmlListProperty<QAction> *prop, qsizetype idx);
+    static void contextualActions_clear(QQmlListProperty<QAction> *prop);
+    static void contextualActions_replace(QQmlListProperty<QAction> *prop, qsizetype idx, QAction *action);
+    static void contextualActions_removeLast(QQmlListProperty<QAction> *prop);
+
     QString m_wallpaperPlugin;
     Plasma::Containment *m_containment = nullptr;
     PlasmaQuick::SharedQmlEngine *m_qmlObject = nullptr;
     KPackage::Package m_pkg;
     KConfigPropertyMap *m_configuration = nullptr;
     KConfigLoader *m_configLoader = nullptr;
-    KActionCollection *m_actions;
+    QList<QAction *> m_contextualActions;
     bool m_loading = false;
 
     static QHash<QObject *, WallpaperInterface *> s_rootObjects;
