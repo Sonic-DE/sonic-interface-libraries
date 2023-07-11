@@ -48,6 +48,7 @@ public:
     ~WallpaperInterface() override;
 
     void classBegin() override;
+    void componentComplete() override;
 
     /**
      * Returns a list of all known wallpapers that can accept the given mimetype
@@ -56,6 +57,7 @@ public:
      * @return list of wallpapers
      */
     static QList<KPluginMetaData> listWallpaperMetadataForMimetype(const QString &mimetype, const QString &formFactor = QString());
+    static WallpaperInterface *loadWallpaper(ContainmentInterface *ContainmentInterface);
 
     KPackage::Package kPackage() const;
 
@@ -88,9 +90,7 @@ Q_SIGNALS:
     void repaintNeeded(const QColor &accentColor = Qt::transparent);
 
 private Q_SLOTS:
-    void syncWallpaperPackage();
     void executeAction(const QString &name);
-    void loadFinished();
 
 private:
     QString m_wallpaperPlugin;
