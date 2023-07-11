@@ -68,14 +68,6 @@ void WallpaperInterface::classBegin()
 void WallpaperInterface::componentComplete()
 {
     QQuickItem::componentComplete();
-    /*
-        setProperty("z", -1000);
-
-        // set anchors
-        QQmlExpression expr(m_qmlObject->engine()->rootContext(), m_qmlObject->rootObject(), QStringLiteral("parent"));
-        QQmlProperty prop(m_qmlObject->rootObject(), QStringLiteral("anchors.fill"));
-        prop.write(expr.evaluate());
-        */
 
     m_loading = false;
     Q_EMIT isLoadingChanged();
