@@ -64,7 +64,7 @@ public:
     static QList<KPluginMetaData> listWallpaperMetadataForMimetype(const QString &mimetype, const QString &formFactor = QString());
 
     /**
-     * INstantiate the WallpaperInterface for a given containment, using the proper plugin
+     * Instantiate the WallpaperInterface for a given containment, using the proper plugin
      */
     static WallpaperInterface *loadWallpaper(ContainmentInterface *ContainmentInterface);
 
