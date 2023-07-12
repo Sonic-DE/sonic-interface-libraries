@@ -31,7 +31,7 @@ target_sources(KF6PlasmaQuick PRIVATE
     ../declarativeimports/core/imagetexturescache.cpp
     ../declarativeimports/core/managedtexturenode.cpp
     ../declarativeimports/core/units.cpp
-    plasmoid/appletitem.cpp
+    plasmoid/plasmoiditem.cpp
     plasmoid/containmentitem.cpp
     plasmoid/dropmenu.cpp
     plasmoid/wallpaperitem.cpp
