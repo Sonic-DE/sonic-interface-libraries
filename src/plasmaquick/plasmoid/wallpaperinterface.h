@@ -29,7 +29,7 @@ class SharedQmlEngine;
 }
 
 /**
- * @brief This class is exposed to wallpapers as the attached property "wallpaper"
+ * @brief This class is exposed to wallpapers as the WallpaperItem root qml item
  *
  * <b>Import Statement</b>
  * @code import org.kde.plasma.plasmoid @endcode
@@ -85,8 +85,6 @@ public:
 
     bool supportsMimetype(const QString &mimetype) const;
 
-    static WallpaperInterface *qmlAttachedProperties(QObject *object);
-
     bool isLoading() const;
 
 Q_SIGNALS:
@@ -111,10 +109,6 @@ private:
     KConfigLoader *m_configLoader = nullptr;
     QList<QAction *> m_contextualActions;
     bool m_loading = false;
-
-    static QHash<QObject *, WallpaperInterface *> s_rootObjects;
 };
-
-QML_DECLARE_TYPEINFO(WallpaperInterface, QML_HAS_ATTACHED_PROPERTIES)
 
 #endif

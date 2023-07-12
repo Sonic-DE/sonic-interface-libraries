@@ -27,8 +27,6 @@
 #include <qabstractitemmodel.h>
 #include <qtmetamacros.h>
 
-QHash<QObject *, WallpaperInterface *> WallpaperInterface::s_rootObjects = QHash<QObject *, WallpaperInterface *>();
-
 WallpaperInterface::WallpaperInterface(QQuickItem *parent)
     : QQuickItem(parent)
 {
@@ -40,9 +38,6 @@ WallpaperInterface::WallpaperInterface(QQuickItem *parent)
 
 WallpaperInterface::~WallpaperInterface()
 {
-    if (m_qmlObject) {
-        s_rootObjects.remove(m_qmlObject->engine().get());
-    }
 }
 
 void WallpaperInterface::classBegin()
@@ -198,13 +193,6 @@ QQmlListProperty<QAction> WallpaperInterface::qmlContextualActions()
 bool WallpaperInterface::supportsMimetype(const QString &mimetype) const
 {
     return m_pkg.metadata().value(QStringLiteral("X-Plasma-DropMimeTypes"), QStringList()).contains(mimetype);
-}
-
-WallpaperInterface *WallpaperInterface::qmlAttachedProperties(QObject *object)
-{
-    // at the moment of the attached object creation, the root item is the only one that hasn't a parent
-    // only way to avoid creation of this attached for everybody but the root item
-    return object->parent() ? nullptr : s_rootObjects.value(qmlEngine(object));
 }
 
 bool WallpaperInterface::isLoading() const
