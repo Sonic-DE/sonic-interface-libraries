@@ -6,7 +6,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#include "containmentinterface.h"
+#include "containmentitem.h"
 #include "dropmenu.h"
 #include "private/appletquickitem_p.h"
 #include "sharedqmlengine.h"
@@ -1068,4 +1068,4 @@ void ContainmentInterface::deleteWallpaperInterface()
     m_wallpaperInterface = nullptr;
 }
 
-#include "moc_containmentinterface.cpp"
+#include "moc_containmentitem.cpp"

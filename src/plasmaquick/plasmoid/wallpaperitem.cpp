@@ -4,15 +4,15 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#include "wallpaperinterface.h"
+#include "wallpaperitem.h"
 #include "appletcontext_p.h"
 
 #include "containmentinterface.h"
 #include "sharedqmlengine.h"
 
-#include <KConfigPropertyMap>
 #include <KActionCollection>
 #include <KConfigLoader>
+#include <KConfigPropertyMap>
 #include <KDesktopFile>
 
 #include <QDebug>
@@ -240,4 +240,4 @@ void WallpaperInterface::contextualActions_removeLast(QQmlListProperty<QAction> 
     Q_EMIT w->contextualActionsChanged(w->m_contextualActions);
 }
 
-#include "moc_wallpaperinterface.cpp"
+#include "moc_wallpaperitem.cpp"

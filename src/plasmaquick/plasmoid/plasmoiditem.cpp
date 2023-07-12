@@ -5,8 +5,8 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#include "appletinterface.h"
 #include "appletcontext_p.h"
+#include "appletitem.h"
 #include "sharedqmlengine.h"
 
 #include <QAction>
@@ -486,4 +486,4 @@ bool AppletInterface::eventFilter(QObject *watched, QEvent *event)
     return AppletQuickItem::eventFilter(watched, event);
 }
 
-#include "moc_appletinterface.cpp"
+#include "moc_appletitem.cpp"
