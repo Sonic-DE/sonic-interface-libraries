@@ -14,7 +14,6 @@
 #include <plasma/plasma_export.h>
 
 class QAction;
-class KActionCollection;
 
 namespace Plasma
 {

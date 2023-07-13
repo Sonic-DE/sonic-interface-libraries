@@ -23,7 +23,6 @@
 
 #include <KConfigLoader>
 #include <KGlobalAccel>
-#include <KKeySequenceWidget>
 #include <KLocalizedString>
 #include <kpackage/packageloader.h>
 
