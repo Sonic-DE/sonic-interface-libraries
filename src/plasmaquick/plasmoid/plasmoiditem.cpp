@@ -376,7 +376,7 @@ bool PlasmoidItem::event(QEvent *event)
 
         // add any actions of the corona
         if (applet()->containment() && applet()->containment()->corona()) {
-            actions << applet()->containment()->corona()->actions()->actions();
+            actions << applet()->containment()->corona()->actions();
         }
 
         bool keySequenceUsed = false;
