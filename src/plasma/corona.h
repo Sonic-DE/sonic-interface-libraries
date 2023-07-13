@@ -170,6 +170,16 @@ public:
     Q_INVOKABLE QAction *action(const QString &name) const;
 
     /**
+     * Set a new action for the given name in the internal collection
+     */
+    void setAction(const QString &name, QAction *action);
+
+    /**
+     * @remove the action with the given name, if exists
+     */
+    void removeAction(const QString &name);
+
+    /**
      * @returns all the actions supported by the corona
      */
     QList<QAction *> actions() const;
