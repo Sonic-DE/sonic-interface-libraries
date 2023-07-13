@@ -400,14 +400,14 @@ QList<Plasma::Types::Location> Corona::freeEdges(int screen) const
     return freeEdges;
 }
 
-KActionCollection *Corona::actions() const
-{
-    return &d->actions;
-}
-
 QAction *Corona::action(const QString &name) const
 {
     return d->actions.action(name);
+}
+
+QList<QAction *> Corona::actions() const
+{
+    return d->actions.actions();
 }
 
 CoronaPrivate::CoronaPrivate(Corona *corona)
