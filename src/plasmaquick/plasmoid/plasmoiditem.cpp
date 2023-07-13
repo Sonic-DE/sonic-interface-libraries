@@ -16,7 +16,6 @@
 #include <QIcon>
 #include <QTimer>
 
-#include <KActionCollection>
 #include <KConfigLoader>
 #include <KLocalizedString>
 #include <QDebug>
@@ -55,9 +54,6 @@ void PlasmoidItem::init()
         for (auto *a : applet->contextualActions()) {
             // TODO: when the old api goes, whole executeAction logic will be deleted
             if (!m_actions.contains(a)) {
-                connect(a, &QAction::triggered, this, [this, a]() {
-                    executeAction(a);
-                });
                 connect(a, &QObject::destroyed, this, [this, a]() {
                     m_actions.remove(a);
                 });
@@ -283,20 +279,6 @@ QRect PlasmoidItem::screenGeometry() const
     }
 
     return applet()->containment()->corona()->screenGeometry(applet()->containment()->screen());
-}
-
-void PlasmoidItem::executeAction(QAction *action)
-{
-    // FIXME: this is an assumption on KActionCollection behavior which sets objectName to the name used in addAction
-    QString name = action->objectName();
-    const QMetaObject *metaObj = metaObject();
-    const QByteArray actionMethodName = "action_" + name.toUtf8();
-    const QByteArray actionFunctionName = actionMethodName + QByteArray("()");
-    if (metaObj->indexOfMethod(QMetaObject::normalizedSignature(actionFunctionName.constData()).constData()) != -1) {
-        QMetaObject::invokeMethod(this, actionMethodName.constData(), Qt::DirectConnection);
-    } else {
-        QMetaObject::invokeMethod(this, "actionTriggered", Qt::DirectConnection, Q_ARG(QVariant, name));
-    }
 }
 
 QVariantList PlasmoidItem::availableScreenRegion() const

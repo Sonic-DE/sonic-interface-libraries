@@ -8,7 +8,6 @@
 #ifndef CONTAINMENT_P_H
 #define CONTAINMENT_P_H
 
-#include <KActionCollection>
 #include <QSet>
 
 #include "applet.h"
