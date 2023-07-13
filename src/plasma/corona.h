@@ -165,14 +165,14 @@ public:
     QList<Plasma::Types::Location> freeEdges(int screen) const;
 
     /**
-     * The actions associated with this Corona
-     */
-    KActionCollection *actions() const;
-
-    /**
      * @returns The action with the given name, if any
      */
     Q_INVOKABLE QAction *action(const QString &name) const;
+
+    /**
+     * @returns all the actions supported by the corona
+     */
+    QList<QAction *> actions() const;
 
     /**
      * Imports an applet layout from a config file. The results will be added to the
