@@ -21,7 +21,6 @@
 #include <QVersionNumber>
 
 #include <KAcceleratorManager>
-#include <KActionCollection>
 #include <KAuthorized>
 #include <KLocalizedString>
 #include <KNotification>
