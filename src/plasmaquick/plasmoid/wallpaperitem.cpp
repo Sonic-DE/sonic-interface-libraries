@@ -10,7 +10,6 @@
 #include "containmentitem.h"
 #include "sharedqmlengine.h"
 
-#include <KActionCollection>
 #include <KConfigLoader>
 #include <KConfigPropertyMap>
 #include <KDesktopFile>

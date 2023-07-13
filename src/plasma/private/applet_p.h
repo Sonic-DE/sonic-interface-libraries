@@ -13,7 +13,6 @@
 #include <QBasicTimer>
 #include <QPointer>
 
-#include <KActionCollection>
 #include <KConfigPropertyMap>
 #include <KConfigSkeleton>
 #include <KNotification>
