@@ -21,7 +21,6 @@
 #include <QMessageBox>
 #include <QMetaEnum>
 
-#include <KActionCollection>
 #include <KAuthorized>
 #include <KColorScheme>
 #include <KConfigLoader>
