@@ -40,7 +40,8 @@ public:
     KSharedConfigPtr config;
     QTimer *configSyncTimer;
     QList<Containment *> containments;
-    QHash<QString, QAction *> actions;
+    // It's a map to have values() as a stable list
+    QMap<QString, QAction *> actions;
     int containmentsStarting;
     bool editMode = false;
 };
