@@ -470,8 +470,9 @@ void CoronaPrivate::init()
     lockAction->setShortcutContext(Qt::ApplicationShortcut);
 
     // fake containment/applet actions
-    KActionCollection *containmentActions = AppletPrivate::defaultActions(q); // containment has to start with applet stuff
-    ContainmentPrivate::addDefaultActions(containmentActions); // now it's really containment
+    auto containmentActions = AppletPrivate::defaultActions(q); // containment has to start with applet stuff
+    ContainmentPrivate::addDefaultActions(containmentActions, nullptr, q); // now it's really containment
+    actions.insert(containmentActions);
 
     QAction *editAction = new QAction(q);
     q->setAction(QStringLiteral("edit mode"), editAction);

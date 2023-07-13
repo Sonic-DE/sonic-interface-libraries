@@ -64,7 +64,7 @@ public:
     /**
      * add the regular actions & keyboard shortcuts onto Applet's collection
      */
-    static void addDefaultActions(KActionCollection *actions, Containment *c = nullptr);
+    static void addDefaultActions(QMap<QString, QAction *> &actions, Containment *c = nullptr, Corona *cor = nullptr);
 
     void setUiReady();
     void setStarted();
