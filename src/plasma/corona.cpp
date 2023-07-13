@@ -405,6 +405,25 @@ QAction *Corona::action(const QString &name) const
     return d->actions.action(name);
 }
 
+void Corona::setAction(const QString &name, QAction *action)
+{
+    if (name.isEmpty()) {
+        return;
+    }
+    action->setObjectName(name);
+    QAction *oldAction = d->actions.action(name);
+    d->actions.removeAction(oldAction);
+    d->actions.addAction(name, action);
+}
+
+void Corona::removeAction(const QString &name)
+{
+    QAction *action = d->actions.action(name);
+    // TODO: when porting to QHash<QString, QAction> we will have to check the object
+    // ownership and delete only if C++ owned
+    d->actions.removeAction(action);
+}
+
 QList<QAction *> Corona::actions() const
 {
     return d->actions.actions();
