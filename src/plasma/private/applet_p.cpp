@@ -410,34 +410,6 @@ void AppletPrivate::requestConfiguration()
     }
 }
 
-void AppletPrivate::updateShortcuts()
-{
-    /*FIXME: what to do about shortcuts?
-    if (q->isContainment()) {
-        // a horrible hack to avoid clobbering corona settings
-        // we pull them out, then read, then put them back
-        QList<QAction *> qactions;
-        const QList<QString> names = {QStringLiteral("add sibling containment"), QStringLiteral("configure shortcuts"), QStringLiteral("lock widgets")};
-        for (const QString &name : names) {
-            QAction *a = actions.value(name);
-            actions.take(a); // FIXME this is stupid, KActionCollection needs a takeAction(QString) method
-            qactions << a;
-        }
-
-        actions->readSettings();
-
-        for (int i = 0; i < names.size(); ++i) {
-            QAction *a = qactions.at(i);
-            if (a) {
-                actions->addAction(names.at(i), a);
-            }
-        }
-    } else {
-        actions->readSettings();
-    }
-    */
-}
-
 void AppletPrivate::propagateConfigChanged()
 {
     Containment *c = qobject_cast<Containment *>(q);
