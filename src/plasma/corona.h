@@ -169,7 +169,7 @@ public:
     Q_INVOKABLE QAction *action(const QString &name) const;
 
     /**
-     * Set a new action for the given name in the internal collection
+     * Defines a new action with the given name in the internal collection
      */
     void setAction(const QString &name, QAction *action);
 
