@@ -174,7 +174,7 @@ public:
     void setAction(const QString &name, QAction *action);
 
     /**
-     * @remove the action with the given name, if exists
+     * Remove the action with the given name, if exists
      */
     void removeAction(const QString &name);
 
