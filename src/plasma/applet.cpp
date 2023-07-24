@@ -570,8 +570,6 @@ void Applet::flushPendingConstraintsEvents()
                 configAction->setEnabled(canConfig);
             }
         }
-
-        d->updateShortcuts();
     }
 
     if (c & Plasma::Types::ImmutableConstraint) {
