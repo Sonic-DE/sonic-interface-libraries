@@ -48,7 +48,6 @@ public:
     void scheduleModificationNotification();
     KConfigGroup *mainConfigGroup();
     void resetConfigurationObject();
-    void updateShortcuts();
     void globalShortcutChanged();
     void propagateConfigChanged();
     void setUiReady();
