@@ -416,6 +416,9 @@ void Corona::setAction(const QString &name, QAction *action)
     if (oldAction && QJSEngine::objectOwnership(oldAction) == QJSEngine::CppOwnership) {
         delete oldAction;
     }
+    connect(action, &QObject::destroyed, this, [this, name]() {
+        d->actions.remove(name);
+    });
     d->actions[name] = action;
 }
 
