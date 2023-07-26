@@ -7,6 +7,7 @@
 #include "dialogbackground_p.h"
 
 #include <QQmlComponent>
+#include <qquickitem.h>
 
 #include "sharedqmlengine.h"
 
@@ -19,7 +20,9 @@ DialogBackground::DialogBackground(QQuickItem *parent)
     , m_sharedEngine(new SharedQmlEngine(this))
 {
     QQmlComponent component(m_sharedEngine->engine().get(), QStringLiteral(":/DialogBackground.qml"));
-    QObject *object = m_sharedEngine->createObjectFromComponent(&component);
+
+    QVariantHash props({{QStringLiteral("parent"), QVariant::fromValue(this)}});
+    QObject *object = m_sharedEngine->createObjectFromComponent(&component, m_sharedEngine->rootContext(), props);
 
     m_frameSvgItem = qobject_cast<QQuickItem *>(object);
     Q_ASSERT(m_frameSvgItem);
@@ -49,6 +52,11 @@ Plasma::FrameSvg::EnabledBorders DialogBackground::enabledBorders() const
     return m_frameSvgItem->property("enabledBorders").value<Plasma::FrameSvg::EnabledBorders>();
 }
 
+QRegion DialogBackground::mask() const
+{
+    return m_frameSvgItem->property("mask").value<QRegion>();
+}
+
 qreal DialogBackground::leftMargin() const
 {
     // assume margins is valid, as we asserted it's a valid FrameSvgItem
@@ -74,6 +82,15 @@ qreal DialogBackground::bottomMargin() const
     return margins->property("bottom").value<qreal>();
 }
 
+QObject *DialogBackground::fixedMargins() const
+{
+    return m_frameSvgItem->property("fixedMargins").value<QObject *>();
+}
+
+QObject *DialogBackground::inset() const
+{
+    return m_frameSvgItem->property("inset").value<QObject *>();
+}
 }
 
 #include "private/moc_dialogbackground_p.cpp"

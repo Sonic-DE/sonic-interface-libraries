@@ -42,10 +42,16 @@ public:
     void setEnabledBorders(const Plasma::FrameSvg::EnabledBorders borders);
     Plasma::FrameSvg::EnabledBorders enabledBorders() const;
 
+    QRegion mask() const;
+
     qreal leftMargin() const;
     qreal topMargin() const;
     qreal rightMargin() const;
     qreal bottomMargin() const;
+
+    // Needed for the QML api of Dialog
+    QObject *fixedMargins() const;
+    QObject *inset() const;
 
 private:
     QQuickItem *m_frameSvgItem;
