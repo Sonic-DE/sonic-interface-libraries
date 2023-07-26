@@ -13,7 +13,6 @@
 
 namespace PlasmaQuick
 {
-///////////////////////DialogBackground
 
 DialogBackground::DialogBackground(QQuickItem *parent)
     : QQuickItem(parent)
