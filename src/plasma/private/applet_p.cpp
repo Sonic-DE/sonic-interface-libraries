@@ -71,6 +71,14 @@ AppletPrivate::AppletPrivate(const KPluginMetaData &info, int uniqueID, Applet *
         new TimeTracker(q);
     }
 #endif
+
+    for (auto it = actions.constBegin(); it != actions.constEnd(); ++it) {
+        QAction *action = it.value();
+        const QString name = it.key();
+        QObject::connect(action, &QObject::destroyed, q, [this, name]() {
+            actions.remove(name);
+        });
+    }
 }
 
 AppletPrivate::~AppletPrivate()
@@ -367,6 +375,10 @@ void AppletPrivate::contextualActions_append(QQmlListProperty<QAction> *prop, QA
 {
     Applet *a = static_cast<Plasma::Applet *>(prop->object);
     a->d->contextualActions.append(action);
+    QObject::connect(action, &QObject::destroyed, a, [a, action]() {
+        a->d->contextualActions.removeAll(action);
+        Q_EMIT a->contextualActionsChanged(a->d->contextualActions);
+    });
     Q_EMIT a->contextualActionsChanged(a->d->contextualActions);
 };
 
@@ -393,6 +405,10 @@ void AppletPrivate::contextualActions_replace(QQmlListProperty<QAction> *prop, q
 {
     Applet *a = static_cast<Plasma::Applet *>(prop->object);
     a->d->contextualActions.replace(idx, action);
+    QObject::connect(action, &QObject::destroyed, a, [a, action]() {
+        a->d->contextualActions.removeAll(action);
+        Q_EMIT a->contextualActionsChanged(a->d->contextualActions);
+    });
     Q_EMIT a->contextualActionsChanged(a->d->contextualActions);
 }
 
