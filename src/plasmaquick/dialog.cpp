@@ -9,7 +9,6 @@
 
 #include "dialog.h"
 #include "../declarativeimports/core/config-x11.h"
-#include "../declarativeimports/core/framesvgitem.h"
 #include "appletquickitem.h"
 #include "config-plasma.h"
 #include "configview.h"

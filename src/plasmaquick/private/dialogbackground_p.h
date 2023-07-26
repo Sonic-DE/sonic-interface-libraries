@@ -53,6 +53,10 @@ public:
     QObject *fixedMargins() const;
     QObject *inset() const;
 
+Q_SIGNALS:
+    void fixedMarginsChanged();
+    void maskChanged();
+
 private:
     QQuickItem *m_frameSvgItem;
     SharedQmlEngine *m_sharedEngine;
