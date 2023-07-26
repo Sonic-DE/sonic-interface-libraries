@@ -60,7 +60,6 @@ public:
     DialogPrivate(Dialog *dialog)
         : q(dialog)
         , location(Plasma::Types::BottomEdge)
-        , frameSvgItem(nullptr)
         , dialogBackground(new DialogBackground(q->contentItem()))
         , hasMask(false)
         , type(Dialog::Normal)
@@ -79,7 +78,7 @@ public:
 
     // SLOTS
     /**
-     * Sync Borders updates the enabled borders of the frameSvgItem depending
+     * Sync Borders updates the enabled borders of the dialogBackground depending
      * on the geometry of the window.
      *
      * \param windowGeometry The window geometry which should be taken into
@@ -89,7 +88,7 @@ public:
 
     /**
      * This function sets the blurBehind, background contrast and shadows. It
-     * does so wrt the frameSvgItem. So make sure the frameSvgItem is the
+     * does so wrt the dialogBackground. So make sure the dialogBackground is the
      * correct size before calling this function.
      */
     void updateTheme();
@@ -144,7 +143,6 @@ public:
 
     Dialog *q;
     Plasma::Types::Location location;
-    Plasma::FrameSvgItem *frameSvgItem;
     DialogBackground *dialogBackground;
     QPointer<QQuickItem> mainItem;
     QPointer<QQuickItem> visualParent;
@@ -227,15 +225,15 @@ void DialogPrivate::syncBorders(const QRect &geom)
         }
     }
 
-    if (frameSvgItem->enabledBorders() != (Plasma::FrameSvg::EnabledBorder)borders) {
-        frameSvgItem->setEnabledBorders((Plasma::FrameSvg::EnabledBorder)borders);
+    if (dialogBackground->enabledBorders() != (Plasma::FrameSvg::EnabledBorder)borders) {
+        dialogBackground->setEnabledBorders((Plasma::FrameSvg::EnabledBorder)borders);
     }
 }
 
 void DialogPrivate::updateTheme()
 {
     if (backgroundHints == Dialog::NoBackground) {
-        frameSvgItem->setImagePath(QString());
+        dialogBackground->setImagePath(QString());
         KWindowEffects::enableBlurBehind(q, false);
         KWindowEffects::enableBackgroundContrast(q, false);
         q->setMask(QRegion());
@@ -246,12 +244,12 @@ void DialogPrivate::updateTheme()
             prefix = QStringLiteral("solid/");
         }
         if (type == Dialog::Tooltip) {
-            frameSvgItem->setImagePath(prefix + QStringLiteral("widgets/tooltip"));
+            dialogBackground->setImagePath(prefix + QStringLiteral("widgets/tooltip"));
         } else {
-            frameSvgItem->setImagePath(prefix + QStringLiteral("dialogs/background"));
+            dialogBackground->setImagePath(prefix + QStringLiteral("dialogs/background"));
         }
 
-        const QRegion mask = frameSvgItem->frameSvg()->mask();
+        const QRegion mask = dialogBackground->mask();
         KWindowEffects::enableBlurBehind(q, theme.blurBehindEnabled(), mask);
 
         KWindowEffects::enableBackgroundContrast(q,
@@ -268,10 +266,10 @@ void DialogPrivate::updateTheme()
             }
         } else {
             hasMask = true;
-            q->setMask(frameSvgItem->mask());
+            q->setMask(dialogBackground->mask());
         }
         if (q->isVisible()) {
-            DialogShadows::self()->addWindow(q, frameSvgItem->enabledBorders());
+            DialogShadows::self()->addWindow(q, dialogBackground->enabledBorders());
         }
     }
     updateInputShape();
@@ -285,7 +283,7 @@ void DialogPrivate::updateVisibility(bool visible)
         }
 
         if (q->location() == Plasma::Types::FullScreen) {
-            frameSvgItem->setEnabledBorders(Plasma::FrameSvg::NoBorder);
+            dialogBackground->setEnabledBorders(Plasma::FrameSvg::NoBorder);
 
             // We cache the original size of the item, to retrieve it
             // when the dialog is switched back from fullscreen.
@@ -366,8 +364,7 @@ void DialogPrivate::updateMinimumWidth()
     // the flicker almost always happen anyways, so is *probably* useless
     // this other kind of flicker is the view not being always focused exactly
     // on the scene
-    auto margin = frameSvgItem->fixedMargins();
-    int minimumWidth = mainItemLayout->property("minimumWidth").toInt() + margin->left() + margin->right();
+    int minimumWidth = mainItemLayout->property("minimumWidth").toInt() + dialogBackground->leftMargin() + dialogBackground->rightMargin();
     if (q->screen()) {
         minimumWidth = qMin(q->screen()->availableGeometry().width(), minimumWidth);
     }
@@ -392,8 +389,7 @@ void DialogPrivate::updateMinimumHeight()
     // the flicker almost always happen anyways, so is *probably* useless
     // this other kind of flicker is the view not being always focused exactly
     // on the scene
-    auto margin = frameSvgItem->fixedMargins();
-    int minimumHeight = mainItemLayout->property("minimumHeight").toInt() + margin->top() + margin->bottom();
+    int minimumHeight = mainItemLayout->property("minimumHeight").toInt() + dialogBackground->topMargin() + dialogBackground->bottomMargin();
     if (q->screen()) {
         minimumHeight = qMin(q->screen()->availableGeometry().height(), minimumHeight);
     }
@@ -414,8 +410,7 @@ void DialogPrivate::updateMaximumWidth()
 
     q->setMaximumWidth(DIALOGSIZE_MAX);
 
-    auto margin = frameSvgItem->fixedMargins();
-    int maximumWidth = mainItemLayout->property("maximumWidth").toInt() + margin->left() + margin->right();
+    int maximumWidth = mainItemLayout->property("maximumWidth").toInt() + dialogBackground->leftMargin() + dialogBackground->rightMargin();
     if (q->screen()) {
         maximumWidth = qMin(q->screen()->availableGeometry().width(), maximumWidth);
     }
@@ -436,8 +431,7 @@ void DialogPrivate::updateMaximumHeight()
 
     q->setMaximumHeight(DIALOGSIZE_MAX);
 
-    auto margin = frameSvgItem->fixedMargins();
-    int maximumHeight = mainItemLayout->property("maximumHeight").toInt() + margin->top() + margin->bottom();
+    int maximumHeight = mainItemLayout->property("maximumHeight").toInt() + dialogBackground->topMargin() + dialogBackground->bottomMargin();
     if (q->screen()) {
         maximumHeight = qMin(q->screen()->availableGeometry().height(), maximumHeight);
     }
@@ -525,8 +519,6 @@ void DialogPrivate::getSizeHints(QSize &min, QSize &max) const
     Q_ASSERT(mainItem);
     Q_ASSERT(mainItemLayout);
 
-    auto margin = frameSvgItem->fixedMargins();
-
     int minimumHeight = mainItemLayout->property("minimumHeight").toInt();
     int maximumHeight = mainItemLayout->property("maximumHeight").toInt();
     maximumHeight = maximumHeight > 0 ? qMax(minimumHeight, maximumHeight) : DIALOGSIZE_MAX;
@@ -535,10 +527,10 @@ void DialogPrivate::getSizeHints(QSize &min, QSize &max) const
     int maximumWidth = mainItemLayout->property("maximumWidth").toInt();
     maximumWidth = maximumWidth > 0 ? qMax(minimumWidth, maximumWidth) : DIALOGSIZE_MAX;
 
-    minimumHeight += margin->top() + margin->bottom();
-    maximumHeight += margin->top() + margin->bottom();
-    minimumWidth += margin->left() + margin->right();
-    maximumWidth += margin->left() + margin->right();
+    minimumHeight += dialogBackground->topMargin() + dialogBackground->bottomMargin();
+    maximumHeight += dialogBackground->topMargin() + dialogBackground->bottomMargin();
+    minimumWidth += dialogBackground->leftMargin() + dialogBackground->rightMargin();
+    maximumWidth += dialogBackground->leftMargin() + dialogBackground->rightMargin();
 
     if (q->screen()) {
         minimumWidth = qMin(q->screen()->availableGeometry().width(), minimumWidth);
@@ -559,7 +551,6 @@ void DialogPrivate::updateLayoutParameters()
     }
 
     mainItem->disconnect(q);
-    auto margin = frameSvgItem->fixedMargins();
 
     QSize min;
     QSize max(DIALOGSIZE_MAX, DIALOGSIZE_MAX);
@@ -576,10 +567,11 @@ void DialogPrivate::updateLayoutParameters()
         q->resize(finalSize);
     }
 
-    mainItem->setPosition(QPointF(margin->left(), margin->top()));
-    mainItem->setSize(QSizeF(q->width() - margin->left() - margin->right(), q->height() - margin->top() - margin->bottom()));
+    mainItem->setPosition(QPointF(dialogBackground->leftMargin(), dialogBackground->topMargin()));
+    mainItem->setSize(QSizeF(q->width() - dialogBackground->leftMargin() - dialogBackground->rightMargin(),
+                             q->height() - dialogBackground->topMargin() - dialogBackground->bottomMargin()));
 
-    frameSvgItem->setSize(QSizeF(q->width(), q->height()));
+    dialogBackground->setSize(QSizeF(q->width(), q->height()));
 
     repositionIfOffScreen();
     updateTheme();
@@ -672,10 +664,8 @@ void DialogPrivate::syncToMainItemSize()
 
     updateTheme();
     if (visualParent) {
-        // fixedMargins will get all the borders, no matter if they are enabled
-        auto margins = frameSvgItem->fixedMargins();
-
-        const QSize fullSize = QSize(mainItem->width(), mainItem->height()) + QSize(margins->left() + margins->right(), margins->top() + margins->bottom());
+        const QSize fullSize = QSize(mainItem->width(), mainItem->height())
+            + QSize(dialogBackground->leftMargin() + dialogBackground->rightMargin(), dialogBackground->topMargin() + dialogBackground->bottomMargin());
 
         // We get the popup position with the fullsize as we need the popup
         // position in order to determine our actual size, as the position
@@ -691,8 +681,7 @@ void DialogPrivate::syncToMainItemSize()
     }
 
     QSize s = QSize(mainItem->width(), mainItem->height())
-        + QSize(frameSvgItem->fixedMargins()->left() + frameSvgItem->fixedMargins()->right(),
-                frameSvgItem->fixedMargins()->top() + frameSvgItem->fixedMargins()->bottom());
+        + QSize(dialogBackground->leftMargin() + dialogBackground->rightMargin(), dialogBackground->topMargin() + dialogBackground->bottomMargin());
 
     QSize min;
     QSize max(DIALOGSIZE_MAX, DIALOGSIZE_MAX);
@@ -701,7 +690,7 @@ void DialogPrivate::syncToMainItemSize()
 
     q->contentItem()->setSize(s);
 
-    frameSvgItem->setSize(s);
+    dialogBackground->setSize(s);
 
     if (visualParent) {
         const QRect geom(q->popupPosition(visualParent, s), s);
@@ -719,7 +708,7 @@ void DialogPrivate::syncToMainItemSize()
         q->resize(s);
     }
 
-    mainItem->setPosition(QPointF(frameSvgItem->fixedMargins()->left(), frameSvgItem->fixedMargins()->top()));
+    mainItem->setPosition(QPointF(dialogBackground->leftMargin(), dialogBackground->topMargin()));
 
     updateTheme();
 }
@@ -736,9 +725,9 @@ void DialogPrivate::slotWindowPositionChanged()
     updateTheme();
 
     if (mainItem) {
-        auto margin = frameSvgItem->fixedMargins();
-        mainItem->setPosition(QPoint(margin->left(), margin->top()));
-        mainItem->setSize(QSize(q->width() - margin->left() - margin->right(), q->height() - margin->top() - margin->bottom()));
+        mainItem->setPosition(QPoint(dialogBackground->leftMargin(), dialogBackground->topMargin()));
+        mainItem->setSize(QSize(q->width() - dialogBackground->leftMargin() - dialogBackground->rightMargin(),
+                                q->height() - dialogBackground->topMargin() - dialogBackground->bottomMargin()));
     }
 }
 
@@ -870,16 +859,16 @@ void DialogPrivate::applyType()
     }
 
     if (backgroundHints == Dialog::NoBackground) {
-        frameSvgItem->setImagePath(QString());
+        dialogBackground->setImagePath(QString());
     } else {
         auto prefix = QStringLiteral("");
         if ((backgroundHints & Dialog::SolidBackground) == Dialog::SolidBackground) {
             prefix = QStringLiteral("solid/");
         }
         if (type == Dialog::Tooltip) {
-            frameSvgItem->setImagePath(prefix + QStringLiteral("widgets/tooltip"));
+            dialogBackground->setImagePath(prefix + QStringLiteral("widgets/tooltip"));
         } else {
-            frameSvgItem->setImagePath(prefix + QStringLiteral("dialogs/background"));
+            dialogBackground->setImagePath(prefix + QStringLiteral("dialogs/background"));
         }
     }
 
@@ -955,34 +944,28 @@ Qt::Edges DialogPrivate::hitTest(const QPointF &pos)
 bool DialogPrivate::hitTestLeft(const QPointF &pos)
 {
     const QRect geometry = q->geometry();
-    const QRectF rect(geometry.x(), geometry.y(), frameSvgItem->fixedMargins()->left(), geometry.height());
+    const QRectF rect(geometry.x(), geometry.y(), dialogBackground->leftMargin(), geometry.height());
     return rect.contains(pos);
 }
 
 bool DialogPrivate::hitTestRight(const QPointF &pos)
 {
     const QRect geometry = q->geometry();
-    const QRectF rect(geometry.x() + geometry.width() - frameSvgItem->fixedMargins()->right(),
-                      geometry.y(),
-                      frameSvgItem->fixedMargins()->right(),
-                      geometry.height());
+    const QRectF rect(geometry.x() + geometry.width() - dialogBackground->rightMargin(), geometry.y(), dialogBackground->rightMargin(), geometry.height());
     return rect.contains(pos);
 }
 
 bool DialogPrivate::hitTestTop(const QPointF &pos)
 {
     const QRect geometry = q->geometry();
-    const QRectF rect(geometry.x(), geometry.y(), geometry.width(), frameSvgItem->fixedMargins()->top());
+    const QRectF rect(geometry.x(), geometry.y(), geometry.width(), dialogBackground->topMargin());
     return rect.contains(pos);
 }
 
 bool DialogPrivate::hitTestBottom(const QPointF &pos)
 {
     const QRect geometry = q->geometry();
-    const QRectF rect(geometry.x(),
-                      geometry.y() + geometry.height() - frameSvgItem->fixedMargins()->bottom(),
-                      geometry.width(),
-                      frameSvgItem->fixedMargins()->bottom());
+    const QRectF rect(geometry.x(), geometry.y() + geometry.height() - dialogBackground->bottomMargin(), geometry.width(), dialogBackground->bottomMargin());
     return rect.contains(pos);
 }
 
@@ -1017,10 +1000,10 @@ Dialog::Dialog(QQuickItem *parent)
 
     // HACK: this property is invoked due to the initialization that gets done to contentItem() in the getter
     property("data");
-    // Create the FrameSvg background.
-    d->frameSvgItem = new Plasma::FrameSvgItem(contentItem());
+
     // This is needed as a transition thing for KWayland
-    setProperty("__plasma_frameSvg", QVariant::fromValue(d->frameSvgItem->frameSvg()));
+    // FIXME: is this valid anymore?
+    // setProperty("__plasma_frameSvg", QVariant::fromValue(d->dialogBackground->frameSvg()));
 
     connect(&d->theme, SIGNAL(themeChanged()), this, SLOT(updateTheme()));
 }
@@ -1198,7 +1181,7 @@ QPoint Dialog::popupPosition(QQuickItem *item, const QSize &size)
     // not actually the current window. See QWindow::screen() documentation
     QRect avail = item->window()->screen()->availableGeometry();
 
-    if (outsideParentWindow && d->frameSvgItem->enabledBorders() != Plasma::FrameSvg::AllBorders) {
+    if (outsideParentWindow && d->dialogBackground->enabledBorders() != Plasma::FrameSvg::AllBorders) {
         // make the panel look it's inside the panel, in order to not make it look cut
         switch (d->location) {
         case Plasma::Types::LeftEdge:
@@ -1294,12 +1277,12 @@ void Dialog::setLocation(Plasma::Types::Location location)
 
 QObject *Dialog::margins() const
 {
-    return d->frameSvgItem->fixedMargins();
+    return d->dialogBackground->fixedMargins();
 }
 
 QObject *Dialog::inset() const
 {
-    return d->frameSvgItem->inset();
+    return d->dialogBackground->inset();
 }
 
 void Dialog::setFramelessFlags(Qt::WindowFlags flags)
@@ -1342,11 +1325,11 @@ void Dialog::resizeEvent(QResizeEvent *re)
 
     d->mainItem->disconnect(this);
 
-    d->frameSvgItem->setSize(QSizeF(re->size().width(), re->size().height()));
-    auto margin = d->frameSvgItem->fixedMargins();
-    d->mainItem->setPosition(QPointF(margin->left(), margin->top()));
+    d->dialogBackground->setSize(QSizeF(re->size().width(), re->size().height()));
+    d->mainItem->setPosition(QPointF(d->dialogBackground->leftMargin(), d->dialogBackground->topMargin()));
 
-    d->mainItem->setSize(QSize(re->size().width() - margin->left() - margin->right(), re->size().height() - margin->top() - margin->bottom()));
+    d->mainItem->setSize(QSize(re->size().width() - d->dialogBackground->leftMargin() - d->dialogBackground->rightMargin(),
+                               re->size().height() - d->dialogBackground->topMargin() - d->dialogBackground->bottomMargin()));
 
     d->updateTheme();
 
@@ -1412,7 +1395,7 @@ void Dialog::showEvent(QShowEvent *event)
     d->updateSizeFromAppletInterface();
 
     if (d->backgroundHints != Dialog::NoBackground) {
-        DialogShadows::self()->addWindow(this, d->frameSvgItem->enabledBorders());
+        DialogShadows::self()->addWindow(this, d->dialogBackground->enabledBorders());
     }
 
     KWindowSystem::setState(winId(), NET::SkipTaskbar | NET::SkipPager | NET::SkipSwitcher);
