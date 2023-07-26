@@ -14,6 +14,7 @@
 #include "config-plasma.h"
 #include "configview.h"
 #include "dialogshadows_p.h"
+#include "private/dialogbackground_p.h"
 #include "sharedqmlengine.h"
 
 #include <QLayout>
@@ -60,6 +61,7 @@ public:
         : q(dialog)
         , location(Plasma::Types::BottomEdge)
         , frameSvgItem(nullptr)
+        , dialogBackground(new DialogBackground(q->contentItem()))
         , hasMask(false)
         , type(Dialog::Normal)
         , hideOnWindowDeactivate(false)
@@ -143,6 +145,7 @@ public:
     Dialog *q;
     Plasma::Types::Location location;
     Plasma::FrameSvgItem *frameSvgItem;
+    DialogBackground *dialogBackground;
     QPointer<QQuickItem> mainItem;
     QPointer<QQuickItem> visualParent;
 #if HAVE_KWAYLAND
