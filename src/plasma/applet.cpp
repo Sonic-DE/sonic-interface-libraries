@@ -656,7 +656,7 @@ void Applet::setInternalAction(const QString &name, QAction *action)
     d->actions[name] = action;
 
     QObject::connect(action, &QObject::destroyed, this, [this, name]() {
-        removeInternalAction(name);
+        d->actions.remove(name);
     });
 
     Q_EMIT internalActionsChanged(d->actions.values());
