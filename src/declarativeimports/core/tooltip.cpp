@@ -111,6 +111,25 @@ void ToolTip::setMainItem(QQuickItem *mainItem)
     }
 }
 
+static Qt::Edge locationToPopupDirection(Plasma::Types::Location location)
+{
+    switch (location) {
+    case Plasma::Types::Floating:
+    case Plasma::Types::Desktop:
+    case Plasma::Types::TopEdge:
+    case Plasma::Types::FullScreen:
+        return Qt::BottomEdge;
+    case Plasma::Types::BottomEdge:
+        return Qt::TopEdge;
+    case Plasma::Types::LeftEdge:
+        return Qt::RightEdge;
+    case Plasma::Types::RightEdge:
+        return Qt::LeftEdge;
+    }
+
+    return Qt::BottomEdge;
+}
+
 void ToolTip::showToolTip()
 {
     if (!m_active) {
@@ -150,7 +169,7 @@ void ToolTip::showToolTip()
 
     dlg->setHideTimeout(m_timeout);
     dlg->setOwner(this);
-    dlg->setLocation(location);
+    dlg->setPopupDirection(locationToPopupDirection(location));
     dlg->setVisualParent(this);
     dlg->setMainItem(mainItem());
     dlg->setInteractive(m_interactive);
