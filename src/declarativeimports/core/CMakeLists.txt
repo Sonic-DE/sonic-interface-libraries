@@ -31,6 +31,7 @@ target_link_libraries(corebindingsplugin
         KF6::WindowSystem
         KF6::Plasma
         KF6::PlasmaQuick
+        Wayland::Client
 )
 
 if(HAVE_X11)
