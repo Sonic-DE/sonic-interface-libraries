@@ -15,15 +15,14 @@
 #include <KWindowSystem>
 #include <plasmaquick/sharedqmlengine.h>
 
-ToolTipDialog::ToolTipDialog(QQuickItem *parent)
-    : Dialog(parent)
+ToolTipDialog::ToolTipDialog()
+    : PopupPlasmaWindow()
     , m_qmlObject(nullptr)
     , m_hideTimeout(-1)
     , m_interactive(false)
     , m_owner(nullptr)
 {
-    setLocation(Plasma::Types::Floating);
-    setType(Dialog::WindowType::Tooltip);
+    setLocation(Plasma::Types::BottomEdge);
 
     m_showTimer = new QTimer(this);
     m_showTimer->setSingleShot(true);
@@ -60,19 +59,14 @@ void ToolTipDialog::showEvent(QShowEvent *event)
 {
     keepalive();
 
-    Dialog::showEvent(event);
+    PlasmaQuick::PopupPlasmaWindow::showEvent(event);
 }
 
 void ToolTipDialog::hideEvent(QHideEvent *event)
 {
     m_showTimer->stop();
 
-    Dialog::hideEvent(event);
-}
-
-void ToolTipDialog::resizeEvent(QResizeEvent *re)
-{
-    Dialog::resizeEvent(re);
+    PlasmaQuick::PopupPlasmaWindow::hideEvent(event);
 }
 
 bool ToolTipDialog::event(QEvent *e)
@@ -85,7 +79,7 @@ bool ToolTipDialog::event(QEvent *e)
         dismiss();
     }
 
-    bool ret = Dialog::event(e);
+    bool ret = PopupPlasmaWindow::event(e);
     Qt::WindowFlags flags = Qt::ToolTip | Qt::WindowDoesNotAcceptFocus | Qt::WindowStaysOnTopHint;
     if (KWindowSystem::isPlatformX11()) {
         flags = flags | Qt::BypassWindowManagerHint;
@@ -126,7 +120,7 @@ bool ToolTipDialog::interactive()
 void ToolTipDialog::setInteractive(bool interactive)
 {
     m_interactive = interactive;
-    setOutputOnly(!interactive);
+    //    setOutputOnly(!interactive);
 }
 
 void ToolTipDialog::valueChanged(const QVariant &value)
