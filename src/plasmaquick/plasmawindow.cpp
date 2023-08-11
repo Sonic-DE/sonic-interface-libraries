@@ -61,6 +61,10 @@ void PlasmaWindow::setMainItem(QQuickItem *mainItem)
     if (d->mainItem == mainItem)
         return;
 
+    if (d->mainItem) {
+        d->mainItem->setParentItem(nullptr);
+    }
+
     d->mainItem = mainItem;
 
     if (d->mainItem) {
