@@ -3,7 +3,8 @@
 # <visibility-layer>/<C++ namespace>/class header files
 set(PLASMAQUICK_INSTALL_INCLUDEDIR "${KDE_INSTALL_INCLUDEDIR_KF}/PlasmaQuick")
 
-add_library(KF6PlasmaQuick SHARED)
+add_library(KF6PlasmaQuick SHARED
+    transientplacementhint_p.h transientplacementhint.cpp)
 add_library(KF6::PlasmaQuick ALIAS KF6PlasmaQuick)
 
 set_target_properties(KF6PlasmaQuick PROPERTIES
@@ -27,6 +28,8 @@ target_sources(KF6PlasmaQuick PRIVATE
     sharedqmlengine.cpp
     quickviewsharedengine.cpp
     plasmawindow.cpp
+    popupplasmawindow.cpp
+    transientplacementhint.cpp
     private/configcategory_p.cpp
     private/plasmoidattached_p.cpp
     private/dialogbackground_p.cpp
