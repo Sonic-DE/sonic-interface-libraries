@@ -13,6 +13,8 @@
 
 #include "qwayland-plasma-shell.h"
 
+#include <plasmaquick/plasmaquick_export.h>
+
 class QWindow;
 
 class PlasmaShellSurface;
@@ -24,7 +26,7 @@ class PlasmaShellSurface;
  * The class abstracts the wayland protocol tasks, automatically sending
  * cached metadata when the underlying platform surfaces are created.
  */
-class PlasmaWaylandShellIntegration : public QObject
+class PLASMAQUICK_EXPORT PlasmaWaylandShellIntegration : public QObject
 {
     Q_OBJECT
 public:
