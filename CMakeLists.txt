@@ -73,8 +73,8 @@ if(KF6Wayland_FOUND)
   set(HAVE_KWAYLAND 1)
 endif()
 
-option(WITHOUT_X11 "Build without X11 support (skips finding X11)." OFF)
-if(NOT WITHOUT_X11)
+option(WITH_X11 "Build with X11 support (find X11)." ON)
+if(WITH_X11)
     #optional features
     find_package(X11 MODULE)
     set_package_properties(X11 PROPERTIES DESCRIPTION "X11 libraries"
