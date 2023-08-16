@@ -27,7 +27,6 @@ private Q_SLOTS:
     void testCompositingChange();
 
 private:
-    Plasma::Svg *m_svg;
     Plasma::Theme *m_theme;
 };
 
