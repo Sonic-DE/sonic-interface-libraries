@@ -16,8 +16,6 @@ target_sources(corebindingsplugin PRIVATE
     tooltip.cpp
     tooltipdialog.cpp
     windowthumbnail.cpp
-    managedtexturenode.cpp
-    imagetexturescache.cpp
 )
 
 target_link_libraries(corebindingsplugin
