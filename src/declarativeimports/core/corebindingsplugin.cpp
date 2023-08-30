@@ -15,6 +15,7 @@
 #include <KLocalizedContext>
 
 #include "action.h"
+#include "appletpopup.h"
 #include "datamodel.h"
 #include "dialog.h"
 #include "quicktheme.h"
@@ -55,6 +56,8 @@ void CoreBindingsPlugin::registerTypes(const char *uri)
     // TODO: remove
     qmlRegisterType<Plasma::SortFilterModel, 0>(uri, 2, 0, "SortFilterModel");
     qmlRegisterType<Plasma::SortFilterModel, 1>(uri, 2, 1, "SortFilterModel");
+
+    qmlRegisterType<PlasmaQuick::AppletPopup>(uri, 2, 0, "AppletPopup");
 
     qmlRegisterType<PlasmaQuick::Dialog>(uri, 2, 0, "Dialog");
     // HACK make properties like "opacity" work that are in REVISION 1 of QWindow
