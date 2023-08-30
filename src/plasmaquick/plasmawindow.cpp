@@ -135,7 +135,6 @@ Qt::Edges PlasmaWindow::borders()
 void PlasmaWindow::resizeEvent(QResizeEvent *e)
 {
     QQuickWindow::resizeEvent(e);
-
     const QSize windowSize = e->size();
     d->dialogBackground->setSize(windowSize);
     if (d->mainItem) {
@@ -184,6 +183,12 @@ QMargins PlasmaWindow::margins() const
                     d->dialogBackground->topMargin(),
                     d->dialogBackground->rightMargin(),
                     d->dialogBackground->bottomMargin());
+}
+
+QSize PlasmaWindow::marginSize() const
+{
+    return QSize(d->dialogBackground->leftMargin() + d->dialogBackground->rightMargin(),
+                 d->dialogBackground->topMargin() + d->dialogBackground->bottomMargin());
 }
 
 PlasmaWindow::BackgroundHints PlasmaWindow::backgroundHints() const
