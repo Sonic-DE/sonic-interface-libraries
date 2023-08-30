@@ -6,6 +6,7 @@
 #include "popupplasmawindow.h"
 #include <kwindowsystem.h>
 
+#include "kwindoweffects.h"
 #include "transientplacementhint_p.h"
 #include "waylandintegration_p.h"
 
@@ -62,6 +63,7 @@ void PopupPlasmaWindow::setPopupDirection(Qt::Edge popupDirection)
         qWarning() << "location should be set before showing popup window";
     }
     queuePositionUpdate();
+    updateSlideEffect();
 
     Q_EMIT popupDirectionChanged();
 }
@@ -79,6 +81,18 @@ void PopupPlasmaWindow::setFloating(bool floating)
     m_floating = floating;
     queuePositionUpdate();
     Q_EMIT floatingChanged();
+}
+
+bool PopupPlasmaWindow::animated()
+{
+    return m_animated;
+}
+
+void PopupPlasmaWindow::setAnimated(bool animated)
+{
+    m_animated = animated;
+    updateSlideEffect();
+    Q_EMIT animatedChanged();
 }
 
 bool PopupPlasmaWindow::event(QEvent *event)
@@ -104,6 +118,28 @@ bool PopupPlasmaWindow::event(QEvent *event)
 void PlasmaQuick::PopupPlasmaWindow::queuePositionUpdate()
 {
     m_needsReposition = true;
+}
+
+void PopupPlasmaWindow::updateSlideEffect()
+{
+    KWindowEffects::SlideFromLocation slideLocation = KWindowEffects::NoEdge;
+    if (m_animated) {
+        switch (m_popupDirection) {
+        case Qt::TopEdge:
+            slideLocation = KWindowEffects::BottomEdge;
+            break;
+        case Qt::BottomEdge:
+            slideLocation = KWindowEffects::TopEdge;
+            break;
+        case Qt::LeftEdge:
+            slideLocation = KWindowEffects::RightEdge;
+            break;
+        case Qt::RightEdge:
+            slideLocation = KWindowEffects::LeftEdge;
+            break;
+        }
+    }
+    KWindowEffects::slideWindow(this, slideLocation, -1);
 }
 
 void PlasmaQuick::PopupPlasmaWindow::updatePosition()
