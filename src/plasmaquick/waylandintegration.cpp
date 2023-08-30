@@ -11,6 +11,8 @@
 #include <QGuiApplication>
 #include <QWindow>
 
+#include <KWindowSystem>
+
 #include <QWaylandClientExtensionTemplate>
 
 class PlasmaShellManager : public QWaylandClientExtensionTemplate<PlasmaShellManager>, public QtWayland::org_kde_plasma_shell
@@ -20,10 +22,7 @@ public:
         : QWaylandClientExtensionTemplate<PlasmaShellManager>(8)
     {
     }
-    QHash<QWindow *, PlasmaWaylandShellIntegration *> m_windows;
 };
-
-Q_GLOBAL_STATIC(PlasmaShellManager, privateWaylandIntegrationSelf)
 
 class PlasmaShellSurface : public QtWayland::org_kde_plasma_surface
 {
@@ -38,9 +37,26 @@ public:
     }
 };
 
+class PlasmaWaylandIntegrationSingleton
+{
+public:
+    PlasmaWaylandIntegrationSingleton();
+    std::unique_ptr<PlasmaShellManager> shellManager;
+    QHash<QWindow *, PlasmaWaylandShellIntegration *> windows;
+};
+
+PlasmaWaylandIntegrationSingleton::PlasmaWaylandIntegrationSingleton()
+{
+    if (KWindowSystem::isPlatformWayland()) {
+        shellManager = std::make_unique<PlasmaShellManager>();
+    }
+}
+
+Q_GLOBAL_STATIC(PlasmaWaylandIntegrationSingleton, s_self)
+
 PlasmaWaylandShellIntegration *PlasmaWaylandShellIntegration::get(QWindow *window)
 {
-    PlasmaWaylandShellIntegration *&it = privateWaylandIntegrationSelf->m_windows[window];
+    PlasmaWaylandShellIntegration *&it = s_self->windows[window];
     if (!it) {
         it = new PlasmaWaylandShellIntegration(window);
     }
@@ -49,7 +65,7 @@ PlasmaWaylandShellIntegration *PlasmaWaylandShellIntegration::get(QWindow *windo
 
 PlasmaWaylandShellIntegration::~PlasmaWaylandShellIntegration()
 {
-    privateWaylandIntegrationSelf->m_windows.remove(m_window);
+    s_self->windows.remove(m_window);
 }
 
 PlasmaWaylandShellIntegration::PlasmaWaylandShellIntegration(QWindow *window)
@@ -119,7 +135,8 @@ void PlasmaWaylandShellIntegration::surfaceCreated()
 {
     struct wl_surface *surface = nullptr;
 
-    if (!privateWaylandIntegrationSelf->isActive()) {
+    ;
+    if (!s_self->shellManager || !s_self->shellManager->isActive()) {
         return;
     }
 
@@ -131,7 +148,7 @@ void PlasmaWaylandShellIntegration::surfaceCreated()
         return;
     }
 
-    m_shellSurface = std::make_unique<PlasmaShellSurface>(privateWaylandIntegrationSelf->get_surface(surface));
+    m_shellSurface = std::make_unique<PlasmaShellSurface>(s_self->shellManager->get_surface(surface));
     if (m_shellSurface) {
         if (m_position) {
             m_shellSurface->set_position(m_position->x(), m_position->y());
