@@ -6,15 +6,15 @@
 
 #include "appletpopup.h"
 
+#include <QGuiApplication>
+
 #include "appletquickitem.h"
 
 // TODO queue:
-//  Sliding (in superclass)
-
 // min/max hint propagation from mainItem
-// close on Focus out
 // resize handles + save restore
 // mouse press fitt's law handling
+// background hints (in PlasmaWindow)
 
 using namespace PlasmaQuick;
 
@@ -80,33 +80,34 @@ void AppletPopup::updateSize()
     resize(popupSize);
 }
 
-// void Dialog::focusOutEvent(QFocusEvent *ev)
-//{
-//     if (d->hideOnWindowDeactivate) {
-//         bool parentHasFocus = false;
+void AppletPopup::focusOutEvent(QFocusEvent *ev)
+{
+    if (m_hideOnWindowDeactivate) {
+        bool parentHasFocus = false;
 
-//        QWindow *parentWindow = transientParent();
+        QWindow *parentWindow = transientParent();
 
-//        while (parentWindow) {
-//            if (parentWindow->isActive() && !(parentWindow->flags() & Qt::WindowDoesNotAcceptFocus)) {
-//                parentHasFocus = true;
+        // DAVE. We're already using qApp->focusWindow below
+        // couldn't it just be focusWindow->isAncestorOf(this) || this->isAncestorOf(focus)
+        while (parentWindow) {
+            if (parentWindow->isActive() && !(parentWindow->flags() & Qt::WindowDoesNotAcceptFocus)) {
+                parentHasFocus = true;
+                break;
+            }
 
-//                break;
-//            }
+            parentWindow = parentWindow->transientParent();
+        }
 
-//            parentWindow = parentWindow->transientParent();
-//        }
+        const QWindow *focusWindow = QGuiApplication::focusWindow();
+        bool childHasFocus = focusWindow && ((focusWindow->isActive() && isAncestorOf(focusWindow)) || (focusWindow->type() & Qt::Popup) == Qt::Popup);
 
-//        const QWindow *focusWindow = QGuiApplication::focusWindow();
-//        bool childHasFocus = focusWindow && ((focusWindow->isActive() && isAncestorOf(focusWindow)) || (focusWindow->type() & Qt::Popup) == Qt::Popup);
+        // DAVE, what was this doing?
+        //        const bool viewClicked = qobject_cast<const PlasmaQuick::SharedQmlEngine *>(focusWindow) || qobject_cast<const ConfigView *>(focusWindow);
 
-//        const bool viewClicked = qobject_cast<const PlasmaQuick::SharedQmlEngine *>(focusWindow) || qobject_cast<const ConfigView *>(focusWindow);
+        if (/*viewClicked || */ (!parentHasFocus && !childHasFocus)) {
+            setVisible(false);
+        }
+    }
 
-//        if (viewClicked || (!parentHasFocus && !childHasFocus)) {
-//            setVisible(false);
-//            Q_EMIT windowDeactivated();
-//        }
-//    }
-
-//    QQuickWindow::focusOutEvent(ev);
-//}
+    QQuickWindow::focusOutEvent(ev);
+}

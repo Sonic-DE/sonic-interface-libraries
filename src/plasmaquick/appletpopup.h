@@ -44,6 +44,9 @@ Q_SIGNALS:
     void appletInterfaceChanged();
     void hideOnWindowDeactivateChanged();
 
+protected:
+    void focusOutEvent(QFocusEvent *event) override;
+
 private:
     void onMainItemChanged();
     void updateSize();
