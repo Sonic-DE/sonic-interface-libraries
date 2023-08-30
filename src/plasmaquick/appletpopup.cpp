@@ -11,6 +11,7 @@
 #include "appletquickitem.h"
 #include "waylandintegration_p.h"
 
+#include "edgeeventforwarder.h"
 // TODO queue:
 // min/max hint propagation from mainItem
 // resize handles + save restore
@@ -23,6 +24,12 @@ AppletPopup::AppletPopup()
 {
     setAnimated(true);
     PlasmaWaylandShellIntegration::get(this)->setRole(QtWayland::org_kde_plasma_surface::role::role_appletpopup);
+
+    auto edgeForwarder = new EdgeEventForwarder(this);
+    edgeForwarder->setMargins(margins());
+    connect(this, &PlasmaWindow::marginsChanged, this, [edgeForwarder, this]() {
+        edgeForwarder->setMargins(margins());
+    });
 
     connect(this, &PlasmaQuick::PlasmaWindow::mainItemChanged, this, [this]() {
         if (m_lastMainItem) {
