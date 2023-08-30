@@ -4,7 +4,8 @@
 set(PLASMAQUICK_INSTALL_INCLUDEDIR "${KDE_INSTALL_INCLUDEDIR_KF}/PlasmaQuick")
 
 add_library(KF6PlasmaQuick SHARED
-    transientplacementhint_p.h transientplacementhint.cpp)
+    transientplacementhint_p.h transientplacementhint.cpp
+    edgeeventforwarder.h)
 add_library(KF6::PlasmaQuick ALIAS KF6PlasmaQuick)
 
 set_target_properties(KF6PlasmaQuick PROPERTIES
@@ -24,6 +25,7 @@ target_sources(KF6PlasmaQuick PRIVATE
     containmentview.cpp
     configmodel.cpp
     configview.cpp
+    edgeeventforwarder.cpp
     packageurlinterceptor.cpp
     sharedqmlengine.cpp
     quickviewsharedengine.cpp
