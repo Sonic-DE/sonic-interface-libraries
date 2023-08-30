@@ -35,6 +35,8 @@ class PLASMAQUICK_EXPORT PlasmaWindow : public QQuickWindow
      * Defines the background used for the window
      */
     Q_PROPERTY(BackgroundHints backgroundHints READ backgroundHints WRITE setBackgroundHints NOTIFY backgroundHintsChanged)
+
+    Q_PROPERTY(QSize marginSize READ marginSize NOTIFY marginsChanged())
 public:
     enum BackgroundHints {
         StandardBackground = 0, /**< The standard background from the theme is drawn */
@@ -66,6 +68,8 @@ public:
      * When setting size hints on the window this should be factored in.
      */
     QMargins margins() const;
+
+    QSize marginSize() const;
 
     BackgroundHints backgroundHints() const;
     void setBackgroundHints(BackgroundHints hints);
