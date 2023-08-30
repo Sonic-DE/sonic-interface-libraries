@@ -9,6 +9,7 @@
 #include <QGuiApplication>
 
 #include "appletquickitem.h"
+#include "waylandintegration_p.h"
 
 // TODO queue:
 // min/max hint propagation from mainItem
@@ -21,6 +22,8 @@ using namespace PlasmaQuick;
 AppletPopup::AppletPopup()
 {
     setAnimated(true);
+    PlasmaWaylandShellIntegration::get(this)->setRole(QtWayland::org_kde_plasma_surface::role::role_appletpopup);
+
     connect(this, &PlasmaQuick::PlasmaWindow::mainItemChanged, this, [this]() {
         if (m_lastMainItem) {
             disconnect(m_lastMainItem, &QQuickItem::implicitWidthChanged, this, &AppletPopup::updateSize);
