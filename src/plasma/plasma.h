@@ -106,20 +106,6 @@ public:
     Q_FLAG(ContainmentDisplayHints)
 
     /**
-     * The Direction enumeration describes in which direction, relative to the
-     * Applet (and its managing container), popup menus, expanders, balloons,
-     * message boxes, arrows and other such visually associated widgets should
-     * appear in. This is usually the opposite of the Location.
-     **/
-    enum Direction {
-        Down = 0, /**< Display downards */
-        Up, /**< Display upwards */
-        Left, /**< Display to the left */
-        Right, /**< Display to the right */
-    };
-    Q_ENUM(Direction)
-
-    /**
      * The Location enumeration describes where on screen an element, such as an
      * Applet or its managing container, is positioned on the screen.
      **/
@@ -173,17 +159,6 @@ public:
                                     to the bottom of the widget */
     };
     Q_ENUM(PopupPlacement)
-
-    /**
-     * Flip enumeration
-     */
-    enum FlipDirection {
-        NoFlip = 0, /**< Do not flip */
-        HorizontalFlip = 1, /**< Flip horizontally */
-        VerticalFlip = 2, /**< Flip vertically */
-    };
-    Q_ENUM(FlipDirection)
-    Q_DECLARE_FLAGS(Flip, FlipDirection)
 
     /**
      * Defines the immutability of items like applets, corona and containments
@@ -267,24 +242,6 @@ public:
 private:
     Types(QObject *parent = nullptr);
 };
-
-/**
- * Converts a location to a direction. Handy for figuring out which way to send a popup based on
- * location or to point arrows and other directional items.
- *
- * @param location the location of the container the element will appear in
- * @return the visual direction the element should be oriented in
- **/
-PLASMA_EXPORT Types::Direction locationToDirection(Types::Location location);
-
-/**
- * Converts a location to the direction facing it. Handy for figuring out which way to collapse
- * a popup or to point arrows at the item itself.
- *
- * @param location the location of the container the element will appear in
- * @return the visual direction the element should be oriented in
- **/
-PLASMA_EXPORT Types::Direction locationToInverseDirection(Types::Location location);
 
 /**
  * Mirrors popup placement horizontally in Right-To-Left environments.
