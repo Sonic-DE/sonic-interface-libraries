@@ -15,6 +15,7 @@
 #include "waylandintegration_p.h"
 
 #include "edgeeventforwarder.h"
+#include "windowresizehandler.h"
 
 // TODO queue:
 // resize handles
@@ -33,9 +34,20 @@ AppletPopup::AppletPopup()
         edgeForwarder->setMargins(margins());
     });
     // edges that have a border are not on a screen edge
+    // we want to forward on sides touching screen edges
     edgeForwarder->setActiveEdges(~borders());
     connect(this, &PlasmaWindow::bordersChanged, this, [edgeForwarder, this]() {
         edgeForwarder->setActiveEdges(~borders());
+    });
+
+    auto windowResizer = new WindowResizeHandler(this);
+    windowResizer->setMargins(margins());
+    connect(this, &PlasmaWindow::marginsChanged, this, [windowResizer, this]() {
+        windowResizer->setMargins(margins());
+    });
+    windowResizer->setActiveEdges(borders());
+    connect(this, &PlasmaWindow::bordersChanged, this, [windowResizer, this]() {
+        windowResizer->setActiveEdges(borders());
     });
 
     connect(this, &PlasmaQuick::PlasmaWindow::mainItemChanged, this, [this]() {
