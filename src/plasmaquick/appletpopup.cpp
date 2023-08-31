@@ -20,9 +20,6 @@
 #include "configview.h"
 #include "sharedqmlengine.h"
 
-// TODO queue:
-// background hints (in PlasmaWindow)
-
 using namespace PlasmaQuick;
 
 AppletPopup::AppletPopup()
