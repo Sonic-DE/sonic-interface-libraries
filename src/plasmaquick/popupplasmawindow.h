@@ -57,6 +57,7 @@ private:
     void updatePosition();
     void updatePositionX11(const QPoint &position);
     void updatePositionWayland(const QPoint &position);
+    void updateBorders(const QRect &globalPosition);
 
     QPointer<QQuickItem> m_visualParent;
     bool m_needsReposition = false;
