@@ -32,6 +32,19 @@ class PLASMAQUICK_EXPORT AppletPopup : public PopupPlasmaWindow
      **/
     Q_PROPERTY(bool hideOnWindowDeactivate READ hideOnWindowDeactivate WRITE setHideOnWindowDeactivate NOTIFY hideOnWindowDeactivateChanged)
 
+    /**
+     * Sets an implicitWidth for the window
+     *
+     * The window width may be modified by external factors, the implicitWidth remains the value set by the caller
+     */
+    Q_PROPERTY(int implicitWidth READ implicitWidth WRITE setImplicitWidth NOTIFY implicitWidthChanged)
+    /**
+     * Sets an implicitHeight for the window
+     *
+     * The window height may be modified by external factors, the implicitHeight remains the value set by the caller
+     */
+    Q_PROPERTY(int implicitHeight READ implicitHeight WRITE setImplicitHeight NOTIFY implicitHeightChanged)
+
 public:
     AppletPopup();
     QQuickItem *appletInterface() const;
@@ -40,9 +53,17 @@ public:
     bool hideOnWindowDeactivate() const;
     void setHideOnWindowDeactivate(bool hideOnWindowDeactivate);
 
+    int implicitWidth() const;
+    void setImplicitWidth(int implicitWidth);
+
+    int implicitHeight() const;
+    void setImplicitHeight(int implicitHeight);
+
 Q_SIGNALS:
     void appletInterfaceChanged();
     void hideOnWindowDeactivateChanged();
+    void implicitWidthChanged();
+    void implicitHeightChanged();
 
 protected:
     void hideEvent(QHideEvent *event) override;
@@ -53,6 +74,8 @@ private:
     void updateSize();
 
     QPointer<AppletQuickItem> m_appletInterface;
+    int m_implicitWidth = 500;
+    int m_implicitHeight = 500;
     bool m_hideOnWindowDeactivate = false;
 };
 
