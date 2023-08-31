@@ -54,30 +54,6 @@ AppletPopup::AppletPopup()
     connect(this, &PlasmaWindow::bordersChanged, this, [windowResizer, this]() {
         windowResizer->setActiveEdges(borders());
     });
-
-    connect(this, &PlasmaQuick::PlasmaWindow::mainItemChanged, this, [this]() {
-        if (m_lastMainItem) {
-            disconnect(m_lastMainItem, &QQuickItem::implicitWidthChanged, this, &AppletPopup::updateSize);
-            disconnect(m_lastMainItem, &QQuickItem::implicitHeightChanged, this, &AppletPopup::updateSize);
-        }
-        m_lastMainItem = mainItem();
-
-        if (!mainItem()) {
-            return;
-        }
-        connect(mainItem(), &QQuickItem::implicitWidthChanged, this, &AppletPopup::updateSize);
-        connect(mainItem(), &QQuickItem::implicitHeightChanged, this, &AppletPopup::updateSize);
-
-        QSize popupSize = QSize(mainItem()->implicitWidth(), mainItem()->implicitHeight());
-
-        // Dave, this is order dependent, how should we handle this in a way that isn't terrible?
-        if (m_appletInterface) {
-            KConfigGroup config = m_appletInterface->applet()->config();
-            popupSize.rwidth() = config.readEntry("popupWidth", popupSize.width());
-            popupSize.rheight() = config.readEntry("popupHeight", popupSize.height());
-        }
-        resize(popupSize.grownBy(margins()));
-    });
 }
 
 QQuickItem *AppletPopup::appletInterface() const

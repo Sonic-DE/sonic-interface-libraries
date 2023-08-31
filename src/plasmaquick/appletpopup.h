@@ -53,8 +53,6 @@ private:
     void updateSize();
 
     QPointer<AppletQuickItem> m_appletInterface;
-    QPointer<QQuickItem> m_lastMainItem;
-
     bool m_hideOnWindowDeactivate = false;
 };
 

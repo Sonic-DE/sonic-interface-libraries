@@ -186,6 +186,12 @@ QMargins PlasmaWindow::margins() const
                     d->dialogBackground->bottomMargin());
 }
 
+QSize PlasmaWindow::marginSize() const
+{
+    return QSize(d->dialogBackground->leftMargin() + d->dialogBackground->rightMargin(),
+                 d->dialogBackground->topMargin() + d->dialogBackground->bottomMargin());
+}
+
 PlasmaWindow::BackgroundHints PlasmaWindow::backgroundHints() const
 {
     return d->backgroundHints;
