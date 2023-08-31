@@ -17,8 +17,9 @@ public:
     QWindow *window;
     QMargins margins;
     Qt::Edges activeEdges;
-    bool mainItemContainsPosition(const QPointF &position);
-    QPointF positionAdjustedForMainItem(const QPointF &position);
+    QMargins activeMargins() const;
+    bool mainItemContainsPosition(const QPointF &position) const;
+    QPointF positionAdjustedForMainItem(const QPointF &position) const;
 };
 
 EdgeEventForwarder::EdgeEventForwarder(QWindow *parent)
@@ -156,17 +157,22 @@ bool EdgeEventForwarder::eventFilter(QObject *watched, QEvent *event)
     return false;
 }
 
-bool EdgeEventForwarderPrivate::mainItemContainsPosition(const QPointF &position)
+QMargins EdgeEventForwarderPrivate::activeMargins() const
 {
-    // TODO active margins only
-    const QRectF itemRect = QRectF(QPointF(0, 0), window->size()).marginsRemoved(margins);
+    return QMargins(activeEdges.testFlag(Qt::TopEdge) ? margins.top() : 0,
+                    activeEdges.testFlag(Qt::BottomEdge) ? margins.bottom() : 0,
+                    activeEdges.testFlag(Qt::LeftEdge) ? margins.left() : 0,
+                    activeEdges.testFlag(Qt::RightEdge) ? margins.right() : 0);
+}
+
+bool EdgeEventForwarderPrivate::mainItemContainsPosition(const QPointF &position) const
+{
+    const QRectF itemRect = QRectF(QPointF(0, 0), window->size()).marginsRemoved(activeMargins());
     return itemRect.contains(position);
 }
 
-QPointF EdgeEventForwarderPrivate::positionAdjustedForMainItem(const QPointF &position)
+QPointF EdgeEventForwarderPrivate::positionAdjustedForMainItem(const QPointF &position) const
 {
-    // TODO active margins only
-
-    const QRectF itemRect = QRectF(QPointF(0, 0), window->size()).marginsRemoved(margins);
+    const QRectF itemRect = QRectF(QPointF(0, 0), window->size()).marginsRemoved(activeMargins());
     return QPointF(qBound(itemRect.left(), position.x(), itemRect.right()), qBound(itemRect.top(), position.y(), itemRect.bottom()));
 }
