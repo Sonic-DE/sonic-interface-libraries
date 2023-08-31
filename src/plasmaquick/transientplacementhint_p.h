@@ -1,7 +1,7 @@
 /*
     SPDX-FileCopyrightText: 2023 David Edmundson <davidedmundson@kde.org>
     SPDX-FileCopyrightText: 2021 Vlad Zahorodnii <vlad.zahorodnii@kde.org>
-    SPDX-License-Identifier: GPL-2.0-or-later
+    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
 #pragma once
@@ -31,7 +31,9 @@ public:
     void setPopupAnchor(Qt::Edges popupAnchor);
     Qt::Edges popupAnchor() const;
     Qt::Orientations slideConstraintAdjustments() const;
+    void setSlideConstraintAdjustments(Qt::Orientations slideConstraintAdjustments);
     Qt::Orientations flipConstraintAdjustments() const;
+    void setFlipConstraintAdjustments(Qt::Orientations flipConstraintAdjustments);
 
 private:
     QSharedDataPointer<TransientPlacementHintPrivate> d;

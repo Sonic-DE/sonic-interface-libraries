@@ -2,6 +2,7 @@
     SPDX-FileCopyrightText: 2011 Marco Martin <mart@kde.org>
     SPDX-FileCopyrightText: 2011 Artur Duque de Souza <asouza@kde.org>
     SPDX-FileCopyrightText: 2013 Sebastian Kügler <sebas@kde.org>
+    SPDX-FileCopyrightText: 2023 David Edmundson <davidedmundson@kde.org>
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
@@ -173,6 +174,32 @@ void ToolTip::showToolTip()
     dlg->setVisualParent(this);
     dlg->setMainItem(mainItem());
     dlg->setInteractive(m_interactive);
+
+    switch (location) {
+    case Plasma::Types::Floating:
+    case Plasma::Types::Desktop:
+    case Plasma::Types::FullScreen:
+        dlg->setFloating(true);
+        dlg->setPopupDirection(Qt::BottomEdge);
+        break;
+    case Plasma::Types::TopEdge:
+        dlg->setFloating(false);
+        dlg->setPopupDirection(Qt::BottomEdge);
+        break;
+    case Plasma::Types::BottomEdge:
+        dlg->setFloating(false);
+        dlg->setPopupDirection(Qt::TopEdge);
+        break;
+    case Plasma::Types::LeftEdge:
+        dlg->setFloating(false);
+        dlg->setPopupDirection(Qt::RightEdge);
+        break;
+    case Plasma::Types::RightEdge:
+        dlg->setFloating(false);
+        dlg->setPopupDirection(Qt::LeftEdge);
+        break;
+    }
+
     dlg->setVisible(true);
     // In case the last owner triggered a dismiss but the dialog is still shown,
     // showEvent won't be reached and the old timeout will still be effective.

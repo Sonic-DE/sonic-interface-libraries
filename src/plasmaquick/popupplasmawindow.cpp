@@ -61,12 +61,24 @@ void PopupPlasmaWindow::setPopupDirection(Qt::Edge popupDirection)
     if (isExposed()) {
         qWarning() << "location should be set before showing popup window";
     }
-
-    Qt::Edges borders = Qt::LeftEdge | Qt::RightEdge | Qt::TopEdge | Qt::BottomEdge;
-    setBorders(borders);
     queuePositionUpdate();
 
     Q_EMIT popupDirectionChanged();
+}
+
+bool PopupPlasmaWindow::floating() const
+{
+    return m_floating;
+}
+
+void PopupPlasmaWindow::setFloating(bool floating)
+{
+    if (floating == m_floating) {
+        return;
+    }
+    m_floating = floating;
+    queuePositionUpdate();
+    Q_EMIT floatingChanged();
 }
 
 bool PopupPlasmaWindow::event(QEvent *event)
@@ -104,20 +116,23 @@ void PlasmaQuick::PopupPlasmaWindow::updatePosition()
     TransientPlacementHint placementHint;
     QRectF parentAnchorRect = QRectF(m_visualParent->mapToScene(QPointF(0, 0)), m_visualParent->size());
 
-    // pad parentAnchorRect to the window it's in, so that the popup appears outside the panel
-    // even if the tooltip area does not fill it
-    if (m_popupDirection == Qt::TopEdge || m_popupDirection == Qt::BottomEdge) {
-        parentAnchorRect.setTop(0);
-        parentAnchorRect.setBottom(m_visualParent->window()->height());
-    }
-    if (m_popupDirection == Qt::LeftEdge || m_popupDirection == Qt::RightEdge) {
-        parentAnchorRect.setLeft(0);
-        parentAnchorRect.setRight(m_visualParent->window()->width());
+    if (!m_floating) {
+        // pad parentAnchorRect to the window it's in, so that the popup appears outside the panel
+        // even if the tooltip area does not fill it
+        if (m_popupDirection == Qt::TopEdge || m_popupDirection == Qt::BottomEdge) {
+            parentAnchorRect.setTop(0);
+            parentAnchorRect.setBottom(m_visualParent->window()->height());
+        }
+        if (m_popupDirection == Qt::LeftEdge || m_popupDirection == Qt::RightEdge) {
+            parentAnchorRect.setLeft(0);
+            parentAnchorRect.setRight(m_visualParent->window()->width());
+        }
     }
 
     placementHint.setParentAnchorArea(parentAnchorRect.toRect());
     placementHint.setParentAnchor(m_popupDirection);
     placementHint.setPopupAnchor(oppositeEdge(m_popupDirection));
+    placementHint.setFlipConstraintAdjustments(m_floating ? Qt::Vertical : Qt::Orientations());
 
     const QRect popupPosition = TransientPlacementHelper::popupRect(this, placementHint);
     resize(popupPosition.size());

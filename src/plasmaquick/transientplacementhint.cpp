@@ -1,6 +1,6 @@
 /*
     SPDX-FileCopyrightText: 2023 David Edmundson <davidedmundson@kde.org>
-    SPDX-License-Identifier: GPL-2.0-or-later
+    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
 #include "transientplacementhint_p.h"
@@ -20,6 +20,8 @@ public:
     QRect parentAnchorRect;
     Qt::Edges parentAnchor = Qt::BottomEdge | Qt::RightEdge;
     Qt::Edges popupAnchor = Qt::TopEdge | Qt::LeftEdge;
+    Qt::Orientations slideConstraintAdjustments = Qt::Horizontal | Qt::Vertical;
+    Qt::Orientations flipConstraintAdjustments;
 };
 /*!
  * Constructs a new QTransientPlacementHint
@@ -78,15 +80,24 @@ Qt::Edges TransientPlacementHint::popupAnchor() const
     return d->popupAnchor;
 }
 
+void TransientPlacementHint::setSlideConstraintAdjustments(Qt::Orientations slideConstraintAdjustments)
+{
+    d->slideConstraintAdjustments = slideConstraintAdjustments;
+}
+
 Qt::Orientations TransientPlacementHint::slideConstraintAdjustments() const
 {
-    return Qt::Horizontal | Qt::Vertical;
+    return d->slideConstraintAdjustments;
+}
+
+void TransientPlacementHint::setFlipConstraintAdjustments(Qt::Orientations flipConstraintAdjustments)
+{
+    d->flipConstraintAdjustments = flipConstraintAdjustments;
 }
 
 Qt::Orientations TransientPlacementHint::flipConstraintAdjustments() const
 {
-    // don't flip
-    return {};
+    return d->flipConstraintAdjustments;
 }
 
 static QPoint popupPosition(const QRect &anchorRect, const Qt::Edges parentAnchor, const Qt::Edges popupAnchor, const QSize &popupSize)
