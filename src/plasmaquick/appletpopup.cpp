@@ -15,7 +15,6 @@
 // TODO queue:
 // min/max hint propagation from mainItem
 // resize handles + save restore
-// mouse press fitt's law handling
 // background hints (in PlasmaWindow)
 
 using namespace PlasmaQuick;
@@ -29,6 +28,11 @@ AppletPopup::AppletPopup()
     edgeForwarder->setMargins(margins());
     connect(this, &PlasmaWindow::marginsChanged, this, [edgeForwarder, this]() {
         edgeForwarder->setMargins(margins());
+    });
+    // edges that have a border are not on a screen edge
+    edgeForwarder->setActiveEdges(Qt::Edges() ^ borders());
+    connect(this, &PlasmaWindow::bordersChanged, this, [edgeForwarder, this]() {
+        edgeForwarder->setActiveEdges(Qt::Edges() ^ borders());
     });
 
     connect(this, &PlasmaQuick::PlasmaWindow::mainItemChanged, this, [this]() {
