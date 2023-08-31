@@ -8,15 +8,16 @@
 
 #include <QGuiApplication>
 
+#include <KConfigGroup>
+
+#include "applet.h"
 #include "appletquickitem.h"
 #include "waylandintegration_p.h"
 
 #include "edgeeventforwarder.h"
 
 // TODO queue:
-// min/max hint propagation from mainItem
 // resize handles
-// save restore
 // background hints (in PlasmaWindow)
 
 using namespace PlasmaQuick;
@@ -49,7 +50,16 @@ AppletPopup::AppletPopup()
         }
         connect(mainItem(), &QQuickItem::implicitWidthChanged, this, &AppletPopup::updateSize);
         connect(mainItem(), &QQuickItem::implicitHeightChanged, this, &AppletPopup::updateSize);
-        updateSize();
+
+        QSize popupSize = QSize(mainItem()->implicitWidth(), mainItem()->implicitHeight());
+
+        // Dave, this is order dependent, how should we handle this in a way that isn't terrible?
+        if (m_appletInterface) {
+            KConfigGroup config = m_appletInterface->applet()->config();
+            popupSize.rwidth() = config.readEntry("popupWidth", popupSize.width());
+            popupSize.rheight() = config.readEntry("popupHeight", popupSize.height());
+        }
+        resize(popupSize.grownBy(margins()));
     });
 }
 
@@ -85,14 +95,22 @@ void AppletPopup::setHideOnWindowDeactivate(bool hideOnWindowDeactivate)
 void AppletPopup::updateSize()
 {
     QSize popupSize = QSize(mainItem()->implicitWidth(), mainItem()->implicitHeight());
+    resize(popupSize.grownBy(margins()));
+}
 
-    if (!popupSize.isValid()) {
-        qWarning() << "Applet implicitSize is broken";
-        popupSize = QSize(500, 500);
+void AppletPopup::hideEvent(QHideEvent *event)
+{
+    // Persist the size if this contains an applet
+    if (m_appletInterface) {
+        KConfigGroup config = m_appletInterface->applet()->config();
+        // save size without margins, so we're robust against theme changes
+        const QSize popupSize = size().shrunkBy(margins());
+        config.writeEntry("popupWidth", popupSize.width());
+        config.writeEntry("popupHeight", popupSize.height());
+        config.sync();
     }
 
-    popupSize = popupSize.grownBy(margins());
-    resize(popupSize);
+    QQuickWindow::hideEvent(event);
 }
 
 void AppletPopup::focusOutEvent(QFocusEvent *ev)

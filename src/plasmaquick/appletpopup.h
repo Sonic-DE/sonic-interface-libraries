@@ -45,6 +45,7 @@ Q_SIGNALS:
     void hideOnWindowDeactivateChanged();
 
 protected:
+    void hideEvent(QHideEvent *event) override;
     void focusOutEvent(QFocusEvent *event) override;
 
 private:
