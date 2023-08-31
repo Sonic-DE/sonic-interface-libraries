@@ -121,7 +121,7 @@ void AppletPopup::hideEvent(QHideEvent *event)
         config.sync();
     }
 
-    QQuickWindow::hideEvent(event);
+    PopupPlasmaWindow::hideEvent(event);
 }
 
 void AppletPopup::focusOutEvent(QFocusEvent *ev)
@@ -150,5 +150,5 @@ void AppletPopup::focusOutEvent(QFocusEvent *ev)
         }
     }
 
-    QQuickWindow::focusOutEvent(ev);
+    PopupPlasmaWindow::focusOutEvent(ev);
 }
