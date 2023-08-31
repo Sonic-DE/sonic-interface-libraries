@@ -30,9 +30,9 @@ AppletPopup::AppletPopup()
         edgeForwarder->setMargins(margins());
     });
     // edges that have a border are not on a screen edge
-    edgeForwarder->setActiveEdges(Qt::Edges() ^ borders());
+    edgeForwarder->setActiveEdges(~borders());
     connect(this, &PlasmaWindow::bordersChanged, this, [edgeForwarder, this]() {
-        edgeForwarder->setActiveEdges(Qt::Edges() ^ borders());
+        edgeForwarder->setActiveEdges(~borders());
     });
 
     connect(this, &PlasmaQuick::PlasmaWindow::mainItemChanged, this, [this]() {
