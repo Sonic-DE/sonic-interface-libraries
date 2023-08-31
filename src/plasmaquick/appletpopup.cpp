@@ -12,13 +12,15 @@
 
 #include "applet.h"
 #include "appletquickitem.h"
-#include "waylandintegration_p.h"
-
 #include "edgeeventforwarder.h"
+#include "waylandintegration_p.h"
 #include "windowresizehandler.h"
 
+// used in detecting if focus passes to config UI
+#include "configview.h"
+#include "sharedqmlengine.h"
+
 // TODO queue:
-// resize handles
 // background hints (in PlasmaWindow)
 
 using namespace PlasmaQuick;
@@ -132,8 +134,6 @@ void AppletPopup::focusOutEvent(QFocusEvent *ev)
 
         QWindow *parentWindow = transientParent();
 
-        // DAVE. We're already using qApp->focusWindow below
-        // couldn't it just be focusWindow->isAncestorOf(this) || this->isAncestorOf(focus)
         while (parentWindow) {
             if (parentWindow->isActive() && !(parentWindow->flags() & Qt::WindowDoesNotAcceptFocus)) {
                 parentHasFocus = true;
@@ -146,10 +146,9 @@ void AppletPopup::focusOutEvent(QFocusEvent *ev)
         const QWindow *focusWindow = QGuiApplication::focusWindow();
         bool childHasFocus = focusWindow && ((focusWindow->isActive() && isAncestorOf(focusWindow)) || (focusWindow->type() & Qt::Popup) == Qt::Popup);
 
-        // DAVE, what was this doing?
-        //        const bool viewClicked = qobject_cast<const PlasmaQuick::SharedQmlEngine *>(focusWindow) || qobject_cast<const ConfigView *>(focusWindow);
+        const bool viewClicked = qobject_cast<const PlasmaQuick::SharedQmlEngine *>(focusWindow) || qobject_cast<const ConfigView *>(focusWindow);
 
-        if (/*viewClicked || */ (!parentHasFocus && !childHasFocus)) {
+        if (viewClicked || (!parentHasFocus && !childHasFocus)) {
             setVisible(false);
         }
     }
