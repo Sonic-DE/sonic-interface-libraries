@@ -4,9 +4,13 @@
 */
 
 #include "popupplasmawindow.h"
+
+#include <kwindoweffects.h>
 #include <kwindowsystem.h>
 
-#include "kwindoweffects.h"
+#include <QGuiApplication>
+#include <QScreen>
+
 #include "transientplacementhint_p.h"
 #include "waylandintegration_p.h"
 
@@ -163,6 +167,7 @@ void PlasmaQuick::PopupPlasmaWindow::updatePosition()
     } else if (KWindowSystem::isPlatformWayland()) {
         updatePositionWayland(popupPosition.topLeft());
     }
+    updateBorders(popupPosition);
 }
 
 void PlasmaQuick::PopupPlasmaWindow::updatePositionX11(const QPoint &position)
@@ -173,4 +178,30 @@ void PlasmaQuick::PopupPlasmaWindow::updatePositionX11(const QPoint &position)
 void PopupPlasmaWindow::updatePositionWayland(const QPoint &position)
 {
     PlasmaShellWaylandIntegration::get(this)->setPosition(position);
+}
+
+void PopupPlasmaWindow::updateBorders(const QRect &globalPosition)
+{
+    // disables borders for the edges that are touching the screen edge
+
+    QScreen *screen = QGuiApplication::screenAt(globalPosition.center());
+    if (!screen) {
+        return;
+    }
+    const QRect screenGeometry = screen->geometry();
+
+    Qt::Edges enabledBorders = Qt::LeftEdge | Qt::RightEdge | Qt::TopEdge | Qt::BottomEdge;
+    if (globalPosition.top() <= screenGeometry.top()) {
+        enabledBorders.setFlag(Qt::TopEdge, false);
+    }
+    if (globalPosition.bottom() >= screenGeometry.bottom()) {
+        enabledBorders.setFlag(Qt::BottomEdge, false);
+    }
+    if (globalPosition.left() <= screenGeometry.left()) {
+        enabledBorders.setFlag(Qt::LeftEdge, false);
+    }
+    if (globalPosition.right() >= screenGeometry.right()) {
+        enabledBorders.setFlag(Qt::RightEdge, false);
+    }
+    setBorders(enabledBorders);
 }
