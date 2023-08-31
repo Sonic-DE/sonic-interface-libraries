@@ -12,9 +12,11 @@
 #include "waylandintegration_p.h"
 
 #include "edgeeventforwarder.h"
+
 // TODO queue:
 // min/max hint propagation from mainItem
-// resize handles + save restore
+// resize handles
+// save restore
 // background hints (in PlasmaWindow)
 
 using namespace PlasmaQuick;
@@ -63,7 +65,6 @@ void AppletPopup::setAppletInterface(QQuickItem *appletInterface)
     }
 
     m_appletInterface = qobject_cast<AppletQuickItem *>(appletInterface);
-    ;
     Q_EMIT appletInterfaceChanged();
 }
 
