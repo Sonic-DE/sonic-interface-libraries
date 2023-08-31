@@ -9,6 +9,7 @@
 #include <QGuiApplication>
 
 #include <KConfigGroup>
+#include <KWindowSystem>
 
 #include "applet.h"
 #include "appletquickitem.h"
@@ -25,6 +26,11 @@ using namespace PlasmaQuick;
 AppletPopup::AppletPopup()
 {
     setAnimated(true);
+    setFlags(flags() | Qt::Dialog);
+    if (KWindowSystem::isPlatformX11()) {
+        KWindowSystem::setState(winId(), NET::SkipTaskbar | NET::SkipPager | NET::SkipSwitcher);
+    }
+
     PlasmaWaylandShellIntegration::get(this)->setRole(QtWayland::org_kde_plasma_surface::role::role_appletpopup);
 
     auto edgeForwarder = new EdgeEventForwarder(this);
