@@ -220,5 +220,7 @@ void PopupPlasmaWindow::updateBorders(const QRect &globalPosition)
     if (globalPosition.right() >= screenGeometry.right()) {
         enabledBorders.setFlag(Qt::RightEdge, false);
     }
+    // disable borders touching the parent item (i.e the panel)
+    enabledBorders.setFlag(m_popupDirection, false);
     setBorders(enabledBorders);
 }
