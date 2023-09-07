@@ -41,7 +41,7 @@ PlasmaWindow::PlasmaWindow(QWindow *parent)
     , d(new PlasmaWindowPrivate(this))
 {
     setColor(QColor(Qt::transparent));
-    setFlags(Qt::FramelessWindowHint);
+    setFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
 
     d->dialogBackground = new DialogBackground(contentItem());
     d->dialogBackground->setImagePath(QStringLiteral("dialogs/background"));
