@@ -12,6 +12,7 @@
 #include <QQuickItem>
 
 #include <KWindowEffects>
+#include <KWindowSystem>
 #include <KX11Extras>
 
 #include <Plasma/Theme>
@@ -130,6 +131,16 @@ void PlasmaWindow::setBorders(Qt::Edges bordersToShow)
 Qt::Edges PlasmaWindow::borders()
 {
     return bordersToEdge(d->dialogBackground->enabledBorders());
+}
+
+void PlasmaWindow::showEvent(QShowEvent *e)
+{
+    // EWMH states that the state is reset every hide
+    // Qt supports external factors setting state before the next show
+    if (KWindowSystem::isPlatformX11()) {
+        KWindowSystem::setState(winId(), NET::SkipTaskbar | NET::SkipPager | NET::SkipSwitcher);
+    }
+    QQuickWindow::showEvent(e);
 }
 
 void PlasmaWindow::resizeEvent(QResizeEvent *e)

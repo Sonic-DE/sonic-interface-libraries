@@ -88,6 +88,7 @@ Q_SIGNALS:
     void backgroundHintsChanged();
 
 protected:
+    void showEvent(QShowEvent *e) override;
     void resizeEvent(QResizeEvent *e) override;
 
 private:

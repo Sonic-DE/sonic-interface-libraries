@@ -27,9 +27,6 @@ AppletPopup::AppletPopup()
 {
     setAnimated(true);
     setFlags(flags() | Qt::Dialog);
-    if (KWindowSystem::isPlatformX11()) {
-        KWindowSystem::setState(winId(), NET::SkipTaskbar | NET::SkipPager | NET::SkipSwitcher);
-    }
 
     PlasmaShellWaylandIntegration::get(this)->setRole(QtWayland::org_kde_plasma_surface::role::role_appletpopup);
 
