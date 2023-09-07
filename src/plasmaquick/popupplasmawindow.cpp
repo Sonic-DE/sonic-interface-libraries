@@ -10,6 +10,8 @@
 
 #include <QGuiApplication>
 #include <QScreen>
+#include <qnamespace.h>
+#include <qtmetamacros.h>
 
 #include "transientplacementhint_p.h"
 #include "waylandintegration_p.h"
@@ -97,6 +99,22 @@ void PopupPlasmaWindow::setAnimated(bool animated)
     m_animated = animated;
     updateSlideEffect();
     Q_EMIT animatedChanged();
+}
+
+PopupPlasmaWindow::RemoveBorders PopupPlasmaWindow::removeBorderStrategy() const
+{
+    return m_removeBorderStrategy;
+}
+
+void PopupPlasmaWindow::setRemoveBorderStrategy(PopupPlasmaWindow::RemoveBorders strategy)
+{
+    if (m_removeBorderStrategy == strategy) {
+        return;
+    }
+
+    m_removeBorderStrategy = strategy;
+    queuePositionUpdate(); // This will update borders as well
+    Q_EMIT removeBorderStrategyChanged();
 }
 
 bool PopupPlasmaWindow::event(QEvent *event)
@@ -208,17 +226,36 @@ void PopupPlasmaWindow::updateBorders(const QRect &globalPosition)
     const QRect screenGeometry = screen->geometry();
 
     Qt::Edges enabledBorders = Qt::LeftEdge | Qt::RightEdge | Qt::TopEdge | Qt::BottomEdge;
-    if (globalPosition.top() <= screenGeometry.top()) {
-        enabledBorders.setFlag(Qt::TopEdge, false);
+    if (m_removeBorderStrategy & AtScreenEdges) {
+        if (globalPosition.top() <= screenGeometry.top()) {
+            enabledBorders.setFlag(Qt::TopEdge, false);
+        }
+        if (globalPosition.bottom() >= screenGeometry.bottom()) {
+            enabledBorders.setFlag(Qt::BottomEdge, false);
+        }
+        if (globalPosition.left() <= screenGeometry.left()) {
+            enabledBorders.setFlag(Qt::LeftEdge, false);
+        }
+        if (globalPosition.right() >= screenGeometry.right()) {
+            enabledBorders.setFlag(Qt::RightEdge, false);
+        }
     }
-    if (globalPosition.bottom() >= screenGeometry.bottom()) {
-        enabledBorders.setFlag(Qt::BottomEdge, false);
-    }
-    if (globalPosition.left() <= screenGeometry.left()) {
-        enabledBorders.setFlag(Qt::LeftEdge, false);
-    }
-    if (globalPosition.right() >= screenGeometry.right()) {
-        enabledBorders.setFlag(Qt::RightEdge, false);
+    if (m_removeBorderStrategy & AtPanelEdges) {
+        switch (m_popupDirection) {
+        case Qt::LeftEdge:
+            enabledBorders.setFlag(Qt::RightEdge, false);
+            break;
+        case Qt::RightEdge:
+            enabledBorders.setFlag(Qt::LeftEdge, false);
+            break;
+        case Qt::BottomEdge:
+            enabledBorders.setFlag(Qt::TopEdge, false);
+            break;
+        case Qt::TopEdge:
+        default:
+            enabledBorders.setFlag(Qt::BottomEdge, false);
+            break;
+        }
     }
     setBorders(enabledBorders);
 }
