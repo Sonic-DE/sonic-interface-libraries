@@ -36,7 +36,11 @@ class PLASMAQUICK_EXPORT PlasmaWindow : public QQuickWindow
      */
     Q_PROPERTY(BackgroundHints backgroundHints READ backgroundHints WRITE setBackgroundHints NOTIFY backgroundHintsChanged)
 
-    Q_PROPERTY(QSize marginSize READ marginSize NOTIFY marginsChanged())
+    Q_PROPERTY(qreal topMargin READ topMargin NOTIFY marginsChanged)
+    Q_PROPERTY(qreal bottomMargin READ bottomMargin NOTIFY marginsChanged)
+    Q_PROPERTY(qreal leftMargin READ leftMargin NOTIFY marginsChanged)
+    Q_PROPERTY(qreal rightMargin READ rightMargin NOTIFY marginsChanged)
+
 public:
     enum BackgroundHints {
         StandardBackground = 0, /**< The standard background from the theme is drawn */
@@ -69,10 +73,13 @@ public:
      */
     QMargins margins() const;
 
-    QSize marginSize() const;
-
     BackgroundHints backgroundHints() const;
     void setBackgroundHints(BackgroundHints hints);
+
+    qreal topMargin() const;
+    qreal bottomMargin() const;
+    qreal leftMargin() const;
+    qreal rightMargin() const;
 
 Q_SIGNALS:
     void mainItemChanged();

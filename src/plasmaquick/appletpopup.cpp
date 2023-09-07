@@ -124,7 +124,7 @@ void AppletPopup::updateSize()
         size.rwidth() = config.readEntry("popupWidth", 0);
         size.rheight() = config.readEntry("popupHeight", 0);
         if (size.isValid()) {
-            resize(size + marginSize());
+            resize(size.grownBy(margins()));
             return;
         }
     }

@@ -185,12 +185,6 @@ QMargins PlasmaWindow::margins() const
                     d->dialogBackground->bottomMargin());
 }
 
-QSize PlasmaWindow::marginSize() const
-{
-    return QSize(d->dialogBackground->leftMargin() + d->dialogBackground->rightMargin(),
-                 d->dialogBackground->topMargin() + d->dialogBackground->bottomMargin());
-}
-
 PlasmaWindow::BackgroundHints PlasmaWindow::backgroundHints() const
 {
     return d->backgroundHints;
@@ -210,6 +204,26 @@ void PlasmaWindow::setBackgroundHints(BackgroundHints hints)
     d->dialogBackground->setImagePath(prefix + QStringLiteral("dialogs/background"));
 
     Q_EMIT backgroundHintsChanged();
+}
+
+qreal PlasmaWindow::topMargin() const
+{
+    return d->dialogBackground->topMargin();
+}
+
+qreal PlasmaWindow::bottomMargin() const
+{
+    return d->dialogBackground->bottomMargin();
+}
+
+qreal PlasmaWindow::leftMargin() const
+{
+    return d->dialogBackground->leftMargin();
+}
+
+qreal PlasmaWindow::rightMargin() const
+{
+    return d->dialogBackground->rightMargin();
 }
 }
 
