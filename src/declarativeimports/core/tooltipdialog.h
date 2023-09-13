@@ -57,9 +57,6 @@ private Q_SLOTS:
     void valueChanged(const QVariant &value);
 
 private:
-    void updateSize();
-
-    QPointer<QQuickItem> m_lastMainItem;
     PlasmaQuick::SharedQmlEngine *m_qmlObject;
     QTimer *m_showTimer;
     int m_hideTimeout;
