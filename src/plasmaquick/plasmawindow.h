@@ -21,6 +21,9 @@ class PlasmaWindowPrivate;
 
 /*
  * Creates a QQuickWindow themed in a Plasma style with background
+ *
+ * Size hints are transferred from the mainItem's size hints.
+ * Setting a minimum and maximum size on the window explicitly is undefined
  */
 class PLASMAQUICK_EXPORT PlasmaWindow : public QQuickWindow
 {
