@@ -9,7 +9,6 @@
 #include <kwindowsystem.h>
 
 #include "debug_p.h"
-#include "kwindoweffects.h"
 #include <QGuiApplication>
 #include <QScreen>
 #include <qnamespace.h>
