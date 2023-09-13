@@ -65,7 +65,16 @@ void AppletPopup::setAppletInterface(QQuickItem *appletInterface)
     }
 
     m_appletInterface = qobject_cast<AppletQuickItem *>(appletInterface);
-    updateSize();
+    if (m_appletInterface) {
+        KConfigGroup config = m_appletInterface->applet()->config();
+        QSize size;
+        size.rwidth() = config.readEntry("popupWidth", 0);
+        size.rheight() = config.readEntry("popupHeight", 0);
+        if (size.isValid()) {
+            resize(size.grownBy(margins()));
+            return;
+        }
+    }
     Q_EMIT appletInterfaceChanged();
 }
 
@@ -81,51 +90,6 @@ void AppletPopup::setHideOnWindowDeactivate(bool hideOnWindowDeactivate)
     }
     m_hideOnWindowDeactivate = hideOnWindowDeactivate;
     Q_EMIT hideOnWindowDeactivateChanged();
-}
-
-int AppletPopup::implicitWidth() const
-{
-    return m_implicitWidth;
-}
-
-void AppletPopup::setImplicitWidth(int implicitWidth)
-{
-    if (implicitWidth == m_implicitWidth) {
-        return;
-    }
-    m_implicitWidth = implicitWidth;
-    updateSize();
-    Q_EMIT implicitWidthChanged();
-}
-
-int AppletPopup::implicitHeight() const
-{
-    return m_implicitHeight;
-}
-
-void AppletPopup::setImplicitHeight(int implicitHeight)
-{
-    if (implicitHeight == m_implicitHeight) {
-        return;
-    }
-    m_implicitHeight = implicitHeight;
-    updateSize();
-    Q_EMIT implicitHeightChanged();
-}
-
-void AppletPopup::updateSize()
-{
-    if (m_appletInterface) {
-        KConfigGroup config = m_appletInterface->applet()->config();
-        QSize size;
-        size.rwidth() = config.readEntry("popupWidth", 0);
-        size.rheight() = config.readEntry("popupHeight", 0);
-        if (size.isValid()) {
-            resize(size.grownBy(margins()));
-            return;
-        }
-    }
-    resize(implicitWidth(), implicitHeight());
 }
 
 void AppletPopup::hideEvent(QHideEvent *event)

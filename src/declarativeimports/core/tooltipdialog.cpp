@@ -38,32 +38,10 @@ ToolTipDialog::ToolTipDialog()
     connect(m_showTimer, &QTimer::timeout, this, [this]() {
         setVisible(false);
     });
-
-    connect(this, &PlasmaQuick::PlasmaWindow::mainItemChanged, this, [this]() {
-        if (m_lastMainItem) {
-            disconnect(m_lastMainItem, &QQuickItem::implicitWidthChanged, this, &ToolTipDialog::updateSize);
-            disconnect(m_lastMainItem, &QQuickItem::implicitHeightChanged, this, &ToolTipDialog::updateSize);
-        }
-        m_lastMainItem = mainItem();
-
-        if (!mainItem()) {
-            return;
-        }
-        connect(mainItem(), &QQuickItem::implicitWidthChanged, this, &ToolTipDialog::updateSize);
-        connect(mainItem(), &QQuickItem::implicitHeightChanged, this, &ToolTipDialog::updateSize);
-        updateSize();
-    });
 }
 
 ToolTipDialog::~ToolTipDialog()
 {
-}
-
-void ToolTipDialog::updateSize()
-{
-    QSize popupSize = QSize(mainItem()->implicitWidth(), mainItem()->implicitHeight());
-    popupSize = popupSize.grownBy(margins());
-    resize(popupSize);
 }
 
 QQuickItem *ToolTipDialog::loadDefaultItem()
