@@ -2,7 +2,6 @@ add_library(plasmaextracomponentsplugin SHARED)
 
 target_sources(plasmaextracomponentsplugin PRIVATE
     plasmaextracomponentsplugin.cpp
-    enums.cpp
     qmenu.cpp
     qmenuitem.cpp
 )
