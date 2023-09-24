@@ -350,8 +350,12 @@ void ThemePrivate::colorsChanged()
 {
     // in the case the theme follows the desktop settings, refetch the colorschemes
     // and discard the svg pixmap cache
-    if (!colors) {
-        KSharedConfig::openConfig()->reparseConfiguration();
+    if (colors != nullptr) { // one less file read
+        // By loading another config, the prior config's cache seems to get discarded.
+        // FIXME: Find a less hacky way to allow the colours filling in missing parts
+        // of partial Plasma Style palettes to be refreshed when changing colour schemes
+        colors = KSharedConfig::openConfig(QString(), KConfig::SimpleConfig);
+        colors = KSharedConfig::openConfig(colorsFile);
     }
     colorScheme = KColorScheme(QPalette::Active, KColorScheme::Window, colors);
     buttonColorScheme = KColorScheme(QPalette::Active, KColorScheme::Button, colors);
@@ -582,7 +586,7 @@ void ThemePrivate::setThemeName(const QString &tempThemeName, bool writeSettings
     themeName = theme;
 
     // load the color scheme config
-    const QString colorsFile = realTheme
+    colorsFile = realTheme
         ? QStandardPaths::locate(QStandardPaths::GenericDataLocation,
                                  QLatin1String(PLASMA_RELATIVE_DATA_INSTALL_DIR "/desktoptheme/") % theme % QLatin1String("/colors"))
         : QString();
