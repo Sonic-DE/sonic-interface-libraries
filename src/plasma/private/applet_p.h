@@ -108,7 +108,7 @@ public:
 
     Types::BackgroundHints backgroundHints = Types::DefaultBackground;
     Types::BackgroundHints userBackgroundHints = Types::DefaultBackground;
-    Types::ConstraintHints constraintHints = Types::NoHint;
+    Applet::ConstraintHint constraintHints = Applet::NoHint;
 
     // a great green field of booleans :)
     bool userBackgroundHintsInitialized = false;
