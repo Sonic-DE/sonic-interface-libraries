@@ -113,15 +113,6 @@ void AppletPrivate::init(const QString &_packagePath, const QVariantList &args)
         configAction->setText(i18nc("%1 is the name of the applet", "Configure %1...", q->title().replace(QLatin1Char('&'), QStringLiteral("&&"))));
     }
 
-    if (!appletDescription.isValid()) {
-#ifndef NDEBUG
-        // qCDebug(LOG_PLASMA) << "Check your constructor! "
-        //         << "You probably want to be passing in a Service::Ptr "
-        //         << "or a QVariantList with a valid storageid as arg[0].";
-#endif
-        return;
-    }
-
     // A constructor may have set a valid package already
     if (!package.isValid()) {
         const QString packagePath =
