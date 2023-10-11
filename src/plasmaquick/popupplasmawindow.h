@@ -89,8 +89,10 @@ Q_SIGNALS:
     void removeBorderStrategyChanged();
     void marginChanged();
 
-private:
+protected:
     void queuePositionUpdate();
+
+private:
     void updateSlideEffect();
     void updatePosition();
     void updatePositionX11(const QPoint &position);
