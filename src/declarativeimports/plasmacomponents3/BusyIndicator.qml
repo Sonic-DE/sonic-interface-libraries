@@ -35,7 +35,7 @@ T.BusyIndicator {
          * and don't animate when window is hidden (which somehow does not
          * affect items' visibility).
          */
-        property bool animationRunning:
+        readonly property bool animationShouldBeRunning:
             visible
             && Window.visibility !== Window.Hidden
             && Kirigami.Units.longDuration > 1
@@ -61,17 +61,17 @@ T.BusyIndicator {
         onAnimationRunningChanged: startOrStopAnimation();
 
         function startOrStopAnimation() {
-            if (rotationAnimator.running === animationRunning) {
+            if (rotationAnimator.running === animationShouldBeRunning) {
                 return;
             }
-            if (animationRunning) {
+            if (animationShouldBeRunning) {
                 const date = new Date;
                 const ms = date.valueOf();
                 const startAngle = ((ms % rotationAnimator.duration) / rotationAnimator.duration) * 360;
                 rotationAnimator.from = startAngle;
                 rotationAnimator.to = startAngle + 360
             }
-            rotationAnimator.running = animationRunning;
+            rotationAnimator.running = animationShouldBeRunning;
         }
 
         KSvg.SvgItem {
