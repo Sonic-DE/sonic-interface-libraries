@@ -51,7 +51,9 @@ import org.kde.kirigami 2 as Kirigami
  *         currentIndex: -1
  *         clip: true
  *         model: myModel
- *         highlight: PlasmaExtras.Highlight {}
+ *         highlight: PlasmaExtras.Highlight {
+ *             pressed: ListView.currentItem && ListView.currentItem.pressed
+ *         }
  *         highlightMoveDuration: Kirigami.Units.longDuration
  *         highlightResizeDuration: Kirigami.Units.longDuration
  *         delegate: PlasmaExtras.ExpandableListItem {
@@ -271,6 +273,14 @@ Item {
     readonly property bool hasExpandableContent: customExpandedViewContent || __enabledContextualActions.length > 0
 
     /*
+     * pressed: bool
+     * Whether the list item is currently being clicked
+     *
+     * @since 6.0
+     */
+    readonly property alias pressed: tapHandler.pressed
+
+    /*
      * expand()
      * Show the expanded view, growing the list item to its taller size.
      */
@@ -379,6 +389,8 @@ Item {
     // Handle left clicks and taps; don't accept stylus input or else it steals
     // events from the buttons on the list item
     TapHandler {
+        id: tapHandler
+
         enabled: listItem.hasExpandableContent
 
         acceptedPointerTypes: PointerDevice.Generic | PointerDevice.Finger
@@ -440,6 +452,10 @@ Item {
                         id: iconEmblem
 
                         visible: source != undefined && source.length > 0
+                        // FIXME: does not seem to work at all for symbolic network icons
+                        // and has unusual effects for emblem icons like those seen
+                        // in the Printers and Disks & Devices applets
+                        selected: listItem.pressed
 
                         anchors.right: parent.right
                         anchors.bottom: parent.bottom
@@ -455,6 +471,11 @@ Item {
                     Layout.alignment: Qt.AlignVCenter
 
                     spacing: 0
+
+                    Kirigami.Theme.inherit: !listItem.pressed
+                    // FIXME Does not seem to do anything; it is the color scheme not being right, or did I
+                    // mess up the implementation here, or something else?
+                    Kirigami.Theme.colorSet: listItem.pressed ? Kirigami.Theme.Selection : Kirigami.Theme.View
 
                     Kirigami.Heading {
                         id: listItemTitle
@@ -475,6 +496,7 @@ Item {
                         font.weight: listItem.isDefault && listItem.ListView.view.count > 1
                                             ? Font.Bold
                                             : Font.Normal
+                        color: listItem.pressed ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
                     }
 
                     PlasmaComponents3.Label {
@@ -485,6 +507,7 @@ Item {
 
                         // Otherwise colored text can be hard to see
                         opacity: color === Kirigami.Theme.textColor ? 0.7 : 1.0
+                        color: listItem.pressed ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
 
                         Layout.fillWidth: true
 
