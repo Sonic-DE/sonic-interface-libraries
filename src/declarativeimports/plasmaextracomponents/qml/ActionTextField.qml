@@ -126,6 +126,7 @@ PlasmaComponents3.TextField {
 
             anchors.verticalCenter: parent.verticalCenter
 
+            enabled: modelData.enabled
             source: modelData.icon.name.length > 0 ? modelData.icon.name : modelData.icon.source
             visible: !(modelData instanceof Kirigami.Action) || modelData.visible
             MouseArea {
