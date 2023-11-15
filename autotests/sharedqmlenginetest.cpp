@@ -38,7 +38,7 @@ private Q_SLOTS:
         std::weak_ptr<QQmlEngine> weakPtr(obj1->engine());
         QVERIFY(weakPtr.lock());
 
-        // The  one in obj1
+        // The one in obj1
         QCOMPARE(weakPtr.use_count(), 1);
 
         {
