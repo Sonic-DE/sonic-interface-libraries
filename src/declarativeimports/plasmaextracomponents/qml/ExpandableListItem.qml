@@ -204,8 +204,6 @@ Item {
      * which will be shown when the user expands the list item.
      */
     property list<QtObject> contextualActions
-    // TODO KF6: temporary alias for backward-compatibility
-    property alias contextualActionsModel: listItem.contextualActions
 
     readonly property list<QtObject> __enabledContextualActions: contextualActions.filter(action => action?.enabled ?? false)
 
