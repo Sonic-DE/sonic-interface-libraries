@@ -441,7 +441,7 @@ Item {
                     Kirigami.Icon {
                         id: iconEmblem
 
-                        visible: source != undefined && source.length > 0
+                        visible: valid
 
                         anchors.right: parent.right
                         anchors.bottom: parent.bottom
