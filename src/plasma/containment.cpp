@@ -300,11 +300,20 @@ Corona *Containment::corona() const
 {
     if (Plasma::Corona *corona = qobject_cast<Corona *>(parent())) {
         return corona;
-        // case in which this containment is child of an applet, hello systray :)
     } else {
-        Plasma::Applet *parentApplet = qobject_cast<Plasma::Applet *>(parent());
-        if (parentApplet && parentApplet->containment()) {
-            return parentApplet->containment()->corona();
+        // case in which this containment is child of an applet, hello systray :)
+        // We are iterating over the parent tree here rather than casting the parent
+        // to applet then asking ofr its containment and corona, as this might break during
+        // teardown, as this can be invoked during dtor of one of the ancestors,
+        // see https://bugs.kde.org/show_bug.cgi?id=477067 where it happens during destruction
+        // of the panel (containment of the applet that contains the systray containment)
+        QObject *candidate = parent();
+        while (candidate) {
+            Corona *c = qobject_cast<Corona *>(candidate);
+            if (c) {
+                return c;
+            }
+            candidate = candidate->parent();
         }
     }
 
