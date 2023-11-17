@@ -530,22 +530,45 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
         errorData[QStringLiteral("appletName")] = i18n("Unknown Applet");
         errorData[QStringLiteral("isDebugMode")] = qEnvironmentVariableIntValue("PLASMA_ENABLE_QML_DEBUG") != 0;
 
-        if (applet->failedToLaunch()) {
-            reason = applet->launchErrorMessage();
-            errorData[QStringLiteral("errors")] = QJsonArray::fromStringList({reason});
+        const QString versionString = applet->pluginMetaData().value(QStringLiteral("X-Plasma-API-Minimum-Version"));
+        QVersionNumber version;
+        if (!versionString.isEmpty()) {
+            version = QVersionNumber::fromString(versionString);
         }
+
+        bool versionMismatch = false;
+        // TODO: workspace version major and minor from defines?
+        if (version.isNull()) {
+            reason = i18n("This Applet was written for an old unknown version of Plasma. Please contact the author for an updated version for Plasma 6.");
+            versionMismatch = true;
+        } else if (version.majorVersion() != 6) {
+            reason = i18n("This Applet was written for the incompatible Plasma version %1. Please contact the author for an updated version for Plasma 6.",
+                          version.majorVersion());
+            versionMismatch = true;
+            // TODO: need the real version
+        } else if (version.minorVersion() > 0) {
+            reason = i18n("This Applet was written for the more recent Plasma version %1. Please contact the author for an updated version for Plasma 6.",
+                          versionString);
+            versionMismatch = true;
+        } else if (applet->failedToLaunch()) {
+            reason = applet->launchErrorMessage();
+        }
+        errorData[QStringLiteral("errors")] = QJsonArray::fromStringList({reason});
         if (applet->kPackage().isValid()) {
-            const auto errors = qmlObject->mainComponent()->errors();
-            QStringList errorList;
-            for (const QQmlError &error : errors) {
-                reason += error.toString() + QLatin1Char('\n');
-                errorList << error.toString();
+            if (!versionMismatch) {
+                const auto errors = qmlObject->mainComponent()->errors();
+                QStringList errorList;
+                for (const QQmlError &error : errors) {
+                    reason += error.toString() + QLatin1Char('\n');
+                    errorList << error.toString();
+                }
+                errorData[QStringLiteral("errors")] = QJsonArray::fromStringList(errorList);
             }
-            errorData[QStringLiteral("errors")] = QJsonArray::fromStringList(errorList);
             errorData[QStringLiteral("appletName")] = applet->pluginMetaData().name();
-            reason = i18n("Error loading QML file: %1 %2", qmlObject->mainComponent()->url().toString(), reason);
+            reason += i18n("Error loading QML file: %1 %2", qmlObject->mainComponent()->url().toString(), reason);
         } else {
-            reason = i18n("Error loading Applet: package inexistent. %1", applet->launchErrorMessage());
+            // TODO: here also try to detect if the package was a P5 one
+            reason += i18n("Error loading Applet: package inexistent. %1", applet->launchErrorMessage());
             errorData[QStringLiteral("errors")] = QJsonArray::fromStringList({reason});
         }
 
