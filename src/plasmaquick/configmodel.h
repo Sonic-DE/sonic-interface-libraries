@@ -99,6 +99,11 @@ public:
     QHash<int, QByteArray> roleNames() const override;
 
     /**
+     * Whether or not try to load an associtated kcm
+     */
+    void setLoadKcm(bool load);
+
+    /**
      * @param row the row for which the data will be returned
      * @return the data of the specified row
      **/
