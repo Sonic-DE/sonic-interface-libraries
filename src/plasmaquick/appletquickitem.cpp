@@ -537,7 +537,6 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
         }
 
         bool versionMismatch = false;
-        // TODO: workspace version major and minor from defines?
         if (version.isNull()) {
             reason = i18n("This Applet was written for an old unknown version of Plasma. Please contact the author for an updated version for Plasma %1.",
                           PLASMA_VERSION_MAJOR);
@@ -547,7 +546,6 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
                           version.majorVersion(),
                           PLASMA_VERSION_MAJOR);
             versionMismatch = true;
-            // TODO: need the real version
         } else if (version.minorVersion() > PLASMA_VERSION_MINOR) {
             reason =
                 i18n("This Applet was written for the more recent Plasma version %1. Please update your Plasma release in order to use it.", versionString);
