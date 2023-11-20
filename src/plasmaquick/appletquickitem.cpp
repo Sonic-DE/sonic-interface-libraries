@@ -539,16 +539,18 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
         bool versionMismatch = false;
         // TODO: workspace version major and minor from defines?
         if (version.isNull()) {
-            reason = i18n("This Applet was written for an old unknown version of Plasma. Please contact the author for an updated version for Plasma 6.");
+            reason = i18n("This Applet was written for an old unknown version of Plasma. Please contact the author for an updated version for Plasma %1.",
+                          PLASMA_VERSION_MAJOR);
             versionMismatch = true;
-        } else if (version.majorVersion() != 6) {
-            reason = i18n("This Applet was written for the incompatible Plasma version %1. Please contact the author for an updated version for Plasma 6.",
-                          version.majorVersion());
+        } else if (version.majorVersion() != PLASMA_VERSION_MAJOR) {
+            reason = i18n("This Applet was written for the incompatible Plasma version %1. Please contact the author for an updated version for Plasma %2.",
+                          version.majorVersion(),
+                          PLASMA_VERSION_MAJOR);
             versionMismatch = true;
             // TODO: need the real version
-        } else if (version.minorVersion() > 0) {
-            reason = i18n("This Applet was written for the more recent Plasma version %1. Please contact the author for an updated version for Plasma 6.",
-                          versionString);
+        } else if (version.minorVersion() > PLASMA_VERSION_MINOR) {
+            reason =
+                i18n("This Applet was written for the more recent Plasma version %1. Please update your Plasma release in order to use it.", versionString);
             versionMismatch = true;
         } else if (applet->failedToLaunch()) {
             reason = applet->launchErrorMessage();
