@@ -19,12 +19,14 @@ ComponentBase {
 
         PlasmaComponents.TextArea {
             placeholderText: "CHEESE"
+            wrapMode: Text.Wrap
             width: 150
             height: 100
         }
 
         PlasmaComponents.TextArea {
             text: root.longText
+            wrapMode: Text.Wrap
             width: 150
             height: 100
         }
