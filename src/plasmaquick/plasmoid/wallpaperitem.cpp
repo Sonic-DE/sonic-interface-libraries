@@ -26,6 +26,8 @@
 #include <qabstractitemmodel.h>
 #include <qtmetamacros.h>
 
+#include "debug_p.h"
+
 WallpaperItem::WallpaperItem(QQuickItem *parent)
     : QQuickItem(parent)
 {
@@ -33,6 +35,12 @@ WallpaperItem::WallpaperItem(QQuickItem *parent)
     if (parent) {
         setSize(QSizeF(parent->width(), parent->height()));
     }
+
+    // TODO: Remove repaintNeeded in KF7
+    connect(this, &WallpaperItem::repaintNeeded, this, [this](const QColor &newColor) {
+        qCWarning(LOG_PLASMAQUICK) << "repaintNeeded is deprecated in 6.0. Set `accentColor` or emit accentColorChanged in WallpaperItem instead.";
+        setAccentColor(newColor);
+    });
 }
 
 WallpaperItem::~WallpaperItem()
@@ -198,6 +206,31 @@ bool WallpaperItem::supportsMimetype(const QString &mimetype) const
 bool WallpaperItem::isLoading() const
 {
     return m_loading;
+}
+
+QColor WallpaperItem::accentColor() const
+{
+    return m_accentColor.value_or(QColor(Qt::transparent));
+}
+
+void WallpaperItem::setAccentColor(const QColor &newColor)
+{
+    if (m_accentColor.has_value() && m_accentColor == newColor) {
+        return;
+    }
+
+    m_accentColor = newColor;
+    Q_EMIT accentColorChanged();
+}
+
+void WallpaperItem::resetAccentColor()
+{
+    if (!m_accentColor.has_value()) {
+        return;
+    }
+
+    m_accentColor.reset();
+    Q_EMIT accentColorChanged();
 }
 
 void WallpaperItem::contextualActions_append(QQmlListProperty<QAction> *prop, QAction *action)
