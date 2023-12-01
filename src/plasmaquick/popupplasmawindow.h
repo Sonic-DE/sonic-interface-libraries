@@ -90,12 +90,9 @@ Q_SIGNALS:
     void removeBorderStrategyChanged();
     void marginChanged();
 
-protected:
-    void queuePositionUpdate();
-
 private:
     Q_PRIVATE_SLOT(d, void updateVisualParentWindow())
-    Q_PRIVATE_SLOT(d, void updatePosition())
+    Q_PRIVATE_SLOT(d, void queuePositionUpdate())
 
     friend class PopupPlasmaWindowPrivate;
     const std::unique_ptr<PopupPlasmaWindowPrivate> d;
