@@ -32,7 +32,6 @@ public:
     void updateBorders(const QRect &globalPosition);
     static Qt::Edge oppositeEdge(Qt::Edge edge);
     void updateVisualParentWindow();
-    void queuePositionUpdate();
 
     PopupPlasmaWindow *q;
     QPointer<QQuickItem> m_visualParent;
@@ -210,19 +209,14 @@ Qt::Edge PopupPlasmaWindowPrivate::oppositeEdge(Qt::Edge edge)
 void PopupPlasmaWindowPrivate::updateVisualParentWindow()
 {
     if (m_visualParentWindow) {
-        QObject::disconnect(m_visualParentWindow, SIGNAL(yChanged(int)), q, SLOT(queuePositionUpdate()));
-        QObject::disconnect(m_visualParentWindow, SIGNAL(xChanged(int)), q, SLOT(queuePositionUpdate()));
+        QObject::disconnect(m_visualParentWindow, &QQuickWindow::yChanged, q, &PopupPlasmaWindow::queuePositionUpdate);
+        QObject::disconnect(m_visualParentWindow, &QQuickWindow::xChanged, q, &PopupPlasmaWindow::queuePositionUpdate);
     }
     m_visualParentWindow = m_visualParent ? m_visualParent->window() : nullptr;
     if (m_visualParentWindow) {
-        QObject::connect(m_visualParentWindow, SIGNAL(yChanged(int)), q, SLOT(queuePositionUpdate()));
-        QObject::connect(m_visualParentWindow, SIGNAL(xChanged(int)), q, SLOT(queuePositionUpdate()));
+        QObject::connect(m_visualParentWindow, &QQuickWindow::yChanged, q, &PopupPlasmaWindow::queuePositionUpdate);
+        QObject::connect(m_visualParentWindow, &QQuickWindow::xChanged, q, &PopupPlasmaWindow::queuePositionUpdate);
     }
-}
-
-void PopupPlasmaWindowPrivate::queuePositionUpdate()
-{
-    m_needsReposition = true;
 }
 
 PopupPlasmaWindow::PopupPlasmaWindow(QWindow *parent)
@@ -253,7 +247,7 @@ void PopupPlasmaWindow::setVisualParent(QQuickItem *item)
     }
 
     Q_EMIT visualParentChanged();
-    d->queuePositionUpdate();
+    queuePositionUpdate();
 }
 
 QQuickItem *PopupPlasmaWindow::visualParent() const
@@ -276,7 +270,7 @@ void PopupPlasmaWindow::setPopupDirection(Qt::Edge popupDirection)
     if (isExposed()) {
         qCWarning(LOG_PLASMAQUICK) << "location should be set before showing popup window";
     }
-    d->queuePositionUpdate();
+    queuePositionUpdate();
 
     Q_EMIT popupDirectionChanged();
 }
@@ -292,7 +286,7 @@ void PopupPlasmaWindow::setFloating(bool floating)
         return;
     }
     d->m_floating = floating;
-    d->queuePositionUpdate();
+    queuePositionUpdate();
     Q_EMIT floatingChanged();
 }
 
@@ -304,7 +298,7 @@ bool PopupPlasmaWindow::animated() const
 void PopupPlasmaWindow::setAnimated(bool animated)
 {
     d->m_animated = animated;
-    d->queuePositionUpdate();
+    queuePositionUpdate();
     Q_EMIT animatedChanged();
 }
 
@@ -320,7 +314,7 @@ void PopupPlasmaWindow::setRemoveBorderStrategy(PopupPlasmaWindow::RemoveBorders
     }
 
     d->m_removeBorderStrategy = strategy;
-    d->queuePositionUpdate(); // This will update borders as well
+    queuePositionUpdate(); // This will update borders as well
     Q_EMIT removeBorderStrategyChanged();
 }
 
@@ -336,7 +330,7 @@ void PopupPlasmaWindow::setMargin(int margin)
     }
 
     d->m_margin = margin;
-    d->queuePositionUpdate();
+    queuePositionUpdate();
     Q_EMIT marginChanged();
 }
 
@@ -358,6 +352,11 @@ bool PopupPlasmaWindow::event(QEvent *event)
         break;
     }
     return PlasmaQuick::PlasmaWindow::event(event);
+}
+
+void PopupPlasmaWindow::queuePositionUpdate()
+{
+    d->m_needsReposition = true;
 }
 }
 
