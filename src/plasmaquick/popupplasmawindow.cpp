@@ -209,13 +209,13 @@ Qt::Edge PopupPlasmaWindowPrivate::oppositeEdge(Qt::Edge edge)
 void PopupPlasmaWindowPrivate::updateVisualParentWindow()
 {
     if (m_visualParentWindow) {
-        QObject::disconnect(m_visualParentWindow, &QQuickWindow::yChanged, q, &PopupPlasmaWindow::_k_updatePosition);
-        QObject::disconnect(m_visualParentWindow, &QQuickWindow::xChanged, q, &PopupPlasmaWindow::_k_updatePosition);
+        QObject::disconnect(m_visualParentWindow, SIGNAL(yChanged(int)), q, SLOT(updatePosition()));
+        QObject::disconnect(m_visualParentWindow, SIGNAL(xChanged(int)), q, SLOT(updatePosition()));
     }
     m_visualParentWindow = m_visualParent ? m_visualParent->window() : nullptr;
     if (m_visualParentWindow) {
-        QObject::connect(m_visualParentWindow, &QQuickWindow::yChanged, q, &PopupPlasmaWindow::_k_updatePosition);
-        QObject::connect(m_visualParentWindow, &QQuickWindow::xChanged, q, &PopupPlasmaWindow::_k_updatePosition);
+        QObject::connect(m_visualParentWindow, SIGNAL(yChanged(int)), q, SLOT(updatePosition()));
+        QObject::connect(m_visualParentWindow, SIGNAL(xChanged(int)), q, SLOT(updatePosition()));
     }
 }
 
@@ -236,14 +236,14 @@ void PopupPlasmaWindow::setVisualParent(QQuickItem *item)
     }
 
     if (d->m_visualParent) {
-        disconnect(d->m_visualParent, &QQuickItem::windowChanged, this, &PopupPlasmaWindow::_k_visualParentWindowChange);
+        disconnect(d->m_visualParent, SIGNAL(windowChanged(QQuickWindow *)), this, SLOT(updateVisualParentWindow()));
     }
 
     d->m_visualParent = item;
     d->updateVisualParentWindow();
 
     if (d->m_visualParent) {
-        connect(d->m_visualParent, &QQuickItem::windowChanged, this, &PopupPlasmaWindow::_k_visualParentWindowChange);
+        connect(d->m_visualParent, SIGNAL(windowChanged(QQuickWindow *)), this, SLOT(updateVisualParentWindow()));
     }
 
     Q_EMIT visualParentChanged();
@@ -357,16 +357,6 @@ bool PopupPlasmaWindow::event(QEvent *event)
 void PopupPlasmaWindow::queuePositionUpdate()
 {
     d->m_needsReposition = true;
-}
-
-void PopupPlasmaWindow::_k_visualParentWindowChange()
-{
-    d->updateVisualParentWindow();
-}
-
-void PopupPlasmaWindow::_k_updatePosition()
-{
-    d->updatePosition();
 }
 }
 
