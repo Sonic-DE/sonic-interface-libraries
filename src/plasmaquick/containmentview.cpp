@@ -206,6 +206,7 @@ ContainmentView::~ContainmentView()
 
 void ContainmentView::destroy()
 {
+    QWindow::destroy();
     // TODO: do we need a version which does not create?
     QQuickItem *graphicObject = AppletQuickItem::itemForApplet(d->containment);
     if (auto item = qobject_cast<QQuickItem *>(graphicObject)) {
