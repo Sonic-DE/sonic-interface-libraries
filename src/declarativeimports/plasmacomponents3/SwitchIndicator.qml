@@ -51,8 +51,9 @@ Item {
         anchors.fill: inactive
         imagePath: "widgets/switch"
         prefix: "active"
-        opacity: root.control.checked ? 1 : 0
+        opacity: root.control.down ? Math.exp(5 * (button.x / (root.width - button.width) - 1)) : (root.control.checked ? 1 : 0)
         Behavior on opacity {
+            enabled: !root.control.down
             OpacityAnimator {
                 duration: Kirigami.Units.shortDuration
                 easing.type: Easing.InOutQuad
