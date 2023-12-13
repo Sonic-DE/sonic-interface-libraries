@@ -7,6 +7,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Templates as T
+import QtQuick.Window
 
 import org.kde.plasma.core as PlasmaCore
 import org.kde.ksvg as KSvg
@@ -38,6 +39,27 @@ T.ToolBar {
     Kirigami.Theme.colorSet: position === T.ToolBar.Header ? Kirigami.Theme.Header : Kirigami.Theme.Window
     Kirigami.Theme.inherit: false
 
+    property int enabledBorders: {
+        let borders = KSvg.FrameSvg.NoBorder
+        let windowBorders = Qt.LeftEdge | Qt.TopEdge | Qt.RightEdge | Qt.BottomEdge
+        if (Window.window && Window.window instanceof PlasmaCore.PopupPlasmaWindow) {
+            windowBorders = Window.window.borders;
+        }
+        if (windowBorders & Qt.LeftEdge && background.Kirigami.ScenePosition.x <= 0) {print("left")
+            borders |= Qt.LeftEdge;
+        }
+        if (windowBorders & Qt.RightEdge && background.Kirigami.ScenePosition.x + background.width >= Window.window.width) {
+            borders |= Qt.RightEdge;
+        }
+        if (Plasmoid.position !== PlasmaCore.Types.TopEdge || position !== T.ToolBar.Header) {
+            borders |= Qt.TopEdge;
+        }
+        if (Plasmoid.position !== PlasmaCore.Types.BottomEdge || position !== T.ToolBar.Footer) {
+            borders |= Qt.BottomEdge;
+        }
+        return borders;
+    }
+
     background: KSvg.FrameSvgItem {
         id: headingSvg
         // This graphics has to back with the dialog background, so it can be used if:
@@ -52,11 +74,17 @@ T.ToolBar {
         }
 
         enabledBorders: {
-            let borders = KSvg.FrameSvg.LeftBorder | KSvg.FrameSvg.RightBorder;
-            if (Plasmoid.position !== PlasmaCore.Types.TopEdge || position !== T.ToolBar.Header) {
+            let borders = KSvg.FrameSvg.NoBorder
+            if (control.enabledBorders & Qt.LeftEdge) {
+                borders |= KSvg.FrameSvg.LeftBorder;
+            }
+            if (control.enabledBorders & Qt.RightEdge) {
+                borders |= KSvg.FrameSvg.RightBorder;
+            }
+            if (control.enabledBorders & Qt.TopEdge) {
                 borders |= KSvg.FrameSvg.TopBorder;
             }
-            if (Plasmoid.position !== PlasmaCore.Types.BottomEdge || position !== T.ToolBar.Footer) {
+            if (control.enabledBorders & Qt.BottomEdge) {
                 borders |= KSvg.FrameSvg.BottomBorder;
             }
             return borders;
