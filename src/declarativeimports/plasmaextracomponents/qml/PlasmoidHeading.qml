@@ -7,7 +7,6 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Templates as T
-import QtQuick.Window
 
 import org.kde.plasma.core as PlasmaCore
 import org.kde.ksvg as KSvg
@@ -39,31 +38,32 @@ T.ToolBar {
     Kirigami.Theme.colorSet: position === T.ToolBar.Header ? Kirigami.Theme.Header : Kirigami.Theme.Window
     Kirigami.Theme.inherit: false
 
-    property int enabledBorders: {
-        let popup = Window.window instanceof PlasmaCore.PopupPlasmaWindow ? Window.window : null;
+    property /*Qt.Edges*/ int enabledBorders: {
+        const w = Window.window;
+        const popup = w as PlasmaCore.PopupPlasmaWindow;
         if (!popup) {
             return Qt.LeftEdge | Qt.TopEdge | Qt.RightEdge | Qt.BottomEdge;
         }
 
-        let windowBorders = Window.window.borders;
+        const windowBorders = popup.borders;
         let borders = 0;
 
         if (windowBorders & Qt.LeftEdge && background.Kirigami.ScenePosition.x <= 0) {
             borders |= Qt.LeftEdge;
         }
-        if (windowBorders & Qt.RightEdge && background.Kirigami.ScenePosition.x + background.width >= Window.window.width) {
+        if (windowBorders & Qt.RightEdge && background.Kirigami.ScenePosition.x + background.width >= w.width) {
             borders |= Qt.RightEdge;
         }
 
         if (control.position === T.ToolBar.Footer || (windowBorders & Qt.TopEdge && background.Kirigami.ScenePosition.y <= 0)) {
             borders |= Qt.TopEdge;
         }
-        if (control.position === T.ToolBar.Header || (windowBorders & Qt.BottomEdge && background.Kirigami.ScenePosition.y + background.height >= Window.window.width)) {
+        if (control.position === T.ToolBar.Header || (windowBorders & Qt.BottomEdge && background.Kirigami.ScenePosition.y + background.height >= w.width)) {
             borders |= Qt.BottomEdge;
         }
+
         return borders;
     }
-
     background: KSvg.FrameSvgItem {
         id: headingSvg
         // This graphics has to back with the dialog background, so it can be used if:
@@ -78,7 +78,7 @@ T.ToolBar {
         }
 
         enabledBorders: {
-            let borders = KSvg.FrameSvg.NoBorder
+            let borders = KSvg.FrameSvg.NoBorder;
             if (control.enabledBorders & Qt.LeftEdge) {
                 borders |= KSvg.FrameSvg.LeftBorder;
             }
