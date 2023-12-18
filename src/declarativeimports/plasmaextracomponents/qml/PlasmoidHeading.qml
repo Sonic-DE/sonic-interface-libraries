@@ -46,20 +46,13 @@ T.ToolBar {
         }
 
         const windowBorders = popup.borders;
-        let borders = 0;
+        let borders = Qt.TopEdge | Qt.BottomEdge;
 
         if (windowBorders & Qt.LeftEdge && background.Kirigami.ScenePosition.x <= 0) {
             borders |= Qt.LeftEdge;
         }
         if (windowBorders & Qt.RightEdge && background.Kirigami.ScenePosition.x + background.width >= w.width) {
             borders |= Qt.RightEdge;
-        }
-
-        if (control.position === T.ToolBar.Footer || (windowBorders & Qt.TopEdge && background.Kirigami.ScenePosition.y <= 0)) {
-            borders |= Qt.TopEdge;
-        }
-        if (control.position === T.ToolBar.Header || (windowBorders & Qt.BottomEdge && background.Kirigami.ScenePosition.y + background.height >= w.width)) {
-            borders |= Qt.BottomEdge;
         }
 
         return borders;
