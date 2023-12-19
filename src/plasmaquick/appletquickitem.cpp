@@ -921,6 +921,9 @@ void AppletQuickItem::geometryChange(const QRectF &newGeometry, const QRectF &ol
 
 void AppletQuickItem::itemChange(ItemChange change, const ItemChangeData &value)
 {
+    if (d->initComplete) {
+        return;
+    }
     if (change == QQuickItem::ItemSceneChange) {
         // we have a window: create the representations if needed
         if (value.window) {
