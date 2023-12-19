@@ -921,6 +921,8 @@ void AppletQuickItem::geometryChange(const QRectF &newGeometry, const QRectF &ol
 
 void AppletQuickItem::itemChange(ItemChange change, const ItemChangeData &value)
 {
+    // Avoid initializing the item more than once,
+    // since this will cause shortcut to open and close the item immediately
     if (d->initComplete) {
         return;
     }
