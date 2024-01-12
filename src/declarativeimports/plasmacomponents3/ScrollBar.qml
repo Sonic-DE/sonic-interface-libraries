@@ -68,6 +68,28 @@ T.ScrollBar {
                 easing.type: Easing.OutCubic
             }
         }
+
+        TapHandler {
+            id: tapHandler
+            acceptedButtons: Qt.MiddleButton
+            acceptedDevices: PointerDevice.Stylus
+            gesturePolicy: TapHandler.ReleaseWithinBounds
+            grabPermissions: PointerHandler.ApprovesTakeOverByAnything
+            target: null
+        }
+
+        Connections {
+            enabled: tapHandler.pressed
+            target: tapHandler
+            function onPointChanged() {
+                controlRoot.position = Math.min(1 - controlRoot.size, Math.max(0,
+                    (controlRoot.horizontal
+                        ? tapHandler.point.position.x / bgFrame.width
+                        : tapHandler.point.position.y / bgFrame.height
+                    ) - controlRoot.size / 2
+                ));
+            }
+        }
     }
 
     contentItem: KSvg.FrameSvgItem {
