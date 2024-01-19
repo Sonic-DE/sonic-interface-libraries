@@ -47,8 +47,6 @@ RowLayout {
             visible: source.length > 0 && root.parent.display !== T.Button.TextOnly
             source: root.parent.icon ? (root.parent.icon.name || root.parent.icon.source) : ""
             selected: root.usingFocusBackground
-
-            property bool isMenuIcon: source.startsWith("application-menu") || source.startsWith("menu_new") || source.startsWith("open-menu-symbolic") || source.startsWith("overflow-menu")
         }
         PlasmaComponents.Label {
             id: label
@@ -64,7 +62,7 @@ RowLayout {
         }
     }
     KSvg.SvgItem {
-        visible: root.parent.Accessible.role === Accessible.ButtonMenu && !icon.isMenuIcon
+        visible: root.parent.Accessible.role === Accessible.ButtonMenu && label.visible
         Layout.preferredWidth: Kirigami.Units.iconSizes.small
         Layout.preferredHeight: Layout.preferredWidth
         Layout.alignment: Qt.AlignCenter
