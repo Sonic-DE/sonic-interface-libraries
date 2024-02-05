@@ -85,7 +85,24 @@ AppletPopup::AppletPopup()
 
     auto updateWindowResizerEdges = [windowResizer, this]() {
         Qt::Edges activeEdges = borders();
+        // Always enable the resize edge opposite to the panel
+        activeEdges.setFlag(effectivePopupDirection(), true);
+        // Always disable the resize edge close to the panel
         activeEdges.setFlag(PlasmaQuickPrivate::oppositeEdge(effectivePopupDirection()), false);
+
+        if (screen()) {
+            // An extra check to not lock ourselves out of resizing possibility BUG:480898
+            const QRect screenGeometry = screen()->geometry();
+            if (width() >= screenGeometry.width()) {
+                activeEdges.setFlag(Qt::LeftEdge, true);
+                activeEdges.setFlag(Qt::RightEdge, true);
+            }
+            if (height() >= screenGeometry.height()) {
+                activeEdges.setFlag(Qt::TopEdge, true);
+                activeEdges.setFlag(Qt::BottomEdge, true);
+            }
+        }
+
         windowResizer->setActiveEdges(activeEdges);
     };
     updateWindowResizerEdges();
