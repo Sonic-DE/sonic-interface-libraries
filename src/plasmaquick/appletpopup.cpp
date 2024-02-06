@@ -234,8 +234,8 @@ void AppletPopup::updateMaxSize()
     }
     QSize size = m_layoutChangedProxy->maximumSize().grownBy(padding());
     if (screen()) {
-        size.setWidth(std::min(size.width(), int(std::round(screen()->geometry().width() * 0.8))));
-        size.setHeight(std::min(size.height(), int(std::round(screen()->geometry().height() * 0.8))));
+        size.setWidth(std::min(size.width(), int(std::round(screen()->geometry().width() * 0.95))));
+        size.setHeight(std::min(size.height(), int(std::round(screen()->geometry().height() * 0.95))));
     }
     setMaximumSize(size);
 }
