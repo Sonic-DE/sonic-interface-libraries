@@ -85,24 +85,7 @@ AppletPopup::AppletPopup()
 
     auto updateWindowResizerEdges = [windowResizer, this]() {
         Qt::Edges activeEdges = borders();
-        // Always enable the resize edge opposite to the panel
-        activeEdges.setFlag(effectivePopupDirection(), true);
-        // Always disable the resize edge close to the panel
         activeEdges.setFlag(PlasmaQuickPrivate::oppositeEdge(effectivePopupDirection()), false);
-
-        if (screen()) {
-            // An extra check to not lock ourselves out of resizing possibility BUG:480898
-            const QRect screenGeometry = screen()->geometry();
-            if (width() >= screenGeometry.width()) {
-                activeEdges.setFlag(Qt::LeftEdge, true);
-                activeEdges.setFlag(Qt::RightEdge, true);
-            }
-            if (height() >= screenGeometry.height()) {
-                activeEdges.setFlag(Qt::TopEdge, true);
-                activeEdges.setFlag(Qt::BottomEdge, true);
-            }
-        }
-
         windowResizer->setActiveEdges(activeEdges);
     };
     updateWindowResizerEdges();
@@ -113,6 +96,17 @@ AppletPopup::AppletPopup()
     connect(this, &PlasmaWindow::paddingChanged, this, &AppletPopup::updateMaxSize);
     connect(this, &PlasmaWindow::paddingChanged, this, &AppletPopup::updateSize);
     connect(this, &PlasmaWindow::paddingChanged, this, &AppletPopup::updateMinSize);
+
+    connect(this, &PlasmaWindow::screenChanged, this, [this](QScreen *screen) {
+        if (m_oldScreen) {
+            disconnect(m_oldScreen, &QScreen::geometryChanged, this, &AppletPopup::updateMaxSize);
+        }
+        if (screen) {
+            connect(screen, &QScreen::geometryChanged, this, &AppletPopup::updateMaxSize);
+        }
+        m_oldScreen = screen;
+        updateMaxSize();
+    });
 }
 
 AppletPopup::~AppletPopup()
@@ -238,7 +232,12 @@ void AppletPopup::updateMaxSize()
     if (!m_layoutChangedProxy) {
         return;
     }
-    setMaximumSize(m_layoutChangedProxy->maximumSize().grownBy(padding()));
+    QSize size = m_layoutChangedProxy->maximumSize().grownBy(padding());
+    if (screen()) {
+        size.setWidth(std::min(size.width(), int(std::round(screen()->geometry().width() * 0.8))));
+        size.setHeight(std::min(size.height(), int(std::round(screen()->geometry().height() * 0.8))));
+    }
+    setMaximumSize(size);
 }
 
 void AppletPopup::updateSize()
