@@ -385,7 +385,7 @@ void ContainmentItem::processMimeData(QMimeData *mimeData, int x, int y, KIO::Dr
                                        Q_ARG(QRectF, QRectF(x, y, -1, -1)));
         }
         delete m_dropMenu.data();
-    } else if (mimeData->hasUrls()) {
+    } else if (mimeData->hasUrls() && !mimeData->urls().isEmpty()) {
         // TODO: collect the mimetypes of available script engines and offer
         //      to create widgets out of the matching URLs, if any
         const QList<QUrl> urls = KUrlMimeData::urlsFromMimeData(mimeData);
