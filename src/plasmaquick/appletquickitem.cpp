@@ -526,7 +526,8 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
     }
 
     if (!item || !qmlObject->mainComponent() || qmlObject->mainComponent()->isError() || applet->failedToLaunch()) {
-        QString reason, compactReason;
+        QString reason;
+        QString compactReason;
         QJsonObject errorData;
         errorData[QStringLiteral("appletName")] = i18n("Unknown Applet");
         errorData[QStringLiteral("isDebugMode")] = qEnvironmentVariableIntValue("PLASMA_ENABLE_QML_DEBUG") != 0;
