@@ -7,9 +7,13 @@
 #ifndef PLASMOIDATTACHED_P_H
 #define PLASMOIDATTACHED_P_H
 
-#include <QAction>
-#include <QObject>
-#include <QQmlEngine>
+#include "plasmoid/containmentitem.h"
+#include "plasmoid/plasmoiditem.h"
+#include "plasmoid/wallpaperitem.h"
+#include <Plasma/Applet>
+#include <Plasma/Containment>
+#include <Plasma/Corona>
+#include <appletquickitem.h>
 
 //
 //  W A R N I N G
@@ -22,36 +26,67 @@
 // We mean it.
 //
 
-namespace Plasma
-{
-class Applet;
-class Containment;
-}
+struct AppletForeign {
+    Q_GADGET
+    QML_ANONYMOUS
+    QML_FOREIGN(Plasma::Applet)
+};
+
+struct ContainmentForeign {
+    Q_GADGET
+    QML_ANONYMOUS
+    QML_FOREIGN(Plasma::Containment)
+};
+
+struct CoronaForeign {
+    Q_GADGET
+    QML_ANONYMOUS
+    QML_FOREIGN(Plasma::Corona)
+};
+
+struct PlasmoidItemForeign {
+    Q_GADGET
+    QML_NAMED_ELEMENT(PlasmoidItem)
+    QML_FOREIGN(PlasmoidItem)
+};
+
+struct ContainmentItemForeign {
+    Q_GADGET
+    QML_NAMED_ELEMENT(ContainmentItem)
+    QML_FOREIGN(ContainmentItem)
+};
+
+struct WallpaperItemForeign {
+    Q_GADGET
+    QML_NAMED_ELEMENT(WallpaperItem)
+    QML_FOREIGN(WallpaperItem)
+};
 
 namespace PlasmaQuick
 {
-// Class used exclusively to generate the Plasmoid.* attached proeprties, which are Applet instances
-class PlasmoidAttached : public QObject
+
+// Class used exclusively to generate the Plasmoid.* attached properties, which are Applet instances
+class PlasmoidAttached : public Plasma::Applet
 {
     Q_OBJECT
+    QML_NAMED_ELEMENT(Plasmoid)
+    QML_UNCREATABLE("Attached property and enums only")
+    QML_ATTACHED(Plasma::Applet)
 
 public:
-    PlasmoidAttached(QObject *parent = nullptr);
-    ~PlasmoidAttached() override;
-
     ////NEEDED BY QML TO CREATE ATTACHED PROPERTIES
     static Plasma::Applet *qmlAttachedProperties(QObject *object);
 };
 
-// Class used exclusively to generate the Plasmoid.* attached proeprties, which are Applet instances
-class ContainmentAttached : public QObject
+// Class used exclusively to generate the Containment.* attached properties, which are Containment instances
+class ContainmentAttached : public Plasma::Containment
 {
     Q_OBJECT
+    QML_NAMED_ELEMENT(Containment)
+    QML_UNCREATABLE("Attached property and enums only")
+    QML_ATTACHED(Plasma::Containment)
 
 public:
-    ContainmentAttached(QObject *parent = nullptr);
-    ~ContainmentAttached() override;
-
     ////NEEDED BY QML TO CREATE ATTACHED PROPERTIES
     static Plasma::Containment *qmlAttachedProperties(QObject *object);
 };

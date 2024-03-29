@@ -16,15 +16,6 @@ namespace PlasmaQuick
 {
 ///////////////////////PlasmoidAttached
 
-PlasmoidAttached::PlasmoidAttached(QObject *parent)
-    : QObject(parent)
-{
-}
-
-PlasmoidAttached::~PlasmoidAttached()
-{
-}
-
 Plasma::Applet *PlasmoidAttached::qmlAttachedProperties(QObject *object)
 {
     // Special case: we are asking the attached Plasmoid property of an AppletItem itself, which in this case is its own Applet
@@ -48,15 +39,6 @@ Plasma::Applet *PlasmoidAttached::qmlAttachedProperties(QObject *object)
 }
 
 ///////////////////////PlasmoidAttached
-
-ContainmentAttached::ContainmentAttached(QObject *parent)
-    : QObject(parent)
-{
-}
-
-ContainmentAttached::~ContainmentAttached()
-{
-}
 
 Plasma::Containment *ContainmentAttached::qmlAttachedProperties(QObject *object)
 {

@@ -13,8 +13,8 @@
 #include <Plasma/Containment>
 
 #include "plasmoiditem.h"
+#include <plasmaquick_export.h>
 
-class AppletQuickItem;
 class WallpaperItem;
 class DropMenu;
 class KJob;
@@ -32,7 +32,7 @@ class DropJob;
  * @code import org.kde.plasma.plasmoid @endcode
  * @version 2.0
  */
-class ContainmentItem : public PlasmoidItem
+class PLASMAQUICK_EXPORT ContainmentItem : public PlasmoidItem
 {
     Q_OBJECT
 

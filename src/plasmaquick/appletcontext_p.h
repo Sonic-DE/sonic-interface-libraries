@@ -9,6 +9,7 @@
 #include "sharedqmlengine.h"
 
 #include <QQmlContext>
+#include <plasmaquick/plasmaquick_export.h>
 #include <qstringlistmodel.h>
 
 namespace Plasma
@@ -19,7 +20,7 @@ class Applet;
 namespace PlasmaQuick
 {
 
-class AppletContext : public QQmlContext
+class PLASMAQUICK_EXPORT AppletContext : public QQmlContext
 {
     Q_OBJECT
 public:

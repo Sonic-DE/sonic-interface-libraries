@@ -34,7 +34,6 @@ target_sources(PlasmaQuick PRIVATE
     transientplacementhint.cpp
     windowresizehandler.cpp
     configcategory_p.cpp
-    plasmoidattached_p.cpp
     dialogbackground_p.cpp
     utils.cpp
     plasmoid/plasmoiditem.cpp
@@ -140,6 +139,14 @@ ecm_generate_headers(PlasmaQuick_CamelCase_HEADERS
     REQUIRED_HEADERS plasmaquick_LIB_INCLUDES
     PREFIX PlasmaQuick
 )
+
+ecm_add_qml_module(plasmoidplugin URI "org.kde.plasma.plasmoid" VERSION 2.0 DEPENDENCIES QtCore QtQuick org.kde.plasma.core org.kde.config GENERATE_PLUGIN_SOURCE)
+
+target_sources(plasmoidplugin PRIVATE plasmoidattached_p.cpp)
+
+target_link_libraries(plasmoidplugin PRIVATE Plasma::Plasma Plasma::PlasmaQuick Qt6::Widgets KF6::Package)
+
+ecm_finalize_qml_module(plasmoidplugin)
 
 install(
     FILES ${plasmaquick_LIB_INCLUDES}
