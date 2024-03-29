@@ -85,7 +85,7 @@ Applet *PluginLoader::loadApplet(const QString &name, uint appletId, const QVari
     if (!plugin.isValid()) {
         const QString parentPlugin = p.metadata().value(QStringLiteral("X-Plasma-RootPath"));
         if (!parentPlugin.isEmpty()) {
-            plugin = KPluginMetaData(PluginLoaderPrivate::s_containmentActionsPluginDir + QLatin1Char('/') + parentPlugin, KPluginMetaData::AllowEmptyMetaData);
+            plugin = KPluginMetaData(PluginLoaderPrivate::s_plasmoidsPluginDir + QLatin1Char('/') + parentPlugin, KPluginMetaData::AllowEmptyMetaData);
         }
     }
 
