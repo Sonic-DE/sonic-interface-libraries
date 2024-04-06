@@ -183,16 +183,16 @@
      inkscape:pagecheckerboard="1"
      inkscape:blackoutopacity="0.0"
      showgrid="true"
-     inkscape:current-layer="svg600"
+     inkscape:current-layer="toolbutton-focus-topright"
      inkscape:showpageshadow="2"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="17.290036"
-     inkscape:cx="259.07986"
-     inkscape:cy="152.51559"
+     inkscape:zoom="13.432863"
+     inkscape:cx="246.74562"
+     inkscape:cy="151.56859"
      inkscape:window-width="1471"
      inkscape:window-height="944"
-     inkscape:window-x="187"
-     inkscape:window-y="358"
+     inkscape:window-x="-1"
+     inkscape:window-y="350"
      inkscape:window-maximized="0"
      showguides="true">
     <inkscape:grid
@@ -859,9 +859,9 @@
      class="ColorScheme-Highlight">
     <path
        id="path100-3-6-5-06-2-6"
-       d="m 202,172 h -19.8 v -7 H 202 Z"
+       d="m 202,170 h -19.8 v -5 H 202 Z"
        sodipodi:nodetypes="ccccc"
-       style="opacity:0.00100002"
+       style="opacity:0.00100002;stroke-width:0.845154"
        inkscape:label="hint" />
     <path
        id="path382"
@@ -903,6 +903,12 @@
      style="fill:currentColor"
      class="ColorScheme-Highlight">
     <path
+       id="path100-3-6-5-0-5-6-7"
+       d="m 238,170 h 5 v -5 h -5 z"
+       sodipodi:nodetypes="ccccc"
+       style="opacity:0.00100002;fill-rule:evenodd;stroke-width:0.589255"
+       inkscape:label="hint" />
+    <path
        id="path400"
        style="fill-opacity:0.33;"
        d="m 236,165 c 0,3.86599 3.13401,7 7,7 v -2 a 5.0001159,5.0001159 0 0 1 -5,-5 z"
@@ -918,6 +924,12 @@
      style="fill:currentColor"
      transform="matrix(1 0 0 -1 0 310)"
      class="ColorScheme-Highlight">
+    <path
+       id="path100-3-6-5-0-5-6-1"
+       d="m 238,170 h 5 v -5 h -5 z"
+       sodipodi:nodetypes="ccccc"
+       style="opacity:0.00100002;fill:currentColor;fill-rule:evenodd;stroke-width:0.589255"
+       inkscape:label="hint" />
     <path
        id="path410"
        style="fill-opacity:0.33;"
@@ -935,6 +947,12 @@
      transform="matrix(-1 0 0 -1 506 310)"
      class="ColorScheme-Highlight">
     <path
+       id="path100-3-6-5-0-5-6-7-9"
+       d="m 238,170 h 5 v -5 h -5 z"
+       sodipodi:nodetypes="ccccc"
+       style="opacity:0.00100002;fill:currentColor;fill-rule:evenodd;stroke-width:0.589255"
+       inkscape:label="hint" />
+    <path
        id="path420"
        style="fill-opacity:0.33;"
        d="m 243,172 v -2 a 5.0003629,5.0003629 0 0 1 -5,-5 h -2 c 0,3.86599 3.13401,7 7,7 z"
@@ -950,6 +968,12 @@
      style="fill:currentColor;"
      class="ColorScheme-Highlight"
      transform="matrix(-1 0 0 1 506 0)">
+    <path
+       id="path100-3-6-5-0-5-6-2"
+       d="m 238,170 h 5 v -5 h -5 z"
+       sodipodi:nodetypes="ccccc"
+       style="fill:currentColor;opacity:0.00100002;fill-rule:evenodd;stroke-width:0.589255"
+       inkscape:label="hint" />
     <path
        id="path428"
        style="fill-opacity:0.33;"
