@@ -6,7 +6,7 @@
    width="80"
    sodipodi:version="0.32"
    inkscape:version="1.3.2 (091e20ef0f, 2023-11-25)"
-   sodipodi:docname="lineedit_rounded.svg"
+   sodipodi:docname="lineedit.svg"
    inkscape:output_extension="org.inkscape.output.svgz.inkscape"
    inkscape:export-filename="/home/pinheiro/Documents/pics/estilo/plasma/wether.png"
    inkscape:export-xdpi="90"
@@ -30,18 +30,18 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      showgrid="true"
-     inkscape:current-layer="svg2"
+     inkscape:current-layer="hover-right"
      inkscape:blackoutopacity="0.0"
      inkscape:showpageshadow="2"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="11.758597"
-     inkscape:cx="44.733228"
-     inkscape:cy="27.979529"
-     inkscape:window-width="2510"
-     inkscape:window-height="1412"
-     inkscape:window-x="50"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
+     inkscape:zoom="9.8901242"
+     inkscape:cx="79.068775"
+     inkscape:cy="55.964919"
+     inkscape:window-width="1269"
+     inkscape:window-height="1219"
+     inkscape:window-x="297"
+     inkscape:window-y="167"
+     inkscape:window-maximized="0"
      showguides="true">
     <inkscape:grid
        type="xygrid"
@@ -397,7 +397,7 @@
   </g>
   <g
      id="hover-right"
-     style="stroke-width:.935415"
+     style=""
      transform="matrix(0 -1.14285714286 -1 0 41.0000000011 107)">
     <rect
        id="rect3804-1-9-3"
@@ -454,14 +454,6 @@
      id="focus-bottom"
      style="stroke-width:.532714"
      transform="matrix(3.52380952381 0 0 -1 -120.333333333 71.0000000001)">
-    <rect
-       id="rect3682-2-7"
-       height="3"
-       class="ColorScheme-ViewBackground"
-       style="fill:currentColor;fill-rule:evenodd;stroke-width:.532714;opacity:.001;fill-opacity:.0039215689"
-       width="21"
-       x="35"
-       y="-39" />
     <rect
        id="rect3804-7-65"
        height="1"
