@@ -34,13 +34,13 @@
      inkscape:blackoutopacity="0.0"
      inkscape:showpageshadow="2"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="12.181494"
-     inkscape:cx="53.318582"
-     inkscape:cy="19.948292"
+     inkscape:zoom="13.475585"
+     inkscape:cx="8.8678893"
+     inkscape:cy="60.850788"
      inkscape:window-width="1781"
      inkscape:window-height="1408"
      inkscape:window-x="50"
-     inkscape:window-y="-16"
+     inkscape:window-y="0"
      inkscape:window-maximized="0"
      showguides="true">
     <inkscape:grid
@@ -381,7 +381,7 @@
      style="">
     <path
        id="path1-5-6-6"
-       style="color:#3daee9;fill:currentColor;fill-rule:evenodd"
+       style="fill-rule:evenodd;fill:currentColor;"
        d="m 147,-32 a 5,5 0 0 1 5,-5 v 1 a 4,4 0 0 0 -4,4 z"
        class="  ColorScheme-ViewHover" />
   </g>
