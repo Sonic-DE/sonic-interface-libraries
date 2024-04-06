@@ -20,7 +20,7 @@
      id="defs87" />
   <sodipodi:namedview
      id="namedview85"
-     pagecolor="#ffffff"
+     pagecolor="#808080"
      bordercolor="#666666"
      borderopacity="1.0"
      objecttolerance="10.0"
@@ -30,17 +30,17 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      showgrid="true"
-     inkscape:current-layer="hover-right"
+     inkscape:current-layer="svg2"
      inkscape:blackoutopacity="0.0"
      inkscape:showpageshadow="2"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="9.8901242"
-     inkscape:cx="79.068775"
-     inkscape:cy="55.964919"
-     inkscape:window-width="1269"
-     inkscape:window-height="1219"
-     inkscape:window-x="297"
-     inkscape:window-y="167"
+     inkscape:zoom="12.181494"
+     inkscape:cx="53.318582"
+     inkscape:cy="19.948292"
+     inkscape:window-width="1781"
+     inkscape:window-height="1408"
+     inkscape:window-x="50"
+     inkscape:window-y="-16"
      inkscape:window-maximized="0"
      showguides="true">
     <inkscape:grid
@@ -114,7 +114,7 @@
      id="hint-tile-center"
      height="2.07712602615"
      rx="2.07712602615"
-     style="opacity:1;fill:#4e9a06;fill-opacity:1;fill-rule:nonzero"
+     style="fill:#4e9a06;"
      width="2.03293180466"
      x="0"
      y="-4" />
@@ -122,25 +122,25 @@
      id="hint-focus-over-base"
      height="2.07712602615"
      rx="2.07712602615"
-     style="opacity:.99;fill:#4e9a06;fill-opacity:1;fill-rule:nonzero"
+     style="fill:#4e9a06;"
      width="2.03293180466"
      x="4"
      y="-4" />
   <rect
      id="base-center"
-     height="20"
+     height="14"
      class="ColorScheme-ViewBackground"
-     style="fill:currentColor;fill-opacity:1;stroke-width:1.06949"
-     width="70"
-     x="5"
-     y="5" />
+     style="fill:currentColor;fill-opacity:1;stroke-width:0.855594"
+     width="64"
+     x="8"
+     y="8" />
   <g
      id="base-topleft"
      style=""
      transform="translate(-147 37)">
     <path
        id="rect4544"
-       style="fill-rule:evenodd;fill:currentColor;"
+       style="fill:currentColor;"
        class="ColorScheme-ViewBackground"
        d="M 152 -37 A 5 5 0 0 0 147 -32 L 152 -32 L 152 -37 z " />
     <path
@@ -157,7 +157,7 @@
        id="rect3682"
        height="5"
        class="ColorScheme-ViewBackground"
-       style="fill-rule:evenodd;fill:currentColor;"
+       style="fill:currentColor;"
        width="19.864864"
        x="35.567566"
        y="-39" />
@@ -176,7 +176,7 @@
      transform="matrix(-1 0 0 1 227.000000001 37)">
     <path
        id="rect4544-7"
-       style="fill-rule:evenodd;fill:currentColor;"
+       style="fill:currentColor;"
        class="ColorScheme-ViewBackground"
        d="m 147,-32 a 5,5 0 0 1 5,-5 v 5 z" />
     <path
@@ -193,7 +193,7 @@
        id="rect3682-2"
        height="5"
        class="ColorScheme-ViewBackground"
-       style="fill-rule:evenodd;fill:currentColor;"
+       style="fill:currentColor;"
        width="19.864866"
        x="35.567566"
        y="-39" />
@@ -212,7 +212,7 @@
      transform="matrix(1 0 0 -1 -147 -6.9999999999)">
     <path
        id="rect4544-3"
-       style="fill-rule:evenodd;fill:currentColor;"
+       style="fill:currentColor;"
        class="ColorScheme-ViewBackground"
        d="m 152,-37 a 5,5 0 0 0 -5,5 h 5 z" />
     <path
@@ -227,7 +227,7 @@
      transform="matrix(-1 0 0 -1 227 -7)">
     <path
        id="rect4544-7-3"
-       style="fill-rule:evenodd;fill:currentColor;color:#fcfcfc;"
+       style="fill:currentColor;"
        class="ColorScheme-ViewBackground"
        d="m 75,30 a 5,5 0 0 0 5,-5 h -5 z"
        transform="rotate(-180,113.5,-3.5)" />
@@ -246,7 +246,7 @@
        id="rect3682-6"
        height="5"
        class="ColorScheme-ViewBackground"
-       style="fill-rule:evenodd;fill:currentColor;"
+       style="fill:currentColor;"
        width="17.5"
        x="36.75"
        y="-39" />
@@ -267,7 +267,7 @@
        id="rect3682-6-7"
        height="5"
        class="ColorScheme-ViewBackground"
-       style="fill:currentColor;fill-rule:evenodd;stroke-width:1.1024"
+       style="fill:currentColor;"
        width="17.5"
        x="36.75"
        y="-39" />
@@ -282,40 +282,40 @@
   </g>
   <rect
      id="base-hint-left-margin"
-     height="1.99999988079"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke-width:.999997"
-     width="6"
-     x=".0000000009"
+     height="1.9999999"
+     style="fill:#4e9a06;"
+     width="8"
+     x="9.0000002e-10"
      y="14" />
   <rect
      id="base-hint-right-margin"
      height="2"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke-width:.999997"
-     width="6"
-     x="74"
+     style="fill:#4e9a06;"
+     width="8"
+     x="72"
      y="14" />
   <rect
      id="base-hint-bottom-margin"
-     height="6"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke-width:0.999997"
+     height="8"
+     style="fill:#4e9a06;"
      x="40"
-     y="24"
+     y="22"
      width="2" />
   <rect
      id="base-hint-top-margin"
-     height="6"
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:nonzero;stroke-width:.999997"
+     height="8"
+     style="fill:#4e9a06;"
      width="2"
      x="40"
      y="0" />
   <rect
      id="hover-center"
-     height="20"
+     height="14"
      class="ColorScheme-ViewBackground"
-     style="opacity:0.00100002;fill:currentColor;fill-opacity:0.00392157;stroke-width:1.06948"
-     width="70"
-     x="5"
-     y="45" />
+     style="fill:currentColor;opacity:0.00100002;"
+     width="64"
+     x="8"
+     y="48" />
   <g
      id="hover-topleft"
      style=""
@@ -328,8 +328,14 @@
   </g>
   <g
      id="hover-top"
-     style="stroke-width:.532714"
+     style=""
      transform="matrix(3.52380952381 0 0 1 -120.333333332 79)">
+    <path
+       id="rect3682-2-3-3"
+       style="opacity:0.00100002"
+       inkscape:label="hint"
+       d="M 35.567568,-39 H 55.43243 v 5 H 35.567568 Z"
+       class="ColorScheme-ViewBackground" />
     <rect
        id="rect3804-2"
        height="1"
@@ -351,8 +357,15 @@
   </g>
   <g
      id="hover-bottom"
-     style="stroke-width:.532714"
+     style=""
      transform="matrix(3.52380952381 0 0 -1 -120.333333333 31.0000000001)">
+    <path
+       id="rect3682-2-3"
+       style="opacity:0.00100002"
+       inkscape:label="hint"
+       transform="scale(1,-1)"
+       d="M 35.567566,34 H 55.43243 v 5 H 35.567566 Z"
+       class="ColorScheme-ViewBackground" />
     <rect
        id="rect3804-7-6"
        height="1"
@@ -384,8 +397,14 @@
   </g>
   <g
      id="hover-left"
-     style="stroke-width:.935415"
+     style=""
      transform="matrix(0 -1.14285714286 1 0 39 107)">
+    <path
+       id="rect3682-2-3-3-6-9-1-2-7-0-9-6"
+       style="opacity:0.00100002;"
+       inkscape:label="hint"
+       d="m 36.75,-34 h 17.5 v -5 h -17.5 z"
+       class="ColorScheme-ViewBackground" />
     <rect
        id="rect3804-1-4"
        height="1"
@@ -399,6 +418,12 @@
      id="hover-right"
      style=""
      transform="matrix(0 -1.14285714286 -1 0 41.0000000011 107)">
+    <path
+       id="rect3682-2-3-3-6-9-1-2-7-0-9-6-0"
+       style="opacity:0.00100002;"
+       inkscape:label="hint"
+       d="m 54.25,-39 h -17.5 v 5 h 17.5 z"
+       class="ColorScheme-ViewBackground" />
     <rect
        id="rect3804-1-9-3"
        height="1"
@@ -410,12 +435,12 @@
   </g>
   <rect
      id="focus-center"
-     height="20"
+     height="14"
      class="ColorScheme-ViewBackground"
-     style="opacity:0.00100002;fill:currentColor;fill-opacity:0.00392157;stroke-width:1.06948"
-     width="70"
-     x="5"
-     y="85" />
+     style="fill:currentColor;opacity:0.00100002;"
+     width="64"
+     x="8"
+     y="88" />
   <g
      id="focus-topleft"
      style=""
@@ -429,8 +454,14 @@
   </g>
   <g
      id="focus-top"
-     style="stroke-width:.532714"
+     style=""
      transform="matrix(3.52380952381 0 0 1 -120.333333333 119)">
+    <path
+       id="rect3682-2-3-3-6"
+       style="opacity:0.00100002"
+       inkscape:label="hint"
+       d="m 35.567569,-39 h 19.864862 v 5 H 35.567569 Z"
+       class="ColorScheme-ViewBackground" />
     <rect
        id="rect3804-6"
        height="1"
@@ -452,8 +483,14 @@
   </g>
   <g
      id="focus-bottom"
-     style="stroke-width:.532714"
+     style=""
      transform="matrix(3.52380952381 0 0 -1 -120.333333333 71.0000000001)">
+    <path
+       id="rect3682-2-3-3-6-9"
+       style="opacity:0.00100002"
+       inkscape:label="hint"
+       d="m 35.567567,-39 h 19.864865 v 5 H 35.567567 Z"
+       class="ColorScheme-ViewBackground" />
     <rect
        id="rect3804-7-65"
        height="1"
@@ -491,8 +528,14 @@
   </g>
   <g
      id="focus-left"
-     style="stroke-width:.935415"
+     style=""
      transform="matrix(0 -1.14285714286 1 0 38.9999999995 147)">
+    <path
+       id="rect3682-2-3-3-6-9-1-2-7-0-9"
+       style="opacity:0.00100002;"
+       inkscape:label="hint"
+       d="m 36.75,-34 h 17.5 v -5 h -17.5 z"
+       class="ColorScheme-ViewBackground" />
     <rect
        id="rect3804-1-47"
        height="1"
@@ -504,8 +547,14 @@
   </g>
   <g
      id="focus-right"
-     style="stroke-width:.935415"
+     style=""
      transform="matrix(0 -1.14285714286 -1 0 41.0000000004 147)">
+    <path
+       id="rect3682-2-3-3-6-9-1-2-7-0-9-3"
+       style="opacity:0.00100002;"
+       inkscape:label="hint"
+       d="m 54.25,-39 h -17.5 v 5 h 17.5 z"
+       class="ColorScheme-ViewBackground" />
     <rect
        id="rect3804-1-9-30"
        height="1"
@@ -577,123 +626,144 @@
      transform="rotate(-90)" />
   <rect
      id="focusframe-center"
-     height="19.999992"
+     height="13.999992"
      class="ColorScheme-ViewBackground"
-     style="color:#fcfcfc;opacity:0.00100002;fill:currentColor;fill-opacity:0.00392157;stroke-width:1.06947"
-     width="70"
-     x="5"
-     y="125" />
+     style="fill:currentColor;opacity:0.00100002;color:#fcfcfc;"
+     width="64"
+     x="8"
+     y="128" />
   <g
      id="focusframe-topleft"
-     transform="translate(-147.000000001,157.000999451)">
+     transform="translate(-147.000000001,157.000999451)"
+     class="ColorScheme-ViewFocus"
+     style="fill:currentColor;">
     <path
        id="path10"
-       style="opacity:0.33;fill-rule:evenodd;fill:currentColor"
-       d="m 152,-39.000999 a 7,7 0 0 0 -7,7 h 2 a 5,5 0 0 1 5,-5 z"
-       class="ColorScheme-ViewFocus" />
+       style="opacity:0.33;"
+       d="m 152,-39.000999 a 7,7 0 0 0 -7,7 h 2 a 5,5 0 0 1 5,-5 z" />
     <path
        id="path1-5-6-6-7-5-2"
-       style="fill:currentColor;fill-rule:evenodd"
+       style=""
        d="m 5,120 a 5,5 0 0 0 -5,5 h 1 a 4,4 0 0 1 4,-4 z"
-       class="  ColorScheme-ViewFocus"
+       class=" "
        transform="translate(147,-157.001)" />
   </g>
   <g
      id="focusframe-top"
-     style="stroke-width:0.532714"
-     transform="matrix(3.4259259,0,0,1,-116.85185,159.001)">
+     style="fill:currentColor"
+     transform="matrix(3.4259259,0,0,1,-116.85185,159.001)"
+     class="ColorScheme-ViewFocus">
+    <path
+       id="rect3682-2-3-3-6-9-1"
+       style="opacity:0.00100002"
+       inkscape:label="hint"
+       d="m 5,125.001 h 70 v -5 H 5 Z"
+       transform="matrix(0.29189189,0,0,1,34.108108,-159.001)"
+       class="ColorScheme-ViewBackground" />
     <rect
-       style="opacity:0.33;fill:currentColor;fill-rule:evenodd;stroke-width:0.279923"
+       style="opacity:0.33;"
        id="rect3120"
        width="20.432434"
-       height="2.5"
+       height="2"
        x="35.567566"
-       y="-41"
-       class="ColorScheme-ViewFocus" />
+       y="-41" />
     <rect
        id="rect3804-6-6"
        height="1"
-       class="ColorScheme-ViewFocus"
-       style="opacity:1;fill:currentColor;fill-rule:evenodd;stroke-width:0.172882"
+       style=""
        width="20.432432"
        x="35.567566"
        y="-39" />
   </g>
   <g
      id="focusframe-topright"
-     transform="matrix(-1,0,0,1,227,157.000999451)">
+     transform="matrix(-1,0,0,1,227,157.000999451)"
+     class="ColorScheme-ViewFocus"
+     style="fill:currentColor;">
     <path
        id="path10-7-6"
-       style="fill-rule:evenodd;fill:currentColor;opacity:0.33;"
-       d="m 145,-32.000999 a 7,7 0 0 1 7,-7 v 2 a 5,5 0 0 0 -5,5 z"
-       class="ColorScheme-ViewFocus" />
+       style="opacity:0.33;"
+       d="m 145,-32.000999 a 7,7 0 0 1 7,-7 v 2 a 5,5 0 0 0 -5,5 z" />
     <path
        id="path1-5-6-6-7-5-2-0-0"
-       style="fill-rule:evenodd;fill:currentColor;"
+       style=""
        d="m 147,-32.000999 a 5,5 0 0 1 5,-5 v 1 a 4,4 0 0 0 -4,4 z"
-       class="  ColorScheme-ViewFocus" />
+       class=" " />
   </g>
   <g
      id="focusframe-bottom"
-     style="stroke-width:0.532714"
-     transform="matrix(3.4285714,0,0,-1,-115,111.001)">
+     style="fill:currentColor;"
+     transform="matrix(3.4285714,0,0,-1,-115,111.001)"
+     class="ColorScheme-ViewFocus">
+    <path
+       id="rect3682-2-3-3-6-9-1-2"
+       style="opacity:0.00100002"
+       inkscape:label="hint"
+       d="m 35,-33.999 h 20.416667 v -5 H 35 Z"
+       class="ColorScheme-ViewBackground" />
     <rect
-       style="opacity:0.33;fill:currentColor;fill-rule:evenodd;stroke-width:0.279815"
+       style="opacity:0.33;"
        id="rect3120-5"
        width="20.416668"
-       height="2.5"
+       height="2"
        x="35"
-       y="38.5"
-       transform="scale(1,-1)"
-       class="ColorScheme-ViewFocus" />
+       y="38.999001"
+       transform="scale(1,-1)" />
     <rect
        id="rect3804-7-65-0"
        height="1"
-       class="ColorScheme-ViewFocus"
-       style="opacity:1;fill:currentColor;fill-rule:evenodd;stroke-width:0.172816"
+       style=""
        width="20.416668"
        x="35"
        y="-39" />
   </g>
   <g
      id="focusframe-bottomleft"
-     transform="matrix(1,0,0,-1,-147.000000001,113.000999451)">
+     transform="matrix(1,0,0,-1,-147.000000001,113.000999451)"
+     class="ColorScheme-ViewFocus"
+     style="fill:currentColor;">
     <path
        id="path10-7"
-       style="fill-rule:evenodd;fill:currentColor;opacity:0.33;"
-       d="m 152,-39 a 7,7 0 0 0 -7,7 h 2 a 5,5 0 0 1 5,-5 z"
-       class="ColorScheme-ViewFocus" />
+       style="opacity:0.33;"
+       d="m 152,-39 a 7,7 0 0 0 -7,7 h 2 a 5,5 0 0 1 5,-5 z" />
     <path
        id="path1-5-6-6-7-5-2-0"
-       style="fill-rule:evenodd;fill:currentColor;"
+       style=""
        d="m 152,-37 a 5,5 0 0 0 -5,5 h 1 a 4,4 0 0 1 4,-4 z"
-       class="  ColorScheme-ViewFocus" />
+       class=" " />
   </g>
   <g
      id="focusframe-bottomright"
-     transform="rotate(180,113.5,56.5004997253)">
+     transform="rotate(180,113.5,56.5004997253)"
+     class="ColorScheme-ViewFocus"
+     style="fill:currentColor;">
     <path
        id="path10-6"
-       style="fill-rule:evenodd;fill:currentColor;opacity:0.33;"
-       d="m 152,-39 a 7,7 0 0 0 -7,7 h 2 a 5,5 0 0 1 5,-5 z"
-       class="ColorScheme-ViewFocus" />
+       style="opacity:0.33;"
+       d="m 152,-39 a 7,7 0 0 0 -7,7 h 2 a 5,5 0 0 1 5,-5 z" />
     <path
        id="path1-5-6-6-7-5-2-2"
-       style="fill-rule:evenodd;fill:currentColor;"
+       style=""
        d="m 152,-37 a 5,5 0 0 0 -5,5 h 1 a 4,4 0 0 1 4,-4 z"
-       class="  ColorScheme-ViewFocus" />
+       class=" " />
   </g>
   <g
      id="focusframe-left"
      style="stroke-width:0.935415"
      transform="matrix(0,-1.1428571,1,0,39,187.001)">
+    <path
+       id="rect3682-2-3-3-6-9-1-2-7-0"
+       style="opacity:0.00100002"
+       inkscape:label="hint"
+       d="m 36.750877,-34 h 17.5 v -5 h -17.5 z"
+       class="ColorScheme-ViewBackground" />
     <rect
-       style="opacity:0.33;fill:currentColor;fill-rule:evenodd;stroke-width:0.798742"
+       style="opacity:0.33;fill:currentColor;fill-rule:evenodd;stroke-width:0.714417"
        id="rect4155"
-       width="2.5"
+       width="2"
        height="17.499117"
        x="-41"
-       y="-54.249992"
+       y="-54.250877"
        transform="rotate(90)"
        class="ColorScheme-ViewFocus" />
     <rect
@@ -707,42 +777,47 @@
   </g>
   <g
      id="focusframe-right"
-     style="stroke-width:0.935415"
-     transform="matrix(0,-1.14285714286,-1,0,41.0000000004,187.000999451)">
+     style="fill:currentColor"
+     transform="matrix(0,-1.14285714286,-1,0,41.0000000004,187.000999451)"
+     class="ColorScheme-ViewFocus">
+    <path
+       id="rect3682-2-3-3-6-9-1-2-7"
+       style="opacity:0.00100002"
+       inkscape:label="hint"
+       d="m 36.750875,-39 h 17.5 v 5 h -17.5 z"
+       class="ColorScheme-ViewBackground" />
     <rect
-       style="opacity:0.33;fill:currentColor;fill-rule:evenodd;stroke-width:0.798763"
+       style="opacity:0.33;"
        id="rect4155-3"
-       width="2.5"
+       width="2"
        height="17.499998"
-       x="38.5"
+       x="39"
        y="-54.250874"
-       transform="matrix(0,-1,-1,0,0,0)"
-       class="ColorScheme-ViewFocus" />
+       transform="matrix(0,-1,-1,0,0,0)" />
     <rect
        id="rect3804-1-9-30-2"
        height="1"
-       class="ColorScheme-ViewFocus"
-       style="opacity:1;fill:currentColor;fill-rule:evenodd;stroke-width:0.280951"
+       style=""
        width="17.500874"
        x="36.75"
        y="-39" />
   </g>
   <rect
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:evenodd;stroke-width:1"
+     style="fill:#4e9a06;"
      id="focusframe-hint-top-margin"
      width="2"
      height="2"
      x="40"
      y="118" />
   <rect
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:evenodd;stroke-width:1"
+     style="fill:#4e9a06;"
      id="focusframe-hint-bottom-margin"
      width="2"
      height="2"
      x="40"
      y="150.00100708" />
   <rect
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:evenodd;stroke-width:1"
+     style="fill:#4e9a06;"
      id="focusframe-hint-left-margin"
      width="2"
      height="2"
@@ -750,7 +825,7 @@
      y="-2.00099992752"
      transform="rotate(-90)" />
   <rect
-     style="fill:#4e9a06;fill-opacity:1;fill-rule:evenodd;stroke-width:1"
+     style="fill:#4e9a06;"
      id="focusframe-hint-right-margin"
      width="2"
      height="2"
