@@ -14,6 +14,18 @@
   <defs
      id="defs354">
     <linearGradient
+       id="linearGradient10"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop10" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop15" />
+    </linearGradient>
+    <linearGradient
        inkscape:collect="always"
        id="linearGradient19">
       <stop
@@ -96,7 +108,7 @@
        x2="172.5"
        y2="41"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1,0,0,0.81818182,-1,7.4545454)" />
+       gradientTransform="matrix(1.5000009,0,0,0.81818182,-88.500141,7.4545454)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient20110"
@@ -107,17 +119,6 @@
        y2="-6"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(0.81818182,0,0,1,2.7272727,0)" />
-    <radialGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient13"
-       id="radialGradient12089"
-       cx="177.28125"
-       cy="56.5"
-       fx="177.28125"
-       fy="56.5"
-       r="2.25"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(-2.8888909,0,7.638759e-6,-3.555555,691.14577,253.88886)" />
     <radialGradient
        inkscape:collect="always"
        xlink:href="#linearGradient19"
@@ -142,15 +143,35 @@
        gradientTransform="matrix(2.8888811,0,-7.3628023e-8,-3.555555,-309.14442,253.88886)" />
     <radialGradient
        inkscape:collect="always"
+       xlink:href="#linearGradient13"
+       id="radialGradient3"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-2.8888811,0,7.3628023e-8,-3.555555,691.14442,253.88886)"
+       cx="177.28125"
+       cy="56.5"
+       fx="177.28125"
+       fy="56.5"
+       r="2.25" />
+    <radialGradient
+       inkscape:collect="always"
        xlink:href="#linearGradient19"
-       id="radialGradient13221-6"
+       id="radialGradient4"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-3.1111111,1.3333338e-7,1.920578e-7,2.2222223,812.49999,-34.333362)"
        cx="203.625"
        cy="28.5"
        fx="203.625"
        fy="28.5"
-       r="2.25"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(-3.1111111,1.3333338e-7,1.920578e-7,2.2222223,812.49999,-34.333362)" />
+       r="2.25" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient10"
+       id="linearGradient15"
+       x1="246"
+       y1="117"
+       x2="260"
+       y2="117"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="namedview352"
@@ -165,14 +186,14 @@
      inkscape:current-layer="svg600"
      inkscape:showpageshadow="2"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="17.977628"
-     inkscape:cx="160.03224"
-     inkscape:cy="130.32865"
-     inkscape:window-width="2510"
-     inkscape:window-height="1412"
-     inkscape:window-x="50"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
+     inkscape:zoom="17.290036"
+     inkscape:cx="259.07986"
+     inkscape:cy="152.51559"
+     inkscape:window-width="1471"
+     inkscape:window-height="944"
+     inkscape:window-x="187"
+     inkscape:window-y="358"
+     inkscape:window-maximized="0"
      showguides="true">
     <inkscape:grid
        type="xygrid"
@@ -289,60 +310,124 @@
        style="font-size:9.06667;stroke-width:1"
        x="177.399993896"
        y="53.4666633606">area</tspan></text>
+  <path
+     id="shadow-bottomleft-5"
+     style="fill:url(#radialGradient12089-3)"
+     d="m 211,53 v 8 l -8,0 v -3 c 2.76142,0 5,-2.238576 5,-5 z"
+     inkscape:label="shadow-bottomright"
+     sodipodi:nodetypes="cccccc" />
   <g
-     id="shadow-right"
-     style="fill-rule:evenodd;stroke-width:0.816497"
-     transform="matrix(1.5,0,0,1.0434783,164.5,64.478261)">
-    <path
-       id="path26"
-       d="m 29,-13.875 h 1.333333 v -17.25 H 29 Z"
-       style="fill:url(#linearGradient6095);"
-       sodipodi:nodetypes="ccccc" />
-  </g>
-  <g
-     id="shadow-bottom"
-     style="fill-rule:evenodd;stroke-width:1.29099"
-     transform="matrix(1,0,0,0.6,176,64.6)">
+     id="g4"
+     inkscape:label="shadow-bottom">
+    <rect
+       style="opacity:0.001"
+       id="rect4"
+       width="18"
+       height="5"
+       x="182"
+       y="53"
+       inkscape:label="hint" />
     <path
        id="path34"
        d="m 6,-11 v 5 h 18 v -5 z"
-       style="fill:url(#linearGradient11337);"
-       sodipodi:nodetypes="ccccc" />
+       style="fill-rule:evenodd;stroke-width:1.29099;fill:url(#linearGradient11337)"
+       sodipodi:nodetypes="ccccc"
+       inkscape:label="shadow"
+       transform="matrix(1,0,0,0.6,176,64.6)" />
+  </g>
+  <path
+     id="path3"
+     style="fill:url(#radialGradient3)"
+     d="m 171,53 v 8 h 8 v -3 c -2.76142,0 -5,-2.238576 -5,-5 z"
+     inkscape:label="shadow-bottomleft"
+     sodipodi:nodetypes="cccccc" />
+  <g
+     id="g6"
+     inkscape:label="shadow-right">
+    <rect
+       style="opacity:0.00100002;stroke-width:1"
+       id="rect4-6-7"
+       width="5"
+       height="18"
+       x="203"
+       y="32"
+       inkscape:label="hint" />
+    <path
+       id="path26"
+       d="m 29,-13.875 2,10e-7 v -17.25 l -2,-1e-6 z"
+       style="fill:url(#linearGradient6095)"
+       sodipodi:nodetypes="ccccc"
+       inkscape:label="shadow"
+       transform="matrix(1.5,0,0,1.0434783,164.5,64.478261)" />
   </g>
   <path
      id="shadow-center"
-     d="m 179,29 h 24 v 24 h -24 z"
-     style="opacity:0.00100002;fill-opacity:0.00392199;fill-rule:evenodd;stroke-width:1.0909" />
+     d="m 182,32 h 18 v 18 h -18 z"
+     style="opacity:0.001" />
   <g
-     id="shadow-left"
-     transform="matrix(0.8,0,0,1,34.8,0)">
+     id="g5"
+     inkscape:label="shadow-left">
+    <rect
+       style="opacity:0.00100002;stroke-width:1"
+       id="rect4-6"
+       width="5"
+       height="18"
+       x="174"
+       y="32"
+       inkscape:label="hint" />
     <path
        id="sl"
-       d="M 171.5,32 V 50 H 174 V 32 Z"
-       style="fill:url(#linearGradient8469);"
-       sodipodi:nodetypes="ccccc" />
+       d="M 170.25,32 V 50 H 174 V 32 Z"
+       style="fill:url(#linearGradient8469);stroke-width:1.22475"
+       sodipodi:nodetypes="ccccc"
+       transform="matrix(0.8,0,0,1,34.8,0)"
+       inkscape:label="shadow" />
   </g>
   <path
-     id="shadow-top"
-     d="m 180,24 v 4.5 h 22 V 24 Z"
-     style="opacity:0.001;" />
+     id="shadow-topright"
+     style="fill:url(#radialGradient13221)"
+     d="m 208,29 h 3 v -8 h -8 v 3 c 2.76142,0 5,2.238576 5,5 z"
+     sodipodi:nodetypes="cccccc" />
+  <g
+     id="g7"
+     inkscape:label="shadow-top">
+    <rect
+       style="opacity:0.00100002;stroke-width:0.999999"
+       id="rect4-5"
+       width="18"
+       height="5"
+       x="182"
+       y="24"
+       inkscape:label="hint" />
+    <path
+       id="shadow-top"
+       d="m 182,21 v 3 h 18 v -3 z"
+       style="opacity:0.00100002;stroke-width:0.904534"
+       inkscape:label="shadow" />
+  </g>
+  <path
+     id="path4"
+     style="fill:url(#radialGradient4)"
+     d="m 174,29 h -3 v -8 h 8 v 3 c -2.76142,0 -5,2.238576 -5,5 z"
+     sodipodi:nodetypes="cccccc"
+     inkscape:label="shadow-topleft" />
   <path
      id="shadow-hint-top-margin"
-     d="m 190 24 h 2 v .000001 h -2 z"
-     style="fill:#f0f;" />
+     d="m 190,21 h 2 v 3 h -2 z"
+     style="fill:#ff00ff;stroke-width:1732.05" />
   <path
      id="shadow-hint-bottom-margin"
      d="m 190,58 h 2 v 3 h -2 z"
      style="fill:#ff00ff;" />
   <path
      id="shadow-hint-right-margin"
-     d="m 208,40 h 2 v 2 h -2 z"
-     style="fill:#ff00ff;"
+     d="m 208,40 h 3 v 2 h -3 z"
+     style="fill:#ff00ff"
      sodipodi:nodetypes="ccccc" />
   <path
      id="shadow-hint-left-margin"
-     d="m 172,40 h 2 v 2 h -2 z"
-     style="fill:#ff00ff;"
+     d="m 171,40 h 3 v 2 h -3 z"
+     style="fill:#ff00ff;stroke-width:1.22474"
      sodipodi:nodetypes="ccccc" />
   <g
      id="normal-center"
@@ -353,11 +438,6 @@
        style="fill:currentColor;"
        class="ColorScheme-ButtonBackground"
        inkscape:label="bg" />
-    <path
-       id="ncg"
-       d="m 182,70 h 18 v 18 h -18 z"
-       style="fill:url(#b);"
-       inkscape:label="gradient" />
   </g>
   <g
      id="normal-bottom"
@@ -383,17 +463,16 @@
      transform="matrix(1 0 0 -1 174 92)">
     <path
        id="path3528"
-       d="M 5,30 C 2.2385763,30 0,27.761424 0,25 h 5 z"
        style="fill:currentColor;"
        class="ColorScheme-ButtonBackground"
-       sodipodi:nodetypes="cccc"
-       inkscape:label="bg" />
+       inkscape:label="bg"
+       d="M 5 30 C 2.2385791 30 2.8421709e-14 27.761421 0 25 L 5 25 L 5 30 z " />
     <path
        id="path3528-2"
        style="fill:currentColor;opacity:0.2;"
        class="ColorScheme-ButtonText"
-       d="M 5 30 C 2.2385791 30 2.8421709e-14 27.761421 0 25 L 1 25 A 4 4 0 0 0 5 29 L 5 30 z "
-       inkscape:label="border" />
+       inkscape:label="border"
+       d="M 5 30 C 2.2385819 30 8.5265128e-14 27.761418 0 25 L 1 25 A 4 4 0 0 0 5 29 L 5 30 z " />
   </g>
   <g
      id="normal-top"
@@ -451,20 +530,24 @@
   </g>
   <path
      id="normal-hint-top-margin"
-     d="m 190,62 h 2 v 8 h -2 z"
-     style="fill:#ff00ff;" />
+     d="m 190,62 h 2 v 6 h -2 z"
+     style="fill:#ff00ff"
+     sodipodi:nodetypes="ccccc" />
   <path
      id="normal-hint-bottom-margin"
-     d="m 190,88 h 2 v 8 h -2 z"
-     style="fill:#ff00ff;" />
+     d="m 190,90 h 2 v 6 h -2 z"
+     style="fill:#ff00ff"
+     sodipodi:nodetypes="ccccc" />
   <path
      id="normal-hint-left-margin"
-     d="m 174,78 h 8 v 2 h -8 z"
-     style="fill:#ff00ff;" />
+     d="m 174,78 h 6 v 2 h -6 z"
+     style="fill:#ff00ff"
+     sodipodi:nodetypes="ccccc" />
   <path
      id="normal-hint-right-margin"
-     d="m 200,78 h 8 v 2 h -8 z"
-     style="fill:#ff00ff;" />
+     d="m 202,78 h 6 v 2 h -6 z"
+     style="fill:#ff00ff"
+     sodipodi:nodetypes="ccccc" />
   <path
      id="mask-normal-center"
      d="M 58,70 H 76 V 88 H 58 Z"
@@ -522,7 +605,7 @@
   </g>
   <g
      id="hover-left"
-     style=""
+     style="fill:currentColor;"
      transform="matrix(0 -1 1 0 204 102)"
      class="ColorScheme-Highlight">
     <path
@@ -534,7 +617,7 @@
     <path
        id="path210"
        d="m -24,-30 h 18 v 1 h -18 z"
-       style="fill:currentColor;"
+       style=""
        inkscape:label="border" />
   </g>
   <path
@@ -564,23 +647,34 @@
      class="ColorScheme-Highlight">
     <path
        id="path100-3-6-5-0-9"
-       d="m 8,-8 h 14 v -5 H 8 Z"
+       d="m 6,-8 h 18 v -5 H 6 Z"
        sodipodi:nodetypes="ccccc"
        style="opacity:0.00100002;stroke-width:1.11803"
        inkscape:label="hint" />
     <path
        id="path302"
-       d="m 8,-9 v 1 h 14 v -1 z"
-       style="fill:currentColor;"
-       inkscape:label="border" />
+       d="m 6,-9 v 1 h 18 v -1 z"
+       style="fill:currentColor"
+       inkscape:label="border"
+       sodipodi:nodetypes="ccccc" />
   </g>
-  <path
-     id="path308"
-     style="fill:currentColor;"
-     class="ColorScheme-Highlight"
-     d="M 29 -13 A 4.0000238 4.0000238 0 0 1 25 -9 L 25 -8 C 27.769997 -8 30 -10.230003 30 -13 L 29 -13 z "
-     inkscape:label="toolbutton-hover-bottomright"
-     transform="translate(238,140)" />
+  <g
+     id="g16"
+     inkscape:label="toolbutton-hover-bottomright">
+    <path
+       id="path100-3-6-5-0-5-2-9"
+       d="m 263,132 h 5 v -5 h -5 z"
+       sodipodi:nodetypes="ccccc"
+       style="opacity:0.00100002;fill-rule:evenodd;stroke-width:0.589255"
+       inkscape:label="hint" />
+    <path
+       id="path308"
+       style="fill:currentColor;"
+       class="ColorScheme-Highlight"
+       d="M 29 -13 A 4.0000238 4.0000238 0 0 1 25 -9 L 25 -8 C 27.769997 -8 30 -10.230003 30 -13 L 29 -13 z "
+       inkscape:label="border"
+       transform="translate(238,140)" />
+  </g>
   <g
      id="toolbutton-hover-right"
      style="fill:currentColor;"
@@ -588,41 +682,16 @@
      class="ColorScheme-Highlight">
     <path
        id="path100-3-6-5-0-9-3"
-       d="m 25,-16 h 5 v -14 h -5 z"
+       d="m 25,-14 h 5 v -18 h -5 z"
        sodipodi:nodetypes="ccccc"
        style="opacity:0.00100002;fill-rule:evenodd;stroke-width:1.11803"
        inkscape:label="hint" />
     <path
        id="path314"
-       d="m 29,-30 v 14 h 1 v -14 z"
-       style=""
-       inkscape:label="border" />
+       d="m 29,-32 v 18 h 1 v -18 z"
+       inkscape:label="border"
+       sodipodi:nodetypes="ccccc" />
   </g>
-  <g
-     id="toolbutton-hover-top"
-     style="fill-rule:evenodd"
-     transform="matrix(-1 0 0 -1 268 94)">
-    <path
-       id="path100-3-6-5-0"
-       d="m 246,107 h 14 v -4 h -14 z"
-       sodipodi:nodetypes="ccccc"
-       style="opacity:0.001"
-       inkscape:label="hint"
-       transform="rotate(-180,134,47)" />
-    <path
-       id="path320"
-       d="m 8,-9 v 1 h 14 v -1 z"
-       style="fill:currentColor;"
-       class="ColorScheme-Highlight"
-       inkscape:label="border" />
-  </g>
-  <path
-     id="path326"
-     style="fill:currentColor;"
-     class="ColorScheme-Highlight"
-     d="M 25 -8 C 27.769997 -8 30 -10.230003 30 -13 L 29 -13 A 4.0000424 4.0000424 0 0 1 25 -9 L 25 -8 z "
-     inkscape:label="toolbutton-hover-topleft"
-     transform="rotate(180,134,47)" />
   <g
      id="toolbutton-hover-left"
      style="fill-rule:evenodd"
@@ -630,51 +699,113 @@
      inkscape:label="toolbutton-hover-left">
     <path
        id="path100-3-6-5-0-9-3-6"
-       d="m 25,-16 h 5 v -14 h -5 z"
+       d="m 25,-14 h 5 v -18 h -5 z"
        sodipodi:nodetypes="ccccc"
        style="opacity:0.00100002;fill-rule:evenodd;stroke-width:1.11803"
        inkscape:label="hint" />
     <path
        id="path332"
-       d="m 29,-30 v 14 h 1 v -14 z"
+       d="m 29,-32 v 18 h 1 v -18 z"
+       style="fill:currentColor"
+       class="ColorScheme-Highlight"
+       inkscape:label="border"
+       sodipodi:nodetypes="ccccc" />
+  </g>
+  <g
+     id="g17"
+     inkscape:label="toolbutton-hover-bottomleft">
+    <path
+       id="path100-3-6-5-0-5-2"
+       d="m 238,132 h 5 v -5 h -5 z"
+       sodipodi:nodetypes="ccccc"
+       style="opacity:0.00100002;fill-rule:evenodd;stroke-width:0.589255"
+       inkscape:label="hint" />
+    <path
+       id="path344"
        style="fill:currentColor;"
        class="ColorScheme-Highlight"
-       inkscape:label="border" />
+       d="M 30 -13 C 30 -10.230003 27.769997 -8 25 -8 L 25 -9 A 4.000196 4.000196 0 0 0 29 -13 L 30 -13 z "
+       inkscape:label="border"
+       transform="matrix(-1,0,0,1,268,140)" />
   </g>
   <path
-     id="path338"
-     style="fill:currentColor"
-     class="ColorScheme-Highlight"
-     d="M 25 -8 L 25 -9 A 4.0000467 4.0000467 0 0 0 29 -13 L 30 -13 C 30 -10.230003 27.769997 -8 25 -8 z "
-     inkscape:label="toolbutton-hover-topright"
-     transform="matrix(1,0,0,-1,238,94)" />
-  <path
-     id="path344"
-     style="fill:currentColor;"
-     class="ColorScheme-Highlight"
-     d="M 30 -13 C 30 -10.230003 27.769997 -8 25 -8 L 25 -9 A 4.000196 4.000196 0 0 0 29 -13 L 30 -13 z "
-     inkscape:label="toolbutton-hover-bottomleft"
-     transform="matrix(-1,0,0,1,268,140)" />
-  <path
      id="toolbutton-hover-center"
-     d="m 246,110 h 14 v 14 h -14 z"
-     style="opacity:0.001;" />
+     d="m 244,108 h 18 v 18 h -18 z"
+     style="opacity:0.00100002;fill:url(#linearGradient15)"
+     sodipodi:nodetypes="ccccc" />
+  <g
+     id="g15"
+     inkscape:label="toolbutton-hover-topright">
+    <path
+       id="path100-3-6-5-0-5"
+       d="m 263,107 h 5 v -5 h -5 z"
+       sodipodi:nodetypes="ccccc"
+       style="opacity:0.00100002;fill-rule:evenodd;stroke-width:0.589255"
+       inkscape:label="hint" />
+    <path
+       id="path338"
+       style="fill:currentColor"
+       class="ColorScheme-Highlight"
+       d="M 25 -8 L 25 -9 A 4.0000467 4.0000467 0 0 0 29 -13 L 30 -13 C 30 -10.230003 27.769997 -8 25 -8 z "
+       inkscape:label="border"
+       transform="matrix(1,0,0,-1,238,94)" />
+  </g>
+  <g
+     id="toolbutton-hover-top"
+     style="fill-rule:evenodd"
+     transform="matrix(-1 0 0 -1 268 94)">
+    <path
+       id="path100-3-6-5-0"
+       d="M 24,-13 H 6 v 5 h 18 z"
+       sodipodi:nodetypes="ccccc"
+       style="opacity:0.00100002;stroke-width:1.11803"
+       inkscape:label="hint" />
+    <path
+       id="path320"
+       d="m 6,-9 v 1 h 18 v -1 z"
+       style="fill:currentColor"
+       class="ColorScheme-Highlight"
+       inkscape:label="border"
+       sodipodi:nodetypes="ccccc" />
+  </g>
+  <g
+     id="g18"
+     inkscape:label="toolbutton-hover-topleft"
+     style="">
+    <path
+       id="path100-3-6-5-0-5-6"
+       d="m 238,107 h 5 v -5 h -5 z"
+       sodipodi:nodetypes="ccccc"
+       style="opacity:0.00100002;fill-rule:evenodd;stroke-width:0.589255"
+       inkscape:label="hint" />
+    <path
+       id="path326"
+       d="M 25 -8 C 27.769997 -8 30 -10.230003 30 -13 L 29 -13 A 4.0000424 4.0000424 0 0 1 25 -9 L 25 -8 z "
+       inkscape:label="border"
+       style="fill:currentColor;"
+       class="ColorScheme-Highlight"
+       transform="rotate(180,134,47)" />
+  </g>
   <path
      id="toolbutton-hover-hint-top-margin"
-     d="m 252,102 h 2 v 8 h -2 z"
-     style="fill:#ff00ff;" />
+     d="m 252,102 h 2 v 4 h -2 z"
+     style="fill:#ff00ff"
+     sodipodi:nodetypes="ccccc" />
   <path
      id="toolbutton-hover-hint-bottom-margin"
-     d="m 252,124 h 2 v 8 h -2 z"
-     style="fill:#ff00ff;" />
+     d="m 252,128 h 2 v 4 h -2 z"
+     style="fill:#ff00ff"
+     sodipodi:nodetypes="ccccc" />
   <path
      id="toolbutton-hover-hint-right-margin"
-     d="m 260,116 h 8 v 2 h -8 z"
-     style="fill:#ff00ff;" />
+     d="m 264,116 h 4 v 2 h -4 z"
+     style="fill:#ff00ff"
+     sodipodi:nodetypes="ccccc" />
   <path
      id="toolbutton-hover-hint-left-margin"
-     d="m 238,116 h 8 v 2 h -8 z"
-     style="fill:#ff00ff;" />
+     d="m 238,116 h 4 v 2 h -4 z"
+     style="fill:#ff00ff"
+     sodipodi:nodetypes="ccccc" />
   <g
      id="toolbutton-focus-bottom"
      style="fill:currentColor;"
@@ -682,20 +813,21 @@
      class="ColorScheme-Highlight">
     <path
        id="path100-3-6-5-06"
-       d="m 198,165 h -14 v 5 h 14 z"
+       d="m 200,165 h -18 v 5 h 18 z"
        sodipodi:nodetypes="ccccc"
-       style="opacity:0.001;"
+       style="opacity:0.00100002;stroke-width:1.13389"
        inkscape:label="hint" />
     <path
        id="path362"
-       d="m 184,170 v 2 h 14 v -2 z"
-       style="opacity:0.33;"
-       inkscape:label="outline" />
+       d="m 182,170 v 2 h 18 v -2 z"
+       style="opacity:0.33"
+       inkscape:label="outline"
+       sodipodi:nodetypes="ccccc" />
     <path
        id="path360"
-       d="m 198,170 h -14 v -1 h 14 z"
-       style=""
-       inkscape:label="border" />
+       d="m 200,170 h -18 v -1 h 18 z"
+       inkscape:label="border"
+       sodipodi:nodetypes="ccccc" />
   </g>
   <g
      id="toolbutton-focus-top"
@@ -704,20 +836,21 @@
      class="ColorScheme-Highlight">
     <path
        id="path100-3-6-5-06-2"
-       d="m 198,165 h -14 v 5 h 14 z"
+       d="m 200,165 h -18 v 5 h 18 z"
        sodipodi:nodetypes="ccccc"
-       style="opacity:0.001;"
+       style="opacity:0.00100002"
        inkscape:label="hint" />
     <path
        id="path372"
-       d="m 184,170 v 2 h 14 v -2 z"
-       style="opacity:0.33;"
-       inkscape:label="outline" />
+       d="m 182,170 v 2 h 18 v -2 z"
+       style="opacity:0.33"
+       inkscape:label="outline"
+       sodipodi:nodetypes="ccccc" />
     <path
        id="path370"
-       d="m 198,170 h -14 v -1 h 14 z"
-       style=""
-       inkscape:label="border" />
+       d="m 200,170 h -18 v -1 h 18 z"
+       inkscape:label="border"
+       sodipodi:nodetypes="ccccc" />
   </g>
   <g
      id="toolbutton-focus-right"
@@ -726,20 +859,21 @@
      class="ColorScheme-Highlight">
     <path
        id="path100-3-6-5-06-2-6"
-       d="m 199.8,172 h -15.4 v -7 h 15.4 z"
+       d="m 202,172 h -19.8 v -7 H 202 Z"
        sodipodi:nodetypes="ccccc"
-       style="opacity:0.001;"
+       style="opacity:0.00100002"
        inkscape:label="hint" />
     <path
        id="path382"
-       d="m 184.4,170 v 2 h 15.4 v -2 z"
-       style="opacity:0.33;"
-       inkscape:label="outline" />
+       d="m 182.2,170 v 2 H 202 v -2 z"
+       style="opacity:0.33"
+       inkscape:label="outline"
+       sodipodi:nodetypes="ccccc" />
     <path
        id="path380"
-       d="m 199.8,170 h -15.4 v -1 h 15.4 z"
-       style=""
-       inkscape:label="border" />
+       d="m 202,170 h -19.8 v -1 H 202 Z"
+       inkscape:label="border"
+       sodipodi:nodetypes="ccccc" />
   </g>
   <g
      id="toolbutton-focus-left"
@@ -748,20 +882,21 @@
      class="ColorScheme-Highlight">
     <path
        id="path100-3-6-5-06-2-6-1"
-       d="m 198,165 v 7 h -14 v -7 z"
+       d="m 200,165 v 5 h -18 v -5 z"
        sodipodi:nodetypes="ccccc"
-       style="opacity:0.001;"
+       style="opacity:0.00100002;stroke-width:0.845154"
        inkscape:label="hint" />
     <path
        id="path392"
-       d="m 184,170 v 2 h 14 v -2 z"
-       style="opacity:0.33;"
-       inkscape:label="outline" />
+       d="m 182,170 v 2 h 18 v -2 z"
+       style="opacity:0.33"
+       inkscape:label="outline"
+       sodipodi:nodetypes="ccccc" />
     <path
        id="path390"
-       d="m 198,170 h -14 v -1 h 14 z"
-       style=""
-       inkscape:label="border" />
+       d="m 200,170 h -18 v -1 h 18 z"
+       inkscape:label="border"
+       sodipodi:nodetypes="ccccc" />
   </g>
   <g
      id="toolbutton-focus-bottomleft"
@@ -844,8 +979,9 @@
      style="fill:#f0f;" />
   <path
      id="toolbutton-focus-center"
-     d="m 246,162 h 14 v -14 h -14 z"
-     style="opacity:0.00100002;fill-opacity:0.00392199;fill-rule:evenodd;stroke-width:0.636363" />
+     d="m 244,164 h 18 v -18 h -18 z"
+     style="opacity:0.00100002;fill-opacity:0.00392199;fill-rule:evenodd;stroke-width:0.636363"
+     sodipodi:nodetypes="ccccc" />
   <g
      id="focus-bottom"
      style="fill:currentColor;"
@@ -1024,36 +1160,39 @@
      class="ColorScheme-Highlight">
     <path
        id="path448"
-       d="m 246,178 h 14 v 5 h -14 z"
-       style="fill-opacity:0.33;"
+       d="m 244,178 h 18 v 5 h -18 z"
+       style="fill-opacity:0.33"
        class="ColorScheme-Highlight"
-       inkscape:label="fg" />
+       inkscape:label="fg"
+       sodipodi:nodetypes="ccccc" />
     <path
        id="path446"
-       d="m 246,178 v 1 h 14 v -1 z"
-       style=""
+       d="m 244,178 v 1 h 18 v -1 z"
        class="ColorScheme-Highlight"
-       inkscape:label="border" />
+       inkscape:label="border"
+       sodipodi:nodetypes="ccccc" />
   </g>
   <path
      id="toolbutton-pressed-center"
-     d="m 246,186 h 14 v 14 h -14 z"
-     style="fill-opacity:0.33;fill:currentColor;"
-     class="ColorScheme-Highlight" />
+     d="m 244,184 h 18 v 18 h -18 z"
+     style="fill:currentColor;fill-opacity:0.33"
+     class="ColorScheme-Highlight"
+     sodipodi:nodetypes="ccccc" />
   <g
      id="toolbutton-pressed-bottom"
      style="fill:currentColor"
      class="ColorScheme-Highlight">
     <path
        id="path452"
-       d="m 246,203 h 14 v 5 h -14 z"
-       style="fill-opacity:0.33;"
-       inkscape:label="fg" />
+       d="m 244,203 h 18 v 5 h -18 z"
+       style="fill-opacity:0.33"
+       inkscape:label="fg"
+       sodipodi:nodetypes="ccccc" />
     <path
        id="path454"
-       d="m 260,208 v -1 h -14 v 1 z"
-       style=""
-       inkscape:label="border" />
+       d="m 262,208 v -1 h -18 v 1 z"
+       inkscape:label="border"
+       sodipodi:nodetypes="ccccc" />
   </g>
   <g
      id="toolbutton-pressed-right"
@@ -1061,14 +1200,15 @@
      class="ColorScheme-Highlight">
     <path
        id="path456"
-       d="m 263,200 v -14 h 5 v 14 z"
-       style="fill-opacity:0.33;"
-       inkscape:label="fg" />
+       d="m 263,202 v -18 h 5 v 18 z"
+       style="fill-opacity:0.33"
+       inkscape:label="fg"
+       sodipodi:nodetypes="ccccc" />
     <path
        id="path458"
-       d="m 268,186 h -1 v 14 h 1 z"
-       style=""
-       inkscape:label="border" />
+       d="m 268,184 h -1 v 18 h 1 z"
+       inkscape:label="border"
+       sodipodi:nodetypes="ccccc" />
   </g>
   <g
      id="toolbutton-pressed-left"
@@ -1076,31 +1216,36 @@
      class="ColorScheme-Highlight">
     <path
        id="path460"
-       d="m 238,200 v -14 h 5 v 14 z"
-       style="fill-opacity:0.33;"
-       inkscape:label="fg" />
+       d="m 238,202 v -18 h 5 v 18 z"
+       style="fill-opacity:0.33"
+       inkscape:label="fg"
+       sodipodi:nodetypes="ccccc" />
     <path
        id="path462"
-       d="m 238,200 h 1 v -14 h -1 z"
-       style=""
-       inkscape:label="border" />
+       d="m 238,202 h 1 v -18 h -1 z"
+       inkscape:label="border"
+       sodipodi:nodetypes="ccccc" />
   </g>
   <path
      id="toolbutton-pressed-hint-top-margin"
-     d="m 252,178 h 2 v 8 h -2 z"
-     style="fill:#ff00ff;" />
+     d="m 252,178 h 2 v 4 h -2 z"
+     style="fill:#ff00ff"
+     sodipodi:nodetypes="ccccc" />
   <path
      id="toolbutton-pressed-hint-bottom-margin"
-     d="m 252,200 h 2 v 8 h -2 z"
-     style="fill:#ff00ff;" />
+     d="m 252,204 h 2 v 4 h -2 z"
+     style="fill:#ff00ff"
+     sodipodi:nodetypes="ccccc" />
   <path
      id="toolbutton-pressed-hint-left-margin"
-     d="m 238,192 h 8 v 2 h -8 z"
-     style="fill:#ff00ff;" />
+     d="m 238,192 h 4 v 2 h -4 z"
+     style="fill:#ff00ff"
+     sodipodi:nodetypes="ccccc" />
   <path
      id="toolbutton-pressed-hint-right-margin"
-     d="m 260,192 h 8 v 2 h -8 z"
-     style="fill:#ff00ff;" />
+     d="m 264,192 h 4 v 2 h -4 z"
+     style="fill:#ff00ff"
+     sodipodi:nodetypes="ccccc" />
   <text
      id="text476"
      style="font-family:Noto Sans;font-size:10;"
@@ -1423,22 +1568,22 @@
   </g>
   <path
      id="pressed-hint-top-margin"
-     d="m 190,176 h 2 v 8 h -2 z"
+     d="m 190,176 h 2 v 6 h -2 z"
      style="fill:#ff00ff;fill-rule:evenodd;stroke-width:1.1547"
      sodipodi:nodetypes="ccccc" />
   <path
      id="pressed-hint-bottom-margin"
-     d="m 190,202 h 2 v 8 h -2 z"
+     d="m 190,204 h 2 v 6 h -2 z"
      style="fill:#ff00ff;fill-rule:evenodd;stroke-width:1.1547"
      sodipodi:nodetypes="ccccc" />
   <path
      id="pressed-hint-left-margin"
-     d="m 174,192 h 8 v 2 h -8 z"
+     d="m 174,192 h 6 v 2 h -6 z"
      style="fill:#ff00ff;fill-rule:evenodd;stroke-width:1.1547"
      sodipodi:nodetypes="ccccc" />
   <path
      id="pressed-hint-right-margin"
-     d="m 200,192 h 8 v 2 h -8 z"
+     d="m 202,192 h 6 v 2 h -6 z"
      style="fill:#ff00ff;fill-rule:evenodd;stroke-width:1.1547"
      sodipodi:nodetypes="ccccc" />
   <g
@@ -1578,16 +1723,16 @@
      transform="matrix(-1 0 0 1 208 66)">
     <path
        id="path3528-8"
-       d="M 5,30 C 2.2385763,30 0,27.761424 0,25 h 5 z"
        style="fill:currentColor;"
        class="ColorScheme-ButtonBackground"
-       sodipodi:nodetypes="cccc" />
+       inkscape:label="bg"
+       d="M 5 25 L 5 30 C 2.2385791 30 2.8421709e-14 27.761421 0 25 L 5 25 z " />
     <path
        id="path3528-2-9"
        style="fill:currentColor;opacity:0.2;"
        class="ColorScheme-ButtonText"
-       d="M 1 25 A 4.0000801 4.0000801 0 0 0 5 29 L 5 30 C 2.2385791 30 2.8421709e-14 27.761421 0 25 L 1 25 z "
-       inkscape:label="border" />
+       inkscape:label="border"
+       d="M 1 25 A 4.0000801 4.0000801 0 0 0 5 29 L 5 30 C 2.2385819 30 8.5265128e-14 27.761418 0 25 L 1 25 z " />
   </g>
   <g
      id="normal-bottomleft"
@@ -1625,20 +1770,21 @@
      style="" />
   <path
      id="mask-normal-topleft"
-     d="m 55,62 c -2.77,0 -5,2.23 -5,5 H 50.833333 51.666667 55 v -3.333333 -0.833334 z"
-     style="" />
+     d="m 55,62 c -2.77,0 -5,2.23 -5,5 h 5 z"
+     sodipodi:nodetypes="cccc" />
   <path
      id="mask-normal-topright"
-     d="m 79,62 c 2.77,0 5,2.23 5,5 H 83.166667 82.333333 79 v -3.333333 -0.833334 z"
-     style="stroke-width:1.66667" />
+     d="m 79,62 c 2.77,0 5,2.23 5,5 h -5 z"
+     style="stroke-width:1.66667"
+     sodipodi:nodetypes="cccc" />
   <path
      id="mask-normal-bottomright"
-     d="m 79,96 c 2.77,0 5,-2.23 5,-5 H 83.166667 82.333333 79 v 3.333333 0.833334 z"
-     style="" />
+     d="m 79,96 c 2.77,0 5,-2.23 5,-5 h -5 z"
+     sodipodi:nodetypes="cccc" />
   <path
      id="mask-normal-bottomleft"
-     d="m 55,96 c -2.77,0 -5,-2.230001 -5,-5 H 50.833333 51.666667 55 v 3.333333 0.833334 z"
-     style="" />
+     d="m 55,96 c -2.77,0 -5,-2.230001 -5,-5 h 5 z"
+     sodipodi:nodetypes="cccc" />
   <path
      id="path5587"
      d="m 207.900390625 55.76171875 a 4 4 0 0 1 -.0859375 .2734375 c .03260923 -.08920558 .06173227 -.180451385 .0859375 -.2734375 z"
@@ -1651,22 +1797,4 @@
      id="pressed-hint-compose-over-border"
      d="m -12 192 h 3.9999999 v 4 h -3.9999999 z"
      style="fill:#0f0;" />
-  <path
-     id="shadow-bottomleft-5"
-     style="fill:url(#radialGradient12089-3);"
-     d="m 210,53 a 8,8 0 0 1 -7,7.931641 V 58 a 5,5 0 0 0 5,-5 z"
-     inkscape:label="shadow-bottomright" />
-  <path
-     id="shadow-topright"
-     style="fill:url(#radialGradient13221);"
-     d="M 203 24 A 5 5 0 0 1 208 29 L 210 29 C 210 26.000003 207 24 203 24 z " />
-  <path
-     id="shadow-topright-1"
-     style="fill:url(#radialGradient13221-6);"
-     d="m 179,24 a 5,5 0 0 0 -5,5 h -2 c 0,-2.999997 3,-5 7,-5 z"
-     inkscape:label="shadow-topleft" />
-  <path
-     id="shadow-bottomleft"
-     style="fill:url(#radialGradient12089);"
-     d="M 172 53 A 8 8 0 0 0 179 60.931641 L 179 58 A 5 5 0 0 1 174 53 L 172 53 z " />
 </svg>
