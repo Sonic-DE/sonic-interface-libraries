@@ -183,15 +183,15 @@
      inkscape:pagecheckerboard="1"
      inkscape:blackoutopacity="0.0"
      showgrid="true"
-     inkscape:current-layer="toolbutton-focus-topright"
+     inkscape:current-layer="svg600"
      inkscape:showpageshadow="2"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="13.432863"
-     inkscape:cx="246.74562"
-     inkscape:cy="151.56859"
-     inkscape:window-width="1471"
-     inkscape:window-height="944"
-     inkscape:window-x="-1"
+     inkscape:zoom="24.511738"
+     inkscape:cx="257.24411"
+     inkscape:cy="120.81967"
+     inkscape:window-width="1871"
+     inkscape:window-height="985"
+     inkscape:window-x="50"
      inkscape:window-y="350"
      inkscape:window-maximized="0"
      showguides="true">
@@ -659,7 +659,7 @@
        sodipodi:nodetypes="ccccc" />
   </g>
   <g
-     id="g16"
+     id="toolbutton-hover-bottomright"
      inkscape:label="toolbutton-hover-bottomright">
     <path
        id="path100-3-6-5-0-5-2-9"
@@ -669,11 +669,10 @@
        inkscape:label="hint" />
     <path
        id="path308"
-       style="fill:currentColor;"
+       style="fill:currentColor"
        class="ColorScheme-Highlight"
-       d="M 29 -13 A 4.0000238 4.0000238 0 0 1 25 -9 L 25 -8 C 27.769997 -8 30 -10.230003 30 -13 L 29 -13 z "
-       inkscape:label="border"
-       transform="translate(238,140)" />
+       d="m 267,127 a 4.0000238,4.0000238 0 0 1 -4,4 v 1 c 2.77,0 5,-2.23 5,-5 z"
+       inkscape:label="border" />
   </g>
   <g
      id="toolbutton-hover-right"
@@ -691,6 +690,22 @@
        d="m 29,-32 v 18 h 1 v -18 z"
        inkscape:label="border"
        sodipodi:nodetypes="ccccc" />
+  </g>
+  <g
+     id="toolbutton-hover-bottomleft"
+     inkscape:label="toolbutton-hover-bottomleft">
+    <path
+       id="path100-3-6-5-0-5-2"
+       d="m 238,132 h 5 v -5 h -5 z"
+       sodipodi:nodetypes="ccccc"
+       style="opacity:0.00100002"
+       inkscape:label="hint" />
+    <path
+       id="path344"
+       style="fill:currentColor"
+       class="ColorScheme-Highlight"
+       d="m 243,132 c -2.77,0 -5,-2.23 -5,-5 h 1 a 4.000196,4.000196 0 0 0 4,4 z"
+       inkscape:label="border" />
   </g>
   <g
      id="toolbutton-hover-left"
@@ -711,44 +726,26 @@
        inkscape:label="border"
        sodipodi:nodetypes="ccccc" />
   </g>
-  <g
-     id="g17"
-     inkscape:label="toolbutton-hover-bottomleft">
-    <path
-       id="path100-3-6-5-0-5-2"
-       d="m 238,132 h 5 v -5 h -5 z"
-       sodipodi:nodetypes="ccccc"
-       style="opacity:0.00100002;fill-rule:evenodd;stroke-width:0.589255"
-       inkscape:label="hint" />
-    <path
-       id="path344"
-       style="fill:currentColor;"
-       class="ColorScheme-Highlight"
-       d="M 30 -13 C 30 -10.230003 27.769997 -8 25 -8 L 25 -9 A 4.000196 4.000196 0 0 0 29 -13 L 30 -13 z "
-       inkscape:label="border"
-       transform="matrix(-1,0,0,1,268,140)" />
-  </g>
   <path
      id="toolbutton-hover-center"
      d="m 244,108 h 18 v 18 h -18 z"
      style="opacity:0.00100002;fill:url(#linearGradient15)"
      sodipodi:nodetypes="ccccc" />
   <g
-     id="g15"
+     id="toolbutton-hover-topright"
      inkscape:label="toolbutton-hover-topright">
     <path
        id="path100-3-6-5-0-5"
        d="m 263,107 h 5 v -5 h -5 z"
        sodipodi:nodetypes="ccccc"
-       style="opacity:0.00100002;fill-rule:evenodd;stroke-width:0.589255"
+       style="opacity:0.00100002"
        inkscape:label="hint" />
     <path
        id="path338"
        style="fill:currentColor"
        class="ColorScheme-Highlight"
-       d="M 25 -8 L 25 -9 A 4.0000467 4.0000467 0 0 0 29 -13 L 30 -13 C 30 -10.230003 27.769997 -8 25 -8 z "
-       inkscape:label="border"
-       transform="matrix(1,0,0,-1,238,94)" />
+       d="m 268,107 h -1 a 4.0000467,4.0000467 0 0 0 -4,-4 v -1 c 2.77,0 5,2.23 5,5 z"
+       inkscape:label="border" />
   </g>
   <g
      id="toolbutton-hover-top"
@@ -769,22 +766,20 @@
        sodipodi:nodetypes="ccccc" />
   </g>
   <g
-     id="g18"
-     inkscape:label="toolbutton-hover-topleft"
-     style="">
+     id="toolbutton-hover-topleft"
+     inkscape:label="toolbutton-hover-topleft">
     <path
        id="path100-3-6-5-0-5-6"
        d="m 238,107 h 5 v -5 h -5 z"
        sodipodi:nodetypes="ccccc"
-       style="opacity:0.00100002;fill-rule:evenodd;stroke-width:0.589255"
+       style="opacity:0.00100002"
        inkscape:label="hint" />
     <path
        id="path326"
-       d="M 25 -8 C 27.769997 -8 30 -10.230003 30 -13 L 29 -13 A 4.0000424 4.0000424 0 0 1 25 -9 L 25 -8 z "
+       d="m 243,102 c -2.77,0 -5,2.23 -5,5 h 1 a 4.0000424,4.0000424 0 0 1 4,-4 z"
        inkscape:label="border"
-       style="fill:currentColor;"
-       class="ColorScheme-Highlight"
-       transform="rotate(180,134,47)" />
+       style="fill:currentColor"
+       class="ColorScheme-Highlight" />
   </g>
   <path
      id="toolbutton-hover-hint-top-margin"
