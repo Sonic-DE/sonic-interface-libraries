@@ -608,17 +608,6 @@ void Applet::flushPendingConstraintsEvents()
     // pass the constraint on to the actual subclass
     constraintsEvent(c);
 
-    if (c & StartupCompletedConstraint) {
-        // start up is done, we can now go do a mod timer
-        if (d->modificationsTimer) {
-            if (d->modificationsTimer->isActive()) {
-                d->modificationsTimer->stop();
-            }
-        } else {
-            d->modificationsTimer = new QBasicTimer;
-        }
-    }
-
     if (c & FormFactorConstraint) {
         Q_EMIT formFactorChanged(formFactor());
     }
@@ -824,9 +813,6 @@ void Applet::timerEvent(QTimerEvent *event)
 {
     if (d->transient) {
         d->constraintsTimer.stop();
-        if (d->modificationsTimer) {
-            d->modificationsTimer->stop();
-        }
         return;
     }
 
@@ -838,13 +824,6 @@ void Applet::timerEvent(QTimerEvent *event)
         if (!(d->pendingConstraints & StartupCompletedConstraint)) {
             flushPendingConstraintsEvents();
         }
-    } else if (d->modificationsTimer && event->timerId() == d->modificationsTimer->timerId()) {
-        d->modificationsTimer->stop();
-        // invalid group, will result in save using the default group
-        KConfigGroup cg;
-
-        save(cg);
-        Q_EMIT configNeedsSaving();
     }
 }
 
