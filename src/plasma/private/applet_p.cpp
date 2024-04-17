@@ -25,7 +25,6 @@
 #include <KConfigLoader>
 #include <KGlobalAccel>
 #include <KLocalizedString>
-#include <kpackage/packageloader.h>
 
 #include "containment.h"
 #include "corona.h"
@@ -131,6 +130,8 @@ void AppletPrivate::init(const QVariantList &args)
 
             const QStringList provides = q->pluginMetaData().value(QStringLiteral("X-Plasma-Provides"), QStringList());
             if (!provides.isEmpty() && q->immutability() == Types::Mutable) {
+                const auto applets = Plasma::PluginLoader::self()->listAppletMetaData(QString());
+
                 auto filter = [&provides](const KPluginMetaData &md) -> bool {
                     const QStringList provided = md.value(QStringLiteral("X-Plasma-Provides"), QStringList());
                     for (const QString &p : provides) {
@@ -140,11 +141,8 @@ void AppletPrivate::init(const QVariantList &args)
                     }
                     return false;
                 };
-                QList<KPluginMetaData> applets = KPackage::PackageLoader::self()->findPackages(QStringLiteral("Plasma/Applet"), QString(), filter);
 
-                if (applets.count() > 1) {
-                    hasAlternatives = true;
-                }
+                hasAlternatives = std::any_of(applets.cbegin(), applets.cend(), filter);
             }
             a->setVisible(hasAlternatives);
         });
