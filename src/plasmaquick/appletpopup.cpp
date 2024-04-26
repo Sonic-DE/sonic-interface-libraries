@@ -230,6 +230,7 @@ void AppletPopup::updateMinSize()
         return;
     }
     setMinimumSize(m_layoutChangedProxy->minimumSize().grownBy(padding()));
+    resize(std::max(size().width(), minimumSize().width()), std::max(size().height(), minimumSize().height()));
 }
 
 void AppletPopup::updateMaxSize()
