@@ -161,6 +161,7 @@ if (BUILD_EXAMPLES)
 endif()
 
 if (BUILD_TESTING)
+    include(ECMQueryQt)
     add_subdirectory(autotests)
     add_subdirectory(tests)
 endif()

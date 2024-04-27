@@ -69,3 +69,5 @@ find_program(SH bash)
 if(SH)
     add_test(i18ndcheck ${SH} ${CMAKE_CURRENT_SOURCE_DIR}/i18ndcheck.sh ${CMAKE_SOURCE_DIR}/src/declarativeimports)
 endif()
+
+add_subdirectory(declarativetests)
