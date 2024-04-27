@@ -6,6 +6,7 @@ remove_definitions(-DQT_NO_CAST_FROM_ASCII -DQT_STRICT_ITERATORS -DQT_NO_CAST_FR
 
 include(ECMMarkAsTest)
 include(ECMAddTests)
+include(ECMQueryQt)
 
 find_package(KF6CoreAddons REQUIRED)
 find_package(Qt6Widgets REQUIRED)
@@ -69,3 +70,5 @@ find_program(SH bash)
 if(SH)
     add_test(i18ndcheck ${SH} ${CMAKE_CURRENT_SOURCE_DIR}/i18ndcheck.sh ${CMAKE_SOURCE_DIR}/src/declarativeimports)
 endif()
+
+add_subdirectory(declarativetests)
