@@ -23,8 +23,11 @@ Dependencies:
     'frameworks/ksvg' : '@latest-kf6'
     'plasma/plasma-activities' : '@same'
 
+- 'on': ['Linux', 'FreeBSD']
+  'require':
+    'frameworks/qqc2-desktop-style': '@latest-kf6'
+
 Options:
-  test-before-installing: True
   cppcheck-ignore-files: ['templates/']
   require-passing-tests-on: [ '@all' ]
   cmake-options: -DBUILD_EXAMPLES=ON
