@@ -13,7 +13,7 @@
 #include <KConfigGroup>
 #include <KWindowSystem>
 #include <KX11Extras>
-#include <qsize.h>
+#include <QSize>
 
 #include "applet.h"
 #include "appletquickitem.h"
