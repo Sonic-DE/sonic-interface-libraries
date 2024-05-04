@@ -18,10 +18,10 @@ T.ToolButton {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
 
-    leftPadding: background.leftMargin
-    topPadding: background.topMargin
-    rightPadding: background.rightMargin
-    bottomPadding: background.bottomMargin
+    leftPadding: (background as Private.ButtonBackground).leftMargin
+    topPadding: (background as Private.ButtonBackground).topMargin
+    rightPadding: (background as Private.ButtonBackground).rightMargin
+    bottomPadding: (background as Private.ButtonBackground).bottomMargin
 
     spacing: Kirigami.Units.smallSpacing
 
