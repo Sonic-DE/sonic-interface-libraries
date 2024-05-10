@@ -99,6 +99,11 @@ class PLASMA_EXPORT Containment : public Applet
     Q_PROPERTY(QList<QRectF> availableScreenRegion READ availableRelativeScreenRegion NOTIFY availableRelativeScreenRegionChanged)
 
     /**
+     *
+     */
+    Q_PROPERTY(QRectF completelyAvailableScrenRect READ completelyAvailableRelativeScrenRect NOTIFY completeyAvailableRelativeScreenRectChanged)
+
+    /**
      * Provides access to the geometry of the applet is in.
      * Can be useful to figure out what's the absolute position of the applet.
      */
