@@ -33,6 +33,9 @@ typedef GLvoid (*glEGLImageTargetTexture2DOES_func)(GLenum, GLeglImageOES);
 #endif
 
 #include <cstdlib>
+#include <ranges>
+
+using namespace std::string_view_literals;
 
 namespace Plasma
 {
@@ -128,6 +131,8 @@ void WindowTextureProvider::setTexture(QSGTexture *texture)
     m_texture.reset(texture);
     Q_EMIT textureChanged();
 }
+
+std::optional<bool> WindowThumbnail::s_hasPixmapExtension = std::nullopt;
 
 WindowThumbnail::WindowThumbnail(QQuickItem *parent)
     : QQuickItem(parent)
@@ -452,7 +457,7 @@ bool WindowThumbnail::xcbWindowToTextureEGL(WindowTextureProvider *textureProvid
         if (!m_eglFunctionsResolved) {
             resolveEGLFunctions();
         }
-        if (QByteArray((char *)glGetString(GL_RENDERER)).contains("llvmpipe")) {
+        if (QByteArrayView((char *)glGetString(GL_RENDERER)).contains("llvmpipe")) {
             return false;
         }
         if (!m_eglCreateImageKHR || !m_eglDestroyImageKHR || !m_glEGLImageTargetTexture2DOES) {
@@ -498,16 +503,20 @@ void WindowThumbnail::resolveEGLFunctions()
         return;
     }
     auto *context = static_cast<QOpenGLContext *>(window()->rendererInterface()->getResource(window(), QSGRendererInterface::OpenGLContextResource));
-    QList<QByteArray> extensions = QByteArray(eglQueryString(display, EGL_EXTENSIONS)).split(' ');
-    if (extensions.contains(QByteArrayLiteral("EGL_KHR_image")) //
-        || (extensions.contains(QByteArrayLiteral("EGL_KHR_image_base")) //
-            && extensions.contains(QByteArrayLiteral("EGL_KHR_image_pixmap")))) {
-        if (context->hasExtension(QByteArrayLiteral("GL_OES_EGL_image"))) {
-            qDebug() << "Have EGL texture from pixmap";
-            m_eglCreateImageKHR = context->getProcAddress(QByteArrayLiteral("eglCreateImageKHR"));
-            m_eglDestroyImageKHR = context->getProcAddress(QByteArrayLiteral("eglDestroyImageKHR"));
-            m_glEGLImageTargetTexture2DOES = context->getProcAddress(QByteArrayLiteral("glEGLImageTargetTexture2DOES"));
-        }
+    if (!s_hasPixmapExtension.has_value()) {
+        auto extensions = std::string_view(eglQueryString(display, EGL_EXTENSIONS)) | std::views::split(' ');
+        auto filter = [](const auto ext) {
+            return std::ranges::equal(ext, "EGL_KHR_image"sv) || std::ranges::equal(ext, "EGL_KHR_image_base"sv)
+                || std::ranges::equal(ext, "EGL_KHR_image_pixmap"sv);
+        };
+        s_hasPixmapExtension = std::ranges::find_if(extensions, filter) != extensions.end();
+    }
+
+    if (s_hasPixmapExtension.value()) {
+        qDebug() << "Have EGL texture from pixmap";
+        m_eglCreateImageKHR = context->getProcAddress(QByteArrayLiteral("eglCreateImageKHR"));
+        m_eglDestroyImageKHR = context->getProcAddress(QByteArrayLiteral("eglDestroyImageKHR"));
+        m_glEGLImageTargetTexture2DOES = context->getProcAddress(QByteArrayLiteral("glEGLImageTargetTexture2DOES"));
     }
     m_eglFunctionsResolved = true;
 }
@@ -578,8 +587,14 @@ void WindowThumbnail::resolveGLXFunctions()
 {
     auto *context = static_cast<QOpenGLContext *>(window()->rendererInterface()->getResource(window(), QSGRendererInterface::OpenGLContextResource));
     auto display = qGuiApp->nativeInterface<QNativeInterface::QX11Application>()->display();
-    QList<QByteArray> extensions = QByteArray(glXQueryExtensionsString(display, DefaultScreen(display))).split(' ');
-    if (extensions.contains(QByteArrayLiteral("GLX_EXT_texture_from_pixmap"))) {
+    if (!s_hasPixmapExtension.has_value()) {
+        auto filter = [](const auto ext) {
+            return std::ranges::equal(ext, "GLX_EXT_texture_from_pixmap"sv);
+        };
+        auto extensions = std::string_view(glXQueryExtensionsString(display, DefaultScreen(display))) | std::views::split(' ');
+        s_hasPixmapExtension = std::ranges::find_if(extensions, filter) != extensions.end();
+    }
+    if (s_hasPixmapExtension.value()) {
         m_bindTexImage = context->getProcAddress(QByteArrayLiteral("glXBindTexImageEXT"));
         m_releaseTexImage = context->getProcAddress(QByteArrayLiteral("glXReleaseTexImageEXT"));
     } else {
@@ -726,7 +741,7 @@ FbConfigInfo *getConfig(xcb_visualid_t visual)
                            0,
                            0};
 
-    if (QByteArray((char *)glGetString(GL_RENDERER)).contains("llvmpipe")) {
+    if (QByteArrayView((char *)glGetString(GL_RENDERER)).contains("llvmpipe")) {
         return nullptr;
     }
 
