@@ -502,7 +502,8 @@ void WindowThumbnail::resolveEGLFunctions()
     }
     auto *context = static_cast<QOpenGLContext *>(window()->rendererInterface()->getResource(window(), QSGRendererInterface::OpenGLContextResource));
     if (!s_hasPixmapExtension.has_value()) {
-        auto extensions = QByteArrayView(eglQueryString(display, EGL_EXTENSIONS)) | std::views::split(' ');
+        QByteArrayView queryResult(eglQueryString(display, EGL_EXTENSIONS));
+        auto extensions = queryResult | std::views::split(' ');
         auto filter = [](const auto ext) {
             return std::ranges::equal(ext, QByteArrayView("EGL_KHR_image")) || std::ranges::equal(ext, QByteArrayView("EGL_KHR_image_base"))
                 || std::ranges::equal(ext, QByteArrayView("EGL_KHR_image_pixmap"));
@@ -589,7 +590,8 @@ void WindowThumbnail::resolveGLXFunctions()
         auto filter = [](const auto ext) {
             return std::ranges::equal(ext, QByteArrayView("GLX_EXT_texture_from_pixmap"));
         };
-        auto extensions = QByteArrayView(glXQueryExtensionsString(display, DefaultScreen(display))) | std::views::split(' ');
+        QByteArrayView queryResult(glXQueryExtensionsString(display, DefaultScreen(display)));
+        auto extensions = queryResult | std::views::split(' ');
         s_hasPixmapExtension = std::ranges::find_if(extensions, filter) != extensions.end();
     }
     if (s_hasPixmapExtension.value()) {
