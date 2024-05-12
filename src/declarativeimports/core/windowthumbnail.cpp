@@ -35,6 +35,12 @@ typedef GLvoid (*glEGLImageTargetTexture2DOES_func)(GLenum, GLeglImageOES);
 #include <cstdlib>
 #include <ranges>
 
+#if (defined(__GNUC__) && __GNUC__ >= 12) || !defined(__GNUC__)
+using CompatibleByteArrayView = QByteArrayView;
+#else
+using CompatibleByteArrayView = std::string_view; // For KDE Neon
+#endif
+
 namespace Plasma
 {
 class DiscardTextureProviderRunnable : public QRunnable
@@ -502,10 +508,10 @@ void WindowThumbnail::resolveEGLFunctions()
     }
     auto *context = static_cast<QOpenGLContext *>(window()->rendererInterface()->getResource(window(), QSGRendererInterface::OpenGLContextResource));
     if (!s_hasPixmapExtension.has_value()) {
-        auto extensions = QByteArrayView(eglQueryString(display, EGL_EXTENSIONS)) | std::views::split(' ');
+        auto extensions = CompatibleByteArrayView(eglQueryString(display, EGL_EXTENSIONS)) | std::views::split(' ');
         auto filter = [](const auto ext) {
-            return std::ranges::equal(ext, QByteArrayView("EGL_KHR_image")) || std::ranges::equal(ext, QByteArrayView("EGL_KHR_image_base"))
-                || std::ranges::equal(ext, QByteArrayView("EGL_KHR_image_pixmap"));
+            return std::ranges::equal(ext, CompatibleByteArrayView("EGL_KHR_image")) || std::ranges::equal(ext, CompatibleByteArrayView("EGL_KHR_image_base"))
+                || std::ranges::equal(ext, CompatibleByteArrayView("EGL_KHR_image_pixmap"));
         };
         s_hasPixmapExtension = std::ranges::find_if(extensions, filter) != extensions.end();
     }
@@ -587,9 +593,9 @@ void WindowThumbnail::resolveGLXFunctions()
     auto display = qGuiApp->nativeInterface<QNativeInterface::QX11Application>()->display();
     if (!s_hasPixmapExtension.has_value()) {
         auto filter = [](const auto ext) {
-            return std::ranges::equal(ext, QByteArrayView("GLX_EXT_texture_from_pixmap"));
+            return std::ranges::equal(ext, CompatibleByteArrayView("GLX_EXT_texture_from_pixmap"));
         };
-        auto extensions = QByteArrayView(glXQueryExtensionsString(display, DefaultScreen(display))) | std::views::split(' ');
+        auto extensions = CompatibleByteArrayView(glXQueryExtensionsString(display, DefaultScreen(display))) | std::views::split(' ');
         s_hasPixmapExtension = std::ranges::find_if(extensions, filter) != extensions.end();
     }
     if (s_hasPixmapExtension.value()) {
