@@ -33,6 +33,9 @@ typedef GLvoid (*glEGLImageTargetTexture2DOES_func)(GLenum, GLeglImageOES);
 #endif
 
 #include <cstdlib>
+#include <ranges>
+
+using namespace std::string_view_literals;
 
 namespace Plasma
 {
@@ -498,16 +501,16 @@ void WindowThumbnail::resolveEGLFunctions()
         return;
     }
     auto *context = static_cast<QOpenGLContext *>(window()->rendererInterface()->getResource(window(), QSGRendererInterface::OpenGLContextResource));
-    QList<QByteArray> extensions = QByteArray(eglQueryString(display, EGL_EXTENSIONS)).split(' ');
-    if (extensions.contains(QByteArrayLiteral("EGL_KHR_image")) //
-        || (extensions.contains(QByteArrayLiteral("EGL_KHR_image_base")) //
-            && extensions.contains(QByteArrayLiteral("EGL_KHR_image_pixmap")))) {
-        if (context->hasExtension(QByteArrayLiteral("GL_OES_EGL_image"))) {
-            qDebug() << "Have EGL texture from pixmap";
-            m_eglCreateImageKHR = context->getProcAddress(QByteArrayLiteral("eglCreateImageKHR"));
-            m_eglDestroyImageKHR = context->getProcAddress(QByteArrayLiteral("eglDestroyImageKHR"));
-            m_glEGLImageTargetTexture2DOES = context->getProcAddress(QByteArrayLiteral("glEGLImageTargetTexture2DOES"));
-        }
+    auto extensions = std::string_view(eglQueryString(display, EGL_EXTENSIONS)) | std::views::split(' ');
+    auto filter = [](const auto ext) {
+        return std::ranges::equal(ext, "EGL_KHR_image"sv) || std::ranges::equal(ext, "EGL_KHR_image_base"sv)
+            || std::ranges::equal(ext, "EGL_KHR_image_pixmap"sv);
+    };
+    if (std::ranges::find_if(extensions, filter) != extensions.end()) {
+        qDebug() << "Have EGL texture from pixmap";
+        m_eglCreateImageKHR = context->getProcAddress(QByteArrayLiteral("eglCreateImageKHR"));
+        m_eglDestroyImageKHR = context->getProcAddress(QByteArrayLiteral("eglDestroyImageKHR"));
+        m_glEGLImageTargetTexture2DOES = context->getProcAddress(QByteArrayLiteral("glEGLImageTargetTexture2DOES"));
     }
     m_eglFunctionsResolved = true;
 }
