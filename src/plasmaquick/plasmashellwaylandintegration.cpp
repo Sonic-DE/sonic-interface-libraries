@@ -85,7 +85,7 @@ void PlasmaShellWaylandIntegrationPrivate::platformSurfaceCreated(QWindow *windo
     if (!waylandWindow) { // It may be null, e.g. when called within KWin
         return;
     }
-    QObject::connect(waylandWindow, SIGNAL(surfaceCreated()), q, SLOT(PlasmaShellWaylandIntegration::surfaceCreated()));
+    QObject::connect(waylandWindow, SIGNAL(surfaceCreated()), q, SLOT(surfaceCreated()));
     QObject::connect(waylandWindow, SIGNAL(surfaceDestroyed()), q, SLOT(surfaceDestroyed()));
     if (waylandWindow->surface()) {
         surfaceCreated();
