@@ -123,8 +123,8 @@ PlasmaComponents3.TextField {
 
             required property T.Action modelData
 
-            implicitWidth: Kirigami.Units.iconSizes.small
-            implicitHeight: Kirigami.Units.iconSizes.small
+            implicitWidth: Kirigami.Units.iconSizes.sizeForLabels
+            implicitHeight: Kirigami.Units.iconSizes.sizeForLabels
 
             anchors.verticalCenter: parent.verticalCenter
 

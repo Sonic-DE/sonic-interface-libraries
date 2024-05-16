@@ -18,7 +18,7 @@ RowLayout {
     required property T.Button button
 
     readonly property bool usingFocusBackground: !button.flat && buttonSvg.hasElement("hint-focus-highlighted-background") && button.visualFocus && !(button.pressed || button.checked)
-    readonly property int defaultIconSize: button.flat ? Kirigami.Units.iconSizes.smallMedium : Kirigami.Units.iconSizes.small
+    readonly property int defaultIconSize: Kirigami.Units.iconSizes.sizeForLabels
 
     spacing: button.spacing
 
@@ -64,7 +64,7 @@ RowLayout {
     }
     KSvg.SvgItem {
         visible: root.button.Accessible.role === Accessible.ButtonMenu && label.visible
-        Layout.preferredWidth: Kirigami.Units.iconSizes.small
+        Layout.preferredWidth: Kirigami.Units.iconSizes.sizeForLabels
         Layout.preferredHeight: Layout.preferredWidth
         Layout.alignment: Qt.AlignCenter
         imagePath: "widgets/arrows"

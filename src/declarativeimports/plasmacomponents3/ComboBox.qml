@@ -43,7 +43,7 @@ T.ComboBox {
     }
 
     indicator: KSvg.SvgItem {
-        implicitWidth: Kirigami.Units.iconSizes.small
+        implicitWidth: Kirigami.Units.iconSizes.sizeForLabels
         implicitHeight: implicitWidth
         anchors {
             right: parent.right

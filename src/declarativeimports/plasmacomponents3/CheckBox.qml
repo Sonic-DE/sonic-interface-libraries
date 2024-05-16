@@ -24,10 +24,8 @@ T.CheckBox {
     spacing: Kirigami.Units.smallSpacing
     hoverEnabled: true
 
-    // Keeping old default smallMedium size for compatibility
-    // with UIs that currently expect that as the default size
-    icon.width: Kirigami.Units.iconSizes.smallMedium
-    icon.height: Kirigami.Units.iconSizes.smallMedium
+    icon.width: Kirigami.Units.iconSizes.sizeForLabels
+    icon.height: Kirigami.Units.iconSizes.sizeForLabels
 
     indicator: CheckIndicator {
         x: (control.text || control.icon.name || control.icon.source)

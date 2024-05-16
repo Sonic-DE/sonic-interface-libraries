@@ -104,8 +104,6 @@ ComponentBase {
                 icon.name: "window-close"
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                icon.width: Kirigami.Units.iconSizes.small
-                icon.height: Kirigami.Units.iconSizes.small
                 text: "Text"
             }
             PlasmaComponents.ToolButton {
