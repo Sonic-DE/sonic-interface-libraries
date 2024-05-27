@@ -2,25 +2,25 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg11324"
    sodipodi:version="0.32"
-   inkscape:version="0.48.4 r9939"
-   width="50"
-   height="50"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
+   width="20"
+   height="40"
    version="1.0"
-   sodipodi:docname="pager.svgz"
-   inkscape:output_extension="org.inkscape.output.svgz.inkscape">
+   sodipodi:docname="pager.svg"
+   inkscape:output_extension="org.inkscape.output.svgz.inkscape"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <sodipodi:namedview
-     inkscape:window-height="876"
-     inkscape:window-width="1493"
+     inkscape:window-height="1374"
+     inkscape:window-width="2560"
      inkscape:pageshadow="2"
      inkscape:pageopacity="1"
      guidetolerance="10.0"
@@ -31,16 +31,19 @@
      pagecolor="#eff0f1"
      id="base"
      showgrid="true"
-     inkscape:zoom="12.89961"
-     inkscape:cx="2.2524147"
-     inkscape:cy="27.395996"
-     inkscape:window-x="210"
-     inkscape:window-y="32"
-     inkscape:current-layer="svg11324"
+     inkscape:zoom="51.59844"
+     inkscape:cx="6.1435966"
+     inkscape:cy="29.477635"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:current-layer="layer1"
      width="50px"
      height="50px"
      inkscape:grid-points="true"
-     inkscape:window-maximized="0">
+     inkscape:window-maximized="1"
+     inkscape:showpageshadow="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1">
     <inkscape:grid
        type="xygrid"
        id="grid3261"
@@ -49,9 +52,14 @@
        empspacing="5"
        snapvisiblegridlinesonly="true"
        color="#0000ff"
-       opacity="0.01960784"
+       opacity="0.0196078"
        empcolor="#0000ff"
-       empopacity="0.03921569" />
+       empopacity="0.03921569"
+       originx="0"
+       originy="0"
+       spacingy="1"
+       spacingx="1"
+       units="px" />
   </sodipodi:namedview>
   <metadata
      id="metadata11329">
@@ -140,7 +148,7 @@
        xlink:href="#linearGradient3372"
        id="linearGradient2342"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(-0.1428571,0,0,7.5757576e-2,13.015366,6.6829759)"
+       gradientTransform="matrix(-0.1428571,0,0,0.07575758,13.015366,6.6829759)"
        x1="50.10762"
        y1="89.277901"
        x2="50.10762"
@@ -160,7 +168,7 @@
        xlink:href="#linearGradient3372"
        id="linearGradient10787"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.1428571,0,0,6.0606075e-2,19.984616,13.95288)"
+       gradientTransform="matrix(0.1428571,0,0,0.06060607,19.984616,13.95288)"
        x1="50.10762"
        y1="89.277901"
        x2="50.10762"
@@ -192,7 +200,7 @@
        xlink:href="#linearGradient7175"
        id="radialGradient11091"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(3.4479595e-2,0,0,4.5493533e-2,6.1037966,-19.739153)"
+       gradientTransform="matrix(0.0344796,0,0,0.04549353,6.1037966,-19.739153)"
        cx="185.50665"
        cy="796.50342"
        fx="185.50665"
@@ -213,7 +221,7 @@
        xlink:href="#linearGradient3372"
        id="linearGradient11071"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.1428571,0,0,6.0517401e-2,19.984616,1.9544125)"
+       gradientTransform="matrix(0.1428571,0,0,0.0605174,19.984616,1.9544125)"
        x1="50.10762"
        y1="89.277901"
        x2="50.10762"
@@ -223,7 +231,7 @@
        xlink:href="#linearGradient3372"
        id="linearGradient11075"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.7142857,0,0,6.0517401e-2,29.923122,1.9544125)"
+       gradientTransform="matrix(0.7142857,0,0,0.0605174,29.923122,1.9544125)"
        x1="50.10762"
        y1="89.277901"
        x2="50.10762"
@@ -278,7 +286,7 @@
        xlink:href="#linearGradient5972"
        id="linearGradient2647"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0,-1,1,0,19,33)"
+       gradientTransform="rotate(-90,26,7)"
        x1="26"
        y1="6"
        x2="26"
@@ -339,7 +347,7 @@
        xlink:href="#linearGradient5972"
        id="linearGradient2675"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0,-1,1,0,19,33)"
+       gradientTransform="rotate(-90,26,7)"
        x1="26"
        y1="6"
        x2="26"
@@ -358,7 +366,7 @@
        xlink:href="#linearGradient5972"
        id="linearGradient2683"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0,-1,1,0,19,33)"
+       gradientTransform="rotate(-90,26,7)"
        x1="26"
        y1="6"
        x2="26"
@@ -377,7 +385,7 @@
        xlink:href="#linearGradient5972"
        id="linearGradient2689"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0,-1,1,0,19,33)"
+       gradientTransform="rotate(-90,26,7)"
        x1="26"
        y1="6"
        x2="26"
@@ -481,247 +489,262 @@
      height="0.99414408"
      x="1.1607215"
      y="1.2080072" />
-  <rect
-     style="opacity:0.1;fill:currentColor;fill-opacity:1;stroke:none"
-     id="normal-topleft"
-     width="1"
-     height="1"
-     x="-14"
-     y="0.99999982"
-     class="ColorScheme-Text"
-     inkscape:label="#rect3157" />
-  <rect
-     class="ColorScheme-Text"
-     y="0.99999982"
-     x="-13"
-     height="1"
-     width="10"
-     id="normal-top"
-     style="opacity:0.1;fill:currentColor;fill-opacity:1;stroke:none"
-     inkscape:label="#rect3158" />
-  <rect
-     class="ColorScheme-Text"
-     y="0.99999982"
-     x="-3"
-     height="1"
-     width="1"
-     id="normal-topright"
-     style="opacity:0.1;fill:currentColor;fill-opacity:1;stroke:none"
-     inkscape:label="#rect3160" />
-  <rect
-     class="ColorScheme-Text"
-     y="9"
-     x="-14"
-     height="1"
-     width="1"
-     id="normal-bottomleft"
-     style="opacity:0.1;fill:currentColor;fill-opacity:1;stroke:none"
-     inkscape:label="#rect3162" />
-  <rect
-     style="opacity:0.1;fill:currentColor;fill-opacity:1;stroke:none"
-     id="normal-bottom"
-     width="10"
-     height="1"
-     x="-13"
-     y="9"
-     class="ColorScheme-Text"
-     inkscape:label="#rect3164" />
-  <rect
-     style="opacity:0.1;fill:currentColor;fill-opacity:1;stroke:none"
-     id="normal-bottomright"
-     width="1"
-     height="1"
-     x="-3"
-     y="9"
-     class="ColorScheme-Text"
-     inkscape:label="#rect3166" />
-  <rect
-     class="ColorScheme-Text"
-     y="1.9999998"
-     x="-14"
-     height="7"
-     width="1"
-     id="normal-left"
-     style="opacity:0.1;fill:currentColor;fill-opacity:1;stroke:none"
-     inkscape:label="#rect3168" />
-  <rect
-     style="opacity:0.1;fill:currentColor;fill-opacity:1;stroke:none"
-     id="normal-right"
-     width="1"
-     height="7"
-     x="-3"
-     y="1.9999998"
-     class="ColorScheme-Text"
-     inkscape:label="#rect3170" />
-  <rect
-     style="opacity:0.1;fill:currentColor;fill-opacity:1;stroke:none"
-     id="normal-center"
-     width="10"
-     height="7"
-     x="-13"
-     y="1.9999998"
-     class="ColorScheme-Text"
-     inkscape:label="#rect3172" />
-  <rect
-     class="ColorScheme-ButtonFocus"
-     y="13"
-     x="-14"
-     height="1"
-     width="1"
-     id="hover-topleft"
-     style="opacity:0.4;fill:currentColor;fill-opacity:1;stroke:none"
-     inkscape:label="#rect3174" />
-  <rect
-     style="opacity:0.4;fill:currentColor;fill-opacity:1;stroke:none"
-     id="hover-top"
-     width="10"
-     height="1"
-     x="-13"
-     y="13"
-     class="ColorScheme-ButtonFocus"
-     inkscape:label="#rect3176" />
-  <rect
-     style="opacity:0.4;fill:currentColor;fill-opacity:1;stroke:none"
-     id="hover-topright"
-     width="1"
-     height="1"
-     x="-3"
-     y="13"
-     class="ColorScheme-ButtonFocus"
-     inkscape:label="#rect3178" />
-  <rect
-     style="opacity:0.4;fill:currentColor;fill-opacity:1;stroke:none"
-     id="hover-bottomleft"
-     width="1"
-     height="1"
-     x="-14"
-     y="21"
-     class="ColorScheme-ButtonFocus"
-     inkscape:label="#rect3180" />
-  <rect
-     class="ColorScheme-ButtonFocus"
-     y="21"
-     x="-13"
-     height="1"
-     width="10"
-     id="hover-bottom"
-     style="opacity:0.4;fill:currentColor;fill-opacity:1;stroke:none"
-     inkscape:label="#rect3182" />
-  <rect
-     class="ColorScheme-ButtonFocus"
-     y="21"
-     x="-3"
-     height="1"
-     width="1"
-     id="hover-bottomright"
-     style="opacity:0.4;fill:currentColor;fill-opacity:1;stroke:none"
-     inkscape:label="#rect3184" />
-  <rect
-     style="opacity:0.4;fill:currentColor;fill-opacity:1;stroke:none"
-     id="hover-left"
-     width="1"
-     height="7"
-     x="-14"
-     y="14"
-     class="ColorScheme-ButtonFocus"
-     inkscape:label="#rect3186" />
-  <rect
-     class="ColorScheme-ButtonFocus"
-     y="14"
-     x="-3"
-     height="7"
-     width="1"
-     id="hover-right"
-     style="opacity:0.4;fill:currentColor;fill-opacity:1;stroke:none"
-     inkscape:label="#rect3188" />
-  <rect
-     class="ColorScheme-ButtonFocus"
-     y="14"
-     x="-13"
-     height="7"
-     width="10"
-     id="hover-center"
-     style="opacity:0.2;fill:currentColor;fill-opacity:1;stroke:none"
-     inkscape:label="#rect3190" />
-  <rect
-     style="opacity:0.6;fill:currentColor;fill-opacity:1;stroke:none"
-     id="active-topleft"
-     width="1"
-     height="1"
-     x="-14"
-     y="25"
-     class="ColorScheme-ButtonFocus"
-     inkscape:label="#rect3175" />
-  <rect
-     class="ColorScheme-ButtonFocus"
-     y="25"
-     x="-13"
-     height="1"
-     width="10"
-     id="active-top"
-     style="opacity:0.6;fill:currentColor;fill-opacity:1;stroke:none"
-     inkscape:label="#rect3177" />
-  <rect
-     class="ColorScheme-ButtonFocus"
-     y="25"
-     x="-3"
-     height="1"
-     width="1"
-     id="active-topright"
-     style="opacity:0.6;fill:currentColor;fill-opacity:1;stroke:none"
-     inkscape:label="#rect3179" />
-  <rect
-     class="ColorScheme-ButtonFocus"
-     y="33"
-     x="-14"
-     height="1"
-     width="1"
-     id="active-bottomleft"
-     style="opacity:0.6;fill:currentColor;fill-opacity:1;stroke:none"
-     inkscape:label="#rect3181" />
-  <rect
-     style="opacity:0.6;fill:currentColor;fill-opacity:1;stroke:none"
-     id="active-bottom"
-     width="10"
-     height="1"
-     x="-13"
-     y="33"
-     class="ColorScheme-ButtonFocus"
-     inkscape:label="#rect3183" />
-  <rect
-     style="opacity:0.6;fill:currentColor;fill-opacity:1;stroke:none"
-     id="active-bottomright"
-     width="1"
-     height="1"
-     x="-3"
-     y="33"
-     class="ColorScheme-ButtonFocus"
-     inkscape:label="#rect3185" />
-  <rect
-     class="ColorScheme-ButtonFocus"
-     y="26"
-     x="-14"
-     height="7"
-     width="1"
-     id="active-left"
-     style="opacity:0.6;fill:currentColor;fill-opacity:1;stroke:none"
-     inkscape:label="#rect3187" />
-  <rect
-     style="opacity:0.6;fill:currentColor;fill-opacity:1;stroke:none"
-     id="active-right"
-     width="1"
-     height="7"
-     x="-3"
-     y="26"
-     class="ColorScheme-ButtonFocus"
-     inkscape:label="#rect3189" />
-  <rect
-     style="opacity:0.6;fill:currentColor;fill-opacity:1;stroke:none"
-     id="active-center"
-     width="10"
-     height="7"
-     x="-13"
-     y="26"
-     class="ColorScheme-ButtonFocus"
-     inkscape:label="#rect3191" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="active">
+    <rect
+       style="color:#1e92ff;opacity:0.6;fill:currentColor;fill-opacity:1;stroke:none"
+       id="active-topleft"
+       width="1"
+       height="1"
+       x="4"
+       y="25.015476"
+       class="ColorScheme-ButtonFocus"
+       inkscape:label="active-topleft" />
+    <rect
+       class="ColorScheme-ButtonFocus"
+       y="25.015476"
+       x="5"
+       height="1"
+       width="10"
+       id="active-top"
+       style="color:#1e92ff;opacity:0.6;fill:currentColor;fill-opacity:1;stroke:none"
+       inkscape:label="active-top" />
+    <rect
+       class="ColorScheme-ButtonFocus"
+       y="25.015476"
+       x="15"
+       height="1"
+       width="1"
+       id="active-topright"
+       style="color:#1e92ff;opacity:0.6;fill:currentColor;fill-opacity:1;stroke:none"
+       inkscape:label="active-topright" />
+    <rect
+       class="ColorScheme-ButtonFocus"
+       y="33.015476"
+       x="4"
+       height="1"
+       width="1"
+       id="active-bottomleft"
+       style="color:#1e92ff;opacity:0.6;fill:currentColor;fill-opacity:1;stroke:none"
+       inkscape:label="active-bottomleft" />
+    <rect
+       style="color:#1e92ff;opacity:0.6;fill:currentColor;fill-opacity:1;stroke:none"
+       id="active-bottom"
+       width="10"
+       height="1"
+       x="5"
+       y="33.015476"
+       class="ColorScheme-ButtonFocus"
+       inkscape:label="active-bottom" />
+    <rect
+       style="color:#1e92ff;opacity:0.6;fill:currentColor;fill-opacity:1;stroke:none"
+       id="active-bottomright"
+       width="1"
+       height="1"
+       x="15"
+       y="33.015476"
+       class="ColorScheme-ButtonFocus"
+       inkscape:label="active-bottomright" />
+    <rect
+       class="ColorScheme-ButtonFocus"
+       y="26.015476"
+       x="4"
+       height="7"
+       width="1"
+       id="active-left"
+       style="color:#1e92ff;opacity:0.6;fill:currentColor;fill-opacity:1;stroke:none"
+       inkscape:label="active-left" />
+    <rect
+       style="color:#1e92ff;opacity:0.6;fill:currentColor;fill-opacity:1;stroke:none"
+       id="active-right"
+       width="1"
+       height="7"
+       x="15"
+       y="26.015476"
+       class="ColorScheme-ButtonFocus"
+       inkscape:label="active-right" />
+    <rect
+       style="color:#1e92ff;opacity:0.6;fill:currentColor;fill-opacity:1;stroke:none"
+       id="active-center"
+       width="10"
+       height="7"
+       x="5"
+       y="26.015476"
+       class="ColorScheme-ButtonFocus"
+       inkscape:label="active-center" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="hover">
+    <rect
+       class="ColorScheme-ButtonFocus"
+       y="13.007738"
+       x="4"
+       height="1"
+       width="1"
+       id="hover-topleft"
+       style="color:#1e92ff;opacity:0.4;fill:currentColor;fill-opacity:1;stroke:none"
+       inkscape:label="hover-topleft" />
+    <rect
+       style="color:#1e92ff;opacity:0.4;fill:currentColor;fill-opacity:1;stroke:none"
+       id="hover-top"
+       width="10"
+       height="1"
+       x="5"
+       y="13.007738"
+       class="ColorScheme-ButtonFocus"
+       inkscape:label="hover-top" />
+    <rect
+       style="color:#1e92ff;opacity:0.4;fill:currentColor;fill-opacity:1;stroke:none"
+       id="hover-topright"
+       width="1"
+       height="1"
+       x="15"
+       y="13.007738"
+       class="ColorScheme-ButtonFocus"
+       inkscape:label="hover-topright" />
+    <rect
+       style="color:#1e92ff;opacity:0.4;fill:currentColor;fill-opacity:1;stroke:none"
+       id="hover-bottomleft"
+       width="1"
+       height="1"
+       x="4"
+       y="21.007738"
+       class="ColorScheme-ButtonFocus"
+       inkscape:label="hover-bottomleft" />
+    <rect
+       class="ColorScheme-ButtonFocus"
+       y="21.007738"
+       x="5"
+       height="1"
+       width="10"
+       id="hover-bottom"
+       style="color:#1e92ff;opacity:0.4;fill:currentColor;fill-opacity:1;stroke:none"
+       inkscape:label="hover-bottom" />
+    <rect
+       class="ColorScheme-ButtonFocus"
+       y="21.007738"
+       x="15"
+       height="1"
+       width="1"
+       id="hover-bottomright"
+       style="color:#1e92ff;opacity:0.4;fill:currentColor;fill-opacity:1;stroke:none"
+       inkscape:label="hover-bottomright" />
+    <rect
+       style="color:#1e92ff;opacity:0.4;fill:currentColor;fill-opacity:1;stroke:none"
+       id="hover-left"
+       width="1"
+       height="7"
+       x="4"
+       y="14.007738"
+       class="ColorScheme-ButtonFocus"
+       inkscape:label="hover-left" />
+    <rect
+       class="ColorScheme-ButtonFocus"
+       y="14.007738"
+       x="15"
+       height="7"
+       width="1"
+       id="hover-right"
+       style="color:#1e92ff;opacity:0.4;fill:currentColor;fill-opacity:1;stroke:none"
+       inkscape:label="hover-right" />
+    <rect
+       class="ColorScheme-ButtonFocus"
+       y="14.007738"
+       x="5"
+       height="7"
+       width="10"
+       id="hover-center"
+       style="color:#1e92ff;opacity:0.2;fill:currentColor;fill-opacity:1;stroke:none"
+       inkscape:label="hover-center" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="normal">
+    <rect
+       style="color:#7b7c7e;opacity:0.1;fill:currentColor;fill-opacity:1;stroke:none"
+       id="normal-topleft"
+       width="1"
+       height="1"
+       x="4"
+       y="2"
+       class="ColorScheme-Text"
+       inkscape:label="normal-topleft" />
+    <rect
+       class="ColorScheme-Text"
+       y="2"
+       x="5"
+       height="1"
+       width="10"
+       id="normal-top"
+       style="color:#7b7c7e;opacity:0.1;fill:currentColor;fill-opacity:1;stroke:none"
+       inkscape:label="normal-top" />
+    <rect
+       class="ColorScheme-Text"
+       y="2"
+       x="15"
+       height="1"
+       width="1"
+       id="normal-topright"
+       style="color:#7b7c7e;opacity:0.1;fill:currentColor;fill-opacity:1;stroke:none"
+       inkscape:label="normal-topright" />
+    <rect
+       class="ColorScheme-Text"
+       y="10"
+       x="4"
+       height="1"
+       width="1"
+       id="normal-bottomleft"
+       style="color:#7b7c7e;opacity:0.1;fill:currentColor;fill-opacity:1;stroke:none"
+       inkscape:label="normal-bottomleft" />
+    <rect
+       style="color:#7b7c7e;opacity:0.1;fill:currentColor;fill-opacity:1;stroke:none"
+       id="normal-bottom"
+       width="10"
+       height="1"
+       x="5"
+       y="10"
+       class="ColorScheme-Text"
+       inkscape:label="normal-bottom" />
+    <rect
+       style="color:#7b7c7e;opacity:0.1;fill:currentColor;fill-opacity:1;stroke:none"
+       id="normal-bottomright"
+       width="1"
+       height="1"
+       x="15"
+       y="10"
+       class="ColorScheme-Text"
+       inkscape:label="normal-bottomright" />
+    <rect
+       class="ColorScheme-Text"
+       y="3"
+       x="4"
+       height="7"
+       width="1"
+       id="normal-left"
+       style="color:#7b7c7e;opacity:0.1;fill:currentColor;fill-opacity:1;stroke:none"
+       inkscape:label="normal-left" />
+    <rect
+       style="color:#7b7c7e;opacity:0.1;fill:currentColor;fill-opacity:1;stroke:none"
+       id="normal-right"
+       width="1"
+       height="7"
+       x="15"
+       y="3"
+       class="ColorScheme-Text"
+       inkscape:label="normal-right" />
+    <rect
+       style="color:#7b7c7e;opacity:0.1;fill:currentColor;fill-opacity:1;stroke:none"
+       id="normal-center"
+       width="10"
+       height="7"
+       x="5"
+       y="3"
+       class="ColorScheme-Text"
+       inkscape:label="normal-center" />
+  </g>
 </svg>

@@ -2,10 +2,10 @@
 <svg
    id="svg2"
    height="40"
-   viewBox="0 0 60 40"
-   width="60"
+   viewBox="0 0 80.000996 40"
+   width="80.000999"
    sodipodi:docname="radiobutton.svg"
-   inkscape:version="1.3.2 (091e20ef0f, 2023-11-25)"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
    version="1.1"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -42,13 +42,13 @@
        inkscape:collect="always"
        xlink:href="#linearGradient2071"
        id="radialGradient2073"
-       cx="50.8763160706"
+       cx="50.876316"
        cy="10"
-       fx="50.8763160706"
+       fx="50.876316"
        fy="10"
        r="9"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(8.47399858235e-8,1.0555554738,-1.05555556751,8.17769152669e-8,60.5555512563,-42.2027739966)" />
+       gradientTransform="matrix(8.4739986e-8,1.0555555,-1.0555556,8.1776915e-8,60.555551,-42.202774)" />
   </defs>
   <sodipodi:namedview
      id="namedview14"
@@ -63,11 +63,11 @@
      inkscape:current-layer="svg2"
      inkscape:showpageshadow="2"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="7.29375"
-     inkscape:cx="-1.9880034"
-     inkscape:cy="40.651242"
-     inkscape:window-width="3440"
-     inkscape:window-height="1373"
+     inkscape:zoom="20.62984"
+     inkscape:cx="55.017391"
+     inkscape:cy="23.267267"
+     inkscape:window-width="2560"
+     inkscape:window-height="1374"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1">
@@ -103,19 +103,23 @@
     <path
        id="path927-5-3"
        d="m 26,24 a 8,8 0 0 1 -8,8 8,8 0 0 1 -8,-8 8,8 0 0 1 8,-8 8,8 0 0 1 8,8 z"
-       style="fill:currentColor;fill-rule:evenodd"
-       class="ColorScheme-ButtonBackground" />
+       style="display:inline;fill:currentColor;fill-rule:evenodd"
+       class="ColorScheme-ButtonBackground"
+       inkscape:label="background" />
     <g
        id="path978"
-       class="ColorScheme-Highlight">
+       class="ColorScheme-Highlight"
+       inkscape:label="foreground">
       <path
-         style="fill:currentColor;fill-opacity:0.33;fill-rule:evenodd;-inkscape-stroke:none"
+         style="display:inline;fill:currentColor;fill-opacity:0.33;fill-rule:evenodd;-inkscape-stroke:none"
          d="M 25.5,24 A 7.5,7.5 0 0 1 18,31.5 7.5,7.5 0 0 1 10.5,24 7.5,7.5 0 0 1 18,16.5 7.5,7.5 0 0 1 25.5,24 Z"
-         id="path1208" />
+         id="path1208"
+         inkscape:label="background" />
       <path
-         style="fill:currentColor;fill-rule:evenodd;-inkscape-stroke:none"
-         d="m 18,16 c -4.4123512673,0 -8,3.5876487327 -8,8 0,4.4123512673 3.5876487327,8 8,8 4.4123512673,0 8,-3.5876487327 8,-8 0,-4.4123512673 -3.5876487327,-8 -8,-8 z m 0,1 c 3.8719116927,0 7,3.1280883073 7,7 0,3.8719116927 -3.1280883073,7 -7,7 -3.8719116927,0 -7,-3.1280883073 -7,-7 0,-3.8719116927 3.1280883073,-7 7,-7 z"
-         id="path1210" />
+         style="display:inline;fill:currentColor;fill-rule:evenodd;-inkscape-stroke:none"
+         d="m 18,16 c -4.412351,0 -8,3.587649 -8,8 0,4.412351 3.587649,8 8,8 4.412351,0 8,-3.587649 8,-8 0,-4.412351 -3.587649,-8 -8,-8 z m 0,1 c 3.871912,0 7,3.128088 7,7 0,3.871912 -3.128088,7 -7,7 -3.871912,0 -7,-3.128088 -7,-7 0,-3.871912 3.128088,-7 7,-7 z"
+         id="path1210"
+         inkscape:label="border" />
     </g>
   </g>
   <g
@@ -127,11 +131,13 @@
        id="path927"
        d="M -12,14 A 10,10 0 0 0 -22,24 10,10 0 0 0 -12,34 10,10 0 0 0 -2,24 10,10 0 0 0 -12,14 Z m 0,3 a 7,7 0 0 1 7,7 7,7 0 0 1 -7,7 7,7 0 0 1 -7,-7 7,7 0 0 1 7,-7 z"
        style="opacity:0.33;fill-rule:evenodd"
-       transform="translate(20)" />
+       transform="translate(20)"
+       inkscape:label="glow" />
     <path
        id="path929"
-       d="m 8,16 c -4.41235126727,0 -8,3.5876487327 -8,8 0,4.4123512673 3.58764873273,8 8,8 4.4123512673,0 8,-3.5876487327 8,-8 0,-4.4123512673 -3.5876487327,-8 -8,-8 z m 0,1 c 3.8719116927,0 7,3.1280883073 7,7 0,3.8719116927 -3.1280883073,7 -7,7 -3.87191169273,0 -7,-3.1280883073 -7,-7 0,-3.8719116927 3.12808830727,-7 7,-7 z"
-       style="opacity:1;fill-rule:evenodd" />
+       d="m 8,16 c -4.4123513,0 -8,3.587649 -8,8 0,4.412351 3.5876487,8 8,8 4.412351,0 8,-3.587649 8,-8 0,-4.412351 -3.587649,-8 -8,-8 z m 0,1 c 3.871912,0 7,3.128088 7,7 0,3.871912 -3.128088,7 -7,7 -3.8719117,0 -7,-3.128088 -7,-7 0,-3.871912 3.1280883,-7 7,-7 z"
+       style="display:inline;opacity:1;fill-rule:evenodd"
+       inkscape:label="border" />
   </g>
   <g
      id="hover"
@@ -140,8 +146,9 @@
      transform="translate(22,6)">
     <path
        id="path929-7"
-       d="m 8,16 c -4.41235126727,0 -8,3.5876487327 -8,8 0,4.4123512673 3.58764873273,8 8,8 4.4123512673,0 8,-3.5876487327 8,-8 0,-4.4123512673 -3.5876487327,-8 -8,-8 z m 0,1 c 3.8719116927,0 7,3.1280883073 7,7 0,3.8719116927 -3.1280883073,7 -7,7 -3.87191169273,0 -7,-3.1280883073 -7,-7 0,-3.8719116927 3.12808830727,-7 7,-7 z"
-       style="opacity:1;fill-rule:evenodd" />
+       d="m 8,16 c -4.4123513,0 -8,3.587649 -8,8 0,4.412351 3.5876487,8 8,8 4.412351,0 8,-3.587649 8,-8 0,-4.412351 -3.587649,-8 -8,-8 z m 0,1 c 3.871912,0 7,3.128088 7,7 0,3.871912 -3.128088,7 -7,7 -3.8719117,0 -7,-3.128088 -7,-7 0,-3.871912 3.1280883,-7 7,-7 z"
+       style="opacity:1;fill-rule:evenodd"
+       inkscape:label="border" />
   </g>
   <g
      id="normal"
@@ -150,17 +157,19 @@
        id="path927-5"
        d="m 16,24 a 8,8 0 0 1 -8,8 8,8 0 0 1 -8,-8 8,8 0 0 1 8,-8 8,8 0 0 1 8,8 z"
        style="fill:currentColor;fill-rule:evenodd"
-       class="ColorScheme-ButtonBackground" />
+       class="ColorScheme-ButtonBackground"
+       inkscape:label="background" />
     <path
        id="path929-6"
-       d="m 8,16 c -4.41235126727,0 -8,3.5876487327 -8,8 0,4.4123512673 3.58764873273,8 8,8 4.4123512673,0 8,-3.5876487327 8,-8 0,-4.4123512673 -3.5876487327,-8 -8,-8 z m 0,1 c 3.8719116927,0 7,3.1280883073 7,7 0,3.8719116927 -3.1280883073,7 -7,7 -3.87191169273,0 -7,-3.1280883073 -7,-7 0,-3.8719116927 3.12808830727,-7 7,-7 z"
-       style="opacity:0.2;fill:currentColor;fill-rule:evenodd"
-       class="ColorScheme-ButtonText" />
+       d="m 8,16 c -4.4123513,0 -8,3.587649 -8,8 0,4.412351 3.5876487,8 8,8 4.412351,0 8,-3.587649 8,-8 0,-4.412351 -3.587649,-8 -8,-8 z m 0,1 c 3.871912,0 7,3.128088 7,7 0,3.871912 -3.128088,7 -7,7 -3.8719117,0 -7,-3.128088 -7,-7 0,-3.871912 3.1280883,-7 7,-7 z"
+       style="display:inline;opacity:0.2;fill:currentColor;fill-rule:evenodd"
+       class="ColorScheme-ButtonText"
+       inkscape:label="border" />
   </g>
   <circle
      id="hint-size"
-     cx="10"
-     cy="-10"
+     cx="49.684677"
+     cy="10"
      r="8"
      style="fill:#ff0000;fill-rule:evenodd" />
   <circle
@@ -172,19 +181,22 @@
      class="ColorScheme-ButtonText" />
   <g
      id="shadow"
-     transform="translate(0,-1)">
+     transform="translate(19,1)"
+     inkscape:label="shadow">
     <rect
        style="opacity:0.00100002;fill:#0000ff;fill-opacity:0.01;fill-rule:evenodd"
        id="rect942"
        width="22"
        height="22"
        x="39"
-       y="-1" />
+       y="-1"
+       inkscape:label="airspace" />
     <circle
        style="fill:url(#radialGradient2073);fill-opacity:1;fill-rule:evenodd;stroke-width:0.999998"
        id="path1364"
        cx="50"
        cy="11.5"
-       r="9.5" />
+       r="9.5"
+       inkscape:label="shadow" />
   </g>
 </svg>
