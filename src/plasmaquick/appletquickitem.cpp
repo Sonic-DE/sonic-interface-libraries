@@ -577,7 +577,7 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
             errorData[QStringLiteral("appletName")] = applet->pluginMetaData().name();
             reason += i18n("Error loading QML file: %1 %2", qmlObject->mainComponent()->url().toString(), reason);
         } else {
-            reason += i18n("Error loading Applet: package does not exist. %1", applet->launchErrorMessage());
+            reason += i18n("Error loading Applet: package %1 does not exist.", applet->pluginMetaData().pluginId());
             errorData[QStringLiteral("errors")] = QJsonArray::fromStringList({reason});
         }
 
