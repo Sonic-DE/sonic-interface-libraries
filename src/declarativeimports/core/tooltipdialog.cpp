@@ -61,8 +61,13 @@ ToolTipDialog::~ToolTipDialog()
 
 void ToolTipDialog::updateSize()
 {
+    QScreen *s = screen();
+    if (!s) {
+        return;
+    }
     QSize popupSize = QSize(mainItem()->implicitWidth(), mainItem()->implicitHeight());
     popupSize = popupSize.grownBy(padding());
+    popupSize = {std::min(popupSize.width(), s->geometry().width()), std::min(popupSize.height(), s->geometry().height())};
     if (!popupSize.isEmpty()) {
         resize(popupSize);
     }
