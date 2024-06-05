@@ -374,8 +374,32 @@ void ContainmentItem::processMimeData(QMimeData *mimeData, int x, int y, KIO::Dr
         QList<QUrl> urls = {QUrl(QString::fromUtf8(mimeData->data(QStringLiteral("text/x-orgkdeplasmataskmanager_taskurl"))))};
         mimeData->setUrls(urls);
     }
+    if (mimeData->hasFormat(QStringLiteral("text/x-plasmoidinstanceid"))) {
+        QString data = QString::fromUtf8(mimeData->data(QStringLiteral("text/x-plasmoidinstanceid")));
+        const QStringList splitData = data.split(QLatin1Char(':'), Qt::SkipEmptyParts);
+        if (splitData.count() != 2)
+            return;
 
-    if (mimeData->hasFormat(QStringLiteral("text/x-plasmoidservicename"))) {
+        bool ok1, ok2;
+        int containmentId = splitData[0].toInt(&ok1);
+        int appletId = splitData[1].toInt(&ok2);
+        if (!ok1 || !ok2)
+            return;
+
+        auto corona = m_containment->corona();
+        auto containments = corona->containments();
+        for (auto containment : containments) {
+            if (containment->id() == containmentId) {
+                for (auto applet : containment->applets()) {
+                    if (applet->id() == appletId) {
+                        PlasmaQuick::AppletQuickItem *appletItem = PlasmaQuick::AppletQuickItem::itemForApplet(applet);
+                        delete appletItem;
+                        m_containment->addApplet(applet, QRect(x, y, -1, -1));
+                    }
+                }
+            }
+        }
+    } else if (mimeData->hasFormat(QStringLiteral("text/x-plasmoidservicename"))) {
         QString data = QString::fromUtf8(mimeData->data(QStringLiteral("text/x-plasmoidservicename")));
         const QStringList appletNames = data.split(QLatin1Char('\n'), Qt::SkipEmptyParts);
         for (const QString &appletName : appletNames) {
