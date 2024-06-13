@@ -266,7 +266,6 @@ bool AppletQuickItemPrivate::appletShouldBeExpanded() const
         }
         if (switchWidth > 0 && switchHeight > 0) {
             return q->width() > switchWidth && q->height() > switchHeight;
-
             // if a size to switch wasn't set, determine what representation to always chose
         } else {
             // preferred representation set?
@@ -370,8 +369,10 @@ void AppletQuickItemPrivate::compactRepresentationCheck()
             currentRepresentationItem = item;
             connectLayoutAttached(item);
 
-            expanded = true;
-            Q_EMIT q->expandedChanged(true);
+            if (!expanded) {
+                expanded = true;
+                Q_EMIT q->expandedChanged(true);
+            }
         }
 
     } else {
@@ -397,8 +398,10 @@ void AppletQuickItemPrivate::compactRepresentationCheck()
             currentRepresentationItem = compactItem;
             connectLayoutAttached(compactItem);
 
-            expanded = false;
-            Q_EMIT q->expandedChanged(false);
+            if (expanded) {
+                expanded = false;
+                Q_EMIT q->expandedChanged(false);
+            }
         }
     }
 
@@ -640,10 +643,18 @@ Plasma::Applet *AppletQuickItem::applet() const
     return d->applet;
 }
 
+void AppletQuickItem::ensureInitialized()
+{
+    init();
+}
+
 void AppletQuickItem::init()
 {
     if (!d->applet) {
         // This can happen only if the client QML code declares a PlasmoidItem somewhere else than the root object
+        return;
+    }
+    if (d->initComplete) {
         return;
     }
 

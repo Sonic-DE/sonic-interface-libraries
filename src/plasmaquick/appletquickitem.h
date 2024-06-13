@@ -129,6 +129,9 @@ public:
     static bool hasItemForApplet(Plasma::Applet *applet);
     static AppletQuickItem *itemForApplet(Plasma::Applet *applet);
 
+    // TODO KF7: make init public
+    void ensureInitialized();
+
 Q_SIGNALS:
     // Property signals
     void switchWidthChanged(int width);
