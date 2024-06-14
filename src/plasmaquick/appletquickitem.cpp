@@ -32,6 +32,7 @@
 #include <Plasma/Applet>
 #include <Plasma/Containment>
 #include <Plasma/Corona>
+#include <qquickitem.h>
 
 namespace PlasmaQuick
 {
@@ -643,11 +644,6 @@ Plasma::Applet *AppletQuickItem::applet() const
     return d->applet;
 }
 
-void AppletQuickItem::ensureInitialized()
-{
-    init();
-}
-
 void AppletQuickItem::init()
 {
     if (!d->applet) {
@@ -732,6 +728,12 @@ void AppletQuickItem::classBegin()
     }
     d->applet = ac->applet();
     d->qmlObject = ac->sharedQmlEngine();
+}
+
+void AppletQuickItem::componentComplete()
+{
+    QQuickItem::componentComplete();
+    init();
 }
 
 int AppletQuickItem::switchWidth() const
@@ -919,20 +921,6 @@ void AppletQuickItem::geometryChange(const QRectF &newGeometry, const QRectF &ol
 {
     QQuickItem::geometryChange(newGeometry, oldGeometry);
     d->compactRepresentationCheck();
-}
-
-void AppletQuickItem::itemChange(ItemChange change, const ItemChangeData &value)
-{
-    if (change == QQuickItem::ItemSceneChange) {
-        // we have a window: create the representations if needed
-        // also avoid initializing the item more than once,
-        // since this will cause shortcut to open and close the item immediately
-        if (value.window && !d->initComplete) {
-            init();
-        }
-    }
-
-    QQuickItem::itemChange(change, value);
 }
 }
 

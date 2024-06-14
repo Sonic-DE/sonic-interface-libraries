@@ -94,6 +94,7 @@ public:
     Plasma::Applet *applet() const;
 
     void classBegin() override;
+    void componentComplete() override;
 
     QQuickItem *compactRepresentationItem();
     QQuickItem *fullRepresentationItem();
@@ -129,9 +130,6 @@ public:
     static bool hasItemForApplet(Plasma::Applet *applet);
     static AppletQuickItem *itemForApplet(Plasma::Applet *applet);
 
-    // TODO KF7: make init public
-    void ensureInitialized();
-
 Q_SIGNALS:
     // Property signals
     void switchWidthChanged(int width);
@@ -159,7 +157,6 @@ protected:
     // Reimplementation
     void childEvent(QChildEvent *event) override;
     void geometryChange(const QRectF &newGeometry, const QRectF &oldGeometry) override;
-    void itemChange(ItemChange change, const ItemChangeData &value) override;
 
 private:
     AppletQuickItemPrivate *const d;
