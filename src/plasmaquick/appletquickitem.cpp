@@ -267,6 +267,7 @@ bool AppletQuickItemPrivate::appletShouldBeExpanded() const
         }
         if (switchWidth > 0 && switchHeight > 0) {
             return q->width() > switchWidth && q->height() > switchHeight;
+
             // if a size to switch wasn't set, determine what representation to always chose
         } else {
             // preferred representation set?

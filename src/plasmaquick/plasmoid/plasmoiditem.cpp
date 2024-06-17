@@ -104,6 +104,7 @@ void PlasmoidItem::init()
         // in case the applet doesn't want to get shrunk on reactivation,
         // we always expand it again (only in order to conform with legacy behaviour)
         bool activate = !(isExpanded() && isActivationTogglesExpanded());
+
         setExpanded(activate);
     });
 
