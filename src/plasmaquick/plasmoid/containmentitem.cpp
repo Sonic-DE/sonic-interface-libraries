@@ -381,8 +381,8 @@ void ContainmentItem::processMimeData(QMimeData *mimeData, int x, int y, KIO::Dr
             return;
 
         bool ok1, ok2;
-        int containmentId = splitData[0].toInt(&ok1);
-        int appletId = splitData[1].toInt(&ok2);
+        uint containmentId = splitData[0].toInt(&ok1);
+        uint appletId = splitData[1].toInt(&ok2);
         if (!ok1 || !ok2)
             return;
 
@@ -732,7 +732,9 @@ void ContainmentItem::appletRemovedForward(Plasma::Applet *applet)
     PlasmoidItem *appletGraphicObject = qobject_cast<PlasmoidItem *>(AppletQuickItem::itemForApplet(applet));
     if (appletGraphicObject) {
         m_plasmoidItems.removeAll(appletGraphicObject);
-        appletGraphicObject->m_positionBeforeRemoval = appletGraphicObject->mapToItem(this, QPointF());
+        if (appletGraphicObject->parentItem()) {
+            appletGraphicObject->m_positionBeforeRemoval = appletGraphicObject->mapToItem(this, QPointF());
+        }
     }
 }
 
