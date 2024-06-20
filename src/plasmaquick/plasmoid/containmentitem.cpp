@@ -395,10 +395,13 @@ void ContainmentItem::processMimeData(QMimeData *mimeData, int x, int y, KIO::Dr
                         PlasmaQuick::AppletQuickItem *appletItem = PlasmaQuick::AppletQuickItem::itemForApplet(applet);
                         appletItem->setParentItem(nullptr);
                         m_containment->addApplet(applet, QRect(x, y, -1, -1));
+                        break;
                     }
                 }
+                break;
             }
         }
+        delete m_dropMenu.data();
     } else if (mimeData->hasFormat(QStringLiteral("text/x-plasmoidservicename"))) {
         QString data = QString::fromUtf8(mimeData->data(QStringLiteral("text/x-plasmoidservicename")));
         const QStringList appletNames = data.split(QLatin1Char('\n'), Qt::SkipEmptyParts);
