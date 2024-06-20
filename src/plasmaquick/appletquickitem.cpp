@@ -357,6 +357,8 @@ void AppletQuickItemPrivate::compactRepresentationCheck()
                 compactRepresentationExpanderItem->setVisible(false);
             }
 
+            const bool fullRepresentationWasVisible = fullRepresentationItem->parentItem() == q;
+
             // the fullrepresentation being the complete AppletItem is actually allowed when the main ui
             // is child of the root item (like many panel applets)
             if (item != q) {
@@ -364,7 +366,6 @@ void AppletQuickItemPrivate::compactRepresentationCheck()
                 anchorsFillParent(item, q);
             }
 
-            bool fullRepresentationWasVisible = fullRepresentationItem->parentItem() == q;
             if (compactRepresentationItem) {
                 compactRepresentationItem->setVisible(false);
             }
@@ -392,7 +393,7 @@ void AppletQuickItemPrivate::compactRepresentationCheck()
 
             // only reparent full representation to null if it was parented to the applet
             // if it was already in the expander, leave it where it is
-            bool fullRepresentationWasVisible = fullRepresentationItem && fullRepresentationItem->parentItem() == q;
+            const bool fullRepresentationWasVisible = fullRepresentationItem && fullRepresentationItem->parentItem() == q;
             if (fullRepresentationItem && fullRepresentationWasVisible) {
                 fullRepresentationItem->setProperty("parent", QVariant());
             }
