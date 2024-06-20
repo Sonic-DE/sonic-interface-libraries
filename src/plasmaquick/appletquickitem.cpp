@@ -364,7 +364,7 @@ void AppletQuickItemPrivate::compactRepresentationCheck()
                 anchorsFillParent(item, q);
             }
 
-            bool compactRepresentationWasVisible = compactRepresentationItem && compactRepresentationItem->isVisible();
+            bool fullRepresentationWasVisible = fullRepresentationItem->parentItem() == q;
             if (compactRepresentationItem) {
                 compactRepresentationItem->setVisible(false);
             }
@@ -372,7 +372,7 @@ void AppletQuickItemPrivate::compactRepresentationCheck()
             currentRepresentationItem = item;
             connectLayoutAttached(item);
 
-            if (!expanded && compactRepresentationWasVisible) {
+            if (!expanded && !fullRepresentationWasVisible) {
                 expanded = true;
                 Q_EMIT q->expandedChanged(true);
             }
