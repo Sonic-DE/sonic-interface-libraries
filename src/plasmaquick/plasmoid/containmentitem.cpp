@@ -391,7 +391,8 @@ void ContainmentItem::processMimeData(QMimeData *mimeData, int x, int y, KIO::Dr
         for (auto containment : containments) {
             if (containment->id() == containmentId) {
                 for (auto applet : containment->applets()) {
-                    if (applet->id() == appletId) {
+                    // Don't do the drop if the old applet containment is already this one
+                    if (applet->id() == appletId && applet->containment() != m_containment) {
                         PlasmaQuick::AppletQuickItem *appletItem = PlasmaQuick::AppletQuickItem::itemForApplet(applet);
                         appletItem->setParentItem(nullptr);
                         m_containment->addApplet(applet, QRect(x, y, -1, -1));
