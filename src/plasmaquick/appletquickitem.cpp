@@ -639,7 +639,7 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
     }
 
     QObject::connect(applet, &Plasma::Applet::appletDeleted, item, [qmlObject](Plasma::Applet *applet) {
-        // Deleting qmlObject will also delete the instantiated plamoidItem
+        // Deleting qmlObject will also delete the instantiated plasmoidItem
         // deleteing just the plasmoiditem will cause a double deletion when qmlObject
         // gets deleted by applet deletion
         delete qmlObject;
