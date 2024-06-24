@@ -44,6 +44,8 @@ public:
 
     void errorPrint(QQmlComponent *component);
     void execute(const QUrl &source);
+    void execute(QAnyStringView module, QAnyStringView type);
+    void execute(std::unique_ptr<QQmlComponent> &&component);
     void scheduleExecutionEnd();
     void minimumWidthChanged();
     void minimumHeightChanged();
@@ -53,8 +55,6 @@ public:
     void preferredHeightChanged();
 
     SharedQmlEngine *q;
-
-    QUrl source;
 
     QPointer<QObject> rootObject;
     std::unique_ptr<QQmlComponent> component;
@@ -100,10 +100,24 @@ void SharedQmlEnginePrivate::execute(const QUrl &source)
         return;
     }
 
-    component = std::make_unique<QQmlComponent>(m_engine.get(), source);
+    execute(std::make_unique<QQmlComponent>(m_engine.get(), source));
+}
+
+void SharedQmlEnginePrivate::execute(QAnyStringView module, QAnyStringView type)
+{
+    if (module.isEmpty() || type.isEmpty()) {
+        qWarning(LOG_PLASMAQUICK) << "No module or type specified";
+        return;
+    }
+
+    execute(std::make_unique<QQmlComponent>(m_engine.get(), module, type));
+}
+
+void SharedQmlEnginePrivate::execute(std::unique_ptr<QQmlComponent> &&comp)
+{
+    component = std::move(comp);
     QObject::connect(component.get(), &QQmlComponent::statusChanged, q, &SharedQmlEngine::statusChanged, Qt::QueuedConnection);
 
-    component->loadUrl(source);
     rootObject = component->beginCreate(rootContext);
 
     if (delay) {
@@ -164,13 +178,20 @@ QString SharedQmlEngine::translationDomain() const
 
 void SharedQmlEngine::setSource(const QUrl &source)
 {
-    d->source = source;
     d->execute(source);
+}
+
+void SharedQmlEngine::setSourceFromModule(QAnyStringView module, QAnyStringView type)
+{
+    d->execute(module, type);
 }
 
 QUrl SharedQmlEngine::source() const
 {
-    return d->source;
+    if (d->component) {
+        return d->component->url();
+    }
+    return QUrl{};
 }
 
 void SharedQmlEngine::setInitializationDelayed(const bool delay)
