@@ -20,7 +20,7 @@ target_sources(corebindingsplugin PRIVATE
     ${RESOURCES}
 )
 
-ecm_target_qml_sources(corebindingsplugin SOURCES DialogBackground.qml)
+ecm_target_qml_sources(corebindingsplugin SOURCES private/DialogBackground.qml)
 
 target_link_libraries(corebindingsplugin PRIVATE
         Qt6::Quick
