@@ -245,9 +245,21 @@ bool Applet::destroyed() const
 
 KConfigLoader *Applet::configScheme() const
 {
+    qWarning() << "scheme" << pluginName();
+
     if (!d->configLoader) {
-        // TODO qml module
-        const QString xmlPath = d->package.isValid() ? d->package.filePath("mainconfigxml") : QString();
+        QString xmlPath;
+
+        if (d->package.isValid()) {
+            xmlPath = d->package.filePath("mainconfigxml");
+        } else {
+            if (QFile::exists(qrcPath() + QLatin1String("main.xml"))) {
+                xmlPath = qrcPath() + QLatin1String("main.xml");
+            }
+        }
+
+        qWarning() << "xml" << xmlPath;
+
         KConfigGroup cfg = config();
         if (xmlPath.isEmpty()) {
             d->configLoader = new KConfigLoader(cfg, nullptr);
@@ -815,13 +827,13 @@ void Applet::configChanged()
 
 QUrl Applet::fileUrl(const QByteArray &key, const QString &filename) const
 {
+    qWarning() << "file url" << key << filename;
+
     if (d->package.isValid()) {
         return d->package.fileUrl(key, filename);
+    } else {
+        return QUrl(QLatin1String("qrc") + qrcPath() + filename);
     }
-
-    // TODO qml module
-
-    return QUrl();
 }
 
 QUrl Applet::mainScript() const
@@ -842,16 +854,21 @@ QUrl Applet::configModel() const
 {
     if (d->package.isValid()) {
         return d->package.fileUrl("configmodel");
+    } else {
+        const QString path = qrcPath() + QLatin1String("/config.qml");
+        if (QFile::exists(path)) {
+            return QUrl(QLatin1String("qrc") + path);
+        }
     }
-
-    // TODO qml module
-
     return QUrl();
 }
 
 bool Applet::sourceValid() const
 {
-    // TODO qml module
+    if (QFile::exists(qrcPath())) {
+        return QFile::exists(qrcPath() + QLatin1String("main.qml"));
+    }
+
     return d->package.isValid();
 }
 
@@ -903,6 +920,11 @@ QString Applet::translationDomain() const
     } else {
         return QLatin1String("plasma_applet_") + d->appletDescription.pluginId();
     }
+}
+
+QString Applet::qrcPath() const
+{
+    return QLatin1String(":/qt/qml/plasma/applet/") + pluginName().replace(QLatin1Char('.'), QLatin1Char('/')) + QLatin1String("/");
 }
 
 } // Plasma namespace

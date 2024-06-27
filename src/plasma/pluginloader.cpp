@@ -93,21 +93,21 @@ Applet *PluginLoader::loadApplet(const QString &name, uint appletId, const QVari
 
     Q_ASSERT(plugin.isValid());
 
-<<<<<<< HEAD
-    if (isContainmentMetaData(p.metadata())) {
-        applet = new Containment(nullptr, p.metadata(), allArgs);
-    } else {
-        KPluginMetaData metadata = p.metadata();
-        if (metadata.pluginId().isEmpty()) {
-            // Add fake extension to parse completeBaseName() as pluginId
-            // without having to construct a fake JSON metadata object.
-            // This would help with better error messages which would
-            // at least show the missing applet's ID.
-            const auto fakeFileName = name + u'.';
-            metadata = KPluginMetaData(QJsonObject(), fakeFileName);
-        }
-        applet = new Applet(nullptr, metadata, allArgs);
-=======
+    // <<<<<<< HEAD
+    //     if (isContainmentMetaData(p.metadata())) {
+    //         applet = new Containment(nullptr, p.metadata(), allArgs);
+    //     } else {
+    //         KPluginMetaData metadata = p.metadata();
+    //         if (metadata.pluginId().isEmpty()) {
+    //             // Add fake extension to parse completeBaseName() as pluginId
+    //             // without having to construct a fake JSON metadata object.
+    //             // This would help with better error messages which would
+    //             // at least show the missing applet's ID.
+    //             const auto fakeFileName = name + u'.';
+    //             metadata = KPluginMetaData(QJsonObject(), fakeFileName);
+    //         }
+    //         applet = new Applet(nullptr, metadata, allArgs);
+    // =======
     if (package.isValid()) {
         qWarning() << "kpackage + c++" << package.metadata().pluginId();
 
@@ -123,7 +123,7 @@ Applet *PluginLoader::loadApplet(const QString &name, uint appletId, const QVari
             factory->setMetaData(plugin);
         }
         return factory->create<Plasma::Applet>(nullptr, allArgs);
->>>>>>> 7f8e31d84 (Add infrastructure to load applets from QML modules)
+        // >>>>>>> 7f8e31d84 (Add infrastructure to load applets from QML modules)
     }
 
     qWarning() << "pure plugin" << plugin.pluginId();

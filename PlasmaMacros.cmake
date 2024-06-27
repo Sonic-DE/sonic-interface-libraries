@@ -29,7 +29,7 @@ macro(plasma_install_package dir component)
    kpackage_install_package(${dir} ${component} ${root} ${PLASMA_RELATIVE_DATA_INSTALL_DIR} NO_DEPRECATED_WARNING)
 endmacro()
 
-# plasma_add_applet(id QML_SOURCES ... [CPP_SOURCES])
+# plasma_add_applet(id QML_SOURCES ... [CPP_SOURCES] [RESOURCES])
 #
 # Creates a plasma applet
 #
@@ -40,7 +40,7 @@ endmacro()
 function(plasma_add_applet id)
    set(options GENERATE_APPLET_CLASS)
    set(oneValueArgs)
-   set(multiValueArgs QML_SOURCES CPP_SOURCES)
+   set(multiValueArgs QML_SOURCES CPP_SOURCES RESOURCES)
    cmake_parse_arguments(ARGS "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
 
    # not using MODULE because of https://bugreports.qt.io/browse/QTBUG-117159
@@ -52,6 +52,8 @@ function(plasma_add_applet id)
    ecm_add_qml_module(${id} URI "plasma.applet.${id}" QT_NO_PLUGIN)
 
    ecm_target_qml_sources(${id} SOURCES ${ARGS_QML_SOURCES})
+
+   qt_target_qml_sources(${id} RESOURCES ${ARGS_RESOURCES})
 
    if(ARGS_GENERATE_APPLET_CLASS)
       set(PLUGIN_SRC "
@@ -67,12 +69,12 @@ public:
 
 K_PLUGIN_CLASS_WITH_JSON(ThePlugin, \"metadata.json\")
 
-#include \"foo.moc\"
+#include \"${id}.moc\"
    ")
 
-      file(GENERATE OUTPUT foo.cpp CONTENT ${PLUGIN_SRC})
+      file(GENERATE OUTPUT ${id}.cpp CONTENT ${PLUGIN_SRC})
 
-      target_sources(${id} PRIVATE foo.cpp)
+      target_sources(${id} PRIVATE ${id}.cpp)
 
       target_link_libraries(${id} PRIVATE KF6::CoreAddons Plasma::Plasma)
    endif()
