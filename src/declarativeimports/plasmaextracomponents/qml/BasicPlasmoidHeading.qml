@@ -60,7 +60,7 @@ PlasmoidHeading {
                 parent: actionsButton
                 anchors.centerIn: parent
                 active: actionsButton.hovered
-                implicitWidth: Kirigami.Units.iconSizes.smallMedium
+                implicitWidth: Kirigami.Units.iconSizes.sizeForLabels
                 implicitHeight: implicitWidth
                 source: actionsButton.singleAction !== null ? actionsButton.singleAction.icon : ""
                 visible: actionsButton.singleAction

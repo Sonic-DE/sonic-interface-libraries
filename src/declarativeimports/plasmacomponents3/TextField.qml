@@ -158,7 +158,7 @@ T.TextField {
             id: clearButton
             //ltr confusingly refers to the direction of the arrow in the icon, not the text direction which it should be used in
             source: clearButtonShown ? (control.effectiveHorizontalAlignment === TextInput.AlignRight ? "edit-clear-locationbar-ltr" : "edit-clear-locationbar-rtl") : ""
-            height: Kirigami.Units.iconSizes.small
+            height: Kirigami.Units.iconSizes.sizeForLabels
             width: height
             opacity: (control.length > 0 && clearButtonShown && control.enabled) ? 1 : 0
             visible: opacity > 0

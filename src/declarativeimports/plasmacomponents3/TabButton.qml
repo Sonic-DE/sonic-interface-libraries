@@ -36,8 +36,8 @@ T.TabButton {
 
     spacing: Kirigami.Units.smallSpacing
 
-    icon.width: Kirigami.Units.iconSizes.smallMedium
-    icon.height: Kirigami.Units.iconSizes.smallMedium
+    icon.width: Kirigami.Units.iconSizes.sizeForLabels
+    icon.height: Kirigami.Units.iconSizes.sizeForLabels
 
     Kirigami.MnemonicData.enabled: control.enabled && control.visible
     Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.SecondaryControl

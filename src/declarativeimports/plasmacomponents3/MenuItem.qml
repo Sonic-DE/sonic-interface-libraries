@@ -53,7 +53,7 @@ T.MenuItem {
             Layout.alignment: Qt.AlignVCenter
             visible: (controlRoot.ListView.view && controlRoot.ListView.view.hasIcons) || (controlRoot.icon != undefined && (controlRoot.icon.name.length > 0 || controlRoot.icon.source.length > 0))
             source: controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : ""
-            Layout.preferredHeight: Math.max(label.height, Kirigami.Units.iconSizes.small)
+            Layout.preferredHeight: Kirigami.Units.iconSizes.sizeForLabels
             Layout.preferredWidth: Layout.preferredHeight
         }
         Label {
@@ -74,7 +74,7 @@ T.MenuItem {
         x: controlRoot.mirrored ? controlRoot.padding : controlRoot.width - width - controlRoot.padding
         y: controlRoot.topPadding + (controlRoot.availableHeight - height) / 2
         source: controlRoot.mirrored ? "go-next-symbolic-rtl" : "go-next-symbolic"
-        width: Math.max(label.height, Kirigami.Units.iconSizes.small)
+        width: Math.max(label.height, Kirigami.Units.iconSizes.sizeForLabels)
         height: width
         visible: controlRoot.subMenu
     }
