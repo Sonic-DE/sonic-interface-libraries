@@ -855,7 +855,7 @@ QUrl Applet::configModel() const
     if (d->package.isValid()) {
         return d->package.fileUrl("configmodel");
     } else {
-        const QString path = qrcPath() + QLatin1String("/config.qml");
+        const QString path = qrcPath() + QLatin1String("config.qml");
         if (QFile::exists(path)) {
             return QUrl(QLatin1String("qrc") + path);
         }
