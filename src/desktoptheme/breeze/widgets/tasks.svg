@@ -23,15 +23,15 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      showgrid="true"
-     inkscape:zoom="4.7380952"
-     inkscape:cx="64.371859"
-     inkscape:cy="62.261306"
-     inkscape:window-width="2560"
-     inkscape:window-height="1374"
+     inkscape:zoom="26.802715"
+     inkscape:cx="125.60295"
+     inkscape:cy="28.840362"
+     inkscape:window-width="2512"
+     inkscape:window-height="1412"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer2">
+     inkscape:current-layer="layer4">
     <inkscape:grid
        id="grid1"
        units="px"
@@ -42,7 +42,7 @@
        empcolor="#0099e5"
        empopacity="0.30196078"
        color="#0099e5"
-       opacity="0.14901961"
+       opacity="0.14902"
        empspacing="4"
        dotted="false"
        gridanglex="30"
@@ -51,7 +51,8 @@
   </sodipodi:namedview>
   <style
      id="current-color-scheme"
-     type="text/css">.ColorScheme-Text {
+     type="text/css">
+        .ColorScheme-Text {
             color:#232629;
         }
         .ColorScheme-PositiveText {
@@ -158,14 +159,12 @@
          id="path3"
          class="ColorScheme-PositiveText"
          d="m 31,12 h 2 v 13 h -2 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
       <path
          id="path5"
          class="ColorScheme-PositiveText"
          d="m 33,12 h 1 v 13 h -1 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
       <path
          id="path7"
          d="m 34,12 h 1 v 13 h -1 z"
@@ -179,14 +178,12 @@
          id="rect4945-8"
          class="ColorScheme-PositiveText"
          d="m 31,12 h 2 v 13 h -2 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
       <path
          id="path11"
          class="ColorScheme-PositiveText"
          d="m 33,12 h 1 v 13 h -1 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
       <path
          id="path13"
          d="m 34,12 h 1 v 13 h -1 z"
@@ -200,16 +197,14 @@
          id="path16"
          class="ColorScheme-PositiveText"
          d="m 5,4.1 h 27 v 13 H 5 Z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
     </g>
     <g
        id="progress-top"
        class="ColorScheme-PositiveText"
        transform="matrix(1,0,0,-1,-7.9999997e-8,30)"
        fill="currentColor"
-       opacity="0.61"
-       style="color:#27ae60">
+       opacity="0.61">
       <path
          id="path19"
          transform="scale(1,-1)"
@@ -231,8 +226,7 @@
          id="path25"
          class="ColorScheme-PositiveText"
          d="m 32,18 h 2 v 3 h -2 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
     </g>
     <g
        id="progress-topright"
@@ -247,16 +241,14 @@
          id="path30"
          class="ColorScheme-PositiveText"
          d="m 31,19 h 3 v 2 h -3 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
     </g>
     <g
        id="progress-bottom"
        class="ColorScheme-PositiveText"
        transform="matrix(-1,0,0,1,36,-9)"
        fill="currentColor"
-       opacity="0.31"
-       style="color:#27ae60">
+       opacity="0.31">
       <path
          id="path33"
          transform="scale(1,-1)"
@@ -279,14 +271,12 @@
          id="path40"
          class="ColorScheme-PositiveText"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
       <path
          id="path42"
          class="ColorScheme-PositiveText"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
     </g>
     <g
        id="progress-bottomright"
@@ -301,14 +291,12 @@
          id="path47"
          class="ColorScheme-PositiveText"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
       <path
          id="path49"
          class="ColorScheme-PositiveText"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
     </g>
     <g
        id="focus-left"
@@ -318,14 +306,12 @@
          id="path195"
          class="ColorScheme-ButtonFocus"
          d="m 31,12 h 2 v 13 h -2 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
       <path
          id="path197"
          class="ColorScheme-ButtonFocus"
          d="m 33,12 h 1 v 13 h -1 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
       <path
          id="path199"
          d="m 34,12 h 1 v 13 h -1 z"
@@ -339,14 +325,12 @@
          id="path202"
          class="ColorScheme-ButtonFocus"
          d="m 31,12 h 2 v 13 h -2 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
       <path
          id="path204"
          class="ColorScheme-ButtonFocus"
          d="m 33,12 h 1 v 13 h -1 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
       <path
          id="path206"
          d="m 34,12 h 1 v 13 h -1 z"
@@ -357,22 +341,19 @@
        class="ColorScheme-ButtonFocus"
        transform="matrix(0.96296296,0,0,1,0.18518492,20.899999)"
        fill="currentColor"
-       opacity="0.45"
-       style="color:#3daee9">
+       opacity="0.45">
       <path
          id="path209"
          class="ColorScheme-ButtonFocus"
          d="m 5,4.1 h 27 v 13 H 5 Z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
     </g>
     <g
        id="focus-top"
        class="ColorScheme-ButtonFocus"
        transform="matrix(1,0,0,-1,-7.9999997e-8,50.999999)"
        fill="currentColor"
-       opacity="0.9"
-       style="color:#3daee9">
+       opacity="0.9">
       <path
          id="path212"
          transform="scale(1,-1)"
@@ -394,8 +375,7 @@
          id="path219"
          class="ColorScheme-ButtonFocus"
          d="m 32,18 h 2 v 3 h -2 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
     </g>
     <g
        id="focus-topright"
@@ -410,16 +390,14 @@
          id="path224"
          class="ColorScheme-ButtonFocus"
          d="m 31,19 h 3 v 2 h -3 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
     </g>
     <g
        id="focus-bottom"
        class="ColorScheme-ButtonFocus"
        transform="matrix(-1,0,0,1,36,11.999998)"
        fill="currentColor"
-       opacity="0.45"
-       style="color:#3daee9">
+       opacity="0.45">
       <path
          id="path227"
          transform="scale(1,-1)"
@@ -442,14 +420,12 @@
          id="path234"
          class="ColorScheme-ButtonFocus"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
       <path
          id="path236"
          class="ColorScheme-ButtonFocus"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
     </g>
     <g
        id="focus-bottomright"
@@ -464,14 +440,12 @@
          id="path241"
          class="ColorScheme-ButtonFocus"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
       <path
          id="path243"
          class="ColorScheme-ButtonFocus"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
     </g>
     <g
        id="normal-left"
@@ -481,14 +455,12 @@
          id="path399"
          class="ColorScheme-Text"
          d="m 31,12 h 2 v 13 h -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path401"
          class="ColorScheme-Text"
          d="m 33,12 h 1 v 13 h -1 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path403"
          d="m 34,12 h 1 v 13 h -1 z"
@@ -502,14 +474,12 @@
          id="path406"
          class="ColorScheme-Text"
          d="m 31,12 h 2 v 13 h -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path408"
          class="ColorScheme-Text"
          d="m 33,12 h 1 v 13 h -1 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path410"
          d="m 34,12 h 1 v 13 h -1 z"
@@ -520,22 +490,19 @@
        class="ColorScheme-Text"
        transform="matrix(0.96296296,0,0,1,0.18518492,41.899998)"
        fill="currentColor"
-       opacity="0.15"
-       style="color:#232629">
+       opacity="0.15">
       <path
          id="path413"
          class="ColorScheme-Text"
          d="m 5,4.1 h 27 v 13 H 5 Z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="normal-top"
        class="ColorScheme-Text"
        transform="matrix(1,0,0,-1,-7.9999997e-8,71.999998)"
        fill="currentColor"
-       opacity="0.33"
-       style="color:#232629">
+       opacity="0.33">
       <path
          id="rect4997-3-9"
          transform="scale(1,-1)"
@@ -557,8 +524,7 @@
          id="path422"
          class="ColorScheme-Text"
          d="m 32,18 h 2 v 3 h -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="normal-topright"
@@ -573,16 +539,14 @@
          id="path427"
          class="ColorScheme-Text"
          d="m 31,19 h 3 v 2 h -3 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="normal-bottom"
        class="ColorScheme-Text"
        transform="matrix(-1,0,0,1,36,32.999997)"
        fill="currentColor"
-       opacity="0.15"
-       style="color:#232629">
+       opacity="0.15">
       <path
          id="path430"
          transform="scale(1,-1)"
@@ -605,14 +569,12 @@
          id="path436"
          class="ColorScheme-Text"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path438"
          class="ColorScheme-Text"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="normal-bottomright"
@@ -627,14 +589,12 @@
          id="path443"
          class="ColorScheme-Text"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path445"
          class="ColorScheme-Text"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="hover-left"
@@ -644,14 +604,12 @@
          id="path596"
          class="ColorScheme-ButtonHover"
          d="m 31,12 h 2 v 13 h -2 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
       <path
          id="path598"
          class="ColorScheme-ButtonHover"
          d="m 33,12 h 1 v 13 h -1 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
       <path
          id="rect4951-3-2-7"
          d="m 34,12 h 1 v 13 h -1 z"
@@ -665,14 +623,12 @@
          id="path602"
          class="ColorScheme-ButtonHover"
          d="m 31,12 h 2 v 13 h -2 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
       <path
          id="rect4949-5-5"
          class="ColorScheme-ButtonHover"
          d="m 33,12 h 1 v 13 h -1 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
       <path
          id="rect4951-5-3"
          d="m 34,12 h 1 v 13 h -1 z"
@@ -683,21 +639,18 @@
        class="ColorScheme-ButtonHover"
        transform="matrix(0.96296296,0,0,1,0.18518492,62.899994)"
        fill="currentColor"
-       opacity="0.34"
-       style="color:#93cee9">
+       opacity="0.34">
       <path
          id="path607"
          class="ColorScheme-ButtonHover"
          d="m 5,4.1 h 27 v 13 H 5 Z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
     </g>
     <g
        id="hover-top"
        class="ColorScheme-ButtonHover"
        transform="matrix(1,0,0,-1,-7.9999997e-8,93)"
-       fill="currentColor"
-       style="color:#93cee9">
+       fill="currentColor">
       <path
          id="path610"
          transform="scale(1,-1)"
@@ -718,8 +671,7 @@
          id="path617"
          class="ColorScheme-ButtonHover"
          d="m 32,18 h 2 v 3 h -2 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
     </g>
     <g
        id="hover-topright"
@@ -733,16 +685,14 @@
          id="path622"
          class="ColorScheme-ButtonHover"
          d="m 31,19 h 3 v 2 h -3 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
     </g>
     <g
        id="hover-bottom"
        class="ColorScheme-ButtonHover"
        transform="matrix(-1,0,0,1,36,53.999993)"
        fill="currentColor"
-       opacity="0.34"
-       style="color:#93cee9">
+       opacity="0.34">
       <path
          id="path625"
          transform="scale(1,-1)"
@@ -765,14 +715,12 @@
          id="path631"
          class="ColorScheme-ButtonHover"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
       <path
          id="path633"
          class="ColorScheme-ButtonHover"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
     </g>
     <g
        id="hover-bottomright"
@@ -787,14 +735,12 @@
          id="rect5003-5-6-8-5-7"
          class="ColorScheme-ButtonHover"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
       <path
          id="path638"
          class="ColorScheme-ButtonHover"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
     </g>
     <g
        id="attention-left"
@@ -804,14 +750,12 @@
          id="path783"
          class="ColorScheme-NeutralText"
          d="m 31,12 h 2 v 13 h -2 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
       <path
          id="rect4949-9-2-9"
          class="ColorScheme-NeutralText"
          d="m 33,12 h 1 v 13 h -1 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
       <path
          id="path786"
          d="m 34,12 h 1 v 13 h -1 z"
@@ -849,16 +793,14 @@
          id="path796"
          class="ColorScheme-NeutralText"
          d="m 5,4.1 h 27 v 13 H 5 Z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
     </g>
     <g
        id="attention-top"
        class="ColorScheme-NeutralText"
        transform="matrix(1,0,0,-1,-7.9999997e-8,114)"
        fill="currentColor"
-       opacity="0.8"
-       style="color:#f67400">
+       opacity="0.8">
       <path
          id="path799"
          transform="scale(1,-1)"
@@ -880,8 +822,7 @@
          id="path805"
          class="ColorScheme-NeutralText"
          d="m 32,18 h 2 v 3 h -2 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
     </g>
     <g
        id="attention-topright"
@@ -896,16 +837,14 @@
          id="path810"
          class="ColorScheme-NeutralText"
          d="m 31,19 h 3 v 2 h -3 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
     </g>
     <g
        id="attention-bottom"
        class="ColorScheme-NeutralText"
        transform="matrix(-1,0,0,1,36,74.999993)"
        fill="currentColor"
-       opacity="0.35"
-       style="color:#f67400">
+       opacity="0.35">
       <path
          id="path813"
          transform="scale(1,-1)"
@@ -928,14 +867,12 @@
          id="path820"
          class="ColorScheme-NeutralText"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
       <path
          id="path822"
          class="ColorScheme-NeutralText"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
     </g>
     <g
        id="attention-bottomright"
@@ -950,14 +887,12 @@
          id="path827"
          class="ColorScheme-NeutralText"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
       <path
          id="path829"
          class="ColorScheme-NeutralText"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
     </g>
     <g
        id="minimized-left"
@@ -967,14 +902,12 @@
          id="path972"
          class="ColorScheme-Text"
          d="m 31,12 h 2 v 13 h -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path974"
          class="ColorScheme-Text"
          d="m 33,12 h 1 v 13 h -1 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path976"
          d="m 34,12 h 1 v 13 h -1 z"
@@ -988,14 +921,12 @@
          id="path979"
          class="ColorScheme-Text"
          d="m 31,12 h 2 v 13 h -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path981"
          class="ColorScheme-Text"
          d="m 33,12 h 1 v 13 h -1 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path983"
          d="m 34,12 h 1 v 13 h -1 z"
@@ -1006,22 +937,19 @@
        class="ColorScheme-Text"
        transform="matrix(0.96296296,0,0,1,0.18518492,104.89999)"
        fill="currentColor"
-       opacity="0.08"
-       style="color:#232629">
+       opacity="0.08">
       <path
          id="path986"
          class="ColorScheme-Text"
          d="m 5,4.1 h 27 v 13 H 5 Z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="minimized-top"
        class="ColorScheme-Text"
        transform="matrix(1,0,0,-1,-7.9999997e-8,135)"
        fill="currentColor"
-       opacity="0.08"
-       style="color:#232629">
+       opacity="0.08">
       <path
          id="path989"
          transform="scale(1,-1)"
@@ -1043,8 +971,7 @@
          id="path996"
          class="ColorScheme-Text"
          d="M 31.00001,18 H 34 v 3 h -2.99999 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="minimized-topright"
@@ -1059,24 +986,25 @@
          id="path1001"
          class="ColorScheme-Text"
          d="m 31,18.00001 h 3 V 21 h -3 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="minimized-bottom"
        class="ColorScheme-Text"
        transform="matrix(-1,0,0,1,36,95.99999)"
        fill="currentColor"
-       opacity="0.08"
-       style="color:#232629">
+       opacity="0.08">
       <path
          id="path1004"
          transform="scale(1,-1)"
          d="m 5,-28 h 26 v 2 H 5 Z" />
       <path
          id="path1006"
-         transform="scale(1,-1)"
-         d="m 5,-29 h 26 v 1 H 5 Z" />
+         transform="scale(1,-1)" />
+      <path
+         id="path1"
+         d="M 5,29 H 31 V 28.00001 H 5 Z"
+         style="stroke-width:0.707103" />
     </g>
     <g
        id="minimized-bottomleft"
@@ -1091,14 +1019,12 @@
          id="path1011"
          class="ColorScheme-Text"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path1013"
          class="ColorScheme-Text"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="minimized-bottomright"
@@ -1113,14 +1039,12 @@
          id="path1018"
          class="ColorScheme-Text"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path1020"
          class="ColorScheme-Text"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <rect
        id="normal-hint-top-margin"
@@ -1150,6 +1074,20 @@
        width="4"
        height="4"
        fill="#ff00ff" />
+    <g
+       id="north-hover-bottom"
+       class="ColorScheme-ButtonHover"
+       transform="matrix(1,0,0,-1,35,109)"
+       fill="currentColor">
+      <path
+         id="path610-9"
+         transform="scale(1,-1)"
+         d="m 5,-28 h 26 v 2 H 5 Z" />
+      <path
+         id="path612-1"
+         transform="scale(1,-1)"
+         d="m 5,-29 h 26 v 1 H 5 Z" />
+    </g>
   </g>
   <g
      inkscape:groupmode="layer"
@@ -1160,8 +1098,7 @@
        class="ColorScheme-PositiveText"
        transform="matrix(-1,0,0,0.84615385,106,-5.1538462)"
        fill="currentColor"
-       opacity="0.31"
-       style="color:#27ae60">
+       opacity="0.31">
       <path
          id="rect4945-9-2-4-1"
          d="m 31,12 h 2 v 13 h -2 z" />
@@ -1174,8 +1111,7 @@
        class="ColorScheme-PositiveText"
        transform="matrix(1,0,0,-0.84615385,72,26.153846)"
        fill="currentColor"
-       opacity="0.61"
-       style="color:#27ae60">
+       opacity="0.61">
       <path
          id="path107"
          d="m 31,12 h 2 v 13 h -2 z" />
@@ -1191,8 +1127,7 @@
          id="path111"
          class="ColorScheme-PositiveText"
          d="m 5.000183,4.1 h 27.0002 v 13 h -27.0002 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
     </g>
     <g
        id="west-progress-bottom"
@@ -1208,15 +1143,13 @@
          class="ColorScheme-PositiveText"
          transform="scale(1,-1)"
          d="m 5,-28 h 26.000191 v 2 H 5 Z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
       <path
          id="rect4999-2-9-0"
          class="ColorScheme-PositiveText"
          transform="scale(1,-1)"
          d="m 5,-29 h 26.000191 v 1 H 5 Z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
     </g>
     <g
        id="west-progress-topright"
@@ -1231,8 +1164,7 @@
          id="path121"
          class="ColorScheme-PositiveText"
          d="m 31,18.999994 h 3 v 2 h -3 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
     </g>
     <g
        id="west-progress-bottomright"
@@ -1242,8 +1174,7 @@
          id="path124"
          class="ColorScheme-PositiveText"
          d="m 31.999994,18 h 2.000005 v 3 h -2.000005 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
       <path
          id="path126"
          transform="matrix(0,1,1,0,0,0)"
@@ -1259,15 +1190,13 @@
          class="ColorScheme-PositiveText"
          transform="scale(1,-1)"
          d="m 4.999818,-28 h 26.000191 v 2 H 4.999818 Z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
       <path
          id="path130"
          class="ColorScheme-PositiveText"
          transform="scale(1,-1)"
          d="m 4.999818,-29 h 26.000191 v 1 H 4.999818 Z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
       <path
          id="path132"
          transform="matrix(0,1,1,0,0,0)"
@@ -1287,14 +1216,12 @@
          id="rect5003-5-6-8-9-3"
          class="ColorScheme-PositiveText"
          d="m 30.99999,18 h 1.999999 v 2 H 30.99999 Z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
       <path
          id="path3643-1-0"
          class="ColorScheme-PositiveText"
          d="m 33.99999,18 v 3 h -3 v -1 h 2 l -10e-7,-2 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
     </g>
     <g
        id="west-progress-bottomleft"
@@ -1309,22 +1236,19 @@
          id="rect5003-5-6-8-5-7-4"
          class="ColorScheme-PositiveText"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
       <path
          id="path141"
          class="ColorScheme-PositiveText"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
     </g>
     <g
        id="west-focus-left"
        class="ColorScheme-ButtonFocus"
        transform="matrix(-1,0,0,0.84615385,106,15.846153)"
        fill="currentColor"
-       opacity="0.45"
-       style="color:#3daee9">
+       opacity="0.45">
       <path
          id="path297"
          d="m 31,12 h 2 v 13 h -2 z" />
@@ -1337,8 +1261,7 @@
        class="ColorScheme-ButtonFocus"
        transform="matrix(1,0,0,-0.84615385,72,47.153846)"
        fill="currentColor"
-       opacity="0.9"
-       style="color:#3daee9">
+       opacity="0.9">
       <path
          id="path302"
          d="m 31,12 h 2 v 13 h -2 z" />
@@ -1351,14 +1274,12 @@
        class="ColorScheme-ButtonFocus"
        transform="matrix(1.0370294,0,0,-0.84615385,69.814663,40.469231)"
        fill="currentColor"
-       opacity="0.45"
-       style="color:#3daee9">
+       opacity="0.45">
       <path
          id="path307"
          class="ColorScheme-ButtonFocus"
          d="m 5.000183,4.1 h 27.0002 v 13 h -27.0002 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
     </g>
     <g
        id="west-focus-bottom"
@@ -1374,15 +1295,13 @@
          class="ColorScheme-ButtonFocus"
          transform="scale(1,-1)"
          d="m 5,-28 h 26.000191 v 2 H 5 Z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
       <path
          id="path314"
          class="ColorScheme-ButtonFocus"
          transform="scale(1,-1)"
          d="m 5,-29 h 26.000191 v 1 H 5 Z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
     </g>
     <g
        id="west-focus-topright"
@@ -1397,8 +1316,7 @@
          id="path319"
          class="ColorScheme-ButtonFocus"
          d="m 31,18.999994 h 3 v 2 h -3 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
     </g>
     <g
        id="west-focus-bottomright"
@@ -1408,8 +1326,7 @@
          id="path322"
          class="ColorScheme-ButtonFocus"
          d="m 31.999994,18 h 2.000005 v 3 h -2.000005 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
       <path
          id="path324"
          transform="matrix(0,1,1,0,0,0)"
@@ -1425,15 +1342,13 @@
          class="ColorScheme-ButtonFocus"
          transform="scale(1,-1)"
          d="m 4.999818,-28 h 26.000191 v 2 H 4.999818 Z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
       <path
          id="path329"
          class="ColorScheme-ButtonFocus"
          transform="scale(1,-1)"
          d="m 4.999818,-29 h 26.000191 v 1 H 4.999818 Z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
       <path
          id="path331"
          transform="matrix(0,1,1,0,0,0)"
@@ -1453,14 +1368,12 @@
          id="path336"
          class="ColorScheme-ButtonFocus"
          d="m 30.99999,18 h 1.999999 v 2 H 30.99999 Z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
       <path
          id="path338"
          class="ColorScheme-ButtonFocus"
          d="m 33.99999,18 v 3 h -3 v -1 h 2 l -10e-7,-2 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
     </g>
     <g
        id="west-focus-bottomleft"
@@ -1475,22 +1388,19 @@
          id="path343"
          class="ColorScheme-ButtonFocus"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
       <path
          id="path345"
          class="ColorScheme-ButtonFocus"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
     </g>
     <g
        id="west-normal-left"
        class="ColorScheme-Text"
        transform="matrix(-1,0,0,0.84615385,106,36.846152)"
        fill="currentColor"
-       opacity="0.15"
-       style="color:#232629">
+       opacity="0.15">
       <path
          id="path498"
          d="m 31,12 h 2 v 13 h -2 z" />
@@ -1503,8 +1413,7 @@
        class="ColorScheme-Text"
        transform="matrix(1,0,0,-0.84615385,72,68.153845)"
        fill="currentColor"
-       opacity="0.33"
-       style="color:#232629">
+       opacity="0.33">
       <path
          id="path503"
          d="m 31,12 h 2 v 13 h -2 z" />
@@ -1517,14 +1426,12 @@
        class="ColorScheme-Text"
        transform="matrix(1.0370294,0,0,-0.84615385,69.814663,61.46923)"
        fill="currentColor"
-       opacity="0.15"
-       style="color:#232629">
+       opacity="0.15">
       <path
          id="path508"
          class="ColorScheme-Text"
          d="m 5.000183,4.1 h 27.0002 v 13 h -27.0002 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="west-normal-bottom"
@@ -1540,15 +1447,13 @@
          class="ColorScheme-Text"
          transform="scale(1,-1)"
          d="m 5,-28 h 26.000191 v 2 H 5 Z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path515"
          class="ColorScheme-Text"
          transform="scale(1,-1)"
          d="m 5,-29 h 26.000191 v 1 H 5 Z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="west-normal-topright"
@@ -1563,8 +1468,7 @@
          id="path520"
          class="ColorScheme-Text"
          d="m 31,18.999994 h 3 v 2 h -3 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="west-normal-bottomright"
@@ -1574,8 +1478,7 @@
          id="path523"
          class="ColorScheme-Text"
          d="m 31.999994,18 h 2.000005 v 3 h -2.000005 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path525"
          transform="matrix(0,1,1,0,0,0)"
@@ -1591,15 +1494,13 @@
          class="ColorScheme-Text"
          transform="scale(1,-1)"
          d="m 4.999818,-28 h 26.000191 v 2 H 4.999818 Z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path530"
          class="ColorScheme-Text"
          transform="scale(1,-1)"
          d="m 4.999818,-29 h 26.000191 v 1 H 4.999818 Z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path532"
          transform="matrix(0,1,1,0,0,0)"
@@ -1619,14 +1520,12 @@
          id="path536"
          class="ColorScheme-Text"
          d="m 30.99999,18 h 1.999999 v 2 H 30.99999 Z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path538"
          class="ColorScheme-Text"
          d="m 33.99999,18 v 3 h -3 v -1 h 2 l -10e-7,-2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="west-normal-bottomleft"
@@ -1641,22 +1540,19 @@
          id="rect5003-5-6-8-5-7-4-2-37"
          class="ColorScheme-Text"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path544"
          class="ColorScheme-Text"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="west-hover-left"
        class="ColorScheme-ButtonHover"
        transform="matrix(-1,0,0,0.84615385,106,57.846148)"
        fill="currentColor"
-       opacity="0.34"
-       style="color:#93cee9">
+       opacity="0.34">
       <path
          id="rect4945-9-2-4-1-8-37"
          d="m 31,12 h 2 v 13 h -2 z" />
@@ -1668,8 +1564,7 @@
        id="west-hover-right"
        class="ColorScheme-ButtonHover"
        transform="matrix(1,0,0,-0.84615385,72,89.153834)"
-       fill="currentColor"
-       style="color:#93cee9">
+       fill="currentColor">
       <path
          id="path694"
          d="m 31,12 h 2 v 13 h -2 z" />
@@ -1682,14 +1577,12 @@
        class="ColorScheme-ButtonHover"
        transform="matrix(1.0370294,0,0,-0.84615385,69.814663,82.469226)"
        fill="currentColor"
-       opacity="0.34"
-       style="color:#93cee9">
+       opacity="0.34">
       <path
          id="path699"
          class="ColorScheme-ButtonHover"
          d="m 5.000183,4.1 h 27.0002 v 13 h -27.0002 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
     </g>
     <g
        id="west-hover-bottom"
@@ -1705,15 +1598,13 @@
          class="ColorScheme-ButtonHover"
          transform="scale(1,-1)"
          d="m 5,-28 h 26.000191 v 2 H 5 Z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
       <path
          id="path706"
          class="ColorScheme-ButtonHover"
          transform="scale(1,-1)"
          d="m 5,-29 h 26.000191 v 1 H 5 Z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
     </g>
     <g
        id="west-hover-topright"
@@ -1727,8 +1618,7 @@
          id="path711"
          class="ColorScheme-ButtonHover"
          d="m 31,18.999994 h 3 v 2 h -3 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
     </g>
     <g
        id="west-hover-bottomright"
@@ -1737,8 +1627,7 @@
          id="rect5003-7-6-8-3"
          class="ColorScheme-ButtonHover"
          d="m 31.999994,18 h 2.000005 v 3 h -2.000005 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
       <path
          id="path715"
          transform="matrix(0,1,1,0,0,0)"
@@ -1754,15 +1643,13 @@
          class="ColorScheme-ButtonHover"
          transform="scale(1,-1)"
          d="m 4.999818,-28 h 26.000191 v 2 H 4.999818 Z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
       <path
          id="rect4999-0-5-7-0-9"
          class="ColorScheme-ButtonHover"
          transform="scale(1,-1)"
          d="m 4.999818,-29 h 26.000191 v 1 H 4.999818 Z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
       <path
          id="path721"
          transform="matrix(0,1,1,0,0,0)"
@@ -1782,14 +1669,12 @@
          id="path726"
          class="ColorScheme-ButtonHover"
          d="m 30.99999,18 h 1.999999 v 2 H 30.99999 Z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
       <path
          id="path728"
          class="ColorScheme-ButtonHover"
          d="m 33.99999,18 v 3 h -3 v -1 h 2 l -10e-7,-2 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
     </g>
     <g
        id="west-hover-bottomleft"
@@ -1804,22 +1689,19 @@
          id="path733"
          class="ColorScheme-ButtonHover"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
       <path
          id="path3643-6-3-5-7"
          class="ColorScheme-ButtonHover"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
     </g>
     <g
        id="west-attention-left"
        class="ColorScheme-NeutralText"
        transform="matrix(-1,0,0,0.84615385,106,78.846148)"
        fill="currentColor"
-       opacity="0.35"
-       style="color:#f67400">
+       opacity="0.35">
       <path
          id="path880"
          d="m 31,12 h 2 v 13 h -2 z" />
@@ -1832,8 +1714,7 @@
        class="ColorScheme-NeutralText"
        transform="matrix(1,0,0,-0.84615385,72,110.15384)"
        fill="currentColor"
-       opacity="0.8"
-       style="color:#f67400">
+       opacity="0.8">
       <path
          id="rect4945-8-1-3-0"
          d="m 31,12 h 2 v 13 h -2 z" />
@@ -1846,14 +1727,12 @@
        class="ColorScheme-NeutralText"
        transform="matrix(1.0370294,0,0,-0.84615385,69.814663,103.46923)"
        fill="currentColor"
-       opacity="0.35"
-       style="color:#f67400">
+       opacity="0.35">
       <path
          id="rect4957-0-5-7-4"
          class="ColorScheme-NeutralText"
          d="m 5.000183,4.1 h 27.0002 v 13 h -27.0002 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
     </g>
     <g
        id="west-attention-bottom"
@@ -1869,15 +1748,13 @@
          class="ColorScheme-NeutralText"
          transform="scale(1,-1)"
          d="m 5,-28 h 26.000191 v 2 H 5 Z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
       <path
          id="path894"
          class="ColorScheme-NeutralText"
          transform="scale(1,-1)"
          d="m 5,-29 h 26.000191 v 1 H 5 Z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
     </g>
     <g
        id="west-attention-topright"
@@ -1892,8 +1769,7 @@
          id="path899"
          class="ColorScheme-NeutralText"
          d="m 31,18.999994 h 3 v 2 h -3 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
     </g>
     <g
        id="west-attention-bottomright"
@@ -1903,8 +1779,7 @@
          id="path902"
          class="ColorScheme-NeutralText"
          d="m 31.999994,18 h 2.000005 v 3 h -2.000005 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
       <path
          id="path904"
          transform="matrix(0,1,1,0,0,0)"
@@ -1920,15 +1795,13 @@
          class="ColorScheme-NeutralText"
          transform="scale(1,-1)"
          d="m 4.999818,-28 h 26.000191 v 2 H 4.999818 Z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
       <path
          id="path908"
          class="ColorScheme-NeutralText"
          transform="scale(1,-1)"
          d="m 4.999818,-29 h 26.000191 v 1 H 4.999818 Z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
       <path
          id="path910"
          transform="matrix(0,1,1,0,0,0)"
@@ -1948,14 +1821,12 @@
          id="path915"
          class="ColorScheme-NeutralText"
          d="m 30.99999,18 h 1.999999 v 2 H 30.99999 Z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
       <path
          id="path917"
          class="ColorScheme-NeutralText"
          d="m 33.99999,18 v 3 h -3 v -1 h 2 l -10e-7,-2 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
     </g>
     <g
        id="west-attention-bottomleft"
@@ -1970,22 +1841,19 @@
          id="path921"
          class="ColorScheme-NeutralText"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
       <path
          id="path923"
          class="ColorScheme-NeutralText"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
     </g>
     <g
        id="west-minimized-left"
        class="ColorScheme-Text"
        transform="matrix(-1,0,0,0.84615385,106,99.846154)"
        fill="currentColor"
-       opacity="0.08"
-       style="color:#232629">
+       opacity="0.08">
       <path
          id="path1074"
          d="m 31,12 h 2 v 13 h -2 z" />
@@ -1998,8 +1866,7 @@
        class="ColorScheme-Text"
        transform="matrix(1,0,0,-0.84615385,72,131.15384)"
        fill="currentColor"
-       opacity="0.08"
-       style="color:#232629">
+       opacity="0.08">
       <path
          id="path1079"
          d="m 31.000002,11.999996 h 1.999999 v 13.000002 h -1.999999 z" />
@@ -2012,14 +1879,12 @@
        class="ColorScheme-Text"
        transform="matrix(1.0370294,0,0,-0.84615385,69.814663,124.46923)"
        fill="currentColor"
-       opacity="0.08"
-       style="color:#232629">
+       opacity="0.08">
       <path
          id="path1084"
          class="ColorScheme-Text"
          d="m 5.000183,4.1 h 27.0002 v 13 h -27.0002 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="west-minimized-bottom"
@@ -2035,15 +1900,13 @@
          class="ColorScheme-Text"
          transform="scale(1,-1)"
          d="m 5,-28 h 26.000191 v 2 H 5 Z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path1091"
          class="ColorScheme-Text"
          transform="scale(1,-1)"
          d="m 5,-29 h 26.000191 v 1 H 5 Z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="west-minimized-topright"
@@ -2058,8 +1921,7 @@
          id="path1096"
          class="ColorScheme-Text"
          d="M 31.000006,17.999987 H 34 v 3.000006 h -2.999994 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="west-minimized-bottomright"
@@ -2069,8 +1931,7 @@
          id="path1099"
          class="ColorScheme-Text"
          d="m 30.999994,18.00001 h 3.000005 V 21 h -3.000005 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path1101"
          transform="matrix(0,1,1,0,0,0)"
@@ -2086,15 +1947,13 @@
          class="ColorScheme-Text"
          transform="scale(1,-1)"
          d="m 4.999818,-28 h 26.000191 v 2 H 4.999818 Z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path1106"
          class="ColorScheme-Text"
          transform="scale(1,-1)"
          d="m 4.999818,-29 h 26.000191 v 1 H 4.999818 Z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path1108"
          transform="matrix(0,1,1,0,0,0)"
@@ -2114,14 +1973,12 @@
          id="path1113"
          class="ColorScheme-Text"
          d="m 30.99999,18 h 1.999999 v 2 H 30.99999 Z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path1115"
          class="ColorScheme-Text"
          d="m 33.99999,18 v 3 h -3 v -1 h 2 l -10e-7,-2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="west-minimized-bottomleft"
@@ -2136,14 +1993,12 @@
          id="path1120"
          class="ColorScheme-Text"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path1122"
          class="ColorScheme-Text"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
   </g>
   <g
@@ -2155,8 +2010,7 @@
        class="ColorScheme-PositiveText"
        transform="matrix(1,0,0,0.84615385,109.0086,-4.65384)"
        fill="currentColor"
-       opacity="0.31"
-       style="color:#27ae60">
+       opacity="0.31">
       <path
          id="path144"
          d="m 31,12 h 2 v 12.999998 h -2 z" />
@@ -2169,8 +2023,7 @@
        class="ColorScheme-PositiveText"
        transform="matrix(-1,0,0,-0.84615385,143.0086,26.653853)"
        fill="currentColor"
-       opacity="0.61"
-       style="color:#27ae60">
+       opacity="0.61">
       <path
          id="path149"
          d="m 31,12 h 2 v 13 h -2 z" />
@@ -2186,8 +2039,7 @@
          id="path154"
          class="ColorScheme-PositiveText"
          d="m 5.000186,4.1 h 27.0002 v 13 h -27.0002 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
     </g>
     <g
        id="east-progress-bottom"
@@ -2203,15 +2055,13 @@
          class="ColorScheme-PositiveText"
          transform="scale(1,-1)"
          d="m 4.999985,-28 h 26.000191 v 2 H 4.999985 Z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
       <path
          id="path161"
          class="ColorScheme-PositiveText"
          transform="scale(1,-1)"
          d="m 5,-29 h 26.000189 v 1 H 5 Z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
     </g>
     <g
        id="east-progress-topleft"
@@ -2226,8 +2076,7 @@
          id="path166"
          class="ColorScheme-PositiveText"
          d="m 31,18.99999 h 3 v 2 h -3 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
     </g>
     <g
        id="east-progress-bottomleft"
@@ -2237,8 +2086,7 @@
          id="path169"
          class="ColorScheme-PositiveText"
          d="m 31.99999,18 h 1.999999 v 3 H 31.99999 Z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
       <path
          id="path171"
          transform="matrix(0,1,1,0,0,0)"
@@ -2254,15 +2102,13 @@
          class="ColorScheme-PositiveText"
          transform="scale(1,-1)"
          d="M 4.999827,-28 H 31.00002 v 2 H 4.999827 Z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
       <path
          id="path176"
          class="ColorScheme-PositiveText"
          transform="scale(1,-1)"
          d="M 4.999827,-29 H 31.00002 v 1 H 4.999827 Z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
       <path
          id="path178"
          transform="matrix(0,1,1,0,0,0)"
@@ -2282,14 +2128,12 @@
          id="path183"
          class="ColorScheme-PositiveText"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
       <path
          id="path185"
          class="ColorScheme-PositiveText"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
     </g>
     <g
        id="east-progress-bottomright"
@@ -2310,16 +2154,14 @@
          id="path192"
          class="ColorScheme-PositiveText"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
     </g>
     <g
        id="east-focus-right"
        class="ColorScheme-ButtonFocus"
        transform="matrix(1,0,0,0.84615385,109.0086,16.346159)"
        fill="currentColor"
-       opacity="0.45"
-       style="color:#3daee9">
+       opacity="0.45">
       <path
          id="path348"
          d="m 31,12 h 2 v 12.999998 h -2 z" />
@@ -2332,8 +2174,7 @@
        class="ColorScheme-ButtonFocus"
        transform="matrix(-1,0,0,-0.84615385,143.0086,47.653853)"
        fill="currentColor"
-       opacity="0.9"
-       style="color:#3daee9">
+       opacity="0.9">
       <path
          id="path353"
          d="m 31,12 h 2 v 13 h -2 z" />
@@ -2346,14 +2187,12 @@
        class="ColorScheme-ButtonFocus"
        transform="matrix(-1.0370294,0,0,-0.84615385,145.19394,40.969238)"
        fill="currentColor"
-       opacity="0.45"
-       style="color:#3daee9">
+       opacity="0.45">
       <path
          id="path358"
          class="ColorScheme-ButtonFocus"
          d="m 5.000186,4.1 h 27.0002 v 13 h -27.0002 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
     </g>
     <g
        id="east-focus-bottom"
@@ -2369,15 +2208,13 @@
          class="ColorScheme-ButtonFocus"
          transform="scale(1,-1)"
          d="m 4.999985,-28 h 26.000191 v 2 H 4.999985 Z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
       <path
          id="path365"
          class="ColorScheme-ButtonFocus"
          transform="scale(1,-1)"
          d="m 5,-29 h 26.000189 v 1 H 5 Z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
     </g>
     <g
        id="east-focus-topleft"
@@ -2392,8 +2229,7 @@
          id="path370"
          class="ColorScheme-ButtonFocus"
          d="m 31,18.99999 h 3 v 2 h -3 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
     </g>
     <g
        id="east-focus-bottomleft"
@@ -2403,8 +2239,7 @@
          id="path373"
          class="ColorScheme-ButtonFocus"
          d="m 31.99999,18 h 1.999999 v 3 H 31.99999 Z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
       <path
          id="path375"
          transform="matrix(0,1,1,0,0,0)"
@@ -2420,15 +2255,13 @@
          class="ColorScheme-ButtonFocus"
          transform="scale(1,-1)"
          d="M 4.999827,-28 H 31.00002 v 2 H 4.999827 Z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
       <path
          id="path380"
          class="ColorScheme-ButtonFocus"
          transform="scale(1,-1)"
          d="M 4.999827,-29 H 31.00002 v 1 H 4.999827 Z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
       <path
          id="path382"
          transform="matrix(0,1,1,0,0,0)"
@@ -2448,14 +2281,12 @@
          id="path387"
          class="ColorScheme-ButtonFocus"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
       <path
          id="path389"
          class="ColorScheme-ButtonFocus"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
     </g>
     <g
        id="east-focus-bottomright"
@@ -2470,22 +2301,19 @@
          id="path394"
          class="ColorScheme-ButtonFocus"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
       <path
          id="path396"
          class="ColorScheme-ButtonFocus"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
     </g>
     <g
        id="east-normal-right"
        class="ColorScheme-Text"
        transform="matrix(1,0,0,0.84615385,109.0086,37.346158)"
        fill="currentColor"
-       opacity="0.15"
-       style="color:#232629">
+       opacity="0.15">
       <path
          id="rect4945-9-2-4-1-8-5"
          d="m 31,12 h 2 v 12.999998 h -2 z" />
@@ -2498,8 +2326,7 @@
        class="ColorScheme-Text"
        transform="matrix(-1,0,0,-0.84615385,143.0086,68.653852)"
        fill="currentColor"
-       opacity="0.33"
-       style="color:#232629">
+       opacity="0.33">
       <path
          id="path551"
          d="m 31,12 h 2 v 13 h -2 z" />
@@ -2512,14 +2339,12 @@
        class="ColorScheme-Text"
        transform="matrix(-1.0370294,0,0,-0.84615385,145.19394,61.969237)"
        fill="currentColor"
-       opacity="0.15"
-       style="color:#232629">
+       opacity="0.15">
       <path
          id="path556"
          class="ColorScheme-Text"
          d="m 5.000186,4.1 h 27.0002 v 13 h -27.0002 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="east-normal-bottom"
@@ -2535,15 +2360,13 @@
          class="ColorScheme-Text"
          transform="scale(1,-1)"
          d="m 4.999985,-28 h 26.000191 v 2 H 4.999985 Z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path562"
          class="ColorScheme-Text"
          transform="scale(1,-1)"
          d="m 5,-29 h 26.000189 v 1 H 5 Z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="east-normal-topleft"
@@ -2558,8 +2381,7 @@
          id="path567"
          class="ColorScheme-Text"
          d="m 31,18.99999 h 3 v 2 h -3 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="east-normal-bottomleft"
@@ -2569,8 +2391,7 @@
          id="path570"
          class="ColorScheme-Text"
          d="m 31.99999,18 h 1.999999 v 3 H 31.99999 Z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path572"
          transform="matrix(0,1,1,0,0,0)"
@@ -2586,15 +2407,13 @@
          class="ColorScheme-Text"
          transform="scale(1,-1)"
          d="M 4.999827,-28 H 31.00002 v 2 H 4.999827 Z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path577"
          class="ColorScheme-Text"
          transform="scale(1,-1)"
          d="M 4.999827,-29 H 31.00002 v 1 H 4.999827 Z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path579"
          transform="matrix(0,1,1,0,0,0)"
@@ -2614,14 +2433,12 @@
          id="path584"
          class="ColorScheme-Text"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path586"
          class="ColorScheme-Text"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="east-normal-bottomright"
@@ -2636,22 +2453,19 @@
          id="path591"
          class="ColorScheme-Text"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path593"
          class="ColorScheme-Text"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="east-hover-right"
        class="ColorScheme-ButtonHover"
        transform="matrix(1,0,0,0.84615385,109.0086,58.346154)"
        fill="currentColor"
-       opacity="0.34"
-       style="color:#93cee9">
+       opacity="0.34">
       <path
          id="path737"
          d="m 31,12 h 2 v 12.999998 h -2 z" />
@@ -2663,8 +2477,7 @@
        id="east-hover-left"
        class="ColorScheme-ButtonHover"
        transform="matrix(-1,0,0,-0.84615385,143.0086,89.653846)"
-       fill="currentColor"
-       style="color:#93cee9">
+       fill="currentColor">
       <path
          id="rect4945-8-1-3-0-3"
          d="m 31,12 h 2 v 13 h -2 z" />
@@ -2677,14 +2490,12 @@
        class="ColorScheme-ButtonHover"
        transform="matrix(-1.0370294,0,0,-0.84615385,145.19394,82.969233)"
        fill="currentColor"
-       opacity="0.34"
-       style="color:#93cee9">
+       opacity="0.34">
       <path
          id="rect4957-0-5-7-4-7"
          class="ColorScheme-ButtonHover"
          d="m 5.000186,4.1 h 27.0002 v 13 h -27.0002 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
     </g>
     <g
        id="east-hover-bottom"
@@ -2700,15 +2511,13 @@
          class="ColorScheme-ButtonHover"
          transform="scale(1,-1)"
          d="m 4.999985,-28 h 26.000191 v 2 H 4.999985 Z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
       <path
          id="rect4999-2-9-0-6-5"
          class="ColorScheme-ButtonHover"
          transform="scale(1,-1)"
          d="m 5,-29 h 26.000189 v 1 H 5 Z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
     </g>
     <g
        id="east-hover-topleft"
@@ -2722,8 +2531,7 @@
          id="path756"
          class="ColorScheme-ButtonHover"
          d="m 31,18.99999 h 3 v 2 h -3 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
     </g>
     <g
        id="east-hover-bottomleft"
@@ -2732,8 +2540,7 @@
          id="path759"
          class="ColorScheme-ButtonHover"
          d="m 31.99999,18 h 1.999999 v 3 H 31.99999 Z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
       <path
          id="path761"
          transform="matrix(0,1,1,0,0,0)"
@@ -2749,15 +2556,13 @@
          class="ColorScheme-ButtonHover"
          transform="scale(1,-1)"
          d="M 4.999827,-28 H 31.00002 v 2 H 4.999827 Z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
       <path
          id="path766"
          class="ColorScheme-ButtonHover"
          transform="scale(1,-1)"
          d="M 4.999827,-29 H 31.00002 v 1 H 4.999827 Z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
       <path
          id="path768"
          transform="matrix(0,1,1,0,0,0)"
@@ -2777,14 +2582,12 @@
          id="path773"
          class="ColorScheme-ButtonHover"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
       <path
          id="path3643-1-0-7-9"
          class="ColorScheme-ButtonHover"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
     </g>
     <g
        id="east-hover-bottomright"
@@ -2799,22 +2602,19 @@
          id="path778"
          class="ColorScheme-ButtonHover"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
       <path
          id="path780"
          class="ColorScheme-ButtonHover"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
     </g>
     <g
        id="east-attention-right"
        class="ColorScheme-NeutralText"
        transform="matrix(1,0,0,0.84615385,109.0086,79.346154)"
        fill="currentColor"
-       opacity="0.35"
-       style="color:#f67400">
+       opacity="0.35">
       <path
          id="path926"
          d="m 31,12 h 2 v 12.999998 h -2 z" />
@@ -2841,14 +2641,12 @@
        class="ColorScheme-NeutralText"
        transform="matrix(-1.0370294,0,0,-0.84615385,145.19394,103.96924)"
        fill="currentColor"
-       opacity="0.35"
-       style="color:#f67400">
+       opacity="0.35">
       <path
          id="path936"
          class="ColorScheme-NeutralText"
          d="m 5.000186,4.1 h 27.0002 v 13 h -27.0002 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
     </g>
     <g
        id="east-attention-bottom"
@@ -2887,8 +2685,7 @@
          id="rect5003-5-7-5-0-9-9"
          class="ColorScheme-NeutralText"
          d="m 31,18.99999 h 3 v 2 h -3 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
     </g>
     <g
        id="east-attention-bottomleft"
@@ -2898,8 +2695,7 @@
          id="path949"
          class="ColorScheme-NeutralText"
          d="m 31.99999,18 h 1.999999 v 3 H 31.99999 Z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
       <path
          id="path951"
          transform="matrix(0,1,1,0,0,0)"
@@ -2915,15 +2711,13 @@
          class="ColorScheme-NeutralText"
          transform="scale(1,-1)"
          d="M 4.999827,-28 H 31.00002 v 2 H 4.999827 Z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
       <path
          id="path956"
          class="ColorScheme-NeutralText"
          transform="scale(1,-1)"
          d="M 4.999827,-29 H 31.00002 v 1 H 4.999827 Z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
       <path
          id="path958"
          transform="matrix(0,1,1,0,0,0)"
@@ -2949,8 +2743,7 @@
          id="path964"
          class="ColorScheme-NeutralText"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
     </g>
     <g
        id="east-attention-bottomright"
@@ -2971,16 +2764,14 @@
          id="path3643-6-3-5-7-8"
          class="ColorScheme-NeutralText"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
     </g>
     <g
        id="east-minimized-right"
        class="ColorScheme-Text"
        transform="matrix(1,0,0,0.84615385,109.0086,100.34616)"
        fill="currentColor"
-       opacity="0.08"
-       style="color:#232629">
+       opacity="0.08">
       <path
          id="path1125"
          d="m 31,12 h 2 v 12.999998 h -2 z" />
@@ -2993,8 +2784,7 @@
        class="ColorScheme-Text"
        transform="matrix(-1,0,0,-0.84615385,143.0086,131.65385)"
        fill="currentColor"
-       opacity="0.08"
-       style="color:#232629">
+       opacity="0.08">
       <path
          id="path1130"
          d="m 31,11.999992 h 2 v 13.000006 h -2 z" />
@@ -3007,14 +2797,12 @@
        class="ColorScheme-Text"
        transform="matrix(-1.0370294,0,0,-0.84615385,145.19394,124.96924)"
        fill="currentColor"
-       opacity="0.08"
-       style="color:#232629">
+       opacity="0.08">
       <path
          id="path1135"
          class="ColorScheme-Text"
          d="m 5.000186,4.1 h 27.0002 v 13 h -27.0002 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="east-minimized-bottom"
@@ -3030,15 +2818,13 @@
          class="ColorScheme-Text"
          transform="scale(1,-1)"
          d="m 4.999985,-28 h 26.000191 v 2 H 4.999985 Z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path1142"
          class="ColorScheme-Text"
          transform="scale(1,-1)"
          d="m 5,-29 h 26.000189 v 1 H 5 Z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="east-minimized-topleft"
@@ -3053,8 +2839,7 @@
          id="path1147"
          class="ColorScheme-Text"
          d="m 31,17.99999 h 3 v 3 h -3 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="east-minimized-bottomleft"
@@ -3064,8 +2849,7 @@
          id="path1150"
          class="ColorScheme-Text"
          d="m 30.99999,18.00001 h 2.999999 V 21 H 30.99999 Z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path1152"
          transform="matrix(0,1,1,0,0,0)"
@@ -3081,15 +2865,13 @@
          class="ColorScheme-Text"
          transform="scale(1,-1)"
          d="M 4.999827,-28 H 31.00002 v 2 H 4.999827 Z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path1157"
          class="ColorScheme-Text"
          transform="scale(1,-1)"
          d="M 4.999827,-29 H 31.00002 v 1 H 4.999827 Z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path1159"
          transform="matrix(0,1,1,0,0,0)"
@@ -3109,14 +2891,12 @@
          id="path1164"
          class="ColorScheme-Text"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path1166"
          class="ColorScheme-Text"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="east-minimized-bottomright"
@@ -3131,14 +2911,12 @@
          id="path1171"
          class="ColorScheme-Text"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path1173"
          class="ColorScheme-Text"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
   </g>
   <g
@@ -3153,14 +2931,12 @@
          id="path52"
          class="ColorScheme-PositiveText"
          d="m 31,12 h 2 v 13 h -2 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
       <path
          id="path54"
          class="ColorScheme-PositiveText"
          d="m 33,12 h 1 v 13 h -1 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
       <path
          id="path56"
          d="m 34,12 h 1 v 13 h -1 z"
@@ -3226,8 +3002,7 @@
          id="path76"
          class="ColorScheme-PositiveText"
          d="m 32,18 h 2 v 3 h -2 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
     </g>
     <g
        id="north-progress-bottomright"
@@ -3242,8 +3017,7 @@
          id="path81"
          class="ColorScheme-PositiveText"
          d="m 31,19 h 3 v 2 h -3 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
     </g>
     <g
        id="north-progress-top"
@@ -3274,14 +3048,12 @@
          id="path91"
          class="ColorScheme-PositiveText"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
       <path
          id="path93"
          class="ColorScheme-PositiveText"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
     </g>
     <g
        id="north-progress-topright"
@@ -3296,14 +3068,12 @@
          id="path98"
          class="ColorScheme-PositiveText"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
       <path
          id="path100"
          class="ColorScheme-PositiveText"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#27ae60" />
+         fill="currentColor" />
     </g>
     <g
        id="north-focus-left"
@@ -3313,14 +3083,12 @@
          id="path246"
          class="ColorScheme-ButtonFocus"
          d="m 31,12 h 2 v 13 h -2 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
       <path
          id="path248"
          class="ColorScheme-ButtonFocus"
          d="m 33,12 h 1 v 13 h -1 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
       <path
          id="path250"
          d="m 34,12 h 1 v 13 h -1 z"
@@ -3334,14 +3102,12 @@
          id="path253"
          class="ColorScheme-ButtonFocus"
          d="m 31,12 h 2 v 13 h -2 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
       <path
          id="path255"
          class="ColorScheme-ButtonFocus"
          d="m 33,12 h 1 v 13 h -1 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
       <path
          id="path257"
          d="m 34,12 h 1 v 13 h -1 z"
@@ -3352,22 +3118,19 @@
        class="ColorScheme-ButtonFocus"
        transform="matrix(0.96296296,0,0,-1,35.185186,42.100001)"
        fill="currentColor"
-       opacity="0.45"
-       style="color:#3daee9">
+       opacity="0.45">
       <path
          id="path260"
          class="ColorScheme-ButtonFocus"
          d="m 5,4.1 h 27 v 13 H 5 Z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
     </g>
     <g
        id="north-focus-bottom"
        class="ColorScheme-ButtonFocus"
        transform="translate(35.000001,11.999999)"
        fill="currentColor"
-       opacity="0.9"
-       style="color:#3daee9">
+       opacity="0.9">
       <path
          id="path263"
          transform="scale(1,-1)"
@@ -3389,8 +3152,7 @@
          id="path270"
          class="ColorScheme-ButtonFocus"
          d="m 32,18 h 2 v 3 h -2 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
     </g>
     <g
        id="north-focus-bottomright"
@@ -3405,16 +3167,14 @@
          id="path275"
          class="ColorScheme-ButtonFocus"
          d="m 31,19 h 3 v 2 h -3 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
     </g>
     <g
        id="north-focus-top"
        class="ColorScheme-ButtonFocus"
        transform="rotate(180,35.5,25.499999)"
        fill="currentColor"
-       opacity="0.45"
-       style="color:#3daee9">
+       opacity="0.45">
       <path
          id="path278"
          transform="scale(1,-1)"
@@ -3437,14 +3197,12 @@
          id="path285"
          class="ColorScheme-ButtonFocus"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
       <path
          id="path287"
          class="ColorScheme-ButtonFocus"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
     </g>
     <g
        id="north-focus-topright"
@@ -3459,14 +3217,12 @@
          id="path292"
          class="ColorScheme-ButtonFocus"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
       <path
          id="path294"
          class="ColorScheme-ButtonFocus"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#3daee9" />
+         fill="currentColor" />
     </g>
     <g
        id="north-normal-left"
@@ -3476,14 +3232,12 @@
          id="path448"
          class="ColorScheme-Text"
          d="m 31,12 h 2 v 13 h -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path450"
          class="ColorScheme-Text"
          d="m 33,12 h 1 v 13 h -1 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path452"
          d="m 34,12 h 1 v 13 h -1 z"
@@ -3497,14 +3251,12 @@
          id="path455"
          class="ColorScheme-Text"
          d="m 31,12 h 2 v 13 h -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path457"
          class="ColorScheme-Text"
          d="m 33,12 h 1 v 13 h -1 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path459"
          d="m 34,12 h 1 v 13 h -1 z"
@@ -3515,30 +3267,26 @@
        class="ColorScheme-Text"
        transform="matrix(0.96296296,0,0,-1,35.185186,63.099999)"
        fill="currentColor"
-       opacity="0.15"
-       style="color:#232629">
+       opacity="0.15">
       <path
          id="path462"
          class="ColorScheme-Text"
          d="m 5,4.1 h 27 v 13 H 5 Z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="north-normal-bottom"
        class="ColorScheme-Text"
-       transform="translate(35.000001,32.999998)"
+       transform="matrix(1,0,0,1.500001,35.000001,19.999972)"
        fill="currentColor"
-       opacity="0.33"
-       style="color:#232629">
+       opacity="0.33">
       <path
          id="path465"
          transform="scale(1,-1)"
          d="m 5,-28 h 26 v 2 H 5 Z" />
       <path
          id="path467"
-         transform="scale(1,-1)"
-         d="m 5,-29 h 26 v 1 H 5 Z" />
+         transform="scale(1,-1)" />
     </g>
     <g
        id="north-normal-bottomleft"
@@ -3552,8 +3300,7 @@
          id="path472"
          class="ColorScheme-Text"
          d="m 32,18 h 2 v 3 h -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="north-normal-bottomright"
@@ -3568,16 +3315,14 @@
          id="path476"
          class="ColorScheme-Text"
          d="m 31,19 h 3 v 2 h -3 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="north-normal-top"
        class="ColorScheme-Text"
        transform="rotate(180,35.5,35.999999)"
        fill="currentColor"
-       opacity="0.15"
-       style="color:#232629">
+       opacity="0.15">
       <path
          id="path479"
          transform="scale(1,-1)"
@@ -3600,14 +3345,12 @@
          id="path486"
          class="ColorScheme-Text"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path488"
          class="ColorScheme-Text"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="north-normal-topright"
@@ -3622,14 +3365,12 @@
          id="path493"
          class="ColorScheme-Text"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path495"
          class="ColorScheme-Text"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="north-hover-left"
@@ -3639,14 +3380,12 @@
          id="path641"
          class="ColorScheme-ButtonHover"
          d="m 31,12 h 2 v 13 h -2 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
       <path
          id="path643"
          class="ColorScheme-ButtonHover"
          d="m 33,12 h 1 v 13 h -1 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
       <path
          id="path645"
          d="m 34,12 h 1 v 13 h -1 z"
@@ -3660,14 +3399,12 @@
          id="path648"
          class="ColorScheme-ButtonHover"
          d="m 31,12 h 2 v 13 h -2 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
       <path
          id="path650"
          class="ColorScheme-ButtonHover"
          d="m 33,12 h 1 v 13 h -1 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
       <path
          id="rect4951-5-3-6"
          d="m 34,12 h 1 v 13 h -1 z"
@@ -3678,29 +3415,11 @@
        class="ColorScheme-ButtonHover"
        transform="matrix(0.96296296,0,0,-1,35.185186,84.099995)"
        fill="currentColor"
-       opacity="0.34"
-       style="color:#93cee9">
+       opacity="0.34">
       <path
          id="path654"
          class="ColorScheme-ButtonHover"
-         d="m 5,4.1 h 27 v 13 H 5 Z"
-         fill="currentColor"
-         style="color:#93cee9" />
-    </g>
-    <g
-       id="north-hover-bottom"
-       class="ColorScheme-ButtonHover"
-       transform="translate(35.000001,53.999994)"
-       fill="currentColor"
-       style="color:#93cee9">
-      <path
-         id="path657"
-         transform="scale(1,-1)"
-         d="m 5,-28 h 26 v 2 H 5 Z" />
-      <path
-         id="path659"
-         transform="scale(1,-1)"
-         d="m 5,-29 h 26 v 1 H 5 Z" />
+         d="m 5,4.1 h 27 v 13 H 5 Z" />
     </g>
     <g
        id="north-hover-bottomleft"
@@ -3710,11 +3429,10 @@
          d="m 32,21 h 2 v 1 h -2 z"
          fill="none" />
       <path
-         id="path664"
+         id="path622-7-5"
          class="ColorScheme-ButtonHover"
-         d="m 32,18 h 2 v 3 h -2 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         d="m 32,20.999999 h 2.000003 V 18.000001 H 32 Z"
+         fill="currentColor" />
     </g>
     <g
        id="north-hover-bottomright"
@@ -3725,19 +3443,17 @@
          d="m 34,-21 h 1 v 2 h -1 z"
          fill="none" />
       <path
-         id="path669"
+         id="path622-7"
          class="ColorScheme-ButtonHover"
-         d="m 31,19 h 3 v 2 h -3 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         d="m 31,21.000003 h 3 V 19 h -3 z"
+         fill="currentColor" />
     </g>
     <g
        id="north-hover-top"
        class="ColorScheme-ButtonHover"
        transform="rotate(180,35.5,46.499997)"
        fill="currentColor"
-       opacity="0.34"
-       style="color:#93cee9">
+       opacity="0.34">
       <path
          id="path672"
          transform="scale(1,-1)"
@@ -3760,14 +3476,12 @@
          id="path678"
          class="ColorScheme-ButtonHover"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
       <path
          id="path680"
          class="ColorScheme-ButtonHover"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
     </g>
     <g
        id="north-hover-topright"
@@ -3782,14 +3496,12 @@
          id="path685"
          class="ColorScheme-ButtonHover"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
       <path
          id="path687"
          class="ColorScheme-ButtonHover"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#93cee9" />
+         fill="currentColor" />
     </g>
     <g
        id="north-attention-left"
@@ -3799,14 +3511,12 @@
          id="path832"
          class="ColorScheme-NeutralText"
          d="m 31,12 h 2 v 13 h -2 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
       <path
          id="rect4949-9-2-9-0"
          class="ColorScheme-NeutralText"
          d="m 33,12 h 1 v 13 h -1 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
       <path
          id="rect4951-3-2-7-1"
          d="m 34,12 h 1 v 13 h -1 z"
@@ -3820,14 +3530,12 @@
          id="path837"
          class="ColorScheme-NeutralText"
          d="m 31,12 h 2 v 13 h -2 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
       <path
          id="path839"
          class="ColorScheme-NeutralText"
          d="m 33,12 h 1 v 13 h -1 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
       <path
          id="path841"
          d="m 34,12 h 1 v 13 h -1 z"
@@ -3838,22 +3546,19 @@
        class="ColorScheme-NeutralText"
        transform="matrix(0.96296296,0,0,-1,35.185186,105.1)"
        fill="currentColor"
-       opacity="0.35"
-       style="color:#f67400">
+       opacity="0.35">
       <path
          id="path844"
          class="ColorScheme-NeutralText"
          d="m 5,4.1 h 27 v 13 H 5 Z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
     </g>
     <g
        id="north-attention-bottom"
        class="ColorScheme-NeutralText"
        transform="translate(35.000001,74.999994)"
        fill="currentColor"
-       opacity="0.8"
-       style="color:#f67400">
+       opacity="0.8">
       <path
          id="path847"
          transform="scale(1,-1)"
@@ -3875,8 +3580,7 @@
          id="path853"
          class="ColorScheme-NeutralText"
          d="m 32,18 h 2 v 3 h -2 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
     </g>
     <g
        id="north-attention-bottomright"
@@ -3891,16 +3595,14 @@
          id="path858"
          class="ColorScheme-NeutralText"
          d="m 31,19 h 3 v 2 h -3 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
     </g>
     <g
        id="north-attention-top"
        class="ColorScheme-NeutralText"
        transform="rotate(180,35.5,56.999995)"
        fill="currentColor"
-       opacity="0.35"
-       style="color:#f67400">
+       opacity="0.35">
       <path
          id="path861"
          transform="scale(1,-1)"
@@ -3923,14 +3625,12 @@
          id="path868"
          class="ColorScheme-NeutralText"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
       <path
          id="path870"
          class="ColorScheme-NeutralText"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
     </g>
     <g
        id="north-attention-topright"
@@ -3945,14 +3645,12 @@
          id="path875"
          class="ColorScheme-NeutralText"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
       <path
          id="path877"
          class="ColorScheme-NeutralText"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#f67400" />
+         fill="currentColor" />
     </g>
     <g
        id="north-minimized-left"
@@ -3962,14 +3660,12 @@
          id="path1023"
          class="ColorScheme-Text"
          d="m 31,12 h 2 v 13 h -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path1025"
          class="ColorScheme-Text"
          d="m 33,12 h 1 v 13 h -1 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path1027"
          d="m 34,12 h 1 v 13 h -1 z"
@@ -3983,14 +3679,12 @@
          id="path1030"
          class="ColorScheme-Text"
          d="m 31,12 h 2 v 13 h -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path1032"
          class="ColorScheme-Text"
          d="m 33,12 h 1 v 13 h -1 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path1034"
          d="m 34,12 h 1 v 13 h -1 z"
@@ -4001,22 +3695,19 @@
        class="ColorScheme-Text"
        transform="matrix(0.96296296,0,0,-1,35.185186,126.1)"
        fill="currentColor"
-       opacity="0.08"
-       style="color:#232629">
+       opacity="0.08">
       <path
          id="path1037"
          class="ColorScheme-Text"
          d="m 5,4.1 h 27 v 13 H 5 Z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="north-minimized-bottom"
        class="ColorScheme-Text"
        transform="translate(35.000001,95.999991)"
        fill="currentColor"
-       opacity="0.08"
-       style="color:#232629">
+       opacity="0.08">
       <path
          id="path1040"
          transform="scale(1,-1)"
@@ -4038,8 +3729,7 @@
          id="path1047"
          class="ColorScheme-Text"
          d="M 31.000004,18 H 34 v 3 h -2.999996 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="north-minimized-bottomright"
@@ -4054,24 +3744,20 @@
          id="path1052"
          class="ColorScheme-Text"
          d="m 31,18.00001 h 3 V 21 h -3 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="north-minimized-top"
        class="ColorScheme-Text"
        transform="rotate(180,35.5,67.5)"
        fill="currentColor"
-       opacity="0.08"
-       style="color:#232629">
+       opacity="0.08">
       <path
-         id="path1055"
-         transform="scale(1,-1)"
-         d="m 5,-28 h 26 v 2 H 5 Z" />
+         id="path989-7"
+         d="M 31,27.999995 H 5 v -1.99999 h 26 z" />
       <path
          id="path1057"
-         transform="scale(1,-1)"
-         d="m 5,-29 h 26 v 1 H 5 Z" />
+         d="M 5,29 H 31 V 28 H 5 Z" />
     </g>
     <g
        id="north-minimized-topleft"
@@ -4086,14 +3772,12 @@
          id="path1062"
          class="ColorScheme-Text"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path1064"
          class="ColorScheme-Text"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
     <g
        id="north-minimized-topright"
@@ -4108,14 +3792,12 @@
          id="path1069"
          class="ColorScheme-Text"
          d="m 31,18 h 2 v 2 h -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
       <path
          id="path1071"
          class="ColorScheme-Text"
          d="m 34,18 v 3 h -3 v -1 h 2 v -2 z"
-         fill="currentColor"
-         style="color:#232629" />
+         fill="currentColor" />
     </g>
   </g>
 </svg>

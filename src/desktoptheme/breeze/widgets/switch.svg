@@ -59,15 +59,15 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      showgrid="true"
-     inkscape:zoom="39.20198"
-     inkscape:cx="42.268273"
-     inkscape:cy="31.146386"
+     inkscape:zoom="19.60099"
+     inkscape:cx="15.739001"
+     inkscape:cy="35.967571"
      inkscape:window-width="2560"
-     inkscape:window-height="1374"
+     inkscape:window-height="1364"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer2"
+     inkscape:current-layer="layer1"
      showguides="true">
     <inkscape:grid
        type="xygrid"
@@ -296,7 +296,7 @@
            fill="currentColor"
            class="ColorScheme-ButtonBackground"
            d="M 30,45 C 30,36.628883 36.606391,30 45,30 V 45"
-           style="color:#eff0f1;stop-color:#eff0f1"
+           style="display:inline"
            inkscape:label="background" />
         <path
            id="path2278"
@@ -304,15 +304,15 @@
            class="ColorScheme-Highlight"
            d="M 30,45 C 30,36.628883 36.606391,30 45,30 V 45"
            opacity="0.5"
-           style="color:#3daee9;display:inline;stop-color:#3daee9"
-           inkscape:label="foreground" />
+           inkscape:label="foreground"
+           style="display:inline" />
         <path
            id="path2040"
            fill="currentColor"
            class="ColorScheme-Highlight"
            d="m 30,45 c 0,-8.371117 6.606391,-15 15,-15 v 1 c -7.750845,0 -14,6.202439 -14,14"
-           style="color:#3daee9;display:inline;stop-color:#3daee9"
-           inkscape:label="border" />
+           inkscape:label="border"
+           style="display:inline" />
       </g>
     </g>
     <g
@@ -334,7 +334,7 @@
            fill="currentColor"
            class="ColorScheme-ButtonBackground"
            d="M 30,45 C 30,36.628883 36.606391,30 45,30 V 45"
-           style="color:#eff0f1;stop-color:#eff0f1"
+           style="display:inline"
            inkscape:label="background" />
         <path
            id="path8"
@@ -342,15 +342,15 @@
            class="ColorScheme-Highlight"
            d="M 30,45 C 30,36.628883 36.606391,30 45,30 V 45"
            opacity="0.5"
-           style="color:#3daee9;display:inline;stop-color:#3daee9"
-           inkscape:label="foreground" />
+           inkscape:label="foreground"
+           style="display:inline" />
         <path
            id="path9"
            fill="currentColor"
            class="ColorScheme-Highlight"
            d="m 30,45 c 0,-8.371117 6.606391,-15 15,-15 v 1 c -7.750845,0 -14,6.202439 -14,14"
-           style="color:#3daee9;display:inline;stop-color:#3daee9"
-           inkscape:label="border" />
+           inkscape:label="border"
+           style="display:inline" />
       </g>
     </g>
     <g
@@ -376,14 +376,13 @@
            id="path2453"
            class="ColorScheme-Highlight"
            d="m 53,30 h 5 v 15 h -5 z"
-           style="color:#3daee9;opacity:0.5;fill:currentColor;fill-rule:evenodd;stop-color:#3daee9"
-           inkscape:label="foreground" />
+           inkscape:label="foreground"
+           style="fill:currentColor;fill-rule:evenodd;opacity:.50" />
         <path
            fill="currentColor"
            id="path2455"
            class="ColorScheme-Highlight"
            d="m 53,31 h 5 v -1 h -5 z"
-           style="color:#3daee9;stop-color:#3daee9"
            inkscape:label="border" />
       </g>
     </g>
@@ -412,15 +411,13 @@
            class="ColorScheme-ButtonText"
            d="M 30,45 C 30,36.628883 36.606391,30 45,30 V 45"
            fill-opacity="0.09"
-           inkscape:label="background"
-           style="color:#232629;stop-color:#232629" />
+           inkscape:label="background" />
         <path
            fill="currentColor"
            id="path3761"
            class="ColorScheme-ButtonText"
            d="m 30,45 c 0,-8.371117 6.606391,-15 15,-15 v 1 c -7.750845,0 -14,6.202439 -14,14"
            fill-opacity="0.24"
-           style="color:#232629;display:inline;stop-color:#232629"
            inkscape:label="border" />
       </g>
     </g>
@@ -444,15 +441,13 @@
            class="ColorScheme-ButtonText"
            d="M 30,45 C 30,36.628883 36.606391,30 45,30 V 45"
            fill-opacity="0.09"
-           inkscape:label="background"
-           style="color:#232629;stop-color:#232629" />
+           inkscape:label="background" />
         <path
            fill="currentColor"
            id="path3761-6"
            class="ColorScheme-ButtonText"
            d="m 30,45 c 0,-8.371117 6.606391,-15 15,-15 v 1 c -7.750845,0 -14,6.202439 -14,14"
            fill-opacity="0.24"
-           style="color:#232629;display:inline;stop-color:#232629"
            inkscape:label="border" />
       </g>
     </g>
@@ -476,16 +471,14 @@
            d="m 53,30 h 5 v 15 h -5 z"
            fill-opacity="0.09"
            fill="currentColor"
-           inkscape:label="background"
-           style="color:#232629;stop-color:#232629" />
+           inkscape:label="background" />
         <path
            fill="currentColor"
            id="path1207"
            class="ColorScheme-ButtonText"
            d="m 53,31 h 5 v -1 h -5 z"
            fill-opacity="0.24"
-           inkscape:label="border"
-           style="color:#232629;stop-color:#232629" />
+           inkscape:label="border" />
       </g>
     </g>
   </g>

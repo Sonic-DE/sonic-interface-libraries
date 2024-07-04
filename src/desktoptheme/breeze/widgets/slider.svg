@@ -99,14 +99,14 @@
      inkscape:pagecheckerboard="1"
      inkscape:blackoutopacity="0.0"
      showgrid="true"
-     inkscape:current-layer="layer4"
+     inkscape:current-layer="layer3"
      inkscape:showpageshadow="2"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="8"
-     inkscape:cx="50.5"
-     inkscape:cy="56.75"
+     inkscape:zoom="45.254834"
+     inkscape:cx="21.202155"
+     inkscape:cy="13.788582"
      inkscape:window-width="2560"
-     inkscape:window-height="1374"
+     inkscape:window-height="1364"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1">
@@ -331,9 +331,6 @@
          class="ColorScheme-Highlight" />
     </g>
     <g
-       id="groove-highlight-bottomleft"
-       transform="translate(-3)" />
-    <g
        id="groove-highlight-center"
        transform="translate(-4,-25)">
       <path
@@ -353,7 +350,7 @@
        x="0"
        y="0"
        xlink:href="#groove-highlight-topleft"
-       id="use1"
+       id="groove-highlight-bottomleft"
        transform="rotate(-90,26.5,10.5)"
        inkscape:label="groove-highlight-bottomleft" />
     <use

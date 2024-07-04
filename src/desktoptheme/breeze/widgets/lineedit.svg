@@ -31,15 +31,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      showgrid="true"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer4"
      inkscape:blackoutopacity="0.0"
      inkscape:showpageshadow="2"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="14.378659"
-     inkscape:cx="37.7643"
-     inkscape:cy="23.159322"
+     inkscape:zoom="7.1893295"
+     inkscape:cx="45.692717"
+     inkscape:cy="47.709595"
      inkscape:window-width="2560"
-     inkscape:window-height="1374"
+     inkscape:window-height="1364"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -399,14 +399,11 @@
          y="-39"
          inkscape:label="border" />
     </g>
-    <g
-       id="hover-bottomleft"
-       transform="matrix(1,0,0,-1,-147,33)" />
     <use
        x="0"
        y="0"
        xlink:href="#hover-topleft"
-       id="use1"
+       id="hover-bottomleft"
        transform="rotate(-90,15,55)"
        inkscape:label="hover-bottomleft" />
     <use
