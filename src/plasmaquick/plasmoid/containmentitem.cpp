@@ -361,9 +361,6 @@ void ContainmentItem::processMimeData(QMimeData *mimeData, int x, int y, KIO::Dr
         return;
     }
     m_dropMenu = QPointer<DropMenu>(new DropMenu(dropJob, mapToGlobal(QPoint(x, y)).toPoint(), this));
-    if (dropJob) {
-        dropJob->setParent(m_dropMenu);
-    }
 
     // const QMimeData *mimeData = data;
 
