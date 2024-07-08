@@ -51,9 +51,7 @@ function(plasma_add_applet id)
    include(ECMQmlModule)
    ecm_add_qml_module(${id} URI "plasma.applet.${id}" QT_NO_PLUGIN)
 
-   ecm_target_qml_sources(${id} SOURCES ${ARGS_QML_SOURCES})
-
-   qt_target_qml_sources(${id} RESOURCES ${ARGS_RESOURCES})
+   ecm_target_qml_sources(${id} SOURCES ${ARGS_QML_SOURCES} RESOURCES ${ARGS_RESOURCES})
 
    if(ARGS_GENERATE_APPLET_CLASS)
       set(PLUGIN_SRC "

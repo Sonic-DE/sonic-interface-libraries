@@ -256,6 +256,7 @@ KConfigLoader *Applet::configScheme() const
             if (QFile::exists(qrcPath() + QLatin1String("main.xml"))) {
                 xmlPath = qrcPath() + QLatin1String("main.xml");
             }
+            qWarning() << "config" << qrcPath() + QLatin1String("main.xml");
         }
 
         qWarning() << "xml" << xmlPath;
