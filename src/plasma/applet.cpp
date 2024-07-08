@@ -245,8 +245,6 @@ bool Applet::destroyed() const
 
 KConfigLoader *Applet::configScheme() const
 {
-    qWarning() << "scheme" << pluginName();
-
     if (!d->configLoader) {
         QString xmlPath;
 
@@ -256,10 +254,7 @@ KConfigLoader *Applet::configScheme() const
             if (QFile::exists(qrcPath() + QLatin1String("main.xml"))) {
                 xmlPath = qrcPath() + QLatin1String("main.xml");
             }
-            qWarning() << "config" << qrcPath() + QLatin1String("main.xml");
         }
-
-        qWarning() << "xml" << xmlPath;
 
         KConfigGroup cfg = config();
         if (xmlPath.isEmpty()) {
@@ -828,8 +823,6 @@ void Applet::configChanged()
 
 QUrl Applet::fileUrl(const QByteArray &key, const QString &filename) const
 {
-    qWarning() << "file url" << key << filename;
-
     if (d->package.isValid()) {
         return d->package.fileUrl(key, filename);
     } else {
@@ -839,7 +832,7 @@ QUrl Applet::fileUrl(const QByteArray &key, const QString &filename) const
 
 QUrl Applet::mainScript() const
 {
-    const QString path = QLatin1String(":/qt/qml/plasma/applet/") + pluginName().replace(QLatin1Char('.'), QLatin1Char('/')) + QLatin1String("/main.qml");
+    const QString path = qrcPath() + QLatin1String("main.qml");
 
     if (QFile::exists(path)) {
         return QUrl(QLatin1String("qrc") + path);
@@ -861,6 +854,7 @@ QUrl Applet::configModel() const
             return QUrl(QLatin1String("qrc") + path);
         }
     }
+
     return QUrl();
 }
 

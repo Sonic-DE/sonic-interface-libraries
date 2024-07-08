@@ -550,8 +550,6 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
         }
     }
 
-    qWarning() << qmlObject->mainComponent()->errorString();
-
     if (!item || !qmlObject->mainComponent() || qmlObject->mainComponent()->isError() || applet->failedToLaunch()) {
         QString reason;
         QString compactReason;
