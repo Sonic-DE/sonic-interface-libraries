@@ -263,7 +263,7 @@ void ToolTip::setActive(bool active)
     }
 
     m_active = active;
-    if (!active) {
+    if (!active && tooltipDialogInstance()->owner() == this) {
         tooltipDialogInstance()->dismiss();
     }
     Q_EMIT activeChanged();
@@ -288,13 +288,17 @@ void ToolTip::setTimeout(int timeout)
 void ToolTip::hideToolTip()
 {
     m_showTimer->stop();
-    tooltipDialogInstance()->dismiss();
+    if (tooltipDialogInstance()->owner() == this) {
+        tooltipDialogInstance()->dismiss();
+    }
 }
 
 void ToolTip::hideImmediately()
 {
     m_showTimer->stop();
-    tooltipDialogInstance()->setVisible(false);
+    if (tooltipDialogInstance()->owner() == this) {
+        tooltipDialogInstance()->setVisible(false);
+    }
 }
 
 QVariant ToolTip::icon() const
@@ -346,7 +350,7 @@ void ToolTip::setContainsMouse(bool contains)
         m_containsMouse = contains;
         Q_EMIT containsMouseChanged();
     }
-    if (!contains) {
+    if (!contains && tooltipDialogInstance()->owner() == this) {
         tooltipDialogInstance()->dismiss();
     }
 }
@@ -364,7 +368,7 @@ void ToolTip::hoverEnterEvent(QHoverEvent *event)
         return;
     }
 
-    if (tooltipDialogInstance()->isVisible()) {
+    if (tooltipDialogInstance()->isVisible() && tooltipDialogInstance()->owner() == this) {
         // We signal the tooltipmanager that we're "potentially interested,
         // and ask to keep it open for a bit, so other items get the chance
         // to update the content before the tooltip hides -- this avoids
