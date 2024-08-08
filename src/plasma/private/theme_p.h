@@ -98,6 +98,7 @@ public:
     QString themeName;
     KPluginMetaData pluginMetaData;
     QList<QString> fallbackThemes;
+    QString colorsFile;
     KSharedConfigPtr colors;
     KColorScheme colorScheme;
     KColorScheme selectionColorScheme;
