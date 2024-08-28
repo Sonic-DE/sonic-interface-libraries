@@ -14,7 +14,6 @@
 #include <QGuiApplication>
 
 #include <KDirWatch>
-#include <KIconLoader>
 #include <KSharedConfig>
 #include <KWindowEffects>
 #include <KWindowSystem>
@@ -90,8 +89,6 @@ ThemePrivate::ThemePrivate(QObject *parent)
     , defaultWallpaperSuffix(QStringLiteral(DEFAULT_WALLPAPER_SUFFIX))
     , defaultWallpaperWidth(DEFAULT_WALLPAPER_WIDTH)
     , defaultWallpaperHeight(DEFAULT_WALLPAPER_HEIGHT)
-    , cacheSize(0)
-    , cachesToDiscard(NoCache)
     , compositingActive(true)
     , backgroundContrastActive(KWindowEffects::isEffectAvailable(KWindowEffects::BackgroundContrast))
     , isDefault(true)
@@ -116,11 +113,6 @@ ThemePrivate::ThemePrivate(QObject *parent)
     kSvgImageSet = std::unique_ptr<KSvg::ImageSet>(new KSvg::ImageSet);
     kSvgImageSet->setBasePath(QStringLiteral(PLASMA_RELATIVE_DATA_INSTALL_DIR "/desktoptheme/"));
 
-    updateNotificationTimer = new QTimer(this);
-    updateNotificationTimer->setSingleShot(true);
-    updateNotificationTimer->setInterval(100);
-    QObject::connect(updateNotificationTimer, &QTimer::timeout, this, &ThemePrivate::notifyOfChanged);
-
     if (QPixmap::defaultDepth() > 8) {
 #if HAVE_X11
         // watch for background contrast effect property changes as well
@@ -131,7 +123,6 @@ ThemePrivate::ThemePrivate(QObject *parent)
         QObject::connect(s_backgroundContrastEffectWatcher, &EffectWatcher::effectChanged, this, [this](bool active) {
             if (backgroundContrastActive != active) {
                 backgroundContrastActive = active;
-                scheduleThemeChangeNotification(PixmapCache | SvgElementsCache);
                 kSvgImageSet->setSelectors({QStringLiteral("translucent")});
             }
         });
@@ -146,10 +137,6 @@ ThemePrivate::ThemePrivate(QObject *parent)
     connect(KDirWatch::self(), &KDirWatch::dirty, this, &ThemePrivate::settingsFileChanged);
     // ... but also remove/recreate cycles, like KConfig does it
     connect(KDirWatch::self(), &KDirWatch::created, this, &ThemePrivate::settingsFileChanged);
-
-    QObject::connect(KIconLoader::global(), &KIconLoader::iconChanged, this, [this]() {
-        scheduleThemeChangeNotification(PixmapCache | SvgElementsCache);
-    });
 
     if (KWindowSystem::isPlatformX11()) {
         connect(KX11Extras::self(), &KX11Extras::compositingChanged, this, &ThemePrivate::compositingChanged);
@@ -188,15 +175,8 @@ QString ThemePrivate::imagePath(const QString &theme, const QString &type, const
     return QStandardPaths::locate(QStandardPaths::GenericDataLocation, subdir);
 }
 
-QString ThemePrivate::findInTheme(const QString &image, const QString &theme, bool cache)
+QString ThemePrivate::findInTheme(const QString &image, const QString &theme)
 {
-    if (cache) {
-        auto it = discoveries.constFind(image);
-        if (it != discoveries.constEnd()) {
-            return it.value();
-        }
-    }
-
     QString type = QStringLiteral("/");
     if (!compositingActive) {
         type = QStringLiteral("/opaque/");
@@ -211,10 +191,6 @@ QString ThemePrivate::findInTheme(const QString &image, const QString &theme, bo
         search = imagePath(theme, QStringLiteral("/"), image);
     }
 
-    if (cache && !search.isEmpty()) {
-        discoveries.insert(image, search);
-    }
-
     return search;
 }
 
@@ -224,7 +200,6 @@ void ThemePrivate::compositingChanged(bool active)
     if (compositingActive != active) {
         compositingActive = active;
         // qCDebug(LOG_PLASMA) << QTime::currentTime();
-        scheduleThemeChangeNotification(PixmapCache | SvgElementsCache);
         if (active) {
             kSvgImageSet->setSelectors({});
         } else {
@@ -234,17 +209,9 @@ void ThemePrivate::compositingChanged(bool active)
 #endif
 }
 
-void ThemePrivate::discardCache(CacheTypes caches)
-{
-    if (caches & SvgElementsCache) {
-        discoveries.clear();
-    }
-}
-
 void ThemePrivate::colorsChanged()
 {
     // in the case the theme follows the desktop settings, refetch the colorschemes
-    // and discard the svg pixmap cache
     if (colors != nullptr) {
         colors->reparseConfiguration();
     } else {
@@ -258,46 +225,31 @@ void ThemePrivate::colorsChanged()
     headerColorScheme = KColorScheme(QPalette::Active, KColorScheme::Header, colors);
     tooltipColorScheme = KColorScheme(QPalette::Active, KColorScheme::Tooltip, colors);
     palette = KColorScheme::createApplicationPalette(colors);
-    scheduleThemeChangeNotification(PixmapCache | SvgElementsCache);
     Q_EMIT applicationPaletteChange();
-}
-
-void ThemePrivate::scheduleThemeChangeNotification(CacheTypes caches)
-{
-    cachesToDiscard |= caches;
-    updateNotificationTimer->start();
 }
 
 void ThemePrivate::notifyOfChanged()
 {
-    // qCDebug(LOG_PLASMA) << cachesToDiscard;
-    discardCache(cachesToDiscard);
-    cachesToDiscard = NoCache;
     Q_EMIT themeChanged();
 }
 
 void ThemePrivate::settingsFileChanged(const QString &file)
 {
     qCDebug(LOG_PLASMA) << "settingsFile: " << file;
-    if (file == themeMetadataPath) {
-        const KPluginMetaData data = metaDataForTheme(themeName);
-        if (!data.isValid() || themeVersion != data.version()) {
-            scheduleThemeChangeNotification(SvgElementsCache);
-        }
-    } else if (file.endsWith(QLatin1String(themeRcFile))) {
+    if (file != themeMetadataPath && file.endsWith(QLatin1String(themeRcFile))) {
         config().config()->reparseConfiguration();
-        settingsChanged(true);
+        settingsChanged();
     }
 }
 
-void ThemePrivate::settingsChanged(bool emitChanges)
+void ThemePrivate::settingsChanged()
 {
     if (fixedName) {
         return;
     }
     // qCDebug(LOG_PLASMA) << "Settings Changed!";
     KConfigGroup cg = config();
-    setThemeName(cg.readEntry("name", ThemePrivate::defaultTheme), false, emitChanges);
+    setThemeName(cg.readEntry("name", ThemePrivate::defaultTheme), false);
 }
 
 QColor ThemePrivate::color(Theme::ColorRole role, Theme::ColorGroup group) const
@@ -443,7 +395,7 @@ void ThemePrivate::processBlurBehindSettings(const KSharedConfigPtr &metadata)
     }
 }
 
-void ThemePrivate::setThemeName(const QString &tempThemeName, bool writeSettings, bool emitChanged)
+void ThemePrivate::setThemeName(const QString &tempThemeName, bool writeSettings)
 {
     kSvgImageSet->setImageSetName(tempThemeName);
     QString theme = tempThemeName;
@@ -560,10 +512,6 @@ void ThemePrivate::setThemeName(const QString &tempThemeName, bool writeSettings
         KConfigGroup &cg = config();
         cg.writeEntry("name", themeName);
         cg.sync();
-    }
-
-    if (emitChanged) {
-        scheduleThemeChangeNotification(PixmapCache | SvgElementsCache);
     }
 }
 
