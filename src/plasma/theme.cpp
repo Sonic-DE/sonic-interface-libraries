@@ -22,7 +22,6 @@
 #include <KColorScheme>
 #include <KConfigGroup>
 #include <KDirWatch>
-#include <KImageCache>
 #include <KWindowEffects>
 #include <QDebug>
 #include <QStandardPaths>
@@ -36,7 +35,7 @@ Theme::Theme(QObject *parent)
 {
     if (!ThemePrivate::globalTheme) {
         ThemePrivate::globalTheme = new ThemePrivate;
-        ThemePrivate::globalTheme->settingsChanged(false);
+        ThemePrivate::globalTheme->settingsChanged();
     }
     ThemePrivate::globalTheme->ref.ref();
     d = ThemePrivate::globalTheme;
@@ -57,7 +56,7 @@ Theme::Theme(const QString &themeName, QObject *parent)
     priv->ref.ref();
     d = priv;
 
-    d->setThemeName(themeName, false, false);
+    d->setThemeName(themeName, false);
     d->fixedName = true;
     connect(d, &ThemePrivate::themeChanged, this, &Theme::themeChanged);
 }
@@ -99,7 +98,7 @@ void Theme::setThemeName(const QString &themeName)
         connect(d, &ThemePrivate::themeChanged, this, &Theme::themeChanged);
     }
 
-    d->setThemeName(themeName, true, true);
+    d->setThemeName(themeName, true);
 }
 
 QString Theme::themeName() const
@@ -157,7 +156,7 @@ QPalette Theme::globalPalette()
 {
     if (!ThemePrivate::globalTheme) {
         ThemePrivate::globalTheme = new ThemePrivate;
-        ThemePrivate::globalTheme->settingsChanged(false);
+        ThemePrivate::globalTheme->settingsChanged();
     }
     return ThemePrivate::globalTheme->palette;
 }
@@ -166,7 +165,7 @@ KSharedConfigPtr Theme::globalColorScheme()
 {
     if (!ThemePrivate::globalTheme) {
         ThemePrivate::globalTheme = new ThemePrivate;
-        ThemePrivate::globalTheme->settingsChanged(false);
+        ThemePrivate::globalTheme->settingsChanged();
     }
     return ThemePrivate::globalTheme->colors;
 }
@@ -253,7 +252,7 @@ void Theme::setUseGlobalSettings(bool useGlobal)
     d->useGlobal = useGlobal;
     d->cfg = KConfigGroup();
     d->themeName.clear();
-    d->settingsChanged(true);
+    d->settingsChanged();
 }
 
 bool Theme::useGlobalSettings() const
