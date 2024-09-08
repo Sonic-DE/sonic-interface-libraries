@@ -468,6 +468,16 @@ Item {
                         font.weight: listItem.isDefault && listItem.ListView.view.count > 1
                                             ? Font.Bold
                                             : Font.Normal
+
+                        HoverHandler {
+                            id: listItemTitleHoverHandler
+                            enabled: listItemTitle.truncated
+                        }
+
+                        PlasmaComponents3.ToolTip {
+                            text: listItemTitle.text
+                            visible: listItemTitleHoverHandler.hovered
+                        }
                     }
 
                     PlasmaComponents3.Label {
@@ -485,6 +495,16 @@ Item {
                         elide: Text.ElideRight
                         maximumLineCount: subtitleCanWrap ? 9999 : 1
                         wrapMode: subtitleCanWrap ? Text.WordWrap : Text.NoWrap
+
+                        HoverHandler {
+                            id: listItemSubtitleHoverHandler
+                            enabled: listItemSubtitle.truncated
+                        }
+
+                        PlasmaComponents3.ToolTip {
+                            text: listItemSubtitle.text
+                            visible: listItemSubtitleHoverHandler.hovered
+                        }
                     }
                 }
 
