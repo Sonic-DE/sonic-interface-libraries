@@ -370,6 +370,23 @@ Q_SIGNALS:
     void wallpaperPluginChanged();
 
     /**
+     * Emitted when the location has changed
+     * @since 5.0
+     */
+    void locationChanged(Plasma::Types::Location location);
+
+    /**
+     * Emitted when the formFactor has changed
+     * @since 5.0
+     */
+    void formFactorChanged(Plasma::Types::FormFactor formFactor);
+
+    /**
+     * Emitted when the containment disaplay hints change
+     */
+    void containmentDisplayHintsChanged(Plasma::Types::ContainmentDisplayHints hints);
+
+    /**
      * Emitted when the ui has been fully loaded and is fully working
      * @param uiReady true when the ui of the containment is ready, as well the ui of each applet in it
      */
