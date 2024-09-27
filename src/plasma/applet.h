@@ -717,6 +717,12 @@ Q_SIGNALS:
      */
     void activated();
 
+    /**
+     * Emitted when activation is requested due to, for example, middle
+     * click.
+     */
+    void secondaryActivated();
+
     // TODO: fix usage in containment, port to QObject::destroyed
     /**
      * Emitted when the applet is deleted
