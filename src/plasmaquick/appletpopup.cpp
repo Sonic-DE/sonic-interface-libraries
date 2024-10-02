@@ -78,9 +78,9 @@ AppletPopup::AppletPopup()
     });
     // edges that have a border are not on a screen edge
     // we want to forward on sides touching screen edges
-    edgeForwarder->setActiveEdges(~borders());
+    edgeForwarder->setActiveEdges(~nearbyBorders());
     connect(this, &PlasmaWindow::bordersChanged, this, [edgeForwarder, this]() {
-        edgeForwarder->setActiveEdges(~borders());
+        edgeForwarder->setActiveEdges(~nearbyBorders());
     });
 
     auto windowResizer = new WindowResizeHandler(this);
@@ -90,7 +90,7 @@ AppletPopup::AppletPopup()
     });
 
     auto updateWindowResizerEdges = [windowResizer, this]() {
-        Qt::Edges activeEdges = borders();
+        Qt::Edges activeEdges = nearbyBorders();
         activeEdges.setFlag(PlasmaQuickPrivate::oppositeEdge(effectivePopupDirection()), false);
         windowResizer->setActiveEdges(activeEdges);
     };
