@@ -96,6 +96,7 @@ AppletPopup::AppletPopup()
     };
     updateWindowResizerEdges();
     connect(this, &PlasmaWindow::bordersChanged, this, updateWindowResizerEdges);
+    connect(this, &PopupPlasmaWindow::nearbyBordersChanged, this, updateWindowResizerEdges);
     connect(this, &PopupPlasmaWindow::effectivePopupDirectionChanged, this, updateWindowResizerEdges);
 
     connect(this, &PlasmaWindow::mainItemChanged, this, &AppletPopup::onMainItemChanged);

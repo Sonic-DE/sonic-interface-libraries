@@ -27,7 +27,7 @@ public:
     PopupPlasmaWindowPrivate(PopupPlasmaWindow *_q);
 
     void updateEffectivePopupDirection(const QRect &anchorRect, const QRect &relativePopupPosition);
-    void updateSlideEffect();
+    void updateSlideEffect(const QRect &globalPosition);
     void updatePosition();
     void updatePositionX11(const QPoint &position);
     void updatePositionWayland(const QPoint &position);
@@ -82,9 +82,20 @@ void PopupPlasmaWindowPrivate::updateEffectivePopupDirection(const QRect &anchor
     }
 }
 
-void PopupPlasmaWindowPrivate::updateSlideEffect()
+void PopupPlasmaWindowPrivate::updateSlideEffect(const QRect &globalPosition)
 {
     KWindowEffects::SlideFromLocation slideLocation = KWindowEffects::NoEdge;
+
+    int slideOffset = -1;
+    QScreen *screen = QGuiApplication::screenAt(globalPosition.center());
+    if (screen) {
+        const QRect screenGeometry = screen->geometry();
+        if (m_margin > 0) {
+            slideOffset = screenGeometry.bottom() - globalPosition.bottom() - m_margin;
+            qDebug() << slideOffset;
+        }
+    }
+
     if (!m_animated) {
         KWindowEffects::slideWindow(q, slideLocation);
         return;
@@ -103,7 +114,7 @@ void PopupPlasmaWindowPrivate::updateSlideEffect()
         slideLocation = KWindowEffects::LeftEdge;
         break;
     }
-    KWindowEffects::slideWindow(q, slideLocation);
+    KWindowEffects::slideWindow(q, slideLocation, slideOffset);
 }
 
 void PopupPlasmaWindowPrivate::updatePosition()
@@ -148,7 +159,7 @@ void PopupPlasmaWindowPrivate::updatePosition()
         relativePopupPosition = relativePopupPosition.translated(-m_visualParent->window()->position());
     }
     updateEffectivePopupDirection(parentAnchorRect.toRect(), relativePopupPosition);
-    updateSlideEffect();
+    updateSlideEffect(popupPosition);
 
     if (KWindowSystem::isPlatformX11()) {
         updatePositionX11(popupPosition.topLeft());
