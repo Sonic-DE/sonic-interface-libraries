@@ -62,6 +62,11 @@ AppletQuickItemPrivate::AppletQuickItemPrivate(AppletQuickItem *item)
 
         qCInfo(LOG_PLASMAQUICK) << "Applet preload policy set to" << s_preloadPolicy;
     }
+
+    // decrease weight
+    if (s_preloadPolicy >= AppletQuickItemPrivate::Adaptive) {
+        applet->config().writeEntry(QStringLiteral("PreloadWeight"), std::max(0, preloadWeight() - AppletQuickItemPrivate::PreloadWeightDecrement));
+    }
 }
 
 int AppletQuickItemPrivate::preloadWeight() const
@@ -486,10 +491,6 @@ AppletQuickItem::AppletQuickItem(QQuickItem *parent)
 AppletQuickItem::~AppletQuickItem()
 {
     AppletQuickItemPrivate::s_itemsForApplet.remove(d->applet);
-    // decrease weight
-    if (d->s_preloadPolicy >= AppletQuickItemPrivate::Adaptive) {
-        d->applet->config().writeEntry(QStringLiteral("PreloadWeight"), qMax(0, d->preloadWeight() - AppletQuickItemPrivate::PreloadWeightDecrement));
-    }
 
     // Here the order is important
     delete d->compactRepresentationItem;
