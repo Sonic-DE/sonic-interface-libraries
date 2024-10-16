@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(PROJECT_VERSION "6.2.80")
+set(PROJECT_VERSION "6.1.90")
 project(libplasma VERSION ${PROJECT_VERSION})
 
 set(QT_MIN_VERSION "6.7.0")
-set(PROJECT_DEP_VERSION "6.2.0")
+set(PROJECT_DEP_VERSION "6.1.0")
 set(KF6_MIN_VERSION "6.5.0")
 
 set(CMAKE_CXX_STANDARD 20)
