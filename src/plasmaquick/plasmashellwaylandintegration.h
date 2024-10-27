@@ -20,7 +20,7 @@ class QWindow;
 class PlasmaShellSurface;
 class PlasmaShellWaylandIntegrationPrivate;
 
-/**
+/*!
  * @brief The PlasmaWaylandShellIntegration class exposes Plasma specific
  * specific wayland extensions for
  *
@@ -32,7 +32,7 @@ class PLASMAQUICK_EXPORT PlasmaShellWaylandIntegration : public QObject
 {
     Q_OBJECT
 public:
-    /**
+    /*!
      * Returns the relevant PlasmaWaylandShellIntegration instance for this window
      * creating one if needed.
      *
