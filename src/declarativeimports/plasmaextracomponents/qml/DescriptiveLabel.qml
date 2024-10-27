@@ -7,7 +7,7 @@
 import QtQuick
 import org.kde.plasma.components
 
-/**
+/*!
  * This is a descriptive label which uses the plasma theme. The characteristics of
  * the text will be automatically set according to the plasma theme. Use this
  * components for less important additional data to show in a user interface.

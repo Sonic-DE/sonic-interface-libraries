@@ -11,7 +11,7 @@ import QtQuick.Templates as T
 import org.kde.plasma.components as PlasmaComponents3
 import org.kde.kirigami as Kirigami
 
-/**
+/*!
  * A placeholder message indicating that a list view is empty. The message
  * comprises a label with lightened text, an optional icon above the text, and
  * an optional button below the text which can be used to easily show the user
@@ -156,7 +156,7 @@ ColumnLayout {
         Informational
     }
 
-    /**
+    /*!
      * The type of the message. This can be:
      *
      * * PlasmaExtras.PlaceholderMessage.Type.Actionable: Makes it more attention-getting. Useful when the user is expected to interact with the message.
@@ -167,7 +167,7 @@ ColumnLayout {
      */
     property int type: helpfulAction && helpfulAction.enabled ? PlaceholderMessage.Type.Actionable : PlaceholderMessage.Type.Informational
 
-    /**
+    /*!
      * text: string
      * The text to show as a placeholder label
      *
@@ -179,7 +179,7 @@ ColumnLayout {
      */
     property string text
 
-    /**
+    /*!
      * explanation: string
      * Smaller explanatory text to show below the larger title-style text
      *
@@ -192,7 +192,7 @@ ColumnLayout {
      */
     property string explanation
 
-    /**
+    /*!
      * iconName: string
      * The icon to show above the text label.
      *
@@ -205,7 +205,7 @@ ColumnLayout {
      */
     property string iconName
 
-    /**
+    /*!
      * helpfulAction: QtQuickControls2 Action
      * An action that helps the user proceed. Typically used to guide the user
      * to the next step for adding content or items to an empty view.

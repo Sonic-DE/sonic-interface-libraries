@@ -7,7 +7,7 @@ import QtQuick.Templates as T
 import org.kde.plasma.components as PlasmaComponents3
 import org.kde.kirigami as Kirigami
 
-/**
+/*!
  * This is advanced textfield. It is recommended to use this class when there
  * is a need to create a create a textfield with action buttons (e.g a clear
  * action).
@@ -49,7 +49,7 @@ import org.kde.kirigami as Kirigami
 PlasmaComponents3.TextField {
     id: root
 
-    /**
+    /*!
      * This property holds a shortcut sequence that will focus the text field.
      *
      * @property QtQuick.Shortcut.sequence focusSequence
@@ -57,7 +57,7 @@ PlasmaComponents3.TextField {
      */
     property alias focusSequence: focusShortcut.sequence
 
-    /**
+    /*!
      * This property holds a list of actions that will be displayed on the left side of the text field.
      *
      * By default this list is empty.
@@ -66,7 +66,7 @@ PlasmaComponents3.TextField {
      */
     property list<T.Action> leftActions
 
-    /**
+    /*!
      * This property holds a list of actions that will be displayed on the right side of the text field.
      *
      * By default this list is empty.

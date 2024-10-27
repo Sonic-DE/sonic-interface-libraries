@@ -14,7 +14,7 @@ import org.kde.plasma.extras as PlasmaExtras
 import org.kde.plasma.components as PlasmaComponents
 import org.kde.kirigami as Kirigami
 
- /**
+ /*!
   * A standard basic header for plasmoids which has title, a config button and
   * a popup menu with all extra plasmoid actions.
   *
@@ -24,7 +24,7 @@ import org.kde.kirigami as Kirigami
   * @inherit PlasmoidHeading
   */
 PlasmoidHeading {
-    /**
+    /*!
      * extraControls: list<QtObject>
      *
      * Any extra control and button that may be inserted in the heading

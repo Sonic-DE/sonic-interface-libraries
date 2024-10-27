@@ -14,7 +14,7 @@ import Qt5Compat.GraphicalEffects
 import org.kde.plasma.components as PlasmaComponents3
 import org.kde.kirigami as Kirigami
 
-/**
+/*!
  * @brief White text label with a black shadow behind it
  *
  * A standardized label with white text and a black shadow behind it. When using
@@ -32,7 +32,7 @@ import org.kde.kirigami as Kirigami
  * @inherit org.kde.plasma.components.Label
  */
 PlasmaComponents3.Label {
-    /**
+    /*!
      * This property can be used to conditionally *not* render the shadow, even
      * when it's technically possible to render it.
      *
