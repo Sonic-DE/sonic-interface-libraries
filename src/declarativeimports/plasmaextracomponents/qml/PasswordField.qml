@@ -7,7 +7,7 @@ import org.kde.plasma.extras as PlasmaExtras
 import org.kde.config as KConfig
 import org.kde.kirigami as Kirigami
 
-/**
+/*!
  * This is a standard password text field.
  *
  * Example usage for the password field component:
@@ -30,7 +30,7 @@ import org.kde.kirigami as Kirigami
 PlasmaExtras.ActionTextField {
     id: root
 
-    /**
+    /*!
      * This property holds whether we show the clear text password.
      *
      * By default, it's false.

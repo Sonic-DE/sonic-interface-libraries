@@ -15,7 +15,7 @@ import org.kde.plasma.components as PlasmaComponents3
 import org.kde.plasma.extras as PlasmaExtras
 import org.kde.kirigami as Kirigami
 
-/**
+/*!
  * A list item that expands when clicked to show additional actions and/or a
  * custom view.
  * The list item has a standardized appearance, with an icon on the left badged
@@ -87,7 +87,7 @@ import org.kde.kirigami as Kirigami
 Item {
     id: listItem
 
-    /**
+    /*!
      * icon: var
      * The name of the icon used in the list item.
      * @sa Kirigami.Icon::source
@@ -96,7 +96,7 @@ Item {
      */
     property alias icon: listItemIcon.source
 
-    /**
+    /*!
      * iconEmblem: var
      * The name of the emblem to badge the icon with.
      * @sa Kirigami.Icon::source
@@ -248,7 +248,7 @@ Item {
      */
     property bool isDefault: false
 
-    /**
+    /*!
      * expanded: bool
      * Whether the expanded view is visible.
      *

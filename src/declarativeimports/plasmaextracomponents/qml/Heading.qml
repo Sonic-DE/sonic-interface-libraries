@@ -8,7 +8,7 @@ import QtQuick
 import org.kde.plasma.components
 import org.kde.kirigami as Kirigami
 
-/**
+/*!
  * A heading label used for subsections of texts.
  *
  * The characteristics of the text will be automatically set according to the
@@ -36,7 +36,7 @@ import org.kde.kirigami as Kirigami
 Label {
     id: heading
 
-    /**
+    /*!
      * The level determines how big the section header is display, values
      * between 1 (big) and 5 (small) are accepted. (default: 1)
      */
@@ -48,7 +48,7 @@ Label {
         Secondary
     }
 
-    /**
+    /*!
      * The type of the heading. This can be:
      *
      * * PlasmaExtras.Heading.Type.Normal: Create a normal heading (default)

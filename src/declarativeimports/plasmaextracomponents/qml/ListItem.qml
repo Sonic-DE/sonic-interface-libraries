@@ -12,28 +12,28 @@ import org.kde.ksvg as KSvg
 PC3.ItemDelegate {
     id: __listItem
 
-    /**
+    /*!
      * content: list<Object>
      *
      * The content of this ListItem.
      */
     default property alias content: __innerItem.data
 
-    /**
+    /*!
      * separatorVisible: bool
      *
      * Whether this ListItem displays a separator.
      */
     property bool separatorVisible: true
 
-    /**
+    /*!
      * sectionDelegate: bool
      *
      * Whether this ListItem renders as a section header.
      */
     property bool sectionDelegate: false
 
-    /**
+    /*!
      * containsMouse: bool
      *
      * Whether this ListItem contains the mouse.
