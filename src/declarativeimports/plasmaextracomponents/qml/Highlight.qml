@@ -10,7 +10,7 @@ import QtQuick
 import org.kde.ksvg as KSvg
 import org.kde.kirigami as Kirigami
 
-/**
+/*!
  * @brief Highlight for a list or grid item.
  *
  * Highlight provides the highlight used to indicate the active
@@ -40,26 +40,26 @@ import org.kde.kirigami as Kirigami
 Item {
     id: highlight
 
-    /**
+    /*!
      * This property holds whether the control is hovered.
      *
      * This is set automatically when used in a ListView and GridView.
      */
     property bool hovered: ListView.view !== null || GridView.view !== null
 
-    /**
+    /*!
      * This property holds whether the highlight has a pressed appearance.
      */
     property bool pressed: false
 
-    /**
+    /*!
 	 * This property holds the margin hints used by the background.
      *
 	 * @property int marginHints
 	 */
     property alias marginHints: background.margins
 
-    /**
+    /*!
      * This property holds whether the item is active. True by default. Set it to
      * false to visually mark an item that's in the "current item" or "selected"
      * state but is not currently being hovered.

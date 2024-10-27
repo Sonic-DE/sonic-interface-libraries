@@ -27,7 +27,7 @@ namespace PlasmaQuick
 class SharedQmlEngine;
 }
 
-/**
+/*!
  * @brief This class is exposed to wallpapers as the WallpaperItem root qml item
  *
  * <b>Import Statement</b>
@@ -40,7 +40,7 @@ class WallpaperItem : public QQuickItem
 
     Q_PROPERTY(QString pluginName READ pluginName CONSTANT)
     Q_PROPERTY(KConfigPropertyMap *configuration READ configuration CONSTANT)
-    /**
+    /*!
      * Actions to be added in the desktop context menu. To instantiate QActions in a declarative way,
      * PlasmaCore.Action {} can be used
      */
@@ -63,7 +63,7 @@ public:
     void classBegin() override;
     void componentComplete() override;
 
-    /**
+    /*!
      * Returns a list of all known wallpapers that can accept the given mimetype
      * @param mimetype the mimetype to search for
      * @param formFactor the format of the wallpaper being search for (e.g. desktop)
@@ -71,7 +71,7 @@ public:
      */
     static QList<KPluginMetaData> listWallpaperMetadataForMimetype(const QString &mimetype, const QString &formFactor = QString());
 
-    /**
+    /*!
      * Instantiate the WallpaperItem for a given containment, using the proper plugin
      */
     static WallpaperItem *loadWallpaper(ContainmentItem *ContainmentItem);

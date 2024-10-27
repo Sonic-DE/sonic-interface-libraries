@@ -10,7 +10,7 @@ import org.kde.plasma.extras as PlasmaExtras
 import QtQuick
 import QtQml
 
-/**
+/*!
  * A ModelContextMenu creates a context menu with items populated from a model or a QList<QAction*>.
  * For standard item models, actions are created using the following model role names or properties:
  * @li @c display - a string contains the action name
@@ -38,12 +38,12 @@ import QtQml
 PlasmaExtras.Menu {
     id: menu
 
-    /**
+    /*!
      * The model containing menu items
      */
     property alias model: instantiator.model
 
-    /**
+    /*!
      * This signal is emitted when a menu item is clicked.
      * The attached model properties for that menu item are passed as an argument
      */

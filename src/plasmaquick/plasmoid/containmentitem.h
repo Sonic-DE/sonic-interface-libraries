@@ -25,7 +25,7 @@ class Job;
 class DropJob;
 }
 
-/**
+/*!
  * @brief This class is exposed to containments QML as the attached property Plasmoid
  *
  * <b>Import Statement</b>
@@ -38,7 +38,7 @@ class ContainmentItem : public PlasmoidItem
 
     Q_PROPERTY(WallpaperItem *wallpaper READ wallpaperItem NOTIFY wallpaperItemChanged)
 
-    /**
+    /*!
      * True if the UI is still loading, for instance a desktop which doesn't have its wallpaper yet
      */
     Q_PROPERTY(bool loading READ isLoading NOTIFY isLoadingChanged)
@@ -60,45 +60,45 @@ public:
     }
 
     // For QML use
-    /**
+    /*!
      * Returns the corresponding PlasmoidItem of one of its applets
      */
     Q_INVOKABLE AppletQuickItem *itemFor(Plasma::Applet *applet) const;
 
-    /**
+    /*!
      * Process the mime data arrived to a particular coordinate, either with a drag and drop or paste with middle mouse button
      */
     Q_INVOKABLE void processMimeData(QMimeData *data, int x, int y, KIO::DropJob *dropJob = nullptr);
 
-    /**
+    /*!
      * Process the mime data arrived to a particular coordinate, either with a drag and drop or paste with middle mouse button
      */
     Q_INVOKABLE void processMimeData(QObject *data, int x, int y, KIO::DropJob *dropJob = nullptr);
 
-    /**
+    /*!
      * Search for a containment at those coordinates.
      * the coordinates are passed as local coordinates of *this* containment
      */
     Q_INVOKABLE QObject *containmentItemAt(int x, int y);
 
-    /**
+    /*!
      * Map coordinates from relative to the given applet to relative to this containment
      */
     Q_INVOKABLE QPointF mapFromApplet(Plasma::Applet *applet, int x, int y);
 
-    /**
+    /*!
      *Map coordinates from relative to this containment to relative to the given applet
      */
     Q_INVOKABLE QPointF mapToApplet(Plasma::Applet *applet, int x, int y);
 
-    /**
+    /*!
      * Given a geometry, it adjusts it moving it completely inside of the boundaries
      * of availableScreenRegion
      * @return the toLeft point of the rectangle
      */
     Q_INVOKABLE QPointF adjustToAvailableScreenRegion(int x, int y, int w, int h) const;
 
-    /**
+    /*!
      * Opens the context menu of the Corona
      *
      * @param globalPos menu position in the global coordinate system

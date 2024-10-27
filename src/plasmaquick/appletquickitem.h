@@ -49,7 +49,7 @@ class PLASMAQUICK_EXPORT AppletQuickItem : public QQuickItem
     Q_PROPERTY(QQmlComponent *fullRepresentation READ fullRepresentation WRITE setFullRepresentation NOTIFY fullRepresentationChanged)
     Q_PROPERTY(QQuickItem *fullRepresentationItem READ fullRepresentationItem NOTIFY fullRepresentationItemChanged)
 
-    /**
+    /*!
      * When true the full representation will be loaded immediately together with the main plasmoid.
      * Note that this will have a negative impact on plasmoid loading times
      * This is needed only when some important logic has to live inside the full representation and
@@ -58,30 +58,30 @@ class PLASMAQUICK_EXPORT AppletQuickItem : public QQuickItem
      */
     Q_PROPERTY(bool preloadFullRepresentation READ preloadFullRepresentation WRITE setPreloadFullRepresentation NOTIFY preloadFullRepresentationChanged)
 
-    /**
+    /*!
      * this is supposed to be either one between compactRepresentation or fullRepresentation
      */
     Q_PROPERTY(QQmlComponent *preferredRepresentation READ preferredRepresentation WRITE setPreferredRepresentation NOTIFY preferredRepresentationChanged)
 
-    /**
+    /*!
      * Hint set to true if the applet should be displayed as expanded, such as the main popup open
      */
     Q_PROPERTY(bool expanded READ isExpanded WRITE setExpanded NOTIFY expandedChanged)
 
-    /**
+    /*!
      * True when the applet wants the activation signal act in toggle mode, i.e. while being expanded
      * the signal shrinks the applet to its not expanded state instead of reexpanding it.
      */
     Q_PROPERTY(bool activationTogglesExpanded WRITE setActivationTogglesExpanded READ isActivationTogglesExpanded NOTIFY activationTogglesExpandedChanged)
 
-    /**
+    /*!
      * Whether the dialog should be hidden when the dialog loses focus.
      *
      * The default value is @c false.
      **/
     Q_PROPERTY(bool hideOnWindowDeactivate READ hideOnWindowDeactivate WRITE setHideOnWindowDeactivate NOTIFY hideOnWindowDeactivateChanged)
 
-    /**
+    /*!
      * Gives compatibility to the old plasmoid.* api
      */
     Q_PROPERTY(QObject *plasmoid READ applet CONSTANT)

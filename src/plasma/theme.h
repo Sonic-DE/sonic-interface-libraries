@@ -22,7 +22,7 @@ namespace Plasma
 class ThemePrivate;
 class SvgPrivate;
 
-/**
+/*!
  * @class Theme plasma/theme.h <Plasma/Theme>
  *
  * @short Interface to the Plasma theme
@@ -52,19 +52,19 @@ class PLASMA_EXPORT Theme : public QObject
 
 public:
     enum ColorRole {
-        TextColor = 0, /**<  the text color to be used by items resting on the background */
-        BackgroundColor = 1, /**< the default background color */
-        HighlightColor = 2, /**<  the text highlight color to be used by items resting
+        TextColor = 0, /*!<  the text color to be used by items resting on the background */
+        BackgroundColor = 1, /*!< the default background color */
+        HighlightColor = 2, /*!<  the text highlight color to be used by items resting
                                    on the background */
-        HoverColor = 3, /**< color for hover effect on view */
-        FocusColor = 4, /**< color for focus effect on view */
-        LinkColor = 5, /**< color for clickable links */
-        VisitedLinkColor = 6, /**< color visited clickable links */
-        HighlightedTextColor = 7, /**< color contrasting with HighlightColor, to be used for instance with */
-        PositiveTextColor = 8, /**< color of foreground objects with a "positive message" connotation (usually green) */
-        NeutralTextColor = 9, /**< color of foreground objects with a "neutral message" connotation (usually yellow) */
-        NegativeTextColor = 10, /**< color of foreground objects with a "negative message" connotation (usually red) */
-        DisabledTextColor = 11, /**< color of disabled text @since 5.64 */
+        HoverColor = 3, /*!< color for hover effect on view */
+        FocusColor = 4, /*!< color for focus effect on view */
+        LinkColor = 5, /*!< color for clickable links */
+        VisitedLinkColor = 6, /*!< color visited clickable links */
+        HighlightedTextColor = 7, /*!< color contrasting with HighlightColor, to be used for instance with */
+        PositiveTextColor = 8, /*!< color of foreground objects with a "positive message" connotation (usually green) */
+        NeutralTextColor = 9, /*!< color of foreground objects with a "neutral message" connotation (usually yellow) */
+        NegativeTextColor = 10, /*!< color of foreground objects with a "negative message" connotation (usually red) */
+        DisabledTextColor = 11, /*!< color of disabled text @since 5.64 */
     };
 
     enum ColorGroup {
@@ -77,13 +77,13 @@ public:
     };
     Q_ENUM(ColorGroup)
 
-    /**
+    /*!
      * Default constructor. It will be the global theme configured in plasmarc
      * @param parent the parent object
      */
     explicit Theme(QObject *parent = nullptr);
 
-    /**
+    /*!
      * Construct a theme. It will be a custom theme instance of themeName.
      * @param themeName the name of the theme to create
      * @param parent the parent object
@@ -93,17 +93,17 @@ public:
 
     ~Theme() override;
 
-    /**
+    /*!
      * Sets the current theme being used.
      */
     void setThemeName(const QString &themeName);
 
-    /**
+    /*!
      * @return the name of the theme.
      */
     QString themeName() const;
 
-    /**
+    /*!
      * Retrieve the path for an SVG image in the current theme.
      *
      * @param name the name of the file in the theme directory (without the
@@ -112,7 +112,7 @@ public:
      */
     QString imagePath(const QString &name) const;
 
-    /**
+    /*!
      * Retrieves the default wallpaper associated with this theme.
      *
      * @param size the target height and width of the wallpaper; if an invalid size
@@ -123,7 +123,7 @@ public:
 
     Q_INVOKABLE QString wallpaperPathForSize(int width = -1, int height = -1) const;
 
-    /**
+    /*!
      * Checks if this theme has an image named in a certain way
      *
      * @param name the name of the file in the theme directory (without the
@@ -132,14 +132,14 @@ public:
      */
     bool currentThemeHasImage(const QString &name) const;
 
-    /**
+    /*!
      * Returns the color scheme configurationthat goes along this theme.
      * This can be used with KStatefulBrush and KColorScheme to determine
      * the proper colours to use along with the visual elements in this theme.
      */
     KSharedConfigPtr colorScheme() const;
 
-    /**
+    /*!
      * Returns the text color to be used by items resting on the background
      *
      * @param role which role (usage pattern) to get the color for
@@ -147,7 +147,7 @@ public:
      */
     QColor color(ColorRole role, ColorGroup group = NormalColorGroup) const;
 
-    /**
+    /*!
      * Tells the theme whether to follow the global settings or use application
      * specific settings
      *
@@ -155,38 +155,38 @@ public:
      */
     void setUseGlobalSettings(bool useGlobal);
 
-    /**
+    /*!
      * @return true if the global settings are followed, false if application
      * specific settings are used.
      */
     bool useGlobalSettings() const;
 
-    /**
+    /*!
      * Returns a QPalette with the colors set as defined by the theme.
      * @since 5.68
      */
     QPalette palette() const;
 
-    /**
+    /*!
      * @return plugin metadata for this theme, with information such as
      * name, description, author, website etc
      * @since 5.95
      */
     KPluginMetaData metadata() const;
 
-    /**
+    /*!
      * @return The default application font
      * @since 5.0
      */
     QFont defaultFont() const;
 
-    /**
+    /*!
      * @return The smallest readable font
      * @since 5.0
      */
     QFont smallestFont() const;
 
-    /** This method allows Plasma to enable and disable the background
+    /*! This method allows Plasma to enable and disable the background
      * contrast effect for a given theme, improving readability. The
      * value is read from the "enabled" key in the "ContrastEffect"
      * group in the Theme's metadata file.
@@ -204,7 +204,7 @@ public:
      */
     bool backgroundContrastEnabled() const;
 
-    /** This method allows Plasma to enable and disable the adaptive
+    /*! This method allows Plasma to enable and disable the adaptive
      * transparency option of the panel, which allows user to decide
      * whether the panel should be always transparent, always opaque
      * or only opaque when a window is maximized.
@@ -219,7 +219,7 @@ public:
      */
     bool adaptiveTransparencyEnabled() const;
 
-    /** This method allows Plasma to set a background contrast effect
+    /*! This method allows Plasma to set a background contrast effect
      * for a given theme, improving readability. The value is read
      * from the "contrast" key in the "ContrastEffect" group in the
      * Theme's metadata file.
@@ -229,7 +229,7 @@ public:
      */
     qreal backgroundContrast() const;
 
-    /** This method allows Plasma to set a background contrast effect
+    /*! This method allows Plasma to set a background contrast effect
      * for a given theme, improving readability. The value is read
      * from the "intensity" key in the "ContrastEffect" group in the
      * Theme's metadata file.
@@ -239,7 +239,7 @@ public:
      */
     qreal backgroundIntensity() const;
 
-    /** This method allows Plasma to set a background contrast effect
+    /*! This method allows Plasma to set a background contrast effect
      * for a given theme, improving readability. The value is read
      * from the "saturation" key in the "ContrastEffect" group in the
      * Theme's metadata file.
@@ -249,7 +249,7 @@ public:
      */
     qreal backgroundSaturation() const;
 
-    /** This method allows Plasma to enable and disable the blurring
+    /*! This method allows Plasma to enable and disable the blurring
      * of what is behind the background for a given theme. The
      * value is read from the "enabled" key in the "BlurBehindEffect"
      * group in the Theme's metadata file. Default is @c true.
@@ -265,7 +265,7 @@ public:
      */
     bool blurBehindEnabled() const;
 
-    /**
+    /*!
      * Returns the size of the letter "M" as rendered on the screen with the given font.
      * This values gives you a base size that:
      * * scales dependent on the DPI of the screen
@@ -292,7 +292,7 @@ public:
     static KSharedConfigPtr globalColorScheme();
 
 Q_SIGNALS:
-    /**
+    /*!
      * Emitted when the user changes the theme. Stylesheet usage, colors, etc. should
      * be updated at this point. However, SVGs should *not* be repainted in response
      * to this signal; connect to Svg::repaintNeeded() instead for that, as Svg objects
@@ -302,9 +302,9 @@ Q_SIGNALS:
      */
     void themeChanged();
 
-    /** Notifier for change of defaultFont property */
+    /*! Notifier for change of defaultFont property */
     void defaultFontChanged();
-    /** Notifier for change of smallestFont property */
+    /*! Notifier for change of smallestFont property */
     void smallestFontChanged();
 
 private:

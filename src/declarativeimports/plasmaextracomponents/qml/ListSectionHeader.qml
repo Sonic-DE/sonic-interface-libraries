@@ -10,7 +10,7 @@ import org.kde.kirigami as Kirigami
 import org.kde.ksvg as KSvg
 import org.kde.plasma.components as PlasmaComponents
 
-/**
+/*!
  * @brief A section delegate for the primitive ListView component.
  *
  * It's intended to make all listviews look coherent, mirroring the style
@@ -44,7 +44,7 @@ import org.kde.plasma.components as PlasmaComponents
 PlasmaComponents.ItemDelegate {
     id: listSection
 
-    /**
+    /*!
      * @brief This property sets the text of the ListView's section header.
      * @property string label
      */

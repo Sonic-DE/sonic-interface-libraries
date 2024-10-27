@@ -24,7 +24,7 @@ class ContainmentActions;
 // * add loadWallpaper
 // * add KPluginInfo listing support for Containments (already loaded via the applet loading code)
 
-/**
+/*!
  * @class PluginLoader plasma/pluginloader.h <Plasma/PluginLoader>
  *
  * This is an abstract base class which defines an interface to which Plasma's
@@ -41,7 +41,7 @@ class ContainmentActions;
 class PLASMA_EXPORT PluginLoader
 {
 public:
-    /**
+    /*!
      * Load an Applet plugin.
      *
      * @param name the plugin name, as returned by KPluginInfo::pluginName()
@@ -52,7 +52,7 @@ public:
      **/
     Applet *loadApplet(const QString &name, uint appletId = 0, const QVariantList &args = QVariantList());
 
-    /**
+    /*!
      * Load a ContainmentActions plugin.
      *
      * Returns a pointer to the containmentactions if successful.
@@ -66,7 +66,7 @@ public:
      **/
     ContainmentActions *loadContainmentActions(Containment *parent, const QString &containmentActionsName, const QVariantList &args = QVariantList());
 
-    /**
+    /*!
      * Returns a list of all known applets.
      * This may skip applets based on security settings and ExcludeCategories in the application's config.
      *
@@ -81,7 +81,7 @@ public:
      **/
     QList<KPluginMetaData> listAppletMetaData(const QString &category);
 
-    /**
+    /*!
      * Returns a list of all known applets associated with a certain mimetype.
      *
      * @return list of applets
@@ -89,7 +89,7 @@ public:
      **/
     QList<KPluginMetaData> listAppletMetaDataForMimeType(const QString &mimetype);
 
-    /**
+    /*!
      * Returns a list of all known applets associated with a certain URL.
      *
      * @return list of applets
@@ -97,7 +97,7 @@ public:
      **/
     QList<KPluginMetaData> listAppletMetaDataForUrl(const QUrl &url);
 
-    /**
+    /*!
      * Returns a list of all known containments.
      *
      * @param filter An optional predicate that can be used for filtering.
@@ -106,7 +106,7 @@ public:
      */
     static QList<KPluginMetaData> listContainmentsMetaData(std::function<bool(const KPluginMetaData &)> filter = {});
 
-    /**
+    /*!
      * Returns a list of containments of the specified type.
      *
      * @param type The target containment type
@@ -115,7 +115,7 @@ public:
      */
     static QList<KPluginMetaData> listContainmentsMetaDataOfType(const QString &type);
 
-    /**
+    /*!
      * Returns a list of all known ContainmentActions.
      *
      * @param parentApp the application to filter ContainmentActions on. Uses the
@@ -127,7 +127,7 @@ public:
      **/
     QList<KPluginMetaData> listContainmentActionsMetaData(const QString &parentApp);
 
-    /**
+    /*!
      * Return the active plugin loader
      **/
     static PluginLoader *self();

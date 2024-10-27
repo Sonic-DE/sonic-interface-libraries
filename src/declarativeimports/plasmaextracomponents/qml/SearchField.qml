@@ -10,7 +10,7 @@ import org.kde.plasma.extras as PlasmaExtras
 import org.kde.ksvg as KSvg
 import org.kde.kirigami as Kirigami
 
-/**
+/*!
  * This is a standard textfield following KDE HIG. Using Ctrl+F as focus
  * sequence and "Search…" as placeholder text.
  *
