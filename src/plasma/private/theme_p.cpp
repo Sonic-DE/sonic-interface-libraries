@@ -132,10 +132,12 @@ ThemePrivate::ThemePrivate(QObject *parent)
         }
 
         auto checkContrast = [this](bool contrastActive) {
-            if (contrastActive) {
-                kSvgImageSet->setSelectors({QStringLiteral("translucent")});
-            } else if (compositingActive) {
-                kSvgImageSet->setSelectors({});
+            if (compositingActive) {
+                if (contrastActive) {
+                    kSvgImageSet->setSelectors({QStringLiteral("translucent")});
+                } else {
+                    kSvgImageSet->setSelectors({});
+                }
             } else {
                 kSvgImageSet->setSelectors({QStringLiteral("opaque")});
             }
