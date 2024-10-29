@@ -115,10 +115,13 @@ ThemePrivate::ThemePrivate(QObject *parent)
     kSvgImageSet = std::unique_ptr<KSvg::ImageSet>(new KSvg::ImageSet);
     kSvgImageSet->setBasePath(QStringLiteral(PLASMA_RELATIVE_DATA_INSTALL_DIR "/desktoptheme/"));
 
-    pixmapSaveTimer = new QTimer(this);
-    pixmapSaveTimer->setSingleShot(true);
-    pixmapSaveTimer->setInterval(600);
-    QObject::connect(pixmapSaveTimer, &QTimer::timeout, this, &ThemePrivate::scheduledCacheUpdate);
+    // Event compress updateKSvgSelectors, because when compositing changes,
+    // compositingactive and effect available will both happen in short succession
+    // in a not really deterministic order
+    selectorsUpdateTimer = new QTimer(this);
+    selectorsUpdateTimer->setSingleShot(true);
+    selectorsUpdateTimer->setInterval(600);
+    QObject::connect(selectorsUpdateTimer, &QTimer::timeout, this, &ThemePrivate::updateKSvgSelectors);
 
     updateNotificationTimer = new QTimer(this);
     updateNotificationTimer->setSingleShot(true);
@@ -131,23 +134,9 @@ ThemePrivate::ThemePrivate(QObject *parent)
             s_backgroundContrastEffectWatcher = new ContrastEffectWatcher();
         }
 
-        auto checkContrast = [this](bool contrastActive) {
-            if (compositingActive) {
-                if (contrastActive) {
-                    kSvgImageSet->setSelectors({QStringLiteral("translucent")});
-                } else {
-                    kSvgImageSet->setSelectors({});
-                }
-            } else {
-                kSvgImageSet->setSelectors({QStringLiteral("opaque")});
-            }
-            backgroundContrastActive = contrastActive;
-            scheduleThemeChangeNotification(PixmapCache | SvgElementsCache);
-        };
+        QObject::connect(s_backgroundContrastEffectWatcher, &ContrastEffectWatcher::effectChanged, selectorsUpdateTimer, qOverload<>(&QTimer::start));
 
-        checkContrast(s_backgroundContrastEffectWatcher->isEffectActive());
-
-        QObject::connect(s_backgroundContrastEffectWatcher, &ContrastEffectWatcher::effectChanged, this, checkContrast);
+        updateKSvgSelectors();
     }
     QCoreApplication::instance()->installEventFilter(this);
 
@@ -164,8 +153,7 @@ ThemePrivate::ThemePrivate(QObject *parent)
     });
 
     if (KWindowSystem::isPlatformX11()) {
-        connect(KX11Extras::self(), &KX11Extras::compositingChanged, this, &ThemePrivate::compositingChanged);
-        compositingChanged(KX11Extras::compositingActive());
+        connect(KX11Extras::self(), &KX11Extras::compositingChanged, selectorsUpdateTimer, qOverload<>(&QTimer::start));
     }
 }
 
@@ -337,25 +325,26 @@ QString ThemePrivate::findInTheme(const QString &image, const QString &theme, bo
     return search;
 }
 
-void ThemePrivate::compositingChanged(bool active)
+void ThemePrivate::updateKSvgSelectors()
 {
 #if HAVE_X11
-    if (compositingActive != active) {
-        compositingActive = active;
-        // qCDebug(LOG_PLASMA) << QTime::currentTime();
-        scheduleThemeChangeNotification(PixmapCache | SvgElementsCache);
-
-        if (active) {
-            if (backgroundContrastActive) {
-                kSvgImageSet->setSelectors({QStringLiteral("translucent")});
-            } else {
-                kSvgImageSet->setSelectors({});
-            }
-        } else {
-            kSvgImageSet->setSelectors({QStringLiteral("opaque")});
-        }
-    }
+    const bool compositingActive = KX11Extras::compositingActive();
+#else
+    const bool compositingActive = true;
 #endif
+    const bool backgroundContrastActive = s_backgroundContrastEffectWatcher->isEffectActive();
+
+    scheduleThemeChangeNotification(PixmapCache | SvgElementsCache);
+
+    if (compositingActive) {
+        if (backgroundContrastActive) {
+            kSvgImageSet->setSelectors({QStringLiteral("translucent")});
+        } else {
+            kSvgImageSet->setSelectors({});
+        }
+    } else {
+        kSvgImageSet->setSelectors({QStringLiteral("opaque")});
+    }
 }
 
 void ThemePrivate::discardCache(CacheTypes caches)
@@ -363,10 +352,6 @@ void ThemePrivate::discardCache(CacheTypes caches)
     if (caches & SvgElementsCache) {
         discoveries.clear();
     }
-}
-
-void ThemePrivate::scheduledCacheUpdate()
-{
 }
 
 void ThemePrivate::colorsChanged()

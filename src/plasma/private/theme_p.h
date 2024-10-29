@@ -68,10 +68,9 @@ public:
     QColor color(Theme::ColorRole role, Theme::ColorGroup group = Theme::NormalColorGroup) const;
 
 public Q_SLOTS:
-    void compositingChanged(bool active);
+    void updateKSvgSelectors();
     void colorsChanged();
     void settingsFileChanged(const QString &settings);
-    void scheduledCacheUpdate();
     void onAppExitCleanup();
     void notifyOfChanged();
     void settingsChanged(bool emitChanges);
@@ -113,7 +112,7 @@ public:
     int defaultWallpaperWidth;
     int defaultWallpaperHeight;
     QHash<QString, QString> discoveries;
-    QTimer *pixmapSaveTimer;
+    QTimer *selectorsUpdateTimer;
     QTimer *updateNotificationTimer;
     unsigned cacheSize;
     CacheTypes cachesToDiscard;
