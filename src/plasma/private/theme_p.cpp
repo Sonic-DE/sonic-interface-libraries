@@ -329,7 +329,11 @@ QString ThemePrivate::findInTheme(const QString &image, const QString &theme, bo
 void ThemePrivate::updateKSvgSelectors(CacheTypes notify)
 {
 #if HAVE_X11
-    compositingActive = KX11Extras::compositingActive();
+    if (KWindowSystem::isPlatformX11()) {
+        compositingActive = KX11Extras::compositingActive();
+    } else {
+        compositingActive = true;
+    }
 #else
     compositingActive = true;
 #endif
