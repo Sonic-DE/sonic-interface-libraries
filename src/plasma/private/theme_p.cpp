@@ -30,9 +30,8 @@ const char ThemePrivate::themeRcFile[] = "plasmarc";
 // the system colors theme is used to cache unthemed svgs with colorization needs
 // these svgs do not follow the theme's colors, but rather the system colors
 const char ThemePrivate::systemColorsTheme[] = "internal-system-colors";
-#if HAVE_X11
-EffectWatcher *ThemePrivate::s_backgroundContrastEffectWatcher = nullptr;
-#endif
+
+ContrastEffectWatcher *ThemePrivate::s_backgroundContrastEffectWatcher = nullptr;
 
 ThemePrivate *ThemePrivate::globalTheme = nullptr;
 QHash<QString, ThemePrivate *> ThemePrivate::themes = QHash<QString, ThemePrivate *>();
@@ -127,20 +126,26 @@ ThemePrivate::ThemePrivate(QObject *parent)
     QObject::connect(updateNotificationTimer, &QTimer::timeout, this, &ThemePrivate::notifyOfChanged);
 
     if (QPixmap::defaultDepth() > 8) {
-#if HAVE_X11
         // watch for background contrast effect property changes as well
         if (!s_backgroundContrastEffectWatcher) {
-            s_backgroundContrastEffectWatcher = new EffectWatcher(QStringLiteral("_KDE_NET_WM_BACKGROUND_CONTRAST_REGION"));
+            s_backgroundContrastEffectWatcher = new ContrastEffectWatcher();
         }
 
-        QObject::connect(s_backgroundContrastEffectWatcher, &EffectWatcher::effectChanged, this, [this](bool active) {
-            if (backgroundContrastActive != active) {
-                backgroundContrastActive = active;
-                scheduleThemeChangeNotification(PixmapCache | SvgElementsCache);
+        auto checkContrast = [this](bool contrastActive) {
+            if (contrastActive) {
                 kSvgImageSet->setSelectors({QStringLiteral("translucent")});
+            } else if (compositingActive) {
+                kSvgImageSet->setSelectors({});
+            } else {
+                kSvgImageSet->setSelectors({QStringLiteral("opaque")});
             }
-        });
-#endif
+            backgroundContrastActive = contrastActive;
+            scheduleThemeChangeNotification(PixmapCache | SvgElementsCache);
+        };
+
+        checkContrast(s_backgroundContrastEffectWatcher->isEffectActive());
+
+        QObject::connect(s_backgroundContrastEffectWatcher, &ContrastEffectWatcher::effectChanged, this, checkContrast);
     }
     QCoreApplication::instance()->installEventFilter(this);
 
@@ -337,8 +342,13 @@ void ThemePrivate::compositingChanged(bool active)
         compositingActive = active;
         // qCDebug(LOG_PLASMA) << QTime::currentTime();
         scheduleThemeChangeNotification(PixmapCache | SvgElementsCache);
+
         if (active) {
-            kSvgImageSet->setSelectors({});
+            if (backgroundContrastActive) {
+                kSvgImageSet->setSelectors({QStringLiteral("translucent")});
+            } else {
+                kSvgImageSet->setSelectors({});
+            }
         } else {
             kSvgImageSet->setSelectors({QStringLiteral("opaque")});
         }
