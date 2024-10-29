@@ -34,11 +34,17 @@ target_sources(Plasma PRIVATE
 #graphics
     theme.cpp
     private/theme_p.cpp
+    private/contrasteffectwatcher.cpp
 )
 
-if(HAVE_X11)
-    target_sources(Plasma PRIVATE private/effectwatcher.cpp)
+if (Qt6_VERSION VERSION_GREATER_EQUAL "6.8.0")
+    set(private_code_option  "PRIVATE_CODE")
 endif()
+qt6_generate_wayland_protocol_client_sources(Plasma
+    ${private_code_option}
+    FILES
+        ${PLASMA_WAYLAND_PROTOCOLS_DIR}/contrast.xml
+)
 
 kconfig_add_kcfg_files(Plasma data/kconfigxt/libplasma-theme-global.kcfgc)
 
@@ -74,6 +80,7 @@ PUBLIC
     Qt6::Qml
 PRIVATE
     Qt6::Quick
+    Qt::WaylandClient
     KF6::ConfigGui
     KF6::ColorScheme
     KF6::ConfigQml
