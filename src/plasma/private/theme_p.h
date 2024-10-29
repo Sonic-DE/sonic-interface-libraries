@@ -19,9 +19,8 @@
 #include <QTimer>
 
 #include <config-plasma.h>
-#if HAVE_X11
-#include "private/effectwatcher_p.h"
-#endif
+
+#include "private/contrasteffectwatcher_p.h"
 
 #include "libplasma-theme-global.h"
 
@@ -87,9 +86,9 @@ public:
     static const char defaultTheme[];
     static const char systemColorsTheme[];
     static const char themeRcFile[];
-#if HAVE_X11
-    static EffectWatcher *s_backgroundContrastEffectWatcher;
-#endif
+
+    static ContrastEffectWatcher *s_backgroundContrastEffectWatcher;
+
     // Ref counting of ThemePrivate instances
     static ThemePrivate *globalTheme;
     static QHash<QString, ThemePrivate *> themes;
