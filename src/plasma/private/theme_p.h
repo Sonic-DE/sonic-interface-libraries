@@ -67,8 +67,9 @@ public:
 
     QColor color(Theme::ColorRole role, Theme::ColorGroup group = Theme::NormalColorGroup) const;
 
+    void updateKSvgSelectors(CacheTypes notify);
+
 public Q_SLOTS:
-    void updateKSvgSelectors();
     void colorsChanged();
     void settingsFileChanged(const QString &settings);
     void onAppExitCleanup();

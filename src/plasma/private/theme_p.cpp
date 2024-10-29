@@ -121,7 +121,9 @@ ThemePrivate::ThemePrivate(QObject *parent)
     selectorsUpdateTimer = new QTimer(this);
     selectorsUpdateTimer->setSingleShot(true);
     selectorsUpdateTimer->setInterval(600);
-    QObject::connect(selectorsUpdateTimer, &QTimer::timeout, this, &ThemePrivate::updateKSvgSelectors);
+    QObject::connect(selectorsUpdateTimer, &QTimer::timeout, this, [this]() {
+        updateKSvgSelectors(PixmapCache | SvgElementsCache);
+    });
 
     updateNotificationTimer = new QTimer(this);
     updateNotificationTimer->setSingleShot(true);
@@ -135,8 +137,6 @@ ThemePrivate::ThemePrivate(QObject *parent)
         }
 
         QObject::connect(s_backgroundContrastEffectWatcher, &ContrastEffectWatcher::effectChanged, selectorsUpdateTimer, qOverload<>(&QTimer::start));
-
-        updateKSvgSelectors();
     }
     QCoreApplication::instance()->installEventFilter(this);
 
@@ -155,6 +155,7 @@ ThemePrivate::ThemePrivate(QObject *parent)
     if (KWindowSystem::isPlatformX11()) {
         connect(KX11Extras::self(), &KX11Extras::compositingChanged, selectorsUpdateTimer, qOverload<>(&QTimer::start));
     }
+    updateKSvgSelectors(NoCache);
 }
 
 ThemePrivate::~ThemePrivate()
@@ -325,16 +326,14 @@ QString ThemePrivate::findInTheme(const QString &image, const QString &theme, bo
     return search;
 }
 
-void ThemePrivate::updateKSvgSelectors()
+void ThemePrivate::updateKSvgSelectors(CacheTypes notify)
 {
 #if HAVE_X11
-    const bool compositingActive = KX11Extras::compositingActive();
+    compositingActive = KX11Extras::compositingActive();
 #else
-    const bool compositingActive = true;
+    compositingActive = true;
 #endif
-    const bool backgroundContrastActive = s_backgroundContrastEffectWatcher->isEffectActive();
-
-    scheduleThemeChangeNotification(PixmapCache | SvgElementsCache);
+    backgroundContrastActive = s_backgroundContrastEffectWatcher->isEffectActive();
 
     if (compositingActive) {
         if (backgroundContrastActive) {
@@ -344,6 +343,10 @@ void ThemePrivate::updateKSvgSelectors()
         }
     } else {
         kSvgImageSet->setSelectors({QStringLiteral("opaque")});
+    }
+
+    if (notify != NoCache) {
+        scheduleThemeChangeNotification(notify);
     }
 }
 
