@@ -38,7 +38,6 @@ target_sources(Plasma PRIVATE
 )
 
 qt6_generate_wayland_protocol_client_sources(Plasma
-    ${private_code_option}
     FILES
         ${PLASMA_WAYLAND_PROTOCOLS_DIR}/contrast.xml
 )
