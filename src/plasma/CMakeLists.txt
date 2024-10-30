@@ -80,7 +80,7 @@ PUBLIC
     Qt6::Qml
 PRIVATE
     Qt6::Quick
-    Qt::WaylandClient
+    Qt6::WaylandClient
     KF6::ConfigGui
     KF6::ColorScheme
     KF6::ConfigQml
