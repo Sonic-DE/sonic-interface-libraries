@@ -7,7 +7,6 @@
 #include "contrasteffectwatcher_p.h"
 
 #include <QWaylandClientExtensionTemplate>
-#include <qwaylandclientextension.h>
 
 #include <KWindowSystem>
 
