@@ -37,7 +37,11 @@ target_sources(Plasma PRIVATE
     private/contrasteffectwatcher.cpp
 )
 
+if (Qt6_VERSION VERSION_GREATER_EQUAL "6.8.0")
+    set(private_code_option  "PRIVATE_CODE")
+endif()
 qt6_generate_wayland_protocol_client_sources(Plasma
+    ${private_code_option}
     FILES
         ${PLASMA_WAYLAND_PROTOCOLS_DIR}/contrast.xml
 )
