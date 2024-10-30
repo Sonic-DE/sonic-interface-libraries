@@ -26,6 +26,9 @@ public:
         : QWaylandClientExtensionTemplate<ContrastManager>(2)
     {
     }
+    ~ContrastManager()
+    {
+    }
 };
 
 ContrastEffectWatcher::ContrastEffectWatcher(QObject *parent)
@@ -36,7 +39,7 @@ ContrastEffectWatcher::ContrastEffectWatcher(QObject *parent)
 #endif
 {
     if (KWindowSystem::isPlatformWayland()) {
-        m_contrastManager = new ContrastManager();
+        m_contrastManager = std::make_unique<ContrastManager>();
     }
 
     init();
@@ -44,13 +47,12 @@ ContrastEffectWatcher::ContrastEffectWatcher(QObject *parent)
 
 ContrastEffectWatcher::~ContrastEffectWatcher()
 {
-    delete m_contrastManager;
 }
 
 void ContrastEffectWatcher::init()
 {
     if (KWindowSystem::isPlatformWayland()) {
-        connect(m_contrastManager, &ContrastManager::activeChanged, this, [this]() {
+        connect(m_contrastManager.get(), &ContrastManager::activeChanged, this, [this]() {
             m_effectActive = m_contrastManager->isActive();
             Q_EMIT effectChanged(m_effectActive);
         });

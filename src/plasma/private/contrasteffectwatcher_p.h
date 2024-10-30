@@ -44,8 +44,7 @@ private:
     xcb_atom_t m_property;
     QNativeInterface::QX11Application *m_x11Interface = nullptr;
 #endif
-    ContrastManager *m_contrastManager;
-    bool m_isWayland = false;
+    std::unique_ptr<ContrastManager> m_contrastManager;
     bool m_effectActive = false;
 };
 
