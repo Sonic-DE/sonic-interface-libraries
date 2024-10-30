@@ -18,6 +18,7 @@
 
 namespace Plasma
 {
+class ContrastManager;
 
 class ContrastEffectWatcher : public QObject, public QAbstractNativeEventFilter
 {
@@ -25,6 +26,7 @@ class ContrastEffectWatcher : public QObject, public QAbstractNativeEventFilter
 
 public:
     explicit ContrastEffectWatcher(QObject *parent = nullptr);
+    ~ContrastEffectWatcher();
     bool isEffectActive() const;
 
 protected:
@@ -42,6 +44,7 @@ private:
     xcb_atom_t m_property;
     QNativeInterface::QX11Application *m_x11Interface = nullptr;
 #endif
+    ContrastManager *m_contrastManager;
     bool m_isWayland = false;
     bool m_effectActive = false;
 };
