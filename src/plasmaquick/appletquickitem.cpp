@@ -67,7 +67,7 @@ AppletQuickItemPrivate::AppletQuickItemPrivate(AppletQuickItem *item)
 int AppletQuickItemPrivate::preloadWeight() const
 {
     int defaultWeight;
-    const QStringList provides = applet->pluginMetaData().value(QStringLiteral("X-Plasma-Provides"), QStringList());
+    const QStringList provides = applet->pluginMetaData().value(QStringView(u"X-Plasma-Provides"), QStringList());
 
     // some applet types we want a bigger weight
     if (provides.contains(QLatin1String("org.kde.plasma.launchermenu"))) {
@@ -78,7 +78,7 @@ int AppletQuickItemPrivate::preloadWeight() const
     // default widgets to be barely preloaded
     return qBound(0,
                   applet->config().readEntry(QStringLiteral("PreloadWeight"),
-                                             qMax(defaultWeight, applet->pluginMetaData().value(QStringLiteral("X-Plasma-PreloadWeight"), 0))),
+                                             qMax(defaultWeight, applet->pluginMetaData().value(QStringView(u"X-Plasma-PreloadWeight"), 0))),
                   100);
 }
 
@@ -558,7 +558,7 @@ AppletQuickItem *AppletQuickItem::itemForApplet(Plasma::Applet *applet)
         errorData[QStringLiteral("isDebugMode")] = qEnvironmentVariableIntValue("PLASMA_ENABLE_QML_DEBUG") != 0;
 
         if (applet->sourceValid()) {
-            const QString versionString = applet->pluginMetaData().value(QStringLiteral("X-Plasma-API-Minimum-Version"));
+            const QString versionString = applet->pluginMetaData().value(QStringView(u"X-Plasma-API-Minimum-Version"));
             QVersionNumber version;
             if (!versionString.isEmpty()) {
                 version = QVersionNumber::fromString(versionString);

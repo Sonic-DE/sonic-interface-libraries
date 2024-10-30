@@ -413,7 +413,6 @@ Item {
             anchors.right: parent.right
 
             spacing: 0
-
             RowLayout {
                 id: mainRowLayout
 
