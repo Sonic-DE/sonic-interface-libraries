@@ -28,8 +28,9 @@ public:
     }
     ~ContrastManager()
     {
-        if(object())
-            org_kde_kwin_contrast_manager_destroy(object())
+        if (object()) {
+            org_kde_kwin_contrast_manager_destroy(object());
+        }
     }
 };
 
