@@ -33,6 +33,14 @@ class Theme;
 static const int DEFAULT_WALLPAPER_WIDTH = 1920;
 static const int DEFAULT_WALLPAPER_HEIGHT = 1200;
 
+enum CacheType {
+    NoCache = 0,
+    PixmapCache = 1,
+    SvgElementsCache = 2,
+};
+Q_DECLARE_FLAGS(CacheTypes, CacheType)
+Q_DECLARE_OPERATORS_FOR_FLAGS(CacheTypes)
+
 class ThemePrivate : public QObject, public QSharedData
 {
     Q_OBJECT
@@ -44,8 +52,9 @@ public:
     KConfigGroup &config();
 
     QString imagePath(const QString &theme, const QString &type, const QString &image);
-    QString findInTheme(const QString &image, const QString &theme);
-    void scheduleThemeChangeNotification();
+    QString findInTheme(const QString &image, const QString &theme, bool cache = true);
+    void discardCache(CacheTypes caches);
+    void scheduleThemeChangeNotification(CacheTypes caches);
     void setThemeName(const QString &themeName, bool writeSettings, bool emitChanged);
     void processWallpaperSettings(const KSharedConfigPtr &metadata);
     void processContrastSettings(const KSharedConfigPtr &metadata);
@@ -54,7 +63,7 @@ public:
 
     QColor color(Theme::ColorRole role, Theme::ColorGroup group = Theme::NormalColorGroup) const;
 
-    void updateKSvgSelectors();
+    void updateKSvgSelectors(CacheTypes notify);
 
 public Q_SLOTS:
     void colorsChanged();
@@ -98,8 +107,11 @@ public:
     QString defaultWallpaperSuffix;
     int defaultWallpaperWidth;
     int defaultWallpaperHeight;
+    QHash<QString, QString> discoveries;
     QTimer *selectorsUpdateTimer;
     QTimer *updateNotificationTimer;
+    unsigned cacheSize;
+    CacheTypes cachesToDiscard;
     QString themeVersion;
     QString themeMetadataPath;
 
