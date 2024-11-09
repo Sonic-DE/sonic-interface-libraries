@@ -275,6 +275,7 @@ void ThemePrivate::colorsChanged()
 
 void ThemePrivate::scheduleThemeChangeNotification(CacheTypes caches)
 {
+    qWarning() << "scheduleThemeChangeNotification";
     cachesToDiscard |= caches;
     updateNotificationTimer->start();
 }
@@ -282,6 +283,7 @@ void ThemePrivate::scheduleThemeChangeNotification(CacheTypes caches)
 void ThemePrivate::notifyOfChanged()
 {
     // qCDebug(LOG_PLASMA) << cachesToDiscard;
+    qWarning() << "notifyOfChanged";
     discardCache(cachesToDiscard);
     cachesToDiscard = NoCache;
     Q_EMIT themeChanged();
