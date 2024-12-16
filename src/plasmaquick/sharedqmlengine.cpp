@@ -20,6 +20,10 @@
 
 #include "debug_p.h"
 
+#if KI18N_VERSION >= QT_VERSION_CHECK(6, 8, 0)
+#include <KLocalizedQmlContext>
+#endif
+
 namespace PlasmaQuick
 {
 
@@ -59,7 +63,11 @@ public:
     QPointer<QObject> rootObject;
     std::unique_ptr<QQmlComponent> component;
     QTimer *executionEndTimer;
+#if KI18N_VERSION < QT_VERSION_CHECK(6, 8, 0)
     KLocalizedContext *context{nullptr};
+#else
+    KLocalizedQmlContext *context{nullptr};
+#endif
     QQmlContext *rootContext;
     bool delay;
     std::shared_ptr<QQmlEngine> m_engine;
@@ -155,7 +163,11 @@ SharedQmlEngine::SharedQmlEngine(QObject *parent)
     d->rootContext = new QQmlContext(engine().get());
     d->rootContext->setParent(this); // Delete the context when deleting the shared engine
 
+#if KI18N_VERSION < QT_VERSION_CHECK(6, 8, 0)
     d->context = new KLocalizedContext(d->rootContext);
+#else
+    d->context = new KLocalizedQmlContext(d->rootContext);
+#endif
     d->rootContext->setContextObject(d->context);
 }
 
@@ -165,7 +177,11 @@ SharedQmlEngine::SharedQmlEngine(Plasma::Applet *applet, QObject *parent)
 {
     d->rootContext = new AppletContext(engine().get(), applet, this);
 
+#if KI18N_VERSION < QT_VERSION_CHECK(6, 8, 0)
     d->context = new KLocalizedContext(d->rootContext);
+#else
+    d->context = new KLocalizedQmlContext(d->rootContext);
+#endif
     d->rootContext->setContextObject(d->context);
 }
 

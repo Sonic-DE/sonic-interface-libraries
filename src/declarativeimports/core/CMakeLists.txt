@@ -36,6 +36,12 @@ target_link_libraries(corebindingsplugin PRIVATE
         Wayland::Client
 )
 
+if(TARGET KF6::I18nQml)
+	target_link_libraries(corebindingsplugin PRIVATE
+        KF6::I18nQml
+)
+endif()
+
 if(HAVE_X11)
   target_link_libraries(corebindingsplugin PRIVATE ${X11_LIBRARIES} XCB::XCB Qt6::GuiPrivate)
 

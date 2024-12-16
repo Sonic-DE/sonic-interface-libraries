@@ -101,6 +101,12 @@ target_link_libraries(PlasmaQuick
         KF6::GuiAddons
 )
 
+if(TARGET KF6::I18nQml)
+    target_link_libraries(PlasmaQuick PRIVATE
+        KF6::I18nQml
+)
+endif()
+
 if(HAVE_X11)
     target_link_libraries(PlasmaQuick
         PRIVATE

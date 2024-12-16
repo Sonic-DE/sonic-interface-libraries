@@ -16,6 +16,9 @@
 #include <KLocalizedContext>
 
 #include "action.h"
+#if KI18N_VERSION >= QT_VERSION_CHECK(6, 8, 0)
+#include <KLocalizedQmlContext>
+#endif
 
 void CoreBindingsPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
 {
@@ -24,7 +27,11 @@ void CoreBindingsPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
     QQmlContext *context = engine->rootContext();
 
     if (!context->contextObject()) {
+#if KI18N_VERSION < QT_VERSION_CHECK(6, 8, 0)
         KLocalizedContext *localizedContextObject = new KLocalizedContext(engine);
+#else
+        KLocalizedQmlContext *localizedContextObject = new KLocalizedQmlContext(engine);
+#endif
         context->setContextObject(localizedContextObject);
     }
     // This ensures that importing plasmacore will make any KSvg use the current lasma theme

@@ -5,6 +5,11 @@
 */
 
 #include "configview.h"
+#include <ki18n_version.h>
+#if KI18N_VERSION >= QT_VERSION_CHECK(6, 8, 0)
+#include <KLocalizedQmlContext>
+#endif
+
 #include "Plasma/Applet"
 #include "Plasma/Containment"
 #include "appletcontext_p.h"
@@ -91,7 +96,11 @@ void ConfigViewPrivate::init()
 
     applet.data()->setUserConfiguring(true);
 
+#if KI18N_VERSION < QT_VERSION_CHECK(6, 8, 0)
     KLocalizedContext *localizedContextObject = new KLocalizedContext(q->engine());
+#else
+    KLocalizedQmlContext *localizedContextObject = new KLocalizedQmlContext(q->engine());
+#endif
     localizedContextObject->setTranslationDomain(applet->translationDomain());
     rootContext->setContextObject(localizedContextObject);
 
