@@ -184,7 +184,7 @@ QString ThemePrivate::imagePath(const QString &theme, const QString &type, const
     return QStandardPaths::locate(QStandardPaths::GenericDataLocation, subdir);
 }
 
-QString ThemePrivate::findInTheme(const QString &image, const QString &theme, bool cache)
+QString ThemePrivate::findInTheme(const QString &image, const QString &theme)
 {
     QString type = QStringLiteral("/");
     if (!compositingActive) {
