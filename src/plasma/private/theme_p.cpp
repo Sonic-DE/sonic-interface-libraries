@@ -143,7 +143,7 @@ ThemePrivate::ThemePrivate(QObject *parent)
     connect(KDirWatch::self(), &KDirWatch::created, this, &ThemePrivate::settingsFileChanged);
 
     QObject::connect(KIconLoader::global(), &KIconLoader::iconChanged, this, [this]() {
-        scheduleThemeChangeNotification(PixmapCache | SvgElementsCache);
+        scheduleThemeChangeNotification();
     });
 
     if (KWindowSystem::isPlatformX11()) {
@@ -226,7 +226,7 @@ void ThemePrivate::updateKSvgSelectors(CacheTypes notify)
     }
 
     if (notify != NoCache) {
-        scheduleThemeChangeNotification(notify);
+        scheduleThemeChangeNotification();
     }
 }
 
@@ -247,11 +247,11 @@ void ThemePrivate::colorsChanged()
     headerColorScheme = KColorScheme(QPalette::Active, KColorScheme::Header, colors);
     tooltipColorScheme = KColorScheme(QPalette::Active, KColorScheme::Tooltip, colors);
     palette = KColorScheme::createApplicationPalette(colors);
-    scheduleThemeChangeNotification(PixmapCache | SvgElementsCache);
+    scheduleThemeChangeNotification();
     Q_EMIT applicationPaletteChange();
 }
 
-void ThemePrivate::scheduleThemeChangeNotification(CacheTypes caches)
+void ThemePrivate::scheduleThemeChangeNotification()
 {
     updateNotificationTimer->start();
 }
@@ -267,7 +267,7 @@ void ThemePrivate::settingsFileChanged(const QString &file)
     if (file == themeMetadataPath) {
         const KPluginMetaData data = metaDataForTheme(themeName);
         if (!data.isValid() || themeVersion != data.version()) {
-            scheduleThemeChangeNotification(SvgElementsCache);
+            scheduleThemeChangeNotification();
         }
     } else if (file.endsWith(QLatin1String(themeRcFile))) {
         config().config()->reparseConfiguration();
@@ -548,7 +548,7 @@ void ThemePrivate::setThemeName(const QString &tempThemeName, bool writeSettings
     }
 
     if (emitChanged) {
-        scheduleThemeChangeNotification(PixmapCache | SvgElementsCache);
+        scheduleThemeChangeNotification();
     }
 }
 
