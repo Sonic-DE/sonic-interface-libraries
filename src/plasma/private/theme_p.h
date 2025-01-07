@@ -12,6 +12,7 @@
 
 #include <KColorScheme>
 #include <KConfigGroup>
+#include <KConfigWatcher>
 #include <KPluginMetaData>
 #include <KSvg/ImageSet>
 
@@ -67,7 +68,6 @@ public:
 
 public Q_SLOTS:
     void colorsChanged();
-    void settingsFileChanged(const QString &settings);
     void notifyOfChanged();
     void settingsChanged(bool emitChanges);
 
@@ -80,7 +80,6 @@ Q_SIGNALS:
 public:
     static const char defaultTheme[];
     static const char systemColorsTheme[];
-    static const char themeRcFile[];
 
     static ContrastEffectWatcher *s_backgroundContrastEffectWatcher;
 
@@ -103,6 +102,7 @@ public:
     QPalette palette;
     bool eventFilter(QObject *watched, QEvent *event) override;
     KConfigGroup cfg;
+    KConfigWatcher::Ptr plasmaRcWatcher;
     QString defaultWallpaperTheme;
     QString defaultWallpaperSuffix;
     int defaultWallpaperWidth;
