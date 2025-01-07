@@ -113,7 +113,6 @@ public:
     unsigned cacheSize;
     CacheTypes cachesToDiscard;
     QString themeVersion;
-    QString themeMetadataPath;
 
     bool compositingActive : 1;
     bool backgroundContrastActive : 1;

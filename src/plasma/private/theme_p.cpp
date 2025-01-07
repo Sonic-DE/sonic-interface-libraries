@@ -290,12 +290,7 @@ void ThemePrivate::notifyOfChanged()
 void ThemePrivate::settingsFileChanged(const QString &file)
 {
     qCDebug(LOG_PLASMA) << "settingsFile: " << file;
-    if (file == themeMetadataPath) {
-        const KPluginMetaData data = metaDataForTheme(themeName);
-        if (!data.isValid() || themeVersion != data.version()) {
-            scheduleThemeChangeNotification(SvgElementsCache);
-        }
-    } else if (file.endsWith(QLatin1String(themeRcFile))) {
+    if (file.endsWith(QLatin1String(themeRcFile))) {
         config().config()->reparseConfiguration();
         settingsChanged(true);
     }
