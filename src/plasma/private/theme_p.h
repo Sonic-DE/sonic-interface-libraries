@@ -107,7 +107,6 @@ public:
     QString defaultWallpaperSuffix;
     int defaultWallpaperWidth;
     int defaultWallpaperHeight;
-    QHash<QString, QString> discoveries;
     QTimer *selectorsUpdateTimer;
     QTimer *updateNotificationTimer;
     unsigned cacheSize;

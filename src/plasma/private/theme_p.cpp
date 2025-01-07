@@ -186,13 +186,6 @@ QString ThemePrivate::imagePath(const QString &theme, const QString &type, const
 
 QString ThemePrivate::findInTheme(const QString &image, const QString &theme, bool cache)
 {
-    if (cache) {
-        auto it = discoveries.constFind(image);
-        if (it != discoveries.constEnd()) {
-            return it.value();
-        }
-    }
-
     QString type = QStringLiteral("/");
     if (!compositingActive) {
         type = QStringLiteral("/opaque/");
@@ -205,10 +198,6 @@ QString ThemePrivate::findInTheme(const QString &image, const QString &theme, bo
     // not found or compositing enabled
     if (search.isEmpty()) {
         search = imagePath(theme, QStringLiteral("/"), image);
-    }
-
-    if (cache && !search.isEmpty()) {
-        discoveries.insert(image, search);
     }
 
     return search;
@@ -244,9 +233,7 @@ void ThemePrivate::updateKSvgSelectors(CacheTypes notify)
 
 void ThemePrivate::discardCache(CacheTypes caches)
 {
-    if (caches & SvgElementsCache) {
-        discoveries.clear();
-    }
+    if (caches & SvgElementsCache) { }
 }
 
 void ThemePrivate::colorsChanged()
