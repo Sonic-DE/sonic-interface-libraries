@@ -70,7 +70,6 @@ Q_SIGNALS:
 
 public:
     static const char defaultTheme[];
-    static const char systemColorsTheme[];
     static const char themeRcFile[];
 
     static ContrastEffectWatcher *s_backgroundContrastEffectWatcher;
