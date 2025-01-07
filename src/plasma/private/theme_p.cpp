@@ -231,11 +231,6 @@ void ThemePrivate::updateKSvgSelectors(CacheTypes notify)
     }
 }
 
-void ThemePrivate::discardCache(CacheTypes caches)
-{
-    if (caches & SvgElementsCache) { }
-}
-
 void ThemePrivate::colorsChanged()
 {
     // in the case the theme follows the desktop settings, refetch the colorschemes
@@ -266,7 +261,6 @@ void ThemePrivate::scheduleThemeChangeNotification(CacheTypes caches)
 void ThemePrivate::notifyOfChanged()
 {
     // qCDebug(LOG_PLASMA) << cachesToDiscard;
-    discardCache(cachesToDiscard);
     cachesToDiscard = NoCache;
     Q_EMIT themeChanged();
 }
