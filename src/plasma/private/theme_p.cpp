@@ -225,9 +225,9 @@ void ThemePrivate::updateKSvgSelectors(CacheTypes notify)
         kSvgImageSet->setSelectors({QStringLiteral("opaque")});
     }
 
-    if (notify != NoCache) {
-        scheduleThemeChangeNotification();
-    }
+    // if (notify != NoCache) {
+    //     scheduleThemeChangeNotification();
+    // }
 }
 
 void ThemePrivate::colorsChanged()
