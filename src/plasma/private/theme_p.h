@@ -62,7 +62,7 @@ public:
 
     QColor color(Theme::ColorRole role, Theme::ColorGroup group = Theme::NormalColorGroup) const;
 
-    void updateKSvgSelectors(CacheTypes notify);
+    void updateKSvgSelectors();
 
 public Q_SLOTS:
     void colorsChanged();

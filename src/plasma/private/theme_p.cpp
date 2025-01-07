@@ -116,7 +116,8 @@ ThemePrivate::ThemePrivate(QObject *parent)
     selectorsUpdateTimer->setSingleShot(true);
     selectorsUpdateTimer->setInterval(600);
     QObject::connect(selectorsUpdateTimer, &QTimer::timeout, this, [this]() {
-        updateKSvgSelectors(PixmapCache | SvgElementsCache);
+        updateKSvgSelectors();
+        scheduleThemeChangeNotification();
     });
 
     updateNotificationTimer = new QTimer(this);
@@ -149,7 +150,7 @@ ThemePrivate::ThemePrivate(QObject *parent)
     if (KWindowSystem::isPlatformX11()) {
         connect(KX11Extras::self(), &KX11Extras::compositingChanged, selectorsUpdateTimer, qOverload<>(&QTimer::start));
     }
-    updateKSvgSelectors(NoCache);
+    updateKSvgSelectors();
 }
 
 ThemePrivate::~ThemePrivate()
@@ -202,7 +203,7 @@ QString ThemePrivate::findInTheme(const QString &image, const QString &theme)
     return search;
 }
 
-void ThemePrivate::updateKSvgSelectors(CacheTypes notify)
+void ThemePrivate::updateKSvgSelectors()
 {
 #if HAVE_X11
     if (KWindowSystem::isPlatformX11()) {
@@ -223,10 +224,6 @@ void ThemePrivate::updateKSvgSelectors(CacheTypes notify)
         }
     } else {
         kSvgImageSet->setSelectors({QStringLiteral("opaque")});
-    }
-
-    if (notify != NoCache) {
-        scheduleThemeChangeNotification();
     }
 }
 
