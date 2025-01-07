@@ -86,7 +86,6 @@ ThemePrivate::ThemePrivate(QObject *parent)
     , defaultWallpaperWidth(DEFAULT_WALLPAPER_WIDTH)
     , defaultWallpaperHeight(DEFAULT_WALLPAPER_HEIGHT)
     , cacheSize(0)
-    , cachesToDiscard(NoCache)
     , compositingActive(true)
     , backgroundContrastActive(KWindowEffects::isEffectAvailable(KWindowEffects::BackgroundContrast))
     , isDefault(true)
@@ -254,14 +253,11 @@ void ThemePrivate::colorsChanged()
 
 void ThemePrivate::scheduleThemeChangeNotification(CacheTypes caches)
 {
-    cachesToDiscard |= caches;
     updateNotificationTimer->start();
 }
 
 void ThemePrivate::notifyOfChanged()
 {
-    // qCDebug(LOG_PLASMA) << cachesToDiscard;
-    cachesToDiscard = NoCache;
     Q_EMIT themeChanged();
 }
 

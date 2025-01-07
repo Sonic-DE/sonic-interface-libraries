@@ -109,7 +109,6 @@ public:
     QTimer *selectorsUpdateTimer;
     QTimer *updateNotificationTimer;
     unsigned cacheSize;
-    CacheTypes cachesToDiscard;
     QString themeVersion;
     QString themeMetadataPath;
 
