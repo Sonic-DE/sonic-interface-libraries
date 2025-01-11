@@ -446,6 +446,14 @@ public:
 
     // UTILS
     /**
+     * This method creates a new alternative applet from a preexisting applet
+     * @param oldApplet the old applet that will be replaced
+     * @param plugin the name of the new applet
+     * @param newPos the coordinate for the new applet
+     **/
+    virtual void initFromAlternative(Applet *oldApplet, const QString &plugin, const QPoint newPos);
+
+    /**
      * Called when any of the geometry constraints have been updated.
      * This method calls constraintsEvent, which may be reimplemented,
      * once the Applet has been prepared for updating the constraints.
