@@ -1087,7 +1087,7 @@ void ContainmentItem::itemChange(ItemChange change, const ItemChangeData &value)
 void ContainmentItem::deleteWallpaperItem()
 {
     m_containment->setProperty("wallpaperGraphicsObject", QVariant());
-    m_wallpaperItem->deleteLater();
+    delete m_wallpaperItem;
     m_wallpaperItem = nullptr;
 }
 
