@@ -88,13 +88,13 @@ void ContrastEffectWatcher::init()
     }
 }
 
-#if HAVE_X11
 bool ContrastEffectWatcher::nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result)
 {
     if (KWindowSystem::isPlatformWayland()) {
         return false;
     }
 
+    Q_UNUSED(message);
     Q_UNUSED(result);
     // A faster comparison than eventType != "xcb_generic_event_t"
     // given that eventType can only have the following values:
@@ -103,6 +103,8 @@ bool ContrastEffectWatcher::nativeEventFilter(const QByteArray &eventType, void 
     if (eventType[0] != 'x') {
         return false;
     }
+
+    #if HAVE_X11
     xcb_generic_event_t *event = reinterpret_cast<xcb_generic_event_t *>(message);
     uint response_type = event->response_type & ~0x80;
     if (response_type != XCB_PROPERTY_NOTIFY || m_property == XCB_ATOM_NONE) {
@@ -117,10 +119,10 @@ bool ContrastEffectWatcher::nativeEventFilter(const QByteArray &eventType, void 
             Q_EMIT effectChanged(m_effectActive);
         }
     }
+#endif
 
     return false;
 }
-#endif
 
 bool ContrastEffectWatcher::isEffectActive() const
 {
@@ -133,6 +135,7 @@ bool ContrastEffectWatcher::fetchEffectActive() const
         return m_contrastManager->isActive();
     }
 
+#if HAVE_X11
     if (m_property == XCB_ATOM_NONE || !m_x11Interface) {
         return false;
     }
@@ -148,6 +151,8 @@ bool ContrastEffectWatcher::fetchEffectActive() const
             return true;
         }
     }
+#endif
+
     return false;
 }
 

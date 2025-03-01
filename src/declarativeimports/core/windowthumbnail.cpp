@@ -6,7 +6,9 @@
 #include "windowthumbnail.h"
 // KF5
 #include <KWindowSystem>
-#include <KX11Extras>
+#if HAVE_X11
+    #include <KX11Extras>
+#endif
 // Qt
 #include <QGuiApplication>
 #include <QIcon>
@@ -210,6 +212,7 @@ void WindowThumbnail::itemChange(ItemChange change, const ItemChangeData &data)
 void WindowThumbnail::releaseResources()
 {
     QQuickWindow::RenderStage m_renderStage = QQuickWindow::NoStage;
+    Q_UNUSED(m_renderStage);
     if (m_textureProvider) {
         window()->scheduleRenderJob(new DiscardTextureProviderRunnable(m_textureProvider), QQuickWindow::AfterSynchronizingStage);
         m_textureProvider = nullptr;
@@ -250,6 +253,7 @@ void WindowThumbnail::invalidateSceneGraph()
 {
     delete m_textureProvider;
     m_textureProvider = nullptr;
+#if HAVE_XCB_COMPOSITE
 #if HAVE_GLX
     if (m_glxPixmap != XCB_PIXMAP_NONE) {
         // runnable used just to share code with releaseResources, we're already in the render thread
@@ -268,6 +272,7 @@ void WindowThumbnail::invalidateSceneGraph()
         m_texture = 0;
     }
 #endif
+#endif
 }
 
 uint32_t WindowThumbnail::winId() const
@@ -280,10 +285,12 @@ void WindowThumbnail::setWinId(uint32_t winId)
     if (m_winId == winId) {
         return;
     }
+#if HAVE_X11
     if (KWindowSystem::isPlatformX11() && !KX11Extras::self()->hasWId(winId)) {
         // invalid Id, don't updated
         return;
     }
+#endif
     if (window() && winId == window()->winId()) {
         // don't redirect to yourself
         return;
@@ -393,12 +400,14 @@ bool WindowThumbnail::nativeEventFilter(const QByteArray &eventType, void *messa
 void WindowThumbnail::iconToTexture(WindowTextureProvider *textureProvider)
 {
     QIcon icon;
+#if HAVE_X11
     if (KWindowSystem::isPlatformX11() && KX11Extras::self()->hasWId(m_winId)) {
         icon = KX11Extras::self()->icon(m_winId, boundingRect().width(), boundingRect().height());
     } else {
         // fallback to plasma icon
         icon = QIcon::fromTheme(QStringLiteral("plasma"));
     }
+#endif
     QImage image = icon.pixmap(boundingRect().size().toSize(), window()->devicePixelRatio()).toImage();
     textureProvider->setTexture(window()->createTextureFromImage(image, QQuickWindow::TextureCanUseAtlas));
 }
