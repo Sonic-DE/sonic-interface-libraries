@@ -282,7 +282,7 @@ Plasma::Containment::Type Containment::containmentType() const
 
 Corona *Containment::corona() const
 {
-    // We are not sure where the corona parent is in the hyerarchy,
+    // We are not sure where the corona parent is in the hierarchy,
     // because of nested containment, those of type CustomEmbedded
     // will have containment->containment->corona
     for (auto candidate = parent(); candidate; candidate = candidate->parent()) {
