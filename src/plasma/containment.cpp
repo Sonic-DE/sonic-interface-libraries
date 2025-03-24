@@ -479,7 +479,7 @@ int Containment::screen() const
 
 int Containment::lastScreen() const
 {
-    if (Containment *pc = qobject_cast<Containment *>(parent()); pc && isContainment()) {
+    if (Containment *pc = qobject_cast<Containment *>(parent()); pc) {
         return pc->lastScreen();
     }
     return d->lastScreen;
