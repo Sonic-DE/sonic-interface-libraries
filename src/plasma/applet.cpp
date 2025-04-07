@@ -704,10 +704,15 @@ Types::FormFactor Applet::formFactor() const
 
     // Let's try to return the higher level formfactor in case of
     // nested containments.
-    // c->containment() is guaranteed to exist. if c is a toplevel containment,
+    // c->containment() is guaranteed to exist except during teardown.
+    // if c is a toplevel containment,
     // c == c->containment() else if is a nested one, it will be containment's
     // containment
-    return c->containment()->d->formFactor;
+    Containment *topC = c->containment();
+    if (topC) {
+        return topC->d->formFactor;
+    }
+    return c->d->formFactor;
 }
 
 Types::ContainmentDisplayHints Applet::containmentDisplayHints() const
@@ -789,10 +794,15 @@ Types::Location Applet::location() const
 
     // Let's try to return the higher level location in case of
     // nested containments.
-    // c->containment() is guaranteed to exist. if c is a toplevel containment,
+    // c->containment() is guaranteed to exist except during teardown.
+    // if c is a toplevel containment,
     // c == c->containment() else if is a nested one, it will be containment's
     // containment
-    return c->containment()->d->location;
+    Containment *topC = c->containment();
+    if (topC) {
+        return topC->d->location;
+    }
+    return c->d->location;
 }
 
 bool Applet::hasConfigurationInterface() const
