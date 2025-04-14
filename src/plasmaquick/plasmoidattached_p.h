@@ -11,6 +11,9 @@
 #include <QObject>
 #include <QQmlEngine>
 
+#include <Plasma/Applet>
+#include <Plasma/Containment>
+
 //
 //  W A R N I N G
 //  -------------
@@ -22,29 +25,18 @@
 // We mean it.
 //
 
-namespace Plasma
-{
-class Applet;
-class Containment;
-}
-
 namespace PlasmaQuick
 {
 // Class used exclusively to generate the Plasmoid.* attached proeprties, which are Applet instances
 class PlasmoidAttached : public QObject
 {
     Q_OBJECT
+    QML_NAMED_ELEMENT(Plasmoid)
+    QML_UNCREATABLE("")
+    QML_ATTACHED(Plasma::Applet)
+    QML_EXTENDED_NAMESPACE(Plasma::Applet) // needed to make enums from Plasma::Applet available
 
 public:
-    /** TODO: When the migration to the new action api is done, remove this enum
-     */
-    enum ActionPriority {
-        LowPriorityAction = QAction::LowPriority,
-        NormalPriorityAction = QAction::NormalPriority,
-        HighPriorityAction = QAction::HighPriority,
-    };
-    Q_ENUM(ActionPriority)
-
     PlasmoidAttached(QObject *parent = nullptr);
     ~PlasmoidAttached() override;
 
@@ -56,6 +48,10 @@ public:
 class ContainmentAttached : public QObject
 {
     Q_OBJECT
+    QML_NAMED_ELEMENT(Containment)
+    QML_UNCREATABLE("")
+    QML_ATTACHED(Plasma::Containment)
+    QML_EXTENDED_NAMESPACE(Plasma::Containment) // needed to make enums from Plasma::Containment available
 
 public:
     ContainmentAttached(QObject *parent = nullptr);
@@ -66,8 +62,5 @@ public:
 };
 
 }
-
-QML_DECLARE_TYPEINFO(PlasmaQuick::PlasmoidAttached, QML_HAS_ATTACHED_PROPERTIES)
-QML_DECLARE_TYPEINFO(PlasmaQuick::ContainmentAttached, QML_HAS_ATTACHED_PROPERTIES)
 
 #endif
