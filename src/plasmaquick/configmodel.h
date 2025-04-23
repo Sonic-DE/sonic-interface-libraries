@@ -63,6 +63,8 @@ public:
         IncludeMarginsRole,
         VisibleRole,
         KCMRole,
+        ConfigUiModule,
+        ConfigUiComponent,
     };
     Q_ENUM(Roles)
 

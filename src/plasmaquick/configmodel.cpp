@@ -142,6 +142,8 @@ void ConfigModelPrivate::appendCategory(ConfigCategory *c)
     QObject::connect(c, &ConfigCategory::sourceChanged, q, emitChange);
     QObject::connect(c, &ConfigCategory::pluginNameChanged, q, emitChange);
     QObject::connect(c, &ConfigCategory::visibleChanged, q, emitChange);
+    QObject::connect(c, &ConfigCategory::configUiComponentChanged, q, emitChange);
+    QObject::connect(c, &ConfigCategory::configUiModuleChanged, q, emitChange);
 
     q->endInsertRows();
     Q_EMIT q->countChanged();
@@ -186,6 +188,8 @@ QVariant ConfigModelPrivate::get(int row) const
     value[QStringLiteral("includeMargins")] = categories.at(row)->includeMargins();
     value[QStringLiteral("visible")] = categories.at(row)->visible();
     value[QStringLiteral("kcm")] = q->data(q->index(row, 0), ConfigModel::KCMRole);
+    value[QStringLiteral("configUiModule")] = q->data(q->index(row, 0), ConfigModel::ConfigUiModule);
+    value[QStringLiteral("configUiComponent")] = q->data(q->index(row, 0), ConfigModel::ConfigUiComponent);
 
     return value;
 }
@@ -260,6 +264,10 @@ QVariant ConfigModel::data(const QModelIndex &index, int role) const
             return QVariant();
         }
     }
+    case ConfigUiModule:
+        return d->categories.at(index.row())->configUiModule();
+    case ConfigUiComponent:
+        return d->categories.at(index.row())->configUiComponent();
     default:
         return QVariant();
     }
@@ -275,6 +283,8 @@ QHash<int, QByteArray> ConfigModel::roleNames() const
         {IncludeMarginsRole, "includeMargins"},
         {VisibleRole, "visible"},
         {KCMRole, "kcm"},
+        {ConfigUiModule, "configUiModule"},
+        {ConfigUiComponent, "configUiComponent"},
     };
 }
 
