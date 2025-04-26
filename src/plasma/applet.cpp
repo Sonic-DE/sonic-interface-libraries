@@ -283,6 +283,39 @@ KConfigPropertyMap *Applet::configuration()
     return d->configPropertyMap;
 }
 
+void Applet::initFromAlternative(Applet *oldApplet, const QString &plugin, const QPoint newPos)
+{
+    Plasma::Containment *cont = oldApplet->containment();
+    if (!cont) {
+        return;
+    }
+
+    // ensure the global shortcut is moved to the new applet
+    const QKeySequence &shortcut = oldApplet->globalShortcut();
+    oldApplet->setGlobalShortcut(QKeySequence()); // need to unmap the old one first
+
+    KConfigGroup oldCg(oldApplet->config());
+
+    connect(oldApplet, &Plasma::Applet::configNeedsSaving, this, [=]() {
+        Plasma::Applet *newApplet = cont->createApplet(plugin, {}, QRectF(newPos, QSizeF()));
+
+        if (!newApplet) {
+            return;
+        }
+
+        newApplet->setGlobalShortcut(shortcut);
+
+        // use the old config when switching to a alternate applet
+        KConfigGroup newCg(newApplet->config());
+        oldCg.copyTo(&newCg);
+
+        // To let ConfigPropertyMap reload its config
+        Q_EMIT newApplet->configScheme()->configChanged();
+    });
+
+    oldApplet->destroy();
+}
+
 void Applet::updateConstraints(Constraints constraints)
 {
     d->scheduleConstraintsUpdate(constraints);
