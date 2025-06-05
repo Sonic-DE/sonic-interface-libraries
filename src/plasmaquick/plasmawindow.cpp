@@ -184,6 +184,7 @@ void PlasmaWindowPrivate::updateMainItemGeometry()
         return;
     }
     const QMargins frameMargins = q->padding();
+    qDebug() << "NEW MARGINS" << frameMargins;
     const QSize windowSize = q->size();
 
     mainItem->setX(frameMargins.left());

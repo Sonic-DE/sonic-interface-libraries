@@ -140,6 +140,7 @@ void AppletPopup::setAppletInterface(QQuickItem *appletInterface)
         size.rheight() = config.readEntry("popupHeight", 0);
         if (!size.isEmpty()) {
             m_sizeExplicitlySetFromConfig = true;
+            qDebug() << 10 << size.grownBy(padding());
             resize(size.grownBy(padding()));
             return;
         }
@@ -272,6 +273,7 @@ void AppletPopup::updateSize()
 
     Q_ASSERT(!size.isEmpty());
     if (!size.isEmpty()) {
+        qDebug() << 11 << size;
         resize(size);
     }
 }
