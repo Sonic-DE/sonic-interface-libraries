@@ -29,13 +29,7 @@ class ContainmentActions;
  *
  * \brief Loader for Plasma plugins.
  *
- * This is an abstract base class which defines an interface to which Plasma's
- * Applet Loading logic can communicate with a parent application. The plugin loader
- * must be set before any plugins are loaded, otherwise (for safety reasons), the
- * default PluginLoader implementation will be used. The reimplemented version should
- * not do more than simply returning a loaded plugin. It should not init() it, and it should not
- * hang on to it. The associated methods will be called only when a component of Plasma
- * needs to load a _new_ plugin.
+ * This class is used to list and load various Plasma-related plugins.
  *
  * \since 4.6
  **/
