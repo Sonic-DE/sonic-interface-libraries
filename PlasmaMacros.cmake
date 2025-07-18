@@ -66,6 +66,8 @@ function(plasma_add_applet id)
 
    ecm_target_qml_sources(${id} SOURCES ${ARGS_QML_SOURCES} RESOURCES ${ARGS_RESOURCES})
 
+   set_target_properties(${id} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/plasma/applets")
+
    if(ARGS_GENERATE_APPLET_CLASS)
 
       string(REPLACE "." "_" CLASS_NAME ${id})
@@ -96,5 +98,7 @@ K_PLUGIN_CLASS_WITH_JSON(${CLASS_NAME}_Plugin, \"metadata.json\")
 
    target_sources(${id} PRIVATE ${ARGS_CPP_SOURCES})
 
-   install(TARGETS ${id} DESTINATION ${KDE_INSTALL_PLUGINDIR}/plasma/applets)
+   if (NOT PLASMA_SKIP_APPLET_INSTALL)
+      install(TARGETS ${id} DESTINATION ${KDE_INSTALL_PLUGINDIR}/plasma/applets)
+   endif()
 endfunction()
