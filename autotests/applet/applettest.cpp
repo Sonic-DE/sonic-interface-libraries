@@ -43,7 +43,7 @@ private Q_SLOTS:
     {
         QStandardPaths::setTestModeEnabled(true);
 
-        const QString appletDir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + "/plasma/plasmoids/org.kde.plasma.testkpackage/";
+        const QString appletDir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + "/plasma/plasmoids/org.kde.plasma.testkpackage";
         qWarning() << "applets" << appletDir;
         QDir(appletDir).mkpath(".");
         QDir(appletDir).removeRecursively();
