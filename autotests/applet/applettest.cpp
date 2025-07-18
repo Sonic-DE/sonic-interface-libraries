@@ -33,6 +33,7 @@ private Q_SLOTS:
             if (it.fileInfo().isDir()) {
                 QVERIFY(targetDir.mkpath(relDestPath));
             } else {
+                qWarning() << "copy" << path << dstDir + '/' + relDestPath;
                 QVERIFY(QFile::copy(path, dstDir + '/' + relDestPath));
             }
         }
@@ -43,6 +44,7 @@ private Q_SLOTS:
         QStandardPaths::setTestModeEnabled(true);
 
         const QString appletDir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + "/plasma/plasmoids/org.kde.plasma.testkpackage/";
+        qWarning() << "applets" << appletDir;
         QDir(appletDir).mkpath(".");
         QDir(appletDir).removeRecursively();
 
