@@ -95,6 +95,28 @@ private Q_SLOTS:
 
         QVERIFY(testContainment != containments.cend());
     }
+
+    void testDropMime()
+    {
+        auto applets = Plasma::PluginLoader::self()->listAppletMetaDataForMimeType("image/jpeg");
+
+        auto testApplet = std::find_if(applets.cbegin(), applets.cend(), [](const KPluginMetaData &md) {
+            return md.pluginId() == "org.kde.plasma.testapplet2";
+        });
+
+        QVERIFY(testApplet != applets.cend());
+    }
+
+    void testDropPattern()
+    {
+        auto applets = Plasma::PluginLoader::self()->listAppletMetaDataForUrl(QUrl("test:/"));
+
+        auto testApplet = std::find_if(applets.cbegin(), applets.cend(), [](const KPluginMetaData &md) {
+            return md.pluginId() == "org.kde.plasma.testapplet";
+        });
+
+        QVERIFY(testApplet != applets.cend());
+    }
 };
 
 QTEST_MAIN(AppletTest);
