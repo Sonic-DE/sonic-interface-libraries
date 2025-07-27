@@ -15,6 +15,7 @@
 #include <KPluginFactory>
 #include <KRuntimePlatform>
 #include <KSharedConfig>
+#include <kpluginmetadata.h>
 
 #include "applet.h"
 #include "containment.h"
@@ -240,11 +241,15 @@ QList<KPluginMetaData> PluginLoader::listAppletMetaDataForUrl(const QUrl &url)
 
 QList<KPluginMetaData> PluginLoader::listContainmentsMetaData(std::function<bool(const KPluginMetaData &)> filter)
 {
-    auto ownFilter = [filter](const KPluginMetaData &md) -> bool {
-        return isContainmentMetaData(md) && filter(md);
-    };
+    KPluginMetaData md;
+    filter(md);
+    return {};
+    // auto ownFilter = [filter](const KPluginMetaData &md) -> bool {
+    // qWarning() << "a" <<filter(md);
+    // return isContainmentMetaData(md) && filter(md);
+    // };
 
-    return KPackage::PackageLoader::self()->findPackages(QStringLiteral("Plasma/Applet"), QString(), ownFilter);
+    // return KPackage::PackageLoader::self()->findPackages(QStringLiteral("Plasma/Applet"), QString(), ownFilter);
 
     // const auto applets = self()->listAppletMetaData(QString());
     //
