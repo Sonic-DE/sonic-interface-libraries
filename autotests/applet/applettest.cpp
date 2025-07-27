@@ -14,6 +14,8 @@
 #include <Plasma/PluginLoader>
 #include <PlasmaQuick/AppletQuickItem>
 
+#include <KPackage/PackageLoader>
+
 using namespace Qt::StringLiterals;
 
 class AppletTest : public QObject
@@ -82,6 +84,13 @@ private Q_SLOTS:
         QVERIFY(item);
 
         QCOMPARE(item->applet(), applet);
+    }
+
+    void testListContainment()
+    {
+        // KPackage::PackageLoader::self()->findPackages(QStringLiteral("Plasma/Applet"), QString());
+        auto containments = Plasma::PluginLoader::listContainmentsMetaData();
+        // QCOMPARE(containments.size(), 1);
     }
 };
 

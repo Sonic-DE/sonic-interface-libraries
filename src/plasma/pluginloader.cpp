@@ -245,6 +245,16 @@ QList<KPluginMetaData> PluginLoader::listContainmentsMetaData(std::function<bool
     };
 
     return KPackage::PackageLoader::self()->findPackages(QStringLiteral("Plasma/Applet"), QString(), ownFilter);
+
+    // const auto applets = self()->listAppletMetaData(QString());
+    //
+    // QList<KPluginMetaData> containments;
+    //
+    // std::copy_if(applets.cbegin(), applets.cend(), std::back_inserter(containments), [filter](const KPluginMetaData &md) {
+    //     return isContainmentMetaData(md) && filter(md);
+    // });
+    //
+    // return containments;
 }
 
 QList<KPluginMetaData> PluginLoader::listContainmentsMetaDataOfType(const QString &type)
