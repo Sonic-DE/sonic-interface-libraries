@@ -87,6 +87,13 @@ private Q_SLOTS:
     void testListContainment()
     {
         auto containments = Plasma::PluginLoader::listContainmentsMetaData();
+        QVERIFY(!containments.isEmpty());
+
+        auto testContainment = std::find_if(containments.cbegin(), containments.cend(), [](const KPluginMetaData &md) {
+            return md.pluginId() == "org.kde.plasma.testcontainment";
+        });
+
+        QVERIFY(testContainment != containments.cend());
     }
 };
 
