@@ -70,7 +70,7 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
 
         svg: switchSvg
-        elementId: root.control.down ? "handle-pressed" : ( (root.control.enabled && root.control.hovered) || root.control.focus ? "handle-hover" : "handle")
+        elementId: root.control.down ? "handle-pressed" : ( (root.control.enabled && root.control.hovered) || root.control.focus ? "handle-hover" : (root.control.checked && switchSvg.hasElement("handle-active")) ? "handle-active" : "handle")
 
         implicitWidth: naturalSize.width
         implicitHeight: naturalSize.height
