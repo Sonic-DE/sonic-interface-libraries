@@ -5,6 +5,7 @@
 
 #include "popupplasmawindow.h"
 
+#include <QScopedValueRollback>
 #include <kwindoweffects.h>
 #include <kwindowsystem.h>
 
@@ -186,13 +187,20 @@ void PopupPlasmaWindowPrivate::updatePositionX11(const QPoint &position)
     q->setPosition(position);
 }
 
-void PopupPlasmaWindowPrivate::updatePositionWayland(const QPoint &position)
+oid PopupPlasmaWindowPrivate::updatePositionWayland(const QPoint &position)
 {
-    // still update's Qt internal reference as it's used by the next dialog
-    // this can be dropped when we're using true semantic positioning in the backend
-    q->setPosition(position);
+    // lokale, funktionsweite Reentranz-Sperre
+    static thread_local bool s_inWaylandPosUpdate = false;
 
-    PlasmaShellWaylandIntegration::get(q)->setPosition(position);
+    if (s_inWaylandPosUpdate) {
+        return;
+    }
+    QScopedValueRollback<bool> guard(s_inWaylandPosUpdate, true);
+
+    // WICHTIG: unter Wayland KEIN q->setPosition()!
+    if (auto *ps = PlasmaShellWaylandIntegration::get(q)) {
+        ps->setPosition(position);
+    }
 }
 
 void PopupPlasmaWindowPrivate::updateBorders(const QRect &globalPosition)
