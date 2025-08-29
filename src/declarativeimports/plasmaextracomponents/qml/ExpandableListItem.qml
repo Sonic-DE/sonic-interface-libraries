@@ -420,6 +420,8 @@ Item {
 
         // using onPositionChanged instead of onContainsMouseChanged so this doesn't trigger when the list reflows
         onPositionChanged: {
+            if (!listItem.ListView.view.highlightFollowsCurrentItem)
+                return; // delegate handles highlight/currentItem
             // don't change currentIndex if it would make listview scroll
             // see https://bugs.kde.org/show_bug.cgi?id=387797
             // this is a workaround till https://bugreports.qt.io/browse/QTBUG-114574 gets fixed
@@ -429,6 +431,8 @@ Item {
             }
         }
         onExited: if (listItem.ListView.view.currentIndex === index) {
+            if (!listItem.ListView.view.highlightFollowsCurrentItem)
+                return; // delegate handles highlight/currentItem
             listItem.ListView.view.currentIndex = -1;
         }
 
