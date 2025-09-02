@@ -50,7 +50,7 @@ private Q_SLOTS:
 
         copyDirectory(QFINDTESTDATA("kpackage/package"), appletDir);
 
-        // Copy the kpackage falilng back to simple
+        // Copy the kpackage falling back to simple
         appletDir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + "/plasma/plasmoids/org.kde.plasma.testrootpath";
         QDir(appletDir).mkpath(".");
         QDir(appletDir).removeRecursively();
