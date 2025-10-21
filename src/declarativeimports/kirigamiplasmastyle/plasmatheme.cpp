@@ -55,13 +55,6 @@ PlasmaTheme::PlasmaTheme(QObject *parent)
         return smallFont;
     }()));
 
-    connect(m_globalConfigWatcher.get(), &KConfigWatcher::configChanged, this, [this](const KConfigGroup &group, const QByteArrayList &names) {
-        if (group.name() == QStringLiteral("WM") && names.contains(QByteArrayLiteral("frameContrast"))) {
-            setFrameContrast(group.readEntry(QStringLiteral("frameContrast"), 0.2));
-        }
-    });
-    setFrameContrast(m_globalConfigWatcher->config()->group(QStringLiteral("WM")).readEntry(QStringLiteral("frameContrast"), 0.2));
-
     syncWindow();
     syncColors();
     connect(&m_theme, &Plasma::Theme::themeChanged, this, &PlasmaTheme::syncColors);
@@ -194,6 +187,7 @@ void PlasmaTheme::syncColors()
     // decoration
     setHoverColor(m_theme.color(Plasma::Theme::HoverColor, group));
     setFocusColor(m_theme.color(Plasma::Theme::FocusColor, group));
+    setFrameContrast(KColorScheme::contrastF());
 }
 
 bool PlasmaTheme::event(QEvent *event)
