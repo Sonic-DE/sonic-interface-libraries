@@ -14,6 +14,13 @@ import org.kde.kirigami as Kirigami
 import "mobiletextselection" as MobileTextSelection
 import "private" as Private
 
+/**
+ * @brief A simple text field with custom styling to better fit the plasma environment.
+ *
+ * It sets implicit size, styling, text color, and properties that control the behaviour of the component.
+ *
+ * @inherit QtQuick.Controls.TextField
+ */
 T.TextField {
     id: control
 

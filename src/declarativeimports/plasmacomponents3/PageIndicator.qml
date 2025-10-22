@@ -9,6 +9,10 @@ import QtQuick.Layouts
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
 
+/**
+ * @brief A simple page indicator with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.PageIndicator
+ */
 T.PageIndicator {
     id: control
 

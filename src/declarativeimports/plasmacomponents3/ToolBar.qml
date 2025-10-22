@@ -11,6 +11,13 @@ import org.kde.ksvg as KSvg
 import org.kde.plasma.core as PlasmaCore
 import org.kde.kirigami as Kirigami
 
+/**
+ * @brief A simple tool bar with custom styling to better fit the plasma environment.
+ *
+ * It sets implicit size, padding, spacing and background item.
+ *
+ * @inherit QtQuick.Controls.ToolBar
+ */
 T.ToolBar {
     id: control
 

@@ -16,6 +16,10 @@ import org.kde.plasma.core as PlasmaCore
 import org.kde.kirigami as Kirigami
 import "private" as Private
 
+/**
+ * @brief A simple tab button with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.TabButton
+ */
 T.TabButton {
     id: control
 

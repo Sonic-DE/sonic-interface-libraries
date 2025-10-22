@@ -7,6 +7,10 @@
 import QtQuick
 import QtQuick.Templates as T
 
+/**
+ * @brief A simple container with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.Container
+ */
 T.Container {
     id: control
 

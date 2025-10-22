@@ -10,6 +10,10 @@ import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
 import "private" as Private
 
+/**
+ * @brief A simple switch with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.Switch
+ */
 T.Switch {
     id: control
 

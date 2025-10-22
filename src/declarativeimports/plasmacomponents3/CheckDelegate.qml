@@ -11,6 +11,10 @@ import org.kde.kirigami as Kirigami
 import org.kde.ksvg as KSvg
 import "private" as Private
 
+/**
+ * @brief A simple check delegate with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.CheckDelegate
+ */
 T.CheckDelegate {
     id: control
 

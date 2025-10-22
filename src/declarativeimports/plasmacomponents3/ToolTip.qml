@@ -12,6 +12,14 @@ import org.kde.ksvg as KSvg
 import org.kde.plasma.core as PlasmaCore
 import org.kde.kirigami as Kirigami
 
+/**
+ * @brief A simple tooltip with custom styling to better fit the plasma environment.
+ *
+ * It sets the when it is visible, implicit size, position, delay, and implements
+ * animations when the tooltip is shown and hidden.
+ *
+ * @inherit QtQuick.Controls.ToolTip
+ */
 T.ToolTip {
     id: control
 

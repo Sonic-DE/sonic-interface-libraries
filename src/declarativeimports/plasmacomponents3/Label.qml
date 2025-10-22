@@ -8,6 +8,10 @@ import QtQuick
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
 
+/**
+ * @brief A simple label with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.Label
+ */
 T.Label {
     id: control
 

@@ -11,6 +11,10 @@ import QtQuick
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
 
+/**
+ * @brief A simple menu spearator with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.MenuSeparator
+ */
 T.MenuSeparator {
     id: controlRoot
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,

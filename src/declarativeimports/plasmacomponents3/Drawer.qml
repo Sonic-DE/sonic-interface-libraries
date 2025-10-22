@@ -11,6 +11,10 @@ import org.kde.ksvg as KSvg
 //NOTE: importing PlasmaCore is necessary in order to make KSvg load the current Plasma Theme
 import org.kde.plasma.core as PlasmaCore
 
+/**
+ * @brief A simple drawer with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.Drawer
+ */
 T.Drawer {
     id: control
 

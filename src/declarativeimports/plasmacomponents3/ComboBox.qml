@@ -16,6 +16,10 @@ import org.kde.kirigami as Kirigami
 import "private" as Private
 import "mobiletextselection" as MobileTextSelection
 
+/**
+ * @brief A simple combobox with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.ComboBox
+ */
 T.ComboBox {
     id: control
 

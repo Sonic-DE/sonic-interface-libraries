@@ -12,6 +12,13 @@ import "private" as Private
 //NOTE: importing PlasmaCore is necessary in order to make KSvg load the current Plasma Theme
 import org.kde.plasma.core as PlasmaCore
 
+/**
+ * @brief A simple button with custom styling to better fit the plasma environment.
+ *
+ * It sets implicit size, padding, styling, content item and background item.
+ *
+ * @inherit QtQuick.Controls.Button
+ */
 T.Button {
     id: control
 

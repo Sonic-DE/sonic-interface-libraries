@@ -13,6 +13,10 @@ import org.kde.plasma.core as PlasmaCore
 import org.kde.kirigami as Kirigami
 import "private" as P
 
+/**
+ * @brief A simple slider with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.Slider
+ */
 T.Slider {
     id: control
 

@@ -11,6 +11,10 @@ import org.kde.ksvg as KSvg
 import org.kde.plasma.core as PlasmaCore
 import org.kde.kirigami as Kirigami
 
+/**
+ * @brief A simple progress bar with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.ProgressBar
+ */
 T.ProgressBar {
     id: control
 

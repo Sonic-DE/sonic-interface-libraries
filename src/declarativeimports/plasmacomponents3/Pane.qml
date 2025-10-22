@@ -5,6 +5,10 @@
 
 import QtQuick.Templates as T
 
+/**
+ * @brief A simple pane with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.Pane
+ */
 T.Pane {
     id: control
 

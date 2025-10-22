@@ -14,6 +14,10 @@ import "private" as Private
 import org.kde.kirigami as Kirigami
 import "mobiletextselection" as MobileTextSelection
 
+/**
+ * @brief A simple text area with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.TextArea
+ */
 T.TextArea {
     id: control
 

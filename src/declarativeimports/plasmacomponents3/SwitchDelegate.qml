@@ -11,6 +11,10 @@ import org.kde.kirigami as Kirigami
 import org.kde.ksvg as KSvg
 import "private" as Private
 
+/**
+ * @brief A simple switch delegate with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.SwitchDelegate
+ */
 T.SwitchDelegate {
     id: control
 

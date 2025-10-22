@@ -8,6 +8,10 @@ import QtQuick
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
 
+/**
+ * @brief A simple dialog buttonbox with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.DialogButtonBox
+ */
 T.DialogButtonBox {
     id: control
 

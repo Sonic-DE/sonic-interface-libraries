@@ -11,6 +11,14 @@ import org.kde.ksvg as KSvg
 //NOTE: importing PlasmaCore is necessary in order to make KSvg load the current Plasma Theme
 import org.kde.plasma.core as PlasmaCore
 
+/**
+ * @brief A simple dialog with custom styling to better fit the plasma environment.
+ *
+ * It sets implicit size, content size, padding, content, footer and background item and
+ * implements animations when the dialogs shows or exist.
+ *
+ * @inherit QtQuick.Controls.Dialog
+ */
 T.Dialog {
     id: control
 

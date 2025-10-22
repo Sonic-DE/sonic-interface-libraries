@@ -5,6 +5,10 @@ import QtQuick
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
 
+/**
+ * @brief A simple swipe view with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.SwipeView
+ */
 T.SwipeView {
     id: control
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,

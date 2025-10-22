@@ -7,6 +7,10 @@
 import QtQuick
 import QtQuick.Templates as T
 
+/**
+ * @brief A simple page with custom styling to better fit the plasma environment.
+ * @inherit QtQuick.Controls.Page
+ */
 T.Page {
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             contentWidth + leftPadding + rightPadding,
