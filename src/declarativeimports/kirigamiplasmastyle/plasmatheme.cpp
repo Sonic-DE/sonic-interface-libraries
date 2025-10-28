@@ -107,17 +107,13 @@ void PlasmaTheme::syncWindow()
     }
 }
 
-void PlasmaTheme::syncColors()
+QPalette::ColorGroup PlasmaTheme::paletteGroup()
 {
-    if (QCoreApplication::closingDown()) {
-        return;
-    }
-
     QPalette::ColorGroup paletteGroup = (QPalette::ColorGroup)colorGroup();
     auto parentItem = qobject_cast<QQuickItem *>(parent());
     if (parentItem) {
         if (!parentItem->isVisible()) {
-            return;
+            return paletteGroup;
         }
         if (!parentItem->isEnabled()) {
             paletteGroup = QPalette::Disabled;
@@ -129,7 +125,11 @@ void PlasmaTheme::syncColors()
             paletteGroup = QPalette::Inactive;
         }
     }
+    return paletteGroup;
+}
 
+Plasma::Theme::ColorGroup PlasmaTheme::colorGroup()
+{
     Plasma::Theme::ColorGroup group;
     switch (colorSet()) {
     case View:
@@ -152,9 +152,20 @@ void PlasmaTheme::syncColors()
     default:
         group = Plasma::Theme::NormalColorGroup;
     }
+    return group;
+}
+
+void PlasmaTheme::syncColors()
+{
+    if (QCoreApplication::closingDown()) {
+        return;
+    }
+
+    QPalette::ColorGroup palette = paletteGroup();
+    Plasma::Theme::ColorGroup group = colorGroup();
 
     // foreground
-    if (paletteGroup == QPalette::Disabled) {
+    if (palette == QPalette::Disabled) {
         setTextColor(m_theme.color(Plasma::Theme::DisabledTextColor, group));
     } else {
         setTextColor(m_theme.color(Plasma::Theme::TextColor, group));
@@ -188,6 +199,23 @@ void PlasmaTheme::syncColors()
     setFrameContrast(KColorScheme::frameContrast());
 }
 
+void PlasmaTheme::syncFrameContrast()
+{
+    if (QCoreApplication::closingDown()) {
+        return;
+    }
+
+    QPalette::ColorGroup palette = paletteGroup();
+    Plasma::Theme::ColorGroup group = colorGroup();
+    if (palette == QPalette::Disabled) {
+        setTextColor(m_theme.color(Plasma::Theme::DisabledTextColor, group));
+    } else {
+        setTextColor(m_theme.color(Plasma::Theme::TextColor, group));
+    }
+    setBackgroundColor(m_theme.color(Plasma::Theme::BackgroundColor, group));
+    setFrameContrast(KColorScheme::frameContrast());
+}
+
 bool PlasmaTheme::event(QEvent *event)
 {
     if (event->type() == Kirigami::Platform::PlatformThemeEvents::ColorSetChangedEvent::type) {
@@ -196,6 +224,10 @@ bool PlasmaTheme::event(QEvent *event)
 
     if (event->type() == Kirigami::Platform::PlatformThemeEvents::ColorGroupChangedEvent::type) {
         syncColors();
+    }
+
+    if (event->type() == Kirigami::Platform::PlatformThemeEvents::FrameContrastChangedEvent::type) {
+        syncFrameContrast();
     }
 
     return PlatformTheme::event(event);
