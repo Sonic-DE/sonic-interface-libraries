@@ -242,7 +242,7 @@ KSharedConfigPtr Theme::colorScheme() const
     return d->colors;
 }
 
-QColor Theme::color(ColorRole role, ColorGroup group) const
+QColor Theme::color(ColorRole role, Kirigami::Platform::PlatformTheme::ColorSet group) const
 {
     return d->color(role, group);
 }

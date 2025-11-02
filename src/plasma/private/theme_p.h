@@ -53,7 +53,7 @@ public:
     void processAdaptiveTransparencySettings(const KSharedConfigPtr &metadata);
     void processBlurBehindSettings(const KSharedConfigPtr &metadata);
 
-    QColor color(Theme::ColorRole role, Theme::ColorGroup group = Theme::NormalColorGroup) const;
+    QColor color(Theme::ColorRole role, Kirigami::Platform::PlatformTheme::ColorSet group) const;
 
     void updateKSvgSelectors();
 
