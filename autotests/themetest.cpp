@@ -12,6 +12,7 @@
 #include <KConfigGroup>
 #include <KIconLoader>
 #include <KIconTheme>
+#include <KSvg/ImageSet>
 #include <KWindowSystem>
 #include <KX11Extras>
 
@@ -117,6 +118,9 @@ void ThemeTest::testColors()
 
 void ThemeTest::testCompositingChange()
 {
+    KSvg::ImageSet set;
+    set.setBasePath(QStringLiteral(PLASMA_RELATIVE_DATA_INSTALL_DIR "/desktoptheme/"));
+
     // this test simulates the compositing change on X11
 #if HAVE_X11
     if (!KWindowSystem::isPlatformX11()) {
@@ -125,7 +129,7 @@ void ThemeTest::testCompositingChange()
     QVERIFY(!KX11Extras::compositingActive());
 
     // image path should give us an opaque variant
-    QVERIFY(m_theme->imagePath(QStringLiteral("element")).endsWith(QLatin1String("/desktoptheme/testtheme/opaque/element.svg")));
+    QVERIFY(set.selectors().contains("opaque"));
 
     QSignalSpy themeChangedSpy(m_theme, &Plasma::Theme::themeChanged);
     QVERIFY(themeChangedSpy.isValid());
@@ -143,7 +147,7 @@ void ThemeTest::testCompositingChange()
     QVERIFY(KX11Extras::compositingActive());
     QVERIFY(themeChangedSpy.wait());
     QCOMPARE(themeChangedSpy.count(), 1);
-    QVERIFY(m_theme->imagePath(QStringLiteral("element")).endsWith(QLatin1String("/desktoptheme/testtheme/element.svg")));
+    QVERIFY(!set.selectors().contains("opaque"));
 
     // remove compositor again
     compositorSelection.reset();
@@ -152,7 +156,7 @@ void ThemeTest::testCompositingChange()
     QVERIFY(!KX11Extras::compositingActive());
     QVERIFY(themeChangedSpy.wait());
     QCOMPARE(themeChangedSpy.count(), 2);
-    QVERIFY(m_theme->imagePath(QStringLiteral("element")).endsWith(QLatin1String("/desktoptheme/testtheme/opaque/element.svg")));
+    QVERIFY(set.selectors().contains("opaque"));
 #endif
 }
 
