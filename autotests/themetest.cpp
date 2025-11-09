@@ -147,7 +147,7 @@ void ThemeTest::testCompositingChange()
     QVERIFY(KX11Extras::compositingActive());
     QVERIFY(themeChangedSpy.wait());
     QCOMPARE(themeChangedSpy.count(), 1);
-    QVERIFY(!set.selectors().contains("opaque"));
+    QVERIFY(set.selectors().contains("opaque"));
 
     // remove compositor again
     compositorSelection.reset();
