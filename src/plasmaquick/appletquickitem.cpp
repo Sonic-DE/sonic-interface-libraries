@@ -190,7 +190,13 @@ QQuickItem *AppletQuickItemPrivate::createCompactRepresentationItem()
     initialProperties[QStringLiteral("parent")] = QVariant::fromValue(q);
     initialProperties[QStringLiteral("plasmoidItem")] = QVariant::fromValue(q);
 
-    compactRepresentationItem = qobject_cast<QQuickItem *>(qmlObject->createObjectFromComponent(compactRepresentation, qmlContext(q), initialProperties));
+    QObject *object = qmlObject->createObjectFromComponent(compactRepresentation, qmlContext(q), initialProperties);
+    compactRepresentationItem = qobject_cast<QQuickItem *>(object);
+
+    if (!compactRepresentationItem) {
+        delete object;
+        return nullptr;
+    }
 
     Q_EMIT q->compactRepresentationItemChanged(compactRepresentationItem);
 
@@ -199,17 +205,22 @@ QQuickItem *AppletQuickItemPrivate::createCompactRepresentationItem()
 
 QQuickItem *AppletQuickItemPrivate::createFullRepresentationItem()
 {
+    if (!fullRepresentation) {
+        return nullptr;
+    }
+
     if (fullRepresentationItem) {
         return fullRepresentationItem;
     }
 
-    if (fullRepresentation && fullRepresentation != qmlObject->mainComponent()) {
-        QVariantHash initialProperties;
-        initialProperties[QStringLiteral("parent")] = QVariant();
-        fullRepresentationItem = qobject_cast<QQuickItem *>(qmlObject->createObjectFromComponent(fullRepresentation, qmlContext(q), initialProperties));
-    }
+    QVariantHash initialProperties;
+    initialProperties[QStringLiteral("parent")] = QVariant();
+
+    QObject *object = qmlObject->createObjectFromComponent(fullRepresentation, qmlContext(q), initialProperties);
+    fullRepresentationItem = qobject_cast<QQuickItem *>(object);
 
     if (!fullRepresentationItem) {
+        delete object;
         return nullptr;
     }
 
@@ -229,13 +240,15 @@ QQuickItem *AppletQuickItemPrivate::createCompactRepresentationExpanderItem()
     }
 
     // Ensure plasmoidItem is not null on creation to avoid ternary operator in QML
-    compactRepresentationExpanderItem = qobject_cast<QQuickItem *>(qmlObject->createObjectFromComponent(compactRepresentationExpander,
-                                                                                                        qmlContext(q),
-                                                                                                        {
-                                                                                                            {u"plasmoidItem"_s, QVariant::fromValue(q)},
-                                                                                                        }));
+    QObject *object = qmlObject->createObjectFromComponent(compactRepresentationExpander,
+                                                           qmlContext(q),
+                                                           {
+                                                               {u"plasmoidItem"_s, QVariant::fromValue(q)},
+                                                           });
+    compactRepresentationExpanderItem = qobject_cast<QQuickItem *>(object);
 
     if (!compactRepresentationExpanderItem) {
+        delete object;
         return nullptr;
     }
 
