@@ -192,6 +192,7 @@ void PopupPlasmaWindowPrivate::updatePositionWayland(const QPoint &position)
     // this can be dropped when we're using true semantic positioning in the backend
     q->setPosition(position);
 
+    PlasmaShellWaylandIntegration::get(q)->setTakesFocus(true);
     PlasmaShellWaylandIntegration::get(q)->setPosition(position);
 }
 
