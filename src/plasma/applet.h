@@ -51,7 +51,7 @@ class Package;
  *
  * \brief The base Applet class.
  *
- * \note Since 2022 we have standardized on Plasmoid for internal API usage and Widget as a public facing name, and the name Applet is kept for backwards compatibility.
+ * \note Since 2022 we have standardized on "Plasmoid" for internal API usage and "Widget" as a public facing name. The name "Applet" is kept for backwards compatibility.
  *
  * Applet provides several important roles for add-ons widgets in Plasma.
  *
