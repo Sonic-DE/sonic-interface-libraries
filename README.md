@@ -1,11 +1,11 @@
-# libplasma-sonic
+# sonic-libblaze
 
-Foundational libraries, components, and tools of the Plasma workspaces
+Foundational libraries, components, and tools of the Blaze workspaces
 
 ## Introduction
-libplasma provides the following:
-- QML components that can be used by any Plasma shell
-- A C++ library: `libplasma` itself
+libblaze provides the following:
+- QML components that can be used by any Blaze shell
+- A C++ library: `libblaze` itself
 - Script engines
 
 ## QML components
