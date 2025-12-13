@@ -1,4 +1,4 @@
-# libplasma
+# libplasma-sonic
 
 Foundational libraries, components, and tools of the Plasma workspaces
 
