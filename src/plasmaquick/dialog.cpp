@@ -881,13 +881,13 @@ Dialog::Dialog(QQuickItem *parent)
     setColor(QColor(Qt::transparent));
     setFlags(Qt::FramelessWindowHint | Qt::Dialog | Qt::Popup);
 
-    connect(this, &QWindow::xChanged, [this]() {
+    connect(this, &QWindow::xChanged, this, [this]() {
         d->slotWindowPositionChanged();
     });
-    connect(this, &QWindow::yChanged, [this]() {
+    connect(this, &QWindow::yChanged, this, [this]() {
         d->slotWindowPositionChanged();
     });
-    connect(this, &Dialog::locationChanged, this, [&] {
+    connect(this, &Dialog::locationChanged, this, [this]() {
         d->updateResizableEdges();
     });
 
