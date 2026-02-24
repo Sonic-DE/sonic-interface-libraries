@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Federico Zenith <federico.zenith@member.fsf.org>, 2008.
 # Federico Zenith <federico.zenith@member.fsf.org>, 2008, 2009, 2010, 2011, 2012.
-# SPDX-FileCopyrightText: 2014, 2015, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2026 Vincenzo Reale <smart2128vr@gmail.com>
+# SPDX-FileCopyrightText: 2014, 2015, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Vincenzo Reale <smart2128vr@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: plasmapkg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-05 02:41+0000\n"
+"POT-Creation-Date: 2026-02-24 00:47+0000\n"
 "PO-Revision-Date: 2024-08-24 10:45+0200\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.12.3\n"
+"X-Generator: Lokalize 24.05.2\n"
 
 #: declarativeimports/plasmaextracomponents/qml/BasicPlasmoidHeading.qml:82
 #, kde-format
@@ -99,11 +99,6 @@ msgstr "Sblocca oggetti"
 msgid "Exit Edit Mode"
 msgstr "Esci dalla modalità di modifica"
 
-#: plasma/pluginloader.cpp:145
-#, kde-format
-msgid "Could not find requested component: %1"
-msgstr "Impossibile trovare il componente richiesto: %1"
-
 #: plasma/private/applet_p.cpp:119
 #, kde-format
 msgid "Show Alternatives..."
@@ -173,6 +168,11 @@ msgstr "Impostazioni delle attività"
 #, kde-format
 msgid "Add or Manage Widgets…"
 msgstr "Aggiungi o gestisci oggetti..."
+
+#: plasma/private/containment_p.cpp:188
+#, kde-format
+msgid "Could not find requested component: %1"
+msgstr "Impossibile trovare il componente richiesto: %1"
 
 #: plasmaquick/appletquickitem.cpp:540
 #, kde-format

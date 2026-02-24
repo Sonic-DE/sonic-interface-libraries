@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libplasma\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-05 02:41+0000\n"
+"POT-Creation-Date: 2026-02-24 00:47+0000\n"
 "PO-Revision-Date: 2024-12-15 17:36+0530\n"
 "Last-Translator: Kali <EMAIL@ADDRESS>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
@@ -96,11 +96,6 @@ msgstr "विजेट अनलॉक करें"
 msgid "Exit Edit Mode"
 msgstr "संपादन मोड से बाहर निकलें"
 
-#: plasma/pluginloader.cpp:145
-#, kde-format
-msgid "Could not find requested component: %1"
-msgstr "अनुरोधित घटक नहीं मिल सका: %1"
-
 #: plasma/private/applet_p.cpp:119
 #, kde-format
 msgid "Show Alternatives..."
@@ -170,6 +165,11 @@ msgstr "गतिविधि सेटिंग्स"
 #, kde-format
 msgid "Add or Manage Widgets…"
 msgstr "विजेट जोड़ें या प्रबंधित करें…"
+
+#: plasma/private/containment_p.cpp:188
+#, kde-format
+msgid "Could not find requested component: %1"
+msgstr "अनुरोधित घटक नहीं मिल सका: %1"
 
 #: plasmaquick/appletquickitem.cpp:540
 #, kde-format

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libplasma5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-05 02:41+0000\n"
+"POT-Creation-Date: 2026-02-24 00:47+0000\n"
 "PO-Revision-Date: 2024-08-23 07:06+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -99,11 +99,6 @@ msgstr "שחרור יישומונים"
 msgid "Exit Edit Mode"
 msgstr "יציאה ממצב עריכה"
 
-#: plasma/pluginloader.cpp:145
-#, kde-format
-msgid "Could not find requested component: %1"
-msgstr "לא ניתן למצוא את הרכיב המבוקש: %1"
-
 #: plasma/private/applet_p.cpp:119
 #, kde-format
 msgid "Show Alternatives..."
@@ -173,6 +168,11 @@ msgstr "הגדרות פעילות"
 #, kde-format
 msgid "Add or Manage Widgets…"
 msgstr "הוספת או ניהול יישומונים…"
+
+#: plasma/private/containment_p.cpp:188
+#, kde-format
+msgid "Could not find requested component: %1"
+msgstr "לא ניתן למצוא את הרכיב המבוקש: %1"
 
 #: plasmaquick/appletquickitem.cpp:540
 #, kde-format

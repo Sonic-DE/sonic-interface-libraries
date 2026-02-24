@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-05 02:41+0000\n"
+"POT-Creation-Date: 2026-02-24 00:47+0000\n"
 "PO-Revision-Date: 2024-09-02 15:54+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -96,11 +96,6 @@ msgstr "Disbloca Widgets"
 msgid "Exit Edit Mode"
 msgstr "Exi modo de modificar"
 
-#: plasma/pluginloader.cpp:145
-#, kde-format
-msgid "Could not find requested component: %1"
-msgstr "Il non pote trovar componente requirite:%1"
-
 #: plasma/private/applet_p.cpp:119
 #, kde-format
 msgid "Show Alternatives..."
@@ -170,6 +165,11 @@ msgstr "Preferentias de activitate"
 #, kde-format
 msgid "Add or Manage Widgets…"
 msgstr "Adde o Gere Widgets…"
+
+#: plasma/private/containment_p.cpp:188
+#, kde-format
+msgid "Could not find requested component: %1"
+msgstr "Il non pote trovar componente requirite:%1"
 
 #: plasmaquick/appletquickitem.cpp:540
 #, kde-format
