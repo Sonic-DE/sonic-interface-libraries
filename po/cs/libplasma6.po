@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: plasmapkg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-05 02:41+0000\n"
+"POT-Creation-Date: 2026-02-24 00:47+0000\n"
 "PO-Revision-Date: 2024-08-23 15:37+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -100,11 +100,6 @@ msgstr "Odemknout widgety"
 msgid "Exit Edit Mode"
 msgstr "Ukončit režim úprav"
 
-#: plasma/pluginloader.cpp:145
-#, kde-format
-msgid "Could not find requested component: %1"
-msgstr "Požadovanou komponentu se nepovedlo nalézt: %1"
-
 #: plasma/private/applet_p.cpp:119
 #, kde-format
 msgid "Show Alternatives..."
@@ -174,6 +169,11 @@ msgstr "Nastavení aktivit"
 #, kde-format
 msgid "Add or Manage Widgets…"
 msgstr "Přidat nebo spravovat widgety…"
+
+#: plasma/private/containment_p.cpp:188
+#, kde-format
+msgid "Could not find requested component: %1"
+msgstr "Požadovanou komponentu se nepovedlo nalézt: %1"
 
 #: plasmaquick/appletquickitem.cpp:540
 #, kde-format

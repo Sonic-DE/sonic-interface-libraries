@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libplasma6\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-05 02:41+0000\n"
+"POT-Creation-Date: 2026-02-24 00:47+0000\n"
 "PO-Revision-Date: 2025-05-20 01:58+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -97,11 +97,6 @@ msgstr "Desbloquear elementos gráficos"
 msgid "Exit Edit Mode"
 msgstr "Salir del modo de edición"
 
-#: plasma/pluginloader.cpp:145
-#, kde-format
-msgid "Could not find requested component: %1"
-msgstr "No se ha podido encontrar el componente solicitado: %1"
-
 #: plasma/private/applet_p.cpp:119
 #, kde-format
 msgid "Show Alternatives..."
@@ -171,6 +166,11 @@ msgstr "Preferencias de la actividad"
 #, kde-format
 msgid "Add or Manage Widgets…"
 msgstr "Añadir o gestionar elementos gráficos…"
+
+#: plasma/private/containment_p.cpp:188
+#, kde-format
+msgid "Could not find requested component: %1"
+msgstr "No se ha podido encontrar el componente solicitado: %1"
 
 #: plasmaquick/appletquickitem.cpp:540
 #, kde-format

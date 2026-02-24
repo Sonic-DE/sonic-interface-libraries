@@ -1,17 +1,17 @@
 # Translation for libplasma6.po to Euskara/Basque (eu).
-# Copyright (C) 2017-2026 This file is copyright:
+# Copyright (C) 2017-2024 This file is copyright:
 # This file is distributed under the same license as the plasma-framework package.
-# SPDX-FileCopyrightText: 2023, 2024 KDE euskaratzeko proiektuaren arduraduna <xalba@ni.eus>
+# SPDX-FileCopyrightText: 2023, 2024 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
 #
 # Translators:
 # Osoitz <oelkoro@gmail.com>, 2017.
-# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2026.
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
 # Ander Elortondo <ander.elor@gmail.com>, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: plasma-framework\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-05 02:41+0000\n"
+"POT-Creation-Date: 2026-02-24 00:47+0000\n"
 "PO-Revision-Date: 2024-08-23 10:57+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -101,11 +101,6 @@ msgstr "Giltzapetik askatu trepetak"
 msgid "Exit Edit Mode"
 msgstr "Irten editatzeko modutik"
 
-#: plasma/pluginloader.cpp:145
-#, kde-format
-msgid "Could not find requested component: %1"
-msgstr "Ezin izan da aurkitu eskautako osagaia: %1"
-
 #: plasma/private/applet_p.cpp:119
 #, kde-format
 msgid "Show Alternatives..."
@@ -175,6 +170,11 @@ msgstr "Jarduera-ezarpenak"
 #, kde-format
 msgid "Add or Manage Widgets…"
 msgstr "Trepetak gehitu edo kudeatu..."
+
+#: plasma/private/containment_p.cpp:188
+#, kde-format
+msgid "Could not find requested component: %1"
+msgstr "Ezin izan da aurkitu eskautako osagaia: %1"
 
 #: plasmaquick/appletquickitem.cpp:540
 #, kde-format
