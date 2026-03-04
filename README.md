@@ -5,7 +5,7 @@ Foundational libraries, components, and tools of the Sonic workspaces
 ## Introduction
 libblaze provides the following:
 - QML components that can be used by any Sonic shell
-- A C++ library: `sonic-interface-lib` itself
+- A C++ library: `sonic-libinterface` itself
 - Script engines
 
 ## QML components
@@ -22,7 +22,7 @@ Extra graphical components that extend org.kde.plasma.components but are not in 
 ### org.kde.plasma.plasmoid
 Attached properties for manipulating the current applet or containment, see @ref libplasmaquick
 
-## sonic-interface-lib
+## sonic-libinterface
 This C++ library provides:
 - rendering of SVG themes
 - loading of files from a certain filesystem structure: packages
