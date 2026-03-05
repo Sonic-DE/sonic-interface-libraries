@@ -34,11 +34,7 @@
 #include <QDebug>
 #include <optional>
 
-#if HAVE_X11
 #include <qpa/qplatformwindow_p.h>
-#endif
-
-#include "plasmashellwaylandintegration.h"
 
 // Unfortunately QWINDOWSIZE_MAX is not exported
 #define DIALOGSIZE_MAX ((1 << 24) - 1)
@@ -155,12 +151,6 @@ public:
     QPointer<QObject> mainItemLayout;
 };
 
-static bool isRunningInKWin()
-{
-    static bool check = QGuiApplication::platformName() == QLatin1String("wayland-org.kde.kwin.qpa");
-    return check;
-}
-
 QRect DialogPrivate::availableScreenGeometryForPosition(const QPoint &pos) const
 {
     // FIXME: QWindow::screen() never ever changes if the window is moved across
@@ -253,7 +243,7 @@ void DialogPrivate::updateTheme()
                                                  theme.backgroundSaturation(),
                                                  mask);
 
-        if (!KWindowSystem::isPlatformX11() || KX11Extras::compositingActive()) {
+        if (KX11Extras::compositingActive()) {
             if (hasMask) {
                 hasMask = false;
                 q->setMask(QRegion());
@@ -299,12 +289,6 @@ void DialogPrivate::updateVisibility(bool visible)
             }
             if (mainItemLayout) {
                 updateLayoutParameters();
-            }
-
-            // if is a wayland window that was hidden, we need
-            // to set its position again as there won't be any move event to sync QWindow::position and shellsurface::position
-            if (type != Dialog::OnScreenDisplay) {
-                PlasmaShellWaylandIntegration::get(q)->setPosition(q->position());
             }
         }
     }
@@ -712,8 +696,6 @@ void DialogPrivate::applyType()
 {
     /*QXcbWindowFunctions::WmWindowType*/ int wmType = 0;
 
-#if HAVE_X11
-    if (KWindowSystem::isPlatformX11()) {
         switch (type) {
         case Dialog::Normal:
             q->setFlags(Qt::FramelessWindowHint | q->flags());
@@ -744,10 +726,8 @@ void DialogPrivate::applyType()
             // QXcbWindow isn't installed and thus inaccessible to us, but it does read this magic property from the window...
             q->setProperty("_q_xcb_wm_window_type", wmType);
         }
-    }
-#endif
 
-    if (!wmType && type != Dialog::Normal && KWindowSystem::isPlatformX11()) {
+    if (!wmType && type != Dialog::Normal) {
         KX11Extras::setType(q->winId(), static_cast<NET::WindowType>(type));
     }
     if (q->flags() & Qt::WindowStaysOnTopHint) {
@@ -755,32 +735,22 @@ void DialogPrivate::applyType()
         // to avoid bug #454635.
         if (type != Dialog::AppletPopup && type != Dialog::Tooltip) {
             type = Dialog::Dock;
-            PlasmaShellWaylandIntegration::get(q)->setPanelBehavior(QtWayland::org_kde_plasma_surface::panel_behavior_windows_go_below);
-        } else {
-            PlasmaShellWaylandIntegration::get(q)->setPanelBehavior(QtWayland::org_kde_plasma_surface::panel_behavior_always_visible);
         }
     }
     switch (type) {
     case Dialog::Dock:
-        PlasmaShellWaylandIntegration::get(q)->setRole(QtWayland::org_kde_plasma_surface::role_panel);
         break;
     case Dialog::Tooltip:
-        PlasmaShellWaylandIntegration::get(q)->setRole(QtWayland::org_kde_plasma_surface::role_tooltip);
         break;
     case Dialog::Notification:
-        PlasmaShellWaylandIntegration::get(q)->setRole(QtWayland::org_kde_plasma_surface::role_notification);
         break;
     case Dialog::OnScreenDisplay:
-        PlasmaShellWaylandIntegration::get(q)->setRole(QtWayland::org_kde_plasma_surface::role_onscreendisplay);
         break;
     case Dialog::CriticalNotification:
-        PlasmaShellWaylandIntegration::get(q)->setRole(QtWayland::org_kde_plasma_surface::role_criticalnotification);
         break;
     case Dialog::Normal:
-        PlasmaShellWaylandIntegration::get(q)->setRole(QtWayland::org_kde_plasma_surface::role_normal);
         break;
     case Dialog::AppletPopup:
-        PlasmaShellWaylandIntegration::get(q)->setRole(QtWayland::org_kde_plasma_surface::role_appletpopup);
         break;
     default:
         break;
@@ -812,15 +782,11 @@ void DialogPrivate::applyType()
         }
     }
 
-    if (KWindowSystem::isPlatformX11()) {
         if (type == Dialog::Dock || type == Dialog::Notification || type == Dialog::OnScreenDisplay || type == Dialog::CriticalNotification) {
             KX11Extras::setOnAllDesktops(q->winId(), true);
         } else {
             KX11Extras::setOnAllDesktops(q->winId(), false);
         }
-    }
-
-    PlasmaShellWaylandIntegration::get(q)->setTakesFocus(!q->flags().testFlag(Qt::WindowDoesNotAcceptFocus));
 }
 
 bool DialogPrivate::updateMouseCursor(const QPointF &globalMousePos)
@@ -1080,11 +1046,9 @@ QPoint Dialog::popupPosition(QQuickItem *item, const QSize &size)
     // if the item is in a window that ignores WM we want to position the popups outside
     bool outsideParentWindow = (item->window()->flags() & Qt::X11BypassWindowManagerHint) && item->window()->mask().isNull();
 
-    if (KWindowSystem::isPlatformX11()) {
         // on X11 we also consider windows with the type Dock
         const KWindowInfo winInfo(item->window()->winId(), NET::WMWindowType);
         outsideParentWindow = outsideParentWindow || (winInfo.windowType(NET::AllTypesMask) == NET::Dock && item->window()->mask().isNull());
-    }
 
     QRect parentGeometryBounds;
     if (outsideParentWindow) {
@@ -1358,46 +1322,19 @@ void Dialog::showEvent(QShowEvent *event)
         DialogShadows::instance()->addWindow(this, d->dialogBackground->enabledBorders());
     }
 
-    if (KWindowSystem::isPlatformX11()) {
-        KX11Extras::setState(winId(), NET::SkipTaskbar | NET::SkipPager | NET::SkipSwitcher);
-    }
+    KX11Extras::setState(winId(), NET::SkipTaskbar | NET::SkipPager | NET::SkipSwitcher);
     QQuickWindow::showEvent(event);
 }
 
 bool Dialog::event(QEvent *event)
 {
     if (event->type() == QEvent::Expose) {
-        if (!KWindowSystem::isPlatformWayland() || isRunningInKWin() || !isExposed()) {
-            return QQuickWindow::event(event);
-        }
-
-        /*
-         * expose event is the only place where to correctly
-         * register our wayland extensions, as showevent is a bit too
-         * soon and the platform window isn't shown yet
-         * (only the first expose event, guarded by needsSetupNextExpose bool)
-         * and tear it down when the window gets hidden
-         * see https://phabricator.kde.org/T6064
-         */
-        // sometimes non null regions arrive even for non visible windows
-        // for which surface creation would fail
-        if (d->needsSetupNextExpose && isVisible()) {
-            d->updateVisibility(true);
-            const bool ret = QQuickWindow::event(event);
-            d->updateTheme();
-            d->needsSetupNextExpose = false;
-            return ret;
-        }
+        return QQuickWindow::event(event);
     } else if (event->type() == QEvent::Show) {
         d->updateVisibility(true);
     } else if (event->type() == QEvent::Hide) {
         d->updateVisibility(false);
         d->needsSetupNextExpose = true;
-    } else if (event->type() == QEvent::Move) {
-        if (d->type != Dialog::OnScreenDisplay) {
-            QMoveEvent *me = static_cast<QMoveEvent *>(event);
-            PlasmaShellWaylandIntegration::get(this)->setPosition(me->pos());
-        }
     }
 
     /*Fitt's law: if the containment has margins, and the mouse cursor clicked

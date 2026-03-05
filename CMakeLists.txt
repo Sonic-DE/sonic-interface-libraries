@@ -68,13 +68,6 @@ find_package(KF6 ${KF6_MIN_VERSION} REQUIRED
 )
 find_package(PlasmaActivities REQUIRED ${PROJECT_DEP_VERSION})
 
-# Wayland features
-find_package(PlasmaWaylandProtocols 1.10.0 REQUIRED)
-find_package(Qt6WaylandClient ${QT_MIN_VERSION} REQUIRED CONFIG)
-find_package(Wayland 1.9 REQUIRED Client)
-
-option(WITHOUT_X11 "Build without X11 support (skips finding X11)." OFF)
-if(NOT WITHOUT_X11)
     #optional features
     find_package(X11 MODULE)
     set_package_properties(X11 PROPERTIES DESCRIPTION "X11 libraries"
@@ -86,14 +79,6 @@ if(NOT WITHOUT_X11)
                         URL "https://xcb.freedesktop.org/"
                         TYPE OPTIONAL
                         )
-    if(X11_FOUND AND XCB_XCB_FOUND)
-        set(HAVE_X11 1)
-        #X11_Xrender discovery is done by FindX11
-        #add_feature_info("X Rendering Extension (libXrender)" X11_Xrender_FOUND "Support for compositing, rendering operations, and alpha-blending. STRONGLY RECOMMENDED")
-    else()
-        set(HAVE_X11 0)
-    endif()
-endif()
 
 find_package(OpenGL)
 set_package_properties(OpenGL PROPERTIES DESCRIPTION "The OpenGL libraries"
@@ -108,7 +93,7 @@ set_package_properties(EGL PROPERTIES
                       )
 
 get_target_property(QtGui_Enabled_Features Qt6::Gui QT_ENABLED_PUBLIC_FEATURES)
-if(OpenGL_GLX_FOUND AND HAVE_X11 AND (QtGui_Enabled_Features MATCHES "opengl"))
+if(OpenGL_GLX_FOUND AND (QtGui_Enabled_Features MATCHES "opengl"))
     add_feature_info(GLX OpenGL_GLX_FOUND "OpenGL GLX libraries.")
     set(HAVE_GLX 1)
 else()

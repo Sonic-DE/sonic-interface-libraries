@@ -92,9 +92,7 @@ ThemePrivate::ThemePrivate(QObject *parent)
     , apiMinor(0)
     , apiRevision(0)
 {
-    if (KWindowSystem::isPlatformX11()) {
-        compositingActive = KX11Extras::self()->compositingActive();
-    }
+    compositingActive = KX11Extras::self()->compositingActive();
 
     kSvgImageSet = std::unique_ptr<KSvg::ImageSet>(new KSvg::ImageSet);
     kSvgImageSet->setBasePath(QStringLiteral(PLASMA_RELATIVE_DATA_INSTALL_DIR "/desktoptheme/"));
@@ -135,9 +133,7 @@ ThemePrivate::ThemePrivate(QObject *parent)
         scheduleThemeChangeNotification();
     });
 
-    if (KWindowSystem::isPlatformX11()) {
-        connect(KX11Extras::self(), &KX11Extras::compositingChanged, selectorsUpdateTimer, qOverload<>(&QTimer::start));
-    }
+    connect(KX11Extras::self(), &KX11Extras::compositingChanged, selectorsUpdateTimer, qOverload<>(&QTimer::start));
     updateKSvgSelectors();
 }
 
@@ -168,15 +164,7 @@ KConfigGroup &ThemePrivate::config()
 
 void ThemePrivate::updateKSvgSelectors()
 {
-#if HAVE_X11
-    if (KWindowSystem::isPlatformX11()) {
-        compositingActive = KX11Extras::compositingActive();
-    } else {
-        compositingActive = true;
-    }
-#else
-    compositingActive = true;
-#endif
+    compositingActive = KX11Extras::compositingActive();
     backgroundContrastActive = s_blurEffectWatcher->isEffectActive();
 
     if (compositingActive) {

@@ -17,9 +17,7 @@
 #include <KX11Extras>
 
 #include <config-plasma.h>
-#if HAVE_X11
 #include <KSelectionOwner>
-#endif
 #include <array>
 
 void ThemeTest::initTestCase()
@@ -123,10 +121,6 @@ void ThemeTest::testCompositingChange()
     set.setBasePath(QStringLiteral(PLASMA_RELATIVE_DATA_INSTALL_DIR "/desktoptheme/"));
 
     // this test simulates the compositing change on X11
-#if HAVE_X11
-    if (!KWindowSystem::isPlatformX11()) {
-        QSKIP("Test is only for X11");
-    }
     QVERIFY(!KX11Extras::compositingActive());
 
     // image path should give us an opaque variant
@@ -158,7 +152,6 @@ void ThemeTest::testCompositingChange()
     QVERIFY(themeChangedSpy.wait());
     QCOMPARE(themeChangedSpy.count(), 2);
     QVERIFY(set.selectors().contains("opaque"));
-#endif
 }
 
 QTEST_MAIN(ThemeTest)

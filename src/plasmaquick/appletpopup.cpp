@@ -18,7 +18,6 @@
 #include "applet.h"
 #include "appletquickitem.h"
 #include "edgeeventforwarder.h"
-#include "plasmashellwaylandintegration.h"
 #include "windowresizehandler.h"
 
 // used in detecting if focus passes to config UI
@@ -64,12 +63,7 @@ AppletPopup::AppletPopup()
     setAnimated(true);
     setFlags(flags() | Qt::Dialog);
 
-    if (KWindowSystem::isPlatformX11()) {
-        KX11Extras::setType(winId(), NET::AppletPopup);
-    } else {
-        PlasmaShellWaylandIntegration::get(this)->setRole(QtWayland::org_kde_plasma_surface::role::role_appletpopup);
-        PlasmaShellWaylandIntegration::get(this)->setTakesFocus(true);
-    }
+    KX11Extras::setType(winId(), NET::AppletPopup);
 
     auto edgeForwarder = new EdgeEventForwarder(this);
     edgeForwarder->setMargins(padding());

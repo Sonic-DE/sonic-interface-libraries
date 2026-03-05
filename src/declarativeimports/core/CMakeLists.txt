@@ -1,4 +1,4 @@
-if(HAVE_X11 AND XCB_XCB_FOUND AND XCB_COMPOSITE_FOUND AND XCB_DAMAGE_FOUND)
+if(XCB_XCB_FOUND AND XCB_COMPOSITE_FOUND AND XCB_DAMAGE_FOUND)
     set(HAVE_XCB_COMPOSITE TRUE)
 else()
     set(HAVE_XCB_COMPOSITE FALSE)
@@ -39,10 +39,8 @@ target_link_libraries(corebindingsplugin PRIVATE
         KF6::I18nQml
         Plasma::Plasma
         Plasma::PlasmaQuick
-        Wayland::Client
 )
 
-if(HAVE_X11)
   target_link_libraries(corebindingsplugin PRIVATE ${X11_LIBRARIES} XCB::XCB Qt6::GuiPrivate)
 
   if(XCB_COMPOSITE_FOUND AND XCB_DAMAGE_FOUND)
@@ -55,7 +53,6 @@ if(HAVE_X11)
   if(HAVE_GLX)
     target_link_libraries(corebindingsplugin PRIVATE OpenGL::GLX)
   endif()
-endif()
 
 if(HAVE_EGL)
     target_link_libraries(corebindingsplugin PRIVATE OpenGL::EGL)

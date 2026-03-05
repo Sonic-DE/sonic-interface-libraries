@@ -15,8 +15,6 @@
 #include <KWindowSystem>
 #include <plasmaquick/sharedqmlengine.h>
 
-#include "plasmashellwaylandintegration.h"
-
 ToolTipDialog::ToolTipDialog()
     : PopupPlasmaWindow(QStringLiteral("widgets/tooltip"))
     , m_qmlObject(nullptr)
@@ -25,13 +23,8 @@ ToolTipDialog::ToolTipDialog()
     , m_owner(nullptr)
 {
     Qt::WindowFlags flags = Qt::WindowDoesNotAcceptFocus | Qt::WindowStaysOnTopHint;
-    if (KWindowSystem::isPlatformX11()) {
-        flags |= Qt::ToolTip | Qt::BypassWindowManagerHint;
-    } else {
-        flags |= Qt::FramelessWindowHint;
-        PlasmaShellWaylandIntegration::get(this)->setRole(QtWayland::org_kde_plasma_surface::role_tooltip);
-        PlasmaShellWaylandIntegration::get(this)->setTakesFocus(false);
-    }
+    flags |= Qt::ToolTip | Qt::BypassWindowManagerHint;
+
     setFlags(flags);
 
     m_hideTimer.setSingleShot(true);
