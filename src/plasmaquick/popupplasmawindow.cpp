@@ -14,7 +14,6 @@
 #include <qnamespace.h>
 #include <qtmetamacros.h>
 
-#include "plasmashellwaylandintegration.h"
 #include "transientplacementhint_p.h"
 #include "utils.h"
 
@@ -171,19 +170,13 @@ void PopupPlasmaWindowPrivate::updatePosition()
     }
     updateEffectivePopupDirection(parentAnchorRect.toRect(), relativePopupPosition);
     updateSlideEffect(popupPosition);
-
-    if (KWindowSystem::isPlatformX11()) {
-        updatePositionX11(popupPosition.topLeft());
-    } else if (KWindowSystem::isPlatformWayland()) {
-        updatePositionWayland(popupPosition.topLeft());
-    }
-
+    updatePositionX11(popupPosition.topLeft());
     updateBorders(popupPosition);
 }
 
 void PopupPlasmaWindowPrivate::updatePositionX11(const QPoint &position)
 {
-    q->setPosition(position);
+    (void)position;
 }
 
 void PopupPlasmaWindowPrivate::updatePositionWayland(const QPoint &position)
@@ -191,8 +184,6 @@ void PopupPlasmaWindowPrivate::updatePositionWayland(const QPoint &position)
     // still update's Qt internal reference as it's used by the next dialog
     // this can be dropped when we're using true semantic positioning in the backend
     q->setPosition(position);
-
-    PlasmaShellWaylandIntegration::get(q)->setPosition(position);
 }
 
 void PopupPlasmaWindowPrivate::updateBorders(const QRect &globalPosition)
@@ -282,9 +273,6 @@ PopupPlasmaWindow::PopupPlasmaWindow(const QString &svgPrefix)
     : PlasmaWindow(svgPrefix)
     , d(new PopupPlasmaWindowPrivate(this))
 {
-    if (KWindowSystem::isPlatformWayland()) {
-        PlasmaShellWaylandIntegration::get(this)->setTakesFocus(true);
-    }
 }
 
 PopupPlasmaWindow::~PopupPlasmaWindow()

@@ -6,54 +6,18 @@
 
 #include "blureffectwatcher_p.h"
 
-#include <QWaylandClientExtensionTemplate>
-
 #include <KWindowSystem>
 
-#if HAVE_X11
 #include <X11/Xlib.h>
-#endif
-
-#include "qwayland-blur.h"
 
 namespace Plasma
 {
 
-class BlurManager : public QWaylandClientExtensionTemplate<BlurManager>, public QtWayland::org_kde_kwin_blur_manager
-{
-public:
-    BlurManager()
-        : QWaylandClientExtensionTemplate<BlurManager>(1)
-    {
-    }
-    ~BlurManager()
-    {
-        if (object()) {
-            org_kde_kwin_blur_manager_destroy(object());
-        }
-    }
-};
-
 BlurEffectWatcher::BlurEffectWatcher(QObject *parent)
     : QObject(parent)
-#if HAVE_X11
     , m_property(XCB_ATOM_NONE)
     , m_x11Interface(qGuiApp->nativeInterface<QNativeInterface::QX11Application>())
-#endif
 {
-    // TODO: New KWindowEffects APIs are needed.
-    static bool insideKwin = QGuiApplication::platformName() == QLatin1String("wayland-org.kde.kwin.qpa");
-    if (insideKwin) {
-        m_effectActive = true;
-    } else if (KWindowSystem::isPlatformWayland()) {
-        m_blurManager = std::make_unique<BlurManager>();
-        connect(m_blurManager.get(), &BlurManager::activeChanged, this, [this]() {
-            m_effectActive = m_blurManager->isActive();
-            Q_EMIT effectChanged(m_effectActive);
-        });
-        m_effectActive = m_blurManager->isActive();
-    } else if (KWindowSystem::isPlatformX11()) {
-#if HAVE_X11
         if (!m_x11Interface) {
             return;
         }
@@ -76,21 +40,14 @@ BlurEffectWatcher::BlurEffectWatcher(QObject *parent)
             uint32_t events = attrs->your_event_mask | XCB_EVENT_MASK_PROPERTY_CHANGE;
             xcb_change_window_attributes(c, DefaultRootWindow(m_x11Interface->display()), XCB_CW_EVENT_MASK, &events);
         }
-#endif
-    }
 }
 
 BlurEffectWatcher::~BlurEffectWatcher()
 {
 }
 
-#if HAVE_X11
 bool BlurEffectWatcher::nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result)
 {
-    if (KWindowSystem::isPlatformWayland()) {
-        return false;
-    }
-
     Q_UNUSED(result);
     // A faster comparison than eventType != "xcb_generic_event_t"
     // given that eventType can only have the following values:
@@ -136,7 +93,6 @@ bool BlurEffectWatcher::fetchEffectActive() const
     }
     return false;
 }
-#endif
 
 bool BlurEffectWatcher::isEffectActive() const
 {

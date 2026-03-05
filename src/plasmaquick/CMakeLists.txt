@@ -25,7 +25,6 @@ target_sources(PlasmaQuick PRIVATE
     configmodel.cpp
     configview.cpp
     edgeeventforwarder.cpp
-    plasmashellwaylandintegration.cpp
     sharedqmlengine.cpp
     quickviewsharedengine.cpp
     plasmawindow.cpp
@@ -50,7 +49,6 @@ target_sources(PlasmaQuick PRIVATE
     configmodel.h
     configview.h
     edgeeventforwarder.h
-    plasmashellwaylandintegration.h
     sharedqmlengine.h
     quickviewsharedengine.h
     plasmawindow.h
@@ -69,12 +67,6 @@ target_sources(PlasmaQuick PRIVATE
 if (Qt6_VERSION VERSION_GREATER_EQUAL "6.8.0")
     set(private_code_option  "PRIVATE_CODE")
 endif()
-qt_generate_wayland_protocol_client_sources(PlasmaQuick
-    FILES
-        "${PLASMA_WAYLAND_PROTOCOLS_DIR}/plasma-shell.xml"
-        "${Wayland_DATADIR}/wayland.xml"
-    ${private_code_option}
-)
 
 ecm_qt_declare_logging_category(PlasmaQuick
     HEADER debug_p.h
@@ -109,8 +101,6 @@ target_link_libraries(PlasmaQuick
     PRIVATE
         Qt6::Svg
         Qt6::GuiPrivate
-        Qt6::WaylandClient
-        Wayland::Client
         KF6::ConfigGui
         KF6::ConfigQml
         KF6::I18n
@@ -126,14 +116,12 @@ target_link_libraries(PlasmaQuick
 
 )
 
-if(HAVE_X11)
     target_link_libraries(PlasmaQuick
         PRIVATE
             ${X11_LIBRARIES}
             XCB::XCB
             Qt6::GuiPrivate
     )
-endif()
 
 ecm_add_qml_module(plasmaconfigplugin
     URI "org.kde.plasma.configuration"
@@ -170,7 +158,6 @@ ecm_generate_headers(PlasmaQuick_CamelCase_HEADERS
         ConfigModel
         Dialog
         PlasmaWindow
-        PlasmaShellWaylandIntegration
         PopupPlasmaWindow
         AppletPopup
         SharedQmlEngine

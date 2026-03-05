@@ -56,11 +56,6 @@ target_sources(Plasma PRIVATE
 if (Qt6_VERSION VERSION_GREATER_EQUAL "6.8.0")
     set(private_code_option  "PRIVATE_CODE")
 endif()
-qt6_generate_wayland_protocol_client_sources(Plasma
-    ${private_code_option}
-    FILES
-        ${PLASMA_WAYLAND_PROTOCOLS_DIR}/blur.xml
-)
 
 ecm_qt_declare_logging_category(Plasma
     HEADER debug_p.h
@@ -82,9 +77,7 @@ ecm_generate_export_header(Plasma
     DEPRECATION_VERSIONS
 )
 
-if(HAVE_X11)
-    set(PLASMA_EXTRA_LIBS ${PLASMA_EXTRA_LIBS} XCB::XCB)
-endif()
+set(PLASMA_EXTRA_LIBS ${PLASMA_EXTRA_LIBS} XCB::XCB)
 
 target_link_libraries(Plasma
 PUBLIC
@@ -95,7 +88,6 @@ PUBLIC
     KF6::KirigamiPlatform
 PRIVATE
     Qt6::Quick
-    Qt6::WaylandClient
     KF6::ConfigGui
     KF6::ColorScheme
     KF6::ConfigQml
