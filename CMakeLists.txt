@@ -207,7 +207,7 @@ kde_configure_git_pre_commit_hook(CHECKS CLANG_FORMAT)
 
 ecm_generate_pkgconfig_file(BASE_NAME Sonic
     LIB_NAME Plasma
-    INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF}/Plasma
+#    INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR}/Plasma
     DEPS Qt6Qml Qt6Gui SonicPackage SonicKirigamiPlatform KF6WindowSystem
     DESCRIPTION ""
     FILENAME_VAR pc_file
