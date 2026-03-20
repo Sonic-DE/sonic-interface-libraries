@@ -22,6 +22,7 @@ include(KDEClangFormat)
 
 include(ECMGenerateExportHeader)
 include(ECMGenerateHeaders)
+include(ECMGeneratePkgConfigFile)
 include(CMakePackageConfigHelpers)
 include(ECMSetupVersion)
 include(ECMQtDeclareLoggingCategory)
@@ -201,3 +202,28 @@ ecm_feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
 file(GLOB_RECURSE ALL_CLANG_FORMAT_SOURCE_FILES *.cpp *.h)
 kde_clang_format(${ALL_CLANG_FORMAT_SOURCE_FILES})
 kde_configure_git_pre_commit_hook(CHECKS CLANG_FORMAT)
+
+ecm_generate_pkgconfig_file(BASE_NAME Sonic
+    LIB_NAME Plasma
+    INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF}/Plasma
+    DEPS Qt6Qml Qt6Gui SonicPackage SonicKirigamiPlatform KF6WindowSystem
+    DESCRIPTION ""
+    FILENAME_VAR pc_file
+    INSTALL
+)
+
+# add some extra variables ... unclear whether they're actually used
+file(READ "${pc_file}" pc_content)
+string(APPEND pc_content "
+PLASMA_PLASMOIDS_PLUGINDIR=${KDE_INSTALL_PLUGINDIR}/plasma/applets
+PLASMA_CONTAINMENTACTIONS_PLUGINDIR=${KDE_INSTALL_PLUGINDIR}/plasma/containmentactions
+")
+file(WRITE "${pc_file}" "${pc_content}")
+
+ecm_generate_pkgconfig_file(BASE_NAME SonicQuick
+    LIB_NAME PlasmaQuick
+    INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF}/PlasmaQuick
+    DEPS Sonic
+    DESCRIPTION ""
+    INSTALL
+)
