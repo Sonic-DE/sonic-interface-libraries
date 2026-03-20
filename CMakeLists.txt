@@ -222,7 +222,7 @@ file(WRITE "${pc_file}" "${pc_content}")
 
 ecm_generate_pkgconfig_file(BASE_NAME SonicQuick
     LIB_NAME PlasmaQuick
-    INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF}/PlasmaQuick
+#    INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF}/PlasmaQuick
     DEPS Sonic
     DESCRIPTION ""
     INSTALL
