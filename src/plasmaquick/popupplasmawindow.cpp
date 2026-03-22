@@ -176,7 +176,7 @@ void PopupPlasmaWindowPrivate::updatePosition()
 
 void PopupPlasmaWindowPrivate::updatePositionX11(const QPoint &position)
 {
-    (void)position;
+    q->setPosition(position);
 }
 
 void PopupPlasmaWindowPrivate::updatePositionWayland(const QPoint &position)
@@ -273,6 +273,7 @@ PopupPlasmaWindow::PopupPlasmaWindow(const QString &svgPrefix)
     : PlasmaWindow(svgPrefix)
     , d(new PopupPlasmaWindowPrivate(this))
 {
+    setFlags(flags() | Qt::Popup);
 }
 
 PopupPlasmaWindow::~PopupPlasmaWindow()
@@ -410,9 +411,8 @@ bool PopupPlasmaWindow::event(QEvent *event)
     case QEvent::Show:
         d->updatePosition();
         break;
-    case QEvent::Resize:
-    {
-        auto resizeEvent = static_cast<QResizeEvent*>(event);
+    case QEvent::Resize: {
+        auto resizeEvent = static_cast<QResizeEvent *>(event);
         if (resizeEvent->oldSize() != resizeEvent->size()) {
             d->updatePosition();
         }

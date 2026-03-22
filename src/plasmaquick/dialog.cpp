@@ -697,36 +697,36 @@ void DialogPrivate::applyType()
 {
     /*QXcbWindowFunctions::WmWindowType*/ int wmType = 0;
 
-        switch (type) {
-        case Dialog::Normal:
-            q->setFlags(Qt::FramelessWindowHint | q->flags());
-            break;
-        case Dialog::Dock:
-            wmType = QNativeInterface::Private::QXcbWindow::Dock;
-            break;
-        case Dialog::DialogWindow:
-            wmType = QNativeInterface::Private::QXcbWindow::Dialog;
-            break;
-        case Dialog::PopupMenu:
-            wmType = QNativeInterface::Private::QXcbWindow::PopupMenu;
-            break;
-        case Dialog::Tooltip:
-            wmType = QNativeInterface::Private::QXcbWindow::Tooltip;
-            break;
-        case Dialog::Notification:
-            wmType = QNativeInterface::Private::QXcbWindow::Notification;
-            break;
-        case Dialog::OnScreenDisplay:
-        case Dialog::CriticalNotification:
-        case Dialog::AppletPopup:
-            // Not supported by Qt
-            break;
-        }
+    switch (type) {
+    case Dialog::Normal:
+        q->setFlags(Qt::FramelessWindowHint | q->flags());
+        break;
+    case Dialog::Dock:
+        wmType = QNativeInterface::Private::QXcbWindow::Dock;
+        break;
+    case Dialog::DialogWindow:
+        wmType = QNativeInterface::Private::QXcbWindow::Dialog;
+        break;
+    case Dialog::PopupMenu:
+        wmType = QNativeInterface::Private::QXcbWindow::PopupMenu;
+        break;
+    case Dialog::Tooltip:
+        wmType = QNativeInterface::Private::QXcbWindow::Tooltip;
+        break;
+    case Dialog::Notification:
+        wmType = QNativeInterface::Private::QXcbWindow::Notification;
+        break;
+    case Dialog::OnScreenDisplay:
+    case Dialog::CriticalNotification:
+    case Dialog::AppletPopup:
+        // Not supported by Qt
+        break;
+    }
 
-        if (wmType) {
-            // QXcbWindow isn't installed and thus inaccessible to us, but it does read this magic property from the window...
-            q->setProperty("_q_xcb_wm_window_type", wmType);
-        }
+    if (wmType) {
+        // QXcbWindow isn't installed and thus inaccessible to us, but it does read this magic property from the window...
+        q->setProperty("_q_xcb_wm_window_type", wmType);
+    }
 
     if (!wmType && type != Dialog::Normal) {
         KX11Extras::setType(q->winId(), static_cast<NET::WindowType>(type));
@@ -783,11 +783,11 @@ void DialogPrivate::applyType()
         }
     }
 
-        if (type == Dialog::Dock || type == Dialog::Notification || type == Dialog::OnScreenDisplay || type == Dialog::CriticalNotification) {
-            KX11Extras::setOnAllDesktops(q->winId(), true);
-        } else {
-            KX11Extras::setOnAllDesktops(q->winId(), false);
-        }
+    if (type == Dialog::Dock || type == Dialog::Notification || type == Dialog::OnScreenDisplay || type == Dialog::CriticalNotification) {
+        KX11Extras::setOnAllDesktops(q->winId(), true);
+    } else {
+        KX11Extras::setOnAllDesktops(q->winId(), false);
+    }
 }
 
 bool DialogPrivate::updateMouseCursor(const QPointF &globalMousePos)
@@ -879,7 +879,7 @@ Dialog::Dialog(QQuickItem *parent)
     , d(new DialogPrivate(this))
 {
     setColor(QColor(Qt::transparent));
-    setFlags(Qt::FramelessWindowHint | Qt::Dialog);
+    setFlags(Qt::FramelessWindowHint | Qt::Dialog | Qt::Popup);
 
     connect(this, &QWindow::xChanged, [this]() {
         d->slotWindowPositionChanged();
@@ -1047,9 +1047,9 @@ QPoint Dialog::popupPosition(QQuickItem *item, const QSize &size)
     // if the item is in a window that ignores WM we want to position the popups outside
     bool outsideParentWindow = (item->window()->flags() & Qt::X11BypassWindowManagerHint) && item->window()->mask().isNull();
 
-        // on X11 we also consider windows with the type Dock
-        const KWindowInfo winInfo(item->window()->winId(), NET::WMWindowType);
-        outsideParentWindow = outsideParentWindow || (winInfo.windowType(NET::AllTypesMask) == NET::Dock && item->window()->mask().isNull());
+    // on X11 we also consider windows with the type Dock
+    const KWindowInfo winInfo(item->window()->winId(), NET::WMWindowType);
+    outsideParentWindow = outsideParentWindow || (winInfo.windowType(NET::AllTypesMask) == NET::Dock && item->window()->mask().isNull());
 
     QRect parentGeometryBounds;
     if (outsideParentWindow) {
