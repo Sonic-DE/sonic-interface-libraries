@@ -495,11 +495,6 @@ KConfigGroup *AppletPrivate::mainConfigGroup()
         mainConfig = new KConfigGroup(&appletConfig, QString::number(appletId));
     }
 
-    if (configLoader) {
-        configLoader->setSharedConfig(KSharedConfig::openConfig(mainConfig->config()->name()));
-        configLoader->load();
-    }
-
     return mainConfig;
 }
 
