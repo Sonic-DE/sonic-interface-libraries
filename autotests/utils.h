@@ -32,9 +32,9 @@ static void copyPath(const QString &src, const QString &dst)
     }
 }
 
-static void installPlasmaTheme(const QString &theme = QStringLiteral("breeze"))
+static void installPlasmaTheme(const QString &theme = QStringLiteral("default"))
 {
-    QString destinationTheme = (theme == QLatin1String("breeze") ? QStringLiteral("default") : theme);
+    const QString destinationTheme = theme;
 
     QStandardPaths::setTestModeEnabled(true);
     const auto qttestPath = QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation).constFirst();

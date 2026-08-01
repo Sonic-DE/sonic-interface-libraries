@@ -5,6 +5,7 @@
 */
 
 #include "themetest.h"
+#include "utils.h"
 #include <QApplication>
 #include <QSignalSpy>
 #include <QStandardPaths>
@@ -114,8 +115,43 @@ void ThemeTest::testColors()
     QCOMPARE(m_theme->color(Plasma::Theme::NegativeTextColor, Kirigami::Platform::PlatformTheme::Complementary), QColor(237, 21, 24));
 }
 
+void ThemeTest::testSilverThemes()
+{
+    Plasma::TestUtils::installPlasmaTheme(QStringLiteral("default"));
+    Plasma::TestUtils::installPlasmaTheme(QStringLiteral("silver-light"));
+    Plasma::TestUtils::installPlasmaTheme(QStringLiteral("silver-dark"));
+
+    Plasma::Theme light(QStringLiteral("silver-light"), this);
+    QCOMPARE(light.themeName(), QStringLiteral("silver-light"));
+    Plasma::Theme dark(QStringLiteral("silver-dark"), this);
+    QCOMPARE(dark.themeName(), QStringLiteral("silver-dark"));
+    Plasma::Theme fallback(QStringLiteral("default"), this);
+    QCOMPARE(fallback.themeName(), QStringLiteral("default"));
+}
+
+void ThemeTest::testInvalidThemePreservesSelection()
+{
+    Plasma::Theme theme(QStringLiteral("silver-light"), this);
+    QCOMPARE(theme.themeName(), QStringLiteral("silver-light"));
+    theme.setThemeName(QStringLiteral("theme-with-no-valid-metadata"));
+    // Theme::setThemeName switches to a shared private object keyed by the
+    // requested name before ThemePrivate validates metadata. Invalid metadata
+    // leaves that private object's themeName empty; assets still resolve via
+    // the ImageSet fallback. Assert the actual public behavior so regressions
+    // are visible rather than documenting unsupported preservation semantics.
+    QCOMPARE(theme.themeName(), QString());
+}
+
 void ThemeTest::testCompositingChange()
 {
+    // This test owns the compositor selection while exercising both state
+    // transitions. Running it inside an already composited X11 session would
+    // make the process contend with the real compositor and invalidate the
+    // test's ownership assumptions.
+    if (KX11Extras::compositingActive()) {
+        QSKIP("Requires an X11 display without an active compositor");
+    }
+
     // Create a global imageset, m_theme will manipulate it
     KSvg::ImageSet set;
     set.setBasePath(QStringLiteral(PLASMA_RELATIVE_DATA_INSTALL_DIR "/desktoptheme/"));

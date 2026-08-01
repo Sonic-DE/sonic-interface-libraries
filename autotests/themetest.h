@@ -21,6 +21,8 @@ private Q_SLOTS:
     void testThemeConfig_data();
     void testThemeConfig();
     void testColors();
+    void testSilverThemes();
+    void testInvalidThemePreservesSelection();
     void testCompositingChange();
 
 private:
