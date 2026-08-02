@@ -20,12 +20,12 @@ ComponentBase {
             spacing: Kirigami.Units.gridUnit
 
             PlasmaComponents.ToolButton {
-                icon.name: "start-here-kde-plasma"
+                icon.name: "start-here-sonicde-plasma"
                 text: "test"
                 flat: true
             }
             PlasmaComponents.ToolButton {
-                icon.name: "start-here-kde-plasma"
+                icon.name: "start-here-sonicde-plasma"
                 flat: true
             }
             PlasmaComponents.ToolButton {
@@ -33,12 +33,12 @@ ComponentBase {
                 flat: true
             }
             PlasmaComponents.ToolButton {
-                icon.name: "start-here-kde-plasma"
+                icon.name: "start-here-sonicde-plasma"
                 text: "test"
                 flat: false
             }
             PlasmaComponents.ToolButton {
-                icon.name: "start-here-kde-plasma"
+                icon.name: "start-here-sonicde-plasma"
                 flat: false
             }
             PlasmaComponents.ToolButton {
@@ -73,16 +73,16 @@ ComponentBase {
                 text: "They should always be square:"
             }
             PlasmaComponents.ToolButton {
-                icon.name: "start-here-kde-plasma"
+                icon.name: "start-here-sonicde-plasma"
             }
             PlasmaComponents.ToolButton {
-                icon.name: "start-here-kde-plasma"
+                icon.name: "start-here-sonicde-plasma"
             }
             PlasmaComponents.ToolButton {
-                icon.name: "start-here-kde-plasma"
+                icon.name: "start-here-sonicde-plasma"
             }
             PlasmaComponents.ToolButton {
-                icon.name: "start-here-kde-plasma"
+                icon.name: "start-here-sonicde-plasma"
             }
         }
         PlasmaComponents.Label {

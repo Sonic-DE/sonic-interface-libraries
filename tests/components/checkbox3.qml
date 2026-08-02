@@ -28,7 +28,7 @@ ComponentBase {
             text: "icon"
         }
         PlasmaComponents.CheckBox {
-            icon.name: "start-here-kde-plasma"
+            icon.name: "start-here-sonicde-plasma"
         }
 
         PlasmaComponents.Label {
@@ -36,7 +36,7 @@ ComponentBase {
         }
         PlasmaComponents.CheckBox {
             text: "text"
-            icon.name: "start-here-kde-plasma"
+            icon.name: "start-here-sonicde-plasma"
         }
 
         PlasmaComponents.Label {

@@ -24,7 +24,7 @@ ComponentBase {
             }
 
             PlasmaComponents.Button {
-                icon.name: "start-here-kde-plasma"
+                icon.name: "start-here-sonicde-plasma"
                 text: "test"
             }
 
@@ -33,7 +33,7 @@ ComponentBase {
             }
 
             PlasmaComponents.Button {
-                icon.name: "start-here-kde-plasma"
+                icon.name: "start-here-sonicde-plasma"
             }
 
             PlasmaComponents.Label {
@@ -58,7 +58,7 @@ ComponentBase {
             }
 
             PlasmaComponents.Button {
-                icon.name: "start-here-kde-plasma"
+                icon.name: "start-here-sonicde-plasma"
                 text: "This is a really really really really long button"
             }
 
@@ -67,7 +67,7 @@ ComponentBase {
             }
 
             PlasmaComponents.Button {
-                icon.name: "start-here-kde-plasma"
+                icon.name: "start-here-sonicde-plasma"
                 text: "This is a really really really really long button"
                 Layout.maximumWidth: 150
             }
@@ -77,7 +77,7 @@ ComponentBase {
             }
 
             PlasmaComponents.Button {
-                icon.name: "start-here-kde-plasma"
+                icon.name: "start-here-sonicde-plasma"
                 text: "test"
                 enabled: false
             }
@@ -163,7 +163,7 @@ ComponentBase {
             }
 
             PlasmaComponents.Button {
-                icon.name: "start-here-kde-plasma"
+                icon.name: "start-here-sonicde-plasma"
                 text: "test"
                 flat: true
             }
@@ -173,7 +173,7 @@ ComponentBase {
             }
 
             PlasmaComponents.Button {
-                icon.name: "start-here-kde-plasma"
+                icon.name: "start-here-sonicde-plasma"
                 flat: true
             }
 
@@ -191,7 +191,7 @@ ComponentBase {
             }
 
             PlasmaComponents.Button {
-                icon.name: "start-here-kde-plasma"
+                icon.name: "start-here-sonicde-plasma"
                 text: "This is a really really really really long button"
                 flat: true
             }
@@ -201,7 +201,7 @@ ComponentBase {
             }
 
             PlasmaComponents.Button {
-                icon.name: "start-here-kde-plasma"
+                icon.name: "start-here-sonicde-plasma"
                 text: "This is a really really really really long button"
                 Layout.maximumWidth: 150
                 flat: true
@@ -212,7 +212,7 @@ ComponentBase {
             }
 
             PlasmaComponents.Button {
-                icon.name: "start-here-kde-plasma"
+                icon.name: "start-here-sonicde-plasma"
                 text: "test"
                 flat: true
                 enabled: false
