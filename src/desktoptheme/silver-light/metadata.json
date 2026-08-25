@@ -9,7 +9,7 @@
         "Category": "",
         "Description": "Silver Light - consistent transparency with Silver window decorations",
         "Description[fr]": "Silver clair - transparence cohérente avec les décorations de fenêtre Silver",
-        "EnabledByDefault": false,
+        "EnabledByDefault": true,
         "Id": "silver-light",
         "License": "LGPL",
         "Name": "Silver Light",
