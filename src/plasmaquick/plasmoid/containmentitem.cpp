@@ -767,6 +767,8 @@ void ContainmentItem::loadWallpaper()
         QQmlExpression expr(qmlObject()->engine()->rootContext(), m_wallpaperItem, QStringLiteral("parent"));
         QQmlProperty prop(m_wallpaperItem, QStringLiteral("anchors.fill"));
         prop.write(expr.evaluate());
+    } else {
+        applet()->updateConstraints(Plasma::Applet::UiReadyConstraint);
     }
     m_containment->setProperty("wallpaperGraphicsObject", QVariant::fromValue(m_wallpaperItem));
     delete oldWallpaper;
