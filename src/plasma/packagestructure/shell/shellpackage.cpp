@@ -1,5 +1,6 @@
 /*
     SPDX-FileCopyrightText: 2013 Marco Martin <notmart@gmail.com>
+    SPDX-FileCopyrightText: 2026 SonicDE contributors
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
@@ -7,6 +8,7 @@
 #include <KPackage/PackageLoader>
 #include <KPackage/PackageStructure>
 
+#include <QCoreApplication>
 #include <QDebug>
 #include <QDir>
 #include <QStandardPaths>
@@ -73,12 +75,17 @@ public:
         }
 
         const QString pluginName = package->metadata().pluginId();
-        if (!pluginName.isEmpty() && pluginName != QStringLiteral(DEFAULT_SHELL)) {
-            const QString fallback = package->metadata().value(u"X-Plasma-FallbackPackage", QStringLiteral(DEFAULT_SHELL));
+        const QString sonicDefault = QStringLiteral("org.sonicde.desktop");
+        const bool sonicHost = QCoreApplication::applicationName() == QStringLiteral("sonicshell")
+            || qgetenv("XDG_CURRENT_DESKTOP").split(':').contains(QByteArrayLiteral("SonicDE"));
+        const QString defaultShell = sonicHost ? sonicDefault : QStringLiteral(DEFAULT_SHELL);
+        const bool isDefaultPackage = pluginName == sonicDefault || pluginName == QStringLiteral(DEFAULT_SHELL);
+        if (!pluginName.isEmpty() && !isDefaultPackage) {
+            const QString fallback = package->metadata().value(u"X-Plasma-FallbackPackage", defaultShell);
 
             KPackage::Package pkg = KPackage::PackageLoader::self()->loadPackage(QStringLiteral("Plasma/Shell"), fallback);
             package->setFallbackPackage(pkg);
-        } else if (package->fallbackPackage().isValid() && pluginName == QStringLiteral(DEFAULT_SHELL)) {
+        } else if (package->fallbackPackage().isValid() && isDefaultPackage) {
             package->setFallbackPackage(KPackage::Package());
         }
     }

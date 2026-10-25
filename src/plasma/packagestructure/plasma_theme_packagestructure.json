@@ -1,4 +1,4 @@
 {
     "KPackageStructure": "Plasma/Theme",
-    "X-KDE-ParentApp": "org.kde.plasmashell"
+    "X-KDE-ParentApp": "org.sonicde.sonicshell"
 }

@@ -17,10 +17,10 @@ CustomCorona::CustomCorona(QObject *parent)
 {
     KPackage::Package package = KPackage::PackageLoader::self()->loadPackage(QStringLiteral("Plasma/Shell"));
     // applications that want to load a plasma scene would have to load their own shell.. TODO: have a simple shell in plasma-framework for this purpose?
-    package.setPath(QStringLiteral("org.kde.plasma.desktop"));
+    package.setPath(QStringLiteral("org.sonicde.desktop"));
     setKPackage(package);
 
-    qmlRegisterUncreatableType<PlasmaQuick::ContainmentView>("org.kde.plasma.shell",
+    qmlRegisterUncreatableType<PlasmaQuick::ContainmentView>("org.sonicde.sonicshell",
                                                              2,
                                                              0,
                                                              "Desktop",
