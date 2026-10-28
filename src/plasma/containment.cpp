@@ -88,6 +88,16 @@ void Containment::init()
         }
     });
 
+    // Nested containments (e.g. the system tray) follow the screen of their parent containment
+    if (Containment *pc = qobject_cast<Containment *>(parent())) {
+        connect(pc, &Containment::screenChanged, this, [this](uint newScreen) {
+            Q_EMIT screenChanged(newScreen);
+            Q_EMIT availableRelativeScreenRectChanged(availableRelativeScreenRect());
+            Q_EMIT screenGeometryChanged(screenGeometry());
+            Q_EMIT availableRelativeScreenRegionChanged(availableRelativeScreenRegion());
+        });
+    }
+
     QMap<QString, QAction *> actions = static_cast<Applet *>(this)->d->actions;
     // connect actions
     ContainmentPrivate::addDefaultActions(actions, this);
