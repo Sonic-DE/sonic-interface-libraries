@@ -10,6 +10,7 @@
 #include <QSignalSpy>
 #include <QStandardPaths>
 
+#include <KColorScheme>
 #include <KConfigGroup>
 #include <KIconLoader>
 #include <KIconTheme>
@@ -127,6 +128,17 @@ void ThemeTest::testSilverThemes()
     QCOMPARE(dark.themeName(), QStringLiteral("silver-dark"));
     Plasma::Theme fallback(QStringLiteral("default"), this);
     QCOMPARE(fallback.themeName(), QStringLiteral("default"));
+}
+
+void ThemeTest::testDefaultThemeFollowsColorScheme()
+{
+    // No colours of its own: the user's colour scheme, accent colour included.
+    Plasma::TestUtils::installPlasmaTheme(QStringLiteral("default"));
+    Plasma::Theme theme(QStringLiteral("default"), this);
+    const KColorScheme window(QPalette::Active, KColorScheme::Window);
+    const KColorScheme selection(QPalette::Active, KColorScheme::Selection);
+    QCOMPARE(theme.color(Plasma::Theme::BackgroundColor), window.background().color());
+    QCOMPARE(theme.color(Plasma::Theme::HighlightColor), selection.background().color());
 }
 
 void ThemeTest::testInvalidThemePreservesSelection()

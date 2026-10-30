@@ -32,6 +32,9 @@ PLASMA_UNIT_TESTS(
     sharedqmlenginetest
 )
 
+# The default theme's colours come from the user's colour scheme.
+target_link_libraries(themetest KF6::ColorScheme)
+
 kcoreaddons_add_plugin(dummycontainmentaction SOURCES dummycontainmentaction.cpp INSTALL_NAMESPACE "plasma/containmentactions" STATIC)
 target_link_libraries(dummycontainmentaction Plasma::Plasma)
 kcoreaddons_target_static_plugins(pluginloadertest NAMESPACE "plasma/containmentactions")

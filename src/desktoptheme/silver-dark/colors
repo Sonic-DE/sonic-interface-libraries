@@ -105,6 +105,7 @@ ForegroundVisited=173,71,176
 
 [General]
 ColorScheme=SilverDark
+FollowAccentColor=true
 Name=Silver Dark
 shadeSortColumn=true
 
