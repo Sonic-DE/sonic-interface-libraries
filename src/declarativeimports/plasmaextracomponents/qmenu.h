@@ -22,6 +22,7 @@ class QQuickItem;
 
 /*!
  * @class Menu
+ * \inmodule PlasmaExtras
  *
  * An Item provides a menu for use in context specific situations.
  * You can specify the position for the menu to open by setting its visualParent.

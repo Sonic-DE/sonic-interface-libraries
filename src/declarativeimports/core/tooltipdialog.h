@@ -21,6 +21,8 @@ class SharedQmlEngine;
 }
 
 /*!
+ * \inmodule PlasmaCore
+ *
  * Internally used by Tooltip
  */
 class ToolTipDialog : public PlasmaQuick::PopupPlasmaWindow

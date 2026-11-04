@@ -3,3 +3,11 @@
     \title Plasma Core QML Types
     \brief Plasma Stuff
 */
+
+/*!
+    \module PlasmaCore
+    \title Plasma Core C++ Classes
+    \ingroup modules
+
+    \brief C++ classes behind the Plasma Core QML types.
+*/
