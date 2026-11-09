@@ -2,10 +2,11 @@
 
 The foundation SonicDE's desktop shell is built on: it draws your panels, widgets, pop-ups and tooltips and gives them their themed look.
 
-## Unreleased
+## 6.8.2 (2026-11-10)
 
 - Now presents itself with SonicDE names and identity throughout the desktop.
 - The default desktop theme follows your colour scheme and accent colour again, instead of fixed colours. The Silver Light and Silver Dark themes keep their own colours.
+- Behind the scenes: new developer documentation pages.
 
 ## 6.8.0 (2026-10-20)
 
