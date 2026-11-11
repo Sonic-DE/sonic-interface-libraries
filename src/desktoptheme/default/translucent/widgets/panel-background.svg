@@ -201,8 +201,9 @@
     <rect
        id="rect4152"
        height="6"
-       style="opacity:0.85;fill:currentColor"
-       class="ColorScheme-Background"
+       style="fill:currentColor"
+       opacity="0.85"
+       class="ColorScheme-Background SonicOpacity-Panel"
        width="32"
        x="0"
        y="0" />
@@ -219,8 +220,9 @@
     <rect
        id="rect4148"
        height="6"
-       style="opacity:0.85;fill:currentColor"
-       class="ColorScheme-Background"
+       style="fill:currentColor"
+       opacity="0.85"
+       class="ColorScheme-Background SonicOpacity-Panel"
        width="32"
        x="0"
        y="0" />
@@ -237,8 +239,9 @@
     <rect
        id="rect4144"
        height="32"
-       style="opacity:0.85;fill:currentColor"
-       class="ColorScheme-Background"
+       style="fill:currentColor"
+       opacity="0.85"
+       class="ColorScheme-Background SonicOpacity-Panel"
        width="6"
        x="0"
        y="0" />
@@ -255,8 +258,9 @@
     <rect
        id="rect4140"
        height="32"
-       style="opacity:0.85;fill:currentColor"
-       class="ColorScheme-Background"
+       style="fill:currentColor"
+       opacity="0.85"
+       class="ColorScheme-Background SonicOpacity-Panel"
        width="6"
        x="0"
        y="0" />
@@ -273,8 +277,9 @@
     <rect
        id="rect4138"
        height="32"
-       style="opacity:0.85;fill:currentColor"
-       class="ColorScheme-Background"
+       style="fill:currentColor"
+       opacity="0.85"
+       class="ColorScheme-Background SonicOpacity-Panel"
        width="32"
        x="0"
        y="0" />
@@ -284,8 +289,9 @@
      transform="translate(0,10)">
     <path
        d="M 0,6 H 6 V 0 C 2,0 0,2 0,6 Z"
-       style="opacity:0.85;fill:currentColor"
-       class="ColorScheme-Background"
+       style="fill:currentColor"
+       opacity="0.85"
+       class="ColorScheme-Background SonicOpacity-Panel"
        id="path3115"
        sodipodi:nodetypes="cccc" />
   </g>
@@ -294,8 +300,9 @@
      transform="translate(38,10)">
     <path
        d="M 0,0 V 6 H 6 C 6,2 4,0 0,0 Z"
-       style="opacity:0.85;fill:currentColor"
-       class="ColorScheme-Background"
+       style="fill:currentColor"
+       opacity="0.85"
+       class="ColorScheme-Background SonicOpacity-Panel"
        id="path3118"
        sodipodi:nodetypes="cccc" />
   </g>
@@ -304,8 +311,9 @@
      transform="translate(0,48)">
     <path
        d="M 6,6 V 0 H 0 c 0,4 2,6 6,6 z"
-       style="opacity:0.85;fill:currentColor"
-       class="ColorScheme-Background"
+       style="fill:currentColor"
+       opacity="0.85"
+       class="ColorScheme-Background SonicOpacity-Panel"
        id="path3124"
        sodipodi:nodetypes="cccc" />
   </g>
@@ -314,8 +322,9 @@
      transform="translate(38,48)">
     <path
        d="M 0,6 V 0 H 6 C 6,4 4,6 0,6 Z"
-       style="opacity:0.85;fill:currentColor"
-       class="ColorScheme-Background"
+       style="fill:currentColor"
+       opacity="0.85"
+       class="ColorScheme-Background SonicOpacity-Panel"
        id="path3121"
        sodipodi:nodetypes="cccc" />
   </g>

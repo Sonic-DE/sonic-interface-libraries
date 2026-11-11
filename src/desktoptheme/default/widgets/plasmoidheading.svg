@@ -65,7 +65,7 @@
        class="ColorScheme-Background"
        fill="currentColor"
        d="m 13,12 h 6 V 6 c -4,0 -6,2 -6,6 z"
-       opacity="0.75"
+       opacity="0"
        sodipodi:nodetypes="cccc" />
   </g>
   <g
@@ -76,7 +76,7 @@
        transform="rotate(-90)"
        d="m-12 19h6v32h-6z"
        fill="currentColor"
-       opacity=".75" />
+       opacity="0" />
   </g>
   <g
      id="header-topright">
@@ -85,7 +85,7 @@
        class="ColorScheme-Background"
        fill="currentColor"
        d="m 51,6 v 6 h 6 C 57,8 55,6 51,6 Z"
-       opacity="0.75"
+       opacity="0"
        sodipodi:nodetypes="cccc" />
   </g>
   <path
@@ -94,19 +94,19 @@
      transform="scale(-1)"
      d="m-19-44h6v32h-6z"
      fill="currentColor"
-     opacity=".75" />
+     opacity="0" />
   <path
      id="header-center"
      class="ColorScheme-Background"
      d="m19 12h32v32h-32z"
      fill="currentColor"
-     opacity=".75" />
+     opacity="0" />
   <path
      id="header-right"
      class="ColorScheme-Background"
      d="m51 12h6v32h-6z"
      fill="currentColor"
-     opacity=".75" />
+     opacity="0" />
   <g
      id="header-bottomleft"
      fill="currentColor">
@@ -114,7 +114,7 @@
        id="path3182"
        class="ColorScheme-Background"
        d="m 19,50 v -6 h -6 v 6 z"
-       opacity="0.75"
+       opacity="0"
        fill="currentColor"
        sodipodi:nodetypes="ccccc" />
     <path
@@ -132,7 +132,7 @@
        class="ColorScheme-Background"
        transform="rotate(90)"
        d="m44-51h6v32h-6z"
-       opacity=".75"
+       opacity="0"
        fill="currentColor" />
     <path
        id="rect3154"
@@ -148,7 +148,7 @@
        id="path3176"
        class="ColorScheme-Background"
        d="m 57,44 h -6 v 6 h 6 z"
-       opacity="0.75"
+       opacity="0"
        fill="currentColor"
        sodipodi:nodetypes="ccccc" />
     <path
@@ -165,7 +165,7 @@
        id="path3182-1"
        class="ColorScheme-Background"
        d="m 67,6 v 6 H 61 V 6 Z"
-       opacity="0.75"
+       opacity="0"
        fill="currentColor"
        sodipodi:nodetypes="ccccc" />
     <path
@@ -183,7 +183,7 @@
        class="ColorScheme-Background"
        transform="matrix(0 -1 -1 0 0 0)"
        d="m-12-99h6v32h-6z"
-       opacity=".75"
+       opacity="0"
        fill="currentColor" />
     <path
        id="rect3154-9"
@@ -199,7 +199,7 @@
        id="path3176-6"
        class="ColorScheme-Background"
        d="M 105,12 H 99 V 6 h 6 z"
-       opacity="0.75"
+       opacity="0"
        fill="currentColor"
        sodipodi:nodetypes="ccccc" />
     <path
@@ -215,24 +215,24 @@
      transform="scale(-1 1)"
      d="m-67 12h6v32h-6z"
      fill="currentColor"
-     opacity=".75" />
+     opacity="0" />
   <path
      id="footer-center"
      class="ColorScheme-Background"
      transform="scale(1 -1)"
      d="m67-44h32v32h-32z"
      fill="currentColor"
-     opacity=".75" />
+     opacity="0" />
   <path
      id="footer-right"
      class="ColorScheme-Background"
      transform="scale(1 -1)"
      d="m99-44h6v32h-6z"
      fill="currentColor"
-     opacity=".75" />
+     opacity="0" />
   <path
      id="footer-bottomleft"
-     opacity="0.75"
+     opacity="0"
      class="ColorScheme-Background"
      fill="currentColor"
      d="m 61,44 c 0,4 2,6 6,6 v -6 z"
@@ -243,13 +243,13 @@
      transform="matrix(0 1 1 0 0 0)"
      d="m44 67h6v32h-6z"
      fill="currentColor"
-     opacity=".75" />
+     opacity="0" />
   <path
      id="footer-bottomright"
      class="ColorScheme-Background"
      fill="currentColor"
      d="m 99,44 v 6 c 4,0 6,-2 6,-6 z"
-     opacity="0.75"
+     opacity="0"
      sodipodi:nodetypes="cccc" />
   <path
      id="hint-top-margin"

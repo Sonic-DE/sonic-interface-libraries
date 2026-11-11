@@ -953,8 +953,9 @@
          inkscape:connector-curvature="0"
          id="path932"
          d="M 4,127.0003 V 129 h 58 v -1.9997 c -0.02169,-6.7e-4 -0.04064,0 -0.0625,0 H 4.0625 c -0.021861,0 -0.040806,-6.7e-4 -0.0625,0 z"
-         style="opacity:0.8;fill:currentColor;stroke-width:0.99992555"
-         class="ColorScheme-Background" />
+         style="fill:currentColor;stroke-width:0.99992555"
+         opacity="0.8"
+         class="ColorScheme-Background SonicOpacity-Widget" />
       <path
          inkscape:connector-curvature="0"
          style="opacity:0.2;fill:#eff0f1;fill-opacity:0.90196078;fill-rule:nonzero;stroke:none"
@@ -975,8 +976,9 @@
          inkscape:connector-curvature="0"
          id="path940"
          d="m 62,129 v 13 h 1.999703 c 6.68e-4,-0.0217 0,-0.0406 0,-0.0625 v -12.875 c 0,-0.0219 6.68e-4,-0.0408 0,-0.0625 z"
-         style="opacity:0.8;fill:currentColor;stroke-width:0.99992579"
-         class="ColorScheme-Background" />
+         style="fill:currentColor;stroke-width:0.99992579"
+         opacity="0.8"
+         class="ColorScheme-Background SonicOpacity-Widget" />
       <path
          inkscape:connector-curvature="0"
          style="opacity:0.2;fill:#eff0f1;fill-opacity:0.90196078;fill-rule:nonzero;stroke:none"
@@ -998,8 +1000,9 @@
          inkscape:connector-curvature="0"
          id="path948"
          d="M 4,142.0003 V 144 c 0.021694,6.7e-4 0.040639,0 0.0625,0 h 57.875 c 0.02186,0 0.04081,6.7e-4 0.0625,0 v -1.9997 z"
-         style="opacity:0.8;fill:currentColor;stroke-width:0.99992555"
-         class="ColorScheme-Background" />
+         style="fill:currentColor;stroke-width:0.99992555"
+         opacity="0.8"
+         class="ColorScheme-Background SonicOpacity-Widget" />
       <path
          inkscape:connector-curvature="0"
          style="opacity:0.2;fill:#eff0f1;fill-opacity:0.90196078;fill-rule:nonzero;stroke:none"
@@ -1021,8 +1024,9 @@
          inkscape:connector-curvature="0"
          id="path956"
          d="m 54,90 c 0.06722,2.1827 1.817292,3.93278 4,4 v -4 z"
-         style="opacity:0.8;fill:currentColor"
-         class="ColorScheme-Background" />
+         style="fill:currentColor"
+         opacity="0.8"
+         class="ColorScheme-Background SonicOpacity-Widget" />
       <path
          style="opacity:0.2;fill:#eff0f1;fill-opacity:0.90196078;fill-rule:nonzero;stroke:none"
          d="m 54,97 c 0.06722,2.1827 1.817292,3.93278 4,4 v -1 c -1.637032,-0.05042 -2.94958,-1.362974 -3,-3 z"
@@ -1048,8 +1052,9 @@
            inkscape:connector-curvature="0"
            id="path964"
            d="m 164,987.7235 v 16 h 125 v -16 z"
-           style="opacity:0.8;fill:currentColor"
-           class="ColorScheme-Background" />
+           style="fill:currentColor"
+           opacity="0.8"
+           class="ColorScheme-Background SonicOpacity-Widget" />
       </g>
     </g>
     <g
@@ -1057,10 +1062,11 @@
        id="blurred-topright">
       <path
          inkscape:connector-curvature="0"
-         style="opacity:0.8;fill:currentColor"
+         style="fill:currentColor"
+         opacity="0.8"
          d="m 4,127 c -1.0913544,0.0336 -1.9663917,0.90865 -2,2 h 2 z"
          id="path970"
-         class="ColorScheme-Background" />
+         class="ColorScheme-Background SonicOpacity-Widget" />
       <path
          inkscape:connector-curvature="0"
          style="opacity:0.2;fill:#eff0f1;fill-opacity:0.90196078;fill-rule:nonzero;stroke:none"
@@ -1105,8 +1111,9 @@
          inkscape:connector-curvature="0"
          id="path984"
          d="m 4,127 c -1.0913544,0.0336 -1.9663917,0.90865 -2,2 h 2 z"
-         style="opacity:0.8;fill:currentColor"
-         class="ColorScheme-Background" />
+         style="fill:currentColor"
+         opacity="0.8"
+         class="ColorScheme-Background SonicOpacity-Widget" />
       <path
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="ccccc"
@@ -1128,10 +1135,11 @@
        id="blurred-left">
       <path
          inkscape:connector-curvature="0"
-         style="opacity:0.8;fill:currentColor;stroke-width:0.99992579"
+         style="fill:currentColor;stroke-width:0.99992579"
+         opacity="0.8"
          d="m 62.000297,129 v 13 H 64 c 6.68e-4,-0.0217 0,-0.0406 0,-0.0625 v -12.875 c 0,-0.0219 6.68e-4,-0.0408 0,-0.0625 z"
          id="path992"
-         class="ColorScheme-Background" />
+         class="ColorScheme-Background SonicOpacity-Widget" />
       <path
          inkscape:connector-curvature="0"
          id="path994"
@@ -1151,10 +1159,11 @@
        id="blurred-bottomright">
       <path
          inkscape:connector-curvature="0"
-         style="opacity:0.8;fill:currentColor"
+         style="fill:currentColor"
+         opacity="0.8"
          d="m 54,90 c 0.06722,2.1827 1.817292,3.93278 4,4 v -4 z"
          id="path1000"
-         class="ColorScheme-Background" />
+         class="ColorScheme-Background SonicOpacity-Widget" />
       <path
          style="opacity:0.2;fill:#eff0f1;fill-opacity:0.90196078;fill-rule:nonzero;stroke:none"
          d="m 93,97 c -0.05042,1.637026 -1.362968,2.949585 -3,3 v 1 c 2.182708,-0.0672 3.93278,-1.8173 4,-4 z"

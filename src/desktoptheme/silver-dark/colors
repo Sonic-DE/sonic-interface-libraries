@@ -106,6 +106,7 @@ ForegroundVisited=173,71,176
 [General]
 ColorScheme=SilverDark
 FollowAccentColor=true
+FollowDesktopThemeOpacity=true
 Name=Silver Dark
 shadeSortColumn=true
 
