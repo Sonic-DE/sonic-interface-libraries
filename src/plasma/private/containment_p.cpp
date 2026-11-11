@@ -10,7 +10,10 @@
 #include "private/containment_p.h"
 
 #include <KLocalizedString>
+#include <QAction>
 #include <QDebug>
+
+#include <algorithm>
 
 #include "config-plasma.h"
 
@@ -133,8 +136,8 @@ void ContainmentPrivate::containmentConstraintsEvent(Applet::Constraints constra
 
         action = q->internalAction(QStringLiteral("add widgets"));
         if (action) {
-            action->setEnabled(unlocked);
-            action->setVisible(unlocked);
+            action->setEnabled(unlocked && !aloneApplet);
+            action->setVisible(unlocked && !aloneApplet);
         }
 
         // tell the applets too
@@ -194,10 +197,35 @@ Applet *ContainmentPrivate::createApplet(const QString &name, const QVariantList
     return applet;
 }
 
+bool ContainmentPrivate::wantsContainmentAlone(const Applet *applet)
+{
+    return applet->pluginMetaData().value(u"X-SonicDE-AloneInContainment", false);
+}
+
+void ContainmentPrivate::updateAloneApplet()
+{
+    const bool alone = std::any_of(applets.cbegin(), applets.cend(), [](const Applet *applet) {
+        return !applet->destroyed() && wantsContainmentAlone(applet);
+    });
+    if (alone == aloneApplet) {
+        return;
+    }
+    aloneApplet = alone;
+    if (QAction *action = q->internalAction(QStringLiteral("add widgets"))) {
+        const bool unlocked = q->immutability() == Types::Mutable;
+        action->setEnabled(unlocked && !aloneApplet);
+        action->setVisible(unlocked && !aloneApplet);
+    }
+}
+
 void ContainmentPrivate::appletDeleted(Plasma::Applet *applet)
 {
     Q_EMIT q->appletAboutToBeRemoved(applet);
     applets.removeAll(applet);
+    // Only the remaining applets are looked at: this one is going away.
+    if (aloneApplet) {
+        updateAloneApplet();
+    }
 
     Q_EMIT q->appletRemoved(applet);
     Q_EMIT q->appletsChanged();

@@ -382,6 +382,9 @@ void Containment::addApplet(Applet *applet, const QRectF &geometryHint)
         connect(currentContainment, nullptr, applet, nullptr);
         KConfigGroup oldConfig = applet->config();
         currentContainment->d->applets.removeAll(applet);
+        if (ContainmentPrivate::wantsContainmentAlone(applet)) {
+            currentContainment->d->updateAloneApplet();
+        }
         applet->setParent(this);
 
         // now move the old config to the new location
@@ -418,6 +421,13 @@ void Containment::addApplet(Applet *applet, const QRectF &geometryHint)
     });
     Q_EMIT appletAboutToBeAdded(applet, geometryHint);
     d->applets.insert(position, applet);
+    if (ContainmentPrivate::wantsContainmentAlone(applet)) {
+        d->updateAloneApplet();
+        // Removed but still restorable: it no longer keeps the containment to itself.
+        connect(applet, &Applet::destroyedChanged, this, [this] {
+            d->updateAloneApplet();
+        });
+    }
 
     // We need to check Applet's ui readiness, not ours
     if (!applet->d->uiReady) {

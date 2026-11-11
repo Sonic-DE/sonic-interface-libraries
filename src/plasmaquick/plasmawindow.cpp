@@ -39,6 +39,8 @@ public:
     QPointer<QQuickItem> mainItem;
     DialogBackground *dialogBackground;
     PlasmaWindow::BackgroundHints backgroundHints = PlasmaWindow::StandardBackground;
+    QRect backgroundCutout;
+    bool backgroundCutoutBlur = false;
 };
 
 PlasmaWindow::PlasmaWindow(const QString &svgPrefix)
@@ -161,13 +163,28 @@ void PlasmaWindow::resizeEvent(QResizeEvent *e)
 void PlasmaWindowPrivate::handleFrameChanged()
 {
     const QRegion mask = dialogBackground->mask();
-    KWindowEffects::enableBlurBehind(q, theme.blurBehindEnabled(), mask);
-    KWindowEffects::enableBackgroundContrast(q,
-                                             theme.backgroundContrastEnabled(),
-                                             theme.backgroundContrast(),
-                                             theme.backgroundIntensity(),
-                                             theme.backgroundSaturation(),
-                                             mask);
+    if (backgroundCutout.isEmpty()) {
+        KWindowEffects::enableBlurBehind(q, theme.blurBehindEnabled(), mask);
+        KWindowEffects::enableBackgroundContrast(q,
+                                                 theme.backgroundContrastEnabled(),
+                                                 theme.backgroundContrast(),
+                                                 theme.backgroundIntensity(),
+                                                 theme.backgroundSaturation(),
+                                                 mask);
+    } else {
+        const QRegion cutout = mask.intersected(backgroundCutout);
+        const QRegion blurCutout = backgroundCutoutBlur ? cutout : QRegion();
+        const QRegion background = mask.subtracted(cutout);
+        const QRegion blur = theme.blurBehindEnabled() ? background.united(blurCutout) : blurCutout;
+        // An empty region would ask for the whole window.
+        KWindowEffects::enableBlurBehind(q, !blur.isEmpty(), blur);
+        KWindowEffects::enableBackgroundContrast(q,
+                                                 theme.backgroundContrastEnabled(),
+                                                 theme.backgroundContrast(),
+                                                 theme.backgroundIntensity(),
+                                                 theme.backgroundSaturation(),
+                                                 background);
+    }
 
     if (KX11Extras::compositingActive()) {
         q->setMask(QRegion());
@@ -218,6 +235,38 @@ void PlasmaWindow::setBackgroundHints(BackgroundHints hints)
     d->dialogBackground->setImagePath(prefix + QStringLiteral("dialogs/background"));
 
     Q_EMIT backgroundHintsChanged();
+}
+
+QRect PlasmaWindow::backgroundCutout() const
+{
+    return d->backgroundCutout;
+}
+
+void PlasmaWindow::setBackgroundCutout(const QRect &cutout)
+{
+    if (d->backgroundCutout == cutout) {
+        return;
+    }
+    d->backgroundCutout = cutout;
+    // The background lies at the window's origin, so window coordinates are its own.
+    d->dialogBackground->setCutout(cutout);
+    d->handleFrameChanged();
+    Q_EMIT backgroundCutoutChanged();
+}
+
+bool PlasmaWindow::backgroundCutoutBlur() const
+{
+    return d->backgroundCutoutBlur;
+}
+
+void PlasmaWindow::setBackgroundCutoutBlur(bool blur)
+{
+    if (d->backgroundCutoutBlur == blur) {
+        return;
+    }
+    d->backgroundCutoutBlur = blur;
+    d->handleFrameChanged();
+    Q_EMIT backgroundCutoutChanged();
 }
 
 qreal PlasmaWindow::topPadding() const

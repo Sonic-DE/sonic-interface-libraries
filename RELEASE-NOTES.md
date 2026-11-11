@@ -2,6 +2,10 @@
 
 The foundation SonicDE's desktop shell is built on: it draws your panels, widgets, pop-ups and tooltips and gives them their themed look.
 
+## Unreleased
+
+- Behind the scenes: pop-ups can leave their own background out behind a widget that draws a see-through one, and a widget can keep its panel to itself.
+
 ## 6.8.2 (2026-11-10)
 
 - Now presents itself with SonicDE names and identity throughout the desktop.

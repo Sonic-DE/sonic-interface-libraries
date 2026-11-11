@@ -60,6 +60,11 @@ QRegion DialogBackground::mask() const
     return m_frameSvgItem->property("mask").value<QRegion>();
 }
 
+void DialogBackground::setCutout(const QRect &cutout)
+{
+    m_frameSvgItem->setProperty("cutout", QRectF(cutout));
+}
+
 qreal DialogBackground::leftMargin() const
 {
     // assume margins is valid, as we asserted it's a valid FrameSvgItem

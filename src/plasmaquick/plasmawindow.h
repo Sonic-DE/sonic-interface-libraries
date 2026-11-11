@@ -7,6 +7,7 @@
 #define PLASMAWINDOW_H
 
 #include <QQuickWindow>
+#include <QRect>
 
 #include <plasmaquick/plasmaquick_export.h>
 
@@ -68,6 +69,19 @@ class PLASMAQUICK_EXPORT PlasmaWindow : public QQuickWindow
      */
     Q_PROPERTY(qreal rightPadding READ rightPadding NOTIFY paddingChanged)
 
+    /*!
+     * \property PlasmaQuick::PlasmaWindow::backgroundCutout
+     * Part of the window, for an item that draws its own background there: the window draws no
+     * background, blur or contrast in it. Empty for none.
+     */
+    Q_PROPERTY(QRect backgroundCutout READ backgroundCutout WRITE setBackgroundCutout NOTIFY backgroundCutoutChanged)
+
+    /*!
+     * \property PlasmaQuick::PlasmaWindow::backgroundCutoutBlur
+     * Whether what is behind the cutout gets blurred.
+     */
+    Q_PROPERTY(bool backgroundCutoutBlur READ backgroundCutoutBlur WRITE setBackgroundCutoutBlur NOTIFY backgroundCutoutChanged)
+
 public:
     /*!
      * \value StandardBackground The standard background from the theme is drawn
@@ -112,11 +126,17 @@ public:
     qreal leftPadding() const;
     qreal rightPadding() const;
 
+    QRect backgroundCutout() const;
+    void setBackgroundCutout(const QRect &cutout);
+    bool backgroundCutoutBlur() const;
+    void setBackgroundCutoutBlur(bool blur);
+
 Q_SIGNALS:
     void mainItemChanged();
     void bordersChanged();
     void backgroundHintsChanged();
     void paddingChanged();
+    void backgroundCutoutChanged();
 
 protected:
     void showEvent(QShowEvent *e) override;

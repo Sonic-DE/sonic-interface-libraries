@@ -44,6 +44,9 @@ public:
 
     QRegion mask() const;
 
+    // Part of the background left out, for PlasmaWindow::backgroundCutout. Empty for none.
+    void setCutout(const QRect &cutout);
+
     qreal leftMargin() const;
     qreal topMargin() const;
     qreal rightMargin() const;

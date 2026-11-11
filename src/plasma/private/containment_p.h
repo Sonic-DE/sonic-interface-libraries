@@ -67,6 +67,10 @@ public:
     void setUiReady();
     void setStarted();
     void appletLoaded(Applet *applet);
+    // Its metadata has X-SonicDE-AloneInContainment: the containment takes no other widgets.
+    static bool wantsContainmentAlone(const Applet *applet);
+    // Hides "add widgets" while such an applet is here; touches nothing for other containments.
+    void updateAloneApplet();
 
     Containment *q;
     Types::FormFactor formFactor;
@@ -85,6 +89,7 @@ public:
     Containment::Type type;
     bool uiReady : 1;
     bool appletsUiReady : 1;
+    bool aloneApplet = false;
 
     static const char defaultWallpaperPlugin[];
 };
