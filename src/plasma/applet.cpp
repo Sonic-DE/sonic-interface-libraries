@@ -38,6 +38,12 @@
 
 namespace Plasma
 {
+// Its metadata has X-SonicDE-NoGlobalShortcut: the panel's shortcut opens it, not one of its own.
+static bool takesNoGlobalShortcut(const KPluginMetaData &data)
+{
+    return data.value(u"X-SonicDE-NoGlobalShortcut", false);
+}
+
 Applet::Applet(QObject *parentObject, const KPluginMetaData &data, const QVariantList &args)
     : QObject(parentObject)
     , d(new AppletPrivate(data, args.count() > 1 ? args[1].toInt() : 0, this))
@@ -143,7 +149,14 @@ void Applet::restore(KConfigGroup &group)
 
     KConfigGroup shortcutConfig(&group, QStringLiteral("Shortcuts"));
     QString shortcutText = shortcutConfig.readEntryUntranslated("global", QString());
-    if (!shortcutText.isEmpty()) {
+    if (takesNoGlobalShortcut(d->appletDescription)) {
+        // Forget a shortcut entry registered before the widget had the key, set or cleared.
+        QAction stale;
+        stale.setObjectName(QStringLiteral("activate widget %1").arg(id())); // NO I18N
+        KGlobalAccel::self()->setShortcut(&stale, {}, KGlobalAccel::NoAutoloading);
+        KGlobalAccel::self()->removeAllShortcuts(&stale);
+        shortcutConfig.deleteGroup();
+    } else if (!shortcutText.isEmpty()) {
         setGlobalShortcut(QKeySequence(shortcutText));
         /*
         #ifndef NDEBUG
@@ -759,6 +772,9 @@ Containment *Applet::containment() const
 
 void Applet::setGlobalShortcut(const QKeySequence &shortcut)
 {
+    if (takesNoGlobalShortcut(d->appletDescription)) {
+        return;
+    }
     if (!d->activationAction) {
         d->activationAction = new QAction(this);
         d->activationAction->setText(i18n("Activate %1 Widget", title()));
