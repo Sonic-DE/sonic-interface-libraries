@@ -18,9 +18,11 @@ BlurEffectWatcher::BlurEffectWatcher(QObject *parent)
     , m_property(XCB_ATOM_NONE)
     , m_x11Interface(qGuiApp->nativeInterface<QNativeInterface::QX11Application>())
 {
-        if (!m_x11Interface) {
-            return;
-        }
+    // Qt's offscreen platform offers the X11 interface without a connection.
+    if (!m_x11Interface || !m_x11Interface->connection()) {
+        m_x11Interface = nullptr;
+        return;
+    }
         QCoreApplication::instance()->installNativeEventFilter(this);
 
         xcb_connection_t *c = m_x11Interface->connection();

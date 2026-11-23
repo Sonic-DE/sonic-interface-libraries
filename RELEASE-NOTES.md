@@ -6,6 +6,7 @@ The foundation SonicDE's desktop shell is built on: it draws your panels, widget
 
 - The top and bottom bars of pop-ups, such as the search bar and the buttons along the bottom of the application launcher, are now as see-through as the rest of the pop-up in the Silver, default and Breeze desktop themes.
 - The Silver Light and Silver Dark desktop styles follow the new transparency settings for panels, pop-ups, tooltips and desktop widgets.
+- Settings pages and other programs that use the desktop theme no longer crash when they run without a display, for example in automated tests.
 - Behind the scenes: pop-ups can leave their own background out behind a widget that draws a see-through one, a widget can keep its panel to itself, and a widget can leave keyboard shortcuts to its panel.
 
 ## 6.8.2 (2026-11-10)
