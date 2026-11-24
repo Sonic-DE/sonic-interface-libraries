@@ -48,8 +48,9 @@ static void installPlasmaTheme(const QString &theme = QStringLiteral("default"))
     copyPath(f.dir().filePath("default.gzipped"), themePath.path());
     QFile::copy(f.dir().filePath("metadata.json"), themePath.filePath("metadata.json"));
 
-    const QString colorsFile = QFINDTESTDATA("../src/desktoptheme/" + theme + "/colors");
-    if (!colorsFile.isEmpty()) {
+    // Not every theme has a colors file (the default one follows the accent color).
+    const QString colorsFile = QFileInfo(QStringLiteral(__FILE__)).dir().filePath("../src/desktoptheme/" + theme + "/colors");
+    if (QFile::exists(colorsFile)) {
         QFile::copy(colorsFile, themePath.filePath("colors"));
     }
 }
