@@ -8,11 +8,14 @@
 
 #include <QAction>
 #include <QApplication>
+#include <QLibraryInfo>
 #include <QMenu>
 #include <QQmlComponent>
 #include <QQmlEngine>
+#include <QVersionNumber>
 
 #include "containment.h"
+#include "debug_p.h"
 
 namespace Plasma
 {
@@ -31,11 +34,17 @@ void setupPlasmaStyle(QQmlEngine *engine)
 
     // Make sure that attached tooltips use the correct style when using plasmacomponents
     // https://qt-project.atlassian.net/browse/QTBUG-144126
-    if (engine->property("_q_QQuickToolTip").isNull()) {
+    // TODO: drop the version check once the minimum required Qt version is 6.12
+    const char *toolTipProperty = QLibraryInfo::version() >= QVersionNumber(6, 12) ? "_q_shared_QQuickToolTip" : "_q_QQuickToolTip";
+
+    if (engine->property(toolTipProperty).isNull()) {
         QQmlComponent tooltipComponent(engine, "org.kde.plasma.components", "ToolTip");
-        QObject *tooltip = tooltipComponent.create();
-        tooltip->setParent(engine);
-        engine->setProperty("_q_QQuickToolTip", QVariant::fromValue(tooltip));
+        if (QObject *tooltip = tooltipComponent.create()) {
+            tooltip->setParent(engine);
+            engine->setProperty(toolTipProperty, QVariant::fromValue(tooltip));
+        } else {
+            qCWarning(LOG_PLASMA) << "Error creating the Plasma Tooltip component:" << tooltipComponent.errors();
+        }
     }
 }
 

@@ -66,6 +66,9 @@ void DialogStateTest::windowState()
                 windowRemoved = true;
                 break;
             }
+            if (windowRemovedSpy.isEmpty()) {
+                QVERIFY(windowRemovedSpy.wait());
+            }
         }
 
         QVERIFY(windowRemoved);
